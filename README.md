@@ -5,6 +5,10 @@ Poincare source library. The normal library remains in its development
 repository; this is a lean source snapshot for evaluation, excluding
 reference PDFs and build artifacts.
 
+The formalization was developed through combined Archon Horizon and Codex
+workflows, including work before the LeanEval adaptation. See the
+[project paper](https://arxiv.org/html/2610.08329v1).
+
 ## Current status
 
 **Topological submission passes the local official LeanEval checks; smooth
@@ -21,8 +25,10 @@ The smooth library passed normal `lake build`, and its corrected endpoint roots
 also build with exact explicit statement agreement. Its official verifier is
 running after the shared statement-instance correction. Topological checking reuses 23,558 verified unchanged helpers and
 freshly compiled roots. External host resource workarounds use the unchanged
-compiler and its existing loader fallback. No submission has been sent to the
-LeanEval service, and remote acceptance is not claimed.
+compiler and its existing loader fallback. The public topological snapshot is
+submitted through [LeanEval issue #2113](https://github.com/leanprover/lean-eval-submissions/issues/2113).
+Remote acceptance is pending; the earlier private-source attempt could not
+fetch the repository and did not evaluate the proof.
 
 ## Layout and imports
 
@@ -63,14 +69,17 @@ caches, and run `lake test` to check Comparator and Nanoda. This is a separate
 validation objective from the existing Horizon run's `lake-build-only` policy.
 Treat version errors, resource limits, and rejected proofs separately.
 
-Once verified, install the required GitHub Apps and use
-[the submission service](https://lean-lang.org/eval/submit/) with the hosting
-repository and its exact source commit. Make one request for each problem ID.
-The current evaluation code requires private source for the
-`formalization-evaluation` group, despite the more permissive repository README:
-see [fetch_submission.py](https://github.com/leanprover/lean-eval-submissions/blob/0c5ad9e534a976c764b1c08c90edfe817cd6ff95/scripts/fetch_submission.py#L745).
-Installing Apps, accepting terms and choosing publication are separate
-submitter actions; no submission has been sent.
+The documented GitHub issue intake accepts public repositories. This repository
+is public, and the topological-only snapshot is pinned at
+[`31597dd539847c6a030c439de25d3104370f9614`](https://github.com/frenzymath/lean-eval-submissions/tree/31597dd539847c6a030c439de25d3104370f9614).
+The declared system is **Archon Horizon + Codex**; the production description
+links the project paper above. Issue intake discovers every matching workspace,
+so this snapshot contains only the validated topological problem at its root.
+
+The newer [submission service](https://lean-lang.org/eval/submit/) has separate
+App-access and source-visibility rules. The private-source requirement in
+`fetch_submission_server` for formalization problems does not apply to the
+legacy issue route used here.
 
 Regenerate from a chosen source checkout, without changing that checkout:
 
