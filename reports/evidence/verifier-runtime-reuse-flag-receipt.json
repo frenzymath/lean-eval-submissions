@@ -1,7 +1,0 @@
-{
-  "four_dispatch_cases_passed": true,
-  "real_flag_exists": false,
-  "wrapper_sha256": "9d364556b9881ce50fbba85bde08ca4b08acfb48713d90457ca43b0d04f5cfe4",
-  "wrapper": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/runtime-bin/lake",
-  "flag": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/verified-helper-reuse.flag"
-}
