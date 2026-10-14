@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.Isothermal.Basic
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.NormalizedChart
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Norm
@@ -123,7 +124,7 @@ theorem exists_local_annular_harmonic_chart (g : RiemannianMetric 2 Plane) (p : 
       (Filter.EventuallyEq.rfl : (e : Plane → Plane) ∘ F.e =ᶠ[𝓝 x] E) v w]
     change G.inner (F.e x) (mfderiv (𝓡 2) (𝓡 2) F.e x v)
       (mfderiv (𝓡 2) (𝓡 2) F.e x w) = _
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change G.euclideanCoefficients (F.e x) (fderiv ℝ F.e x v) (fderiv ℝ F.e x w) = _
     rw [hmetric _ (hmap hx)]
   refine ⟨E, 2 * r, F.h, F.D', by positivity, ?_, hEs, ?_, hEpull, F.hharmonic⟩

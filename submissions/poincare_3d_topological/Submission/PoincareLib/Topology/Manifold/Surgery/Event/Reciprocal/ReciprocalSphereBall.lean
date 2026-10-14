@@ -75,7 +75,7 @@ theorem spherePoleReference_opposite_ray (z : UnitTwoSphere) {r : ℝ} (hr : 0 <
       spherePunctureMap (ULift.up (-p.down))
         (spherePunctureInverse p (ULift.up (r • z.val))) =
           ULift.up ((4 / r) • threeSphereStereoOppositeIsometry (-p.down) z.val) :=
-    ULift.ext _ _ hchart
+    ULift.ext hchart
   have hleft := spherePuncture_left_inverse (ULift.up (-p.down)) hne
   rw [hcoord] at hleft
   exact hleft.symm

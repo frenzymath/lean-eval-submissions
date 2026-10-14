@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Compact.SupportIntegralDerivative
 import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
 
@@ -34,7 +35,7 @@ theorem continuousOn_timeDerivative_of_contMDiffOn
       (Function.uncurry f) (q, q.1) :=
     hFq.comp (q, q.1) (contMDiffAt_snd.prodMk contMDiffAt_fst.snd)
   have hd := hf.mfderiv (m := ∞) f Prod.fst contMDiffAt_fst (by simp)
-  simp only [inTangentCoordinates_model_space, mfderiv_eq_fderiv] at hd
+  simp only [inTangentCoordinates_model_space, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   exact (hd.clm_apply contMDiffAt_const).continuousAt.continuousWithinAt
 
 /-- The integral of a jointly smooth scalar family on a compact manifold

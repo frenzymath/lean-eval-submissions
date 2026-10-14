@@ -248,6 +248,7 @@ theorem suC1_exists_chart_smoothing
       have hi : m60SphereIntrinsicEnergy g h x = m60SphereIntrinsicEnergy g f x := by
         dsimp only [m60SphereIntrinsicEnergy, h]
         rw [hEq.mfderiv_eq, hEq.self_of_nhds]
+        rfl
       change |m60SphereIntrinsicEnergy g h x - m60SphereIntrinsicEnergy g f x| < eta
       rw [hi, sub_self, abs_zero]
       exact heta

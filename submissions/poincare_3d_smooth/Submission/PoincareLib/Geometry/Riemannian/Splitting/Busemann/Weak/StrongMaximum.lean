@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.Busemann.Weak.UpperTest
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Composition
 import Submission.PoincareLib.Geometry.Riemannian.Metric.Gradient
@@ -178,7 +179,7 @@ private theorem coordinate_radius_sq_gradient_pos (D : LeviCivitaData g)
     rw [show e w = x from e.right_inv hx]
     exact hf.mdifferentiableAt (by simp)
   have hdfw : fderiv ℝ (fun v : EuclideanSpace ℝ (Fin n) => ‖v - z‖ ^ 2) w = 0 := by
-    rw [← hcomp.fderiv_eq, ← mfderiv_eq_fderiv, mfderiv_comp w hfx hew,
+    rw [← hcomp.fderiv_eq, ← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp w hfx hew,
       show e w = x from e.right_inv hx, hdf]
     simp
   have hder := ((hasFDerivAt_id w).sub_const z).norm_sq

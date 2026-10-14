@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.ReducedLength.WeakEquations
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.ReducedLength.WeakEquations.Coordinates
 
@@ -41,7 +42,7 @@ theorem LeviCivitaData.differential_gradient_in_coordinates
   have hi : (mfderiv (𝓡 n) (𝓡 n) e x).IsInvertible := ⟨hD.mfderiv hx, rfl⟩
   have hchain := congrArg (fun A => A (mpullback (𝓡 n) (𝓡 n) e (D.gradient φ) x))
     (mvfderiv_comp x hf (hD.mdifferentiableAt hx))
-  simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
     ContinuousLinearMap.comp_apply] at hchain
   have hleft : fderiv ℝ (f ∘ e) x (mpullback (𝓡 n) (𝓡 n) e (D.gradient φ) x) =
       mvfderiv (𝓡 n) f (e x) (D.gradient φ (e x)) := by

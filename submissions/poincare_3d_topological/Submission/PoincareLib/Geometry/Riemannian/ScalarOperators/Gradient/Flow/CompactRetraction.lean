@@ -30,7 +30,9 @@ private theorem scalar_derivative_along_curve
   have hd' := (hasMFDerivAt_iff_hasFDerivAt.mp hd).hasDerivAt
   change HasDerivAt (fun t => f (γ t))
     (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) f (γ s) ((1 : ℝ) • W (γ s))) s at hd'
-  simpa [mvfderiv, NormedSpace.fromTangentSpace] using hd'
+  convert! hd' using 1
+  simp [mvfderiv, NormedSpace.fromTangentSpace]
+  rfl
 
 /-- Positive defining-function flow retracts a compact one-sided band. -/
 theorem exists_positive_level_retraction_on_compact_buffer
@@ -125,7 +127,8 @@ theorem exists_positive_level_retraction_on_compact_buffer
       (fun z => (σ z,z)) y := (hσd y hy.1).mdifferentiableAt (by simp) |>.prodMk mdifferentiableAt_id
   have hchain : mfderiv (𝓡 n) (𝓡 n) Q y v =
       (mvfderiv (𝓡 n) σ y v) • D.normalizedGradient f (Q y) + L v := by
-    have he := congrArg (fun A => A v) (mfderiv_comp (f := fun z => (σ z,z)) y
+    have he := congrArg (fun A : TangentSpace (𝓡 n) y →L[ℝ]
+      TangentSpace (𝓡 n) (Q y) => A v) (mfderiv_comp (f := fun z => (σ z,z)) y
       ((hΦd y hy).mdifferentiableAt (by simp)) hpair)
     erw [mfderiv_prodMk ((hσd y hy.1).mdifferentiableAt (by simp)) mdifferentiableAt_id,
       mfderiv_id] at he
@@ -135,8 +138,8 @@ theorem exists_positive_level_retraction_on_compact_buffer
     rw [mfderiv_prod_eq_add_apply ((hΦd y hy).mdifferentiableAt (by simp)),
       ((horbit y hy.1).2.isMIntegralCurveAt (isOpen_Ioo.mem_nhds hy.2)).hasMFDerivAt.mfderiv] at he
     change mfderiv (𝓡 n) (𝓡 n) Q y v =
-      (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) σ y v) • D.normalizedGradient f (Q y) + L v at he
-    simpa [mvfderiv, NormedSpace.fromTangentSpace] using he
+      (show ℝ from mfderiv (𝓡 n) 𝓘(ℝ, ℝ) σ y v) • D.normalizedGradient f (Q y) + L v at he
+    convert! he using 1
   have hσv : mvfderiv (𝓡 n) σ y v = -mvfderiv (𝓡 n) f y v := by
     dsimp only [σ]
     rw [mvfderiv_fun_sub mdifferentiableAt_const

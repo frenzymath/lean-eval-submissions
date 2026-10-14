@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Poincare.Final.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Blowup.Controls.BlowupControlsCapNormalDerivative
 
@@ -44,7 +45,7 @@ private theorem tensor_two_derivative
     D.covariantTensorDerivative T x ![u, v, w] at h
   rw [← h]
   unfold M04.covariantTensorDerivativeOnFields
-  simp only [X, mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+  simp only [X, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
     Fin.sum_univ_two]
   change fderiv ℝ (fun y => T y ![v, w]) x u -
       (T x (Function.update ![v, w] 0 (D.euclideanConnection u v x)) +

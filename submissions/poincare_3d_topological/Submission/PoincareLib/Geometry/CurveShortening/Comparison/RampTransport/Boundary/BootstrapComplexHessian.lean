@@ -180,8 +180,8 @@ theorem boundaryComplexCoordinates_memWkp_two {O : Set ℂ} (hO : IsOpen O)
     have hcol : MemLp (fun z => fderiv ℝ H z (if i = 0 then I else 1))
         2 (volume.restrict O) := by
       by_cases hi : i = 0
-      · simpa only [if_pos hi] using hy
-      · simpa only [if_neg hi] using hx
+      · simpa only [ite_eq_left hi] using hy
+      · simpa only [ite_eq_right hi] using hx
     apply MemLp.ae_eq ?_ (hcol.comp_measurePreserving hmp)
     filter_upwards [ae_restrict_mem hpre.measurableSet] with p hp
     rw [fderiv_comp p ((hH.contDiffAt (hO.mem_nhds hp)).differentiableAt (by simp))

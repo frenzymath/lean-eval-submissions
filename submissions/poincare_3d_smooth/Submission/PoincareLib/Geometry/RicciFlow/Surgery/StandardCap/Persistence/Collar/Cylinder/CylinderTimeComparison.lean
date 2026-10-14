@@ -78,7 +78,7 @@ theorem roundCylinderTensorNormSquared_zero_le {t : ℝ} (ht0 : 0 ≤ t) (ht : t
   apply Finset.sum_le_sum
   intro a _
   apply mul_le_mul_of_nonneg_right _ (sq_nonneg _)
-  exact Finset.prod_le_prod
+  exact Finset.prod_le_prod₀
     (fun i _ => (show (0 : ℝ) ≤ 1 / 2 by norm_num).trans (cylinderInverseWeight_bounds _).1)
     (fun i _ => cylinderInverseWeight_le_evolving ht0 ht (a i))
 

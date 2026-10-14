@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Curvature.Integral.RegularLevelScalar
 
 /-!
@@ -85,7 +86,7 @@ theorem normalDerivativeShapeOperator_eq_shapeOperator_neg
     (hN.comp x (hF.differentiableAt (by simp))) hNT u v
   simp only [Function.comp_apply] at hd
   erw [hd]
-  erw [mfderiv_eq_fderiv, D.connection_eq_fderiv_add hN]
+  erw [Poincare.Compatibility.mfderiv_eq_fderiv_model, D.connection_eq_fderiv_add hN]
   unfold covariantDerivativeAlongMap
   rw [fderiv_comp x hN (hF.differentiableAt (by simp))]
   rfl

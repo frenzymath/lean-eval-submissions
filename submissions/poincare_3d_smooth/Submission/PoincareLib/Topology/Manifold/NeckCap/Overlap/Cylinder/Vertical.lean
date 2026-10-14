@@ -93,6 +93,8 @@ theorem vertical_isLocalDiffeomorphOn (h : RoundCylinderSpace → ℝ)
   have hdiff : mfderiv 𝓘(ℝ, E) 𝓘(ℝ, E) f x = fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hfx.mdifferentiableAt (by simp))]
     simp [F, c]
+    ext v
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ F (c x)) := by
     rw [← hdiff]
     exact hbij x x.property

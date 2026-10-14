@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Local.ConeWeakExtraction
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Observed.TangentProjection
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Moving.KernelWeakClosure
@@ -114,7 +115,7 @@ theorem m64ContinuousDisk_observed_weak_columns
     have hc := mfderiv_comp p (he.mdifferentiable (by simp) _)
       ((hf j).mdifferentiable (by simp) _)
     have hd := congrArg (fun L => L (EuclideanSpace.single i 1)) hc
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact hd.symm
   refine ⟨hu, hF, hD, k, W, hk, hstrongk, hweak, ?_, ?_, ?_⟩
   · intro i

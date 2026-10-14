@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Curvature.Conformal.ConformalSectional
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialMetric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialArclength
@@ -152,7 +153,7 @@ private theorem cap_connection_constant (g₀ : StandardInitialMetric)
       ((cap_constant_field_smooth w x).mdifferentiableAt (by simp))
       ((cap_constant_field_smooth z x).mdifferentiableAt (by simp))
     simp only [cap_constant_bracket, Pi.zero_apply, map_zero,
-      zero_apply, add_zero, sub_zero, mvfderiv, mfderiv_eq_fderiv,
+      zero_apply, add_zero, sub_zero, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model,
       ContinuousLinearMap.comp_apply, NormedSpace.fromTangentSpace] at hk
     change 2 * g₀.metric.inner x (g₀.connection.connection (fun _ => w) x v) z =
       fderiv ℝ (fun y => g₀.metric.inner y w z) x v +
@@ -346,7 +347,7 @@ private theorem cap_tangential_curvature_numerator (g₀ : StandardInitialMetric
     ((hX x).mdifferentiableAt (by simp))
   have hDV := g₀.connection.normalization_mvfderiv_inner Y V X hVd
     ((hX x).mdifferentiableAt (by simp))
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
     NormedSpace.fromTangentSpace] at hDW hDV
   change fderiv ℝ (fun y => g₀.metric.inner y (W y) v) x v =
     g₀.metric.inner x (g₀.connection.connection W x v) v +
@@ -431,7 +432,7 @@ theorem standardCap_angular_derivative_sq_le (g₀ : StandardInitialMetric)
 
 private theorem cap_mvfderiv_eq_fderiv (f : StandardCapSpace → ℝ)
     (x v : StandardCapSpace) : mvfderiv (𝓡 3) f x v = fderiv ℝ f x v := by
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
     NormedSpace.fromTangentSpace]
   rfl
 

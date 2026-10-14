@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.FillingArea.Motion
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.Boundary.MotionTrace
@@ -78,7 +79,7 @@ theorem family_motion [T2Space M] [CompactSpace M]
   refine ⟨hbase.comp r hadd, ?_⟩
   have hchain := mfderiv_comp r hbase hadd
   have hshift : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun t : ℝ => q + t) r 1 = 1 := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv, id_eq] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv, id_eq] using!
       ((hasDerivAt_id r).const_add q).deriv
   have hh := congrArg (fun L : ℝ →L[ℝ]
       TangentSpace (𝓡 3) (periodicFreeLoop (C.loops (q + r)) x) => L 1) hchain
@@ -168,7 +169,7 @@ private theorem scalar_timePartial_continuousOn {T : Set ℝ} (hT : IsOpen T)
   have hh := hd.clm_apply (contMDiffAt_const (c := (1 : ℝ)))
   have hresult : ContMDiffAt ((𝓘(ℝ, ℝ)).prod ((𝓡 3).prod (𝓡 3))) 𝓘(ℝ, ℝ) 0
       (fun p : ℝ × TangentBundle (𝓡 3) M => deriv (fun t => H (t, p.2)) p.1) w := by
-    simpa +instances only [inTangentCoordinates_model_space, mfderiv_eq_fderiv,
+    simpa +instances only [inTangentCoordinates_model_space, Poincare.Compatibility.mfderiv_eq_fderiv_model,
       fderiv_apply_one_eq_deriv] using! hh
   exact hresult.continuousAt.continuousWithinAt
 

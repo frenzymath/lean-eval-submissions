@@ -172,7 +172,7 @@ def compose_on_ball {M : Type u} {N K : ℕ}
     have hf := F.value_memLp T hT (hTS.trans (ball_subset_closedBall.trans hRS))
     have hd := F.derivative_memLp i T hT (hTS.trans (ball_subset_closedBall.trans hRS))
     exact hd.clm_apply_of_ae_bound
-      ((hh.continuous_fderiv one_ne_zero).comp_aestronglyMeasurable hf.1)
+      ((hh.continuous_fderiv one_ne_zero).comp_aestronglyMeasurable hf.aestronglyMeasurable)
       (ae_of_all _ fun z => hbound _)
   weak_derivative φ hc hs i j := by
     let pr : EuclideanSpace ℝ (Fin K) →L[ℝ] ℝ := EuclideanSpace.proj j

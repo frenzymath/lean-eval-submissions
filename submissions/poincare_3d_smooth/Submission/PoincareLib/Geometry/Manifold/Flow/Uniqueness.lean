@@ -93,9 +93,11 @@ theorem exists_gluing_of_integralCurves
         (hnear₁ ht)).hasMFDerivWithinAt (s := J₁ ∪ J₂)
       convert hd using 1
       rw [heq₁ ht]
+      rfl
     · have hd := ((hβ.isMIntegralCurveAt (hJ₂.mem_nhds ht)).hasMFDerivAt.congr_of_eventuallyEq
         (hnear₂ ht)).hasMFDerivWithinAt (s := J₁ ∪ J₂)
       convert hd using 1
       rw [heq₂ ht]
+      rfl
 
 end Poincare.Manifold

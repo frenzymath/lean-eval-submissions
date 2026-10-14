@@ -56,11 +56,20 @@ theorem initialValueCurve_smooth_of_no_earlier_time
     (hbase : G.spacetime.timeFunction x = T) (hprev : ¬ ∃ a ∈ I.domain, a < T) :
     M14HorizontalFamilySmooth G (initialValueCurve G T x) (initialValueDomain G T x) := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) :=
     ⟨metric⟩
   apply (contMDiffOn_const (c := x)).congr
@@ -77,19 +86,37 @@ theorem initialValueCurve_contMDiffWithinAt_zero
     (hM04 : RicciFlowCurvatureTheory.{0}) (hM12 : GeneralizedRicciGaugeTheory.{u} n)
     (hbase : G.spacetime.timeFunction x = T) (Z : G.Horizontal x) :
     let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+    let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+    let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+    let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+    let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+    let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+    let horizontalCore := metric.toCore x
+    let horizontalContinuous := metric.continuousAt x
+    let horizontalBounded := metric.isVonNBounded x
     letI : NormedAddCommGroup (G.Horizontal x) :=
-      (metric.toCore x).toNormedAddCommGroupOfTopology
-        (metric.continuousAt x) (metric.isVonNBounded x)
+      horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
     letI : InnerProductSpace ℝ (G.Horizontal x) :=
-      .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+      @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+        horizontalAdd horizontalModule horizontalTopology
+        horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
     ContMDiffWithinAt ((𝓘(ℝ, G.Horizontal x)).prod (𝓘(ℝ, ℝ))) (spacetimeModel n) ∞
       (fun z => initialValueCurve G T x z.1 z.2) (initialValueDomain G T x) (Z, 0) := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) :=
     ⟨metric⟩
   by_cases hprev : ∃ a ∈ I.domain, a < T

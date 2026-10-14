@@ -65,9 +65,7 @@ theorem exists_marked_product_of_torus_source_annulus_pair_of_localOrientation
     O (fun b => s b → ℝ × V3) F hR hI hconn hF hFdis x hcomponent
     K hK hpure hcofaces (fun b z hz => by
       convert hlinks b z hz using 1
-      congr!
-      congr 2
-      exact Subsingleton.elim _ _)
+      congr!)
     hcount Hmodel a ha (fun b z => (hav b z).symm)
     j hj hji hjR hjp hjmark p hpoint hboundary
 

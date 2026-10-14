@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.PolygonApproximation.Interpolator.EndpointBound
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.PolygonApproximation.Sampled.PolygonSpeed
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.CurveEstimates.Relabeling.Geometry
@@ -54,7 +55,7 @@ theorem m64_interpolator_horizontal_column_eq
       (n := ∞) |>.contMDiff.contMDiffAt |>.mdifferentiableAt (by simp)
   let b := EuclideanSpace.basisFun (Fin 2) ℝ 0
   have hb0 : mfderiv (𝓡 2) 𝓘(ℝ, ℝ) (fun p : LoopPlane => p 0) x b = 1 := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     have hd : fderiv ℝ (fun p : LoopPlane => p 0) x =
         (EuclideanSpace.proj 0 : LoopPlane →L[ℝ] ℝ) :=
       (show LoopPlane →L[ℝ] ℝ from EuclideanSpace.proj 0).fderiv
@@ -62,7 +63,7 @@ theorem m64_interpolator_horizontal_column_eq
     change (EuclideanSpace.basisFun (Fin 2) ℝ 0) 0 = 1
     simp [EuclideanSpace.basisFun_apply]
   have hb1 : mfderiv (𝓡 2) 𝓘(ℝ, ℝ) (fun p : LoopPlane => p 1) x b = 0 := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     have hd : fderiv ℝ (fun p : LoopPlane => p 1) x =
         (EuclideanSpace.proj 1 : LoopPlane →L[ℝ] ℝ) :=
       (show LoopPlane →L[ℝ] ℝ from EuclideanSpace.proj 1).fderiv

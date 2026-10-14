@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/Existence/ConjugatorChartLieNative.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -253,7 +254,7 @@ theorem coordinateLieMetric_chart_eq
       _ = fderiv ℝ
           ((fun y => g.inner y (chartConstantField p u y) (chartConstantField p v y)) ∘
             (chartAt E p).symm) z (chartVector p W z) := by
-        simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] <;> rfl
+        simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] <;> rfl
       _ = fderiv ℝ (fun w => chartMetricForm g p w u v) z (chartVector p W z) :=
         congrArg (fun L : E →L[ℝ] ℝ => L (chartVector p W z)) hscalar.fderiv_eq
       _ = _ := heval_apply

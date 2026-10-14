@@ -68,8 +68,7 @@ theorem pullbackJacobian_fderiv_eq (g : RiemannianMetric n M)
     apply Eventually.of_forall
     intro s
     convert (sqrt_det_pullbackMetric_change_source g f (y + s • w) C.toLinearMap).symm using 1
-    · exact mul_comm _ _
-    · rfl
+    exact mul_comm _ _
   have hJ := hasDerivAt_jacobian_of_scaled_normalized_gram
     (source_normalization_normDet_pos C).ne' hscale hA hAt
   have hactual := ((pullbackJacobian_contDiffAt_of_form g hB hD).differentiableAt

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.Positivity
 import Submission.PoincareLib.Geometry.Riemannian.Heat.Kernel.LiYau.Geodesic
@@ -104,7 +105,7 @@ private theorem exists_path_spacetimeEnergy_le_distance
         δ⁻¹ • mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (z t) 1 := by
       rw [show η = γ ∘ z from rfl, mfderiv_comp_apply t
         (hγt.mdifferentiableAt one_ne_zero) (hz.mdifferentiable one_ne_zero t),
-        mfderiv_eq_fderiv, hzd.hasFDerivAt.fderiv]
+        Poincare.Compatibility.mfderiv_eq_fderiv_model, hzd.hasFDerivAt.fderiv]
       change (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (z t)) ((1 : ℝ) • δ⁻¹) =
         δ⁻¹ • (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (z t)) 1
       rw [one_smul, ← map_smul, smul_eq_mul, mul_one]

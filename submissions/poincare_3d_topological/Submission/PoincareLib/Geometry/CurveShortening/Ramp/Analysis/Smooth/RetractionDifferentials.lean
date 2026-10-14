@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Compatibility.Tangent
+import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
 import Mathlib.Geometry.Manifold.MFDeriv.SpecificFunctions
 
@@ -40,7 +42,7 @@ theorem smooth_retraction_differentials [IsManifold 𝓘(ℝ, E) ∞ M] {e : M �
     have hchain : fderiv ℝ (e ∘ ρ) z =
         (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, V) e (ρ z)).comp
           (mfderiv 𝓘(ℝ, V) 𝓘(ℝ, E) ρ z) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp z (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hρ.contMDiffAt (hU.mem_nhds hz)).mdifferentiableAt (by simp))
     exact congrArg (fun L : V →L[ℝ] V => L v) hchain

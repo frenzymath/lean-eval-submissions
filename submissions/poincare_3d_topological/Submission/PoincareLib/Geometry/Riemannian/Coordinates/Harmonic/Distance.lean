@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 import Submission.PoincareLib.Geometry.Riemannian.MetricComparison
 
@@ -71,7 +72,7 @@ lemma edist_le_of_pullback_upper (g : RiemannianMetric n M)
           ((he.contMDiffAt (hU.mem_nhds (hqU t ht))).mdifferentiableAt (by simp))
           (hq.mdifferentiable (by simp) t)
         have hvel : mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) q t 1 = y - x := by
-          rw [mfderiv_eq_fderiv]
+          rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
           exact (hqd t).deriv
         have hd := congrArg (fun A => A (1 : ℝ)) hchain
         change mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) (e ∘ q) t 1 =

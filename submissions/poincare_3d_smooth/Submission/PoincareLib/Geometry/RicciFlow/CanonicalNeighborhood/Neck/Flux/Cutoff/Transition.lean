@@ -187,6 +187,7 @@ theorem gradient_axialTransition (D : LeviCivitaData g) (A : Set M)
   have hg : D.gradient (N.axialTransition A φ) x = D.gradient (N.axialCutoff φ) x := by
     unfold LeviCivitaData.gradient mvfderiv
     rw [he.mfderiv_eq, he.eq_of_nhds]
+    rfl
   rw [hg, N.gradient_axialCutoff D hφ hx]
 
 /-- The ambient transition is locally constant off the carrier, including at

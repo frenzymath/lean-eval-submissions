@@ -45,10 +45,10 @@ private theorem reflected_norm_sq
       ((m64AnnulusInterior_coordinates p).mp h).2.2.1
     have hRp : R p ∈ S := by
       apply (m64AnnulusInterior_coordinates _).mpr
-      simpa only [m60PlaneReflection_apply, ite_true, if_neg (by decide : (1 : Fin 2) ≠ 0)]
+      simpa only [m60PlaneReflection_apply, ite_true, ite_eq_right (by decide : (1 : Fin 2) ≠ 0)]
         using And.intro hp.1 (And.intro hp.2.1
           (And.intro (neg_pos.mpr hneg) (by linarith [hp.2.2.1] : -p 1 < 1)))
-    simp only [m64AnnulusLowerExtend, if_pos hneg, m64AnnulusRadialFlip_lower_translation,
+    simp only [m64AnnulusLowerExtend, ite_eq_left hneg, m64AnnulusRadialFlip_lower_translation,
       indicator_of_notMem hpnot, norm_zero, zero_pow (by norm_num : (2 : ℕ) ≠ 0), zero_add,
       indicator_of_mem hRp, norm_smul, he, one_mul]
   · have hpos : 0 < p 1 := lt_of_le_of_ne (le_of_not_gt hneg) hface.symm
@@ -57,9 +57,9 @@ private theorem reflected_norm_sq
     have hRpnot : R p ∉ S := by
       intro hh
       have h := ((m64AnnulusInterior_coordinates _).mp hh).2.2.1
-      simp only [m60PlaneReflection_apply, if_neg (by decide : (1 : Fin 2) ≠ 0)] at h
+      simp only [m60PlaneReflection_apply, ite_eq_right (by decide : (1 : Fin 2) ≠ 0)] at h
       linarith
-    simp only [m64AnnulusLowerExtend, if_neg hneg, indicator_of_mem hpS,
+    simp only [m64AnnulusLowerExtend, ite_eq_right hneg, indicator_of_mem hpS,
       indicator_of_notMem hRpnot, norm_zero, zero_pow (by norm_num : (2 : ℕ) ≠ 0), add_zero]
 
 /-- Exact integral transport for a genuine L2 reflected field. The null face is removed only

@@ -34,21 +34,39 @@ theorem smallTimeCandidate_family_smooth (E : M14ExponentialFamily G T x)
     (hcapture : ∀ W ∈ U, ∀ σ ∈ Icc 0 η,
       (W, Real.sqrt σ) ∈ E.domain ∧ E.gamma W (Real.sqrt σ) ∈ O) :
     let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+    let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+    let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+    let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+    let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+    let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+    let horizontalCore := metric.toCore x
+    let horizontalContinuous := metric.continuousAt x
+    let horizontalBounded := metric.isVonNBounded x
     letI : NormedAddCommGroup (G.Horizontal x) :=
-      (metric.toCore x).toNormedAddCommGroupOfTopology
-        (metric.continuousAt x) (metric.isVonNBounded x)
+      horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
     letI : InnerProductSpace ℝ (G.Horizontal x) :=
-      .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+      @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+        horizontalAdd horizontalModule horizontalTopology
+        horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
     ContMDiffOn ((𝓘(ℝ, ℝ)).prod 𝓘(ℝ, G.Horizontal x)) (spacetimeModel n) ∞
       (fun z : ℝ × G.Horizontal x => E.gamma z.2 z.1) (Icc 0 (Real.sqrt η) ×ˢ U) ∧
       ∀ W ∈ U, ∀ s ∈ Icc 0 (Real.sqrt η),
         (W, s) ∈ E.domain ∧ E.gamma W s ∈ O := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   have hmap (W : G.Horizontal x) (hW : W ∈ U) (s : ℝ)
       (hs : s ∈ Icc 0 (Real.sqrt η)) : (W, s) ∈ E.domain ∧ E.gamma W s ∈ O := by
@@ -73,21 +91,39 @@ theorem exists_smallTimeCandidate_coordinate_bound (E : M14ExponentialFamily G T
     (hcapture : ∀ W ∈ U, ∀ σ ∈ Icc 0 η,
       (W, Real.sqrt σ) ∈ E.domain ∧ E.gamma W (Real.sqrt σ) ∈ O) :
     let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+    let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+    let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+    let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+    let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+    let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+    let horizontalCore := metric.toCore x
+    let horizontalContinuous := metric.continuousAt x
+    let horizontalBounded := metric.isVonNBounded x
     letI : NormedAddCommGroup (G.Horizontal x) :=
-      (metric.toCore x).toNormedAddCommGroupOfTopology
-        (metric.continuousAt x) (metric.isVonNBounded x)
+      horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
     letI : InnerProductSpace ℝ (G.Horizontal x) :=
-      .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+      @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+        horizontalAdd horizontalModule horizontalTopology
+        horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
     ContDiffOn ℝ ∞ (fun z : ℝ × G.Horizontal x => (lift (E.gamma z.2 z.1)).2.val)
       (Icc 0 (Real.sqrt η) ×ˢ U) ∧
       ∃ M : ℝ, 0 ≤ M ∧ ∀ W ∈ K, ∀ s ∈ Icc 0 (Real.sqrt η),
         ‖derivWithin (fun r => (lift (E.gamma W r)).2.val) (Icc 0 (Real.sqrt η)) s‖ ≤ M := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   obtain ⟨hγ, hmap⟩ := smallTimeCandidate_family_smooth E hη.le hcapture
   have hL := hlift.comp hγ (fun z hz => (hmap z.2 hz.2 z.1 hz.1).2)
@@ -116,11 +152,20 @@ theorem exists_smallTimeCandidate_density_bound
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W ∈ K, ∀ s ∈ Icc 0 (Real.sqrt η),
       squareCurveDensity G (E.gamma W) (Icc 0 (Real.sqrt η)) s ≤ A := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   have hγ := (smallTimeCandidate_family_smooth E hη.le hcapture).1
   have hd := squareFamilyDensity_contDiffOn hM12

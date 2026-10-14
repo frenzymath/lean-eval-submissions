@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Arc.FrontierGerm
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Corner.Chart
 
@@ -72,7 +73,7 @@ theorem m64Intrinsic_exists_two_arc_corner_coordinates
   let phi := collarParameterEquiv ∘ H.symm
   have hd : HasFDerivAt H J.toContinuousLinearMap 0 := by
     change HasFDerivAt H (mfderiv (𝓡 2) (𝓡 2) H 0) 0
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact ((contMDiffOn_iff_contDiffOn.mp hH 0 h0).contDiffAt
       (H.open_source.mem_nhds h0)).differentiableAt (by simp) |>.hasFDerivAt
   have htarget : alpha 0 ∈ H.target := hHbase ▸ H.map_source h0

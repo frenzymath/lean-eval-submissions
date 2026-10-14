@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Harmonic.Hopf.Coordinates
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Annulus.SmoothGram
 
@@ -45,7 +46,7 @@ theorem m64ChartPairing_eq_gram (g : RiemannianMetric n M) (q : M)
   have hc := ((contMDiffOn_extChartAt_symm (n := ∞) q).contMDiffAt
     ((isOpen_extChartAt_target q).mem_nhds hut)).mdifferentiableAt (by simp)
   have hd := mfderiv_comp p hc (mdifferentiableAt_iff_differentiableAt.mpr hu)
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have heq := hmap.mfderiv_eq (I := 𝓡 2) (I' := 𝓡 n)
   have hp : c.symm (u p) = f p := hmap.self_of_nhds
   change g.inner (c.symm (u p))
@@ -53,7 +54,9 @@ theorem m64ChartPairing_eq_gram (g : RiemannianMetric n M) (q : M)
       (fderiv ℝ u p (EuclideanSpace.basisFun (Fin 2) ℝ i)))
     (mfderiv (𝓡 n) (𝓡 n) c.symm (u p)
       (fderiv ℝ u p (EuclideanSpace.basisFun (Fin 2) ℝ j))) = _
-  rw [m60AreaGram, ← heq, hd]
+  have heq' : mfderiv (𝓡 2) (𝓡 n) (c.symm ∘ u) p =
+      mfderiv (𝓡 2) (𝓡 n) f p := heq.trans (by ext v; rfl)
+  rw [m60AreaGram, ← heq', hd]
   exact congrArg (fun z : M => g.inner z
     (mfderiv (𝓡 n) (𝓡 n) c.symm (u p)
       (fderiv ℝ u p (EuclideanSpace.basisFun (Fin 2) ℝ i)))

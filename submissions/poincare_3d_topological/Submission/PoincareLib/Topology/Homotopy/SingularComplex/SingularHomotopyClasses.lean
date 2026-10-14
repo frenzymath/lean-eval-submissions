@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.SingularComplex.SingularSimplexLoops
 import Submission.PoincareLib.Topology.Homotopy.SingularComplex.SingularSimplexDescent
 
@@ -42,7 +43,7 @@ theorem singularPointedSimplexGenLoop_val (X : TopCat.{u}) (n : Nat)
     (x : (TopCat.toSSet.obj X).obj (Opposite.op (SimplexCategory.mk 0)))
     (a : (TopCat.toSSet.obj X).PtSimplex (n + 1) x) :
     (singularPointedSimplexGenLoop X n x a).val =
-      (X.toSSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp (stdSimplexCubeMap (n + 1)) :=
+      (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp (stdSimplexCubeMap (n + 1)) :=
   (exists_singular_pointedSimplex_genLoop X n x a (stdSimplexCubeMap (n + 1))
     (fun t ht => (stdSimplex_cube_coordinates_boundary_iff (n + 1) _
       (stdSimplexCubeMap_spec (n + 1)).1 (stdSimplexCubeMap_spec (n + 1)).2 t).mpr ht)).choose_spec

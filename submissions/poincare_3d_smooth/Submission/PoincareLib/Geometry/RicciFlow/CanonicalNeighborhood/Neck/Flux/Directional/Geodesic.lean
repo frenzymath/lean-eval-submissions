@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Neck.Geodesic.Axial
 import Submission.PoincareLib.Geometry.Riemannian.Distance.ExponentialRays
 
@@ -72,7 +73,7 @@ private theorem mfderiv_reverse_apply_one
   have hd : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun s : ℝ => L - s) t 1 = -1 := by
     have hd' : fderiv ℝ (fun s : ℝ => L - s) t 1 = -1 := by
       rw [fderiv_eq_smul_deriv, one_smul, hr.deriv]
-    erw [mfderiv_eq_fderiv, hd']
+    erw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hd']
   rw [hd]
   exact (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) γ (L - t)).map_neg 1
 

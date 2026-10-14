@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Spacetime.Realization.Interval.Family
 import Mathlib.Analysis.Calculus.MeanValue
 
@@ -50,7 +51,7 @@ theorem interval_constant_of_derivative_zero (I : SpacetimeInterval)
       (((smoothInterval I).inclusion_smooth q).mdifferentiableAt (by simp)).mdifferentiableWithinAt
       (fun p _ ↦ p.property) (uniqueMDiffWithinAt_univ (𝓡∂ 1))
     have he : g ∘ (Subtype.val : (smoothInterval I).Point → ℝ) = f := funext hg
-    simp only [mfderivWithin_univ, mfderivWithin_eq_fderivWithin] at hc
+    simp only [mfderivWithin_univ, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model] at hc
     have h := congrArg (fun L ↦ L ((smoothInterval I).positiveTangent q)) hc
     have hn : mfderiv (𝓡∂ 1) 𝓘(ℝ)
         (Subtype.val : (smoothInterval I).Point → ℝ) q

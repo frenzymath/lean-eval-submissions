@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityEulerAlphaOne
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityEulerAlphaOneTests
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityEulerChart
@@ -34,7 +35,8 @@ theorem identity_chart_coefficients {N : ℕ}
       g.euclideanCoefficients := by
   funext y
   ext v w
-  simp [RiemannianMetric.pullbackCoefficients, RiemannianMetric.euclideanCoefficients]
+  simp [RiemannianMetric.pullbackCoefficients, RiemannianMetric.euclideanCoefficients,
+    Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rfl
 
 /-- Genuine scalar local weak identities apply to every smooth compact

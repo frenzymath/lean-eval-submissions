@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.SingularLift
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.DiscreteSingular
 import Mathlib.AlgebraicTopology.SimplicialSet.Monoidal
@@ -32,15 +33,15 @@ variable {E X F : Type u} [TopologicalSpace E] [TopologicalSpace X]
 Source: Hatcher, Theorem 2.27, pp. 128-130. -/
 def singularLiftFiberLabel (n : SimplexCategoryᵒᵖ)
     (z : (singularLiftSSet p A χ).obj n) : F :=
-  (e ((TopCat.of E).toSSetObjEquiv n z.val.2 (stdSimplex.vertex 0))).2
+  (e ((TopCat.of E).toLegacySSetObjEquiv n z.val.2 (stdSimplex.vertex 0))).2
 
 /-- Reconstruct a literal singular lift using the product trivialization
 and a retained fiber label. Source: Hatcher, Theorem 2.27. -/
 def singularTrivialLift (n : SimplexCategoryᵒᵖ) (a : A.obj n) (b : F) :
     (TopCat.toSSet.obj (TopCat.of E)).obj n :=
-  ((TopCat.of E).toSSetObjEquiv n).symm
+  ((TopCat.of E).toLegacySSetObjEquiv n).symm
     ((⟨e.symm, e.symm.continuous⟩ : C(X × F, E)).comp
-      (((TopCat.of X).toSSetObjEquiv n (χ.app n a)).prodMk (ContinuousMap.const _ b)))
+      (((TopCat.of X).toLegacySSetObjEquiv n (χ.app n a)).prodMk (ContinuousMap.const _ b)))
 
 include he in
 omit [DiscreteTopology F] in
@@ -49,9 +50,9 @@ simplex. Source: Hatcher, Theorem 2.27, pp. 128-130. -/
 theorem singularTrivialLift_projection (n : SimplexCategoryᵒᵖ) (a : A.obj n) (b : F) :
     (TopCat.toSSet.map (TopCat.ofHom p)).app n (singularTrivialLift A χ e n a b) =
       χ.app n a := by
-  apply ((TopCat.of X).toSSetObjEquiv n).injective
+  apply ((TopCat.of X).toLegacySSetObjEquiv n).injective
   ext t
-  change p (e.symm (((TopCat.of X).toSSetObjEquiv n (χ.app n a) t), b)) = _
+  change p (e.symm (((TopCat.of X).toLegacySSetObjEquiv n (χ.app n a) t), b)) = _
   rw [he, e.apply_symm_apply]
 
 /-- The actual lifted simplicial model of a product covering is the
@@ -66,13 +67,16 @@ def singularLiftTrivializationIso : singularLiftSSet p A χ ≅
       apply ConcreteCategory.hom_ext
       intro z
       apply Prod.ext
-      · change (e ((TopCat.of E).toSSetObjEquiv n z.val.2
-          (stdSimplex.map f.unop (stdSimplex.vertex 0)))).2 =
-          (e ((TopCat.of E).toSSetObjEquiv n z.val.2 (stdSimplex.vertex 0))).2
+      · change (e ((TopCat.of E).toLegacySSetObjEquiv m
+          ((TopCat.toSSet.obj (TopCat.of E)).map f z.val.2) (stdSimplex.vertex 0))).2 =
+          (e ((TopCat.of E).toLegacySSetObjEquiv n z.val.2 (stdSimplex.vertex 0))).2
+        refine (congrArg (fun x => (e x).2)
+          (TopCat.toLegacySSetObjEquiv_naturality_apply f.unop z.val.2
+            (stdSimplex.vertex 0))).trans ?_
         exact discreteSimplex_eq F
-          ⟨fun t => (e ((TopCat.of E).toSSetObjEquiv n z.val.2 t)).2,
+          ⟨fun t => (e ((TopCat.of E).toLegacySSetObjEquiv n z.val.2 t)).2,
             continuous_snd.comp (e.continuous.comp
-              ((TopCat.of E).toSSetObjEquiv n z.val.2).continuous)⟩ _ _
+              ((TopCat.of E).toLegacySSetObjEquiv n z.val.2).continuous)⟩ _ _
       · rfl }
   inv := {
     app n := ↾fun (z : F × A.obj n) => ⟨(z.2, singularTrivialLift A χ e n z.2 z.1),
@@ -86,11 +90,17 @@ def singularLiftTrivializationIso : singularLiftSSet p A χ ≅
           (singularTrivialLift A χ e n z.2 z.1))
       apply Prod.ext
       · rfl
-      apply ((TopCat.of E).toSSetObjEquiv m).injective
+      apply ((TopCat.of E).toLegacySSetObjEquiv m).injective
       ext t
-      have h := congrArg (fun a => (TopCat.of X).toSSetObjEquiv m a t)
+      have h := congrArg (fun a => (TopCat.of X).toLegacySSetObjEquiv m a t)
         (NatTrans.naturality_apply χ f z.2)
-      exact congrArg (fun x => e.symm (x, z.1)) h }
+      have h' := h.trans
+        (TopCat.toLegacySSetObjEquiv_naturality_apply f.unop (χ.app n z.2) t)
+      refine Eq.trans ?_ (TopCat.toLegacySSetObjEquiv_naturality_apply f.unop
+        (singularTrivialLift A χ e n z.2 z.1) t).symm
+      simpa only [singularTrivialLift, Equiv.apply_symm_apply, ContinuousMap.comp_apply,
+        ContinuousMap.prodMk, ContinuousMap.const_apply, ContinuousMap.coe_mk] using
+        congrArg (fun x => e.symm (x, z.1)) h' }
   hom_inv_id := by
     apply NatTrans.ext
     funext n
@@ -101,19 +111,19 @@ def singularLiftTrivializationIso : singularLiftSSet p A χ ≅
       (singularLiftFiberLabel p A χ e n z)) = z.val
     apply Prod.ext
     · rfl
-    apply ((TopCat.of E).toSSetObjEquiv n).injective
+    apply ((TopCat.of E).toLegacySSetObjEquiv n).injective
     ext t
     apply e.injective
     change e (e.symm (_, singularLiftFiberLabel p A χ e n z)) =
-      e ((TopCat.of E).toSSetObjEquiv n z.val.2 t)
+      e ((TopCat.of E).toLegacySSetObjEquiv n z.val.2 t)
     rw [e.apply_symm_apply]
     apply Prod.ext
-    · have h := congrArg (fun a => (TopCat.of X).toSSetObjEquiv n a t) z.property
+    · have h := congrArg (fun a => (TopCat.of X).toLegacySSetObjEquiv n a t) z.property
       exact h.symm.trans (he _)
     · exact discreteSimplex_eq F
-        ⟨fun t => (e ((TopCat.of E).toSSetObjEquiv n z.val.2 t)).2,
+        ⟨fun t => (e ((TopCat.of E).toLegacySSetObjEquiv n z.val.2 t)).2,
           continuous_snd.comp (e.continuous.comp
-            ((TopCat.of E).toSSetObjEquiv n z.val.2).continuous)⟩ _ _
+            ((TopCat.of E).toLegacySSetObjEquiv n z.val.2).continuous)⟩ _ _
   inv_hom_id := by
     apply NatTrans.ext
     funext n

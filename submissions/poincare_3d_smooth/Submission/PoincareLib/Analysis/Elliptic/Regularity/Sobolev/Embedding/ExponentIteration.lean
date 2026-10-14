@@ -281,7 +281,7 @@ theorem MemWkp_subcritical_iterated
         refine ENNReal.mul_lt_top ?_ h_wkp_lt_top
         exact ENNReal.mul_lt_top h_first.lt_top h_d_top.lt_top
       have hf_memLp_p1 : MemLp f p_1_enn (volume.restrict Ω) :=
-        ⟨hf_aem, h_eLp_lt_top⟩
+        h_eLp_lt_top
       refine ⟨?_, ?_⟩
       · rw [MemWkp_zero]
         exact hf_memLp_p1
@@ -330,7 +330,7 @@ theorem MemWkp_subcritical_iterated
           exact ENNReal.mul_lt_top
             (ENNReal.ofReal_lt_top) (ENNReal.natCast_lt_top _)
         refine ⟨?_, ?_⟩
-        · rw [MemWkp_zero]; exact ⟨hf_aem, h_eLp_lt_top⟩
+        · rw [MemWkp_zero]; exact h_eLp_lt_top
         · rw [wkpNorm_zero, subcriticalConstant_zero]
           unfold subcriticalConstantBase
           have hC_nn : 0 ≤ Poincare.Analysis.Sobolev.Weak.CGns d p := Poincare.Analysis.Sobolev.Weak.C_gns_nonneg d p

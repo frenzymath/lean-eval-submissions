@@ -61,9 +61,9 @@ theorem m64AnnulusCutCompletion_contMDiffOn
     filter_upwards [self_mem_nhdsWithin, mem_nhdsWithin_of_mem_nhds hO] with q hq hqO
     change m64AnnulusCutCompletion f g q = g (q + v)
     by_cases hq0 : q 0 = 0
-    · simp only [m64AnnulusCutCompletion, if_pos hq0]
+    · simp only [m64AnnulusCutCompletion, ite_eq_left hq0]
     · have hqP : q 0 ≠ curvePeriod := by intro h; change q 0 < half at hqO; linarith
-      simp only [m64AnnulusCutCompletion, if_neg hq0, if_neg hqP]
+      simp only [m64AnnulusCutCompletion, ite_eq_right hq0, ite_eq_right hqP]
       exact hleft ⟨⟨lt_of_le_of_ne hq.1 (Ne.symm hq0), hqO⟩, hq.2.2⟩
   by_cases hpP : p 0 = curvePeriod
   · let O : Set LoopPlane := {q | half < q 0}
@@ -87,8 +87,8 @@ theorem m64AnnulusCutCompletion_contMDiffOn
     change m64AnnulusCutCompletion f g q = g (q - v)
     have hq0 : q 0 ≠ 0 := by intro h; change half < q 0 at hqO; linarith
     by_cases hqP : q 0 = curvePeriod
-    · simp only [m64AnnulusCutCompletion, if_neg hq0, if_pos hqP]
-    · simp only [m64AnnulusCutCompletion, if_neg hq0, if_neg hqP]
+    · simp only [m64AnnulusCutCompletion, ite_eq_right hq0, ite_eq_left hqP]
+    · simp only [m64AnnulusCutCompletion, ite_eq_right hq0, ite_eq_right hqP]
       exact hright ⟨⟨hqO, lt_of_le_of_ne hq.2.1 hqP⟩, hq.2.2⟩
   · have hx : p 0 ∈ Ioo (0 : ℝ) curvePeriod :=
       ⟨lt_of_le_of_ne hp.1 (Ne.symm hp0), lt_of_le_of_ne hp.2.1 hpP⟩

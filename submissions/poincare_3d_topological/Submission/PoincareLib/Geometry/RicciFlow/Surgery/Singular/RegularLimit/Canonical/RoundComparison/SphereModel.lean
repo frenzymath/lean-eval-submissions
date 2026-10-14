@@ -32,7 +32,7 @@ private def spherePoint : UnitSphere 3 :=
 
 private def sphereCoefficients (x : EuclideanSpace ℝ (Fin 3)) :
     EuclideanSpace ℝ (Fin 3) →L[ℝ] EuclideanSpace ℝ (Fin 3) →L[ℝ] ℝ :=
-  (16 / (‖x‖ ^ 2 + 4) ^ 2) • innerSL ℝ
+  (16 / (‖x‖ ^ 2 + 4) ^ 2) • innerSL ℝ (E := EuclideanSpace ℝ (Fin 3))
 
 private theorem sphereCoefficients_smooth : ContDiff ℝ ∞ sphereCoefficients := by
   let : IsBoundedSMul ℝ (EuclideanSpace ℝ (Fin 3) →L[ℝ]

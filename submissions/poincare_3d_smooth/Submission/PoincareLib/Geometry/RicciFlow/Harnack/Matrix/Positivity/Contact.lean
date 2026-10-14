@@ -35,7 +35,7 @@ lemma hasDerivWithinAt_quadratic_at_null
     HasDerivWithinAt (fun r => z r ⬝ᵥ (A r *ᵥ z r))
       (z t ⬝ᵥ (A' *ᵥ z t)) s t := by
   have hzero : A t *ᵥ z t = 0 :=
-    (hpos.dotProduct_mulVec_zero_iff (z t)).mp (by simpa only [star_trivial] using hnull)
+    (hpos.dotProduct_mulVec_zero_iff).mp (by simpa only [star_trivial] using hnull)
   have hright (i : I) : (∑ j, A t i j * z t j) = 0 := congrFun hzero i
   have hleft (j : I) : (∑ i, A t i j * z t i) = 0 := by
     have hs (i : I) : A t i j = A t j i := by

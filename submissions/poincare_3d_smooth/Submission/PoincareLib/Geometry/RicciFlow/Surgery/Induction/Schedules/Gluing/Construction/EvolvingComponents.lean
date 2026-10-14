@@ -49,7 +49,7 @@ theorem evolvingTensorNormSquared_controls_component {t : ℝ}
   have hweight : (1 / 4 : ℝ) ^ r ≤ ∏ i, evolvingCylinderInverseWeight t (a i) := by
     calc
       (1 / 4 : ℝ) ^ r = ∏ _i : Fin r, (1 / 4 : ℝ) := by simp
-      _ ≤ _ := Finset.prod_le_prod (fun _ _ => by norm_num)
+      _ ≤ _ := Finset.prod_le_prod₀ (fun _ _ => by norm_num)
         (fun i _ => evolvingCylinderInverseWeight_lower ht (a i))
   have hbound : (1 / 4 : ℝ) ^ r * (T a) ^ 2 ≤
       roundCylinderTensorNormSquared t (chartAt E₂ q) (chartAt E₂ q q, s) T := by

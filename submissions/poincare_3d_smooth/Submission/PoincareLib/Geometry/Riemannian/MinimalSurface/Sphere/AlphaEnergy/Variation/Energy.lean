@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.IntrinsicEnergy
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.NonNullSphere
 import Mathlib.Topology.Order.IsLUB
@@ -226,12 +227,14 @@ theorem exists_observed_derivative_energy_bound [CompactSpace M]
   refine ⟨2 * B ^ 2, by positivity, fun f hf z i => ?_⟩
   let v := mfderiv (𝓡 2) (𝓡 n) f z (EuclideanSpace.basisFun (Fin 2) ℝ i)
   have hnorm : ‖(show F from mfderiv (𝓡 n) 𝓘(ℝ, F) e (f z) v)‖ ≤ B * ‖v‖ := by
+    change ‖(NormedSpace.fromTangentSpace (𝕜 := ℝ) (e (f z)))
+      (mfderiv (𝓡 n) 𝓘(ℝ, F) e (f z) v)‖ ≤ B * ‖v‖
     rw [← norm_tangentSpace_vectorSpace (x := e (f z))]
     exact ((mfderiv (𝓡 n) 𝓘(ℝ, F) e (f z)).le_opNorm v).trans
       (mul_le_mul_of_nonneg_right (hbound _) (norm_nonneg _))
   have hder : fderiv ℝ (e ∘ f) z (EuclideanSpace.basisFun (Fin 2) ℝ i) =
       mfderiv (𝓡 n) 𝓘(ℝ, F) e (f z) v := by
-    rw [← mfderiv_eq_fderiv, mfderiv_comp z (he.mdifferentiable (by simp) _)
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp z (he.mdifferentiable (by simp) _)
       (hf.mdifferentiable (by simp) _)]
     rfl
   have hv : ‖v‖ ^ 2 = m60AreaGram g f z i i := (real_inner_self_eq_norm_sq v).symm

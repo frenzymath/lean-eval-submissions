@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Embedding.HessianVector
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Fixed.CompositionSecondDerivative
@@ -54,7 +55,7 @@ theorem coordinateHessian_retraction_identity {g : RiemannianMetric n M}
   have hdf : fderiv ℝ f (c p) =
       (mfderiv (𝓡 n) 𝓘(ℝ, W) e (c.symm (c p))).comp
         (mfderiv (𝓡 n) (𝓡 n) c.symm (c p)) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp (c p) (he.mdifferentiable (by simp)).mdifferentiableAt
       ((mdifferentiable_chart (I := 𝓡 n) p).symm.mdifferentiableAt hy)
   have hd (u : E) : fderiv ℝ f (c p) u =

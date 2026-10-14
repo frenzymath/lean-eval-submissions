@@ -390,7 +390,7 @@ lemma hamiltonBlock_null_equations
     (fun c (bd : I × I) => P bd.1 bd.2 c) M
   let z : ((I × I) ⊕ I) → ℝ := Sum.elim (fun ac => U ac.1 ac.2) W
   have hz : A *ᵥ z = 0 := by
-    apply hQ.dotProduct_mulVec_zero_iff z |>.mp
+    apply hQ.dotProduct_mulVec_zero_iff |>.mp
     simpa only [star_trivial, A, z, hamiltonBlock_quadratic_eq] using hnull
   constructor
   · intro a b

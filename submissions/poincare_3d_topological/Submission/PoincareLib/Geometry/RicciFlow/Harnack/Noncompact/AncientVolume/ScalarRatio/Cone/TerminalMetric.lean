@@ -11,7 +11,6 @@ local extension only; completeness of the extension is not asserted.
 
 noncomputable section
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter Metric TopologicalSpace
 open scoped Manifold ContDiff Topology
@@ -62,8 +61,10 @@ theorem exists_terminal_metric_of_ancient_chart_limit
         exact (F.metric 0).pos _ v hv)
   refine ⟨g, D, ⟨V, hVo⟩, hzeroV, hVU, heq, ?_, ?_⟩
   · intro x hx v w
-    rw [hcoeff]
-    exact (congrArg (fun T => T v w) (heq x hx)).symm
+    exact (hcoeff x (show EuclideanSpace ℝ (Fin n) from v)
+      (show EuclideanSpace ℝ (Fin n) from w)).trans
+      ((congrArg (fun T => T (show EuclideanSpace ℝ (Fin n) from v)
+        (show EuclideanSpace ℝ (Fin n) from w)) (heq x hx)).symm)
   · intro K hK hKV
     let e : EuclideanSpace ℝ (Fin n) → ℝ × EuclideanSpace ℝ (Fin n) := fun x => (0, x)
     have hKe : IsCompact (e '' K) := hK.image (continuous_const.prodMk continuous_id)

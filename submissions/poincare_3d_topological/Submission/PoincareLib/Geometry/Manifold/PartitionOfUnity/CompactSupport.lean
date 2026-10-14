@@ -73,9 +73,8 @@ theorem exists_contMDiff_cutoff_of_isCompact {K U : Set M} (hK : IsCompact K)
   refine ⟨fun x => ∑ i, ρ i x, ?_, ?_, ?_, ?_, ?_⟩
   · simpa only [finsum_eq_sum_of_fintype] using ρ.contMDiff_sum
   · convert HasCompactSupport.finset_sum (s := Finset.univ) (fun i _ => hρc i) using 1
-    · rfl
-    · ext x
-      simp
+    ext x
+    simp
   · have hsub : tsupport (fun x => ∑ i, ρ i x) ⊆ ⋃ i, tsupport (ρ i : M → ℝ) := by
       apply closure_minimal
       · intro x hx

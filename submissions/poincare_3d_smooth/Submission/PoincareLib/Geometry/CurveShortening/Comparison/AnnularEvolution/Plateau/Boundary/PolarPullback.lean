@@ -101,7 +101,7 @@ theorem boundaryPolarStrip_ae (x : ℝ) {rho : ℝ} (hrho : 0 < rho)
   filter_upwards [hgood] with p hp
   by_contra hnot
   have hj : 0 < (rho * Real.exp (-p 1)) ^ 2 / 2 := by positivity
-  simp only [F, if_neg hnot, mul_one, Pi.zero_apply] at hp
+  simp only [F, ite_eq_right hnot, mul_one, Pi.zero_apply] at hp
   exact hj.ne' hp
 
 end PoincareMT.M64

@@ -101,7 +101,7 @@ theorem normalization_riemannEvaluation_locally_bounded (D : LeviCivitaData g) (
   have hprod : (∏ i, ‖L y (v i)‖ ^ 2) ≤ 256 * (∏ i, ‖v i‖) ^ 2 := by
     calc
       (∏ i, ‖L y (v i)‖ ^ 2) ≤ ∏ i, (2 * ‖v i‖) ^ 2 := by
-        apply Finset.prod_le_prod (fun _ _ => sq_nonneg _)
+        apply Finset.prod_le_prod₀ (fun _ _ => sq_nonneg _)
         intro i _
         gcongr
         exact hnorm i

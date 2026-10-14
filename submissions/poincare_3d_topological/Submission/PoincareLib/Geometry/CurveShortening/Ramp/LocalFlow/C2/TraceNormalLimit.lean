@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.AmbientAcceleration
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.EmbeddedCurve
@@ -260,7 +261,7 @@ theorem normalCurve_c2_of_uniform_embedded_field_limits
       ((hρ.contMDiffAt (hU.mem_nhds (hrU t ht x))).mdifferentiableAt (by simp))
       (hfirst t ht x).differentiableAt.mdifferentiableAt
     have hv := congrArg (fun L : ℝ →L[ℝ] TangentSpace (𝓡 n) (c x t) => L 1) hchain
-    rw [mfderiv_eq_fderiv, (hfirst t ht x).hasFDerivAt.fderiv] at hv
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (hfirst t ht x).hasFDerivAt.fderiv] at hv
     change curveVelocity (fun y => c y t) x =
       mfderiv 𝓘(ℝ, W) (𝓡 n) ρ (r t (x : AddCircle curvePeriod))
         ((1 : ℝ) • p t (x : AddCircle curvePeriod)) at hv
@@ -308,7 +309,7 @@ theorem normalCurve_c2_of_uniform_embedded_field_limits
       (((he.of_le (by norm_num)).comp hq).contDiff.differentiable (by norm_num) x).hasDerivAt
     have hchain := mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
       ((hq x).mdifferentiableAt (by norm_num))
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
     exact hd.congr_deriv (congrArg (fun L : ℝ →L[ℝ] W => L 1) hchain)
   have hpush (t : ℝ) (ht : t ∈ Icc a b) (x : ℝ) :
       mfderiv (𝓡 n) 𝓘(ℝ, W) e (c x t) (curveVelocity (fun y => c y t) x) =
@@ -593,7 +594,7 @@ theorem normalCurve_c2_of_uniform_embedded_field_limits
         ((hρ.contMDiffAt (hU.mem_nhds (hrU t (Ioo_subset_Icc_self ht') x))).mdifferentiableAt
           (by simp)) hd.differentiableAt.mdifferentiableAt
       have hval := congrArg (fun L : ℝ →L[ℝ] TangentSpace (𝓡 n) (c x t) => L 1) hchain
-      rw [mfderiv_eq_fderiv, hd.hasFDerivAt.fderiv] at hval
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hd.hasFDerivAt.fderiv] at hval
       change curveVelocity (fun u => c x u) t =
         mfderiv 𝓘(ℝ, W) (𝓡 n) ρ (r t (x : AddCircle curvePeriod))
           ((1 : ℝ) • h t (x : AddCircle curvePeriod)) at hval

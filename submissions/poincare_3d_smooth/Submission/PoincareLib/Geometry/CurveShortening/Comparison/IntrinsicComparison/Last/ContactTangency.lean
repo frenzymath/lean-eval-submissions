@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Arc.RegionChart
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Compact.GeodesicContinuation
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Lipschitz.Tangency
@@ -76,7 +77,7 @@ theorem m64Intrinsic_constrained_minimizer_last_contact_tangent
   let J : AnnulusCoordinates ≃L[ℝ] AnnulusCoordinates := hDi.mfderiv htarget
   have hJ : HasFDerivAt H.symm J.toContinuousLinearMap (gamma u) := by
     change HasFDerivAt H.symm (mfderiv (𝓡 2) (𝓡 2) H.symm (gamma u)) (gamma u)
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact ((contMDiffOn_iff_contDiffOn.mp hHi _ htarget).contDiffAt
       (H.open_target.mem_nhds htarget)).differentiableAt (by simp) |>.hasFDerivAt
   have hcoordinate : HasDerivWithinAt (fun r : ℝ => H.symm (gamma (u + r)))

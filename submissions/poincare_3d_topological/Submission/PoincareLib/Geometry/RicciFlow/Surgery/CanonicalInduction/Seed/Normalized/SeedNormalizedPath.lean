@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
 import Mathlib.Geometry.Manifold.Algebra.Structures
@@ -33,7 +34,7 @@ private theorem normalized_curve_velocity {gamma : ℝ → M} {s : ℝ}
   have hd : HasDerivAt (fun r : ℝ => d * r) d s := by
     simpa using (hasDerivAt_id s).const_mul d
   have hvalue : mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ)) (fun r : ℝ => d * r) s 1 = d := by
-    rw [mfderiv_eq_fderiv, hd.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hd.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ d
   have hchain := mfderiv_comp_apply s (f := fun r : ℝ => d * r) (g := gamma)
     hgamma hd.differentiableAt.mdifferentiableAt (1 : TangentSpace (𝓘(ℝ, ℝ)) s)

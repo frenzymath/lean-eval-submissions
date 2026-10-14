@@ -70,6 +70,8 @@ theorem flow_preserves_potential_differential_of_shift
     have heq : (f ∘ Φ t) =ᶠ[𝓝 x] (fun y => f y + t) := hshift
     unfold mvfderiv
     rw [heq.mfderiv_eq (I := 𝓡 n) (I' := 𝓘(ℝ, ℝ)), heq.eq_of_nhds]
+    ext v
+    rfl
   rw [he, mvfderiv_fun_add ((hf x).mdifferentiableAt (by simp))
     mdifferentiableAt_const, mvfderiv_const, add_zero] at hc
   exact (congrArg (fun L => L v) hc).symm

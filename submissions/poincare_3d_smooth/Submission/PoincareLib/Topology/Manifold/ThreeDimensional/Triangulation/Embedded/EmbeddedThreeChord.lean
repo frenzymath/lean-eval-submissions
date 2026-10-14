@@ -52,9 +52,11 @@ theorem exists_embedded_three_normal_chord_bound [T2Space M] [CompactSpace M] [N
         fderiv Real F x =
           (mfderiv (𝓡 3) (𝓘(Real, EuclideanSpace Real (Fin N))) e (c.symm x)).comp
             (mfderiv (𝓡 3) (𝓡 3) c.symm x) := by
-      rw [← mfderiv_eq_fderiv]
-      exact mfderiv_comp x ((hs.mdifferentiable (by simp)).mdifferentiableAt)
+      have hchain := mfderiv_comp x ((hs.mdifferentiable (by simp)).mdifferentiableAt)
         (hc.symm.mdifferentiableAt hx)
+      rw [mfderiv_eq_fderiv] at hchain
+      change fderiv Real F x = _ at hchain
+      exact hchain
     have hFi : Function.Injective (fderiv Real F (c p0)) := by
       rw [hderiv _ hx0]
       exact (hi (c.symm (c p0))).comp (hc.symm.mfderiv_injective hx0)
@@ -265,9 +267,11 @@ theorem embedded_three_nearest_normal
   have hderiv : fderiv Real F (c p) =
       (mfderiv (𝓡 3) (𝓘(Real, EuclideanSpace Real (Fin N))) e (c.symm (c p))).comp
         (mfderiv (𝓡 3) (𝓡 3) c.symm (c p)) := by
-    rw [← mfderiv_eq_fderiv]
-    exact mfderiv_comp _ ((hs.mdifferentiable (by simp)).mdifferentiableAt)
+    have hchain := mfderiv_comp _ ((hs.mdifferentiable (by simp)).mdifferentiableAt)
       (hc.symm.mdifferentiableAt hcp)
+    rw [mfderiv_eq_fderiv] at hchain
+    change fderiv Real F (c p) = _ at hchain
+    exact hchain
   have hT : (fderiv Real F (c p)).range = embeddedThreeTangent e p := by
     rw [hderiv]
     change LinearMap.range

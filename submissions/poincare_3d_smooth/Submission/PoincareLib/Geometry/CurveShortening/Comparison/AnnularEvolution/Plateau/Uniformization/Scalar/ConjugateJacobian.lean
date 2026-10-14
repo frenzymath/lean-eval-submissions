@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.Conjugate
 
 /-!
@@ -48,7 +49,7 @@ theorem scalar_gradient_energy_coordinates (H : Plane → ℝ) (x : Plane) :
           WithLp.ofLp (D.gradient H x) 1 := by
   have heq : mvfderiv (𝓡 2) H x (D.gradient H x) =
       fderiv ℝ H x (D.gradient H x) := by
-    simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   rw [D.inner_gradient, heq]
   exact M60.plane_form_apply (fderiv ℝ H x) (D.gradient H x)

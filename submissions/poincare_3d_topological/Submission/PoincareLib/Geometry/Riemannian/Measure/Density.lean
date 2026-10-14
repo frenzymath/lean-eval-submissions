@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Metric.Pullback
 import Mathlib.Analysis.Matrix.PosDef
 import Mathlib.LinearAlgebra.Matrix.BilinearForm
@@ -90,7 +91,7 @@ theorem pullbackVolumeDensity_comp (g : RiemannianMetric n M)
       mfderiv (𝓡 n) (𝓡 n) (f ∘ e) x v =
         mfderiv (𝓡 n) (𝓡 n) f (e x) (fderiv ℝ e x v) := by
     have h := mfderiv_comp_apply x hf he.mdifferentiableAt v
-    rw [mfderiv_eq_fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     convert! h using 1
   let b := (EuclideanSpace.basisFun (Fin n) ℝ).toBasis
   let A := (mfderiv (𝓡 n) (𝓡 n) f (e x)).toLinearMap

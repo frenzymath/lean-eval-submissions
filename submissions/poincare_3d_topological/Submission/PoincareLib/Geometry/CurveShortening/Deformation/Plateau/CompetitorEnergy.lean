@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.CompetitorGramBound
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Analysis.Plateau.Beltrami.Energy
 import Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap
@@ -81,7 +82,7 @@ theorem m65AreaGram_comp (g : RiemannianMetric 3 M)
       _ = _ := by rw [map_add, map_smul, map_smul]
   change m60AreaGram g (f ∘ φ) z = B.transpose * m60AreaGram g f (φ z) * B
   ext i j
-  simp only [m60AreaGram, mfderiv_comp z hf hφ.mdifferentiableAt, mfderiv_eq_fderiv]
+  simp only [m60AreaGram, mfderiv_comp z hf hφ.mdifferentiableAt, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change inner ℝ (d (A (b i))) (d (A (b j))) = _
   rw [hrep (A (b i)), hrep (A (b j))]
   simp only [inner_add_left, inner_add_right, real_inner_smul_left, real_inner_smul_right,

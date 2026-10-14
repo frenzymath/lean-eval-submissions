@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Smoothing.Local
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.CompactEnergy
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Hessian.Chart
@@ -72,7 +73,7 @@ private theorem chart_intrinsic_bounds (g : RiemannianMetric n M) (D : LeviCivit
       (extChartAt_target_mem_nhds' hz)
     have heq := congrArg (fun F => F v)
       (mfderiv_comp z (hf.mdifferentiableAt (by simp)) (hc.mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change fderiv ℝ (f ∘ c.symm) z v = mvfderiv (𝓡 n) f (c.symm z) (T v) at heq
     rw [← heq]
     exact (hfirst' v).trans (by

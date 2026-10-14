@@ -16,7 +16,6 @@ Morgan--Tian context: Lemma 19.15 and its annular area-to-energy construction, p
 noncomputable section
 set_option autoImplicit false
 set_option warningAsError true
-set_option backward.isDefEq.respectTransparency false
 
 open Set Metric MeasureTheory
 open scoped Topology
@@ -54,7 +53,9 @@ theorem m64Annulus_boundary_disk_preimage_ae {x r : ℝ}
   constructor
   · intro hmem
     change z ∈ closedBall (0 : LoopPlane) r ∩ {z | 0 ≤ z 1}
-    simpa only [add_sub_cancel_right] using m64Annulus_boundary_disk_sub_mem hmem
+    have hs := m64Annulus_boundary_disk_sub_mem (x := x) (r := r)
+      (p := z + annulusPoint x 0) hmem
+    simpa only [add_sub_cancel_right] using hs
   · intro hmem
     refine ⟨?_, hz hmem⟩
     simpa only [mem_closedBall, dist_eq_norm, add_sub_cancel_right, sub_zero] using hmem.1

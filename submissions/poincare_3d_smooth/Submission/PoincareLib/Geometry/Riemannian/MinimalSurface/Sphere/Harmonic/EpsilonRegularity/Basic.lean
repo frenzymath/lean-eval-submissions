@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Harmonic.EpsilonRegularity.MeanValue
 
 /-!
@@ -9,6 +10,7 @@ coefficient are retained in the local energy estimate.
 -/
 
 noncomputable section
+set_option maxHeartbeats 1000000
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 
@@ -211,7 +213,7 @@ private theorem euclideanGradient_basis
     change (RiemannianMetric.euclideanMetric 2).inner p (D.gradient q p)
       (EuclideanSpace.basisFun (Fin 2) ℝ i) = _
     rw [D.inner_gradient]
-    simp +instances only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp +instances only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   simpa only [hc] using h.symm
 
@@ -342,7 +344,7 @@ private theorem mapAlpha_divergence_lower
         (mfderiv (𝓡 2) (𝓡 n) φ r v) := by
     have h := mfderiv_comp r ((hchart r hr).mdifferentiableAt (by simp))
       ((hφ r).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     exact congrArg (fun L => L v) h
   have hpair (r : LoopPlane) (hr : r ∈ U) (v w : LoopPlane) :
       G (u r) (fderiv ℝ u r v) (fderiv ℝ u r w) = T r v w := by
@@ -424,7 +426,7 @@ private theorem mapAlpha_divergence_lower
     have hi : inner (E := LoopPlane) ℝ (D₀.gradient q r) v = fderiv ℝ q r v := by
       have h := D₀.inner_gradient q r v
       simp +instances only [RiemannianMetric.euclideanMetric_inner,
-        mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] at h
+        mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] at h
       exact h
     change inner (E := LoopPlane) ℝ (D₀.gradient q r) v +
       (2 * c / (lambda r * (rho ^ 2 + q r))) * T r (D₀.gradient q r) v = _

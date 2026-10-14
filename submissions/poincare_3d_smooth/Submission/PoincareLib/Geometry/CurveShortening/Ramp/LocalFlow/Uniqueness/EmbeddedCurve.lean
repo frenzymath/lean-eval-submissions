@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Data
 import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
@@ -54,7 +55,7 @@ theorem c2ShrinkingCurve_embedded_closed_data
     have hchain : fderiv ℝ (fun y => e (c y t)) x =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e (c x t)).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun y => c y t) x) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hc.spatial_regular t ht x).mdifferentiableAt (by norm_num))
     have hd := ((hspace t ht).differentiable (by norm_num) x).hasDerivAt
@@ -98,7 +99,7 @@ theorem c2ShrinkingCurve_embedded_interior_equation
   have hchain : fderiv ℝ (fun s => e (c x s)) t =
       (mfderiv (𝓡 n) 𝓘(ℝ, W) e (c x t)).comp
         (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun s => c x s) t) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp t (he.mdifferentiable (by simp)).mdifferentiableAt hct
   have heq := congrArg (fun L : ℝ →L[ℝ] W => L 1) hchain
   change deriv (fun s => e (c x s)) t =

@@ -92,8 +92,8 @@ theorem cauchySeq_lipschitzPartialL2_of_weak_divergence
       have hd := (memLp_top_fderiv_apply_of_lipschitzOn hO (hu m)
         (EuclideanSpace.single j 1)).sub
         (memLp_top_fderiv_apply_of_lipschitzOn hO (hu n) (EuclideanSpace.single j 1))
-      simpa only [pow_two, Pi.sub_apply] using hd.mul' (r := ∞) hd
-    exact hsum.mul' hp
+      simpa only [pow_two, Pi.sub_apply] using hd.fun_mul (r := ∞) hd
+    exact hp.fun_mul hsum
   have hnorm : ‖lipschitzPartialL2 hU ((hu m).mono hUO) i -
       lipschitzPartialL2 hU ((hu n).mono hUO) i‖ ^ 2 ≤ ∫ x in O, q x := by
     apply norm_toLp_sub_sq_le_integral hU.measurableSet hO.measurableSet hUO

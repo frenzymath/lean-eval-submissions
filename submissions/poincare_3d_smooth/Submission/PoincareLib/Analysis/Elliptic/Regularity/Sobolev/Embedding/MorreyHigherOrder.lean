@@ -137,7 +137,7 @@ private theorem opNorm_le_sum_basis
     rw [h_map_smul α, smul_eq_mul, abs_mul, mul_comm]
     refine mul_le_mul_of_nonneg_left ?_ (abs_nonneg _)
     rw [Finset.abs_prod]
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intros; exact abs_nonneg _
     · intros i _
       exact euclideanSpace_coord_abs_le_norm (v i) (α i)
@@ -221,10 +221,11 @@ private theorem norm_fderiv_iteratedFDeriv_apply_basisTuple_le
 
 omit [NeZero d] in
 private lemma eLpNorm_apply_basisTuple_le_eLpNorm_iteratedFDeriv
-    (u : E → ℝ) (m : ℕ) {p_e : ℝ≥0∞} {μ : Measure E} (α : Fin m → Fin d) :
+    (u : E → ℝ) (hu : ContDiff ℝ (⊤ : ℕ∞) u) (m : ℕ)
+    {p_e : ℝ≥0∞} {μ : Measure E} (α : Fin m → Fin d) :
     eLpNorm (fun y : E => (iteratedFDeriv ℝ m u y) (basisTuple α)) p_e μ ≤
       eLpNorm (fun y : E => ‖iteratedFDeriv ℝ m u y‖) p_e μ := by
-  apply eLpNorm_mono
+  apply eLpNorm_mono (contDiff_iteratedFDeriv_apply_basisTuple hu α).continuous.aestronglyMeasurable
   intro y
   rw [Real.norm_eq_abs]
   rw [show ‖‖iteratedFDeriv ℝ m u y‖‖ = ‖iteratedFDeriv ℝ m u y‖ from
@@ -240,6 +241,7 @@ private lemma eLpNorm_fderiv_apply_basisTuple_le_eLpNorm_iteratedFDeriv_succ
       p_e μ ≤
       eLpNorm (fun y : E => ‖iteratedFDeriv ℝ (m + 1) u y‖) p_e μ := by
   apply eLpNorm_mono
+    ((contDiff_iteratedFDeriv_apply_basisTuple hu α).continuous_fderiv (by simp)).norm.aestronglyMeasurable
   intro y
   rw [show ‖‖fderiv ℝ (fun z => (iteratedFDeriv ℝ m u z) (basisTuple α)) y‖‖ =
     ‖fderiv ℝ (fun z => (iteratedFDeriv ℝ m u z) (basisTuple α)) y‖ from
@@ -332,7 +334,7 @@ theorem smooth_morrey_iteratedFDeriv_bound_uniform
         (eLpNorm (g α) (ENNReal.ofReal p)
           (volume.restrict (Metric.ball x₀ R))).toReal ≤ Nm := by
       apply ENNReal.toReal_mono hNm_finite
-      exact eLpNorm_apply_basisTuple_le_eLpNorm_iteratedFDeriv u m α
+      exact eLpNorm_apply_basisTuple_le_eLpNorm_iteratedFDeriv u hu m α
     have h2 :
         (eLpNorm (fun z => ‖fderiv ℝ (g α) z‖) (ENNReal.ofReal p)
           (volume.restrict (Metric.ball x₀ R))).toReal ≤ Nm1 := by
@@ -1402,7 +1404,7 @@ theorem morrey_iteratedFDeriv_representative
     MeasureTheory.tendstoInMeasure_of_tendsto_eLpNorm
       (p := ENNReal.ofReal p) (l := Filter.atTop)
       (by simp [ENNReal.ofReal_eq_zero, not_le.mpr hp_pos])
-      hφ_ae_meas hχu_ae_meas h_eLp_tendsto'
+      h_eLp_tendsto'
   obtain ⟨ns, _hns_strict, hns_ae⟩ := h_in_measure.exists_seq_tendsto_ae
   have h_psi_one_R4 : ∀ x ∈ Metric.ball x₀ (R / 4), ψ x = 1 := fun x hx =>
     hψ_one x (Metric.ball_subset_closedBall hx)

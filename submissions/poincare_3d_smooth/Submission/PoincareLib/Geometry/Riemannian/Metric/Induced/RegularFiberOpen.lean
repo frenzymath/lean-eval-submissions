@@ -99,7 +99,7 @@ theorem mfderiv_gradient_openRegularFiberMetric
     ((contMDiff_openFiberIncl hf U hreg c x).mdifferentiableAt (by simp))
     ((hφ (openFiberIncl f U c x)).mdifferentiableAt (by simp))
     (openRegularFiberMetric_inner hf U hreg c g x)
-  rw [range_mfderiv_openFiberIncl hf U hreg c x,
+  simp only [range_mfderiv_openFiberIncl hf U hreg c x,
     ker_mfderiv_pi_eq_orthogonal_span_gradients g (fun i y => f y i)
       (contMDiff_pi_space.mp hf) (openFiberIncl f U c x)] at h
   exact h

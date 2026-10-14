@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.ReducedLength.RegularMeasure
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient
 import Mathlib.Topology.Algebra.MetricSpace.Lipschitz
@@ -159,7 +160,7 @@ theorem regular_sqrt_reducedLength_differential_bound {K : AncientKappaSolution 
         Real.sqrt ∘ (fun x => reducedLength K.flow 0 p x τ) from rfl,
       mvfderiv_comp q hsqrt.differentiableAt.mdifferentiableAt
         (hs.mdifferentiableAt (by simp))]
-    simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
     change (fderiv ℝ Real.sqrt l) _ = _
     rw [hsqrt.hasFDerivAt.fderiv]
     change (_ : ℝ) * _ = _ * _
@@ -261,7 +262,7 @@ theorem regular_sqrt_reducedLength_coordinate_derivative
     have h := mvfderiv_comp x (hf.mdifferentiableAt (by simp))
       (he.mdifferentiableAt (by simp))
     have hh := congrArg (fun A => A v) h
-    simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
       Function.comp_def] at hh
     exact hh
   rw [Real.norm_eq_abs, hchain]

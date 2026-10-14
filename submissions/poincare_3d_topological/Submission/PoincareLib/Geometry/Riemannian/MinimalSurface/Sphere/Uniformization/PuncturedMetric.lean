@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.LogarithmicPuncture
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.Compactification
 
@@ -285,7 +286,7 @@ theorem metricComplete_sphere_puncture
       fderiv ℝ (A ∘ m60SphereParameter) x v := by
     rw [← mvfderiv_comp_apply x (hA.mdifferentiable (by simp) _)
       (m60SphereParameter_contMDiff.mdifferentiable (by simp) _) v,
-      mvfderiv, mfderiv_eq_fderiv]
+      mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have heq : A ∘ m60SphereParameter = fun y => Real.exp (w y) :=
     funext (fun y => hAe _ (hp y))
@@ -309,13 +310,17 @@ theorem metricComplete_sphere_puncture
     rw [← Real.exp_add, neg_add_cancel, Real.exp_zero]
   rw [← mul_assoc, he, one_mul] at hc
   have hdR : mvfderiv (𝓡 2) rho x v = -fderiv ℝ w x v := by
-    rw [mvfderiv, mfderiv_eq_fderiv]
+    rw [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change fderiv ℝ (fun y => -w y) x v = _
     exact congrArg (fun L : Plane →L[ℝ] ℝ => L v) hdw.hasFDerivAt.neg.fderiv
   rw [hdR, abs_neg]
   change _ ≤ (B + 1) * G.tangentNorm x v
   calc
-    _ ≤ B * G.tangentNorm x v := by simpa only [hn, mul_left_comm] using hc
+    _ ≤ B * G.tangentNorm x v := by
+      rw [hn]
+      calc
+        _ ≤ Real.exp (-w x) * (B * g.tangentNorm (m60SphereParameter x) (L v)) := hc
+        _ = _ := by ring
     _ ≤ _ := mul_le_mul_of_nonneg_right (by linarith) (Real.sqrt_nonneg _)
 
 /-- Every actual smooth sphere metric has global conformal developing

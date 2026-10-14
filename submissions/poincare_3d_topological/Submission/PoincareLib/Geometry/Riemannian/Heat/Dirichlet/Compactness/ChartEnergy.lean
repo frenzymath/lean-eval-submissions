@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Heat.Dirichlet.Resolvent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Green.ChartSupport
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Green.ChangeOfVariables
@@ -59,7 +60,7 @@ theorem fderiv_chartPullback_apply
   have h := congrArg (fun L => L v) (mvfderiv_comp x
     ((hf (e x)).mdifferentiableAt (by simp))
     ((he.contMDiffAt (e.open_source.mem_nhds hx)).mdifferentiableAt (by simp)))
-  simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] at h
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] at h
   convert! h using 1
 
 omit [MeasurableSpace M] [BorelSpace M] [T3Space M] in

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Poincare.Final.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Blowup.Controls.BlowupControlsCapMetricError
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Cylinder.Curvature.CylinderLeviCivita
@@ -76,7 +77,7 @@ theorem cap_covariantTensorDerivative_coordinates
   have h := M04.covariantTensorDerivativeOnFields_eq D hT isOpen_univ hX (mem_univ x)
   rw [← h]
   unfold M04.covariantTensorDerivativeOnFields
-  simp only [X, mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+  simp only [X, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
   congr 1
   apply Finset.sum_congr rfl
   intro i _

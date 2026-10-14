@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.ThreeDimensional.Noncompact.Rigidity.Levels.Graph.Implicit
 import Submission.PoincareLib.Geometry.Manifold.RegularLevel.Equivalence
 
@@ -83,7 +84,7 @@ theorem graphSlab_regular {ε : ℝ}
     (mdifferentiableAt_id.prodMk (mdifferentiableAt_const (c := y)))
   change mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun r ↦ F (r, y)) s = _ at hcomp
   simp only [id_eq] at hcomp
-  rw [hzero, ContinuousLinearMap.zero_comp, mfderiv_eq_fderiv] at hcomp
+  rw [hzero, ContinuousLinearMap.zero_comp, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
   have hd : deriv (fun r ↦ F (r, y)) s = 0 := by
     rw [← fderiv_apply_one_eq_deriv, hcomp, zero_apply]
   exact (hpos y s hp.1).ne' hd

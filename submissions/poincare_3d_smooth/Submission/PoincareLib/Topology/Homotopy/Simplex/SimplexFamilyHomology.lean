@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Simplex.SimplexPrism
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Chains.IntegralChains
 
@@ -22,9 +23,9 @@ theorem singularSimplexFamily_cycle_homology_factorization
     {C : Type u} [Category.{v} C] [Preadditive C] [HasCoproducts.{w} C]
     [CategoryWithHomology C] (R : C) (X : TopCat.{w}) (x : X) {n : ℕ}
     (r : (TopCat.toSSet.obj X) _⦋n + 1⦌ → (TopCat.toSSet.obj X) _⦋n + 1⦌)
-    (H : ∀ s, ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ (r s)))
+    (H : ∀ s, ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ (r s)))
     (K : ∀ s : (TopCat.toSSet.obj X) _⦋n⦌,
-      ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (ContinuousMap.const _ x))
+      ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (ContinuousMap.const _ x))
     (hface : ∀ s (i : Fin (n + 2)),
       (TopCat.toSSet.obj X).δ i (r s) = singularConstantSimplex X n x)
     (htrace : ∀ s (i : Fin (n + 2)) (t : unitInterval) (a : stdSimplex ℝ (Fin (n + 1))),
@@ -50,7 +51,7 @@ theorem singularSimplexFamily_cycle_homology_factorization
   have hTbasis (s : Y _⦋n + 1⦌) : Y.ιChainComplex s ≫ T = Y.ιChainComplex (r s) :=
     Sigma.ι_desc (fun a => Y.ιChainComplex (r a)) s
   have hconst (s : Y _⦋n + 1⦌) : f.app _ s = singularConstantSimplex X (n + 1) x := by
-    apply (X.toSSetObjEquiv _).injective
+    apply (X.toLegacySSetObjEquiv _).injective
     ext a
     rfl
   have hD : D ≫ Cx.iCycles (n + 1) = T - U.f (n + 1) := by
@@ -67,7 +68,7 @@ theorem singularSimplexFamily_cycle_homology_factorization
     exact (Sigma.ι_desc
       (fun a => singularSimplexHomologyClass R X (r a) x (hface a)) s).symm
   let K' (s : Y _⦋n⦌) := (K s).cast rfl
-    (show ContinuousMap.const _ x = X.toSSetObjEquiv _ (singularConstantSimplex X n x) by
+    (show ContinuousMap.const _ x = X.toLegacySSetObjEquiv _ (singularConstantSimplex X n x) by
       simp only [singularConstantSimplex, Equiv.apply_symm_apply])
   let B := z ≫ singularSimplexFamilyPrism R X r H
   have hB : z - z ≫ T = B ≫ Cx.d (n + 2) (n + 1) :=

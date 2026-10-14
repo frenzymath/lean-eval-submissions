@@ -216,7 +216,6 @@ theorem axial_pairing_error {x : M} (hx : x ∈ N.carrier)
   rw [N.axial_mvfderiv_eq_coordinate_inverse hx v]
   simp only [map_smul, smul_eq_mul]
   convert h using 1
-  congr 6
 
 /-- The squared ambient norm of the actual scaled axial vector differs from
 one by at most epsilon, at every point of the neck. -/

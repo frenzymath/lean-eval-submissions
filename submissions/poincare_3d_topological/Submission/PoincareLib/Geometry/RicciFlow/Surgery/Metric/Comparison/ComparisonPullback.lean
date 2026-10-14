@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Comparison.ComparisonChart
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Comparison.Jets.ComparisonSmoothJets
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Neck.CenteredNeckMetric
@@ -36,7 +37,7 @@ theorem pullbackCoefficients_comp (g : RiemannianMetric 3 M)
         (fderiv ℝ k p) (fderiv ℝ k p) := by
   have hcomp := mfderiv_comp p (hf.mdifferentiableAt (by simp))
     (hk.contMDiffAt.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hcomp
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
   apply ContinuousLinearMap.ext
   intro v
   apply ContinuousLinearMap.ext
@@ -55,7 +56,7 @@ theorem pullbackCoefficients_dilation (g : RiemannianMetric 3 M)
     (contDiff_id.const_smul a).contMDiff.contMDiffAt
   have hder : mfderiv (𝓡 3) (𝓡 3) (fun x : E₃ => a • x) p =
       a • ContinuousLinearMap.id ℝ E₃ := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact ((hasFDerivAt_id p).const_smul a).fderiv
   have hcomp : mfderiv (𝓡 3) (𝓡 3) (fun x => f (a • x)) p =
       (mfderiv (𝓡 3) (𝓡 3) f (a • p)).comp (a • ContinuousLinearMap.id ℝ E₃) := by

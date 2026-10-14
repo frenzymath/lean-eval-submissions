@@ -14,7 +14,6 @@ Morgan--Tian context: Lemma 19.15 and its annular area-to-energy construction, p
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 

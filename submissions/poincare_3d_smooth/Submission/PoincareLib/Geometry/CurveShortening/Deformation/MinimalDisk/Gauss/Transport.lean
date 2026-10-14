@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.Gauss.Equation
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.Pullback
 
@@ -59,7 +60,7 @@ theorem gauss_curvatureTensor_transport
       mfderiv (𝓡 m) (𝓡 n) (ψ ∘ G) y =
         (mfderiv (𝓡 n) (𝓡 n) ψ (G y)).comp (fderiv ℝ G y) := by
     rw [mfderiv_comp y (hψy.mdifferentiableAt (by simp))
-      (hGy.contMDiffAt.mdifferentiableAt (by simp)), mfderiv_eq_fderiv]
+      (hGy.contMDiffAt.mdifferentiableAt (by simp)), Poincare.Compatibility.mfderiv_eq_fderiv_model]
   have hcont : ContinuousAt G x := hG.self_of_nhds.continuousAt
   have hcoord : ∀ᶠ y in 𝓝 x, ∀ u v : EuclideanSpace ℝ (Fin m),
       h.inner y u v = gE.inner (G y) (fderiv ℝ G y u) (fderiv ℝ G y v) := by

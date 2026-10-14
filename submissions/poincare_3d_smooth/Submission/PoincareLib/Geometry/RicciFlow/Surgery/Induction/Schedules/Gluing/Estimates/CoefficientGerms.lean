@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Metric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Induction.Schedules.Gluing.Construction.TransitionChart
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Induction.Schedules.Gluing.Estimates.CylinderCoefficients
@@ -42,7 +43,7 @@ theorem pullbackCoefficients_comp_bilinear
   change g.inner (f (a x)) (mfderiv (𝓡 3) (𝓡 3) (f ∘ a) x v)
     (mfderiv (𝓡 3) (𝓡 3) (f ∘ a) x w) = _
   rw [mfderiv_comp x (hf.mdifferentiableAt (by simp))
-    (ha.contMDiffAt.mdifferentiableAt (by simp)), mfderiv_eq_fderiv]
+    (ha.contMDiffAt.mdifferentiableAt (by simp)), Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rfl
 
 /-- Centered bilinear reconstruction preserves a constant tensor factor.

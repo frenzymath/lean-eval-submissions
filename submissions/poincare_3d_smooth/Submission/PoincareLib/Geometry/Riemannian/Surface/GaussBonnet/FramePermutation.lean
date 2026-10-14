@@ -40,7 +40,6 @@ theorem trianglePermutationOrientation_cyclic (k : Fin 3) :
     trianglePermutationOrientation (Equiv.addRight k) = 1 := by
   fin_cases k <;> norm_num [trianglePermutationOrientation, standardTriangleVertex,
     Equiv.addRight, Fin.neg_def, Fin.add_def, Matrix.cons_val]
-  rfl
 
 variable {S : Type*} [TopologicalSpace S]
   [ChartedSpace (EuclideanSpace ℝ (Fin 2)) S] [IsManifold (𝓡 2) ∞ S]

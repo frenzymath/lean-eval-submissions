@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.Polar.Derivatives
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Estimates
@@ -36,7 +37,7 @@ theorem m63AngularFirstJet_eq_c1LoopTangent (gamma : C1FreeLoopSpace (M := M)) (
   have hg : MDifferentiableAt (𝓡 2) (𝓡 3) gamma.extension (angularPoint x) :=
     (contMDiffAt_loop_extension gamma.regularity z).mdifferentiableAt one_ne_zero
   have hd : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) angularPoint x 1 = angularVector x := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
       (hasDerivAt_angularPoint x).deriv
   have hv : curveVelocity (n := 3) (periodicFreeLoop gamma) x =
       mfderiv (𝓡 2) (𝓡 3) gamma.extension z.1 (loopCircleTangent z) := by

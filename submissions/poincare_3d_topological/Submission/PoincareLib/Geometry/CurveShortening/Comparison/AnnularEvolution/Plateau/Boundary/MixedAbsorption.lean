@@ -69,8 +69,8 @@ theorem m64NaturalGrowth_mixed_diffQuot_absorb
     xi x ^ 2 * diffQuot 0 h (du a i) x + 2 * xi x * dxi i x * U a x
   have hUc (a : Fin n) : Continuous (U a) := continuous_diffQuot_of_continuous 0 h (hu a)
   have hAc (a : Fin n) (i : Fin 2) : MemLp (A a i) 2 volume :=
-    (M60.suWeakMap_diffQuot_memLp (hdu a i) 0 h).mul'
-      (hxi.continuous.memLp_of_hasCompactSupport hc : MemLp xi ⊤ volume)
+    (hxi.continuous.memLp_of_hasCompactSupport hc : MemLp xi ⊤ volume).fun_mul
+      (M60.suWeakMap_diffQuot_memLp (hdu a i) 0 h)
   have hJc (a : Fin n) (i : Fin 2) : MemLp (J a i) 2 volume :=
     (((hxi.continuous_fderiv (by simp)).clm_apply continuous_const).mul (hUc a)
       ).memLp_of_hasCompactSupport ((hc.fderiv_apply (𝕜 := ℝ) _).mul_right)
@@ -80,11 +80,9 @@ theorem m64NaturalGrowth_mixed_diffQuot_absorb
   have hV (a : Fin n) : MemLp (V a) ⊤ volume :=
     ((hxi.continuous.pow 2).mul (hUc a)).memLp_of_hasCompactSupport hxic.mul_right
   have hDV (a : Fin n) (i : Fin 2) : MemLp (DV a i) 2 volume := by
-    have hf : MemLp (fun x => xi x * A a i x) 2 volume := (hAc a i).mul'
-      (hxi.continuous.memLp_of_hasCompactSupport hc : MemLp xi ⊤ volume)
-    have hg : MemLp (fun x => (2 * xi x) * J a i x) 2 volume := (hJc a i).mul'
-      ((continuous_const.mul hxi.continuous).memLp_of_hasCompactSupport hc.mul_left :
-        MemLp (fun x => 2 * xi x) ⊤ volume)
+    have hf : MemLp (fun x => xi x * A a i x) 2 volume := (hxi.continuous.memLp_of_hasCompactSupport hc : MemLp xi ⊤ volume).fun_mul (hAc a i)
+    have hg : MemLp (fun x => (2 * xi x) * J a i x) 2 volume := ((continuous_const.mul hxi.continuous).memLp_of_hasCompactSupport hc.mul_left :
+        MemLp (fun x => 2 * xi x) ⊤ volume).fun_mul (hJc a i)
     convert hf.add hg using 1
     funext x
     dsimp only [A, J, DV, Pi.add_apply]
@@ -92,7 +90,7 @@ theorem m64NaturalGrowth_mixed_diffQuot_absorb
   have hsquare {v : LoopPlane → ℝ} (hv : MemLp v 2 volume) :
       Integrable (fun x => W x * v x ^ 2) := by
     have hsq : MemLp (fun x => v x ^ 2) 1 volume := by simpa only [pow_two] using hv.mul' hv
-    exact memLp_one_iff_integrable.mp (hsq.mul' hW)
+    exact memLp_one_iff_integrable.mp (hW.fun_mul hsq)
   have hweighted (f : Fin n → Fin 2 → LoopPlane → ℝ) (hf : ∀ a i, MemLp (f a i) 2 volume) :
       Integrable (fun x => W x * ∑ a : Fin n, ∑ i : Fin 2, f a i x ^ 2) := by
     simp_rw [Finset.mul_sum]
@@ -106,29 +104,26 @@ theorem m64NaturalGrowth_mixed_diffQuot_absorb
       hc.mul_right.of_isClosed_subset (isClosed_tsupport _)
         (tsupport_comp_subset (g := fun s : ℝ => s ^ 2) (by simp) (fun x => xi x * U a x))
     exact memLp_one_iff_integrable.mp
-      ((hcont.memLp_of_hasCompactSupport hsupp : MemLp _ ⊤ volume).mul'
-        (memLp_one_iff_integrable.mpr hH))
+      ((memLp_one_iff_integrable.mpr hH).fun_mul
+        (hcont.memLp_of_hasCompactSupport hsupp : MemLp _ ⊤ volume))
   have hKI : Integrable (fun x => H x * xi x ^ 2) :=
     memLp_one_iff_integrable.mp
-      (((hxi.continuous.pow 2).memLp_of_hasCompactSupport hxic : MemLp _ ⊤ volume).mul'
-        (memLp_one_iff_integrable.mpr hH))
+      ((memLp_one_iff_integrable.mpr hH).fun_mul
+        ((hxi.continuous.pow 2).memLp_of_hasCompactSupport hxic : MemLp _ ⊤ volume))
   let L (x : LoopPlane) := ∑ a : Fin n, ∑ i : Fin 2, diffQuot 0 h (F a i) x * DV a i x
   let T (x : LoopPlane) := ∑ a : Fin n, diffQuot 0 h (b a) x * V a x
   have hLI : Integrable L := integrable_finsetSum _ fun a _ =>
     integrable_finsetSum _ fun i _ => memLp_one_iff_integrable.mp
-      ((hDV a i).mul' (M60.suWeakMap_diffQuot_memLp (hF a i) 0 h))
+      ((M60.suWeakMap_diffQuot_memLp (hF a i) 0 h).fun_mul (hDV a i))
   have hTI : Integrable T := integrable_finsetSum _ fun a _ =>
-    memLp_one_iff_integrable.mp ((hV a).mul'
-      (M60.suWeakMap_diffQuot_memLp (memLp_one_iff_integrable.mpr (hb a)) 0 h))
+    memLp_one_iff_integrable.mp ((M60.suWeakMap_diffQuot_memLp (memLp_one_iff_integrable.mpr (hb a)) 0 h).fun_mul (hV a))
   have hequal : (∫ x, L x) = ∫ x, T x := by
     rw [show L = fun x => ∑ a : Fin n, ∑ i : Fin 2,
         diffQuot 0 h (F a i) x * DV a i x from rfl,
       integral_finsetSum _ (fun a _ => integrable_finsetSum _ fun i _ =>
-        memLp_one_iff_integrable.mp ((hDV a i).mul'
-          (M60.suWeakMap_diffQuot_memLp (hF a i) 0 h))),
+        memLp_one_iff_integrable.mp ((M60.suWeakMap_diffQuot_memLp (hF a i) 0 h).fun_mul (hDV a i))),
       show T = fun x => ∑ a : Fin n, diffQuot 0 h (b a) x * V a x from rfl,
-      integral_finsetSum _ (fun a _ => memLp_one_iff_integrable.mp ((hV a).mul'
-        (M60.suWeakMap_diffQuot_memLp (memLp_one_iff_integrable.mpr (hb a)) 0 h)))]
+      integral_finsetSum _ (fun a _ => memLp_one_iff_integrable.mp ((M60.suWeakMap_diffQuot_memLp (memLp_one_iff_integrable.mpr (hb a)) 0 h).fun_mul (hV a)))]
     apply Finset.sum_congr rfl
     intro a _
     exact m64NaturalGrowth_mixed_nirenberg_identity (dirichlet a) hO (hF a) (hb a)

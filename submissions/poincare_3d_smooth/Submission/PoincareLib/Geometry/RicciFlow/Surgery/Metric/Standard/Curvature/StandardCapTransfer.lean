@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Curvature.StandardCapMultiplier
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Construction.SurgeryMetric
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.LocalIsometry
@@ -184,7 +185,7 @@ theorem mvfderiv_scalar_profile_germ {F s : X → ℝ} {phi : ℝ → ℝ} {x : 
     mvfderiv (𝓡 n) F x a = deriv phi (s x) * mvfderiv (𝓡 n) s x a := by
   have hd : mvfderiv (𝓡 n) F x = mvfderiv (𝓡 n) (phi ∘ s) x := heq.mfderiv_eq
   rw [hd, mvfderiv_comp_apply x hphi.mdifferentiableAt hs a]
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
   exact fderiv_eq_deriv_mul (𝕜 := ℝ)
 
 /-- The same scalar germ determines the gradient using the retained metric. -/

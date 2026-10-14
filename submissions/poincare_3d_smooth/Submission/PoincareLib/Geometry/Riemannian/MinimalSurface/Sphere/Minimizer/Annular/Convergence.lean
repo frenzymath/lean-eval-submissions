@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Compactness.Target
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Harmonic.EpsilonRegularity.Decay
 import Mathlib.Topology.UniformSpace.CompactConvergence
@@ -25,6 +26,7 @@ namespace PoincareMT.M60
 variable {n : ℕ} {M : Type*} [TopologicalSpace M]
   [ChartedSpace (EuclideanSpace ℝ (Fin n)) M] [IsManifold (𝓡 n) ∞ M]
 
+set_option synthInstance.maxHeartbeats 100000 in
 /-- Reading actual target coordinates forces the observation differential
 to be injective, with no inverse smoothness assumption on a merely
 topological embedding. Source: SU compactness in target coordinates. -/
@@ -38,12 +40,13 @@ theorem suChartReadable_differential_injective
   have hchain (w : TangentSpace (𝓡 n) p) :
       mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b) p w =
         L (mfderiv (𝓡 n) (𝓡 d) e p w) := by
-    rw [← hL.mfderiv_eq (I := 𝓡 n) (I' := 𝓡 n)]
     have h := mfderiv_comp_apply p
       L.hasFDerivAt.hasMFDerivAt.mdifferentiableAt ((he p).mdifferentiableAt (by simp)) w
-    erw [mfderiv_eq_fderiv, L.fderiv] at h
-    change (mfderiv (𝓡 n) (𝓡 n) (fun q => L (e q)) p w : EuclideanSpace ℝ (Fin n)) = _
-    exact h
+    erw [Poincare.Compatibility.mfderiv_eq_fderiv_model, L.fderiv] at h
+    have htransport := hL.mfderiv_eq (I := 𝓡 n) (I' := 𝓡 n)
+    have hder : mfderiv (𝓡 n) (𝓡 n) (fun q => L (e q)) p =
+        mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b) p := htransport
+    exact (congrArg (fun A => A w) hder).symm.trans h
   rw [hchain, hchain, huv]
 
 /-- Uniform observation values recover the actual target compact-open
@@ -97,7 +100,7 @@ theorem suObservation_metric_derivative_bound [CompactSpace M] [T2Space M]
   have h := hbound (f z) W
   have hchain := mfderiv_comp_apply z ((he (f z)).mdifferentiableAt (by simp))
     ((hf z).mdifferentiableAt one_ne_zero) w
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   rw [← hchain] at h
   have hw : g.inner (f z) W W = ‖W‖ ^ 2 := real_inner_self_eq_norm_sq W
   rw [hw] at h

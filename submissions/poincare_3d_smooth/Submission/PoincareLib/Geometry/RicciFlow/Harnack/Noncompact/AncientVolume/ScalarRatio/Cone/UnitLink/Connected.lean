@@ -15,7 +15,6 @@ pairs by inserting a nearby third direction.
 
 noncomputable section
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter PoincareMT
 open scoped Topology Manifold ContDiff

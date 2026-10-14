@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Coarea.Gram
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Density
 import Submission.PoincareLib.Geometry.Riemannian.Metric.Gradient
@@ -78,7 +79,7 @@ theorem inner_gradient_levelCoordinates
       (mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) e x v) = v 0 := by
   rw [g.inner_gradient]
   have h := congrArg (fun L => L v) (mvfderiv_comp x hf he)
-  simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] at h
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] at h
   change fderiv ℝ (fun y => f (e y)) x v =
     mvfderiv (𝓡 (n + 1)) f (e x)
       (mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) e x v) at h

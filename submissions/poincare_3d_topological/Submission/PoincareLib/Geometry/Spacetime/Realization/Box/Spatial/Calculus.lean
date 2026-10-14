@@ -25,7 +25,12 @@ theorem mfderiv_openSubtype_val {E : Type*} [NormedAddCommGroup E] [NormedSpace 
   rw [hd.mfderiv]
   have hderiv := heq.symm.fderiv_eq (𝕜 := ℝ)
   have hx : chartAt E x x = x.val := rfl
-  simpa only [writtenInExtChartAt, extChartAt, mfld_simps, fderivWithin_univ, fderiv_id, hx]
-    using hderiv
+  have hn : fderiv ℝ (Subtype.val ∘ (chartAt E x).symm) x.val =
+      ContinuousLinearMap.id ℝ E := by simpa only [fderiv_id] using hderiv
+  simp only [writtenInExtChartAt, extChartAt, mfld_simps, fderivWithin_univ, hx]
+  rw [hn]
+  ext v
+  rfl
+
 
 end Poincare.Spacetime.Realization

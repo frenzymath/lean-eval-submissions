@@ -284,7 +284,8 @@ theorem regular_on_open_cylindrical_belt (D : SphereSurgeryCoreCap v g B)
   change mfderiv (𝓡 2) 𝓘(Real, Real) h p = 0 at hzero
   rw [hzero, ContinuousLinearMap.zero_comp] at hchain
   have hbad := congrArg (fun L : E1 × Real →L[Real] Real => L (0, 1)) hchain
-  norm_num at hbad
+  change (1 : Real) = 0 at hbad
+  exact one_ne_zero hbad
 
 /-- Regularity on the uniform inner subcollar. -/
 theorem regular_on_cylindrical_belt (D : SphereSurgeryCoreCap v g B)

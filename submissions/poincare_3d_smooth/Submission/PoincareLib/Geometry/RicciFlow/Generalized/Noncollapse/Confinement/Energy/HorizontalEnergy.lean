@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Variation.Basic
 import Submission.PoincareLib.Geometry.Spacetime.Horizontal.Theory
 import Mathlib.Analysis.Calculus.Deriv.Mul
@@ -81,12 +82,21 @@ theorem hasDerivAt_horizontal_energy
       deriv (fun r => E.extension r (γ s)) s = d := by
     -- This construction retains the topology used by E.parameter_derivative.
     let g := G.spacetime.horizontalMetric.toRiemannianMetric
-    let : NormedAddCommGroup (G.Horizontal (γ s)) :=
-      (g.toCore (γ s)).toNormedAddCommGroupOfTopology
-        (g.continuousAt (γ s)) (g.isVonNBounded (γ s))
-    let : NormedSpace ℝ (G.Horizontal (γ s)) :=
-      (g.toCore (γ s)).toNormedSpaceOfTopology
-        (g.continuousAt (γ s)) (g.isVonNBounded (γ s))
+    -- Freeze the original topological module before installing the metric norm.
+    let horizontalAdd : AddCommGroup (G.spacetime.Horizontal (γ s)) := inferInstance
+    let horizontalModule : Module ℝ (G.spacetime.Horizontal (γ s)) := inferInstance
+    let horizontalTopology : TopologicalSpace (G.spacetime.Horizontal (γ s)) := inferInstance
+    let horizontalTopologicalAdd : IsTopologicalAddGroup (G.spacetime.Horizontal (γ s)) := inferInstance
+    let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.spacetime.Horizontal (γ s)) := inferInstance
+    let metricCore := g.toCore (γ s)
+    have metricContinuous := g.continuousAt (γ s)
+    have metricBounded := g.isVonNBounded (γ s)
+    let : NormedAddCommGroup (G.spacetime.Horizontal (γ s)) :=
+      metricCore.toNormedAddCommGroupOfTopology metricContinuous metricBounded
+    let : NormedSpace ℝ (G.spacetime.Horizontal (γ s)) :=
+      @InnerProductSpace.Core.toNormedSpaceOfTopology ℝ (G.spacetime.Horizontal (γ s)) _
+        horizontalAdd horizontalModule metricCore horizontalTopology
+        horizontalTopologicalAdd horizontalContinuousSMul metricContinuous metricBounded
     refine ⟨?_, hd.deriv⟩
     have hp := ContinuousLinearMap.hasDerivAt_of_bilinear
       (B := G.spacetime.horizontalMetric.inner (γ s))
@@ -110,7 +120,7 @@ theorem hasDerivAt_horizontal_energy
   have hscalar : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun r => f (r, γ s)) s 1 =
       2 * G.spacetime.horizontalMetric.inner (γ s) d (Y s) := by
     exact (congrArg (fun L : ℝ →L[ℝ] ℝ => L 1)
-      (mfderiv_eq_fderiv (f := fun r => f (r, γ s)) (x := s))).trans hparam.deriv
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := fun r => f (r, γ s)) (x := s))).trans hparam.deriv
   have htotal : HasDerivAt (fun r => f (r, γ r))
       (2 * G.spacetime.horizontalMetric.inner (γ s) d (Y s) +
         mvfderiv (spacetimeModel n) (fun p => f (s, p)) (γ s)

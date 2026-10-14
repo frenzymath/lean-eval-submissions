@@ -156,7 +156,13 @@ theorem exists_local_isometry_of_spherical_exponentials
       ((hAi.contMDiffAt (A.open_target.mem_nhds hpA)).mdifferentiableAt (by simp))
     change ((mfderiv (𝓡 n) (𝓡 n) (B ∘ A.symm) p).comp
       (mfderiv (𝓡 n) (𝓡 n) e 0)) = mfderiv (𝓡 n) (𝓡 n) f 0
-    rw [hchain, hAip, ← hAe'.mfderiv_eq, ← hBf'.mfderiv_eq,
+    have hAeD : (mfderiv (𝓡 n) (𝓡 n) A 0 :
+        EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) =
+        mfderiv (𝓡 n) (𝓡 n) e 0 := hAe'.mfderiv_eq.trans (by ext v; rfl)
+    have hBfD : (mfderiv (𝓡 n) (𝓡 n) B 0 :
+        EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) =
+        mfderiv (𝓡 n) (𝓡 n) f 0 := hBf'.mfderiv_eq.trans (by ext v; rfl)
+    rw [hchain, hAip, ← hAeD, ← hBfD,
       ContinuousLinearMap.comp_assoc]
     rw [hAp] at hinv
     rw [hinv, ContinuousLinearMap.comp_id]

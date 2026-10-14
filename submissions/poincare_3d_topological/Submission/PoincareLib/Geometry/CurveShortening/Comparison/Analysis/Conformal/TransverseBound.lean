@@ -46,7 +46,7 @@ theorem m64Conformal_transverse_bound {ι : Type*} [Fintype ι]
         by_cases hij : i = j <;> simp only [hij, ite_true, ite_false, A,
           add_zero, zero_add]
       _ = A + T := by rw [Finset.sum_add_distrib]; simp only [Finset.sum_ite_eq',
-          Finset.mem_univ, if_true, T]
+          Finset.mem_univ, ite_true, T]
   have hfactor : G v v ≤ upper * T := by
     by_cases hzero : A = 0
     · have hv : ‖v‖ ^ 2 ≤ T := by
@@ -67,7 +67,7 @@ theorem m64Conformal_transverse_bound {ι : Type*} [Fintype ι]
         · subst i
           simp only [ite_true, mul_comm (w j) (v j), sub_self, zero_pow two_ne_zero,
             mul_zero, le_refl]
-        · rw [if_neg hij]
+        · rw [ite_eq_right hij]
           dsimp only [A]
           nlinarith [sq_nonneg (v j * v i + w j * w i)]
       have hqnorm : ‖q‖ ^ 2 ≤ A * T := by

@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-10-14T00:47:09.977979+00:00",
+  "builds": {
+    "smooth_normal_full": {
+      "status": "success",
+      "log": "smooth-full-build.tail.log",
+      "source_receipt": "smooth-full-build.sources.json",
+      "source_sha256": "6aa920b5dfea059b85e26ff62f7deb0f1aa0de1c334fc5319df2c5c97891b821",
+      "completion": "Build completed successfully (32522 jobs)."
+    },
+    "topological_verified_incremental": {
+      "status": "success",
+      "log": "topological-incremental-build.tail.log",
+      "source_receipt": "topological-incremental-build.sources.json",
+      "source_sha256": "dd97a1e39d4f53c56ee470867b9c9c0717259967082171012d37214c594253a3",
+      "completion": "Build completed successfully (32522 jobs)."
+    },
+    "final_verifier": {
+      "status": "topological passed; smooth pending",
+      "topological": {
+        "status": "passed",
+        "attempt": "20261014-013145-3658528",
+        "acceptance": [
+          "Comparator statement and permitted-axiom checks completed",
+          "Nanoda kernel accepts the solution",
+          "Lean default kernel accepts the solution",
+          "Your solution is okay!"
+        ],
+        "receipt": "topological-verifier-success.json",
+        "source_receipt": "topological-verifier-success.sources.json",
+        "log": "topological-verifier-success.tail.log",
+        "exit_code": null,
+        "exit_code_note": "Terminal log acceptance recorded; original session is no longer registered."
+      },
+      "smooth": {
+        "status": "pending",
+        "note": "Current smooth endpoint root rebuild and official verifier in progress."
+      },
+      "historical_failed_attempts": [
+        "verifier-attempt.tail.log",
+        "verifier-statement-mismatch.tail.log"
+      ]
+    }
+  },
+  "negative_control": {
+    "status": "passed",
+    "receipt": "shim-negative-control-results.json",
+    "both_modes_returncode": 1,
+    "statement": "example : False := by decide"
+  },
+  "reviews": {
+    "packaging": "final-packaging-trust-audit.json",
+    "source_hashes": "source-hashes.json",
+    "helper_reuse": "helper-reuse-independent-review.md",
+    "tangent_metric": "root-final-tangent-distance-independent-review.md",
+    "mmap": "mmap-fallback-independent-review.md"
+  },
+  "canonical_instance_repair": {
+    "topological_root_build": "success",
+    "source_receipt": "topological-canonical-root-build.sources.json",
+    "explicit_type_dump_equal": true,
+    "comparison": "diagnostic-topo-canonical-type-Challenge.log == diagnostic-topo-canonical-type-Solution.log",
+    "scope": "Both editable Submission.lean files prefer unchanged canonical instTopologicalSpaceSubtype at exported instance priority 1100; helper payloads and trusted templates unchanged.",
+    "full_official_retest": {
+      "topological": "passed Comparator, Nanoda and Lean default kernel",
+      "smooth": "running"
+    },
+    "smooth_current_root_rebuild": "success",
+    "smooth_source_receipt": "smooth-canonical-root-build.sources.json"
+  },
+  "updated_at": "2026-10-13T17:32:30.676146+00:00"
+}

@@ -70,8 +70,9 @@ private theorem section_bracket_coordinates
     have heqp : (zc ∘ φ.symm) (φ p) =
         mpullbackWithin 𝓘(ℝ, E) I φ.symm Z (range I) (φ p) := by
       exact heq.eq_of_nhdsWithin (mem_range_self (chartAt H p p))
-    simpa only [writtenInExtChartAt, extChartAt_model_space_eq_id,
-      PartialEquiv.refl_coe, Function.id_comp] using (heq.fderivWithin_eq heqp).symm
+    convert! (heq.fderivWithin_eq heqp).symm using 1 <;>
+      simp only [writtenInExtChartAt, extChartAt_model_space_eq_id,
+        PartialEquiv.refl_coe, Function.id_comp]
   simp only [mlieBracket, mlieBracketWithin_apply, preimage_univ, univ_inter,
     mfderiv_extChartAt_self, ContinuousLinearMap.inverse_id,
     lieBracketWithin]
@@ -133,6 +134,7 @@ theorem mlieBracket_prod_snd
       (ContinuousLinearMap.snd ℝ E E').differentiableAt.mdifferentiableAt
       (hc.mdifferentiableAt (by simp)) w
     rw [mfderiv_eq_fderiv, ContinuousLinearMap.fderiv] at hd
+    dsimp [NormedSpace.fromTangentSpace, tangentSpaceCastModel] at hd
     change mfderiv (I.prod J) 𝓘(ℝ, E') (fun q => (coord Z q).2) p w =
       (mfderiv (I.prod J) 𝓘(ℝ, E × E') (coord Z) p w).2 at hd
     rw [heq.mfderiv_eq] at hd

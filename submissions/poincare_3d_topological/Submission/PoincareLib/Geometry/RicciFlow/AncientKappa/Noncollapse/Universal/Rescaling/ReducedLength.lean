@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
 import Mathlib.Data.Real.Pointwise
 import Mathlib.Geometry.Manifold.Algebra.Structures
@@ -36,7 +37,7 @@ private theorem curveVelocity_comp_mul {γ : ℝ → M} {s : ℝ}
     simpa using (hasDerivAt_id s).const_mul a
   have hlin : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun r : ℝ => a * r) s 1 = a := by
     exact (congrArg (fun L : ℝ →L[ℝ] ℝ => L 1)
-      (mfderiv_eq_fderiv (f := fun r : ℝ => a * r) (x := s))).trans
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := fun r : ℝ => a * r) (x := s))).trans
       ((congrArg (fun L : ℝ →L[ℝ] ℝ => L 1) hd.hasFDerivAt.fderiv).trans
         (ContinuousLinearMap.toSpanSingleton_apply_one ℝ a))
   have hchain := mfderiv_comp_apply s (f := fun r : ℝ => a * r) (g := γ)

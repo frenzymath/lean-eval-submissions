@@ -808,7 +808,8 @@ theorem wkpNorm_add_le
       ≤ eLpNorm (iterWeakPartial (d := d) p j α u Ω) p (volume.restrict Ω) +
           eLpNorm (iterWeakPartial (d := d) p j α v Ω) p (volume.restrict Ω) := by
     have h := eLpNorm_add_le (μ := volume.restrict Ω) (p := p)
-      h_iter_u.aestronglyMeasurable h_iter_v.aestronglyMeasurable hp
+      (f := iterWeakPartial (d := d) p j α u Ω)
+      (g := iterWeakPartial (d := d) p j α v Ω) hp
     have hEq : (iterWeakPartial (d := d) p j α u Ω +
         iterWeakPartial (d := d) p j α v Ω) =
         fun x => iterWeakPartial (d := d) p j α u Ω x +

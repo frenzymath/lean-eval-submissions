@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.FactorCurvature.Gauss
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.CoordinateField
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Charts
@@ -145,7 +146,7 @@ theorem totallyGeodesic_and_curvatureTensor_of_orthogonal_parallel_gradient
     change mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) d.symm (F a)
       (mfderiv (𝓡 n) (𝓡 (n + 1)) F a b) =
       mfderiv (𝓡 n) (𝓡 (n + 1)) i (c.symm a) (mfderiv (𝓡 n) (𝓡 n) c.symm a b) at hea
-    rw [mfderiv_eq_fderiv] at hea
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hea
     exact hea
   have hGmap (a : EuclideanSpace ℝ (Fin (n + 1))) (ha : a ∈ d.target) :
       mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) d.symm a (G a) = D.gradient f (d.symm a) := by

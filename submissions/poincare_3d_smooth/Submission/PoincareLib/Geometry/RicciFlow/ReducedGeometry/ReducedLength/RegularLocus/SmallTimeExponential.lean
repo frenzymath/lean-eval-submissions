@@ -37,6 +37,7 @@ theorem lExponentialFamily_smallTime_injective {J : Set ℝ} {F : RicciFlow n M 
   let Q := EuclideanSpace ℝ (Fin n)
   letI : FiniteDimensional ℝ E :=
     VectorBundle.finiteDimensional ℝ Q (TangentSpace (𝓡 n) : M → Type _) p
+  letI : T2Space Q := inferInstance
   let c := chartAt Q p
   let a : E × ℝ → M := fun z ↦ A.squareFamily z.1 z.2
   let U := A.squareDomain ∩ a ⁻¹' c.source

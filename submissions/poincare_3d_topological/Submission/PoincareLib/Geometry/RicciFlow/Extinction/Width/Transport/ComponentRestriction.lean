@@ -66,6 +66,7 @@ noncomputable def selectedComponentInclusionLocalDiffeomorph
           (mfderiv (𝓡 3) (𝓡 3) g (f x)) =
         ContinuousLinearMap.id ℝ _ := by
     rw [← hcomp2', hright_eq.mfderiv_eq, mfderiv_id]
+    rfl
   have hsurj : Function.Surjective
       (mfderiv (𝓡 3) (𝓡 3) f x) := by
     intro y

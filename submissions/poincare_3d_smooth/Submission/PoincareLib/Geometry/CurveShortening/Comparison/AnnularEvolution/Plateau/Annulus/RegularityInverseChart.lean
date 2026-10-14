@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Annulus.RegularityCharts
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.CompactWeakChain
 
@@ -113,7 +114,7 @@ theorem m64InverseChart_observed_weak_columns
       (m64MemLp_on_ball_of_continuous_closedBall hu 4) hW hw htarget hK hKt hrange hFP i
     apply m64WeakPartialDeriv_ae_congr (Eventually.of_forall fun _ => rfl) ?_ hwF
     filter_upwards [ae_restrict_mem Metric.isOpen_ball.measurableSet] with p hp
-    rw [fderiv_comp (u p) P.differentiableAt (hFDiff p (hsmall hp)), P.fderiv]
+    rw [fderiv_comp (u p) P.differentiableAt (hFDiff p (hsmall hp)), (P.fderiv (x := F (u p)))]
     rfl
   · intro i
     filter_upwards [ae_restrict_mem Metric.isOpen_ball.measurableSet] with p hp
@@ -122,7 +123,7 @@ theorem m64InverseChart_observed_weak_columns
     refine ⟨mfderiv (𝓡 n) (𝓡 n) c.symm (u p) (W i p), ?_⟩
     have hd := mfderiv_comp (u p) ((he _).mdifferentiableAt (by simp))
       (hci.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact (congrArg (fun T => T (W i p)) hd).symm
 
 end PoincareMT

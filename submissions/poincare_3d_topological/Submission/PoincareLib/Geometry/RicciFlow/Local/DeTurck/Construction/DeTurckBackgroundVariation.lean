@@ -418,6 +418,7 @@ section FiniteCover
 
 variable (A : CompatibleChartCover (n := n) (M := M))
 
+set_option synthInstance.maxHeartbeats 200000 in
 /-- The output coefficients stay fixed at g0 while the geometric background varies. -/
 theorem backgroundDifferenceEntry_reconstruction (background g : RiemannianMetric n M)
     (D : LeviCivitaData g) (B : LeviCivitaData background) (B0 : LeviCivitaData g0)
@@ -427,7 +428,8 @@ theorem backgroundDifferenceEntry_reconstruction (background g : RiemannianMetri
       (fun x => (smoothRicciDeTurckTensor D B - smoothRicciDeTurckTensor D B0) x
         (F ab.1 x) (F ab.2 x)) := by
   funext x
-  let R := smoothRicciDeTurckTensor D B - smoothRicciDeTurckTensor D B0
+  let R : TensorProbeNative.SmoothTensor (n := n) (M := M) :=
+    smoothRicciDeTurckTensor D B - smoothRicciDeTurckTensor D B0
   change (∑ a : A.centers, ∑ ij : Fin n × Fin n,
     outputCoefficient (A.cutoffs a) g0 (A.partition a) (F ab.1) (F ab.2) ij.1 ij.2 x *
       backgroundDifferenceEntry (A.cutoffs a) g0 background g ij.1 ij.2 x) =

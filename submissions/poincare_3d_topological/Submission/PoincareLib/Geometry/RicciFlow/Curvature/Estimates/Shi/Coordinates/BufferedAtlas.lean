@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.Shi.Coordinates.Connection
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.Shi.Paths.Energy
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.Shi.Carrier.Path
@@ -159,7 +160,7 @@ theorem exists_shi_buffered_atlas [T2Space M] (D : LeviCivitaData g)
     ⟨g.toRiemannianMetric⟩
   letI : IsContinuousRiemannianBundle E (TangentSpace (𝓡 n) : M → Type _) :=
     ⟨⟨g.inner, g.contMDiff.continuous, fun _ _ _ => rfl⟩⟩
-  letI : PseudoEMetricSpace M := .ofRiemannianMetric (𝓡 n) M
+  letI : EMetricSpace M := .ofRiemannianMetric (𝓡 n) M
   obtain ⟨η, hη, hηcover⟩ := lebesgue_number_lemma_of_emetric hC
     (fun i : Fin s.card => isOpen_interior (s := K i)) (by
       intro y hy
@@ -194,7 +195,7 @@ theorem shiChart_coordinate_velocity_metric
   have hcd := (hc.contMDiffAt (c.open_source.mem_nhds ht)).mdifferentiableAt (by simp)
   have hder : deriv (c ∘ γ) t =
       mvfderiv (𝓡 n) c (γ t) (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ t 1) := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv, mvfderiv]
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv, mvfderiv]
       using! mfderiv_comp_apply t hcd (hγ.mdifferentiableAt one_ne_zero) (1 : ℝ)
   refine ⟨hder, ?_⟩
   let : Bundle.RiemannianBundle (TangentSpace (𝓡 n) : M → Type _) :=

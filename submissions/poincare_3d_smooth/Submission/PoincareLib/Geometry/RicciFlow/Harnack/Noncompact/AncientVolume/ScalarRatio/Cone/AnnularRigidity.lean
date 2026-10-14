@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.LocalQuadratic
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.RadialGradient
@@ -155,7 +156,7 @@ private theorem euclidean_speed_affine
   have hp' : fderiv ℝ (fun t : ℝ => a * t + b) 0 1 = a := by
     rw [fderiv_eq_smul_deriv, one_smul, hp.deriv]
   have hp'' : mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ)) (fun t : ℝ => a * t + b) 0 1 = a := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact hp'
   rw [hp''] at hd
   have hvel := hd.trans (by simpa only [smul_eq_mul, mul_one] using

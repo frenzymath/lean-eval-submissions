@@ -14,7 +14,6 @@ by the checked rescaled smooth equation.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory ContinuousLinearMap
 open scoped Topology ContDiff Manifold
@@ -196,7 +195,8 @@ theorem suAlphaJetFlux_fderiv
       (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b).symm (uu z) w)
     by_cases hw : mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b).symm (uu z) w = 0
     · rw [hw]
-      simp
+      change 0 ≤ g.inner _ 0 0
+      exact le_of_eq (map_zero _).symm
     · exact (g.pos _ _ hw).le
   have hlam : DifferentiableAt ℝ (suAlphaRoundFactor ∘ pp) z :=
     (suRoundFactor_smooth_pos.1.differentiable (by simp) _).comp z pp.differentiableAt
@@ -307,7 +307,8 @@ theorem SUInitialGain.alpha_normalized_equation_ae
       (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b).symm (u x) (v i))
     by_cases h : mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b).symm (u x) (v i) = 0
     · rw [h]
-      simp
+      change 0 ≤ g.inner _ 0 0
+      exact le_of_eq (map_zero _).symm
     · exact (g.pos _ _ h).le
   have hp : 0 < alpha * (1 + Q / suAlphaRoundFactor x) ^ (alpha - 1) :=
     mul_pos (by linarith) (Real.rpow_pos_of_pos (by

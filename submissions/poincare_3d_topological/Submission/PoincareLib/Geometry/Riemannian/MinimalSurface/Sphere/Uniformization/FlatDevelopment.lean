@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.Conjugate
 import Submission.PoincareLib.Geometry.Riemannian.Surface.FrameChange
 import Submission.PoincareLib.Geometry.Riemannian.Surface.FrameCoordinates
@@ -91,7 +92,7 @@ theorem exists_flat_connection_primitive
     simp only [hbracket, LeviCivitaData.surfaceConnectionForm,
       LeviCivitaData.covariantDerivativeOnFields, Pi.zero_apply,
       map_zero] at h
-    simpa [A, B, X, Y, mvfderiv, mfderiv_eq_fderiv,
+    simpa [A, B, X, Y, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model,
       LeviCivitaData.surfaceConnectionForm, LeviCivitaData.covariantDerivativeOnFields]
       using! h.symm
   obtain ⟨theta, htheta, hd⟩ := exists_conjugate_of_divergence_zero hB hA.neg
@@ -175,7 +176,7 @@ theorem exists_parallel_frame_of_flat_plane
       ((contMDiff_iff_contDiff.mpr htheta.neg).mdifferentiable (by simp) x)
     have hder : mvfderiv (𝓡 2) (fun y => -theta y) x v =
         -g.inner x (D.connection u₁ x v) (u₂ x) := by
-      simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+      simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
       change fderiv ℝ (-theta) x v = _
       rw [fderiv_neg, neg_apply, hdtheta]
     change g.inner x (D.connection e₁ x v) (e₂ x) =
@@ -239,7 +240,7 @@ theorem exists_potential_of_parallel_plane_field
         map_zero, zero_add, ContinuousLinearMap.flip_apply] at heq
       change fderiv ℝ (fun y => g.inner y (e y) w) x v = fderiv ℝ omega x v w at heq
       rw [← heq]
-      simpa only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] using! h
+      simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] using! h
     rw [hder, hder]
     congr 1
     have ht := D.connection.torsion_eq_zero_iff.mp D.torsion_eq_zero
@@ -259,7 +260,7 @@ theorem exists_potential_of_parallel_plane_field
     apply (g.inner_isInvertible x).injective
     ext v
     rw [D.inner_gradient]
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     exact congrArg (fun L : Plane →L[ℝ] ℝ => L v) (hdf x).fderiv
   refine ⟨f, hf, fun x v => congrArg (fun L : Plane →L[ℝ] ℝ => L v) (hdf x).fderiv,
     hgrad, ?_⟩

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Splitting.TimeTransport
 import Submission.PoincareLib.Geometry.RicciFlow.Connection.BoundaryRegularity
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Regularity
@@ -68,7 +69,7 @@ private lemma contMDiffWithinAt_derivWithin_time
   convert h using 1
   funext p
   rw [inTangentCoordinates_model_space]
-  simp only [mfderivWithin_eq_fderivWithin, derivWithin]
+  simp only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model, derivWithin]
 
 theorem contMDiffWithinAt_ricci_fields
     (hab : a < b) (F : RicciFlow n M (Icc a b)) {t : ℝ} (ht : t ∈ Icc a b) {x : M}

@@ -101,7 +101,7 @@ theorem m63CurvatureJet_ambientError_abs_le
         have hle := Finset.single_le_sum (fun r _ => Nat.zero_le (f r)) hi
         have hne : f i ≠ m + 1 := fun h => hex ⟨i, hi, h⟩
         omega
-      have hp := Finset.prod_le_prod (fun i _ => hN (f i))
+      have hp := Finset.prod_le_prod₀ (fun i _ => hN (f i))
         (fun i hi => hNlower (f i) (hsmall i hi))
       have hp' : ∏ i ∈ s, N (f i) ≤ L ^ (m + 3) := by
         exact (hp.trans_eq (Finset.prod_const L)).trans (pow_le_pow_right₀ hL hcard)
@@ -229,7 +229,7 @@ theorem m63TangentRicci_arc_iterate_abs_le [T2Space M]
       ∏ i ∈ s, N (f i) ≤ L ^ (m + 3) := by
     have hsmall (i : Fin k) (hi : i ∈ s) : f i ≤ m :=
       (Finset.single_le_sum (fun r _ => Nat.zero_le (f r)) hi).trans hweight
-    have hp := Finset.prod_le_prod (fun i _ => hN (f i))
+    have hp := Finset.prod_le_prod₀ (fun i _ => hN (f i))
       (fun i hi => hNlower (f i) (hsmall i hi))
     exact (hp.trans_eq (Finset.prod_const L)).trans (pow_le_pow_right₀ hL hcard)
   have hprodTop {k : Nat} (s : Finset (Fin k)) (f : Fin k -> Nat)
@@ -254,7 +254,7 @@ theorem m63TangentRicci_arc_iterate_abs_le [T2Space M]
         have hle := Finset.single_le_sum (fun r _ => Nat.zero_le (f r)) hi
         have hne : f i ≠ m + 1 := fun h => hex ⟨i, hi, h⟩
         omega
-      have hp := Finset.prod_le_prod (fun i _ => hN (f i))
+      have hp := Finset.prod_le_prod₀ (fun i _ => hN (f i))
         (fun i hi => hNlower (f i) (hsmall i hi))
       have hp' := (hp.trans_eq (Finset.prod_const L)).trans (pow_le_pow_right₀ hL hcard)
       have hw := hN (m + 1)

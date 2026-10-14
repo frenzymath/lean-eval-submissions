@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Continued.Polar
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Radial.Endpoint
 import Mathlib.Analysis.Calculus.InverseFunctionTheorem.ContDiff
@@ -42,7 +43,9 @@ theorem m64Intrinsic_exists_smooth_polar_inverse
   have hf : ContDiffAt ℝ ∞ e x := contMDiffAt_iff_contDiffAt.mp
     (he.contMDiffAt (hU.mem_nhds hx))
   have hif : Function.Injective (fderiv ℝ e x) := by
-    simpa only [TangentSpace, mfderiv_eq_fderiv] using hi
+    have h := hi
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
+    exact h
   let A : AnnulusCoordinates ≃L[ℝ] AnnulusCoordinates :=
     (LinearEquiv.ofBijective (fderiv ℝ e x).toLinearMap
       ⟨hif, (LinearMap.injective_iff_surjective (f := (fderiv ℝ e x).toLinearMap)).mp

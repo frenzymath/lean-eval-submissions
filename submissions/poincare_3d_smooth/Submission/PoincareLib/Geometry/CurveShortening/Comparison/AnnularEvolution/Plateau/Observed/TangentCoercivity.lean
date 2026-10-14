@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Tangent.TestMap
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.AlphaEnergy.Variation.Energy
 
@@ -44,7 +45,7 @@ theorem m64ObservedMetric_tangent_diagonal
       (f := f) (g := e) (0 : LoopPlane)
       (he.mdifferentiable (by simp) _) (hf.mdifferentiable (by simp) _)
     have h := congrArg (fun L => L (EuclideanSpace.basisFun (Fin 2) ℝ 0)) hcomp
-    rw [mfderiv_eq_fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     change fderiv ℝ (e ∘ f) 0 (EuclideanSpace.basisFun (Fin 2) ℝ 0) =
       mfderiv (𝓡 n) (𝓡 m) e (f 0)
         (mfderiv (𝓡 2) (𝓡 n) f 0 (EuclideanSpace.basisFun (Fin 2) ℝ 0)) at h
@@ -75,6 +76,7 @@ theorem m64ObservedMetric_tangent_coercivity [CompactSpace M]
   refine ⟨D ^ 2, sq_nonneg D, ?_⟩
   rintro q v ⟨w, rfl⟩
   have hnorm : ‖(show E from mfderiv (𝓡 n) (𝓡 m) e q w)‖ ≤ D * ‖w‖ := by
+    change ‖NormedSpace.fromTangentSpace (e q) (mfderiv (𝓡 n) (𝓡 m) e q w)‖ ≤ D * ‖w‖
     rw [← norm_tangentSpace_vectorSpace (x := e q)]
     exact ((mfderiv (𝓡 n) (𝓡 m) e q).le_opNorm w).trans
       (mul_le_mul_of_nonneg_right (hbound q) (norm_nonneg w))

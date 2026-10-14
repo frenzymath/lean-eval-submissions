@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.Gauge.Differential
 import Submission.PoincareLib.Geometry.Manifold.VectorField.Product
 import Submission.PoincareLib.Geometry.Spacetime.Horizontal.TimeBracket
@@ -228,7 +229,7 @@ theorem movingGaugeSectionTimeDerivative_eq_model
       (fun s : T.Point => pullbackHorizontalSection G V s x) := by
     funext s
     exact hLsymm _
-  rw [hfun, mfderiv_eq_fderiv, L.symm.fderiv] at hcomp
+  rw [hfun, Poincare.Compatibility.mfderiv_eq_fderiv_model, L.symm.fderiv] at hcomp
   change mfderiv (𝓡∂ 1) 𝓘(ℝ, TangentSpace (𝓡 n) x)
       (fun s : T.Point => pullbackHorizontalSection G V s x) t (T.positiveTangent t) =
     L.symm (mfderiv (𝓡∂ 1) (𝓡 n)

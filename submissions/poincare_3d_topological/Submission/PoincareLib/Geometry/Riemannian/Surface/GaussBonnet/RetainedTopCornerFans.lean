@@ -163,7 +163,9 @@ theorem core_germ_at_internal_band_top_of_band_germ
   filter_upwards [hc, hi] with z hcz hiz
   change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior A z
   change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior _ z at hcz
-  rwa [hiz] at hcz
+  change interior _ z = interior _ z at hiz
+  rw [hiz] at hcz
+  exact hcz
 
 set_option maxHeartbeats 1600000 in
 /-- A strict downward top bend has its complete surface fan from the

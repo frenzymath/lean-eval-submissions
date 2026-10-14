@@ -134,7 +134,9 @@ theorem surgeryTransitionBackground_pullbackCoefficients (g₀ : StandardInitial
   have heq : F =ᶠ[𝓝 p] adaptedClippedCollapse g₀ (surgeryCapRadius g₀) ∘ A := by
     filter_upwards [(centeredSurgeryDomain_isOpen N s).mem_nhds hp] with q hq
     exact centeredSurgeryLift_inclusion g₀ N theta s hq
-  have hd := heq.mfderiv_eq (I := 𝓡 3) (I' := 𝓡 3)
+  have hd : (mfderiv (𝓡 3) (𝓡 3) F p : E₃ →L[ℝ] E₃) =
+      mfderiv (𝓡 3) (𝓡 3) (adaptedClippedCollapse g₀ (surgeryCapRadius g₀) ∘ A) p :=
+    heq.mfderiv_eq.trans (by ext v; rfl)
   rw [mfderiv_comp p hclip hA] at hd
   apply euclideanThree_bilinear_ext
   intro i j

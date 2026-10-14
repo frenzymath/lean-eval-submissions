@@ -79,7 +79,7 @@ theorem auxiliaryCircle_productChartField_c1 (P : M62.CircleProductCharts C n M)
     contMDiff_equivTangentBundleProd_symm.contMDiffAt.comp z
       (hX.prodMk (hcircle.comp z ((hsnd.of_le (by simp) z.2).comp z contMDiffAt_snd)))
   have htangent := P.from_product_smooth.contMDiff_tangentMap (m := 1)
-    (by norm_num; exact WithTop.coe_le_coe.mpr (show (2 : ℕ∞) ≤ ⊤ from le_top))
+    (by norm_num)
   have h := htangent.contMDiffAt.comp z hprod
   apply ContMDiffAt.contMDiffWithinAt
   apply h.congr_of_eventuallyEq

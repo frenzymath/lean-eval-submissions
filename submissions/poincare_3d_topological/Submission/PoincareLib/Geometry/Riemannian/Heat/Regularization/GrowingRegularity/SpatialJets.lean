@@ -142,7 +142,16 @@ theorem exists_spatial_jet_bound_of_bounded_powers
         ‖((secondOrderOperator a b)^[j] u) z‖ ≤ B := by
       filter_upwards [ae_restrict_mem hV.measurableSet] with z hz
       exact hp j hj z hz
-    have he := eLpNorm_le_of_ae_bound (p := 2) hbound
+    obtain ⟨A, b', hb', hAa, hbb⟩ :=
+      exists_secondOrderOperator_extension hO hVc hVO a b ha hpos hb
+    obtain ⟨v, hv, hvu⟩ := exists_smooth_extension_on_precompact hO hVc hVO hu
+    have heq : ((secondOrderOperator A.a b')^[j] v) =ᵐ[volume.restrict V]
+        ((secondOrderOperator a b)^[j] u) := by
+      filter_upwards [ae_restrict_mem hV.measurableSet] with z hz
+      exact iterate_secondOrderOperator_eqOn hV hAa hbb hvu j hz
+    have hm : AEStronglyMeasurable ((secondOrderOperator a b)^[j] u) (volume.restrict V) :=
+      (contDiff_iterate_secondOrderOperator A.smooth_a hb' hv j).continuous.aestronglyMeasurable.congr heq
+    have he := eLpNorm_le_of_ae_bound (p := 2) hm hbound
     rw [Measure.restrict_apply_univ] at he
     have hfinite : (volume V) ^ ((2 : ℝ≥0∞).toReal)⁻¹ * ENNReal.ofReal B ≠ ⊤ := by
       apply ENNReal.mul_ne_top _ ENNReal.ofReal_ne_top

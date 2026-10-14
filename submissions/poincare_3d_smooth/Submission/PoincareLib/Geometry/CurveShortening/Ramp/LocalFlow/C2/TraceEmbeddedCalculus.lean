@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Embedding.HessianVector
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalEstimates.Curve.TensorLeibniz
@@ -84,7 +85,7 @@ theorem hasDerivAt_embedding_pushforward {g : RiemannianMetric n M}
       change mvfderiv (𝓡 n) (L ∘ e) p V = _
       rw [mvfderiv_comp_apply p L.differentiableAt.mdifferentiableAt
         (he.mdifferentiable (by simp) p) V]
-      simpa only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] using!
+      simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] using!
         congrArg (fun K : W →L[ℝ] ℝ => K (mfderiv (𝓡 n) 𝓘(ℝ, W) e p V))
           (L.fderiv (x := e p))
     have hscalar := m63HasDerivAt_tensor_pullback D T1 hT1 hgamma

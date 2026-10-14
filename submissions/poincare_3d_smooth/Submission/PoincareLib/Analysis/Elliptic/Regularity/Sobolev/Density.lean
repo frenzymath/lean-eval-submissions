@@ -1207,14 +1207,16 @@ theorem tendsto_eLpNorm_translate_sub_of_memLp
   have hAB_aem : AEStronglyMeasurable (fun x => A x + B x) volume := hA_aem.add hB_aem
   have h_triangle1 : eLpNorm (fun x => A x + B x + C x) p volume
       ≤ eLpNorm (fun x => A x + B x) p volume + eLpNorm C p volume := by
-    have := eLpNorm_add_le (μ := (volume : Measure E)) (p := p) hAB_aem hC_aem hp_one
+    have := eLpNorm_add_le (μ := (volume : Measure E)) (p := p)
+      (f := fun x => A x + B x) (g := C) hp_one
     have heq : ((fun x => A x + B x) + (fun x : E => C x)) =
         fun x => A x + B x + C x := by funext x; rfl
     rw [heq] at this
     exact this
   have h_triangle2 : eLpNorm (fun x => A x + B x) p volume
       ≤ eLpNorm A p volume + eLpNorm B p volume := by
-    have := eLpNorm_add_le (μ := (volume : Measure E)) (p := p) hA_aem hB_aem hp_one
+    have := eLpNorm_add_le (μ := (volume : Measure E)) (p := p)
+      (f := A) (g := B) hp_one
     have heq : ((fun x : E => A x) + (fun x => B x)) =
         fun x => A x + B x := by funext x; rfl
     rw [heq] at this

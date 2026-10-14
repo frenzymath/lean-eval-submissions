@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.PrecompactVariation
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.RadialDifferential
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Jacobi.ManifoldComparison
@@ -88,7 +89,7 @@ theorem radialVariation_contDiffAt_chartField
   have hes := (he.contMDiffAt (hU.mem_nhds hs.1)).mdifferentiableAt (by simp)
   have hd := mfderiv_comp (s • v)
     (mdifferentiableAt_extChartAt (by simpa only [c, extChartAt_source] using hs.2)) hes
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change mfderiv (𝓡 n) (𝓡 n) c (e (s • v))
     (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun r : ℝ => e (s • (v + r • w))) 0 1) = _
   rw [radialVariation_field_eq v w s hes]
@@ -115,7 +116,7 @@ theorem pullbackCoefficients_zero_of_normalized_chart
   intro v w
   have hd := mfderiv_comp 0 (mdifferentiableAt_extChartAt (mem_chart_source _ _))
     (he.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change fderiv ℝ (fun v => extChartAt (𝓡 n) (e 0) (e v)) 0 = _ at hd
   rw [hed.fderiv] at hd
   have hv : L v = mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) (e 0)) (e 0)

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Annular.Gluing
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.Polar.Derivatives
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Compatibility.ShortLoops
@@ -156,7 +157,7 @@ theorem suAnnularBlend_density_bound (g : RiemannianMetric n M) :
       D (fderiv ℝ θ z w, mfderiv (𝓡 2) (𝓡 n) f z w, mfderiv (𝓡 2) (𝓡 n) a z w) := by
     have h := mfderiv_comp_apply z (hC x hx) hin w
     erw [mfderiv_prodMk hθ.mdifferentiableAt (hfm.prodMk ham),
-      mfderiv_prodMk hfm ham, mfderiv_eq_fderiv] at h
+      mfderiv_prodMk hfm ham, Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     exact h
   have heq : suAnnularBlend C f a R d =ᶠ[𝓝 z] F := by
     have hnear : ∀ᶠ y in 𝓝 z, R - d < ‖y‖ ∧ ‖y‖ < R + d :=

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.C2.TraceGaugeCurvatureLp
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.CurveEstimates.Relabeling.Scalars
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Periodic.SmoothApproximation
@@ -169,7 +170,7 @@ theorem m63UniformInitialCurvatureSquared_bound
     erw [mfderiv_comp y
       ((hρ.contMDiffAt (hU.mem_nhds (hrguard j y).1)).mdifferentiableAt (by simp))
       (((hr j).contMDiff y).mdifferentiableAt (by norm_num)),
-      ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have himm (y : ℝ) : curveVelocity (n := n) (fun z => c z a) y ≠ 0 := by
     rw [hvel]

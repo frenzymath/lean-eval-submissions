@@ -62,7 +62,8 @@ theorem spatial_eq_of_mem
       exact (Manifold.riemannianEDist_le_pathELength ((hσ.mono hI).of_le (by simp))
         rfl rfl hab).trans hlength.le
     let : EMetricSpace D.carrier := D.metricEMetricSpace (G.metricAt 0)
-    exact edist_eq_zero.mp (le_antisymm hdist bot_le)
+    exact (D.metricEMetricSpace (G.metricAt 0)).eq_of_edist_eq_zero
+      (le_antisymm hdist bot_le)
   rcases le_total s t with hst | hts
   · exact hforward s hs t ht hst
   · exact (hforward t ht s hs hts).symm

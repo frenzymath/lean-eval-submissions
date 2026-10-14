@@ -7,12 +7,22 @@ reference PDFs and build artifacts.
 
 ## Current status
 
-**Packaged draft, not yet accepted by LeanEval.** The original source checkout
-passed `lake build` on Lean 4.33.1. These workspaces use the official benchmark
-templates at `38361be884302c7edce1908c4aef8296eb2cb27e`, including their own pinned toolchain
-and Mathlib. They have NOT yet been built on that toolchain or checked by
-Comparator/Nanoda. Toolchain compatibility and transitive admissions remain
-verification questions. No successful submission is claimed.
+**Topological submission passes the local official LeanEval checks; smooth
+verification is in progress.** Both workspaces target official benchmark
+`38361be884302c7edce1908c4aef8296eb2cb27e`, Lean 4.35.0-rc3, and its exact
+Mathlib dependencies. The topological `lake test` finished with Comparator's
+`Your solution is okay!`, Nanoda acceptance, and Lean default-kernel acceptance.
+Its source fingerprint and terminal log are in
+[the migration report](reports/leaneval-lean435-migration.md). The separate
+process exit code was not recovered from the session registry; the complete
+success log is retained.
+
+The smooth library passed normal `lake build`, and its corrected endpoint roots
+also build with exact explicit statement agreement. Its official verifier is
+running after the shared statement-instance correction. Topological checking reuses 23,558 verified unchanged helpers and
+freshly compiled roots. External host resource workarounds use the unchanged
+compiler and its existing loader fallback. No submission has been sent to the
+LeanEval service, and remote acceptance is not claimed.
 
 ## Layout and imports
 
@@ -23,8 +33,10 @@ verification questions. No successful submission is claimed.
 - `tools/prepare_submission.py`: reproducible import-closure packager.
 
 Each workspace contains its own `Submission.lean` and
-`Submission/PoincareLib/` helpers. Library declaration namespaces and proof
-bodies are preserved; local import module names gain the `Submission.` prefix.
+`Submission/PoincareLib/` helpers. Initial packaging preserved library
+declaration namespaces and proof bodies while prefixing local import module
+names with `Submission.`; the migration adapts helper proofs to the pinned API.
+Both benchmark theorem statements remain unchanged.
 Any reachable local Mathlib compatibility module is likewise packaged beneath
 `Submission/Mathlib/`, without shadowing the trusted Mathlib module name.
 This duplication is required because the evaluator creates a fresh workspace
@@ -33,6 +45,14 @@ Sibling/root library imports and symlinks escaping `Submission/` do not work.
 Git stores identical helper blobs once even though both snapshots contain them.
 Source comments, author credits, and notices are retained; this draft does not
 relicense third-party material. Review provenance/licensing before submission.
+
+The source audit found complete import closure, identical helper copies, no
+source symlinks or top-level helper shadows, and exact matches for all 14
+trusted template files against recorded official hashes. The comments/string
+masked trust scan covered 1,346 changed or added Lean files with no admission,
+new axiom, unsafe declaration, or listed kernel-bypass mechanism found. These
+source checks precede the separately reviewed submission instance-priority
+correction and supplement the official verifier results.
 
 ## Validation and submission
 

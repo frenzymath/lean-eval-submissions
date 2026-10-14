@@ -83,11 +83,20 @@ theorem survival_action_differential
     (q0 : (G.slices (T - tau)).Point)
     {Z : G.Horizontal x} (hZ : (Z, Real.sqrt tau) ∈ E.domain) (W : G.Horizontal x) :
     let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+    let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+    let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+    let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+    let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+    let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+    let horizontalCore := metric.toCore x
+    let horizontalContinuous := metric.continuousAt x
+    let horizontalBounded := metric.isVonNBounded x
     letI : NormedAddCommGroup (G.Horizontal x) :=
-      (metric.toCore x).toNormedAddCommGroupOfTopology
-        (metric.continuousAt x) (metric.isVonNBounded x)
+      horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
     letI : InnerProductSpace ℝ (G.Horizontal x) :=
-      .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+      @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+        horizontalAdd horizontalModule horizontalTopology
+        horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
     letI : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) :=
       ⟨metric⟩
     mfderiv (𝓘(ℝ, G.Horizontal x)) (𝓘(ℝ, ℝ))
@@ -98,11 +107,20 @@ theorem survival_action_differential
           (mfderiv (𝓘(ℝ, G.Horizontal x)) (𝓡 n)
             (survivalSliceMap E tau htau.le q0) Z W)) := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   obtain ⟨h, hfirst⟩ := (LG.exponential.action_differential T x E).2 Z
     (Real.sqrt tau) hZ (Real.sqrt_pos.mpr htau) |>.2 W
@@ -144,11 +162,20 @@ theorem minimizing_endpoint_momentum
         (survivalTerminalVelocity E htau q0 Z hZ)
         ((G.slices (T - tau)).tangentEquiv (survivalSliceMap E tau htau.le q0 Z) v) := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   have hslice := (survivalSliceMap_differential_bijective_iff E htau.le q0 hZ).mpr hbij
   obtain ⟨W, hW⟩ := hslice.surjective v

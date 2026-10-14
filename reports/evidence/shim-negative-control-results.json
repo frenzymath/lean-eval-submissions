@@ -1,0 +1,12 @@
+[
+  {
+    "mode": "baseline",
+    "returncode": 1,
+    "output": "/gpfs/share/home/2301110044/.horizon/development-tmp/poincare-leaneval-port/shim-negative-control.lean:2:22: error: Tactic `decide` proved that the proposition\n  False\nis false\n"
+  },
+  {
+    "mode": "preload",
+    "returncode": 1,
+    "output": "/gpfs/share/home/2301110044/.horizon/development-tmp/poincare-leaneval-port/shim-negative-control.lean:2:22: error: Tactic `decide` proved that the proposition\n  False\nis false\n"
+  }
+]

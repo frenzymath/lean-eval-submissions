@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Chart.ReaderCenteredInverse
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Boundary.CurveStraightening
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityEulerReconstruction
@@ -25,6 +26,10 @@ open Set Filter Metric
 open scoped Topology Manifold ContDiff
 
 namespace PoincareMT
+
+local instance continuousSMulEuclidean (n : ℕ) :
+    ContinuousSMul ℝ (EuclideanSpace ℝ (Fin (n + 1))) := by
+  set_option backward.isDefEq.respectTransparency true in infer_instance
 
 /-- Constructed bounded target coordinates near the actual regular boundary curve, with
 image in the prescribed phase-chart neighborhood. Proof expansion for Morgan-Tian (2007),
@@ -65,7 +70,7 @@ theorem m64ChartReadable_bounded_boundary_chart {n m : ℕ} {M : Type*}
     have h := congrArg (fun D : ℝ →L[ℝ] E => D 1)
       (mfderiv_comp 0 (hPc.mdifferentiableAt (by simp))
         (hc.contMDiff.contMDiffAt.mdifferentiableAt (by simp)))
-    rw [hPC.mfderiv_eq, mfderiv_eq_fderiv] at h
+    rw [hPC.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     change curveVelocity C 0 = mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) P (c 0)
       (fderiv ℝ c 0 1) at h
     rwa [fderiv_apply_one_eq_deriv, hz, map_zero] at h
@@ -137,7 +142,10 @@ theorem m64ChartReadable_bounded_boundary_chart {n m : ℕ} {M : Type*}
           t • EuclideanSpace.single 0 1 := by
         ext j
         by_cases hj : j = 0 <;> simp [hj]
-      exact (continuous_id.smul continuous_const).congr fun t => (hsingle t).symm
+      have hsmul : Continuous (fun t : ℝ =>
+          t • (EuclideanSpace.single 0 1 : E)) :=
+        (continuous_id : Continuous (fun t : ℝ => t)).smul continuous_const
+      exact hsmul.congr (fun t => (hsingle t).symm)
     apply hline.continuousAt.preimage_mem_nhds
     have hzero : (EuclideanSpace.single 0 0 : E) = 0 := by ext j; simp
     simpa only [hzero] using J.open_source.mem_nhds hJ0

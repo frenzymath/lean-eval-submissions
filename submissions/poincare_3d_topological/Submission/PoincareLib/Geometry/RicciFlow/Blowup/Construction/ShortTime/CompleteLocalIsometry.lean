@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.LocalIsometry.Geodesic
 import Submission.PoincareLib.Geometry.Riemannian.Geodesic.Complete
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Laplacian.Branch.Complete
@@ -62,7 +63,7 @@ theorem surjective_of_complete_pullback_eq
     have heq := congrArg (fun L => L 1) (mfderiv_comp 0
       ((contMDiffAt_extChartAt' (I := 𝓡 n) (n := ∞) hp).mdifferentiableAt (by simp))
       ((hs 0).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change deriv (fun t => extChartAt (𝓡 n) p (γ t)) 0 =
       mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p) (γ 0)
         (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ 0 1) at heq
@@ -88,7 +89,7 @@ theorem surjective_of_complete_pullback_eq
   have heq := congrArg (fun L => L 1) (mfderiv_comp 0
     ((contMDiffAt_extChartAt' (I := 𝓡 n) (n := ∞) hchart).mdifferentiableAt (by simp))
     ((hθs 0).mdifferentiableAt (by simp)))
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change deriv (fun t => extChartAt (𝓡 n) (f p) ((f ∘ γ) t)) 0 =
     mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) (f p)) ((f ∘ γ) 0)
       (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (f ∘ γ) 0 1) at heq

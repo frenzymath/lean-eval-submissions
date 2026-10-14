@@ -27,12 +27,12 @@ theorem exists_subseq_tendsto_ae_of_integral_abs_sub
     simp only [ENNReal.ofReal_zero] at h
     convert h using 1
     ext k
-    rw [eLpNorm_one_eq_lintegral_enorm,
+    rw [eLpNorm_one_eq_lintegral_enorm ((hi k).sub hg).aestronglyMeasurable,
       ← ofReal_integral_norm_eq_lintegral_enorm ((hi k).sub hg)]
     simp only [Pi.sub_apply, Real.norm_eq_abs, Function.comp_def]
   obtain ⟨σ, hσ, hpoint⟩ :=
     (tendstoInMeasure_of_tendsto_eLpNorm (by norm_num : (1 : ℝ≥0∞) ≠ 0)
-      (fun k => (hi k).aestronglyMeasurable) hg.aestronglyMeasurable hnorm).exists_seq_tendsto_ae
+      hnorm).exists_seq_tendsto_ae
   exact ⟨fun k => σ k + N, fun _ _ h => Nat.add_lt_add_right (hσ h) N, hpoint⟩
 
 /-- An eventually integrable sequence converging in L1 preserves an

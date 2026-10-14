@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Construction.MetricCombination
 import Submission.PoincareLib.Geometry.Riemannian.Normalization.Connection.Koszul
 import Submission.PoincareLib.Geometry.Riemannian.Normalization.Connection.Regularity
@@ -48,7 +49,7 @@ theorem mvfderiv_exp_neg_two {F : M → ℝ} {x : M}
   calc
     _ = deriv φ (F x) * mvfderiv (𝓡 n) F x v := by
       rw [mvfderiv_comp_apply x (hφ (F x)).differentiableAt.mdifferentiableAt hF v]
-      simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+      simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
       exact fderiv_eq_deriv_mul (𝕜 := ℝ)
     _ = _ := by rw [(hφ (F x)).deriv]; ring
 

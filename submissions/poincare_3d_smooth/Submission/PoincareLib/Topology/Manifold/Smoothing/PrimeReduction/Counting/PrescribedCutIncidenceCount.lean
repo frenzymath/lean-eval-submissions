@@ -14,6 +14,7 @@ namespace PoincareMT.M76
 universe u
 local notation "V3" => (Fin 3 → ℝ)
 
+set_option backward.isDefEq.respectTransparency false in
 theorem prescribed_cut_card_le_homology_add_zero_components
     {X κ : Type u} {ι : Type*} [TopologicalSpace X] [T2Space X]
     [Fintype κ] [DecidableEq κ] {e : ι → OpenPartialHomeomorph X V3}
@@ -93,6 +94,11 @@ theorem prescribed_cut_card_le_homology_add_zero_components
   rw [hsum] at hbound
   have hcount := PLDomain.card_le_zero_homology_components_add_rank_sum D
     (fun v => (hD v).1) (fun v => (hD v).2.1) 1
-  omega
+  rw [← hcycle]
+  apply (Nat.add_le_add_left hcount _).trans
+  simpa only [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using
+    Nat.add_le_add_right hbound
+      ({v | Limits.IsZero (ModTwoMayerVietoris.homology (D v) 1)}.ncard)
+
 
 end PoincareMT.M76

@@ -59,6 +59,7 @@ theorem backwardLIntegrand_eqOn_of_curve_eqOn
       (q.horizontal_velocity t).val := by
     rw [horizontal_velocity_val p ht, horizontal_velocity_val q ht, hd]
     rw [hpoint]
+    rfl
   have hvelocity : hpoint ▸ p.horizontal_velocity t = q.horizontal_velocity t := by
     apply Subtype.ext
     exact (horizontal_transport_val hpoint (p.horizontal_velocity t)).trans hv

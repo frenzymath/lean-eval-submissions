@@ -32,6 +32,8 @@ theorem intrinsicOpenMetric_calibratedVolume (g : RiemannianMetric 3 M)
     (U : TopologicalSpace.Opens M) :
     (calibratedMetricVolume g).comap (Subtype.val : U → M) =
       calibratedMetricVolume (intrinsicOpenMetric g U) := by
+  let originalTopologyM : TopologicalSpace M := inferInstance
+  let originalTopologyU : TopologicalSpace U := inferInstance
   let gU := intrinsicOpenMetric g U
   let : Bundle.RiemannianBundle (TangentSpace (𝓡 3) : M → Type _) :=
     ⟨g.toRiemannianMetric⟩
@@ -45,9 +47,12 @@ theorem intrinsicOpenMetric_calibratedVolume (g : RiemannianMetric 3 M)
       (TangentSpace (𝓡 3) : U → Type _) :=
     ⟨⟨gU.inner, gU.toContinuousRiemannianMetric.continuous, fun _ _ _ => rfl⟩⟩
   let : EMetricSpace U := EMetricSpace.ofRiemannianMetric (𝓡 3) U
+  letI : TopologicalSpace M := originalTopologyM
+  letI : TopologicalSpace U := originalTopologyU
   -- The inherited subtype distance is different from the intrinsic one.
   let : WeakPseudoEMetricSpace U :=
     (EMetricSpace.toWeakEMetricSpace U).toWeakPseudoEMetricSpace
+  letI : EDist U := (EMetricSpace.toWeakEMetricSpace U).toEDist
   have hlocal (x : U) : ∃ W : Set U, IsOpen W ∧ x ∈ W ∧
       ∀ y ∈ W, ∀ z ∈ W, edist (y : M) (z : M) = edist y z := by
     obtain ⟨W, hWopen, hxW, _, hdist⟩ :=

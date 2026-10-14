@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Comparison.Smoothing.Basepoint.Euclidean
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Comparison.Smoothing.Charts.Perturbation
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Comparison.Distance.PathBounds
@@ -274,7 +275,7 @@ theorem mfderiv_chartCorrection
     hf.contMDiff.mdifferentiableAt (by simp)
   rw [mfderiv_comp x (he.mdifferentiableAt_symm (hrange (e.map_source hx)))
       (hfm.comp x (he.mdifferentiableAt hx)),
-    mfderiv_comp x hfm (he.mdifferentiableAt hx), mfderiv_eq_fderiv]
+    mfderiv_comp x hfm (he.mdifferentiableAt hx), Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rfl
 
 /-- A coordinate norm estimate for a supported correction is the exact

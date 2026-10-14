@@ -24,7 +24,7 @@ theorem memLp_two_restrict_union {u : E → ℝ} {s t : Set E}
     (hs : MemLp u 2 (volume.restrict s)) (ht : MemLp u 2 (volume.restrict t)) :
     MemLp u 2 (volume.restrict (s ∪ t)) := by
   apply (memLp_two_iff_integrable_sq
-    (aestronglyMeasurable_union_iff.mpr ⟨hs.1, ht.1⟩)).mpr
+    (aestronglyMeasurable_union_iff.mpr ⟨hs.aestronglyMeasurable, ht.aestronglyMeasurable⟩)).mpr
   exact IntegrableOn.union hs.integrable_sq ht.integrable_sq
 
 theorem memLp_two_restrict_finset_biUnion {ι : Type*} {u : E → ℝ}

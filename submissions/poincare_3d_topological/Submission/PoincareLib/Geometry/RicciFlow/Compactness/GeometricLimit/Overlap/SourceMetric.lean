@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.GeometricLimit.Overlap.Smooth
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 
@@ -84,7 +85,7 @@ theorem source_transition_pullbackCoefficients
     rw [chartParametrization_apply, Function.invFun_eq hy]
   have hd := mfderiv_comp (x : EuclideanSpace ℝ (Fin n))
     (hq.mdifferentiableAt (by simp)) (hf.differentiableAt (by simp)).mdifferentiableAt
-  rw [heq.mfderiv_eq, mfderiv_eq_fderiv] at hd
+  rw [heq.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change g.inner (q (f x))
       (mfderiv (𝓡 n) (𝓡 n) q (f x) (fderiv ℝ f x v))
       (mfderiv (𝓡 n) (𝓡 n) q (f x) (fderiv ℝ f x w)) =

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.ConjugateJacobian
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.Isothermal.Metric
 
@@ -55,7 +56,7 @@ theorem scalarConjugateForm_metric_identity (H : Plane → ℝ) (x v w : Plane) 
   have hgradient (z : Plane) : fderiv ℝ H x z = g.inner x Z z := by
     change fderiv ℝ H x z = g.inner x (D.gradient H x) z
     rw [D.inner_gradient]
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   have hconjugate (z : Plane) :
       scalarConjugateForm D H x z = rho * (-Z 1 * z 0 + Z 0 * z 1) := by

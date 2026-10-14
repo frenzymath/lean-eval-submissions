@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.Normalization
 import Submission.PoincareLib.Geometry.RicciFlow.Extinction.Width.Class.SphereArea
 
@@ -78,7 +79,7 @@ private theorem m65EnergyDensity_comp_columns (g : RiemannianMetric 3 M)
     simp only [m60EnergyDensity, Matrix.trace, Fin.sum_univ_two]
     rfl
   rw [he, he, hdet, abs_of_nonneg (add_nonneg (sq_nonneg a) (sq_nonneg b))]
-  simp only [mfderiv_comp z hf hφ.mdifferentiableAt, mfderiv_eq_fderiv]
+  simp only [mfderiv_comp z hf hφ.mdifferentiableAt, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change (1 / 2 : ℝ) * (inner ℝ (D (A (B 0))) (D (A (B 0))) +
     inner ℝ (D (A (B 1))) (D (A (B 1)) )) = _
   simp only [A, B, h0, h1, map_add, map_smul, inner_add_left, inner_add_right,

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.AreaContinuity.ContractionAnnulus
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.AreaContinuity.AngularTangent
@@ -44,7 +45,7 @@ theorem m65ContractionAnnulusMap_mfderiv (C : ℝ × (M × M) → M)
       (EuclideanSpace.proj (𝕜 := ℝ) i).differentiableAt).mdifferentiableAt
   have hcoordd (i : Fin 2) : mfderiv (𝓡 2) 𝓘(ℝ, ℝ)
       (fun q : LoopPlane => q i) p v = v i := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact congrArg (fun d : LoopPlane →L[ℝ] ℝ => d v)
       (EuclideanSpace.proj (𝕜 := ℝ) i).fderiv
   have hsmooth : ContDiff ℝ 1 Real.smoothTransition := Real.smoothTransition.contDiff
@@ -58,7 +59,7 @@ theorem m65ContractionAnnulusMap_mfderiv (C : ℝ × (M × M) → M)
         by rw [smul_eq_mul, mul_one]
       _ = (v 1) • mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) Real.smoothTransition (p 1) 1 := map_smul _ _ _
       _ = _ := by
-        rw [mfderiv_eq_fderiv]
+        rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
         change v 1 * (fderiv ℝ Real.smoothTransition (p 1)) 1 = _
         rw [fderiv_apply_one_eq_deriv, mul_comm]
   have hg := (contMDiff_periodicFreeLoop gamma).mdifferentiableAt one_ne_zero (x := p 0)

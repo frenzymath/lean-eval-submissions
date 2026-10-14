@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.ClosedCover
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.CylinderMetric
 
@@ -103,7 +104,7 @@ theorem exists_lipschitz_modulus_conformal_closed_cylinder (g : RiemannianMetric
     have hgram (i j : Fin 2) : m60AreaGram g G p i j =
         m60AreaGram g (scalarInverseCylinderMap e) p i j := by
       unfold m60AreaGram
-      rw [mfderiv_eq_fderiv, mfderiv_eq_fderiv, hGeq hp, (hGloc hp).fderiv_eq]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, Poincare.Compatibility.mfderiv_eq_fderiv_model, hGeq hp, (hGloc hp).fderiv_eq]
     rw [hgram, hgram, hgram]
     exact scalarInverseCylinderMap_modulus_conformal D hHs hdV hP e
       hsource htarget he hes hei hp

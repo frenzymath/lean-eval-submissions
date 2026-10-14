@@ -77,6 +77,8 @@ theorem exists_positiveCone_local_ambient_realization :
       have hgerm : q ∘ e =ᶠ[𝓝 y] id :=
         Filter.eventuallyEq_of_mem (e.open_source.mem_nhds hy) hright
       rw [hgerm.mfderiv_eq, mfderiv_id]
+      ext v
+      rfl
     have hm := positiveConeMetric_inner hne hcover d (e y)
       (mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) e y v)
       (mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) e y w)
@@ -433,7 +435,7 @@ private theorem exists_distinct_nearby_chart_point
     [ChartedSpace (EuclideanSpace ℝ (Fin k)) S] (x : S) {ε : ℝ} (hε : 0 < ε) :
     ∃ y : S, y ≠ x ∧ dist x y < ε := by
   let : Nonempty (Fin k) := ⟨⟨0, by omega⟩⟩
-  let : PerfectSpace (EuclideanSpace ℝ (Fin k)) := perfectSpace_of_module ℝ _
+  let : PerfectSpace (EuclideanSpace ℝ (Fin k)) := perfectSpace_of_module ℝ (EuclideanSpace ℝ (Fin k))
   let e := chartAt (EuclideanSpace ℝ (Fin k)) x
   have hx : x ∈ e.source := mem_chart_source _ x
   have hxe : e x ∈ e.target := e.map_source hx

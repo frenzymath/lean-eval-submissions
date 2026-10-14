@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Basic.SmoothTransitionSegment
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Geometry.Coordinates.CoordinateMetricBounds
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
@@ -69,7 +70,7 @@ theorem coordinateConnector_velocity (f : E → M) (a b : ℝ) {delta : ℝ} {z 
   have hvalue : mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) (Real.smoothSegment a b z) s 1 =
       deriv (Real.smoothSegment a b z) s := by
     exact (congrArg (fun L : ℝ →L[ℝ] E => L 1)
-      (mfderiv_eq_fderiv (f := Real.smoothSegment a b z) (x := s))).trans
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := Real.smoothSegment a b z) (x := s))).trans
       ((congrArg (fun L : ℝ →L[ℝ] E => L 1) hd.hasFDerivAt.fderiv).trans
         (ContinuousLinearMap.toSpanSingleton_apply_one ℝ _))
   have hf' := (hf.contMDiffAt (Metric.isOpen_ball.mem_nhds

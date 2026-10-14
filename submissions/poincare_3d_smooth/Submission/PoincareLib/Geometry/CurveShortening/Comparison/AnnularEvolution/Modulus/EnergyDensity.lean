@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Annulus.DensityCongruence
 import Submission.PoincareLib.Geometry.RicciFlow.Area.MinimalSphere.EnergyDensityCoordinates
 
@@ -76,7 +77,7 @@ theorem m64AreaGram_eq_chart (g : RiemannianMetric n M) (b : M)
     (contMDiffAt_extChartAt' (n := ∞)
       (by simpa only [extChartAt_source] using hp)).mdifferentiableAt (by simp)
   have hd := mfderiv_comp p hc hf
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   rw [hd]
   exact (ConjugateVariation.chartCoefficients_apply g b hp _ _).symm
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.FlatDevelopment
 
 /-!
@@ -283,7 +284,7 @@ theorem contMDiffAt_conformal_sphere_puncture
       ⟨hd.mdifferentiableOn (by simp), hdi.mdifferentiableOn (by simp)⟩
     have hDB : fderiv ℝ B z = (mfderiv (𝓡 2) (𝓡 2) d.symm (H (e z))).comp
         ((mfderiv (𝓡 2) (𝓡 2) H (e z)).comp (mfderiv (𝓡 2) (𝓡 2) e z)) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact (mfderiv_comp z (hdis.mdifferentiableAt (by simp))
         ((hHs.comp z hes).mdifferentiableAt (by simp))).trans
         (congrArg _ (mfderiv_comp z (hHs.mdifferentiableAt (by simp))

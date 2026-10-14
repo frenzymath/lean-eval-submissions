@@ -71,8 +71,10 @@ theorem IsGeodesicOn.hasDerivAt_tangentNorm_zero (hγ : g.IsGeodesicOn γ s)
   filter_upwards [eventually_eventually_nhds.mpr heq,
     Ioo_mem_nhds htcd.1 htcd.2] with u hequ hu
   change γ =ᶠ[𝓝 u] (fun v => (extChartAt (𝓡 n) p).symm (q v)) at hequ
-  rw [hequ.mfderiv_eq, hequ.self_of_nhds,
-    g.tangentNorm_chart_curve p (hcd hu).2.2.1 (hcd hu).2.1, hconst u hu]
+  rw [hequ.mfderiv_eq, hequ.self_of_nhds]
+  change g.tangentNorm ((extChartAt (𝓡 n) p).symm (q u))
+    (mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) (fun v => (extChartAt (𝓡 n) p).symm (q v)) u 1) = _
+  rw [g.tangentNorm_chart_curve p (hcd hu).2.2.1 (hcd hu).2.1, hconst u hu]
 
 /-- A geodesic has one nonnegative intrinsic speed throughout an interval. -/
 theorem IsGeodesicOn.exists_constant_tangentNorm {a b : ℝ}

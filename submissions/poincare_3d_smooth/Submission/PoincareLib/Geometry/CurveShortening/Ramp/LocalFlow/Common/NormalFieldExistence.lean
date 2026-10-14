@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Common.NormalApproximants
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Common.NormalCurvatureBounds
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Spectral.FamilyCompactJets
@@ -224,7 +225,7 @@ theorem exists_common_normal_field_limits_of_unit_initial
     erw [mfderiv_comp x
       ((hρ.contMDiffAt (hU.mem_nhds (hqnguard j t ht x).1)).mdifferentiableAt (by simp))
       ((hqslice j t ht).contMDiff.mdifferentiable (by simp) x),
-      ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have hinitspeed (j : ℕ) (x : ℝ) : curveSpeed F (cn j) a x = κ * m j := by
     calc

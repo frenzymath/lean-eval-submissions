@@ -56,7 +56,9 @@ theorem exists_jointSeed_radial_path
   · intro s hs
     simpa only [(hgerm s hs).self_of_nhds] using hmap hs
   · intro s hs
-    rw [(hgerm s hs).mfderiv_eq, (hgerm s hs).self_of_nhds, hk s (hI hs)]
+    rw [(hgerm s hs).mfderiv_eq, (hgerm s hs).self_of_nhds]
+    change g.tangentNorm (gamma s) (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) gamma s 1) < r
+    rw [hk s (hI hs)]
     exact hkr
 
 end PoincareMT.M47

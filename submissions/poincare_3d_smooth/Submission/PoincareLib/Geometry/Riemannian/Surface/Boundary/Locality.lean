@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Boundary.FrameChange
 
 /-!
@@ -39,7 +40,7 @@ theorem connection_eq_of_eventuallyEq_along_curve
     have h := congrArg (fun L => L 1) (mvfderiv_comp t hf hγ)
     simp only [ContinuousLinearMap.comp_apply] at h
     have hd : mvfderiv 𝓘(ℝ, ℝ) (f ∘ γ) t 1 = deriv (f ∘ γ) t := by
-      simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+      simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
       rfl
     rw [hd] at h
     exact h.symm

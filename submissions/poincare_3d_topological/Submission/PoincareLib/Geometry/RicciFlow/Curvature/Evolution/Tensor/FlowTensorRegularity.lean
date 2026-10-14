@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Evolution.Connection.SpacetimePairings
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Tensors.TensorDerivativeClosure
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Tensors.RicciRegularity
@@ -307,7 +308,7 @@ private theorem contMDiffOn_timePartial (F : RicciFlow n M J)
     hc contMDiffWithinAt_fst hp (fun q hq ↦ hq.1) (m := ∞) (by simp)
     hJ.uniqueMDiffOn
   have ha := hd.clm_apply (contMDiffWithinAt_const (c := (1 : ℝ)))
-  simpa only [inTangentCoordinates_model_space, mfderivWithin_eq_fderivWithin,
+  simpa only [inTangentCoordinates_model_space, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model,
     derivWithin] using! ha
 
 set_option maxHeartbeats 800000 in

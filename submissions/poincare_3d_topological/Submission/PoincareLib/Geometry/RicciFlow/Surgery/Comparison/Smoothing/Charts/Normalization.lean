@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Comparison.Smoothing.Local.Riemannian
 import Mathlib.Geometry.Manifold.Riemannian.Basic
 import Mathlib.Analysis.Calculus.FDeriv.Equiv
@@ -113,7 +114,7 @@ theorem normalizedSmoothChart_mfderiv_apply (v : TangentSpace I x) :
   change NormedSpace.fromTangentSpace (A.symm (e x))
     (mfderiv I 𝓘(ℝ, TangentSpace I x) (A.symm ∘ e) x v) = v
   rw [mfderiv_comp x A.symm.differentiableAt.mdifferentiableAt (he.mdifferentiableAt hx)]
-  simp only [mfderiv_eq_fderiv, ContinuousLinearEquiv.fderiv]
+  simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearEquiv.fderiv]
   change A.symm (A v) = v
   exact A.symm_apply_apply v
 
@@ -152,7 +153,7 @@ theorem normalizedSmoothChart_symm_norm_mfderiv_le :
       NormedSpace.fromTangentSpace (n x) v := by
     change mfderiv 𝓘(ℝ, TangentSpace I x) I (e.symm ∘ A) (n x) v = _
     rw [mfderiv_comp (n x) hinv A.differentiableAt.mdifferentiableAt]
-    simp only [mfderiv_eq_fderiv, ContinuousLinearEquiv.fderiv]
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearEquiv.fderiv]
     rw [hAx]
     change (he.mfderiv hx).symm
       ((he.mfderiv hx) (NormedSpace.fromTangentSpace (n x) v)) = _

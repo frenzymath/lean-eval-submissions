@@ -60,7 +60,7 @@ theorem blowupSequence_tip_ball_scalar_operator_bounds
     have hnorm : (g.edist 0 z).toReal * Real.sqrt Q ≤ D := by
       simpa only [g, z, Q, blowupSequence_scale] using hd (L.subsequence k)
     have hcomm : G.edist z 0 = G.edist 0 z :=
-      @edist_comm StandardCapSpace G.toEMetricSpace.toPseudoEMetricSpace z 0
+      @edist_comm StandardCapSpace _ G.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace z 0
     rw [hcomm, heq,
       ← ENNReal.ofReal_toReal (g.edist_ne_top 0 z),
       ← ENNReal.ofReal_mul hroot.le, mul_comm]
@@ -78,7 +78,7 @@ theorem blowupSequence_tip_ball_scalar_operator_bounds
   change G.edist z y < ENNReal.ofReal (D + s + 1)
   calc
     G.edist z y ≤ G.edist z 0 + G.edist 0 y :=
-      @edist_triangle StandardCapSpace G.toEMetricSpace.toPseudoEMetricSpace z 0 y
+      @edist_triangle StandardCapSpace _ G.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace z 0 y
     _ ≤ ENNReal.ofReal D + ENNReal.ofReal s := add_le_add htip hyG.le
     _ = ENNReal.ofReal (D + s) := (ENNReal.ofReal_add hD hs.le).symm
     _ < ENNReal.ofReal (D + s + 1) :=

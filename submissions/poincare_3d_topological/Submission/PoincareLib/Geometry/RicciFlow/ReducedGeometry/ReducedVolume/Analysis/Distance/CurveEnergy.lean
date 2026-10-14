@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Analysis.Distance.CurveCalculus
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Regularity.Continuity.MinimizingLifts
 import Mathlib.Analysis.Calculus.Deriv.Pow
@@ -53,6 +54,7 @@ theorem curve_energy_eq_of_eventuallyEq (g : RiemannianMetric n M)
       g.inner (η s) (curveVelocity η s) (curveVelocity η s) := by
   unfold curveVelocity
   rw [h.mfderiv_eq (I := 𝓘(ℝ, ℝ)) (I' := 𝓡 n), h.eq_of_nhds]
+  rfl
 
 set_option backward.isDefEq.respectTransparency false in
 /-- Squaring the parameter multiplies actual kinetic energy by four times parameter squared. -/
@@ -68,7 +70,7 @@ theorem curve_energy_comp_square (g : RiemannianMetric n M) {γ : ℝ → M} {s 
     hsq.differentiableAt.mdifferentiableAt
   simp only [Function.comp_def] at hc
   unfold curveVelocity
-  rw [hc, mfderiv_eq_fderiv, hsq.hasFDerivAt.fderiv]
+  rw [hc, Poincare.Compatibility.mfderiv_eq_fderiv_model, hsq.hasFDerivAt.fderiv]
   have hv : mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) γ (s ^ 2) (2 * s) =
       (2 * s) • mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) γ (s ^ 2) 1 := by
     simpa only [smul_eq_mul, mul_one] using

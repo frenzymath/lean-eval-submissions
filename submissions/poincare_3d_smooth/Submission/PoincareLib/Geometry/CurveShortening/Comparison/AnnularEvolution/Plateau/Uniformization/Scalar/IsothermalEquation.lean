@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.LocalIsothermal
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.ProperPotential
 import Mathlib.Analysis.InnerProductSpace.Harmonic.Basic
@@ -81,10 +82,10 @@ theorem scalar_isothermal_flux (D : LeviCivitaData g)
     rw [hA.self_apply_inverse, D.inner_gradient]
     have h := congrArg (fun L => L v) (mvfderiv_comp x
       (hu.mdifferentiableAt (by simp)) (hD.mdifferentiableAt hx))
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
       ContinuousLinearMap.comp_apply] at h
     convert! h.symm using 1
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
       ContinuousLinearMap.comp_apply]
   rw [scalar_isothermal_density hlambda hmetric]
   have hi := congrArg (fun L : Plane →L[ℝ] ℝ => L (EuclideanSpace.basisFun (Fin 2) ℝ i))

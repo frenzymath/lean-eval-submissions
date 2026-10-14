@@ -47,7 +47,7 @@ theorem roundCylinderTensorNormSquared_neckAxialWeight_le
   have hprod0 : 0 ≤ ∏ i, neckAxialWeight lambda (a i) :=
     Finset.prod_nonneg fun i _ => (hweight (a i)).1
   have hprod1 : (∏ i, neckAxialWeight lambda (a i)) ≤ 1 :=
-    Finset.prod_le_one (fun i _ => (hweight (a i)).1) (fun i _ => (hweight (a i)).2)
+    Finset.prod_le_one₀ (fun i _ => (hweight (a i)).1) (fun i _ => (hweight (a i)).2)
   have hsq : (∏ i, neckAxialWeight lambda (a i)) ^ 2 ≤ 1 := by nlinarith
   apply mul_le_mul_of_nonneg_left ?_ (Finset.prod_nonneg fun i _ => hgram (a i))
   simpa only [mul_pow, one_mul] using mul_le_mul_of_nonneg_right hsq (sq_nonneg (T a))

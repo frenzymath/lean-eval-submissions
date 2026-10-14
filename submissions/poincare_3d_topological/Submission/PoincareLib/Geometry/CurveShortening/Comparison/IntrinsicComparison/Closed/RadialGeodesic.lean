@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Analysis.Smooth.ClosedExtension
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Normal.Metric
 
@@ -87,7 +88,7 @@ theorem m64Intrinsic_exists_closed_radial_unit_geodesic
   have hunit0 : N.metric.inner (g 0) (curveVelocity (n := 2) g 0)
       (curveVelocity (n := 2) g 0) = 1 := by
     rw [m64Intrinsic_curveVelocity_eq_deriv, (hgq 0 hzI).deriv_eq, hqd0, hg0]
-    simpa only [mfderiv_eq_fderiv,
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model,
       real_inner_self_eq_norm_sq, hnorm, one_pow] using! hmetric (ell⁻¹ • v) (ell⁻¹ • v)
   have hunit (t : ℝ) (ht : t ∈ Icc 0 ell) :
       N.metric.inner (g t) (deriv g t) (deriv g t) = 1 := by

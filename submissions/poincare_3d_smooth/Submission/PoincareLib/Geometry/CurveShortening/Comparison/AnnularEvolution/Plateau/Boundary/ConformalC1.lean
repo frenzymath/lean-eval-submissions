@@ -101,7 +101,7 @@ theorem m64Conformal_contDiffOn_of_transverse {N : ℕ} {R : ℝ} (hR : 0 < R)
     have hd := m64TransverseProjection_fderiv j
       ((hsmooth.contDiffAt (hU.mem_nhds hz)).differentiableAt one_ne_zero)
     simp only [T, Y, fderivWithin_of_mem_nhds hn, hd,
-      ContinuousLinearMap.comp_apply, m64TransverseProjection_apply, if_neg haj,
+      ContinuousLinearMap.comp_apply, m64TransverseProjection_apply, ite_eq_right haj,
       EuclideanSpace.basisFun_apply]
   obtain ⟨D, hD, hDeq⟩ := M64Boundary.exists_continuous_full_differential hR u hsmooth G
     hG hsymm hpos

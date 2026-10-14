@@ -12,7 +12,6 @@ the same operator is copied into every prolonged jet block.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory Metric
 open scoped ContDiff Topology ENNReal Manifold

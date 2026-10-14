@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Regularization.Evolution
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Minimum.Variation.Geometry.VelocityChainRules
 import Mathlib.Analysis.Calculus.Deriv.Shift
@@ -36,7 +37,7 @@ theorem speed_periodic
     (hasDerivAt_id x).add_const curvePeriod
   have hvalue : mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ))
       (fun y : ℝ => y + curvePeriod) x 1 = 1 := by
-    rw [mfderiv_eq_fderiv, hshift.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hshift.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ 1
   have hcomp := congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => L 1)
     (mfderiv_comp (f := fun y : ℝ => y + curvePeriod) (g := fun y => c y t) x

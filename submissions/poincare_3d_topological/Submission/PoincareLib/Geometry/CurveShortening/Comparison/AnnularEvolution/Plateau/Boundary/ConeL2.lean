@@ -129,7 +129,7 @@ theorem coneCartesianField_memLp
         C => q.1 q.2) :=
     continuous_fst.clm_apply continuous_snd
   have hrad := happly.comp_aestronglyMeasurable (hA.prodMk (hvp.aestronglyMeasurable hS))
-  have hang := happly.comp_aestronglyMeasurable (hA.prodMk hdp.1)
+  have hang := happly.comp_aestronglyMeasurable (hA.prodMk hdp.aestronglyMeasurable)
   have he : Continuous (fun p : ℝ × ℝ => Proofs.M58.angularPoint p.2 i) := by
     fin_cases i
     · exact Real.continuous_cos.comp continuous_snd

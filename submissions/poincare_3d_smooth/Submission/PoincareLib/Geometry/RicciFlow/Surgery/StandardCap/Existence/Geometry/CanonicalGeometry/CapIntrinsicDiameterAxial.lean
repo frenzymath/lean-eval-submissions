@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Geometry.CanonicalGeometry.NeckHeightControl
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Lifetime.CanonicalGeometry.CapPersistenceAxialMap
 
@@ -40,7 +41,7 @@ theorem roundCylinderMetric_axial_le (f : ℝ → ℝ) (z : RoundCylinderSpace)
     rw [mfderiv_prodMk mdifferentiableAt_fst hs, mfderiv_fst]
     change (v.1, mfderiv ((𝓡 2).prod 𝓘(ℝ)) 𝓘(ℝ) (f ∘ Prod.snd) z v) = _
     rw [mfderiv_comp_apply z hf.mdifferentiableAt mdifferentiableAt_snd v,
-      mfderiv_snd, mfderiv_eq_fderiv]
+      mfderiv_snd, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change (v.1, fderiv ℝ f z.2 v.2) = _
     rw [fderiv_eq_deriv_mul]
   rw [hd]

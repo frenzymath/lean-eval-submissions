@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Normalization
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.Limit.Initial.InitialPhaseBounds
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.SmoothExtension
@@ -34,18 +35,29 @@ theorem pullbackCoefficients_eq_of_comp_germ (g : RiemannianMetric n M)
     g.pullbackCoefficients a x v w =
       g.pullbackCoefficients e (f x) (fderiv ℝ f x v) (fderiv ℝ f x w) := by
   have hd := mfderiv_comp x he hf.mdifferentiableAt
-  rw [hcomp.mfderiv_eq, mfderiv_eq_fderiv] at hd
+  rw [hcomp.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hv := congrArg (fun D => D v) hd
   have hw := congrArg (fun D => D w) hd
   change g.inner (a x) (mfderiv (𝓡 n) (𝓡 n) a x v) (mfderiv (𝓡 n) (𝓡 n) a x w) =
     g.inner (e (f x))
       (mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x v))
       (mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x w))
-  simp only [TangentSpace] at hv hw ⊢
-  rw [hv, hw]
-  exact congrArg (fun y : M => g.inner y
-    (mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x v))
-    (mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x w))) hcomp.self_of_nhds.symm
+  have hv' : (show E from mfderiv (𝓡 n) (𝓡 n) a x v) =
+      mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x v) := by
+    convert! hv using 1
+  have hw' : (show E from mfderiv (𝓡 n) (𝓡 n) a x w) =
+      mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x w) := by
+    convert! hw using 1
+  calc
+    _ = g.inner (a x)
+        (show E from mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x v))
+        (show E from mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x w)) := by
+      convert! congrArg₂ (fun v w : E => g.inner (a x) v w) hv' hw' using 1
+    _ = _ := by
+      convert! congrArg (fun y : M => g.inner y
+        (show E from mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x v))
+        (show E from mfderiv (𝓡 n) (𝓡 n) e (f x) (fderiv ℝ f x w)))
+        hcomp.self_of_nhds.symm using 1
 
 private theorem partialCoordinateChange_smooth
     (e : PartialDiffeomorph (𝓡 n) (𝓡 n) E M ∞) (p : M)

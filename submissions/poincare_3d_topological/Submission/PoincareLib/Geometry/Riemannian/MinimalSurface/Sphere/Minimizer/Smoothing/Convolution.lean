@@ -63,6 +63,7 @@ theorem suC1_normalizedConvolution_fderiv
     ((phi.continuous_normed (μ := volume)).locallyIntegrable) hf x
   exact h.fderiv
 
+set_option synthInstance.maxHeartbeats 100000 in
 /-- One smooth convolution approximates both the values and the first
 derivatives uniformly. Source: MT Lemma 18.10, C1 smoothing step. -/
 theorem suC1_compactSupport_smooth_approximation

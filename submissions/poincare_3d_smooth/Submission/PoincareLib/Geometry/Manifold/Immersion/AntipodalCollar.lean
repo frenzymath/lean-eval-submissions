@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Manifold.Immersion.Even
 import Mathlib.Geometry.Manifold.Instances.Sphere
 import Mathlib.Geometry.Manifold.LocalDiffeomorph
@@ -133,7 +134,7 @@ theorem not_forall_injective_mfderiv_of_locally_antipodal
   have hchain : fderiv ℝ f x =
       (mfderiv cylinderModel (𝓡 3) F (radialCoordinates q₀S x)).comp
         (mfderiv (𝓡 3) cylinderModel (radialCoordinates q₀S) x) := by
-    exact (mfderiv_eq_fderiv (f := f)).symm.trans
+    exact (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := f)).symm.trans
       (mfderiv_comp x hfx ((contMDiffAt_radialCoordinates q₀S hx0).mdifferentiableAt (by simp)))
   have hix : Function.Injective (fderiv ℝ f x) := by
     rw [hchain, hcoord x hx]

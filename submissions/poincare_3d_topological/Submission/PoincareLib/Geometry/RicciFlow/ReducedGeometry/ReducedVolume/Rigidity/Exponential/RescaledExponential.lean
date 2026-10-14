@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Exponential.Coordinates.EndpointCoordinates
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Metric.Coordinates.MetricCoordinates
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Rigidity.Exponential.RescaledSource
@@ -83,7 +84,7 @@ theorem rescaledExponential_velocity_eq_zero (G : LExponentialGeometry F T τmax
   have hzero := (hd.congr_deriv heval).deriv
   have hγ := rescaledExponential_mdifferentiableAt G hτ hmax y
   change fderiv ℝ ((extChartAt (𝓡 n) q) ∘ (fun s ↦ rescaledExponential G s y)) τ 1 = 0 at hzero
-  rw [← mfderiv_eq_fderiv,
+  rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model,
     mfderiv_comp (f := fun s ↦ rescaledExponential G s y) τ
       (mdifferentiableAt_extChartAt (I := 𝓡 n) hq) hγ] at hzero
   change (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) q) q)
@@ -108,7 +109,7 @@ theorem rescaledExponential_eq_of_radial_velocity
     have hcomp := he.comp (f := fun r ↦ rescaledExponential G r y) s hγ
     apply hcomp.differentiableAt.hasDerivAt.congr_deriv
     change fderiv ℝ (e ∘ (fun r ↦ rescaledExponential G r y)) s 1 = 0
-    rw [← mfderiv_eq_fderiv,
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model,
       mfderiv_comp (f := fun r ↦ rescaledExponential G r y) s he hγ]
     change mfderiv (𝓡 n) (𝓡 n) e (rescaledExponential G s y)
       (curveVelocity (fun r ↦ rescaledExponential G r y) s) = 0

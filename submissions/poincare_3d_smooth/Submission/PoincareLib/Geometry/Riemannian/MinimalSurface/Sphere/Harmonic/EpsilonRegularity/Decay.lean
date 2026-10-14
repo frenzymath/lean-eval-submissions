@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Harmonic.EpsilonRegularity.Cylinder
 import Submission.PoincareLib.Topology.VectorBundle.CompactDisk
 import Submission.PoincareLib.Geometry.Riemannian.Distance.CompactHessian
@@ -119,7 +120,7 @@ private theorem harmonic_composition_laplacian {g : RiemannianMetric n M}
   have hr : ContDiffAt ℝ 2 r (u p) :=
     (contMDiffAt_iff_contDiffAt.mp ((hs _).comp _ hcs)).of_le (WithTop.coe_le_coe.mpr le_top)
   have hdu : fderiv ℝ u p = mfderiv (𝓡 2) (𝓡 n) φ p := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mfderiv (𝓡 2) (𝓡 n) (c ∘ φ) p = _
     rw [mfderiv_comp p (hc.mdifferentiableAt (by simp)) ((hφ p).mdifferentiableAt (by simp))]
     change (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) (φ p)) (φ p)).comp _ = _
@@ -607,7 +608,7 @@ theorem suHarmonicCylinder_energy_decay [CompactSpace M] [T2Space M]
       mfderiv (𝓡 n) (𝓡 k) e (φ x)
         (mfderiv (𝓡 2) (𝓡 n) φ x (EuclideanSpace.basisFun (Fin 2) ℝ i)) := by
     unfold cylinderColumn U
-    rw [← mfderiv_eq_fderiv, mfderiv_comp x ((he _).mdifferentiableAt (by simp))
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp x ((he _).mdifferentiableAt (by simp))
       ((hφ _).mdifferentiableAt (by simp))]
     rfl
   have hcol (x : LoopPlane) (i : Fin 2) : ‖cylinderColumn U i x‖ ^ 2 ≤ (A + 1) * Q x := by

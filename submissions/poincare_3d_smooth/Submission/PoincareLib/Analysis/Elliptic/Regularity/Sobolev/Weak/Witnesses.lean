@@ -374,7 +374,7 @@ theorem MemW01p.add
         ext x
         ring
       rw [hEq]
-      exact eLpNorm_add_le hdu_mem.aestronglyMeasurable hdv_mem.aestronglyMeasurable (by norm_num)
+      exact eLpNorm_add_le (by norm_num)
     have hsum :
         Tendsto
           (fun n =>
@@ -437,7 +437,7 @@ theorem MemW01p.add
         simp [ei, MemW1pWitness.add, hfd]
         ring
       rw [hEq]
-      exact eLpNorm_add_le hdu_mem.aestronglyMeasurable hdv_mem.aestronglyMeasurable (by norm_num)
+      exact eLpNorm_add_le (by norm_num)
     have hsum :
         Tendsto
           (fun n =>

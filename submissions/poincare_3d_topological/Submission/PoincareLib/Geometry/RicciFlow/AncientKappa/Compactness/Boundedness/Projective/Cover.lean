@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.ThreeDimensional.Asymptotic.Curvature.SphereCover
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.TwoDimensional.Models
 import Submission.PoincareLib.Geometry.Manifold.LocalDiffeomorph.Product
@@ -40,7 +41,7 @@ private theorem mfderiv_projectiveNormalizedLine (R r₀ : ℝ) (hR : 0 < R)
     (r v : ℝ) :
     mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (projectiveNormalizedLine R r₀ hR) r v =
       v / Real.sqrt R := by
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change fderiv ℝ (fun t : ℝ => r₀ + t / Real.sqrt R) r v = _
   have hd : HasDerivAt (fun t : ℝ => r₀ + t / Real.sqrt R) (1 / Real.sqrt R) r :=
     ((hasDerivAt_id r).div_const (Real.sqrt R)).const_add r₀

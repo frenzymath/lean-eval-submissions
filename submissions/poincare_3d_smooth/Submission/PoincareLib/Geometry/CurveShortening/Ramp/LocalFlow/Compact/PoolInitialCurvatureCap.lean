@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalEstimates.Initial.CurvatureCap
 import Mathlib.Topology.Order.Compact
 
@@ -160,7 +161,7 @@ theorem exists_compact_pool_initial_curvature_bound
     erw [mfderiv_comp y
       ((hρ.contMDiffAt (hU.mem_nhds (hfguard p hp y).1)).mdifferentiableAt (by simp))
       (((hf p hp).contMDiff y).mdifferentiableAt (by norm_num)),
-      ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have himm (y : ℝ) : curveVelocity (n := n) (fun z => c z tau) y ≠ 0 := by
     rw [hvel]

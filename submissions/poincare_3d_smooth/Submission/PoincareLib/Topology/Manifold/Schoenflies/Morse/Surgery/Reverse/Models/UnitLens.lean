@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Surgery.Reverse.Models.TransportedLens
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Surgery.Reverse.Models.ClosedMarking
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Surgery.Reverse.MarkedDisks
@@ -74,7 +75,7 @@ theorem exists_parametrized_unit_cap_lens
     have hHder : Injective (fderiv Real H (g x)) := by
       have h := (H.mfderivToContinuousLinearEquiv (by simp) (g x)).injective
       change Injective (mfderiv (𝓡 3) (𝓡 3) H (g x)) at h
-      simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using h
     rw [show G = H ∘ g from rfl, fderiv_comp x
       (H.contDiff.differentiable (by simp) _) (hg.differentiable (by simp) x)]
     exact hHder.comp (hgder x)

@@ -42,6 +42,7 @@ theorem eventually_range_iff_wall_of_flat_arc
     change mfderiv (𝓡 1) 𝓘(Real, Real) (L₁ ∘ γ) q = _
     rw [mfderiv_comp q (hL₁.mdifferentiable (by simp) (γ q)) hmd,
       mfderiv_eq_fderiv, L₁.fderiv]
+    rfl
   have hγinj := (hγ.isImmersion.isImmersionAt q).injective_mfderiv_modelWithCornersSelf
     (by simp)
   have hyinj : Injective dy := by

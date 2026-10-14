@@ -31,13 +31,12 @@ theorem HasDerivAt.normalized_direction_of_radial
     field_simp
   have h := (hn'.inv hnorm).smul hγ
   convert h using 1
-  · rfl
-  · change 0 = ‖γ t‖⁻¹ • (a • γ t) + (-(a * ‖γ t‖) / ‖γ t‖ ^ 2) • γ t
-    rw [smul_smul, ← add_smul]
-    have hc : ‖γ t‖⁻¹ * a + -(a * ‖γ t‖) / ‖γ t‖ ^ 2 = 0 := by
-      field_simp
-      ring
-    rw [hc, zero_smul]
+  change 0 = ‖γ t‖⁻¹ • (a • γ t) + (-(a * ‖γ t‖) / ‖γ t‖ ^ 2) • γ t
+  rw [smul_smul, ← add_smul]
+  have hc : ‖γ t‖⁻¹ * a + -(a * ‖γ t‖) / ‖γ t‖ ^ 2 = 0 := by
+    field_simp
+    ring
+  rw [hc, zero_smul]
 
 /-- A nonvanishing radial curve has one direction throughout a connected
 open domain. This is the calculus step in the standard-pole argument. -/

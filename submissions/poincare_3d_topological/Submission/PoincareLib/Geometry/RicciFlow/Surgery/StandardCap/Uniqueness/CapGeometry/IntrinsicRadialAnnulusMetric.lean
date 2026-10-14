@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.IntrinsicRadialPatch
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialAnnulusMetric
@@ -61,7 +62,7 @@ theorem intrinsicRadialAnnulusPatch_pullback (q₀ : UnitTwoSphere) (a b length 
         (N.coordinate z) (mfderiv ((𝓡 2).prod 𝓘(ℝ, ℝ)) (𝓡 3) N.coordinate z v))
       (mfderiv (𝓡 3) (𝓡 3) (intrinsicSpatialInverse g hrotation hcomplete)
         (N.coordinate z) (mfderiv ((𝓡 2).prod 𝓘(ℝ, ℝ)) (𝓡 3) N.coordinate z w)) = _
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (intrinsicSpatialMetric_pullback g hrotation hcomplete _ _ _).symm
   have hr : 0 < a + b * z.2 := by
     have h := mul_lt_mul_of_pos_left hz.1 hb

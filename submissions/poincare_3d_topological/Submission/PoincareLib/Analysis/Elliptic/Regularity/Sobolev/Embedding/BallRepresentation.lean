@@ -117,19 +117,34 @@ theorem smoothCompactSupport_L2_bound_on_bounded_ge_two
         exact continuous_norm.comp hcont_fderiv
       have hu_eq_full :
           eLpNorm u 2 (volume.restrict Ω) = eLpNorm u 2 volume := by
-        rw [eLpNorm_restrict_eq_of_support_subset hu_support_sub]
+        rw [eLpNorm_restrict_eq_of_support_subset hu.continuous.aestronglyMeasurable hu_support_sub]
       have hgrad_eq_full :
           eLpNorm (smoothGradNorm u) 2 (volume.restrict Ω) =
             eLpNorm (smoothGradNorm u) 2 volume := by
-        rw [eLpNorm_restrict_eq_of_support_subset hgrad_support_sub]
+        rw [eLpNorm_restrict_eq_of_support_subset
+          (show AEStronglyMeasurable (smoothGradNorm u) volume from by
+            have heq : smoothGradNorm u = fun x => ‖fderiv ℝ u x‖ :=
+              funext fun x => (norm_fderiv_eq_smoothGradNorm (u := u) (x := x)).symm
+            rw [heq]
+            exact ((hu.continuous_fderiv (by simp)).norm).aestronglyMeasurable) hgrad_support_sub]
       have hgrad_eq_s_one :
           eLpNorm (smoothGradNorm u) (ENNReal.ofReal 1) (volume.restrict s) =
             eLpNorm (smoothGradNorm u) (ENNReal.ofReal 1) volume := by
-        rw [eLpNorm_restrict_eq_of_support_subset hgrad_support_sub_s]
+        rw [eLpNorm_restrict_eq_of_support_subset
+          (show AEStronglyMeasurable (smoothGradNorm u) volume from by
+            have heq : smoothGradNorm u = fun x => ‖fderiv ℝ u x‖ :=
+              funext fun x => (norm_fderiv_eq_smoothGradNorm (u := u) (x := x)).symm
+            rw [heq]
+            exact ((hu.continuous_fderiv (by simp)).norm).aestronglyMeasurable) hgrad_support_sub_s]
       have hgrad_eq_s_two :
           eLpNorm (smoothGradNorm u) 2 (volume.restrict s) =
             eLpNorm (smoothGradNorm u) 2 volume := by
-        rw [eLpNorm_restrict_eq_of_support_subset hgrad_support_sub_s]
+        rw [eLpNorm_restrict_eq_of_support_subset
+          (show AEStronglyMeasurable (smoothGradNorm u) volume from by
+            have heq : smoothGradNorm u = fun x => ‖fderiv ℝ u x‖ :=
+              funext fun x => (norm_fderiv_eq_smoothGradNorm (u := u) (x := x)).symm
+            rw [heq]
+            exact ((hu.continuous_fderiv (by simp)).norm).aestronglyMeasurable) hgrad_support_sub_s]
       have hgrad_aesm_s :
           AEStronglyMeasurable (smoothGradNorm u) (volume.restrict s) :=
         hgrad_cont.aestronglyMeasurable
@@ -154,7 +169,7 @@ theorem smoothCompactSupport_L2_bound_on_bounded_ge_two
         calc
           eLpNorm (fderiv ℝ u) 1 volume
               = eLpNorm (fun x => ‖fderiv ℝ u x‖) 1 volume := by
-                  exact (eLpNorm_norm (f := fderiv ℝ u) (p := (1 : ℝ≥0∞)) (μ := volume)).symm
+                  exact (eLpNorm_norm (f := fderiv ℝ u) (p := (1 : ℝ≥0∞)) (μ := volume) (hu.continuous_fderiv (by simp)).aestronglyMeasurable).symm
           _ = eLpNorm (smoothGradNorm u) 1 volume := by
                 exact eLpNorm_congr_ae (Eventually.of_forall fun x =>
                   norm_fderiv_eq_smoothGradNorm (u := u) (x := x))
@@ -202,11 +217,16 @@ theorem smoothCompactSupport_L2_bound_on_bounded_ge_two
         support_smoothGradNorm_subset_tsupport.trans hu_sub
       have hu_eq_full :
           eLpNorm u 2 (volume.restrict Ω) = eLpNorm u 2 volume := by
-        rw [eLpNorm_restrict_eq_of_support_subset hu_support_sub]
+        rw [eLpNorm_restrict_eq_of_support_subset hu.continuous.aestronglyMeasurable hu_support_sub]
       have hgrad_eq_full :
           eLpNorm (smoothGradNorm u) 2 (volume.restrict Ω) =
             eLpNorm (smoothGradNorm u) 2 volume := by
-        rw [eLpNorm_restrict_eq_of_support_subset hgrad_support_sub]
+        rw [eLpNorm_restrict_eq_of_support_subset
+          (show AEStronglyMeasurable (smoothGradNorm u) volume from by
+            have heq : smoothGradNorm u = fun x => ‖fderiv ℝ u x‖ :=
+              funext fun x => (norm_fderiv_eq_smoothGradNorm (u := u) (x := x)).symm
+            rw [heq]
+            exact ((hu.continuous_fderiv (by simp)).norm).aestronglyMeasurable) hgrad_support_sub]
       have hsobolev :
         eLpNorm u 2 volume ≤
           (Csob : ℝ≥0∞) * eLpNorm (fderiv ℝ u) 2 volume := by
@@ -223,7 +243,7 @@ theorem smoothCompactSupport_L2_bound_on_bounded_ge_two
         calc
           eLpNorm (fderiv ℝ u) 2 volume
               = eLpNorm (fun x => ‖fderiv ℝ u x‖) 2 volume := by
-                  exact (eLpNorm_norm (f := fderiv ℝ u) (p := (2 : ℝ≥0∞)) (μ := volume)).symm
+                  exact (eLpNorm_norm (f := fderiv ℝ u) (p := (2 : ℝ≥0∞)) (μ := volume) (hu.continuous_fderiv (by simp)).aestronglyMeasurable).symm
           _ = eLpNorm (smoothGradNorm u) 2 volume := by
                 exact eLpNorm_congr_ae (Eventually.of_forall fun x =>
                   norm_fderiv_eq_smoothGradNorm (u := u) (x := x))

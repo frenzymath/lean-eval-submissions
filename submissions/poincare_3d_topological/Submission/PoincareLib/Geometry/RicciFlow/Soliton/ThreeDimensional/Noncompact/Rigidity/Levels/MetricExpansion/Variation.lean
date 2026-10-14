@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Convexity.FlowContraction
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Pullback
 import Submission.PoincareLib.Geometry.Riemannian.Metric.LocalExtension
@@ -69,7 +70,7 @@ private theorem metric_pullback_in_charts
     simpa only [d, extChartAt_to_inv] using hc
   have hderiv := mfderiv_comp (d x) hcd (hFd.comp (d x) hd)
   rw [mfderiv_comp (d x) hFd hd, hdid, ContinuousLinearMap.comp_id] at hderiv
-  rw [mfderiv_eq_fderiv] at hderiv
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hderiv
   change fderiv ℝ (c ∘ F ∘ d.symm) (d x) =
     (mfderiv (𝓡 n) (𝓡 n) c (F (d.symm (d x)))).comp
       (mfderiv (𝓡 n) (𝓡 n) F (d.symm (d x))) at hderiv
@@ -138,7 +139,7 @@ private theorem inverseChart_fderiv
     exact mdifferentiableAt_extChartAt (mem_chart_source _ _)
   have he := mfderiv_comp (d x) hcd (hFd.comp (d x) hd)
   rw [mfderiv_comp (d x) hFd hd, hdid, ContinuousLinearMap.comp_id,
-    mfderiv_eq_fderiv, hdx] at he
+    Poincare.Compatibility.mfderiv_eq_fderiv_model, hdx] at he
   simp only [Function.comp_apply] at he
   rw [hdx] at he
   dsimp only

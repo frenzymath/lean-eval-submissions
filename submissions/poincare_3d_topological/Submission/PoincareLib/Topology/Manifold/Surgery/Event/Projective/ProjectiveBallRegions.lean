@@ -42,7 +42,7 @@ noncomputable def projectiveLiftPuncturePoint (p : RealProjectiveThree) :
 /-- Up and down restrict to inverse smooth maps on the literal punctures. -/
 noncomputable def projectivePunctureLiftDiffeomorph (p : RealProjectiveThree) :
     (projectiveLiftPunctureOpen.{u} p) ≃ₘ^∞⟮𝓡 3, 𝓡 3⟯ (projectivePunctureOpen p) where
-  toFun := fun x => ⟨x.val.down, fun h => x.property (ULift.ext _ _ h)⟩
+  toFun := fun x => ⟨x.val.down, fun h => x.property (ULift.ext h)⟩
   invFun := fun x => ⟨ULift.up x.val, fun h => x.property (congrArg ULift.down h)⟩
   left_inv := by intro x; rfl
   right_inv := by intro x; rfl

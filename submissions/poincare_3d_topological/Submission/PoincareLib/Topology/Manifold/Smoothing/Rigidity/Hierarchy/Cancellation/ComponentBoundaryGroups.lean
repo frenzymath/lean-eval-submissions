@@ -48,8 +48,8 @@ theorem boundary_groups_commensurable_of_finiteIndex
     rw [Subgroup.index_map_of_bijective (f := T.toMonoidHom) T.bijective]
     exact h₁.index_ne_zero
   let := htransport
-  exact ⟨Subgroup.isFiniteRelIndex_of_finiteIndex.relIndex_ne_zero,
-    Subgroup.isFiniteRelIndex_of_finiteIndex.relIndex_ne_zero⟩
+  exact ⟨Subgroup.isFiniteRelIndex_of_finiteIndex,
+    Subgroup.isFiniteRelIndex_of_finiteIndex⟩
 
 local notation "L0" => hamiltonZeroPeriodLattice
 local notation "X0" => LatticeHandleAmbient (Fin 0) (Fin 3) L0

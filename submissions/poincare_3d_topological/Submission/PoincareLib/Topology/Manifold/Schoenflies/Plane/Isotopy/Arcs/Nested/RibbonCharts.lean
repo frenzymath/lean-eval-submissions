@@ -124,7 +124,7 @@ theorem exists_chart_of_ribbon_edge
       have hder' : fderiv Real N x =
           (mfderiv (𝓡 1) (𝓡 2) (fun p : S1 => (p : E2)) (m x)).comp
             (mfderiv (𝓡 1) (𝓡 1) m x) := by
-        rw [← mfderiv_eq_fderiv]
+        rw [mfderiv_eq_fderiv] at hchain
         exact hchain
       rw [hder']
       exact congrArg (mfderiv (𝓡 1) (𝓡 2) (fun p : S1 => (p : E2)) (m x)) huv

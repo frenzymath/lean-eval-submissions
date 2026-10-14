@@ -70,5 +70,6 @@ theorem limitFinite_preserved_history_interior
     exact hagree s hs hs' y hy
   unfold GeneralizedFlowCylinder.pullbackInner
   rw [heq.self_of_nhds, heq.mfderiv_eq]
+  rfl
 
 end PoincareMT.M47

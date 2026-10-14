@@ -1,3 +1,4 @@
+import Mathlib.Geometry.Manifold.Instances.Real
 /-
 Copyright (c) 2026 The PoincareLib contributors.
 -/

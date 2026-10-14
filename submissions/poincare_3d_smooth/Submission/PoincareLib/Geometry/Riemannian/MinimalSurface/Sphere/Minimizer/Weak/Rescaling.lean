@@ -66,7 +66,7 @@ theorem suAffine_map_volume (a : Plane) {s : ℝ} (hs : 0 < s) :
       ENNReal.ofReal ((s ^ 2)⁻¹) • volume := by
   change Measure.map ((fun x : Plane => a + x) ∘ (fun x : Plane => s • x)) volume = _
   rw [← Measure.map_map (by fun_prop) (by fun_prop), Measure.map_addHaar_smul volume hs.ne',
-    Measure.map_smul, (measurePreserving_add_left (volume : Measure Plane) a).map_eq]
+    Measure.map_smul _ (by fun_prop), (measurePreserving_add_left (volume : Measure Plane) a).map_eq]
   have hdim : Module.finrank ℝ Plane = 2 := by simp
   rw [hdim, abs_of_nonneg (inv_nonneg.mpr (sq_nonneg s))]
 

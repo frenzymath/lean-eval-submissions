@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.C2.TraceInitialCurvatureLimit
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Spectral.ApproximationJets
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.C2.TraceClosedLimit
@@ -281,7 +282,7 @@ theorem exists_closed_normalCurvature_limit_of_spectral_family
         erw [mfderiv_comp y
           ((hρ.contMDiffAt (hU.mem_nhds (hguard j u y).1)).mdifferentiableAt (by simp))
           ((hrr j u).2.1 y).differentiableAt.mdifferentiableAt,
-          ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv,
+          ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model,
           ((hrr j u).2.1 y).hasFDerivAt.fderiv]
         exact congrArg (mfderiv 𝓘(ℝ, W) (𝓡 n) ρ (qn j u y))
           (ContinuousLinearMap.toSpanSingleton_apply_one ℝ (P j u (y : AddCircle L)))

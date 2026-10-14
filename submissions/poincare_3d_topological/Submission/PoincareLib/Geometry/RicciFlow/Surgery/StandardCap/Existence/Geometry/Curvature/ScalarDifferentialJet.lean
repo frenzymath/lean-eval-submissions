@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Geometry.Curvature.ScalarJetOperator
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Geometry.Curvature.ScalarGradientNorm
 
@@ -67,7 +68,7 @@ theorem scalarDifferentialNormJet_spatialJet {n : ℕ}
   simp only [scalarDifferentialNormJet, scalarJetOperator_spatialJet D, hK, hL]
   unfold RiemannianMetric.tangentNorm
   rw [D.inner_gradient]
-  simp +instances only [LeviCivitaData.gradient, mvfderiv, mfderiv_eq_fderiv,
+  simp +instances only [LeviCivitaData.gradient, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model,
     NormedSpace.fromTangentSpace]
   rfl
 

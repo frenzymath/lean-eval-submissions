@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.Models.Involution.MetricSeparation
 import Mathlib.Analysis.Calculus.MeanValue
 
@@ -120,7 +121,7 @@ theorem factor_line_deriv_sq (q : QuotientSphereLineCertificate G) :
     have heq : Prod.snd ∘ (q.involution ∘ j) = g := by
       funext a
       exact congrArg Prod.snd (hfactor s a)
-    rw [heq, mfderiv_eq_fderiv] at h
+    rw [heq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     exact congrArg (fun L => L 1) h.symm
   have h := (q.involution_preserves_tangent_forms (j z)
     (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) j z 1) (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) j z 1)).2

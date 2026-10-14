@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.GoodTimes.LoopTopology
 import Mathlib.Geometry.Manifold.MFDeriv.Tangent
 
@@ -64,7 +65,7 @@ private theorem chart_curveVelocity (c : ℝ → M)
   have h := mfderiv_comp_apply (f := c) (g := chartAt LoopAmbient p) x
     (mdifferentiableAt_atlas (chart_mem_atlas LoopAmbient p) hx)
     (hc.contMDiffAt.mdifferentiableAt one_ne_zero) (1 : ℝ)
-  simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv, Function.comp_def,
+  simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv, Function.comp_def,
     curveVelocity] using! h.symm
 
 /-- Actual C1 curves whose genuine values and coordinate derivatives

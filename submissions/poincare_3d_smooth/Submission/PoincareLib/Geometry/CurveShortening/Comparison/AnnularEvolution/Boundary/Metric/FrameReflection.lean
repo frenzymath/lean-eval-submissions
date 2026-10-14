@@ -80,7 +80,7 @@ theorem metricRowFrame_boundary_columns
     metricRowFrame G V j Y j = 0 ∧ ∀ k, k ≠ j → metricRowFrame G V j X k = 0 := by
   obtain ⟨a, rfl⟩ := hX
   constructor
-  · rw [metricRowFrame_apply, if_pos rfl]
+  · rw [metricRowFrame_apply, ite_eq_left rfl]
     by_cases ha : a = 0
     · have hYY : G Y Y = 0 := by
         simpa only [ha, zero_smul, map_zero, zero_apply] using hdiag.symm
@@ -92,7 +92,7 @@ theorem metricRowFrame_boundary_columns
         simpa only [map_smul, smul_apply, smul_eq_mul] using hmixed
       exact (mul_eq_zero.mp hh).resolve_left ha
   · intro k hk
-    rw [metricRowFrame_apply, if_neg hk]
+    rw [metricRowFrame_apply, ite_eq_right hk]
     simp only [PiLp.smul_apply, smul_eq_mul]
     field_simp
     ring

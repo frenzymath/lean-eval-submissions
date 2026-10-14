@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Identities.ScalarHessian
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.ScalarBracket
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.ScalarChainRule
@@ -319,7 +320,7 @@ theorem hessian_shiQuadraticCorrection_zero [T2Space M] (D : LeviCivitaData g)
       mvfderiv (𝓡 n) (f j) q (J w) = (mvfderiv (𝓡 n) h q (J w)) j := by
         change mvfderiv (𝓡 n) (p ∘ h) q (J w) = _
         rw [mvfderiv_comp_apply q p.differentiableAt.mdifferentiableAt hhD]
-        simpa only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] using!
+        simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] using!
           congrArg (fun K : E →L[ℝ] ℝ => K (mvfderiv (𝓡 n) h q (J w)))
             (p.fderiv (x := h q))
       _ = w j := by
@@ -495,7 +496,7 @@ theorem exists_shi_normalized_chart (q : M) (J : E ≃L[ℝ] TangentSpace (𝓡 
         ((hasFDerivAt_id (𝕜 := ℝ) (c q)).sub (hasFDerivAt_const (c q) (c q)))
     change mfderiv (𝓡 n) 𝓘(ℝ, E) ((fun w : E => L.symm (w - c q)) ∘ c) q (J v) = v
     rw [mfderiv_comp_apply q ha.differentiableAt.mdifferentiableAt hcD,
-      mfderiv_eq_fderiv, ha.fderiv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, ha.fderiv]
     change L.symm (L v) = v
     exact L.symm_apply_apply v
 
@@ -538,7 +539,7 @@ theorem exists_shi_normal_chart [T2Space M] (D : LeviCivitaData g) (q : M) :
     have hQd : MDifferentiableAt 𝓘(ℝ, E) 𝓘(ℝ, E) Q (h q) :=
       ((hQs.contDiffAt (Q.open_source.mem_nhds hhqQ)).differentiableAt (by simp)).mdifferentiableAt
     change mfderiv (𝓡 n) 𝓘(ℝ, E) (Q ∘ h) q (J v) = J.symm (J v)
-    rw [mfderiv_comp_apply q hQd hhd, mfderiv_eq_fderiv, hQ, hzero,
+    rw [mfderiv_comp_apply q hQd hhd, Poincare.Compatibility.mfderiv_eq_fderiv_model, hQ, hzero,
       (hasFDerivAt_shiQuadraticCorrection_zero C).fderiv]
     change (mfderiv (𝓡 n) 𝓘(ℝ, E) h q (J v) : E) = J.symm (J v)
     exact (hd v).trans (J.symm_apply_apply v).symm
@@ -609,7 +610,7 @@ theorem shiNormalChart_mvfderiv_comp_at
   calc
     mvfderiv (𝓡 n) (P ∘ c) q (J u) =
         fderiv ℝ P (c q) (mfderiv (𝓡 n) 𝓘(ℝ, E) c q (J u)) := by
-      simpa only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] using!
+      simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] using!
         mvfderiv_comp_apply q hpD hcD (J u)
     _ = fderiv ℝ P 0 u := by rw [hdu, h0]
 
@@ -641,7 +642,7 @@ theorem shiNormalChart_hessian_comp_at [T2Space M]
     have hpD := (hP.differentiable (by simp) (c y)).mdifferentiableAt
     have he : mvfderiv (𝓡 n) (P ∘ c) y (shiChartField c v y) =
         fderiv ℝ P (c y) (mvfderiv (𝓡 n) c y (shiChartField c v y)) := by
-      simpa only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] using!
+      simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] using!
         mvfderiv_comp_apply y hpD hcD (shiChartField c v y)
     rw [shiChartField_duality hc hi hy] at he
     exact he

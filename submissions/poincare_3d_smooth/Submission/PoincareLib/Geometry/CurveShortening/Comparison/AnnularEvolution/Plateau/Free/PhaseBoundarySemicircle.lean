@@ -33,7 +33,13 @@ private theorem coordinate_eLpNorm_tendsto {m : ℕ} {X : Type*}
     Tendsto (fun j => eLpNorm (fun z => g j z a) 2 mu) atTop (𝓝 0) := by
   apply tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds h (fun _ => bot_le)
   intro j
-  exact eLpNorm_mono (fun z => PiLp.norm_apply_le (g j z) a)
+  by_cases hg : AEStronglyMeasurable (g j) mu
+  · exact eLpNorm_mono
+      ((EuclideanSpace.proj a).continuous.comp_aestronglyMeasurable hg)
+      (fun z => PiLp.norm_apply_le (g j z) a)
+  · change eLpNorm (fun z => g j z a) 2 mu ≤ eLpNorm (g j) 2 mu
+    rw [eLpNorm_of_not_aestronglyMeasurable hg]
+    exact le_top
 
 namespace M64FreeWeakPhaseAnnulus
 

@@ -34,7 +34,7 @@ lemma contMDiffAt_deriv_time
   convert h using 1
   funext p
   rw [inTangentCoordinates_model_space]
-  simp only [mfderiv_eq_fderiv, deriv]
+  simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, deriv]
 
 /-- Chart transport of equality of mixed derivatives. -/
 lemma hasDerivAt_mvfderiv_time

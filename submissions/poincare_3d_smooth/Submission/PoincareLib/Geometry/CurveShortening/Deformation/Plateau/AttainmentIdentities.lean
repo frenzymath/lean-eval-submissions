@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.AttainmentRegularity
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Weak.MinimizerConformal
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.CompetitorGram
@@ -55,7 +56,7 @@ theorem m65Attainment_gram_ae (F : M65WeakDisk e γ) {f : LoopPlane → M}
   have hchain (i : Fin 2) : F.derivative i z =
       mfderiv (𝓡 3) (𝓡 N) e (f z)
         (mfderiv (𝓡 2) (𝓡 3) f z (EuclideanSpace.basisFun (Fin 2) ℝ i)) := by
-    rw [← hderiv i, ← mfderiv_eq_fderiv,
+    rw [← hderiv i, ← Poincare.Compatibility.mfderiv_eq_fderiv_model,
       mfderiv_comp z (he.mdifferentiableAt (by simp)) hdf]
     rfl
   intro i j

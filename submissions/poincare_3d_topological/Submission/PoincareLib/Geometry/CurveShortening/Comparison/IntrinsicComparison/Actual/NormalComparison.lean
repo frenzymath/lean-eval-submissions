@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Global.RayEmbedding
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Transverse.InnerEndpoint
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Transverse.RetainedBases
@@ -116,7 +117,7 @@ theorem m64Intrinsic_comparison_of_actual_normal_geometry
         (intrinsicBoundarySpeed N.metric 1 (x 0) ^ 2 * (v 0) ^ 2 + (v 1) ^ 2) ≤
       N.metric.euclideanCoefficients (e !₂[x 0, x 1])
         (fderiv ℝ e !₂[x 0, x 1] v) (fderiv ℝ e !₂[x 0, x 1] v) at hm
-    simp only [TangentSpace, mfderiv_eq_fderiv]
+    simp only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change (1 - delta) ^ 2 *
         (intrinsicBoundarySpeed N.metric 1 (x 0) ^ 2 * (v 0) ^ 2 + (v 1) ^ 2) ≤
       N.metric.euclideanCoefficients (e x) (fderiv ℝ e x v) (fderiv ℝ e x v)
@@ -127,7 +128,7 @@ theorem m64Intrinsic_comparison_of_actual_normal_geometry
       (x := !₂[p, H p]) (by
         simpa only [Matrix.cons_val_zero] using
           hmetric p hp (H p) ⟨hHnonneg p, hHheight p⟩)
-    simpa only [TangentSpace, mfderiv_eq_fderiv] using hi
+    simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] using hi
   apply m64Intrinsic_comparison_of_cyclic_retained_strip_ae_outer N e he hH hHnonneg
     hGood hGoodAE hdelta hdeltaSmall hq (by linarith only [hq, hfirst])
     (fun p w hpw hwP hl => hturn p w hpw hwP (hl.trans (by linarith only [hq, hqr])))

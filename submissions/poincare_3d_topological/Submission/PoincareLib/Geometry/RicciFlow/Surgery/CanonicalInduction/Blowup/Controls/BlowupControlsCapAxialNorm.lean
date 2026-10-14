@@ -44,7 +44,7 @@ theorem cap_native_axial_weight_norm_le
   have hprod : (∏ i, neckAxialWeight lambda (a i)) ≤ (max 1 lambda) ^ r := by
     calc
       _ ≤ ∏ _i : Fin r, max 1 lambda :=
-        Finset.prod_le_prod (fun i _ => (hweight (a i)).1) (fun i _ => (hweight (a i)).2)
+        Finset.prod_le_prod₀ (fun i _ => (hweight (a i)).1) (fun i _ => (hweight (a i)).2)
       _ = _ := by simp
   have hmax0 : 0 ≤ max 1 lambda := zero_le_one.trans (le_max_left _ _)
   have hsquare := (sq_le_sq₀ hprod0 (pow_nonneg hmax0 r)).mpr hprod

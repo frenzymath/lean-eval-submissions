@@ -50,7 +50,10 @@ private theorem globalize_ball_coordinates
       ⟨D, hs hx, fun _ _ => rfl⟩
     have H := (hl.mfderivToContinuousLinearEquiv (by simp)).bijective
     change Function.Bijective (mfderiv (𝓡 3) (𝓡 3) b x) at H
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using H
+    rw [mfderiv_eq_fderiv] at H
+    have hbij := (NormedSpace.fromTangentSpace (b x)).bijective.comp
+      (H.comp (NormedSpace.fromTangentSpace x).symm.bijective)
+    simpa [Function.comp_def] using hbij
   have hinj : InjOn f (closedBall 0 1) := by
     intro x hx y hy hxy
     apply b.injOn (hs hx) (hs hy)

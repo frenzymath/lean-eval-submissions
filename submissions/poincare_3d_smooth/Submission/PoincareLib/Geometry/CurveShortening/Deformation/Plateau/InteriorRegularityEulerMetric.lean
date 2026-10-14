@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityEulerReconstruction
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.ChartMetricRealization
 
@@ -41,7 +42,7 @@ theorem reconstruction_pairing (g : RiemannianMetric 3 M)
       g.inner (ψ y) (mfderiv (𝓡 3) (𝓡 3) ψ y v) (mfderiv (𝓡 3) (𝓡 3) ψ y w) := by
   have hd : fderiv ℝ (e ∘ ψ) y =
       (mfderiv (𝓡 3) (𝓡 N) e (ψ y)).comp (mfderiv (𝓡 3) (𝓡 3) ψ y) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp y he hψ
   rw [hd]
   exact m65EmbeddingMetric_image g e (ψ y) hinj _ _

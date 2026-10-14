@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Analysis.Parabolic.Quasilinear.Charts.Coordinates.ChartStateContinuity
 import Submission.PoincareLib.Geometry.RicciFlow.Local.DeTurck.Jets.IntrinsicRicciJet
 import Submission.PoincareLib.Geometry.Riemannian.Connection.ScalarJets
@@ -166,7 +167,7 @@ theorem scalarCurvature_eq_scalarChartState
   have hstate : frameMetricJet g (fun a _ => b a) x =
       chartStateJet (euclideanMetricState g b x) := by
     unfold frameMetricJet chartStateJet euclideanMetricState coordinateMetricJet
-    simp only [mvfderiv, mfderiv_eq_fderiv]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   rw [scalarCurvature_eq_inverse_gram D x b]
   unfold scalarChartState

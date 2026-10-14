@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.MovingDensityVariation
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Connection.Torsion
 
@@ -33,7 +34,7 @@ theorem m65CurveVelocity_affineLine {f : LoopPlane → M} {z : LoopPlane}
     simpa +instances only [zero_add, one_smul] using!
       (hasDerivAt_const (0 : ℝ) z).add ((hasDerivAt_id (0 : ℝ)).smul_const v)
   have hlinev : mfderiv (𝓘(ℝ, ℝ)) (𝓡 2) (fun r : ℝ => z + r • v) 0 1 = v := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hline.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hline.deriv
   have h := mfderiv_comp_apply_of_eq 0 hf hline.differentiableAt.mdifferentiableAt
     (by simp : z + (0 : ℝ) • v = z) (1 : ℝ)
   simpa only [curveVelocity, hlinev, Function.comp_def] using h

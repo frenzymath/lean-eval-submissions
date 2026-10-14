@@ -45,7 +45,7 @@ lemma eLpNorm_le_of_support_ball {R : ℝ} (hR : 0 < R)
     linarith
   calc
     _ ≤ eLpNorm (fun x => f x - f (x - a)) p volume := by
-      apply eLpNorm_mono
+      apply eLpNorm_mono hf.continuous.aestronglyMeasurable
       intro x
       by_cases hx : f x = 0
       · simp only [hx, norm_zero, zero_sub, norm_neg, norm_nonneg]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.LocalBounds
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient
 import Submission.PoincareLib.Analysis.Calculus.SmoothCompactness.Pullback
@@ -44,7 +45,7 @@ theorem mvfderiv_eq_chart_fderiv {f : M → ℝ} (a : M) {x : M}
   have hc := ((contMDiffOn_extChartAt_symm (n := ∞) a).contMDiffAt
     (extChartAt_target_mem_nhds' (c.map_source hx))).mdifferentiableAt (by simp)
   have he := mvfderiv_comp_apply (c x) hf' hc w
-  simp only [mvfderiv, ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv] at he
+  simp only [mvfderiv, ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model] at he
   change fderiv ℝ (f ∘ c.symm) (c x) w =
     mvfderiv (𝓡 n) f (c.symm (c x)) (mfderiv (𝓡 n) (𝓡 n) c.symm (c x) w) at he
   rw [hi, c.left_inv hx] at he
@@ -145,7 +146,7 @@ theorem mvfderiv_product_comp_vertical {e : N × ℝ → M} {f : M → ℝ}
         (mfderiv ((𝓡 m).prod 𝓘(ℝ, ℝ)) (𝓡 n) e (y, s) (0, 1)) := by
   have hh := mvfderiv_comp_apply (y, s) hf he (0, 1)
   have hd := mfderiv_prod_eq_add_apply (v := (0, 1)) (hf.comp (y, s) he)
-  simp only [map_zero, zero_add, mfderiv_eq_fderiv] at hd
+  simp only [map_zero, zero_add, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   exact hd.symm.trans hh
 
 omit [IsManifold (𝓡 n) ∞ M] in

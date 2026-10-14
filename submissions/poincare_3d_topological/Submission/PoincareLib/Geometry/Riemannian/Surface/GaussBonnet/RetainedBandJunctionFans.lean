@@ -38,6 +38,7 @@ theorem core_germ_at_band_junction_of_band_germ
   filter_upwards [hc, hi] with z hcz hiz
   change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior A z
   change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior _ z at hcz
+  change interior _ z = interior _ z at hiz
   rwa [hiz] at hcz
 
 omit [T2Space S] in
@@ -168,6 +169,7 @@ theorem canonical_vertex_fan_at_upper_band_junction
       have hlocal' : (T.refined.mesh p.1.1).toPlaneComplex.support =ᶠ[𝓝 z]
           {x | 0 ≤ c.coord 2 x} := by
         filter_upwards [hlocal] with x hx
+        change _ = (¬c.coord 2 x < 0) at hx
         exact propext ((propext_iff.mp hx).trans not_lt)
       have hz : c.coord 2 z = 0 := by rw [← hc0']; simp
       have hm : z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support :=

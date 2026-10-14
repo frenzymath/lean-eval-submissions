@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Polar.Inverse
 import Submission.PoincareLib.Topology.Plane.Triangles.Right
 import Mathlib.Analysis.Calculus.FDeriv.WithLp
@@ -79,7 +80,7 @@ theorem m64Intrinsic_exists_two_arc_corner_chart
     ext i
     exact congrFun heq i
   have hei : Function.Injective (mfderiv (𝓡 2) (𝓡 2) e 0) := by
-    rw [mfderiv_eq_fderiv, heD.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, heD.fderiv]
     exact hDinj
   obtain ⟨H, hH0, _, hHe, hH, hHi⟩ := m64Intrinsic_exists_smooth_polar_inverse
     hU (contMDiffOn_iff_contDiffOn.mpr he) h0 hei
@@ -94,10 +95,10 @@ theorem m64Intrinsic_exists_two_arc_corner_chart
     rw [hHe]
     change α 0 + β s - α 0 = β s
     abel
-  · rw [hHe, mfderiv_eq_fderiv, heD.fderiv]
+  · rw [hHe, Poincare.Compatibility.mfderiv_eq_fderiv_model, heD.fderiv]
     change (1 : ℝ) • deriv α 0 + (0 : ℝ) • deriv β 0 = deriv α 0
     simp
-  · rw [hHe, mfderiv_eq_fderiv, heD.fderiv]
+  · rw [hHe, Poincare.Compatibility.mfderiv_eq_fderiv_model, heD.fderiv]
     change (0 : ℝ) • deriv α 0 + (1 : ℝ) • deriv β 0 = deriv β 0
     simp
 

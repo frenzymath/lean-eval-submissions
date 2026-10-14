@@ -5,7 +5,6 @@ import Mathlib.MeasureTheory.Function.UniformIntegrable
 /-! Strong local derivative convergence of the actual SU minimizing sequence. -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory
 open scoped Manifold ContDiff Topology ENNReal
@@ -405,47 +404,39 @@ variable {X E : Type*} [MeasurableSpace X] [NormedAddCommGroup E]
 /-- The power densities of an L^p uniformly integrable family are uniformly
 integrable in L^1. This is used for the actual alpha-energy density. -/
 theorem suAlpha_power_uniformIntegrable {f : ℕ → X → E} (hp : 0 < p)
-    (hf : UnifIntegrable f (ENNReal.ofReal p) mu) :
+    (hf : UnifIntegrable f (ENNReal.ofReal p) mu)
+    (hfm : ∀ j, AEStronglyMeasurable (f j) mu) :
     UnifIntegrable (fun j x => ‖f j x‖ ^ p) 1 mu := by
+  apply unifIntegrable_iff.mpr
   intro eps heps
-  obtain ⟨d, hd, hsmall⟩ := hf (Real.rpow_pos_of_pos heps p⁻¹)
-  refine ⟨d, hd, fun j s hs hmu => ?_⟩
-  have heq : s.indicator (fun x => ‖f j x‖ ^ p) =
-      fun x => ‖s.indicator (f j) x‖ ^ p := by
-    funext x
-    by_cases hx : x ∈ s <;> simp [hx, Real.zero_rpow hp.ne']
-  rw [heq, eLpNorm_norm_rpow _ hp, one_mul]
-  have hb := ENNReal.rpow_le_rpow (hsmall j s hs hmu) hp.le
-  rw [ENNReal.ofReal_rpow_of_pos (Real.rpow_pos_of_pos heps _),
-    Real.rpow_inv_rpow heps.le hp.ne'] at hb
-  exact hb
+  by_cases hepsTop : eps = ⊤
+  · subst eps
+    exact ⟨1, zero_lt_one, fun _ _ _ => le_top⟩
+  obtain ⟨d, hd, hsmall⟩ := unifIntegrable_iff.mp hf (eps ^ p⁻¹) (ENNReal.rpow_pos heps hepsTop)
+  refine ⟨d, hd, fun j s hmu => ?_⟩
+  rw [eLpNorm_norm_rpow _ (hfm j).restrict hp, one_mul]
+  have hb := ENNReal.rpow_le_rpow (hsmall j s hmu) hp.le
+  rwa [ENNReal.rpow_inv_rpow hp.ne'] at hb
 
 /-- A fixed multiple of a uniformly integrable majorant still controls
 uniform integrability. -/
 theorem suAlpha_uniformIntegrable_dominated {f g : ℕ → X → ℝ}
     {C : ℝ} (hC : 0 < C) (hg : UnifIntegrable g 1 mu)
-    (hfg : ∀ j, ∀ᵐ x ∂mu, ‖f j x‖ ≤ C * ‖g j x‖) : UnifIntegrable f 1 mu := by
+    (hfm : ∀ j, AEStronglyMeasurable (f j) mu) (hfg : ∀ j, ∀ᵐ x ∂mu, ‖f j x‖ ≤ C * ‖g j x‖) : UnifIntegrable f 1 mu := by
+  apply unifIntegrable_iff.mpr
   intro eps heps
-  obtain ⟨d, hd, hsmall⟩ := hg (div_pos heps hC)
-  refine ⟨d, hd, fun j s hs hmu => ?_⟩
-  have hb : eLpNorm (s.indicator (f j)) 1 mu ≤
-      ENNReal.ofReal C * eLpNorm (s.indicator (g j)) 1 mu := by
-    calc
-      _ ≤ eLpNorm (fun x => C * s.indicator (g j) x) 1 mu := eLpNorm_mono_ae (by
-        filter_upwards [hfg j] with x hx
-        by_cases hxs : x ∈ s
-        · simpa [hxs, norm_mul, Real.norm_of_nonneg hC.le] using hx
-        · simp [hxs])
-      _ = _ := by
-        change eLpNorm (C • s.indicator (g j)) 1 mu = _
-        rw [eLpNorm_const_smul, Real.enorm_of_nonneg hC.le]
-  refine hb.trans ?_
+  obtain ⟨d, hd, hsmall⟩ := unifIntegrable_iff.mp hg (eps / ENNReal.ofReal C)
+    (ENNReal.div_pos heps.ne' ENNReal.ofReal_ne_top)
+  refine ⟨d, hd, fun j s hmu => ?_⟩
+  have hb : eLpNorm (f j) 1 (mu.restrict s) ≤
+      ENNReal.ofReal C * eLpNorm (g j) 1 (mu.restrict s) :=
+    eLpNorm_le_mul_eLpNorm_of_ae_le_mul (hfm j).restrict
+      ((hfg j).filter_mono ae_restrict_le) 1
+  apply hb.trans
   calc
-    ENNReal.ofReal C * eLpNorm (s.indicator (g j)) 1 mu ≤
-        ENNReal.ofReal C * ENNReal.ofReal (eps / C) := by
-          gcongr
-          exact hsmall j s hs hmu
-    _ = ENNReal.ofReal eps := by rw [← ENNReal.ofReal_mul hC.le, mul_div_cancel₀ _ hC.ne']
+    _ ≤ ENNReal.ofReal C * (eps / ENNReal.ofReal C) :=
+      mul_le_mul_right (hsmall j s hmu) _
+    _ = eps := ENNReal.mul_div_cancel (ENNReal.ofReal_pos.mpr hC).ne' ENNReal.ofReal_ne_top
 
 /-- Strong L^p convergence passes continuous densities of p-growth to
 the integral. Continuity is needed only at the actual limiting values. -/
@@ -479,10 +470,11 @@ theorem suAlpha_nonlinear_integral_limit [IsFiniteMeasure mu]
   have hbase : UnifIntegrable (fun j x => 1 + ‖f j x‖ ^ p) 1 mu :=
     (unifIntegrable_const (by rfl) ENNReal.one_ne_top (memLp_const (1 : ℝ))).add
       (suAlpha_power_uniformIntegrable hp0
-        (unifIntegrable_of_tendsto_Lp hp' ENNReal.ofReal_ne_top hf hf0 hstrong))
-      (by rfl) (fun _ => aestronglyMeasurable_const) (fun j => (hpower j).1)
+        (unifIntegrable_of_tendsto_Lp hp' ENNReal.ofReal_ne_top hf hf0 hstrong)
+          (fun j => (hf j).aestronglyMeasurable))
+      (by rfl)
   have hUI : UnifIntegrable (fun j x => F x (f j x)) 1 mu :=
-    suAlpha_uniformIntegrable_dominated hC hbase (fun j => by
+    suAlpha_uniformIntegrable_dominated hC hbase hF (fun j => by
       filter_upwards [hbound j] with x hx
       simpa only [Real.norm_of_nonneg (by positivity : 0 ≤ 1 + ‖f j x‖ ^ p)] using hx)
   have hlimLp : MemLp (fun x => F x (f0 x)) 1 mu :=
@@ -494,21 +486,18 @@ theorem suAlpha_nonlinear_integral_limit [IsFiniteMeasure mu]
       atTop (𝓝 0) := by
     apply tendsto_of_subseq_tendsto
     intro ns hns
-    have hmeasure := tendstoInMeasure_of_tendsto_eLpNorm hpne
-      (fun j => (hf (ns j)).1) hf0.1 (hstrong.comp hns)
+    have hmeasure := tendstoInMeasure_of_tendsto_eLpNorm hpne (hstrong.comp hns)
     obtain ⟨ms, _, hpoint⟩ := hmeasure.exists_seq_tendsto_ae
     have hpointF : ∀ᵐ x ∂mu, Tendsto (fun j => F x (f (ns (ms j)) x)) atTop
         (𝓝 (F x (f0 x))) := by
       filter_upwards [hpoint, hcont] with x hx hc
       exact hc.tendsto.comp hx
-    have hUI' : UnifIntegrable (fun j x => F x (f (ns (ms j)) x)) 1 mu := by
-      intro eps heps
-      obtain ⟨d, hd, hh⟩ := hUI heps
-      exact ⟨d, hd, fun j => hh (ns (ms j))⟩
+    have hUI' : UnifIntegrable (fun j x => F x (f (ns (ms j)) x)) 1 mu :=
+      hUI.comp (fun j => ns (ms j))
     exact ⟨ms, tendsto_Lp_finite_of_tendsto_ae (by rfl) ENNReal.one_ne_top
       (fun j => hF (ns (ms j))) hlimLp hUI' hpointF⟩
   refine ⟨memLp_one_iff_integrable.mp hlimLp,
-    tendsto_integral_of_L1' _ hF0 (Eventually.of_forall fun j => ?_) hL1, hL1⟩
+    tendsto_integral_of_L1' _ (Eventually.of_forall fun j => ?_) hL1, hL1⟩
   exact memLp_one_iff_integrable.mp
     (((memLp_const (1 : ℝ)).add (hpower j)).const_mul C |>.of_le (hF j) (by
       filter_upwards [hbound j] with x hx
@@ -637,6 +626,10 @@ theorem suAlpha_chart_integral_limit
       (EuclideanSpace ℝ (Fin n) × EuclideanSpace ℝ (Fin n)))
       (hw : AEStronglyMeasurable w mu) (hval : ∀ᵐ z ∂mu, (w z).1 ∈ K) :
       AEStronglyMeasurable (fun z => F z (w z)) mu := by
+    haveI : TopologicalSpace.PseudoMetrizableSpace
+      ((EuclideanSpace ℝ (Fin n) × EuclideanSpace ℝ (Fin n)) →L[ℝ]
+        (EuclideanSpace ℝ (Fin n) × EuclideanSpace ℝ (Fin n)) →L[ℝ] ℝ) :=
+      (@ContinuousLinearMap.toPseudoMetricSpace ℝ ℝ _ _ _ _ _ _ _ _ _ _).toPseudoEMetricSpace.pseudoMetrizableSpace
     have hBm : AEStronglyMeasurable (fun z => Bext (w z).1) mu :=
       (hBext.comp_aemeasurable hw.fst.aemeasurable).aestronglyMeasurable
     have hquad : AEStronglyMeasurable (fun z => Bext (w z).1 (w z).2 (w z).2) mu :=
@@ -675,15 +668,15 @@ theorem suAlpha_chart_integral_limit
           gcongr
           exact norm_snd_le (w z))
   refine ⟨?_, suAlpha_nonlinear_integral_limit (by linarith : 1 ≤ 2 * alpha)
-    hW hW0 hstrong F hcont (fun j => hmeas _ (hW j).1 (hvalues j))
-      (hmeas _ hW0.1 hvalues0) (by positivity : 0 < L * (1 + 2 * C) ^ alpha)
+    hW hW0 hstrong F hcont (fun j => hmeas _ (hW j).aestronglyMeasurable (hvalues j))
+      (hmeas _ hW0.aestronglyMeasurable hvalues0) (by positivity : 0 < L * (1 + 2 * C) ^ alpha)
         (fun j => hgrowth _ (hvalues j)) (hgrowth _ hvalues0)⟩
   intro j
   have hpower : Integrable (fun z => ‖W j z‖ ^ (2 * alpha)) mu := by
     simpa only [ENNReal.toReal_ofReal (by linarith : 0 ≤ 2 * alpha)] using
       (hW j).integrable_norm_rpow (by simp; linarith) ENNReal.ofReal_ne_top
   exact ((integrable_const (1 : ℝ)).add hpower).const_mul
-    (L * (1 + 2 * C) ^ alpha) |>.mono' (hmeas _ (hW j).1 (hvalues j))
+    (L * (1 + 2 * C) ^ alpha) |>.mono' (hmeas _ (hW j).aestronglyMeasurable (hvalues j))
       (hgrowth _ (hvalues j))
 
 end PoincareMT.M60

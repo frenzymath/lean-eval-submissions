@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.LocalInverse
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Lifting.Compact
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Nonconjugacy
@@ -74,7 +75,7 @@ theorem exists_hasDerivWithinAt_lift
   have hfkt := (hf.contMDiffAt (hU.mem_nhds (hkt.symm ▸ hlt))).mdifferentiableAt
     (by simp)
   have hd := mfderiv_comp t hfkt hdk.differentiableAt.mdifferentiableAt
-  rw [hfk.mfderiv_eq, mfderiv_eq_fderiv] at hd
+  rw [hfk.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hd1 := congrArg (fun A : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => A 1) hd
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) c t 1 =
     mfderiv (𝓡 n) (𝓡 n) f (k t) (fderiv ℝ k t 1) at hd1

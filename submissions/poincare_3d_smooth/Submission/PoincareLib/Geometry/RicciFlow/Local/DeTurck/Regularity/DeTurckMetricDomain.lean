@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/Existence/DeTurckMetricDomainNative.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -274,7 +275,7 @@ theorem directionalWord_chartPullback_eventuallyEq (p : M)
         (by simp) (chartAt E p y))
       ((mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt hyU)
       (chartFrame p i y)
-    rw [mfderiv_eq_fderiv, chartDifferential_chartFrame p hyU i] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, chartDifferential_chartFrame p hyU i] at hchain
     exact hchain
 
 theorem cutoffNativeField_word_localized (a : L.patches) (w : List (Fin d.fieldCount))

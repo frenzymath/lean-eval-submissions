@@ -16,7 +16,6 @@ Positive smooth approximation then gives the identity on completed states.
 
 set_option autoImplicit false
 set_option maxHeartbeats 1800000
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -38,6 +37,23 @@ variable {n : ℕ} {M : Type u} [TopologicalSpace M] [T2Space M]
   [ChartedSpace (EuclideanSpace ℝ (Fin n)) M] [IsManifold (𝓡 n) ∞ M]
   [CompactSpace M] [SecondCountableTopology M] [MeasurableSpace M] [BorelSpace M]
   {g0 : RiemannianMetric n M} (d : Data g0)
+
+
+local instance dual_continuousAdd (x : M) :
+    ContinuousAdd (TangentSpace (𝓡 n) x →L[ℝ] ℝ) := by infer_instance
+
+local instance bilin_isTopologicalAddGroup (x : M) :
+    IsTopologicalAddGroup (TangentSpace (𝓡 n) x →L[ℝ] TangentSpace (𝓡 n) x →L[ℝ] ℝ) :=
+  ContinuousLinearMap.isTopologicalAddGroup
+
+local instance tensor_add : Add (SmoothTensor (n := n) (M := M)) :=
+  ContMDiffSection.instAdd
+
+local instance tensor_sub : Sub (SmoothTensor (n := n) (M := M)) :=
+  ContMDiffSection.instSub
+
+local instance symmetricValue_normedAddCommGroup : NormedAddCommGroup d.SymmetricValue :=
+  d.symmetricValue.normedAddCommGroup
 
 local notation "StateD" => State d.SymmetricIndex
 
@@ -214,11 +230,10 @@ theorem pulledPerturbation_coordinates
   have hlevel : 2 * (r + 1) = 2 * r + 2 := by omega
   have hpull := evenPullback_smoothTensorCoordinates d Phi hC hdom L (r + 1) h hs
   rw [hlevel] at hpull
-  change d.smoothTensorCoordinates (2 * r + 2)
-    (pullbackSeed g0 Phi + smoothPullback d Phi h) _ = _
-  rw [smoothTensorCoordinates_add d _ _ _ (pullbackSeed_symm Phi)
-    (smoothPullback_symm d Phi h hs), ← hpull]
-  rfl
+  have hadd := smoothTensorCoordinates_add d (2 * r + 2)
+    (pullbackSeed g0 Phi) (smoothPullback d Phi h) (pullbackSeed_symm Phi)
+    (smoothPullback_symm d Phi h hs) (pulledPerturbation_symm d Phi h hs)
+  exact hadd.trans (congrArg (fun z => pullbackSeedCoordinates d Phi r + z) hpull.symm)
 
 theorem pulledMetric_inner (g : RiemannianMetric n M)
     (h : SmoothTensor (n := n) (M := M))

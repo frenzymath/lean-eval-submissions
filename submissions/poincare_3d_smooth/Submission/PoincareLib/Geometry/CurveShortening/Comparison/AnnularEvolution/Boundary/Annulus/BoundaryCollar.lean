@@ -130,7 +130,7 @@ theorem annulus_regular_boundary_collar (D : LeviCivitaData g) (A : M64Annulus g
     change P (t : ℂ) = _ at hPt
     rw [hPt]
     cases upper <;> simp only [B, label,
-      Bool.false_eq_true, if_false, if_true, map_neg, one_mul, neg_one_mul]
+      Bool.false_eq_true, ite_false, ite_true, map_neg, one_mul, neg_one_mul]
   obtain ⟨eta, heta, hetasub⟩ := nhds_basis_closedBall.mem_iff.mp hboundary'
   let e := min (d / 4) (eta / 2)
   have he : 0 < e := lt_min (by positivity) (half_pos heta)

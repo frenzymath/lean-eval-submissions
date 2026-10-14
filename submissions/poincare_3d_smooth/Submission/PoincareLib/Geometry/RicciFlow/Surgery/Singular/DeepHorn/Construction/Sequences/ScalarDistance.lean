@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Regularity
 import Submission.PoincareLib.Geometry.Riemannian.Distance.DerivativeLipschitz
 import Mathlib.Analysis.SpecialFunctions.SmoothTransition
@@ -91,7 +92,7 @@ theorem exists_scalar_level_distance {K B : ℝ} (hK : 0 < K) (hB : 0 < B) :
     have hf := hscalar.mdifferentiable (by simp) x
     have hF := hphi.differentiable (by simp) (D.scalarCurvature x)
     rw [mvfderiv_comp x hF.mdifferentiableAt hf]
-    simp only [ContinuousLinearMap.comp_apply, mvfderiv, mfderiv_eq_fderiv]
+    simp only [ContinuousLinearMap.comp_apply, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rw [hF.hasDerivAt.hasFDerivAt.fderiv]
     change mvfderiv (𝓡 n) D.scalarCurvature x v * deriv phi (D.scalarCurvature x) = _
     exact mul_comm _ _

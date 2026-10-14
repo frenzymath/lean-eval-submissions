@@ -89,6 +89,7 @@ theorem SmoothTimeDependentIntegralFamily.glue [T2Space M]
       have heval : Ξ (t, y) = F (t, y) := heF ⟨ht, hy⟩
       apply ((hF.orbit y hy t ht).congr_of_eventuallyEq hev).congr_mfderiv
       rw [heval]
+      rfl
   have hleft := hlocal hI hΦ heΦ
   have hright := hlocal hL hΨ heΨ
   refine ⟨Ξ, ⟨?_, ?_⟩, heΦ, heΨ⟩

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.Comparison.Initial.ExponentialConvergence
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.Charts.SmoothChartInverse
 
@@ -39,7 +40,7 @@ theorem coordinateMap_fderiv (D : NormalizedCapExponential Q R)
   have hi := (Q.inverse_smooth.contMDiffAt
     (Q.toPartialDiffeomorph.open_target.mem_nhds (D.map_mem x hx))).mdifferentiableAt (by simp)
   have hd := mfderiv_comp (I := 𝓡 3) (I' := 𝓡 3) (I'' := 𝓡 3) x hi hf
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   exact hd
 
 end NormalizedCapExponential

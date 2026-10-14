@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.ScalarChainRule
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Compatibility.Curvature
 
@@ -42,7 +43,7 @@ theorem laplacian_comp_of_contDiffOn (D : LeviCivitaData g)
         deriv f (q y) * mvfderiv (𝓡 n) q y a := by
     change mvfderiv (𝓡 n) (f ∘ q) y a = _
     rw [mvfderiv_comp_apply y hf.mdifferentiableAt (hqd y) a]
-    simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
     exact fderiv_eq_deriv_mul (𝕜 := ℝ)
   have hφ' : ContDiffOn ℝ ∞ (deriv φ) V :=
     hφ.deriv_of_isOpen hV (by simp)

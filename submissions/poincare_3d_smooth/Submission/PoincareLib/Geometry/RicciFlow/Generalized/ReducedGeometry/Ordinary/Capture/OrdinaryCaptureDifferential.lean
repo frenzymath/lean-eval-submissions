@@ -55,20 +55,37 @@ theorem ordinaryCapture_differential_bijective_iff
   let x := e.toSpacetime (t₀, c₀)
   have : T2Space (G.Horizontal x) := FiberBundle.t2Space (EuclideanSpace ℝ (Fin n)) G.Horizontal x
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) :=
     ⟨metric⟩
   let ordinaryMetric := (F.metric t₀.val).toRiemannianMetric
+  let ordinaryAdd : AddCommGroup (TangentSpace (𝓡 n) c₀) := inferInstance
+  let ordinaryModule : Module ℝ (TangentSpace (𝓡 n) c₀) := inferInstance
+  let ordinaryTopology : TopologicalSpace (TangentSpace (𝓡 n) c₀) := inferInstance
+  let ordinaryTopologicalAdd : IsTopologicalAddGroup (TangentSpace (𝓡 n) c₀) := inferInstance
+  let ordinaryContinuousSMul : ContinuousConstSMul ℝ (TangentSpace (𝓡 n) c₀) := inferInstance
+  let ordinaryCore := ordinaryMetric.toCore c₀
+  let ordinaryContinuous := ordinaryMetric.continuousAt c₀
+  let ordinaryBounded := ordinaryMetric.isVonNBounded c₀
   let : NormedAddCommGroup (TangentSpace (𝓡 n) c₀) :=
-    (ordinaryMetric.toCore c₀).toNormedAddCommGroupOfTopology
-      (ordinaryMetric.continuousAt c₀) (ordinaryMetric.isVonNBounded c₀)
+    ordinaryCore.toNormedAddCommGroupOfTopology ordinaryContinuous ordinaryBounded
   let : InnerProductSpace ℝ (TangentSpace (𝓡 n) c₀) :=
-    .ofCoreOfTopology (ordinaryMetric.toCore c₀)
-      (ordinaryMetric.continuousAt c₀) (ordinaryMetric.isVonNBounded c₀)
+    @InnerProductSpace.ofCoreOfTopology ℝ (TangentSpace (𝓡 n) c₀) _
+      ordinaryAdd ordinaryModule ordinaryTopology
+      ordinaryTopologicalAdd ordinaryContinuousSMul ordinaryCore ordinaryContinuous ordinaryBounded
   let : Bundle.RiemannianBundle (TangentSpace (𝓡 n) : C → Type _) :=
     ⟨ordinaryMetric⟩
   let L := g.spatialTangentEquiv t₀ c₀

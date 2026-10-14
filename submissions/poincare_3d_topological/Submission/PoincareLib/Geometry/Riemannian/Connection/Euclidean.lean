@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.LocalRegularity
 
 /-!
@@ -78,7 +79,7 @@ theorem inner_connection_const (D : LeviCivitaData g)
     ((contMDiffAt_const_field x u).mdifferentiableAt (by simp))
     ((contMDiffAt_const_field x v).mdifferentiableAt (by simp))
     ((contMDiffAt_const_field x w).mdifferentiableAt (by simp))
-  simp only [covariantDerivativeOnFields, mvfderiv, mfderiv_eq_fderiv,
+  simp only [covariantDerivativeOnFields, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model,
     mlieBracket, mlieBracketWithin_eq_lieBracketWithin, lieBracketWithin,
     fderivWithin_univ, fderiv_const_apply] at h
   simp +instances [NormedSpace.fromTangentSpace] at h

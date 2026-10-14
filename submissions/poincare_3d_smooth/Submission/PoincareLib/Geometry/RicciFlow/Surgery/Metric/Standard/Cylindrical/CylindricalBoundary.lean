@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.StandardBalls
 import Mathlib.Analysis.Calculus.LocalExtr.Basic
 
@@ -143,8 +144,10 @@ theorem localMin_mfderiv_zero {E : Type*} [NormedAddCommGroup E] [NormedSpace �
     simpa only [extChartAt_to_inv] using hmin
   by_cases hf : MDifferentiableAt I 𝓘(ℝ, ℝ) f x
   · rw [hf.mfderiv, I.range_eq_univ, fderivWithin_univ]
-    simpa only [writtenInExtChartAt, extChartAt_self_eq, modelWithCornersSelf_coe,
-      Function.id_comp] using hchart.fderiv_eq_zero
+    have hz := hchart.fderiv_eq_zero
+    simp only [writtenInExtChartAt, extChartAt_self_eq, modelWithCornersSelf_coe,
+      Function.id_comp]
+    rw [hz, ContinuousLinearMap.zero_comp, ContinuousLinearMap.comp_zero]
   · exact mfderiv_zero_of_not_mdifferentiableAt hf
 
 theorem radialArclength_norm_fderiv_self (g₀ : StandardInitialMetric)
@@ -205,7 +208,7 @@ theorem cylindrical_positive_radial (g₀ : StandardInitialMetric)
     (C z) = (0 : ℝ) at hval
   have hzero : fderiv ℝ (fun y : StandardCapSpace => radialArclength g₀ ‖y‖)
       (C z) (C z) = 0 := by
-    simpa only [mfderiv_eq_fderiv, R, TangentSpace] using hval
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, R, TangentSpace] using hval
   rw [radialArclength_norm_fderiv_self g₀ hx] at hzero
   exact (mul_pos (radialSpeed_pos g₀ ‖C z‖) (norm_pos_iff.mpr hx)).ne' hzero
 

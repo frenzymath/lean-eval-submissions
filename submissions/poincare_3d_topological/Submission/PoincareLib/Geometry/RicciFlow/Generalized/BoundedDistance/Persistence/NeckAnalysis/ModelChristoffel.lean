@@ -64,20 +64,17 @@ theorem contDiff_cylinderModelChristoffel (a b d : Fin 3) :
       cylinderSphereDelta a d * cylinderSphereCoordinate p b) := by
     convert ((contDiff_const : ContDiff ℝ ∞
       (fun _ : RoundCylinderCoordinates => cylinderSphereDelta a d)).smul (hc b)) using 1
-    funext p
-    simp [smul_eq_mul]
+
   have hcd : ContDiff ℝ ∞ (fun p =>
       cylinderSphereDelta a b * cylinderSphereCoordinate p d) := by
     convert ((contDiff_const : ContDiff ℝ ∞
       (fun _ : RoundCylinderCoordinates => cylinderSphereDelta a b)).smul (hc d)) using 1
-    funext p
-    simp [smul_eq_mul]
+
   have hca : ContDiff ℝ ∞ (fun p =>
       cylinderSphereDelta b d * cylinderSphereCoordinate p a) := by
     convert ((contDiff_const : ContDiff ℝ ∞
       (fun _ : RoundCylinderCoordinates => cylinderSphereDelta b d)).smul (hc a)) using 1
-    funext p
-    simp [smul_eq_mul]
+
   exact hr.mul ((hcb.add hcd).sub hca)
 
 /-- Translation in the axial coordinate preserves every actual model jet. -/

@@ -252,6 +252,7 @@ theorem core_complement_germ_at_band_junction
   filter_upwards [hc, hi] with z hcz hiz
   change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior _ z
   change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior _ z at hcz
+  change interior _ z = interior _ z at hiz
   rwa [hiz] at hcz
 
 /-- The two adjacent bands and their actual residual core fill a

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Measure.Transport.PullbackJacobian
 import Mathlib.Analysis.Calculus.InverseFunctionTheorem.ContDiff
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
@@ -61,7 +62,7 @@ theorem isOpenMap_of_mfderiv_bijective {f : EuclideanSpace ℝ (Fin n) → M}
   have hdH : Function.Bijective (fderiv ℝ H x) := by
     have hd := mfderiv_comp x (mdifferentiableAt_extChartAt hc)
       ((hf x).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv, mfderiv_extChartAt_self, ContinuousLinearMap.id_comp] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_extChartAt_self, ContinuousLinearMap.id_comp] at hd
     have heq : fderiv ℝ H x = mfderiv (𝓡 n) (𝓡 n) f x := by
       simpa only [extChartAt_coe, modelWithCornersSelf_coe, Function.id_comp] using hd
     rw [heq]

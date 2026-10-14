@@ -35,7 +35,7 @@ theorem comp_normalizedGradient_eq_add_on
       simp only [normalizedGradient, map_smul, smul_eq_mul, ← D.inner_gradient]
       exact inv_mul_cancel₀ (hreg s hs)
     convert hd' using 1
-    simpa [mvfderiv, NormedSpace.fromTangentSpace] using he.symm
+    simpa [mvfderiv, NormedSpace.fromTangentSpace, tangentSpaceCastModel] using he.symm
   have hr (s : ℝ) : HasDerivAt (fun t => f (γ a) + (t - a)) 1 s := by
     simpa using ((hasDerivAt_id s).sub_const a).const_add (f (γ a))
   exact hI.eqOn_of_deriv_eq hIcon

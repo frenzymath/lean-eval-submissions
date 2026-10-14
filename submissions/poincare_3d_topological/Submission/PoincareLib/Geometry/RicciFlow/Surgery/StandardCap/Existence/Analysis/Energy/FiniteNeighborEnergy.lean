@@ -31,8 +31,7 @@ theorem sum_range_le_of_boundary_neighbor_bounds {a b : ℕ → ℝ} {C q r : �
     norm_num only [Nat.zero_add] at hh ⊢
     simp only [Finset.sum_range_succ, Finset.sum_range_zero, zero_add]
     convert hh using 1
-    · rfl
-    · ring
+    ring
   | succ k ih =>
     have hrow : b (k + 3) ≤ C * (q * a (k + 2) + a (k + 3) + r * a (k + 4)) := by
       simpa only [Nat.add_assoc, Nat.reduceAdd] using htail (k + 1)
@@ -44,9 +43,8 @@ theorem sum_range_le_of_boundary_neighbor_bounds {a b : ℕ → ℝ} {C q r : �
       rw [show k + 1 + 3 = k + 3 + 1 by omega, Finset.sum_range_succ]
     rw [hsumB, hsumA]
     convert add_le_add ih hrow using 1
-    · rfl
-    · simp only [Nat.add_assoc, Nat.reduceAdd]
-      ring
+    simp only [Nat.add_assoc, Nat.reduceAdd]
+    ring
 
 /-- A finite geometrically weighted prefix has a uniform interior bound
 and one explicit omitted-neighbor term (Section 12.5, pp. 309-319). -/

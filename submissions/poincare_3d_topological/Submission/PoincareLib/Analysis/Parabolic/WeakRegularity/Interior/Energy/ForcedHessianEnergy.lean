@@ -91,9 +91,9 @@ theorem exists_uniform_forced_mollified_second_energy
   let d (i : Fin n) (y : Spacetime n) := C.drift i y * g i y
   let c (y : Spacetime n) := C.zeroth y * u y
   have hd (i : Fin n) : MemLp (d i) 2 volume :=
-    (hg i).mul' ((hdrift i).continuous.memLp_top_of_hasCompactSupport (hdriftc i) volume)
+    ((hdrift i).continuous.memLp_top_of_hasCompactSupport (hdriftc i) volume).fun_mul (hg i)
   have hc : MemLp c 2 volume :=
-    hu.mul' (hzeroth.continuous.memLp_top_of_hasCompactSupport hzerothc volume)
+    (hzeroth.continuous.memLp_top_of_hasCompactSupport hzerothc volume).fun_mul hu
   let E (v : Spacetime n → ℝ) : ℝ := (∫ y, ‖ρ y‖) ^ 2 * ∫ y, v y ^ 2
   have hE (v : Spacetime n → ℝ) : 0 ≤ E v :=
     mul_nonneg (sq_nonneg _) (integral_nonneg (fun y => sq_nonneg _))

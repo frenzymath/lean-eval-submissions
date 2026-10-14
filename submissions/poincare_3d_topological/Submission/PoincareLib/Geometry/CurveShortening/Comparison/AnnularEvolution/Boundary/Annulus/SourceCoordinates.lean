@@ -32,10 +32,10 @@ def annulusBoundaryLinear (r : ℝ) (hr : r ≠ 0) (upper : Bool) : ℂ ≃L[ℝ
   right_inv p := by
     cases upper <;> ext i <;> fin_cases i <;> simp [annulusPoint, hr]
   continuous_toFun := by
-    cases upper <;> simp only [Bool.false_eq_true, if_false, if_true] <;>
+    cases upper <;> simp only [Bool.false_eq_true, ite_false, ite_true] <;>
       unfold annulusPoint <;> fun_prop
   continuous_invFun := by
-    cases upper <;> simp only [Bool.false_eq_true, if_false, if_true] <;> fun_prop
+    cases upper <;> simp only [Bool.false_eq_true, ite_false, ite_true] <;> fun_prop
 
 /-- The actual horizontal column carries exactly the modulus. Source: Morgan--Tian (2007),
 Lemma 19.15, pp. 447-449; project derivations

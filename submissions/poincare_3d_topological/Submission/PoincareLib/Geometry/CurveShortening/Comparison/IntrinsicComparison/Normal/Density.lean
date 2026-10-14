@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Area.Density
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Normal.Strip
 import Mathlib.Analysis.Calculus.FDeriv.WithLp
@@ -47,7 +48,7 @@ theorem m64Intrinsic_normal_map_density_lower
   have hd (v : AnnulusCoordinates) :
       mfderiv (𝓡 2) (𝓡 2) (fun z : AnnulusCoordinates => u (z 0, z 1)) !₂[a, t] v =
         fderiv ℝ u (a, t) (v 0, v 1) := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change fderiv ℝ (u ∘ P) !₂[a, t] v = fderiv ℝ u (a, t) (v 0, v 1)
     rw [hchain.fderiv]
     rfl

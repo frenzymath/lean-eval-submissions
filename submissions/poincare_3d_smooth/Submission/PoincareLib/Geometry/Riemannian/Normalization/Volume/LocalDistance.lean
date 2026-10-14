@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Normalization.Volume.Finite
 
 /-!
@@ -59,7 +60,7 @@ theorem normalization_edist_image_le_pathELength [IsManifold I 1 M]
     ‖η 1 - η 0‖ₑ ≤ ∫⁻ t in Icc 0 1, ‖derivWithin η (Icc 0 1) t‖ₑ :=
       enorm_sub_le_lintegral_derivWithin_Icc_of_contDiffOn_Icc hη zero_le_one
     _ = ∫⁻ t in Icc 0 1, ‖mfderiv[Icc 0 1] η t 1‖ₑ := by
-      simp_rw [← fderivWithin_derivWithin, mfderivWithin_eq_fderivWithin]
+      simp_rw [← fderivWithin_derivWithin, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
       rfl
     _ ≤ ∫⁻ t in Icc 0 1, C * ‖mfderiv[Icc 0 1] γ t 1‖ₑ := by
       apply setLIntegral_mono' measurableSet_Icc
@@ -139,7 +140,7 @@ theorem normalization_riemannianEDist_le_of_mfderiv_bound_convex [IsManifold I 1
   apply (ContinuousLinearMap.le_opENorm _ _).trans
   gcongr
   · exact hC _ (hη ht)
-  · simp only [mfderivWithin_eq_fderivWithin]
+  · simp only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
     exact le_rfl
 
 section

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Asymptotics.EndCylinderMetric
 
 /-!
@@ -37,7 +38,7 @@ theorem endExhaustion_fderiv_coordinate (e : StandardCylindricalEnd g)
     (by simp)
   have hr := (endExhaustion_contMDiff e (e.coordinate z)).mdifferentiableAt (by simp)
   have hd := heq.mfderiv_eq (I := (𝓡 2).prod 𝓘(ℝ, ℝ)) (I' := 𝓘(ℝ, ℝ))
-  rw [mfderiv_comp _ hr hc, mfderiv_eq_fderiv] at hd
+  rw [mfderiv_comp _ hr hc, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hs : mfderiv ((𝓡 2).prod 𝓘(ℝ, ℝ)) 𝓘(ℝ, ℝ)
       (fun w : StandardCylinderSpace => w.2 + 1) z =
         ContinuousLinearMap.snd ℝ (EuclideanSpace ℝ (Fin 2)) ℝ := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Geometry
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
 
@@ -30,7 +31,7 @@ theorem standardRotation_mfderiv (A : Matrix.specialOrthogonalGroup (Fin 3) ℝ)
     (x : StandardCapSpace) :
     mfderiv (𝓡 3) (𝓡 3) (standardRotation A) x =
       (Matrix.toEuclideanLin A.1).toContinuousLinearMap := by
-  rw [mfderiv_eq_fderiv, standardRotation_eq_linear]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, standardRotation_eq_linear]
   exact (Matrix.toEuclideanLin A.1).toContinuousLinearMap.hasFDerivAt.fderiv
 
 theorem standardInitialMetric_rotation_inner (g₀ : StandardInitialMetric)

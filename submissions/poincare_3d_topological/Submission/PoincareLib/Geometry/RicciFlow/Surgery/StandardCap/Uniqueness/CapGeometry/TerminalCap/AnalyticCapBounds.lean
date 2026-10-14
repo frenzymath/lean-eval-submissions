@@ -101,7 +101,7 @@ theorem exists_radial_cap_analytic_constant {m M L : ℝ}
   have heconstant : M < C * m ^ 2 := (div_lt_iff₀ (sq_pos_of_pos hm)).mp heC
   have hzero : (0 : V) ∈ g.ball 0 R := by
     change g.edist 0 0 < ENNReal.ofReal R
-    rw [show g.edist 0 0 = 0 from @edist_self V g.toEMetricSpace.toPseudoEMetricSpace 0]
+    rw [show g.edist 0 0 = 0 from @edist_self V _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0]
     exact ENNReal.ofReal_pos.mpr hR
   let S := scalarCurvatureSupOn g D (g.ball 0 R)
   have hbounded : BddAbove (range fun z : g.ball 0 R => D.scalarCurvature z.1) := by

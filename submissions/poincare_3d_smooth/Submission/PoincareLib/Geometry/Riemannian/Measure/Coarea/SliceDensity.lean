@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Coarea.Density
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Coarea.Fubini
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Coarea.ImmersionDensity
@@ -34,7 +35,7 @@ lemma mfderiv_euclideanCons_basisFun
       (EuclideanSpace.basisFun (Fin (n + 1)) ℝ i.succ) := by
   rw [mfderiv_comp y he
     (hasFDerivAt_euclideanCons t y).differentiableAt.mdifferentiableAt,
-    mfderiv_eq_fderiv, fderiv_euclideanCons]
+    Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_euclideanCons]
   change mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) e (euclideanCons t y)
     (euclideanTailCLM n (EuclideanSpace.basisFun (Fin n) ℝ i)) = _
   rw [euclideanTailCLM_basisFun]

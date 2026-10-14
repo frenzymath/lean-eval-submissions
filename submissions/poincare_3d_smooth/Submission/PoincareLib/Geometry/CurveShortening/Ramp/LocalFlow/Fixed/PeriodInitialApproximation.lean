@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Periodic.ArclengthEstimates
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Periodic.FirstJetComposition
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Periodic.C2RelabelingStability
@@ -69,7 +70,7 @@ theorem exists_smooth_constantSpeed_fixedPeriod_C2_approximation
     erw [mfderiv_comp x
       ((hρ.contMDiffAt (hU.mem_nhds (hdU x))).mdifferentiableAt (by simp))
       ((hd.contMDiff x).mdifferentiableAt (by norm_num)),
-      ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have hcvel (x : ℝ) : mfderiv 𝓘(ℝ, W) (𝓡 n) ρ (c x) (deriv c x) =
       curveVelocity (n := n) γ x := by

@@ -38,6 +38,8 @@ attribute [local instance] FlowCarrier.topologicalSpace FlowCarrier.chartedSpace
 attribute [local instance] normedAddCommGroupTangentSpaceVectorSpace
   normedSpaceTangentSpaceVectorSpace
 
+local instance : T2Space (EuclideanSpace ℝ (Fin 3)) := inferInstance
+
 variable {S : GeneralizedBlowupSequence.{u}} {J : Set ℝ}
 
 private noncomputable def comparisonMetric (G : GeneralizedBlowupConvergence S J)

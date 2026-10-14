@@ -50,8 +50,8 @@ theorem connection_quadratic_integrable {N : ℕ} {μ : Measure LoopPlane}
       M65Gauss.connectionCoefficient D p.1 p.2 p.2) :=
     ((hG.comp continuous_fst).clm_apply continuous_snd).clm_apply continuous_snd
   obtain ⟨C, _hC, hbound⟩ := connection_quadratic_bound D hK
-  apply ((memLp_two_iff_integrable_sq_norm hA.1).mp hA).const_mul C |>.mono'
-    (hc.comp_aestronglyMeasurable (hX.prodMk hA.1))
+  apply ((memLp_two_iff_integrable_sq_norm hA.aestronglyMeasurable).mp hA).const_mul C |>.mono'
+    (hc.comp_aestronglyMeasurable (hX.prodMk hA.aestronglyMeasurable))
   filter_upwards [hcap] with z hz
   exact hbound _ hz _
 
@@ -100,7 +100,7 @@ theorem variational_weak_equation {N : ℕ}
     apply integrable_finsetSum
     intro i _
     exact (EuclideanSpace.proj (𝕜 := ℝ) k).integrable_comp
-      (connection_quadratic_integrable D X.value (X.derivative i) hXm.1 (hAm i)
+      (connection_quadratic_integrable D X.value (X.derivative i) hXm.aestronglyMeasurable (hAm i)
         (isCompact_closedBall _ _) hcap)
   let L := fun z => ∑ i : Fin 2,
     fderiv ℝ φ z (EuclideanSpace.basisFun (Fin 2) ℝ i) * (X.derivative i z) k

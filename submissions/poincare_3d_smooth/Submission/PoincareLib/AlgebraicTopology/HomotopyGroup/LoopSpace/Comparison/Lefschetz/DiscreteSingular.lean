@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
+import Mathlib.Analysis.Convex.StdSimplex
 import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
 import Mathlib.Topology.Connected.TotallyDisconnected
 import Mathlib.Analysis.Convex.Contractible
@@ -34,24 +36,25 @@ theorem discreteSimplex_eq {n : ℕ} (f : C(stdSimplex ℝ (Fin (n + 1)), F))
 Source: Hatcher, Theorem 2.27, pp. 128-130. -/
 def discreteSingularEvaluation : TopCat.toSSet.obj (TopCat.of F) ⟶
     (SimplicialObject.const (Type u)).obj F where
-  app n := ↾fun s => (TopCat.of F).toSSetObjEquiv n s (stdSimplex.vertex 0)
+  app n := ↾fun s => (TopCat.of F).toLegacySSetObjEquiv n s (stdSimplex.vertex 0)
   naturality {n m} f := by
     apply ConcreteCategory.hom_ext
     intro s
-    change ((TopCat.of F).toSSetObjEquiv n s)
-        (stdSimplex.map f.unop (stdSimplex.vertex 0)) =
-      ((TopCat.of F).toSSetObjEquiv n s) (stdSimplex.vertex 0)
-    exact discreteSimplex_eq F _ _ _
+    change ((TopCat.of F).toLegacySSetObjEquiv m ((TopCat.toSSet.obj (TopCat.of F)).map f s))
+        (stdSimplex.vertex 0) =
+      ((TopCat.of F).toLegacySSetObjEquiv n s) (stdSimplex.vertex 0)
+    exact (TopCat.toLegacySSetObjEquiv_naturality_apply f.unop s _).trans
+      (discreteSimplex_eq F _ _ _)
 
 /-- Constant singular simplices retain their actual value in the
 discrete carrier. Source: Hatcher, Theorem 2.27, pp. 128-130. -/
 def discreteSingularConstant : (SimplicialObject.const (Type u)).obj F ⟶
     TopCat.toSSet.obj (TopCat.of F) where
-  app n := ↾fun a => ((TopCat.of F).toSSetObjEquiv n).symm (ContinuousMap.const _ a)
+  app n := ↾fun a => ((TopCat.of F).toLegacySSetObjEquiv n).symm (ContinuousMap.const _ a)
   naturality {n m} f := by
     apply ConcreteCategory.hom_ext
     intro a
-    apply ((TopCat.of F).toSSetObjEquiv m).injective
+    apply ((TopCat.of F).toLegacySSetObjEquiv m).injective
     rfl
 
 /-- The singular simplicial set of a discrete space is literally
@@ -65,10 +68,10 @@ def discreteSingularIso : TopCat.toSSet.obj (TopCat.of F) ≅
     ext n : 1
     apply ConcreteCategory.hom_ext
     intro s
-    apply ((TopCat.of F).toSSetObjEquiv n).injective
+    apply ((TopCat.of F).toLegacySSetObjEquiv n).injective
     ext t
-    change ((TopCat.of F).toSSetObjEquiv n s) (stdSimplex.vertex 0) =
-      ((TopCat.of F).toSSetObjEquiv n s) t
+    change ((TopCat.of F).toLegacySSetObjEquiv n s) (stdSimplex.vertex 0) =
+      ((TopCat.of F).toLegacySSetObjEquiv n s) t
     exact discreteSimplex_eq F _ _ _
   inv_hom_id := by
     rfl

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Cyclic.RetainedStripLosses
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Endpoint.Projection
 
@@ -108,7 +109,7 @@ theorem m64Intrinsic_comparison_of_cyclic_retained_strip_ae_outer
     intro a ha v
     convert hmetric !₂[a, height a] ha.1.1.1 ha.1.1.2
         ⟨hheight_nonneg a, le_rfl⟩ v using 1 <;>
-      simp only [mfderiv_eq_fderiv, Matrix.cons_val_zero]
+      simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.cons_val_zero]
     all_goals rfl
   have hproj := m64Intrinsic_endpoint_projection_length_le N e
     he hh (hZ.inter hGood) (inter_subset_left.trans hZsub)

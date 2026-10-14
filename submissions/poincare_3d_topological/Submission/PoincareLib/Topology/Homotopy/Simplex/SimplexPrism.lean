@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Subdivision.SingularPrism
 
 /-!
@@ -22,7 +23,7 @@ theorem singularPrism_piece_eq_of_two_source_agree {A B X : TopCat.{w}}
     {f g : A ⟶ X} {p q : B ⟶ X} (H : TopCat.Homotopy f g) (K : TopCat.Homotopy p q)
     {n : ℕ} (s : (TopCat.toSSet.obj A) _⦋n⦌) (r : (TopCat.toSSet.obj B) _⦋n⦌)
     (hagree : ∀ (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 1))),
-      H (t, A.toSSetObjEquiv _ s z) = K (t, B.toSSetObjEquiv _ r z))
+      H (t, A.toLegacySSetObjEquiv _ s z) = K (t, B.toLegacySSetObjEquiv _ r z))
     (i : Fin (n + 1)) :
     H.toSSet.toSimplicialObjectHomotopy.h i s =
       K.toSSet.toSimplicialObjectHomotopy.h i r := by
@@ -49,25 +50,25 @@ theorem singularPrism_piece_eq_of_two_source_agree {A B X : TopCat.{w}}
     congrArg (fun k => k.app _ prismB)
       (Functor.Monoidal.μ_snd (F := TopCat.toSSet) B TopCat.I)
   change (TopCat.toSSet.map H.h).app _ productA = (TopCat.toSSet.map K.h).app _ productB
-  refine (X.toSSetObjEquiv _).injective (ContinuousMap.ext (fun z => ?_))
-  have hspaceA := congrArg (fun c => A.toSSetObjEquiv _ c z) hAfst
-  have hspaceB := congrArg (fun c => B.toSSetObjEquiv _ c z) hBfst
-  have htimeA := congrArg (fun c => TopCat.I.toSSetObjEquiv _ c z) hAsnd
-  have htimeB := congrArg (fun c => TopCat.I.toSSetObjEquiv _ c z) hBsnd
-  change ((A ⊗ TopCat.I).toSSetObjEquiv _ productA z).1 =
-    A.toSSetObjEquiv _ ((TopCat.toSSet.obj A).σ i s) z at hspaceA
-  change ((B ⊗ TopCat.I).toSSetObjEquiv _ productB z).1 =
-    B.toSSetObjEquiv _ ((TopCat.toSSet.obj B).σ i r) z at hspaceB
-  change ((A ⊗ TopCat.I).toSSetObjEquiv _ productA z).2 =
-    TopCat.I.toSSetObjEquiv _ timeSimplex z at htimeA
-  change ((B ⊗ TopCat.I).toSSetObjEquiv _ productB z).2 =
-    TopCat.I.toSSetObjEquiv _ timeSimplex z at htimeB
-  change H (TopCat.I.homeomorph ((A ⊗ TopCat.I).toSSetObjEquiv _ productA z).2,
-      ((A ⊗ TopCat.I).toSSetObjEquiv _ productA z).1) =
-    K (TopCat.I.homeomorph ((B ⊗ TopCat.I).toSSetObjEquiv _ productB z).2,
-      ((B ⊗ TopCat.I).toSSetObjEquiv _ productB z).1)
+  refine (X.toLegacySSetObjEquiv _).injective (ContinuousMap.ext (fun z => ?_))
+  have hspaceA := congrArg (fun c => A.toLegacySSetObjEquiv _ c z) hAfst
+  have hspaceB := congrArg (fun c => B.toLegacySSetObjEquiv _ c z) hBfst
+  have htimeA := congrArg (fun c => TopCat.I.toLegacySSetObjEquiv _ c z) hAsnd
+  have htimeB := congrArg (fun c => TopCat.I.toLegacySSetObjEquiv _ c z) hBsnd
+  change ((A ⊗ TopCat.I).toLegacySSetObjEquiv _ productA z).1 =
+    A.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj A).σ i s) z at hspaceA
+  change ((B ⊗ TopCat.I).toLegacySSetObjEquiv _ productB z).1 =
+    B.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj B).σ i r) z at hspaceB
+  change ((A ⊗ TopCat.I).toLegacySSetObjEquiv _ productA z).2 =
+    TopCat.I.toLegacySSetObjEquiv _ timeSimplex z at htimeA
+  change ((B ⊗ TopCat.I).toLegacySSetObjEquiv _ productB z).2 =
+    TopCat.I.toLegacySSetObjEquiv _ timeSimplex z at htimeB
+  change H (TopCat.I.homeomorph ((A ⊗ TopCat.I).toLegacySSetObjEquiv _ productA z).2,
+      ((A ⊗ TopCat.I).toLegacySSetObjEquiv _ productA z).1) =
+    K (TopCat.I.homeomorph ((B ⊗ TopCat.I).toLegacySSetObjEquiv _ productB z).2,
+      ((B ⊗ TopCat.I).toLegacySSetObjEquiv _ productB z).1)
   rw [hspaceA, hspaceB, htimeA, htimeB,
-    TopCat.toSSetObjEquiv_σ_apply, TopCat.toSSetObjEquiv_σ_apply]
+    TopCat.toLegacySSetObjEquiv_σ_apply, TopCat.toLegacySSetObjEquiv_σ_apply]
   exact hagree _ _
 
 variable {C : Type u} [Category.{v} C] [Preadditive C] [HasCoproducts.{w} C]
@@ -75,21 +76,21 @@ variable {C : Type u} [Category.{v} C] [Preadditive C] [HasCoproducts.{w} C]
 /-- The negative prism obtained from the identity simplex on its lifted domain. -/
 noncomputable def singularSimplexPrism (R : C) (X : TopCat.{w}) {n : ℕ}
     {s t : (TopCat.toSSet.obj X) _⦋n⦌}
-    (H : ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ t)) :
+    (H : ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ t)) :
     R ⟶ ((TopCat.toSSet.obj X).chainComplex R).X (n + 1) :=
   let D : TopCat.{w} := SimplexCategory.toTop.obj ⦋n⦌
   let H' : TopCat.Homotopy s.down t.down :=
-    H.compContinuousMap ⟨Homeomorph.ulift, Homeomorph.ulift.continuous⟩
+    TopCat.liftLegacyHomotopy H
   (TopCat.toSSet.obj D).ιChainComplex (⟨𝟙 D⟩ : (TopCat.toSSet.obj D) _⦋n⦌) ≫
     (H'.toSSet.toSimplicialObjectHomotopy.sSetChainComplexMap R).hom n (n + 1)
 
 /-- The individual boundary formula retains all signed face prisms. -/
 theorem singularSimplexPrism_boundary (R : C) (X : TopCat.{w}) {n : ℕ}
     {s t : (TopCat.toSSet.obj X) _⦋n + 1⦌}
-    (H : ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ t))
+    (H : ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ t))
     (h : ∀ i : Fin (n + 2), ContinuousMap.Homotopy
-      (X.toSSetObjEquiv _ ((TopCat.toSSet.obj X).δ i s))
-      (X.toSSetObjEquiv _ ((TopCat.toSSet.obj X).δ i t)))
+      (X.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj X).δ i s))
+      (X.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj X).δ i t)))
     (hface : ∀ (i : Fin (n + 2)) (a : unitInterval) (z : stdSimplex ℝ (Fin (n + 1))),
       H (a, stdSimplex.map i.succAbove z) = h i (a, z)) :
     singularSimplexPrism R X H ≫ ((TopCat.toSSet.obj X).chainComplex R).d (n + 2) (n + 1) +
@@ -102,15 +103,19 @@ theorem singularSimplexPrism_boundary (R : C) (X : TopCat.{w}) {n : ℕ}
   let f : D ⟶ X := s.down
   let g : D ⟶ X := t.down
   let H' : TopCat.Homotopy f g :=
-    H.compContinuousMap ⟨Homeomorph.ulift, Homeomorph.ulift.continuous⟩
+    TopCat.liftLegacyHomotopy H
   let K (i : Fin (n + 2)) : TopCat.Homotopy ((TopCat.toSSet.obj X).δ i s).down
       ((TopCat.toSSet.obj X).δ i t).down :=
-    (h i).compContinuousMap ⟨Homeomorph.ulift, Homeomorph.ulift.continuous⟩
+    TopCat.liftLegacyHomotopy (h i)
   have hpiece (i : Fin (n + 2)) (j : Fin (n + 1)) :
       H'.toSSet.toSimplicialObjectHomotopy.h j ((TopCat.toSSet.obj D).δ i idD) =
         (K i).toSSet.toSimplicialObjectHomotopy.h j idE := by
     apply singularPrism_piece_eq_of_two_source_agree
     intro a z
+    dsimp only [H', K]
+    rw [TopCat.toLegacySSetObjEquiv_δ_apply]
+    simp only [idD, idE, D, E, TopCat.toLegacySSetObjEquiv_identity,
+      TopCat.liftLegacyHomotopy_apply, Homeomorph.apply_symm_apply]
     exact hface i a z
   have hfacePrism (i : Fin (n + 2)) :
       (TopCat.toSSet.obj D).ιChainComplex ((TopCat.toSSet.obj D).δ i idD) ≫
@@ -155,7 +160,7 @@ noncomputable def singularSimplexFamilyMap (R : C) (X : TopCat.{w}) {n : ℕ}
 /-- Extend the individual prisms by the same coproduct property. -/
 noncomputable def singularSimplexFamilyPrism (R : C) (X : TopCat.{w}) {n : ℕ}
     (r : (TopCat.toSSet.obj X) _⦋n⦌ → (TopCat.toSSet.obj X) _⦋n⦌)
-    (H : ∀ s, ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ (r s))) :
+    (H : ∀ s, ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ (r s))) :
     ((TopCat.toSSet.obj X).chainComplex R).X n ⟶
       ((TopCat.toSSet.obj X).chainComplex R).X (n + 1) :=
   Sigma.desc fun s => singularSimplexPrism R X (H s)
@@ -164,8 +169,8 @@ noncomputable def singularSimplexFamilyPrism (R : C) (X : TopCat.{w}) {n : ℕ}
 theorem singularSimplexFamilyPrism_boundary (R : C) (X : TopCat.{w}) {n : ℕ}
     (r : (TopCat.toSSet.obj X) _⦋n + 1⦌ → (TopCat.toSSet.obj X) _⦋n + 1⦌)
     (r0 : (TopCat.toSSet.obj X) _⦋n⦌ → (TopCat.toSSet.obj X) _⦋n⦌)
-    (H : ∀ s, ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ (r s)))
-    (K : ∀ s, ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ (r0 s)))
+    (H : ∀ s, ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ (r s)))
+    (K : ∀ s, ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ (r0 s)))
     (hface : ∀ (s : (TopCat.toSSet.obj X) _⦋n + 1⦌) (i : Fin (n + 2))
       (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 1))),
       H s (t, stdSimplex.map i.succAbove z) = K ((TopCat.toSSet.obj X).δ i s) (t, z)) :
@@ -177,15 +182,17 @@ theorem singularSimplexFamilyPrism_boundary (R : C) (X : TopCat.{w}) {n : ℕ}
   apply SSet.chainComplex_hom_ext
   intro s
   have htarget (i : Fin (n + 2)) :
-      X.toSSetObjEquiv _ (r0 ((TopCat.toSSet.obj X).δ i s)) =
-        X.toSSetObjEquiv _ ((TopCat.toSSet.obj X).δ i (r s)) := by
+      X.toLegacySSetObjEquiv _ (r0 ((TopCat.toSSet.obj X).δ i s)) =
+        X.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj X).δ i (r s)) := by
     ext z
-    rw [TopCat.toSSetObjEquiv_δ_apply]
+    rw [TopCat.toLegacySSetObjEquiv_δ_apply]
     exact ((K ((TopCat.toSSet.obj X).δ i s)).apply_one z).symm.trans
       ((hface s i 1 z).symm.trans ((H s).apply_one (stdSimplex.map i.succAbove z)))
   let K' (i : Fin (n + 2)) := (K ((TopCat.toSSet.obj X).δ i s)).cast rfl (htarget i)
   have hcast (i : Fin (n + 2)) : singularSimplexPrism R X (K' i) =
-      singularSimplexPrism R X (K ((TopCat.toSSet.obj X).δ i s)) := rfl
+      singularSimplexPrism R X (K ((TopCat.toSSet.obj X).δ i s)) := by
+    simp only [singularSimplexPrism, K', TopCat.liftLegacyHomotopy]
+    rfl
   have hb := singularSimplexPrism_boundary R X (H s) K' (hface s)
   simp only [hcast] at hb
   have htop : (TopCat.toSSet.obj X).ιChainComplex s ≫
@@ -205,8 +212,8 @@ theorem singularSimplexFamilyPrism_boundary (R : C) (X : TopCat.{w}) {n : ℕ}
 theorem singularSimplexFamily_cycle_difference_boundary (R : C) (X : TopCat.{w}) {n : ℕ}
     (r : (TopCat.toSSet.obj X) _⦋n + 1⦌ → (TopCat.toSSet.obj X) _⦋n + 1⦌)
     (r0 : (TopCat.toSSet.obj X) _⦋n⦌ → (TopCat.toSSet.obj X) _⦋n⦌)
-    (H : ∀ s, ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ (r s)))
-    (K : ∀ s, ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ (r0 s)))
+    (H : ∀ s, ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ (r s)))
+    (K : ∀ s, ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ (r0 s)))
     (hface : ∀ (s : (TopCat.toSSet.obj X) _⦋n + 1⦌) (i : Fin (n + 2))
       (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 1))),
       H s (t, stdSimplex.map i.succAbove z) = K ((TopCat.toSSet.obj X).δ i s) (t, z))

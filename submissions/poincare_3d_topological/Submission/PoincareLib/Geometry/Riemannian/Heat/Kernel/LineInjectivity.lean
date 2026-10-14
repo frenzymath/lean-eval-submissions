@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Heat.Kernel.LineGeodesic
 import Submission.PoincareLib.Geometry.Riemannian.Distance.ExponentialRays
 
@@ -49,7 +50,7 @@ theorem line_geodesic_chart_speed (g : RiemannianMetric 1 M)
     (mem_chart_source _ (γ t))).mdifferentiableAt (by simp)
   have heq := congrArg (fun L => L 1)
     (mfderiv_comp t hc ((hγ.contMDiffAt (mem_univ t)).mdifferentiableAt one_ne_zero))
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change deriv (fun u => extChartAt (𝓡 1) (γ t) (γ u)) t = _ at heq
   rw [hv.deriv] at heq
   change v = (mfderiv (𝓡 1) (𝓡 1) (extChartAt (𝓡 1) (γ t)) (γ t))

@@ -73,7 +73,7 @@ theorem distinct_atlasBoxes_regular_overlap (i j : BoxIndex W) (hne : i ≠ j) :
       have hf := (eventWindow W f.down).box_events_unique
         (L _ f.down.property.1 f.down.property.2) htI.2 ht
       apply hne
-      exact congrArg Sum.inr (ULift.ext _ _ (Subtype.ext (he.symm.trans hf)))
+      exact congrArg Sum.inr (ULift.ext (Subtype.ext (he.symm.trans hf)))
 
 theorem atlasBox_vertical_compatibility (i j : BoxIndex W)
     (t : ℝ) (hti : t ∈ (atlasBox W L i).interval) (htj : t ∈ (atlasBox W L j).interval)

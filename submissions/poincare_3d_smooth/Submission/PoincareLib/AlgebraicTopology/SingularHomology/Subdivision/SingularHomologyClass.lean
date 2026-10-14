@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Subdivision.SingularPrism
 
 /-!
@@ -88,7 +89,7 @@ theorem singularSimplexHomologyClass_eq_of_homotopy (R : C) {X Y : TopCat.{w}}
         singularConstantSimplex Y n y)
     (hface : ∀ (i : Fin (n + 2)) (t : unitInterval)
       (z : stdSimplex ℝ (Fin (n + 1))),
-      H (t, X.toSSetObjEquiv _ ((TopCat.toSSet.obj X).δ i s) z) = y) :
+      H (t, X.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj X).δ i s) z) = y) :
     singularSimplexHomologyClass R Y ((TopCat.toSSet.map f).app _ s) y hf =
       singularSimplexHomologyClass R Y ((TopCat.toSSet.map g).app _ s) y hg := by
   obtain ⟨b, hb⟩ := singularPrism_boundary_of_constant_faces R H s y hface
@@ -133,21 +134,26 @@ theorem singularSimplexHomologyClass_eq_of_simplex_homotopy (R : C) (X : TopCat.
       (TopCat.toSSet.obj X).δ i s = singularConstantSimplex X n x)
     (ht : ∀ i : Fin (n + 2),
       (TopCat.toSSet.obj X).δ i t = singularConstantSimplex X n x)
-    (H : ContinuousMap.Homotopy (X.toSSetObjEquiv _ s) (X.toSSetObjEquiv _ t))
+    (H : ContinuousMap.Homotopy (X.toLegacySSetObjEquiv _ s) (X.toLegacySSetObjEquiv _ t))
     (hboundary : ∀ (i : Fin (n + 2)) (time : unitInterval)
       (z : stdSimplex ℝ (Fin (n + 1))), H (time, stdSimplex.map i.succAbove z) = x) :
     singularSimplexHomologyClass R X s x hs = singularSimplexHomologyClass R X t x ht := by
   let D : TopCat.{w} := SimplexCategory.toTop.obj ⦋n + 1⦌
   let identitySimplex : (TopCat.toSSet.obj D) _⦋n + 1⦌ := ⟨𝟙 D⟩
   let liftedHomotopy : TopCat.Homotopy (s.down : D ⟶ X) (t.down : D ⟶ X) :=
-    H.compContinuousMap ⟨Homeomorph.ulift, Homeomorph.ulift.continuous⟩
+    TopCat.liftLegacyHomotopy H
   have hleft : (TopCat.toSSet.map s.down).app _ identitySimplex = s :=
-    ULift.ext _ _ (Category.id_comp s.down)
+    ULift.ext (Category.id_comp s.down)
   have hright : (TopCat.toSSet.map t.down).app _ identitySimplex = t :=
-    ULift.ext _ _ (Category.id_comp t.down)
+    ULift.ext (Category.id_comp t.down)
   have hclass := singularSimplexHomologyClass_eq_of_homotopy R liftedHomotopy
     identitySimplex x (fun i => by rw [hleft]; exact hs i)
-    (fun i => by rw [hright]; exact ht i) (fun i time z => hboundary i time z)
+    (fun i => by rw [hright]; exact ht i) (fun i time z => by
+      dsimp only [liftedHomotopy]
+      rw [TopCat.toLegacySSetObjEquiv_δ_apply]
+      simp only [identitySimplex, D, TopCat.toLegacySSetObjEquiv_identity,
+        TopCat.liftLegacyHomotopy_apply, Homeomorph.apply_symm_apply]
+      exact hboundary i time z)
   simpa only [hleft, hright] using hclass
 
 end Poincare.Topology

@@ -26,6 +26,8 @@ def integralChainZeroAugmentation (X : Type u) [TopologicalSpace X] :
 theorem integralChainZeroAugmentation_generator
     (s : C(integralSimplex 0, X)) (a : ULift.{u} Int) :
     integralChainZeroAugmentation X (integralSingularGenerator s a) = a := by
+  letI : Inhabited (integralSimplex 0) := coordinateSimplexZeroInhabited
+  letI : Subsingleton (integralSimplex 0) := coordinateSimplexZeroSubsingleton
   let C := integralChains X
   let e := C.iCyclesIso 0 0 (by simp) (by simp)
   have hs : s = ContinuousMap.const (integralSimplex 0) (s default) := by

@@ -14,7 +14,6 @@ used in Proposition 9.85, pp. 237--239.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 set_option maxHeartbeats 500000
 
 open Set Filter
@@ -303,7 +302,9 @@ theorem smooth_zero_convergence_movingTime_cylinder_coefficients
     exact (hi.mono inter_subset_left).congr (fun y hy => (hEq hy.2).symm)
   · intro m K hK hKU
     obtain ⟨W, hW, hKW, heq⟩ := hnear K hK hKU
-    apply ((hDjet m K hK hKU).congr ?_).congr_right (fun _ _ => by simp [Function.comp_def])
+    have hLzero : L (0 : RoundCylinderCoordinates →L[ℝ] RoundCylinderCoordinates →L[ℝ] ℝ) = 0 := rfl
+    apply ((hDjet m K hK hKU).congr ?_).congr_right
+      (fun _ _ => by simp only [Function.comp_def, hLzero, iteratedFDeriv_fun_zero, Pi.zero_apply])
     filter_upwards [heq] with i hi x hx
     exact (eqOn_iteratedFDeriv_of_isOpen hW hi m) (hKW hx)
 

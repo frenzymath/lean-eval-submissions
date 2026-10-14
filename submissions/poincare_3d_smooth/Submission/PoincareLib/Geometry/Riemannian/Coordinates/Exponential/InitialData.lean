@@ -88,7 +88,7 @@ theorem IsGeodesicOn.tangentNorm_initial
   have h := g.tangentNorm_chart_curve p hv (by
     rw [hp]
     exact mem_extChartAt_target p)
-  simpa only [hp] using h
+  convert h using 1 <;> simp only [hp] <;> rfl
 
 /-- The radial distance estimate depends only on the initial velocity; no
 single chart is required to contain the geodesic. -/

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.PathAliases
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Tube.NeckGeometry.NeckCenterConnector
@@ -95,7 +96,7 @@ theorem exists_neck_region_center_connector (N : EpsilonNeck g)
     apply Prod.ext
     · rfl
     · change mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun t : ℝ => (1 - t) * s) t 1 = -s
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change fderiv ℝ (fun u : ℝ => (1 - u) * s) t (1 : ℝ) = -s
       exact hd.deriv
   have hαderiv (t : ℝ) (ht : t ∈ Icc (0 : ℝ) 1) :

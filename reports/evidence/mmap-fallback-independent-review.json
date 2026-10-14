@@ -1,0 +1,38 @@
+{
+  "review_result": "pass",
+  "review_type": "independent source and loader-semantics review; no source edits",
+  "reviewed_at": "2026-10-13T16:31:03.084938+00:00",
+  "source_path": "/gpfs/share/home/2301110044/.horizon/development-tmp/poincare-leaneval-port/mmap-fallback.c",
+  "source_sha256": "2f35ff7e7022ef7c125caaae992ee16ae82425677ab0a9d977c80cf9b2405076",
+  "pinned_compiler": "Lean 4.35.0-rc3 commit 470d5ce1400764999581fd26d5d72b00d990b0f4",
+  "pinned_loader": "pinned-library-module.cpp lines 472-614 and 621-637",
+  "source_checks": {
+    "has_suffix_filter": true,
+    "atomic_lazy_resolution": true,
+    "null_resolution_guard": true,
+    "reject_errno": true,
+    "forward_other_mappings": true
+  },
+  "smoke_checks": {
+    "baseline_and_preload_passed": true,
+    "checks": [
+      "anonymous_forwarded",
+      "fixed_anonymous_forwarded",
+      "ordinary_private_file_forwarded_without_file_write",
+      "ordinary_fixed_file_forwarded",
+      "lean_suffix_fixed_file_denied_EEXIST_under_preload",
+      "lean_file_contents_unchanged",
+      "ordinary_file_contents_unchanged"
+    ],
+    "command": "srun job 4108752; python mmap-fallback-smoke.py with and without LD_PRELOAD"
+  },
+  "loader_reasoning": {
+    "fallback_trigger": "fixed file-backed mapping denied, then existing malloc(size), lseek(fd,0), readn(fd,buffer,size)",
+    "integrity": "header marker/version/flags/(optional githash) checked before fallback; region_reader relocates pointers; kernel/elaborator unchanged",
+    "free_path": "is_mmap=false and existing free_sized(buffer, full_sz)",
+    "scope": "only listed Lean artifact suffixes with MAP_FIXED_NOREPLACE; ordinary file/anonymous mappings forwarded",
+    "concurrency": "atomic acquire/release lazy function lookup; LEAN -j1 smoke used",
+    "known_limit": "path filter fail-open for unusual unnamed/different descriptors"
+  },
+  "review_conclusion": "safe operational mechanism for forcing pinned Lean compacted-region fallback; no proof-validation bypass"
+}

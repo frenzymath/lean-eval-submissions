@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Analysis.Convex.Semiconcavity.Derivative
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.Geodesic
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Toponogov.Support.Initial
@@ -74,7 +75,7 @@ theorem mvfderiv_endpoint_le_of_hessian_le (D : LeviCivitaData g)
     have heq := congrArg (fun L => L (1 : ℝ))
       (mfderiv_comp 1 ((hf.contMDiffAt (hU.mem_nhds (hγU (by simp)))).mdifferentiableAt
         (by simp)) ((hγ.contMDiffAt (by simp)).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     exact heq
   simp only [sub_self, sub_zero, one_mul, one_pow] at hbound
   rw [← hdu]
@@ -155,7 +156,7 @@ theorem exists_distance_radial_upper_support_on_minimizing_segment
       simpa using (hasDerivAt_id (1 : ℝ)).smul_const v
     have hdline := mfderiv_comp 1 (by simpa only [one_smul] using hev)
       hline.differentiableAt.mdifferentiableAt
-    rw [mfderiv_eq_fderiv] at hdline
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hdline
     have hd1 := congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => L 1) hdline
     change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun r : ℝ => e (r • v)) 1 1 =
       mfderiv (𝓡 n) (𝓡 n) e (1 • v) (fderiv ℝ (fun r : ℝ => r • v) 1 1) at hd1
@@ -184,8 +185,13 @@ theorem exists_distance_radial_upper_support_on_minimizing_segment
     have hradB : (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) B' v v) =
         (1 / 2 : ℝ) • (show EuclideanSpace ℝ (Fin n) from
           mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ 1 1) := by
-      rw [← hlocal.mfderiv_eq]
-      exact hradvel
+      have hdmodel :
+          (show EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n) from
+            mfderiv (𝓡 n) (𝓡 n) e v) =
+          (show EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n) from
+            mfderiv (𝓡 n) (𝓡 n) B' v) := hlocal.mfderiv_eq
+      exact (congrArg (fun L : EuclideanSpace ℝ (Fin n) →L[ℝ]
+        EuclideanSpace ℝ (Fin n) => L v) hdmodel).symm.trans hradvel
     calc
       D.gradient (fun y => ‖B'.symm y‖) (γ 1) =
           mfderiv (𝓡 n) (𝓡 n) B' v (‖v‖⁻¹ • v) := by

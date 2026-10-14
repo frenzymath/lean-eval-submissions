@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Metric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Normalization
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Distance.MetricComparison
@@ -39,10 +40,11 @@ theorem euclidean_lineMap_pathELength (x y : E) :
       (ContinuousAffineMap.lineMap (R := ℝ) x y) t = ‖y - x‖ := by
     have hd : mfderiv 𝓘(ℝ, ℝ) (𝓡 3) (ContinuousAffineMap.lineMap (R := ℝ) x y) t =
         (ContinuousLinearMap.id ℝ ℝ).smulRight (y - x) := by
-      rw [mfderiv_eq_fderiv, ContinuousAffineMap.fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousAffineMap.fderiv]
       apply ContinuousLinearMap.ext
       intro a
-      change (AffineMap.lineMap (k := ℝ) x y).linear a = a • (y - x)
+      change (AffineMap.lineMap (k := ℝ) x y).linear (show ℝ from a) =
+        (show ℝ from a) • (y - x)
       rw [AffineMap.lineMap_linear]
       rfl
     rw [M36.metricPathSpeed, RiemannianMetric.euclideanMetric_tangentNorm]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Poincare.Final.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Blowup.Controls.BlowupControlsSourceInitialBirthNative
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Blowup.Controls.BlowupControlsSourceInitialBirthBall
@@ -155,7 +156,7 @@ theorem standard_initial_neck_axis_path
       change mfderiv 𝓘(ℝ, ℝ) ((𝓡 2).prod 𝓘(ℝ, ℝ))
         (fun t : ℝ => (q, c t)) t 1 = _
       rw [mfderiv_prodMk mdifferentiableAt_const hd.differentiableAt.mdifferentiableAt,
-        mfderiv_const, mfderiv_eq_fderiv]
+        mfderiv_const, Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change (0, fderiv ℝ c t 1) = (0, b - a)
       rw [hd.hasFDerivAt.fderiv]
       simp

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Homotopy.LoopSpace.Evaluation
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Compatibility.ShortLoops
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.Polar.Derivatives
@@ -41,7 +42,7 @@ theorem m60PeriodicLoop_velocity (γ : C1FreeLoopSpace (M := M)) (t : ℝ) :
   have hd := mfderiv_comp_apply t (hγ.mdifferentiableAt one_ne_zero)
     (hasDerivAt_angularPoint t).differentiableAt.mdifferentiableAt (1 : ℝ)
   have hv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) angularPoint t 1 = angularVector t := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv]
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv]
       using! (hasDerivAt_angularPoint t).deriv
   erw [hv] at hd
   exact hd

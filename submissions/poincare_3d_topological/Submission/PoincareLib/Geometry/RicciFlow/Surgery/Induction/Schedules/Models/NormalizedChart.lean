@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Homothety
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Normalization
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Induction.Schedules.Models.LocalScalar
@@ -114,7 +115,7 @@ theorem model_analytic_of_normalized_chart
       change mvfderiv (𝓡 3) DE.scalarCurvature 0 w =
         mvfderiv (𝓡 3) D.scalarCurvature (f 0) (L w) at hd
       rw [hLw] at hd
-      simpa only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] using! hd
+      simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] using! hd
     rw [← hd']
     calc
       _ ≤ Cg * Q ^ (3 / 2 : ℝ) :=

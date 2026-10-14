@@ -43,8 +43,12 @@ with the ambient coordinate norm. Source: MT Claim 19.40, pp. 470-471;
 constrained minimizers. -/
 def m64IntrinsicCurveVariation (G : RiemannianMetric 2 AnnulusCoordinates)
     (γ : ℝ → AnnulusCoordinates) (a b : ℝ) : ℝ≥0∞ :=
-  @eVariationOn ℝ _ AnnulusCoordinates
-    (intrinsicDistanceMetric G).toEMetricSpace.toPseudoEMetricSpace γ (Icc a b)
+  letI : MetricSpace AnnulusCoordinates := intrinsicDistanceMetric G
+  letI : TopologicalSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toPseudoMetricSpace.toUniformSpace.toTopologicalSpace
+  letI : WeakPseudoEMetricSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toEMetricSpace.toWeakEMetricSpace.toWeakPseudoEMetricSpace
+  eVariationOn γ (Icc a b)
 
 /-- Affine changes, including reversal and a constant interval, preserve the actual
 intrinsic variation on the corresponding unoriented interval. Source: MT Claim 19.40, pp.
@@ -57,6 +61,10 @@ theorem m64Intrinsic_curveVariation_affine
   let : MetricSpace AnnulusCoordinates := intrinsicDistanceMetric G
   let : PseudoEMetricSpace AnnulusCoordinates :=
     (intrinsicDistanceMetric G).toEMetricSpace.toPseudoEMetricSpace
+  letI : TopologicalSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toPseudoMetricSpace.toUniformSpace.toTopologicalSpace
+  letI : WeakPseudoEMetricSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toEMetricSpace.toWeakEMetricSpace.toWeakPseudoEMetricSpace
   let f := fun t : ℝ => a + (b - a) * t
   have hf : Continuous f := by dsimp only [f]; fun_prop
   have hf0 : f 0 = a := by simp [f]
@@ -93,6 +101,10 @@ theorem m64Intrinsic_exists_join_with_variation
   let : MetricSpace AnnulusCoordinates := intrinsicDistanceMetric G
   let : PseudoEMetricSpace AnnulusCoordinates :=
     (intrinsicDistanceMetric G).toEMetricSpace.toPseudoEMetricSpace
+  letI : TopologicalSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toPseudoMetricSpace.toUniformSpace.toTopologicalSpace
+  letI : WeakPseudoEMetricSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toEMetricSpace.toWeakEMetricSpace.toWeakPseudoEMetricSpace
   exact m64_exists_join_with_variation hf hg hjoin
 
 /-- Differentiable competitors control the intrinsic metric variation by their exact
@@ -106,6 +118,10 @@ theorem m64Intrinsic_curveVariation_le_pathELength
   let : MetricSpace AnnulusCoordinates := intrinsicDistanceMetric G
   let : PseudoEMetricSpace AnnulusCoordinates :=
     (intrinsicDistanceMetric G).toEMetricSpace.toPseudoEMetricSpace
+  letI : TopologicalSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toPseudoMetricSpace.toUniformSpace.toTopologicalSpace
+  letI : WeakPseudoEMetricSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toEMetricSpace.toWeakEMetricSpace.toWeakPseudoEMetricSpace
   exact G.eVariationOn_le_pathELength_of_edist_le hγ (fun _ _ _ _ => le_rfl)
 
 /-- An intrinsic Lipschitz bound controls the actual metric variation on the unit interval.
@@ -121,6 +137,10 @@ theorem m64Intrinsic_curveVariation_le_of_edist_le
   let : MetricSpace AnnulusCoordinates := intrinsicDistanceMetric G
   let : PseudoEMetricSpace AnnulusCoordinates :=
     (intrinsicDistanceMetric G).toEMetricSpace.toPseudoEMetricSpace
+  letI : TopologicalSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toPseudoMetricSpace.toUniformSpace.toTopologicalSpace
+  letI : WeakPseudoEMetricSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toEMetricSpace.toWeakEMetricSpace.toWeakPseudoEMetricSpace
   have hlip : LipschitzOnWith ⟨C, hC⟩ γ (Icc 0 1) := by
     intro s hs t ht
     change G.edist (γ s) (γ t) ≤ ENNReal.ofNNReal (NNReal.mk C hC) * edist s t
@@ -152,6 +172,10 @@ theorem m64Intrinsic_exists_compact_region_shortest_curve
   let : MetricSpace AnnulusCoordinates := intrinsicDistanceMetric G
   let : PseudoEMetricSpace AnnulusCoordinates :=
     (intrinsicDistanceMetric G).toEMetricSpace.toPseudoEMetricSpace
+  letI : TopologicalSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toPseudoMetricSpace.toUniformSpace.toTopologicalSpace
+  letI : WeakPseudoEMetricSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toEMetricSpace.toWeakEMetricSpace.toWeakPseudoEMetricSpace
   have hv : BoundedVariationOn σ (Icc 0 1) :=
     ne_top_of_le_ne_top ENNReal.ofReal_ne_top hB
   obtain ⟨γ, hγ0, hγ1, hγconf, hγlip, hγv, hγmin⟩ :=
@@ -199,6 +223,10 @@ theorem m64Intrinsic_exists_embedded_region_minimizer
   let : MetricSpace AnnulusCoordinates := intrinsicDistanceMetric G
   let : PseudoEMetricSpace AnnulusCoordinates :=
     (intrinsicDistanceMetric G).toEMetricSpace.toPseudoEMetricSpace
+  letI : TopologicalSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toPseudoMetricSpace.toUniformSpace.toTopologicalSpace
+  letI : WeakPseudoEMetricSpace AnnulusCoordinates :=
+    (intrinsicDistanceMetric G).toEMetricSpace.toWeakEMetricSpace.toWeakPseudoEMetricSpace
   have hv : BoundedVariationOn σ (Icc 0 1) :=
     ne_top_of_le_ne_top ENNReal.ofReal_ne_top hB
   obtain ⟨γ, L, hL, hγ0, hγL, hγconf, hγunit, hγlip, hγinj, hγmin⟩ :=

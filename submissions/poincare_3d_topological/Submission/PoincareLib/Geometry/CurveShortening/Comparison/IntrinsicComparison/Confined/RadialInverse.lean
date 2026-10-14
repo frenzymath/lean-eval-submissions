@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Polar.Inverse
 
 /-! Actual local inverse charts for all short confined radial vectors.
@@ -42,7 +43,7 @@ theorem m64Intrinsic_confined_radial_differential_injective
       (he.contMDiffAt (hOmega.mem_nhds hzero)) (by
         rw [N.metric.pullbackVolumeDensity_zero_eq_one e hmetric]
         exact zero_lt_one)
-    simpa only [TangentSpace, mfderiv_eq_fderiv, smul_zero] using hi0
+    simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model, smul_zero] using hi0
   have hell : 0 < ‖v‖ := norm_pos_iff.mpr hz
   let theta : AnnulusCoordinates := ‖v‖⁻¹ • v
   have htheta : ‖theta‖ = 1 := by
@@ -68,9 +69,9 @@ theorem m64Intrinsic_confined_radial_differential_injective
     refine ⟨mul_nonneg ht.1 hell.le, ?_⟩
     simpa only [one_mul] using mul_le_mul_of_nonneg_right ht.2 hell.le
   have hi' : Function.Injective (fderiv ℝ e ((t * ‖v‖) • theta)) := by
-    simpa only [TangentSpace, mfderiv_eq_fderiv] using hi (t * ‖v‖) htl
+    simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] using hi (t * ‖v‖) htl
   rw [hscale, mul_div_cancel_right₀ _ hell.ne'] at hi'
-  simpa only [TangentSpace, mfderiv_eq_fderiv] using hi'
+  simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] using hi'
 
 /-- The actual short confined vector has a smooth local inverse chart
 inside the original-metric radial core. No radial uniqueness is assumed.
@@ -93,7 +94,7 @@ theorem m64Intrinsic_exists_short_confined_radial_inverse
       v ∈ F.source ∧ F.source ⊆ Omega ∧ (F : AnnulusCoordinates → AnnulusCoordinates) = e ∧
       ContDiffOn ℝ ∞ F F.source ∧ ContDiffOn ℝ ∞ F.symm F.target := by
   have hi : Function.Injective (mfderiv (𝓡 2) (𝓡 2) e v) := by
-    simpa only [TangentSpace, mfderiv_eq_fderiv, one_smul] using
+    simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model, one_smul] using
       m64Intrinsic_confined_radial_differential_injective N hK hkappa hKkappa
         hOmega hzero he hmetric hgeo hstar hv hshort hconf 1 ⟨zero_le_one, le_rfl⟩
   exact m64Intrinsic_exists_smooth_polar_inverse hOmega he hv hi

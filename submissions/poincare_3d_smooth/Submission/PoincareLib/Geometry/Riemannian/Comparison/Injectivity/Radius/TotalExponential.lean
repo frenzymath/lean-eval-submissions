@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Radius.Exponential
 
 /-!
@@ -31,7 +32,7 @@ theorem mfderiv_globalGeodesic_zero (g : RiemannianMetric n M)
   have hcomp := congrArg (fun L => L 1)
     (mfderiv_comp_of_eq hchart ((hγ.contMDiffAt (mem_univ 0)).mdifferentiableAt
       (by simp)) hzero)
-  rw [mfderiv_eq_fderiv] at hcomp
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
   change deriv (fun t => extChartAt (𝓡 n) p (g.globalGeodesic hc p v t)) 0 = _ at hcomp
   rw [hvel.deriv] at hcomp
   change v = (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p)
@@ -68,7 +69,7 @@ theorem hasDerivAt_globalGeodesic_in_chart (g : RiemannianMetric n M)
   have hcomp := congrArg (fun L => L 1)
     (mfderiv_comp_of_eq hchart ((hγ.contMDiffAt (mem_univ 0)).mdifferentiableAt
       (by simp)) hzero)
-  rw [mfderiv_eq_fderiv] at hcomp
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
   change deriv (fun t => c (γ t)) 0 = _ at hcomp
   change deriv (fun t => c (γ t)) 0 =
     (mfderiv (𝓡 n) (𝓡 n) c (γ 0))

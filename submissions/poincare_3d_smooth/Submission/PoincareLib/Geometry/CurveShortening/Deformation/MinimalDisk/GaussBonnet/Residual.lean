@@ -109,13 +109,13 @@ theorem cauchyGauge_residual_derivatives_memLp {n : ℕ} [Nonempty (Fin n)]
     have hfirst : MemLp (fun z => P z (fderiv ℝ u z v)) 2 mu := by
       apply hdu.of_le_mul (c := 2)
       · exact (ContinuousLinearMap.id ℂ (E →L[ℂ] E)).aestronglyMeasurable_comp₂
-          hPs.1.aestronglyMeasurable hdu.1
+          hPs.1.aestronglyMeasurable hdu.aestronglyMeasurable
       · filter_upwards [] with z
         exact ((P z).le_opNorm _).trans
           (mul_le_mul_of_nonneg_right (hPb z) (norm_nonneg _))
     have hsecond : MemLp (fun z => fderiv ℝ P z v (u z)) 2 mu := by
       apply hdP.of_le_mul (c := C)
-      · exact (ContinuousLinearMap.id ℂ (E →L[ℂ] E)).aestronglyMeasurable_comp₂ hdP.1 hum
+      · exact (ContinuousLinearMap.id ℂ (E →L[ℂ] E)).aestronglyMeasurable_comp₂ hdP.aestronglyMeasurable hum
       · filter_upwards [ae_restrict_mem hKU] with z hz
         exact ((fderiv ℝ P z v).le_opNorm _).trans
           ((mul_le_mul_of_nonneg_left (hC z hz.1) (norm_nonneg _)).trans_eq (mul_comm _ _))

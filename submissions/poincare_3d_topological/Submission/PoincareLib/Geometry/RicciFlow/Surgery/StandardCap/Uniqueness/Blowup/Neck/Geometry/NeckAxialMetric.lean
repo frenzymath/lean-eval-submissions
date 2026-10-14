@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Neck.Jets.NeckMetricJets
 
@@ -40,7 +41,7 @@ private theorem exists_translated_metric
     (fun y v w => g.symm (f y) v w) (fun y v hv => g.pos (f y) v hv)
   let DG := G.euclideanLeviCivitaData
   have hd (y : E) : mfderiv (𝓡 3) (𝓡 3) f y = ContinuousLinearMap.id ℝ E := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact ((hasFDerivAt_id y).add_const p).fderiv
   have hinv : ∀ᶠ y in 𝓝 (0 : E), (mfderiv (𝓡 3) (𝓡 3) f y).IsInvertible := by
     apply Filter.Eventually.of_forall

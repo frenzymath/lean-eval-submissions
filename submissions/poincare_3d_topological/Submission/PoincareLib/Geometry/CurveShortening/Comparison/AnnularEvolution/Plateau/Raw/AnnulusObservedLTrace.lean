@@ -17,7 +17,6 @@ Morgan--Tian Lemma 19.15, pp. 447--449.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -349,9 +348,7 @@ theorem interiorCurve_vertical_trace_l2_control
       have hG := hfull.const_mul s
       apply hG.mono'
       · have hm := hprimL.aestronglyMeasurable.norm.pow 2
-        convert hm using 1
-        ext x
-        simp
+        exact hm
       · filter_upwards [hbound0] with x hx
         simpa only [Real.norm_eq_abs,
           abs_of_nonneg (sq_nonneg (‖∫ t in Ioc (0 : ℝ) s,
@@ -398,9 +395,7 @@ theorem interiorCurve_vertical_trace_l2_control
       have hG := hfull.const_mul (1 - s)
       apply hG.mono'
       · have hm := hprimR.aestronglyMeasurable.norm.pow 2
-        convert hm using 1
-        ext x
-        simp
+        exact hm
       · filter_upwards [hbound1] with x hx
         simpa only [Real.norm_eq_abs,
           abs_of_nonneg (sq_nonneg (‖∫ t in Ioc s (1 : ℝ),

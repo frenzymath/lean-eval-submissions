@@ -290,11 +290,11 @@ theorem m64WeightedMixedMetric_uniform_tangential_quotients
   have hsingle (j : Fin n) (i : Fin 2) : Integrable
       (fun p => Wp p * (xi p * diffQuot 0 h (fun q => V i q j) p) ^ 2) := by
     have hp : MemLp (fun p => xi p * diffQuot 0 h (fun q => V i q j) p) 2 volume :=
-      (M60.suWeakMap_diffQuot_memLp ((hV i).eval_piLp j) 0 h).mul'
-        (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume)
+      (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume).fun_mul
+        (M60.suWeakMap_diffQuot_memLp ((hV i).eval_piLp j) 0 h)
     have hsquare : MemLp (fun p => (xi p * diffQuot 0 h (fun q => V i q j) p) ^ 2) 1 volume :=
       by simpa only [pow_two] using hp.mul' hp
-    exact memLp_one_iff_integrable.mp (hsquare.mul' hWp)
+    exact memLp_one_iff_integrable.mp (hWp.fun_mul hsquare)
   have hI : Integrable (fun p => Wp p * ∑ j : Fin n, ∑ i : Fin 2,
       (xi p * diffQuot 0 h (fun q => V i q j) p) ^ 2) := by
     simp_rw [Finset.mul_sum]

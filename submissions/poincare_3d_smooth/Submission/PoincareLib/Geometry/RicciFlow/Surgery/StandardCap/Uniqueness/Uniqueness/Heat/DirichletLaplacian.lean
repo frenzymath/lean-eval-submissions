@@ -11,7 +11,6 @@ Euclidean Laplacian on smooth supported tests.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -24,6 +23,12 @@ variable {n : ℕ}
 
 local notation "V" => EuclideanSpace ℝ (Fin n)
 local notation "L2" => Lp ℝ 2 (volume : Measure V)
+
+local instance dirichletAmbient_innerProductSpace (K : Set V) :
+    InnerProductSpace ℝ (DirichletAmbient K) := WithLp.instProdInnerProductSpace
+
+local instance dirichletForm_innerProductSpace (K : Set V) :
+    InnerProductSpace ℝ (dirichletForm K) := Submodule.innerProductSpace (dirichletForm K)
 
 theorem supportedTests_tsupport_subset {K : Set V} (hK : IsClosed K)
     (f : supportedTests K) : tsupport (f : V → ℝ) ⊆ K := by
@@ -81,6 +86,7 @@ theorem testGradient_pairing_laplacian {K : Set V} (hK : IsClosed K)
     (EuclideanSpace.single i 1)
   simpa only [neg_neg] using! congrArg (fun r : ℝ => -r) h.symm
 
+set_option backward.isDefEq.respectTransparency false in
 theorem dirichletForm_pairing_laplacian {K : Set V} (hK : IsClosed K)
     (f : supportedTests K) (z : dirichletForm K) :
     inner ℝ z (intoDirichletForm K f) =

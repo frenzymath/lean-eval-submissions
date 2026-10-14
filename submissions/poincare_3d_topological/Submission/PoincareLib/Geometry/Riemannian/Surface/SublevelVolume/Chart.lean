@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.NormalizedChart
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.Coordinates
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient
@@ -43,7 +44,7 @@ theorem exists_sublevel_normal_chart (D : LeviCivitaData g) {f : M → ℝ} {p :
     have hd := mvfderiv_comp_apply 0 ((hf (e 0)).mdifferentiableAt (by simp))
       (hec.mdifferentiableAt (by simp)) v
     change mfderiv (𝓡 n) 𝓘(ℝ, ℝ) (f ∘ e) 0 v = _ at hd
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     refine hd.trans ?_
     change mvfderiv (𝓡 n) f (e 0) _ = 0
     rw [hep, ← D.inner_gradient, hgrad]

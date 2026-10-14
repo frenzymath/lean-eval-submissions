@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Local.HarmonicStress
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Boundary.SourceRescaling
 
@@ -39,7 +40,7 @@ theorem m64AreaGram_sourceScale (g : RiemannianMetric n M) (s : ℝ) (hs : s ≠
   have hD : MDifferentiableAt (𝓡 2) (𝓡 2) D p :=
     mdifferentiableAt_iff_differentiableAt.mpr D.differentiableAt
   have hd := mfderiv_comp p hf hD
-  rw [mfderiv_eq_fderiv, D.fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, D.fderiv] at hd
   have hbase (i : Fin 2) : D (EuclideanSpace.basisFun (Fin 2) ℝ i) =
       m64SourceScaleFactor s i • EuclideanSpace.basisFun (Fin 2) ℝ i := by
     simpa only [EuclideanSpace.basisFun_apply] using m64SourceScale_basis s hs i

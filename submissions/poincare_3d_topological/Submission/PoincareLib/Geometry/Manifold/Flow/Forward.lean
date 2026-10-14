@@ -72,6 +72,7 @@ theorem exists_forward_integralCurve_of_finite_integralCurves
       he).hasMFDerivWithinAt (s := Ioi (a 0))
     convert hd using 1
     rw [he.self_of_nhds]
+    rfl
   · intro t ht
     rw [show γ t = α ⌈t⌉₊ t from if_neg (not_lt.mpr ht)]
     exact hK _ t ⟨ht, by linarith [Nat.le_ceil t]⟩

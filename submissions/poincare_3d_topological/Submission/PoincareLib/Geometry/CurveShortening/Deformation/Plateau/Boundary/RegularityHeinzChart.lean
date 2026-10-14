@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.RegularityTargetChart
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityEulerChartBounds
 
@@ -104,7 +105,7 @@ theorem continuous_boundary_straight_weak_chart
     have hh := congrArg (fun A : ℝ →L[ℝ] LoopAmbient => A 1)
       (mfderiv_comp s ((mdifferentiable_chart (I := 𝓡 3) (C s)).mdifferentiableAt hs)
         ((hC s).mdifferentiableAt (by simp)))
-    simpa +instances only [mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
       fderiv_apply_one_eq_deriv, curveVelocity, c] using! hh
   have hcne : deriv (c ∘ C) s ≠ 0 := by
     intro hz

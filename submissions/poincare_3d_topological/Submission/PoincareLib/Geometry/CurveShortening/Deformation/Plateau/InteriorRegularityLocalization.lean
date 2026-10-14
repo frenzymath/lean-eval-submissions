@@ -28,7 +28,7 @@ private theorem test_mul_memLp (θ : 𝓢(LoopPlane, ℝ)) {f : LoopPlane → �
     {K : Set LoopPlane} (hf : MemLp f 2 (volume.restrict K)) :
     MemLp (fun z => θ z * f z) 2 (volume.restrict K) := by
   apply hf.of_le_mul (c := SchwartzMap.seminorm ℝ 0 0 θ)
-    (θ.continuous.aestronglyMeasurable.mul hf.1)
+    (θ.continuous.aestronglyMeasurable.mul hf.aestronglyMeasurable)
   exact ae_of_all _ (fun z => by
     change ‖θ z * f z‖ ≤ _
     rw [norm_mul]

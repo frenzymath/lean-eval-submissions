@@ -35,20 +35,20 @@ private theorem integral_mul_le_l2 {X : Type*} [MeasurableSpace X]
 
 private theorem eLpNorm_indicator_exp_le {X : Type*} [MeasurableSpace X]
     {μ : Measure X} {A : Set X} (hA : MeasurableSet A) (hAfin : μ A ≠ ⊤)
-    {ψ : X → ℝ} {a : ℝ} (ha : ∀ x ∈ A, ψ x ≤ a) :
+    {ψ : X → ℝ} (hψ : AEStronglyMeasurable ψ μ) {a : ℝ} (ha : ∀ x ∈ A, ψ x ≤ a) :
     (eLpNorm (A.indicator (fun x => Real.exp (ψ x))) 2 μ).toReal ≤
       Real.exp a * Real.sqrt (μ.real A) := by
   have hC := memLp_indicator_const (μ := μ) 2 hA (Real.exp a) (Or.inr hAfin)
   have hm : eLpNorm (A.indicator (fun x => Real.exp (ψ x))) 2 μ ≤
       eLpNorm (A.indicator (fun _ => Real.exp a)) 2 μ := by
-    apply eLpNorm_mono
+    apply eLpNorm_mono ((Real.continuous_exp.comp_aestronglyMeasurable hψ).indicator hA)
     intro x
     by_cases hx : x ∈ A
     · simp only [Set.indicator_of_mem hx, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]
       exact Real.exp_le_exp.mpr (ha x hx)
     · simp [hx]
   have h := ENNReal.toReal_mono hC.eLpNorm_lt_top.ne hm
-  rw [eLpNorm_indicator_const hA (by norm_num) (by norm_num)] at h
+  rw [eLpNorm_indicator_const hA.nullMeasurableSet (by norm_num) (by norm_num)] at h
   simpa [ENNReal.toReal_mul, ENNReal.toReal_rpow, Real.sqrt_eq_rpow,
     Measure.real, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)] using h
 
@@ -148,8 +148,8 @@ theorem setIntegral_setIntegral_heatKernelContinuousTime_le
     rw [hx]
     by_cases hxB : x ∈ B <;> simp [hxB]
   rw [eLpNorm_congr_ae hinput] at hweighted
-  have hwbound := eLpNorm_indicator_exp_le (μ := ν) hA (measure_ne_top _ _) ha
-  have hfbound := eLpNorm_indicator_exp_le (μ := ν) hB (measure_ne_top _ _)
+  have hwbound := eLpNorm_indicator_exp_le (μ := ν) hA (measure_ne_top _ _) hψ.continuous.aestronglyMeasurable ha
+  have hfbound := eLpNorm_indicator_exp_le (μ := ν) hB (measure_ne_top _ _) hψ.continuous.neg.aestronglyMeasurable
     (fun y hy => neg_le_neg (hb y hy))
   have hνA' : ν A ≤ g.volumeMeasure A := by
     rw [show ν = g.volumeMeasure.restrict Ω by rfl, Measure.restrict_apply hA]

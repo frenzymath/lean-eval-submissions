@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Product.Circle.Frame
 import Mathlib.Geometry.Manifold.VectorField.Pullback
 
@@ -98,7 +99,7 @@ theorem productChartField_bracket (P : CircleProductCharts C n M)
           (g := chartAt E p) z hc (hfst.mdifferentiableAt (by simp)) V
         have hfirst : (mfderiv (𝓡 (n + 1)) 𝓘(ℝ, E × ℝ) ψ z V).1 =
             mfderiv (𝓡 (n + 1)) (𝓡 n) (fun z : P.Point => (chartAt E p) z.1) z V := by
-          simpa +instances only [mfderiv_eq_fderiv, fderiv_fst,
+          simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_fst,
             ContinuousLinearMap.coe_fst', Function.comp_def, ψ] using! h.symm
         rw [hfirst]
         change _ = mfderiv (𝓡 n) (𝓡 n) (chartAt E p) z.1 (P.split z V).1
@@ -112,7 +113,7 @@ theorem productChartField_bracket (P : CircleProductCharts C n M)
           (hsnd.mdifferentiableAt (by simp)) V
         have hsecond : (mfderiv (𝓡 (n + 1)) 𝓘(ℝ, E × ℝ) ψ z V).2 =
             mfderiv (𝓡 (n + 1)) 𝓘(ℝ, ℝ) (fun z : P.Point => σ z.2) z V := by
-          simpa +instances only [mfderiv_eq_fderiv, fderiv_snd,
+          simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_snd,
             ContinuousLinearMap.coe_snd', Function.comp_def, ψ] using! h.symm
         rw [hsecond]
         change _ = mfderiv (𝓡 1) 𝓘(ℝ, ℝ) σ z.2 (P.split z V).2

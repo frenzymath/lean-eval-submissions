@@ -50,13 +50,13 @@ theorem tsum_ofReal_coordinateEnergy [Countable iota] {T : ℝ}
         (Eventually.of_forall (fun _ => sq_nonneg _))
     _ = ∫⁻ t, squareSum (F t) ∂timeMeasure T := by
       exact (lintegral_tsum (fun i =>
-        ((coordinate_memLp hF i).1.aemeasurable.pow_const 2).ennreal_ofReal)).symm
+        ((coordinate_memLp hF i).aestronglyMeasurable.aemeasurable.pow_const 2).ennreal_ofReal)).symm
     _ = _ := by simp only [squareSum_state]
 
 theorem coordinateEnergy_summable [Countable iota] {T : ℝ}
     {F : ℝ → State iota} (hF : MemLp F 2 (timeMeasure T)) :
     Summable (coordinateEnergy T F) := by
-  have hi := (memLp_two_iff_integrable_sq_norm hF.1).mp hF
+  have hi := (memLp_two_iff_integrable_sq_norm hF.aestronglyMeasurable).mp hF
   have hne : (∑' i, ENNReal.ofReal (coordinateEnergy T F i)) ≠ ∞ := by
     rw [tsum_ofReal_coordinateEnergy hF,
       ← ofReal_integral_eq_lintegral_ofReal hi
@@ -68,7 +68,7 @@ theorem coordinateEnergy_summable [Countable iota] {T : ℝ}
 theorem tsum_coordinateEnergy [Countable iota] {T : ℝ}
     {F : ℝ → State iota} (hF : MemLp F 2 (timeMeasure T)) :
     (∑' i, coordinateEnergy T F i) = ∫ t, ‖F t‖ ^ 2 ∂timeMeasure T := by
-  have hi := (memLp_two_iff_integrable_sq_norm hF.1).mp hF
+  have hi := (memLp_two_iff_integrable_sq_norm hF.aestronglyMeasurable).mp hF
   have he := tsum_ofReal_coordinateEnergy hF
   rw [← ENNReal.ofReal_tsum_of_nonneg (coordinateEnergy_nonneg T F)
     (coordinateEnergy_summable hF),

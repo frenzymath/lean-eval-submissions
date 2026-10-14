@@ -330,7 +330,7 @@ theorem suAlpha_observed_equicontinuous
       (eLpNorm (fun z => ‖fderiv ℝ (e ∘ f j ∘ c.symm) z‖)
         (ENNReal.ofReal (2 * alpha)) (volume.restrict (Metric.ball (c p) 4))).toReal ≤ T := by
     obtain ⟨hm, hn, _⟩ := hb alpha ha.le (f j) (hf j) p
-    rw [eLpNorm_norm]
+    rw [eLpNorm_norm _ hm.aestronglyMeasurable.restrict]
     exact (ENNReal.toReal_mono hm.eLpNorm_ne_top
       (eLpNorm_mono_measure _ Measure.restrict_le_self)).trans
       (hn.trans (Real.rpow_le_rpow

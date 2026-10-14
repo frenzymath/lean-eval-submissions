@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.MollifiedCutoff
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.AreaMeasurability
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.AreaEnergy
@@ -69,7 +70,7 @@ theorem scalarC1_composed_gram_tendsto
           fderiv ℝ w x (EuclideanSpace.single k 1)) := by
     have hfd := (hf.contMDiffAt (hU.mem_nhds hwU)).mdifferentiableAt one_ne_zero
     simp only [m60AreaGram, mfderiv_comp x hfd
-      (mdifferentiableAt_iff_differentiableAt.mpr hw), mfderiv_eq_fderiv,
+      (mdifferentiableAt_iff_differentiableAt.mpr hw), Poincare.Compatibility.mfderiv_eq_fderiv_model,
       EuclideanSpace.basisFun_apply, ContinuousLinearMap.comp_apply, B,
       Function.comp_apply]
     rfl

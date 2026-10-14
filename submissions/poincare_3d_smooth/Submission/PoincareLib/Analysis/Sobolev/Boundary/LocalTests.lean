@@ -32,12 +32,14 @@ private theorem exists_norm_bound {F : Type*} [NormedAddCommGroup F]
   exact ⟨max C 0, le_max_right _ _, fun x => (hC ⟨x, rfl⟩).trans (le_max_left _ _)⟩
 
 private theorem tendsto_bounded_mul {X : Type*} [MeasurableSpace X]
-    {μ : Measure X} {a : X → ℝ} {C : ℝ} (hC : ∀ x, ‖a x‖ ≤ C)
-    {v : ℕ → X → ℝ} (hv : Tendsto (fun j => eLpNorm (v j) 2 μ) atTop (𝓝 0)) :
+    {μ : Measure X} {a : X → ℝ} {C : ℝ} (ham : AEStronglyMeasurable a μ)
+    (hC : ∀ x, ‖a x‖ ≤ C) {v : ℕ → X → ℝ}
+    (hvm : ∀ j, AEStronglyMeasurable (v j) μ) (hv : Tendsto (fun j => eLpNorm (v j) 2 μ) atTop (𝓝 0)) :
     Tendsto (fun j => eLpNorm (fun x => a x * v j x) 2 μ) atTop (𝓝 0) := by
   have hb (j : ℕ) : eLpNorm (fun x => a x * v j x) 2 μ ≤
       ENNReal.ofReal C * eLpNorm (v j) 2 μ := by
-    apply eLpNorm_le_mul_eLpNorm_of_ae_le_mul _ 2
+    apply eLpNorm_le_mul_eLpNorm_of_ae_le_mul
+      (show AEStronglyMeasurable (fun x => a x * v j x) μ from ham.mul (hvm j))
     exact Eventually.of_forall fun x => by
       rw [norm_mul]
       exact mul_le_mul_of_nonneg_right (hC x) (norm_nonneg _)
@@ -73,11 +75,13 @@ theorem memW01p_mul_smooth_inter
   · intro j x hx
     exact ⟨hs (tsupport_mul_subset_left hx), hφs j (tsupport_mul_subset_right hx)⟩
   · apply tendsto_restrict_inter
-    have hlim := tendsto_bounded_mul hCχ hv
+    have hlim := tendsto_bounded_mul hχ.continuous.aestronglyMeasurable hCχ
+      (fun j => (hφ j).continuous.aestronglyMeasurable.sub w.memLp.aestronglyMeasurable) hv
     convert hlim using 1
     ext j
     congr 1
     funext x
+    simp only [Pi.sub_apply]
     ring
   · intro i
     apply tendsto_restrict_inter
@@ -87,8 +91,11 @@ theorem memW01p_mul_smooth_inter
         simpa [a] using (fderiv ℝ χ x).le_opNorm (EuclideanSpace.single i (1 : ℝ))
       exact hop.trans (hCDχ x)
     have ha : Continuous a := (hχ.continuous_fderiv (by simp)).clm_apply continuous_const
-    have hlim₁ := tendsto_bounded_mul hCχ (hd i)
-    have hlim₀ := tendsto_bounded_mul hCa hv
+    have hlim₁ := tendsto_bounded_mul hχ.continuous.aestronglyMeasurable hCχ
+      (fun j => (((hφ j).continuous_fderiv (by simp)).clm_apply continuous_const).aestronglyMeasurable.sub
+        (w.weakGrad_component_memLp i).aestronglyMeasurable) (hd i)
+    have hlim₀ := tendsto_bounded_mul ha.aestronglyMeasurable hCa
+      (fun j => (hφ j).continuous.aestronglyMeasurable.sub w.memLp.aestronglyMeasurable) hv
     have hb (j : ℕ) : eLpNorm
         (fun x => fderiv ℝ (fun y => χ y * φ j y) x (EuclideanSpace.single i 1) -
           w''.weakGrad x i) 2 (volume.restrict O) ≤
@@ -108,12 +115,7 @@ theorem memW01p_mul_smooth_inter
         simp [w'', w', MemW1pWitness.restrict, MemW1pWitness.mulSmoothBoundedP, a]
         ring
       rw [heq]
-      apply eLpNorm_add_le _ _ (by norm_num)
-      · exact hχ.continuous.aestronglyMeasurable.mul
-          ((((hφ j).continuous_fderiv (by simp)).clm_apply continuous_const).aestronglyMeasurable.sub
-            (w.weakGrad_component_memLp i).aestronglyMeasurable)
-      · exact ha.aestronglyMeasurable.mul
-          ((hφ j).continuous.aestronglyMeasurable.sub w.memLp.aestronglyMeasurable)
+      exact eLpNorm_add_le (by norm_num)
     apply tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds _
       (fun _ => bot_le) hb
     simpa using hlim₁.add hlim₀

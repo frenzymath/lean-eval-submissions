@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.CompactEnergy
 
@@ -137,7 +138,7 @@ theorem exists_exponential_chart_gauss (g : RiemannianMetric n M) (p : M) :
       mdifferentiableAt_iff_differentiableAt.mpr
         ((hf.contDiffAt (f.open_source.mem_nhds hvf)).differentiableAt (by simp))
     have hchain := mfderiv_comp v hc hfm
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
     change mfderiv (𝓡 n) (𝓡 n) e v =
       (mfderiv (𝓡 n) (𝓡 n) c.symm (f v)).comp (fderiv ℝ (f : E → E) v) at hchain
     rw [hchain]

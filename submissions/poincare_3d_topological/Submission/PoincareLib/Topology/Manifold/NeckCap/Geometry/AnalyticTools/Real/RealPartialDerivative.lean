@@ -30,5 +30,9 @@ theorem ContMDiffAt.real_partial_deriv_snd
   have hd := ContMDiffAt.mfderiv_apply (I := 𝓘(ℝ, ℝ)) (I' := 𝓘(ℝ, ℝ))
     (m := ∞) f Prod.snd id (fun _ : X × ℝ => (1 : ℝ)) hf contMDiffAt_snd
       contMDiffAt_id contMDiffAt_const (by simp)
-  simpa only [inTangentCoordinates_model_space, mfderiv_eq_fderiv,
-    fderiv_apply_one_eq_deriv, id_eq, f] using hd
+  have hm (p : X × ℝ) :
+      mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (f p) p.2 = fderiv ℝ (f p) p.2 := by
+    rw [mfderiv_eq_fderiv]
+    rfl
+  simp only [id_eq, hm] at hd
+  simpa only [inTangentCoordinates_model_space, fderiv_apply_one_eq_deriv, f] using hd

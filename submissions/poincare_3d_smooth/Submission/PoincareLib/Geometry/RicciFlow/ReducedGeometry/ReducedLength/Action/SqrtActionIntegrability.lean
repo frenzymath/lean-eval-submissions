@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Action.IntrinsicEnergy
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
 import Mathlib.Analysis.SpecialFunctions.Sqrt
@@ -32,7 +33,7 @@ theorem curveVelocity_comp_sqrt (α : ℝ → M) (t : ℝ) (ht : 0 < t)
   have hsqrtValue : (mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ)) Real.sqrt t) 1 =
       1 / (2 * Real.sqrt t) := by
     exact (congrArg (fun A : ℝ →L[ℝ] ℝ ↦ A 1)
-      (mfderiv_eq_fderiv (f := Real.sqrt) (x := t))).trans
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := Real.sqrt) (x := t))).trans
       ((congrArg (fun A : ℝ →L[ℝ] ℝ ↦ A 1)
         (Real.hasDerivAt_sqrt ht.ne').hasFDerivAt.fderiv).trans
         (ContinuousLinearMap.toSpanSingleton_apply_one ℝ (1 / (2 * Real.sqrt t))))

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Boundary.ConeVectorGreen
 
@@ -75,7 +76,7 @@ theorem coneDiskField_tangent {n m N : ℕ} {M : Type*} [TopologicalSpace M]
   have hPd := (hP.contMDiffAt (isOpen_ball.mem_nhds hy)).mdifferentiableAt one_ne_zero
   have hD : fderiv ℝ (e ∘ P) y =
       (mfderiv (𝓡 n) (𝓡 m) e (P y)).comp (mfderiv (𝓡 N) (𝓡 n) P y) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp y ((he (P y)).mdifferentiableAt one_ne_zero) hPd
   refine ⟨r⁻¹ • (angularPoint p.2 i • mfderiv (𝓡 N) (𝓡 n) P y (v p.2 - v0) +
     angularVector p.2 i • mfderiv (𝓡 N) (𝓡 n) P y (d p.2)), ?_⟩

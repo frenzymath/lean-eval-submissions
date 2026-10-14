@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Analysis.Immersion.Metric
 
 /-! Composition of actual induced metric germs.
@@ -51,7 +52,7 @@ theorem m64_induced_metrics_comp_germ
       mfderiv (𝓡 2) (𝓡 n) F q w =
         mfderiv (𝓡 2) (𝓡 n) f (k q) (fderiv ℝ k q w) := by
     have he := congrArg (fun L => L w) hd
-    simp only [mfderiv_eq_fderiv] at he
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model] at he
     convert! he using 1
   have hpoint : F q = f (k q) := hq.self_of_nhds
   rw [hFq, hfq, hpoint]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.ZeroRatio.Source.Shape.Convergence
 import Submission.PoincareLib.Geometry.Riemannian.Metric.Induced.Hessian
 
@@ -141,7 +142,7 @@ theorem inner_chartShapeOperator_neg_levelUnitNormal
     rw [D.inner_gradient]
     have heφ := mfderiv_comp (d (F x))
       (hφq.mdifferentiableAt (by simp)) (hd.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at heφ
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heφ
     have heB := congrArg (fun A => A B) heφ
     change fderiv ℝ q (d (F x)) B =
       mfderiv (𝓡 (m + 2)) 𝓘(ℝ, ℝ) φ (d.symm (d (F x)))

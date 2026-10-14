@@ -108,6 +108,7 @@ theorem gradient_axialCutoff (D : LeviCivitaData g) {φ : ℝ → ℝ}
       D.gradient (φ ∘ (fun y => (N.coordinate_inverse y).2)) x := by
     unfold LeviCivitaData.gradient mvfderiv
     rw [he.mfderiv_eq, he.eq_of_nhds]
+    rfl
   rw [hg]
   exact D.gradient_comp
     ((contMDiff_snd.contMDiffAt.comp x

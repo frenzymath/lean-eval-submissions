@@ -45,6 +45,7 @@ theorem referenceSpeedSq_congr_of_eventuallyEq (g : RiemannianMetric n M)
     M08.referenceSpeedSq g gamma r = M08.referenceSpeedSq g eta r := by
   unfold M08.referenceSpeedSq curveVelocity
   rw [h.mfderiv_eq, h.eq_of_nhds]
+  rfl
 
 /-- A finite-energy inverse-cylinder curve in a compact birth slice
 has continuous endpoint values with exactly the same interior energy.

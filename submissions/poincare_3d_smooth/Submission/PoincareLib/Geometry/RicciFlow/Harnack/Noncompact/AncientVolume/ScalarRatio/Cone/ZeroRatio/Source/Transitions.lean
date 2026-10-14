@@ -44,6 +44,7 @@ theorem pullbackCoefficients_chartParametrization_restrict
   change g.inner _ (mfderiv (𝓡 n) (𝓡 n) _ x v) (mfderiv (𝓡 n) (𝓡 n) _ x w) =
     g.inner _ (mfderiv (𝓡 n) (𝓡 n) f x v) (mfderiv (𝓡 n) (𝓡 n) f x w)
   rw [heq.mfderiv_eq, heq.self_of_nhds]
+  rfl
 
 /-- Restriction of an actual partial diffeomorphism to an open part of its
 source gives a local diffeomorphism for the canonical open-domain atlas. -/

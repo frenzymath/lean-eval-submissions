@@ -64,7 +64,7 @@ theorem evolving_covariant_component_center_le {epsilon tau : ℝ}
     have hprod : (1 / 4 : ℝ) ^ (2 + k) ≤ ∏ i, w (a i) := by
       calc
         _ = ∏ _i : Fin (2 + k), (1 / 4 : ℝ) := by simp
-        _ ≤ _ := Finset.prod_le_prod (by intros; norm_num) (fun i _ => hweight (a i))
+        _ ≤ _ := Finset.prod_le_prod₀ (by intros; norm_num) (fun i _ => hweight (a i))
     rw [evolving_roundCylinderTensorNormSquared_center htau1]
     exact (mul_le_mul_of_nonneg_right hprod (sq_nonneg _)).trans
       (Finset.single_le_sum (fun b _ => mul_nonneg

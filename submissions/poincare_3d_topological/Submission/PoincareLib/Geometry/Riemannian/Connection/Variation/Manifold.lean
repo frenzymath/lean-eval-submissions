@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Transition.Hessian
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Variation.Coordinates
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.Pullback
@@ -241,7 +242,7 @@ theorem chart_transition_tangent (a b : M) {z : M}
     (((contMDiffOn_extChartAt_symm (I := 𝓡 n) (n := ∞) a).contMDiffAt
       ((isOpen_extChartAt_target (I := 𝓡 n) a).mem_nhds
         ((extChartAt (𝓡 n) a).map_source ha))).mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hi := mfderivWithin_extChartAt_symm_comp_mfderiv_extChartAt' (I := 𝓡 n) ha
   simp only [ModelWithCorners.range_eq_univ, mfderivWithin_univ] at hi
   have hv := congrArg (fun L => L v) hi
@@ -274,7 +275,7 @@ private theorem chart_metric_transition (g : RiemannianMetric n M) (a b : M)
     exact (extChartAt (𝓡 n) b).left_inv hy
   have hd := mfderiv_comp x (hb'.mdifferentiableAt (by simp))
     (hf.differentiableAt (by simp)).mdifferentiableAt
-  rw [heq.mfderiv_eq, mfderiv_eq_fderiv] at hd
+  rw [heq.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hdv := congrArg (fun L => L v) hd
   have hdw := congrArg (fun L => L w) hd
   change g.inner ((extChartAt (𝓡 n) a).symm x)

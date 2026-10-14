@@ -32,7 +32,7 @@ theorem connectedComponentIn_inter_frontier_nonempty
   rw [connectedComponent_eq_iInter_isClopen] at hdisj
   obtain ⟨s, hs⟩ := hB.elim_finite_subfamily_closed
     (fun V : {V : Set K // IsClopen V ∧ z ∈ V} => (V : Set K))
-    (fun V => V.property.1.isClosed) hdisj
+    (fun V => V.property.1.isClosed) (Set.disjoint_iff_inter_eq_empty.mpr hdisj)
   let V : Set K := ⋂ i ∈ s, (i : Set K)
   have hV : IsClopen V := isClopen_biInter_finset fun i _ => i.property.1
   have hzV : z ∈ V := mem_iInter₂.mpr fun i _ => i.property.2
@@ -43,7 +43,7 @@ theorem connectedComponentIn_inter_frontier_nonempty
       change (w : X) ∈ frontier K
       rw [hK.frontier_eq]
       exact ⟨w.property, hwint⟩
-    exact (show (B ∩ V).Nonempty from ⟨w, hwB, hw⟩).ne_empty hs
+    exact (show (B ∩ V).Nonempty from ⟨w, hwB, hw⟩).ne_empty (Set.disjoint_iff_inter_eq_empty.mp hs)
   have hclosed : IsClosed (Subtype.val '' V : Set X) :=
     hK.isClosedEmbedding_subtypeVal.isClosedMap V hV.isClosed
   obtain ⟨O, hO, hOV⟩ := isOpen_induced_iff.mp hV.isOpen

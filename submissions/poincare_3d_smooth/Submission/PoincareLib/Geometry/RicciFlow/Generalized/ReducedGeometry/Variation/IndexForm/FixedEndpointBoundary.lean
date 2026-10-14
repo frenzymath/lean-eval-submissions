@@ -47,8 +47,9 @@ theorem endpointVariationField_eq_zero_of_constant (V : M14LVariationData G p R)
   have hg : V.squareFamily s =ᶠ[𝓝 u] (fun _ => V.squareFamily s 0) :=
     Filter.eventually_of_mem ((parameterDomain_isOpen V).mem_nhds hu) (fun _ hr => hfix hr)
   have hd : (mfderiv (𝓘(ℝ, ℝ)) (spacetimeModel n) (V.squareFamily s) u :
-      ℝ →L[ℝ] SpacetimeModelVector n) = 0 :=
-    (hg.mfderiv_eq (I := 𝓘(ℝ, ℝ)) (I' := spacetimeModel n)).trans mfderiv_const
+      ℝ →L[ℝ] SpacetimeModelVector n) = 0 := by
+    rw [hg.mfderiv_eq (I := 𝓘(ℝ, ℝ)) (I' := spacetimeModel n), mfderiv_const,
+      ContinuousLinearMap.comp_zero]
   have hv : mfderiv (𝓘(ℝ, ℝ)) (spacetimeModel n) (V.squareFamily s) u (1 : ℝ) =
       (0 : TangentSpace (spacetimeModel n) (V.squareFamily s u)) :=
     congrArg (fun L : ℝ →L[ℝ] SpacetimeModelVector n => L 1) hd

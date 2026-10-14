@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.RadialPotential
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.TerminalRigidity
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.Geodesic
@@ -114,11 +115,16 @@ theorem hasDerivAt_deriv_comp_geodesic
     (extChartAt_target_mem_nhds' hqt.2.1)).mdifferentiableAt (by simp)
   have hv := congrArg (fun L => L (1 : ℝ))
     (mfderiv_comp t hc hqt.2.2.1.differentiableAt.mdifferentiableAt)
-  rw [mfderiv_eq_fderiv] at hv
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hv
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun u => c.symm (q u)) t 1 =
     mfderiv (𝓡 n) (𝓡 n) c.symm (q t) (deriv q t) at hv
   rw [hqt.2.2.1.deriv] at hv
-  rw [hcurve.mfderiv_eq, hcurve.self_of_nhds, hv]
+  rw [hcurve.mfderiv_eq, hcurve.self_of_nhds]
+  change HasDerivAt (deriv (f ∘ γ))
+    (D.hessian f (c.symm (q t))
+      (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun u => c.symm (q u)) t 1)
+      (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun u => c.symm (q u)) t 1)) t
+  rw [hv]
   exact hfieldH
 
 private theorem hessian_diagonal_of_unit_geodesic_quadratic
@@ -136,7 +142,7 @@ private theorem hessian_diagonal_of_unit_geodesic_quadratic
     (by norm_num : (1 : ℕ∞ω) ≠ 0)
   have hchart := mdifferentiableAt_extChartAt (I := 𝓡 n) (mem_chart_source _ (γ 0))
   have heq := congrArg (fun L => L (1 : ℝ)) (mfderiv_comp 0 hchart hγd)
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change deriv (fun t => extChartAt (𝓡 n) (γ 0) (γ t)) 0 = _ at heq
   rw [hv.deriv, mfderiv_extChartAt_self] at heq
   change v = mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ 0 1 at heq

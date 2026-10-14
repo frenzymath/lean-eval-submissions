@@ -122,13 +122,7 @@ theorem range_map_commensurable_of_source_path
     rw [hQ, MonoidHom.range_comp]
   change Hx.Commensurable Kx
   rw [hH, hK]
-  constructor
-  · rw [Subgroup.relIndex_map_map_of_injective H₀ K₀
-      (fundamentalGroupMulEquivOfPath q).injective]
-    exact hc.1
-  · rw [Subgroup.relIndex_map_map_of_injective K₀ H₀
-      (fundamentalGroupMulEquivOfPath q).injective]
-    exact hc.2
+  exact ⟨hc.1.map Q, hc.2.map Q⟩
 
 theorem index_range_map_eq_of_path (f : C(X, Y)) {x₀ x₁ : X} (p : Path x₀ x₁) :
     (map f x₁).range.index = (map f x₀).range.index := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Energy
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.DensityBounds
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.WeakDirichlet
@@ -39,7 +40,7 @@ lemma fderiv_sq_le_gradient_energy (D : LeviCivitaData g)
     intro v
     have h := D.abs_mvfderiv_le_gradient_norm f x v
     have heq : mvfderiv (𝓡 n) f x v = fderiv ℝ f x v := by
-      simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+      simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
       rfl
     rw [heq] at h
     rw [Real.norm_eq_abs]
@@ -65,7 +66,7 @@ lemma gradient_energy_le_fderiv_sq (D : LeviCivitaData g)
   let z : EuclideanSpace ℝ (Fin n) := D.gradient f x
   have hdual : g.inner x z z = fderiv ℝ f x z := by
     rw [show g.inner x z z = mvfderiv (𝓡 n) f x z from D.inner_gradient f x z]
-    simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   have hbound : g.inner x z z ≤ ‖fderiv ℝ f x‖ * ‖z‖ := by
     rw [hdual]

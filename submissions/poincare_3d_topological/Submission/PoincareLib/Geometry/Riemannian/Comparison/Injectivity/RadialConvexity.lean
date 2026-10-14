@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.RadialHessian
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.ManifoldJacobiPairing
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.JetBounds.GaussExtension
@@ -85,7 +86,7 @@ theorem radial_pairing_ge_half_norm_sq
       (fun s _ => isGeodesicOn_ray_of_gauss hgauss (x + s • w)) (mem_univ r)
     have hjfield (r : ℝ) :
         mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun s : ℝ => r • (x + s • w)) 0 1 = r • w := by
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change fderiv ℝ (fun s : ℝ => r • (x + s • w)) 0 (1 : ℝ) = r • w
       rw [fderiv_eq_smul_deriv, one_smul]
       change deriv (fun s : ℝ => r • (x + s • w)) 0 = r • w
@@ -108,7 +109,7 @@ theorem radial_pairing_ge_half_norm_sq
       g.tangentNorm (q r) (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) q r 1) = ‖x‖ := by
     have hg := isGeodesicOn_ray_of_gauss hgauss x
     have hzero : g.tangentNorm (q 0) (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) q 0 1) = ‖x‖ := by
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change g.tangentNorm (q 0) (fderiv ℝ q 0 (1 : ℝ)) = ‖x‖
       rw [fderiv_eq_smul_deriv, one_smul]
       have hd : HasDerivAt q x 0 := by

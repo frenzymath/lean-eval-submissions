@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.SelectedRadialShapeConvergence
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.IntrinsicShapeJets
@@ -96,7 +97,7 @@ theorem blowupSequence_intrinsic_shape_jets_zero
     filter_upwards [hidx.eventually (blowupSequence_coordinate_radial_domain
       P E t x ht hR hd L coordinate hc hi K hK)] with k hk
     have h := (hk (p k) (hp k)).1
-    simpa only [contMDiffAt_iff_contDiffAt, mfderiv_eq_fderiv] using h
+    simpa only [contMDiffAt_iff_contDiffAt, Poincare.Compatibility.mfderiv_eq_fderiv_model] using h
   have hfield (n : ℕ) : HasUniformJetBoundsAt n
       (fun k => pullback ℝ (f k) (radialUnitField (G k))) p := by
     intro j _hj

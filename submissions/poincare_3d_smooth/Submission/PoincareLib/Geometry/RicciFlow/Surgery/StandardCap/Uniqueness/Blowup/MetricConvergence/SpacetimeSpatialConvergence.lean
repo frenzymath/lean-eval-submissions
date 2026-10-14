@@ -98,7 +98,7 @@ theorem blowupSequence_spacetime_spatial_CInfinity (P : M35StandardCapPredecesso
   have hnorm : ‖B.compContinuousLinearMap
       (fun _ => ContinuousLinearMap.inr ℝ ℝ (EuclideanSpace ℝ (Fin 3)))‖ ≤ ‖B‖ :=
     (B.norm_compContinuousLinearMap_le _).trans
-      ((mul_le_mul_of_nonneg_left (Finset.prod_le_one
+      ((mul_le_mul_of_nonneg_left (Finset.prod_le_one₀
         (fun _ _ => norm_nonneg _) (fun _ _ =>
           ContinuousLinearMap.norm_inr_le_one ℝ ℝ (EuclideanSpace ℝ (Fin 3))))
         (norm_nonneg B)).trans_eq (mul_one _))

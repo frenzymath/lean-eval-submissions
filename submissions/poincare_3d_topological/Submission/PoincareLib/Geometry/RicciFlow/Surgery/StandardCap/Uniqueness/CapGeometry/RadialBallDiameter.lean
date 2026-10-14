@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialMetricContraction
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.IntrinsicRadialDistance
@@ -45,7 +46,7 @@ theorem intrinsic_inverse_segment_length_le (x y : V) :
   let euc := RiemannianMetric.euclideanMetric 3
   let line : ℝ → V := AffineMap.lineMap x y
   have hd (u : ℝ) : mfderiv 𝓘(ℝ, ℝ) (𝓡 3) line u 1 = y - x := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change fderiv ℝ line u (1 : ℝ) = y - x
     have h := (AffineMap.hasDerivAt_lineMap (a := x) (b := y) (x := u)).hasFDerivAt
     rw [h.fderiv]

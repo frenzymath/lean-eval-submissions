@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.AmbientBound
 
@@ -93,7 +94,7 @@ theorem logarithmicDensity_integrableOn (D : LeviCivitaData g)
     have he : g.euclideanCoefficients (F x) (fderiv ℝ F x (e i))
         (fderiv ℝ F x (e i)) = lam x := by
       have hh := congrArg (fun A : Matrix (Fin 2) (Fin 2) ℝ => A i i) (hconf x hx.2).2
-      simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+      simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
         Matrix.one_apply_eq, smul_eq_mul, mul_one] using! hh
     apply (le_div_iff₀ ha).mpr
     simpa only [he, mul_comm] using (hmetric x hx.1 (fderiv ℝ F x (e i))).1

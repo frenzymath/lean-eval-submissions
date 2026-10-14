@@ -34,6 +34,7 @@ private theorem tangentCoordChange_bijective {x y z : UnitTwoSphere}
     rw [tangentCoordChange_comp ⟨⟨hy, hx⟩, hy⟩, tangentCoordChange_self hy]
   exact ⟨hleft.injective, hright.surjective⟩
 
+set_option synthInstance.maxHeartbeats 100000 in
 /-- Invertibility of a slice differential persists jointly in the sphere
 point and height parameter. -/
 theorem eventually_bijective_slice_mfderiv

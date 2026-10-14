@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Compatibility.Tangent
+import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Mathlib.Geometry.Manifold.LocalDiffeomorph
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
 
@@ -38,7 +40,7 @@ theorem modelTranslationDiffeomorph_mfderiv (x z : E) (m : ℕ∞ω := ∞) :
   apply ContinuousLinearMap.ext
   intro v
   change mfderiv (𝓘(𝕜, E)) (𝓘(𝕜, E)) (fun y => x + y) z v = v
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   convert! congrArg (fun L : E →L[𝕜] E => L v) hd.fderiv using 1
 
 variable {E' : Type*} [NormedAddCommGroup E'] [NormedSpace 𝕜 E']

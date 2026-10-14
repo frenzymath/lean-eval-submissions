@@ -39,7 +39,7 @@ theorem roundCylinderTensorNormSquared_mono_time {u v : ℝ}
   apply Finset.sum_le_sum
   intro a _
   apply mul_le_mul_of_nonneg_right _ (sq_nonneg (T a))
-  exact Finset.prod_le_prod (fun i _ => (roundCylinderInverseWeight_pos hu (a i)).le)
+  exact Finset.prod_le_prod₀ (fun i _ => (roundCylinderInverseWeight_pos hu (a i)).le)
     (fun i _ => hw (a i))
 
 /-- Comparing the two retained times costs at most a factor two in each
@@ -60,7 +60,7 @@ theorem roundCylinderTensorNormSquared_zero_le_half (q : UnitTwoSphere) (s : ℝ
     Finset.mul_sum]
   apply Finset.sum_le_sum
   intro a _
-  have hprod := Finset.prod_le_prod
+  have hprod := Finset.prod_le_prod₀
     (s := (Finset.univ : Finset (Fin r)))
     (fun i _ => (roundCylinderInverseWeight_pos zero_lt_one (a i)).le)
     (fun i _ => hw (a i))

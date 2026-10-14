@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.PrecompactVariation
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.RadialDifferential
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Jacobi.ManifoldComparison
@@ -65,7 +66,7 @@ theorem contDiffAt_chartField_radialVariation_of_ball
   have hd := mfderiv_comp (s • v)
     (mdifferentiableAt_extChartAt (by
       simpa only [c, extChartAt_source, mem_preimage] using hs.2)) hes
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change mfderiv (𝓡 n) (𝓡 n) c (e (s • v))
     (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun u : ℝ => e (s • (v + u • w))) 0 1) = _
   rw [radialVariation_field_eq v w s hes]

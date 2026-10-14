@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.Stereographic.Metric
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.TransitionBounds
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Composition
@@ -61,7 +62,7 @@ theorem sphere_chart_symm_lipschitz {n : ℕ} (q : UnitSphere n) :
   have hder : fderiv ℝ (f ∘ c.symm) x =
       (mfderiv (𝓡 n) (𝓡 (n + 1)) f (c.symm x)).comp
         (mfderiv (𝓡 n) (𝓡 n) c.symm x) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp x (hf (c.symm x) |>.mdifferentiableAt (by simp))
       (hc x |>.mdifferentiableAt (by simp))
   have h := (roundSphere_chart_quadratic_bounds q (x := x) le_rfl v).2

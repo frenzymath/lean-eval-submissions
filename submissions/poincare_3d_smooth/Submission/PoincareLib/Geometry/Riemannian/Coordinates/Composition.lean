@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 
 /-!
@@ -29,7 +30,7 @@ theorem pullbackCoefficients_comp_of_eventuallyEq
     g.pullbackCoefficients q (f x) (fderiv ℝ f x v) (fderiv ℝ f x w) =
       g.pullbackCoefficients p x v w := by
   have hd := mfderiv_comp x hq hf.mdifferentiableAt
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hchain : (mfderiv (𝓡 n) (𝓡 n) q (f x)).comp (fderiv ℝ f x) =
       mfderiv (𝓡 n) (𝓡 n) p x := hd.symm.trans heq.mfderiv_eq
   have hv := congrArg (fun A ↦ A v) hchain

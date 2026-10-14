@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Simplex.Singular.SimplexFaceHomotopy
 import Submission.PoincareLib.Topology.Homotopy.Simplex.Singular.SimplexCubeConcatenation
 
@@ -23,12 +24,12 @@ theorem singular_pointedSimplex_boundary (X : TopCat.{u}) (n : Nat)
     (a : (TopCat.toSSet.obj X).PtSimplex (n + 1) x)
     (z : stdSimplex Real (Fin (n + 2)))
     (hz : Exists fun j : Fin (n + 2) => z j = 0) :
-    X.toSSetObjEquiv _ (SSet.yonedaEquiv a.map) z = TopCat.toSSetObj₀Equiv x := by
+    X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv a.map) z = TopCat.toSSetObj₀Equiv x := by
   obtain ⟨j, hj⟩ := hz
   obtain ⟨y, rfl⟩ := (stdSimplex_face_range_iff n j z).mpr hj
   have h := congrArg (fun G : (Δ[n] : SSet.{u}) ⟶ TopCat.toSSet.obj X =>
-    X.toSSetObjEquiv _ (SSet.yonedaEquiv G) y) (a.δ_map j)
-  rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toSSetObjEquiv_δ_apply,
+    X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv G) y) (a.δ_map j)
+  rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toLegacySSetObjEquiv_δ_apply,
     singular_const_apply] at h
   exact h
 
@@ -40,8 +41,8 @@ theorem exists_singular_pointedSimplex_genLoop (X : TopCat.{u}) (n : Nat)
     (hq : forall t, t ∈ Cube.boundary (Fin (n + 1)) ->
       Exists fun j : Fin (n + 2) => q t j = 0) :
     Exists fun f : GenLoop (Fin (n + 1)) X (TopCat.toSSetObj₀Equiv x) =>
-      f.val = (X.toSSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp q := by
-  exact ⟨⟨(X.toSSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp q,
+      f.val = (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp q := by
+  exact ⟨⟨(X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp q,
     fun t ht => singular_pointedSimplex_boundary X n x a (q t) (hq t ht)⟩, rfl⟩
 
 /-- A simplicial relation yields the actual relative homotopy of the corresponding loops. -/
@@ -53,8 +54,8 @@ theorem singular_relStruct_genLoop_homotopic (X : TopCat.{u}) (n : Nat)
     (hq : forall t, t ∈ Cube.boundary (Fin n) ->
       Exists fun j : Fin (n + 1) => q t j = 0)
     (f g : GenLoop (Fin n) X (TopCat.toSSetObj₀Equiv x))
-    (hf : f.val = (X.toSSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp q)
-    (hg : g.val = (X.toSSetObjEquiv _ (SSet.yonedaEquiv b.map)).comp q) :
+    (hf : f.val = (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp q)
+    (hg : g.val = (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv b.map)).comp q) :
     GenLoop.Homotopic f g := by
   obtain ⟨H⟩ := singular_relStruct_homotopicRel X n x a b i r
   change ContinuousMap.HomotopicRel f.val g.val (Cube.boundary (Fin n))
@@ -72,21 +73,21 @@ theorem singular_mulStruct_genLoop_mul (X : TopCat.{u}) (n : Nat)
     (hqs : forall t (j : Fin (n + 2)), q t j.succ =
       (t j : Real) * ∏ k : Fin (n + 2), if j < k then 1 - (t k : Real) else 1)
     (f g h : GenLoop (Fin (n + 2)) X (TopCat.toSSetObj₀Equiv x))
-    (hf : f.val = (X.toSSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp q)
-    (hg : g.val = (X.toSSetObjEquiv _ (SSet.yonedaEquiv b.map)).comp q)
-    (hh : h.val = (X.toSSetObjEquiv _ (SSet.yonedaEquiv c.map)).comp q) :
+    (hf : f.val = (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv a.map)).comp q)
+    (hg : g.val = (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv b.map)).comp q)
+    (hh : h.val = (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv c.map)).comp q) :
     (Quotient.mk _ h : HomotopyGroup (Fin (n + 2)) X (TopCat.toSSetObj₀Equiv x)) =
       ((· * ·) : _ -> _ -> HomotopyGroup (Fin (n + 2)) X (TopCat.toSSetObj₀Equiv x))
         (Quotient.mk _ f) (Quotient.mk _ g) := by
-  let F := X.toSSetObjEquiv _ (SSet.yonedaEquiv r.map)
+  let F := X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv r.map)
   have hface (j : Fin (n + 4)) (d : (TopCat.toSSet.obj X).PtSimplex (n + 2) x)
       (hd : SSet.stdSimplex.δ j ≫ r.map = d.map) :
       F.comp ⟨stdSimplex.map j.succAbove, stdSimplex.continuous_map _⟩ =
-        X.toSSetObjEquiv _ (SSet.yonedaEquiv d.map) := by
+        X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv d.map) := by
     ext z
     have hz := congrArg (fun G : (Δ[n + 2] : SSet.{u}) ⟶ TopCat.toSSet.obj X =>
-      X.toSSetObjEquiv _ (SSet.yonedaEquiv G) z) hd
-    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toSSetObjEquiv_δ_apply] at hz
+      X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv G) z) hd
+    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toLegacySSetObjEquiv_δ_apply] at hz
     exact hz
   have hF (j : Fin (n + 4)) (hj0 : j ≠ 0) (hj1 : j ≠ 1) (hj2 : j ≠ 2)
       (z : stdSimplex Real (Fin (n + 3))) :
@@ -101,8 +102,8 @@ theorem singular_mulStruct_genLoop_mul (X : TopCat.{u}) (n : Nat)
       have hgt1 : 1 < j.val := lt_of_le_of_ne (Nat.succ_le_of_lt hpos) hj1'.symm
       exact lt_of_le_of_ne (Nat.succ_le_of_lt hgt1) hj2'.symm
     have hz := congrArg (fun G : (Δ[n + 2] : SSet.{u}) ⟶ TopCat.toSSet.obj X =>
-      X.toSSetObjEquiv _ (SSet.yonedaEquiv G) z) (r.δ_map_of_gt j hgt)
-    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toSSetObjEquiv_δ_apply,
+      X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv G) z) (r.δ_map_of_gt j hgt)
+    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toLegacySSetObjEquiv_δ_apply,
       singular_const_apply] at hz
     exact hz
   have ha := hface 2 a r.δ_succ_succ_map

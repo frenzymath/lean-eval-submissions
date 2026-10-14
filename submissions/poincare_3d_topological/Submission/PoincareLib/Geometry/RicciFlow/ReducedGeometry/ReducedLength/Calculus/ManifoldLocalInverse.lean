@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Calculus.LocalSmoothInverse
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
@@ -42,11 +43,9 @@ theorem exists_manifold_local_inverse (f : E → N) (S : Set E) (hS : IsOpen S)
         (mfderiv (𝓘(ℝ, E)) (𝓘(ℝ, F)) f y) := by
     have hc := (mdifferentiable_chart (I := 𝓘(ℝ, F)) (f x)).mdifferentiableAt hy.2
     have hfy := (hf.contMDiffAt (hS.mem_nhds hy.1)).mdifferentiableAt (by simp)
-    have hcomp : HasFDerivAt g
-        ((mfderiv (𝓘(ℝ, F)) (𝓘(ℝ, F)) c (f y)).comp
-          (mfderiv (𝓘(ℝ, E)) (𝓘(ℝ, F)) f y)) y :=
-      (hc.hasMFDerivAt.comp y hfy.hasMFDerivAt).hasFDerivAt
-    exact hcomp.fderiv
+    have hcomp := mfderiv_comp y hc hfy
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
+    exact hcomp
   have hchart (y : E) (hy : y ∈ D) :
       Function.Bijective (mfderiv (𝓘(ℝ, F)) (𝓘(ℝ, F)) c (f y)) :=
     (mdifferentiable_chart (I := 𝓘(ℝ, F)) (f x)).mfderiv_bijective hy.2

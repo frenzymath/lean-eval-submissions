@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Metric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.Limit.Exponential.InitialExponential
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.Manifold
@@ -37,7 +38,7 @@ theorem map_mfderiv_zero (D : NormalizedCapExponential Q R) :
     rw [D.map_zero]
     exact mdifferentiableAt_extChartAt (mem_chart_source _ tip)
   have hd := mfderiv_comp (I := 𝓡 3) (I' := 𝓡 3) (I'' := 𝓡 3) 0 hchart hm
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change fderiv ℝ (fun v => extChartAt (𝓡 3) tip (D.map v)) 0 =
     (mfderiv (𝓡 3) (𝓡 3) (extChartAt (𝓡 3) tip) (D.map 0)).comp
       (mfderiv (𝓡 3) (𝓡 3) D.map 0) at hd
@@ -55,7 +56,7 @@ theorem coordinateMap_fderiv_zero (D : NormalizedCapExponential Q R) :
   have hi := (Q.inverse_smooth.contMDiffAt
     (Q.toPartialDiffeomorph.open_target.mem_nhds (D.map_mem 0 h0))).mdifferentiableAt (by simp)
   have hd := mfderiv_comp (I := 𝓡 3) (I' := 𝓡 3) (I'' := 𝓡 3) 0 hi hm
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change fderiv ℝ D.coordinateMap 0 =
     (mfderiv (𝓡 3) (𝓡 3) Q.inverse (D.map 0)).comp
       (mfderiv (𝓡 3) (𝓡 3) D.map 0) at hd

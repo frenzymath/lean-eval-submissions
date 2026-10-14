@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.Shi.Coordinates.Connection
 
 /-! Adapted from Mapher06/Poincare-MorganTian, `PoincareMT/Proofs/M04/ShiChartTransitions.lean`,
@@ -46,7 +47,7 @@ theorem shiChartTransition_fderiv
   have h := mfderiv_comp z
     ((hn.contMDiffAt (cnew.open_source.mem_nhds hy)).mdifferentiableAt (by simp))
     ((hoi.contMDiffAt (cold.open_target.mem_nhds hz)).mdifferentiableAt (by simp))
-  simpa only [mfderiv_eq_fderiv] using! h
+  simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using! h
 
 set_option backward.isDefEq.respectTransparency false in
 theorem shiChartTransition_field

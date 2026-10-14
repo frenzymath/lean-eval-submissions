@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Chart.HessianCoefficients
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.SourceNames.ReducedLength
@@ -69,7 +70,7 @@ theorem flow_pullback_metric_hessian_contDiffOn {a b : ℝ} (F : RicciFlow n M (
   have hderiv (x : V) (hx : x ∈ O) :
       fderiv ℝ ψ x = (mfderiv (𝓡 n) (𝓡 n) c (ρ x)).comp
         (mfderiv 𝓘(ℝ, V) (𝓡 n) ρ x) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp x ((mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt hx.2)
       ((hρ.contMDiffAt (hU.mem_nhds hx.1)).mdifferentiableAt (by simp))
   have hvec (x : V) (hx : x ∈ O) (v : V) :

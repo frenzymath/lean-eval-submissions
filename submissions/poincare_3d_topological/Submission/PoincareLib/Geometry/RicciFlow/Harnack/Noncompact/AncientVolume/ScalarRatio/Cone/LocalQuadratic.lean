@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.RadialRegularity
 import Submission.PoincareLib.Geometry.Riemannian.Distance.MinimizingGeodesic
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.LocalBounds
@@ -269,7 +270,7 @@ private theorem chart_deriv_le_speed
     (by simp)
   have heq := congrArg (fun L => L 1)
     (mfderiv_comp t hc ((hγ.contMDiffAt ht).mdifferentiableAt one_ne_zero))
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change deriv (fun u => extChartAt (𝓡 n) p (γ u)) t = _ at heq
   rw [heq]
   exact hC _
@@ -530,7 +531,7 @@ private theorem speed_affine {g : RiemannianMetric n M} {γ : ℝ → M}
       (mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ)) (fun t => a * t + b) 0 1) at hd
   have hp' : fderiv ℝ (fun t : ℝ => a * t + b) 0 1 = a := by
     rw [fderiv_eq_smul_deriv, one_smul, hp.deriv]
-  erw [mfderiv_eq_fderiv, hp'] at hd
+  erw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hp'] at hd
   have hvel := hd.trans (by simpa only [smul_eq_mul, mul_one] using
     (mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) γ (a * 0 + b)).map_smul a (1 : ℝ))
   rw [hvel]

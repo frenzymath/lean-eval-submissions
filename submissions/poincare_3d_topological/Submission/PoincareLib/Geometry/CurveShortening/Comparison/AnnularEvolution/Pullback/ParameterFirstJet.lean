@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Connection.Algebra
 import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 
@@ -51,7 +52,7 @@ theorem m64Pullback_covariantDerivative_eq_affine_parameter
   have hvh : curveVelocity (n := n) (fun z => f (h z)) x =
       mfderiv 𝓘(ℝ, E) (𝓡 n) f (h x) (deriv h x) := by
     have hc := mfderiv_comp_apply x hf hh.mdifferentiableAt (1 : ℝ)
-    simpa +instances only [Function.comp_def, curveVelocity, mfderiv_eq_fderiv, deriv]
+    simpa +instances only [Function.comp_def, curveVelocity, Poincare.Compatibility.mfderiv_eq_fderiv_model, deriv]
       using! hc
   have hvH : curveVelocity (n := n) (fun z => f (H z)) x =
       mfderiv 𝓘(ℝ, E) (𝓡 n) f (h x) (deriv h x) := by
@@ -59,7 +60,7 @@ theorem m64Pullback_covariantDerivative_eq_affine_parameter
       (1 : ℝ)
     have hc' : curveVelocity (n := n) (fun z => f (H z)) x =
         mfderiv 𝓘(ℝ, E) (𝓡 n) f (H x) (deriv H x) := by
-      simpa +instances only [Function.comp_def, curveVelocity, mfderiv_eq_fderiv, deriv]
+      simpa +instances only [Function.comp_def, curveVelocity, Poincare.Compatibility.mfderiv_eq_fderiv_model, deriv]
         using! hc
     have hp : (H x, deriv H x) = (h x, deriv h x) := Prod.ext hHx hH.deriv
     exact hc'.trans (congrArg (fun q : E × E =>

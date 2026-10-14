@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Conjugate.Energy.Length
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 
@@ -34,7 +35,7 @@ theorem tangentNorm_comp_eq_sqrt_pullback
     g.tangentNorm (f (u t)) (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (f ∘ u) t 1) =
       Real.sqrt (g.pullbackCoefficients f (u t) (deriv u t) (deriv u t)) := by
   have hd := mfderiv_comp t hf hu.mdifferentiableAt
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hd1 := congrArg (fun L => L 1) hd
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (f ∘ u) t 1 =
     mfderiv (𝓡 n) (𝓡 n) f (u t) (fderiv ℝ u t 1) at hd1

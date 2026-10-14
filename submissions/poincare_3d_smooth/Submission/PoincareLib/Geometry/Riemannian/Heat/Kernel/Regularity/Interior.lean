@@ -54,7 +54,7 @@ theorem eLpNorm_heatPowerContinuous_restrict_le {V : Set M} (hV : V ⊆ Ω)
   have ht := ha.trans_le hat
   have hmono := eLpNorm_mono_measure (p := 2) (μ := g.volumeMeasure.restrict Ω)
     (heatPowerContinuous D S k t ht f : M → ℝ) (Measure.restrict_mono hV le_rfl)
-  apply (ENNReal.toReal_mono (memLp_heatPowerContinuous D S k t ht f).2.ne hmono).trans
+  apply (ENNReal.toReal_mono (memLp_heatPowerContinuous D S k t ht f).ne hmono).trans
   apply (eLpNorm_heatPowerContinuous_le D S k t ht f).trans
   apply mul_le_mul_of_nonneg_right _ (norm_nonneg f)
   exact div_le_div_of_nonneg_left (Nat.cast_nonneg _) (pow_pos ha k)
@@ -93,9 +93,15 @@ theorem eLpNorm_iterate_laplacian_heatPowerContinuous_restrict_le
         (g.volumeMeasure.restrict V) =
       eLpNorm (heatPowerContinuous D S (k + j) t (ha.trans_le hat) f : M → ℝ) 2
         (g.volumeMeasure.restrict V) := by
-    apply eLpNorm_congr_norm_ae
-    filter_upwards [ae_restrict_mem hVm] with x hx
-    rw [iterate_laplacian_heatPowerContinuous D S j k t (ha.trans_le hat) f (hV hx)]
+    have hae : ((D.laplacian)^[j]
+        (heatPowerContinuous D S k t (ha.trans_le hat) f : M → ℝ)) =ᵐ[g.volumeMeasure.restrict V]
+        (fun x => (-1 : ℝ) ^ j * heatPowerContinuous D S (k + j) t (ha.trans_le hat) f x) := by
+      filter_upwards [ae_restrict_mem hVm] with x hx
+      exact iterate_laplacian_heatPowerContinuous D S j k t (ha.trans_le hat) f (hV hx)
+    have hm : AEStronglyMeasurable (heatPowerContinuous D S (k + j) t (ha.trans_le hat) f : M → ℝ) (g.volumeMeasure.restrict V) := (heatPowerContinuous D S (k + j) t (ha.trans_le hat) f).continuous.aestronglyMeasurable
+    apply eLpNorm_congr_norm_ae ((aestronglyMeasurable_const.mul hm).congr hae.symm) hm
+    filter_upwards [hae] with x hx
+    rw [hx]
     simp only [norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul]
   rw [heq]
   exact eLpNorm_heatPowerContinuous_restrict_le D S hV (k + j) ha hat f

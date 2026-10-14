@@ -90,6 +90,7 @@ theorem core_eventuallyEq_compl_incident_interior
   filter_upwards [hc, hi] with z hc hi
   change C z = ¬ interior (⋃ i : {i : I // q ∈ A i}, A i.1) z
   change C z = ¬ interior (⋃ i, A i) z at hc
+  change interior _ z = interior _ z at hi
   rw [hi] at hc
   exact hc
 
@@ -157,6 +158,7 @@ theorem coordinate_core_support_eventuallyEq_compl_incident_interior
   change M.toPlaneComplex.support z =
     ¬ interior (⋃ i : {i : I // F q ∈ A i}, F ⁻¹' A i.1) z
   change M.toPlaneComplex.support z = ¬ interior (F ⁻¹' (⋃ i, A i)) z at hc
+  change interior _ z = interior _ z at hi
   rw [hi] at hc
   exact hc
 

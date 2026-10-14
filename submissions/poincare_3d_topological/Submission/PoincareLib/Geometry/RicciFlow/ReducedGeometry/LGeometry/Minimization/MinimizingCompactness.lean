@@ -185,6 +185,7 @@ theorem finite_chartH1_limit {ι : Type*} [Fintype ι]
 
 set_option synthInstance.maxHeartbeats 200000 in
 -- Coefficient representatives live in a nested continuous-linear-map space.
+set_option maxHeartbeats 800000 in
 /-- The finite chart action is lower semicontinuous along the common weak subsequence. -/
 theorem finite_chart_action_le {J : Set ℝ} (F : RicciFlow n M J)
     (hM04 : RicciFlowCurvatureTheory.{u}) (T : ℝ) {ι : Type*} [Fintype ι]

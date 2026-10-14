@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Metric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.Geometry.RadialDirection
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.Limit.Exponential.ExponentialBalls
@@ -77,7 +78,7 @@ theorem standard_segment_energy (g₀ : StandardInitialMetric)
   obtain ⟨C, hC⟩ := hγ.exists_constant_tangentNorm (by linarith)
   have hCt := hC t ht
   have hC0 := hC 0 hzero
-  rw [mfderiv_eq_fderiv] at hCt hC0
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hCt hC0
   change g₀.metric.tangentNorm (γ t) (deriv γ t) = (C : ℝ) at hCt
   change g₀.metric.tangentNorm (γ 0) (deriv γ 0) = (C : ℝ) at hC0
   rw [hγ0, hs0] at hC0

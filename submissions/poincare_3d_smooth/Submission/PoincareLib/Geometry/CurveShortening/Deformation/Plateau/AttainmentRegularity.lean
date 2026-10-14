@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.MinimalDiskRecord
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.SweptArea.PlaneMapRegularity
 import Mathlib.Analysis.Calculus.Deriv.AffineMap
@@ -116,7 +117,7 @@ theorem m65Attainment_exists_lipschitz_bound (g : RiemannianMetric n M)
     change mfderivWithin (𝓡 2) (𝓡 n) f loopDiskSet (delta t)
       (mfderiv 𝓘(ℝ, ℝ) (𝓡 2) delta t 1) = _
     congr 1
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
       (AffineMap.hasDerivAt_lineMap (a := (x : LoopPlane)) (b := (y : LoopPlane)) (x := t)).deriv
   have hlength : g.pathELength (f ∘ delta) 0 1 ≤
       ENNReal.ofReal (K * ‖(y : LoopPlane) - x‖) := by

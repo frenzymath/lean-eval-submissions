@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.SupportedComparison
 
 /-!
@@ -48,7 +49,7 @@ def orderComplexSupportedSingular : (supportedNerve s).toSSet ⟶
     exact congrArg (fun g => g t) (orderComplexSimplex_comp f z.val))
 
 set_option maxHeartbeats 1000000 in
--- The inverse laws reduce through three nested subtypes and singular adjunction maps.
+-- Prove compatibility through the coordinate-simplex equivalence and existing projection law.
 /-- Restricting a supported singular lift is an actual simplicial
 isomorphism with the lifted model of the restricted covering.
 Source: Hatcher, Theorem 2.27, pp. 128-130. -/
@@ -59,11 +60,11 @@ def supportedLiftRestrictionIso :
   hom := {
     app n := ↾fun z => ⟨(⟨z.val.val.1, z.property⟩,
       (supportedSingularComparison p s).app n z), by
-        apply ((TopCat.of (orderComplexNeighborhood s)).toSSetObjEquiv n).injective
+        apply ((TopCat.of (orderComplexNeighborhood s)).toLegacySSetObjEquiv n).injective
         ext t : 1
         apply Subtype.ext
         exact congrArg (fun a =>
-          (TopCat.of (finiteOrderComplex J).space).toSSetObjEquiv n a t) z.val.property⟩
+          (TopCat.of (finiteOrderComplex J).space).toLegacySSetObjEquiv n a t) z.val.property⟩
     naturality {n m} f := by
       apply ConcreteCategory.hom_ext
       intro z
@@ -71,16 +72,21 @@ def supportedLiftRestrictionIso :
       apply Prod.ext
       · apply Subtype.ext
         rfl
-      · apply ((TopCat.of (liftedCoordinateNeighborhood p s)).toSSetObjEquiv m).injective
-        rfl }
+      · apply ((TopCat.of (liftedCoordinateNeighborhood p s)).toLegacySSetObjEquiv m).injective
+        ext t : 1
+        apply Subtype.ext
+        change (TopCat.of E).toLegacySSetObjEquiv m
+          ((TopCat.toSSet.obj (TopCat.of E)).map f z.val.val.2) t =
+            (TopCat.of E).toLegacySSetObjEquiv n z.val.val.2 (stdSimplex.map f.unop t)
+        exact TopCat.toLegacySSetObjEquiv_naturality_apply f.unop z.val.val.2 t }
   inv := {
     app n := ↾fun z => ⟨⟨(z.val.1.val,
       (TopCat.toSSet.map (TopCat.ofHom (⟨Subtype.val, continuous_subtype_val⟩ :
         C(liftedCoordinateNeighborhood p s, E)))).app n z.val.2), by
-          apply ((TopCat.of (finiteOrderComplex J).space).toSSetObjEquiv n).injective
+          apply ((TopCat.of (finiteOrderComplex J).space).toLegacySSetObjEquiv n).injective
           ext t : 1
           exact congrArg (fun a =>
-            ((TopCat.of (orderComplexNeighborhood s)).toSSetObjEquiv n a t).val)
+            ((TopCat.of (orderComplexNeighborhood s)).toLegacySSetObjEquiv n a t).val)
               z.property⟩, z.val.1.property⟩
     naturality {n m} f := by
       apply ConcreteCategory.hom_ext
@@ -88,7 +94,7 @@ def supportedLiftRestrictionIso :
       apply Subtype.ext
       apply Subtype.ext
       apply Prod.ext rfl
-      apply ((TopCat.of E).toSSetObjEquiv m).injective
+      apply ((TopCat.of E).toLegacySSetObjEquiv m).injective
       rfl }
   hom_inv_id := by
     ext n : 1
@@ -96,17 +102,21 @@ def supportedLiftRestrictionIso :
     intro z
     apply Subtype.ext
     apply Subtype.ext
-    apply Prod.ext rfl
-    apply ((TopCat.of E).toSSetObjEquiv n).injective
-    rfl
+    apply Prod.ext
+    · rfl
+    · change (TopCat.toSSet.map (TopCat.ofHom (⟨Subtype.val, continuous_subtype_val⟩ :
+      C(liftedCoordinateNeighborhood p s, E)))).app n
+        ((supportedSingularComparison p s).app n z) = z.val.val.2
+      exact congrArg (fun a => a.app n z) (supportedSingularComparison_projection p s)
   inv_hom_id := by
     ext n : 1
     apply ConcreteCategory.hom_ext
     intro z
     apply Subtype.ext
-    apply Prod.ext rfl
-    apply ((TopCat.of (liftedCoordinateNeighborhood p s)).toSSetObjEquiv n).injective
-    rfl
+    apply Prod.ext
+    · rfl
+    · apply ((TopCat.of (liftedCoordinateNeighborhood p s)).toLegacySSetObjEquiv n).injective
+      rfl
 
 /-- The restriction isomorphism preserves the actual singular
 characteristic map. Source: Hatcher, Theorem 2.27, pp. 128-130. -/

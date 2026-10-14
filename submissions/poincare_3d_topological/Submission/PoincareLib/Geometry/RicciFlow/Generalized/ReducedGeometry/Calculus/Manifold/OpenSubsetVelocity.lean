@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.SourceNames.Realization
 import Submission.PoincareLib.Geometry.Spacetime.Realization.Box.Spatial.Calculus
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
@@ -28,7 +29,7 @@ theorem mfderiv_curve_eq_deriv_val (U : Opens E) {f : ℝ → U} {s : ℝ}
   have hi : MDifferentiableAt (𝓘(ℝ, E)) (𝓘(ℝ, E)) (Subtype.val : U → E) (f s) :=
     contMDiff_subtype_val.mdifferentiableAt (n := ∞) (by simp)
   have hd := mfderiv_comp_apply s hi hf (1 : ℝ)
-  rw [PoincareMT.Proofs.M11.mfderiv_openSubtype_val, mfderiv_eq_fderiv] at hd
+  rw [PoincareMT.Proofs.M11.mfderiv_openSubtype_val, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change fderiv ℝ (fun t => (f t).val) s (1 : ℝ) =
     mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, E)) f s (1 : ℝ) at hd
   exact hd.symm
@@ -46,7 +47,7 @@ theorem mfderivWithin_curve_eq_derivWithin_val (U : Opens E)
     contMDiff_subtype_val.mdifferentiableAt (n := ∞) (by simp)
   have hd := congrArg (fun L => L (1 : ℝ))
     (mfderiv_comp_mfderivWithin s hi hf hJ.uniqueMDiffWithinAt)
-  rw [PoincareMT.Proofs.M11.mfderiv_openSubtype_val, mfderivWithin_eq_fderivWithin] at hd
+  rw [PoincareMT.Proofs.M11.mfderiv_openSubtype_val, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model] at hd
   change fderivWithin ℝ (fun t => (f t).val) J s (1 : ℝ) =
     mfderivWithin (𝓘(ℝ, ℝ)) (𝓘(ℝ, E)) f J s (1 : ℝ) at hd
   exact hd.symm

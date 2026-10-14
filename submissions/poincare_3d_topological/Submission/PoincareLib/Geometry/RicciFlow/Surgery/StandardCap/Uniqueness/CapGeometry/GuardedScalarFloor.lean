@@ -40,7 +40,7 @@ theorem scalar_floor_on_ball_of_guarded_gradient
   have hscale : Q ^ (-1 / 2 : ℝ) ≤ (Q / 16) ^ (-1 / 2 : ℝ) :=
     Real.rpow_le_rpow_of_nonpos hK (by dsimp only [Q]; linarith [hpos x]) (by norm_num)
   have hcomm : g.edist y x = g.edist x y :=
-    @edist_comm StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace y x
+    @edist_comm StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace y x
   have hxy : x ∈ g.ball y ((Q / 16) ^ (-1 / 2 : ℝ) / A) := by
     change g.edist y x < _
     rw [hcomm]

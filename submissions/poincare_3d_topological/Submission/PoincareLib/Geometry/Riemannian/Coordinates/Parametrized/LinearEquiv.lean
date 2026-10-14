@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.ParametrizedCoefficients
 import Submission.PoincareLib.Analysis.Calculus.SmoothCompactness.DomainChange
 
@@ -168,7 +169,7 @@ theorem mfderiv_comp_parameterEquiv
       (mfderiv 𝓘(ℝ, E) (𝓡 n) f (L x)).comp L.toContinuousLinearMap := by
   by_cases hf : MDifferentiableAt 𝓘(ℝ, E) (𝓡 n) f (L x)
   · have h := mfderiv_comp x hf L.differentiableAt.mdifferentiableAt
-    simpa only [mfderiv_eq_fderiv, L.fderiv] using h
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, L.fderiv] using h
   · have hcomp := mt (mdifferentiableAt_comp_parameterEquiv_iff L f x).mp hf
     rw [mfderiv_zero_of_not_mdifferentiableAt hcomp,
       mfderiv_zero_of_not_mdifferentiableAt hf, ContinuousLinearMap.zero_comp]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Variation.Coordinates.ChartEulerCoefficients
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Variation.Extension.BackwardEulerTransport
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Minimization.Charts.ChartStationarity
@@ -37,7 +38,7 @@ theorem scalar_graph_hasDerivAt (H : ℝ × M → ℝ) {α : ℝ → M} {s : ℝ
   rw [mfderiv_prod_eq_add_apply hH] at h
   have hscalar (f : ℝ → ℝ) : mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ)) f s 1 = deriv f s := by
     have hf := congrArg (fun A : ℝ →L[ℝ] ℝ ↦ A 1)
-      (mfderiv_eq_fderiv (𝕜 := ℝ) (f := f) (x := s))
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (𝕜 := ℝ) (f := f) (x := s))
     exact hf.trans fderiv_apply_one_eq_deriv
   dsimp only [Prod.fst, Prod.snd] at h
   rw [hscalar, hscalar] at h

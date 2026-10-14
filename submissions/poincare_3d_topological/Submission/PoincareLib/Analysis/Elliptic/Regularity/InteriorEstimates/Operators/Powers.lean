@@ -70,7 +70,8 @@ theorem ellipticPowerProfile_ne_top
     ellipticPowerProfile a b V n u ≠ ⊤ := by
   apply ENNReal.sum_ne_top.mpr
   intro j hj
-  rw [derivativeProfile_zero]
+  rw [derivativeProfile_zero _ _ _
+    (contDiff_iterate_secondOrderOperator ha hb hu j).continuous.aestronglyMeasurable]
   exact ((continuous_memLp_on_compact
     (contDiff_iterate_secondOrderOperator ha hb hu j).continuous hVc).mono_measure
       (Measure.restrict_mono subset_closure le_rfl)).eLpNorm_ne_top

@@ -1,0 +1,23 @@
+{
+  "status": "intermediate source review; compile/kernel verification remain parent-owned",
+  "benchmark_commit": "38361be884302c7edce1908c4aef8296eb2cb27e",
+  "provenance_sha256": "59ece88b41c84ae0354b174285b642e70cdd85b20868b836c0b42b45effd9211",
+  "baseline_provenance_preserved": true,
+  "smooth_modules_scanned": 23559,
+  "smooth_reachable_modules": 23559,
+  "helper_modules_reachable": 23558,
+  "total_source_bytes": 151843782,
+  "local_import_closure_complete": true,
+  "missing_local_imports": [],
+  "unsupported_external_imports": [],
+  "trusted_templates_all_match": true,
+  "source_symlinks_excluding_lake": [],
+  "escaping_source_symlinks": false,
+  "top_level_helper_shadow_modules": [],
+  "migration_changed_baseline_helper_count": 1344,
+  "elapsed_seconds": 36.883037090301514,
+  "broad_trust_token_counts": {
+    "eval": 242,
+    "macro": 36
+  }
+}

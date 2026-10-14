@@ -88,7 +88,7 @@ theorem integratedFormMap_norm_le (μ : Measure A)
 theorem lpTop_norm_le_of_bound {F : Type*} [NormedAddCommGroup F] {μ : Measure A}
     {f : A → F} (hf : MemLp f ∞ μ) {C : ℝ} (hC : 0 ≤ C)
     (hbound : ∀ᵐ t ∂μ, ‖f t‖ ≤ C) : ‖hf.toLp f‖ ≤ C := by
-  rw [Lp.norm_toLp, eLpNorm_exponent_top]
+  rw [Lp.norm_toLp, eLpNorm_exponent_top hf.aestronglyMeasurable]
   exact (ENNReal.toReal_mono ENNReal.ofReal_ne_top
     (eLpNormEssSup_le_of_ae_bound hbound)).trans_eq (ENNReal.toReal_ofReal hC)
 
@@ -102,6 +102,8 @@ theorem integratedForm_nonneg {μ : Measure A}
   rw [hrep]
   exact ht (v t)
 
+set_option synthInstance.maxHeartbeats 100000 in
+set_option maxHeartbeats 800000 in
 /-- An almost-everywhere coefficient error controls the operator error on L2. -/
 theorem integratedForm_sub_norm_le {μ : Measure A}
     {B D : A → E →L[ℝ] E →L[ℝ] ℝ} (hB : MemLp B ∞ μ) (hD : MemLp D ∞ μ)

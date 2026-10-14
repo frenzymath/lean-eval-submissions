@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Homothety
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Normalization
 import Submission.PoincareLib.Geometry.RicciFlow.Limit.RicciConvergence
@@ -71,10 +72,12 @@ theorem nativeRicci_local_homothety {n : ℕ}
         (mfderiv (𝓡 n) (𝓡 n) phi y v) (mfderiv (𝓡 n) (𝓡 n) phi y w)
     rw [hAy, hmy, hCy]
     simp only [smul_apply, smul_eq_mul, ContinuousLinearMap.bilinearComp_apply,
-      mfderiv_eq_fderiv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have hi : ∀ᶠ y in 𝓝 x, (mfderiv (𝓡 n) (𝓡 n) phi y).IsInvertible := by
-    simpa only [mfderiv_eq_fderiv] using hinv
+    filter_upwards [hinv] with y hy
+    simpa only [mfderiv_eq_fderiv, ContinuousLinearMap.isInvertible_equiv_comp,
+      ContinuousLinearMap.isInvertible_comp_equiv] using hy
   have hscaled (v w : E n) : DR.ricci (phi x) v w = DC.ricci (phi x) v w := by
     have h := M13.homothety_ricci_eq gC gR (Diffeomorph.refl (𝓡 n) (E n) ∞)
       r hr (rescaledMetric_identity_homothety hr) DC DR (phi x) v w
@@ -87,7 +90,7 @@ theorem nativeRicci_local_homothety {n : ℕ}
   have h := DA.ricci_eq_pullback_euclidean DR hphi.contMDiffAt hi hm v w
   rw [hscaled] at h
   convert h using 1
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rfl
 
 end PoincareMT.M45

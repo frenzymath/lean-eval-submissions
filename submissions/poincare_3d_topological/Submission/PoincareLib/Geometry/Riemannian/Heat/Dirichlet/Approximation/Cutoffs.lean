@@ -79,7 +79,7 @@ private theorem exists_energyTest_eq_one_on_compact (D : LeviCivitaData g)
     have hnonneg : 0 ≤ ∏ i ∈ s, (1 - b i x) :=
       Finset.prod_nonneg (fun i _ => sub_nonneg.mpr (b i).le_one)
     have hone : (∏ i ∈ s, (1 - b i x)) ≤ 1 :=
-      Finset.prod_le_one (fun i _ => sub_nonneg.mpr (b i).le_one)
+      Finset.prod_le_one₀ (fun i _ => sub_nonneg.mpr (b i).le_one)
         (fun i _ => by linarith [(b i).nonneg (x := x)])
     change 1 - (∏ i ∈ s, (1 - b i x)) ∈ Icc (0 : ℝ) 1
     exact ⟨sub_nonneg.mpr hone, by linarith⟩

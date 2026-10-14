@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Volume.Surgery.Neck.NeckCoordinates
 import Submission.PoincareLib.Geometry.RicciFlow.Volume.Surgery.Neck.NeckMetricComparison
 import Submission.PoincareLib.Geometry.RicciFlow.Volume.Surgery.Analysis.GramScaling
@@ -68,11 +69,11 @@ theorem epsilonNeckEuclideanChart_pullback_coefficient
         (by simp)
   have hfirst : mfderiv (𝓡 3) (𝓡 2) (fun y => c.symm (L1 y)) x =
       (mfderiv (𝓡 2) (𝓡 2) c.symm p.1).comp L1 := by
-    erw [mfderiv_comp x hcs hL1, mfderiv_eq_fderiv, L1.fderiv]
+    erw [mfderiv_comp x hcs hL1, Poincare.Compatibility.mfderiv_eq_fderiv_model, L1.fderiv]
     rfl
   have hDF : mfderiv (𝓡 3) ((𝓡 2).prod 𝓘(ℝ, ℝ)) F x =
       ((mfderiv (𝓡 2) (𝓡 2) c.symm p.1).comp L1).prod L2 := by
-    erw [mfderiv_prodMk (hcs.comp x hL1) hL2, hfirst, mfderiv_eq_fderiv, L2.fderiv]
+    erw [mfderiv_prodMk (hcs.comp x hL1) hL2, hfirst, Poincare.Compatibility.mfderiv_eq_fderiv_model, L2.fderiv]
   have hD : mfderiv (𝓡 3) (𝓡 3) (epsilonNeckEuclideanChart N q) x =
       (mfderiv ((𝓡 2).prod 𝓘(ℝ, ℝ)) (𝓡 3) N.coordinate_map (F x)).comp
         (((mfderiv (𝓡 2) (𝓡 2) c.symm p.1).comp L1).prod L2) := by

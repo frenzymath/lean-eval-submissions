@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Hurewicz.HurewiczMap
 
 /-!
@@ -55,7 +56,7 @@ theorem stdSimplex_face_map_range (n : ℕ) (i : Fin (n + 2)) :
 theorem singularSimplex_constant_faces_iff_boundary (X : TopCat.{w}) (n : ℕ)
     (s : (TopCat.toSSet.obj X) _⦋n + 1⦌) (x : X) :
     (∀ i : Fin (n + 2), (TopCat.toSSet.obj X).δ i s = singularConstantSimplex X n x) ↔
-      ∀ y : stdSimplex ℝ (Fin (n + 2)), (∃ i, y i = 0) → X.toSSetObjEquiv _ s y = x := by
+      ∀ y : stdSimplex ℝ (Fin (n + 2)), (∃ i, y i = 0) → X.toLegacySSetObjEquiv _ s y = x := by
   constructor
   · intro hface y hy
     obtain ⟨i, hi⟩ := hy
@@ -63,13 +64,13 @@ theorem singularSimplex_constant_faces_iff_boundary (X : TopCat.{w}) (n : ℕ)
       rw [stdSimplex_face_map_range]
       exact hi
     obtain ⟨z, rfl⟩ := hy'
-    have h := congrArg (fun u => X.toSSetObjEquiv (Opposite.op ⦋n⦌) u z) (hface i)
-    simpa only [TopCat.toSSetObjEquiv_δ_apply, singularConstantSimplex,
+    have h := congrArg (fun u => X.toLegacySSetObjEquiv (Opposite.op ⦋n⦌) u z) (hface i)
+    simpa only [TopCat.toLegacySSetObjEquiv_δ_apply, singularConstantSimplex,
       Equiv.apply_symm_apply, ContinuousMap.const_apply] using h
   · intro hboundary i
-    apply (X.toSSetObjEquiv _).injective
+    apply (X.toLegacySSetObjEquiv _).injective
     ext z
-    simp only [TopCat.toSSetObjEquiv_δ_apply, singularConstantSimplex,
+    simp only [TopCat.toLegacySSetObjEquiv_δ_apply, singularConstantSimplex,
       Equiv.apply_symm_apply, ContinuousMap.const_apply]
     apply hboundary _
     refine ⟨i, ?_⟩
@@ -88,17 +89,17 @@ theorem exists_genLoop_of_singularSimplex_constant_faces (X : TopCat.{w}) (n : �
       (∃ i, z i = 0) ↔ e z ∈ Cube.boundary (Fin (n + 1)) :=
     Classical.choose_spec (exists_stdSimplex_cube_pair_homeomorph (n + 1)) z
   let p : GenLoop (Fin (n + 1)) X x :=
-    ⟨(X.toSSetObjEquiv _ s).comp ⟨e.symm, e.symm.continuous⟩, fun z hz => by
+    ⟨(X.toLegacySSetObjEquiv _ s).comp ⟨e.symm, e.symm.continuous⟩, fun z hz => by
       apply (singularSimplex_constant_faces_iff_boundary X n s x).mp hface
       apply (he (e.symm z)).mpr
       simpa only [e.apply_symm_apply] using hz⟩
   refine ⟨p, ?_⟩
-  apply (X.toSSetObjEquiv _).injective
+  apply (X.toLegacySSetObjEquiv _).injective
   ext z
   simp only [genLoopSingularSimplex, Equiv.apply_symm_apply,
     ContinuousMap.comp_apply, ContinuousMap.coe_mk]
-  change X.toSSetObjEquiv _ s (e.symm (e z)) = X.toSSetObjEquiv _ s z
-  exact congrArg (X.toSSetObjEquiv _ s) (e.symm_apply_apply z)
+  change X.toLegacySSetObjEquiv _ s (e.symm (e z)) = X.toLegacySSetObjEquiv _ s z
+  exact congrArg (X.toLegacySSetObjEquiv _ s) (e.symm_apply_apply z)
 
 /-- A based cube descends through its boundary quotient with the specified basepoint. -/
 theorem exists_genLoop_quotient_map (n : ℕ) {Q X : Type*}

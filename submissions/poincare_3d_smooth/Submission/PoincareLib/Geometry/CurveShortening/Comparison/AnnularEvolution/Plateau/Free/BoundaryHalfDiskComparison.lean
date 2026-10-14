@@ -169,9 +169,9 @@ theorem local_energy_le_of_halfDisk_data {n m : ℕ} {M : Type*} [TopologicalSpa
       simpa only [EuclideanSpace.basisFun_apply, Function.comp_apply, K] using hg
     · filter_upwards [A.phase_observation] with p hp
       by_cases hmem : p ∈ K
-      · simp only [piecewise, if_pos hmem]
+      · simp only [piecewise, ite_eq_left hmem]
         exact hobs _ (m64Annulus_boundary_disk_sub_mem hmem)
-      · simpa only [piecewise, if_neg hmem] using hp
+      · simpa only [piecewise, ite_eq_right hmem] using hp
   apply hcompare.trans_eq
   congr 1
   rw [m64Annulus_boundary_disk_integral hx hP hr]

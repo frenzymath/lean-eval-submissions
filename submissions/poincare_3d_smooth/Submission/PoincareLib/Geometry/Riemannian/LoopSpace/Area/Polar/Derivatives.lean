@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.DiskExtension
 
 /-!
@@ -71,7 +72,7 @@ theorem mfderiv_contractionDiskMap_radial (C : ℝ × (M × M) → M)
   have hδM : MDifferentiableAt 𝓘(ℝ, ℝ) (𝓡 2) δ r :=
     hδ.differentiableAt.mdifferentiableAt
   have hδv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) δ r 1 = angularPoint t := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hδ.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hδ.deriv
   have hχ : MDifferentiableAt 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) diskTimeProfile r :=
     contDiff_diskTimeProfile.contMDiff.mdifferentiableAt (by simp)
   have hinput : MDifferentiableAt 𝓘(ℝ, ℝ)
@@ -95,7 +96,7 @@ theorem mfderiv_contractionDiskMap_radial (C : ℝ × (M × M) → M)
       (diskTimeProfile r, p, periodicFreeLoop γ t)
       (mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) diskTimeProfile r 1, 0, 0) at hchain
   have hχv : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) diskTimeProfile r 1 = deriv diskTimeProfile r := by
-    simpa +instances only [mfderiv_eq_fderiv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using!
       (fderiv_apply_one_eq_deriv : fderiv ℝ diskTimeProfile r 1 = deriv diskTimeProfile r)
   erw [hχv] at hchain
   apply hderiv.trans (hchain.trans ?_)
@@ -120,7 +121,7 @@ theorem mfderiv_contractionDiskMap_angular (C : ℝ × (M × M) → M)
   have hδM : MDifferentiableAt 𝓘(ℝ, ℝ) (𝓡 2) δ t :=
     hδ.differentiableAt.mdifferentiableAt
   have hδv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) δ t 1 = r • angularVector t := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hδ.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hδ.deriv
   have hγ : MDifferentiableAt 𝓘(ℝ, ℝ) (𝓡 3) (periodicFreeLoop γ) t :=
     (contMDiff_periodicFreeLoop γ t).mdifferentiableAt one_ne_zero
   have hinput : MDifferentiableAt 𝓘(ℝ, ℝ)

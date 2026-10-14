@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/ScalarMixedDerivative.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -127,7 +128,7 @@ theorem hasDerivAt_family_spatial_mvfderiv
       (mfderivWithin_range_extChartAt_symm (I := 𝓡 n) (x := x))
   have hchart (q : M → ℝ) (hq : ContMDiffAt (𝓡 n) 𝓘(ℝ, ℝ) ∞ q x) :
       fderiv ℝ (q ∘ c.symm) (c x) a = mvfderiv (𝓡 n) q x a := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mvfderiv 𝓘(ℝ, EuclideanSpace ℝ (Fin n)) (q ∘ c.symm) (c x) a = _
     rw [mvfderiv_comp_apply_of_eq (c x) (hq.mdifferentiableAt (by simp))
       ((hc (c x) hcx).mdifferentiableAt (by simp)) hcsymm a, heid]
@@ -230,7 +231,7 @@ theorem scalar_frame_laplacian_nonpos_of_isLocalMax
         _ = e.symmL ℝ y (EuclideanSpace.single i 1) := (e.symmL_apply hy _).symm
     have hfd : fderiv ℝ (fun u => q (c.symm u)) w (EuclideanSpace.single i 1) =
         mvfderiv (𝓡 n) q y (e.symmL ℝ y (EuclideanSpace.single i 1)) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change mvfderiv 𝓘(ℝ, V) (q ∘ c.symm) w (EuclideanSpace.single i 1) = _
       erw [mvfderiv_comp_apply w
         ((hq.contMDiffAt (e.open_baseSet.mem_nhds hy)).mdifferentiableAt (by simp))
@@ -414,8 +415,6 @@ theorem scalar_shifted_exp_bound_of_max_deriv
       have he := (((hasDerivAt_id p.1).sub_const a).const_mul (-L)).exp
       have hl := ((hasDerivAt_id p.1).sub_const a).const_mul eps
       convert (he.mul ((hdiff p.1 hpt p.2).hasDerivAt.add_const 1)).sub hl using 1
-      · rfl
-      · rfl
       · rfl
       · dsimp only [rate, id_eq]
         ring

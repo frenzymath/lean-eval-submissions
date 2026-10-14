@@ -36,6 +36,6 @@ theorem compact_memLp_mul_continuousOn (hc : ContinuousOn c O)
     apply memLp_top_of_bound ((hc.mono hKO).aestronglyMeasurable hK.measurableSet) C
     filter_upwards [ae_restrict_mem hK.measurableSet] with x hx
     exact hC (mem_image_of_mem _ hx)
-  exact (hu K hK hKO).mul hcK
+  exact hcK.fun_mul (hu K hK hKO)
 
 end Poincare.Analysis.Elliptic

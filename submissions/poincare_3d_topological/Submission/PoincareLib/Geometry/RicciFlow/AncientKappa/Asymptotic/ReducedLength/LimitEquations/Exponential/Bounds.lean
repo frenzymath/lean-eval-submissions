@@ -4,7 +4,6 @@ import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.Reduced
 
 noncomputable section
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory
 open scoped Manifold ContDiff Topology NNReal ENNReal
@@ -53,13 +52,13 @@ theorem reducedPotential_flux_source_memLp
   constructor
   · intro i
     exact (memLp_finsetSum Finset.univ (fun j _ =>
-      (hd j).mul' (r := ∞) (ha i j))).neg.mono_exponent le_top
+      (ha i j).fun_mul (r := ∞) (hd j))).neg.mono_exponent le_top
   · have henergy : MemLp (fun x => g.pullbackVolumeDensity e x *
         fderiv ℝ u x ((g.pullbackCoefficients e x).inverse (fderiv ℝ u x)))
         ∞ (volume.restrict O) := by
       have hs := memLp_finsetSum Finset.univ (fun i _ =>
         memLp_finsetSum Finset.univ (fun j _ =>
-          ((ha i j).mul' (r := ∞) (hd j)).mul' (r := ∞) (hd i)))
+          ((ha i j).fun_mul (r := ∞) (hd j)).fun_mul (r := ∞) (hd i)))
       convert hs using 1
       funext x
       simpa only [mul_comm, mul_left_comm, mul_assoc] using

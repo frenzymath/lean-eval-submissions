@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
+import Mathlib.Analysis.Convex.StdSimplex
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Counting.IncidenceCycleRank
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Subdivision.SingularCycles
 import Mathlib.Algebra.Category.ModuleCat.Abelian
@@ -25,16 +27,16 @@ variable {K : Type v} [Field K] {V I : Type*} [Fintype V] [Fintype I]
 
 noncomputable def pathSimplex {X : TopCat.{u}} {a b : X} (p : Path a b) :
     (TopCat.toSSet.obj X) _⦋1⦌ :=
-  (X.toSSetObjEquiv _).symm
+  (X.toLegacySSetObjEquiv _).symm
     (p.toContinuousMap.comp ⟨stdSimplexHomeomorphUnitInterval,
       stdSimplexHomeomorphUnitInterval.continuous⟩)
 
 theorem pathSimplex_face_zero {X : TopCat.{u}} {a b : X} (p : Path a b) :
     (TopCat.toSSet.obj X).δ 0 (pathSimplex p) =
       Poincare.Topology.singularConstantSimplex X 0 b := by
-  apply (X.toSSetObjEquiv _).injective
+  apply (X.toLegacySSetObjEquiv _).injective
   ext z
-  rw [TopCat.toSSetObjEquiv_δ_apply]
+  rw [TopCat.toLegacySSetObjEquiv_δ_apply]
   change p (stdSimplexHomeomorphUnitInterval
     (stdSimplex.map (0 : Fin 2).succAbove z)) = b
   have hz : stdSimplexHomeomorphUnitInterval
@@ -47,9 +49,9 @@ theorem pathSimplex_face_zero {X : TopCat.{u}} {a b : X} (p : Path a b) :
 theorem pathSimplex_face_one {X : TopCat.{u}} {a b : X} (p : Path a b) :
     (TopCat.toSSet.obj X).δ 1 (pathSimplex p) =
       Poincare.Topology.singularConstantSimplex X 0 a := by
-  apply (X.toSSetObjEquiv _).injective
+  apply (X.toLegacySSetObjEquiv _).injective
   ext z
-  rw [TopCat.toSSetObjEquiv_δ_apply]
+  rw [TopCat.toLegacySSetObjEquiv_δ_apply]
   change p (stdSimplexHomeomorphUnitInterval
     (stdSimplex.map (1 : Fin 2).succAbove z)) = a
   have hz : stdSimplexHomeomorphUnitInterval

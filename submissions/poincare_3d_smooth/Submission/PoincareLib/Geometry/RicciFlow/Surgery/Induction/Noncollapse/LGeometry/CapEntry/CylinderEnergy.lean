@@ -109,5 +109,6 @@ theorem realizedHorizontalEnergy_congr
         (mfderiv 𝓘(ℝ, ℝ) (spacetimeModel 3) eta r 1)
         (mfderiv 𝓘(ℝ, ℝ) (spacetimeModel 3) eta r 1) := by
   rw [h.mfderiv_eq, h.eq_of_nhds]
+  rfl
 
 end PoincareMT.Proofs.M46

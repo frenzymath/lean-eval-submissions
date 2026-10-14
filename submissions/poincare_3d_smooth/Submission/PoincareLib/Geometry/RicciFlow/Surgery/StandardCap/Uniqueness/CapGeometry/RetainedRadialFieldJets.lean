@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialFieldSystem
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Neck.Jets.PointIsometryJets
@@ -100,7 +101,7 @@ theorem retained_radial_field_shape_jets
   let s k y := axisWarpingSlope (Gseq k) ‖f k y‖ / axisWarpingRadius (Gseq k) ‖f k y‖
   have hfs k := contMDiffAt_iff_contDiffAt.mp (hf k).self_of_nhds
   have hi k : (fderiv ℝ (f k) (pseq k)).IsInvertible := by
-    simpa only [mfderiv_eq_fderiv] using (hinv k).self_of_nhds
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using (hinv k).self_of_nhds
   have hZ k : ContDiffAt ℝ ∞ (Z k) (pseq k) :=
     euclidean_radial_pullback_contDiffAt (Gseq k) (hfs k) (hi k) (hzero k)
   have hs k : ContDiffAt ℝ ∞ (s k) (pseq k) :=

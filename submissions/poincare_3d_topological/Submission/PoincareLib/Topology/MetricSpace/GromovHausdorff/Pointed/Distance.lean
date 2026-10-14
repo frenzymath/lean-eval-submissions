@@ -349,7 +349,7 @@ theorem exists_basedIsometry_of_attained_zero_of_compact_ranges
   let B : Set R.ambient.carrier := Set.range R.right
   have hAB : A = B := hrange
   let c : A ≃ᵢ B :=
-    { toEquiv := Equiv.setCongr hAB
+    { toEquiv := Set.equivOfEq hAB
       isometry_toFun := by
         intro a b
         rfl }

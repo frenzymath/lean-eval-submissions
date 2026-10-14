@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Metric
 
 /-!
@@ -61,7 +62,7 @@ theorem riemannianEDist_le_of_normed_differential_bound
   rw [hchain]
   change ‖mfderiv 𝓘(ℝ, E) (𝓡 n) f (η t)
     (mfderivWithin (𝓘(ℝ, ℝ)) 𝓘(ℝ, E) η (Icc 0 1) t 1)‖ₑ ≤ _
-  rw [mfderivWithin_eq_fderivWithin]
+  rw [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
   let v := fderivWithin ℝ η (Icc 0 1) t 1
   have h := ENNReal.ofReal_le_ofReal (hbound (η t) (hη ht) v)
   have hvnorm : ‖mfderiv 𝓘(ℝ, E) (𝓡 n) f (η t) v‖ =

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.JetBounds.LocalInverse
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Basic
 
@@ -41,7 +42,7 @@ theorem exists_smooth_inverse_branch
   have hchain := mfderiv_comp v
     (mdifferentiableAt_extChartAt (by simpa only [c, extChartAt_source] using hc))
     (hev.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   have hFi : (fderiv ℝ F v).IsInvertible := by
     change (fderiv ℝ ((extChartAt (𝓡 n) (e v)) ∘ e) v).IsInvertible
     rw [hchain]
@@ -67,7 +68,7 @@ theorem exists_smooth_inverse_branch
     have hd := mfderiv_comp z
       (mdifferentiableAt_extChartAt (by simpa only [c, extChartAt_source] using hzc))
       ((he.contMDiffAt (hU.mem_nhds hzU)).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have heq : (mfderiv (𝓡 n) (𝓡 n) c (e z)).inverse.comp (fderiv ℝ F z) =
         mfderiv (𝓡 n) (𝓡 n) e z := by
       rw [hd, ← ContinuousLinearMap.comp_assoc, hcz.inverse_comp_self,

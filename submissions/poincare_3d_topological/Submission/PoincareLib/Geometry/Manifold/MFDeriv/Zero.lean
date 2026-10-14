@@ -35,8 +35,12 @@ theorem isLocallyConstant_of_mfderiv_eq_zero {f : M → F}
     exact ((hf _).comp z (hinv z hz)).differentiableAt
   have hz : ∀ z ∈ e.target, fderiv ℝ (f ∘ e.symm) z = 0 := by
     intro z hz
-    rw [← mfderiv_eq_fderiv, mfderiv_comp z (hf _) (hinv z hz), hzero]
-    rfl
+    have h := mfderiv_comp z (hf _) (hinv z hz)
+    rw [hzero] at h
+    ext v
+    simpa [mfderiv_eq_fderiv, NormedSpace.fromTangentSpace, tangentSpaceCastModel,
+      ContinuousLinearMap.comp_apply] using congrArg (fun L => L
+        ((NormedSpace.fromTangentSpace z).symm v)) h
   obtain ⟨r, hr, hrsub⟩ := Metric.mem_nhds_iff.mp (extChartAt_target_mem_nhds (I := I) x)
   have he : Filter.map e.symm (nhds (e x)) = nhds x := by
     simpa only [hI, nhdsWithin_univ] using map_extChartAt_symm_nhdsWithin_range (I := I) x

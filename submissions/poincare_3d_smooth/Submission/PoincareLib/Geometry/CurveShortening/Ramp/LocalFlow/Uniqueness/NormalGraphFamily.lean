@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Continuous.NormalGraphFamily
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Cont.DiffOrderIsoInverse
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.GraphEquation
@@ -236,7 +237,7 @@ theorem exists_c2ShrinkingCurve_normalGraph_family
     have hchain : fderiv ℝ (fun z => e (q z t)) y =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e (q y t)).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun z => q z t) y) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp y (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hqspace t ht y).mdifferentiableAt (by norm_num))
     have hpush := congrArg (fun L : ℝ →L[ℝ] W => L 1) hchain

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.ReducedLength.WeakCoordinates
 
 /-!
@@ -41,7 +42,7 @@ theorem LeviCivitaData.gradient_norm_sq_eq_inverse_pairing
       fderiv ℝ (f ∘ e) x v =
         mvfderiv (𝓡 n) f (e x) (mfderiv (𝓡 n) (𝓡 n) e x v) := by
     have hh := congrArg (fun A => A v) (mvfderiv_comp x hf (hD.mdifferentiableAt hx))
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
       ContinuousLinearMap.comp_apply] at hh
     convert! hh using 1
   have hF : g.pullbackCoefficients e x w = fderiv ℝ (f ∘ e) x := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient.Flow.Expansion
 
 /-!
@@ -110,7 +111,7 @@ private theorem comp_normalizedGradient_eq_add
       simp only [normalizedGradient, map_smul, smul_eq_mul, ← D.inner_gradient]
       exact inv_mul_cancel₀ (hregular t ht)
     have he' : fderiv ℝ f (γ t) (D.normalizedGradient f (γ t)) = 1 := by
-      simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] at he
+      simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] at he
       convert! he using 1
     exact hcomp.congr_deriv he'
   have hl (t : ℝ) : HasDerivAt (fun s ↦ f (γ a) + (s - a)) 1 t := by
@@ -151,7 +152,7 @@ theorem normalizedGradient_flow_preserves_level_differential
   have hleft := (hfd t ht).hasFDerivAt.comp x (hqd t ht).hasFDerivAt
   have hright := ((hfd a ha).hasFDerivAt.comp x (hqd a ha).hasFDerivAt).add_const (t - a)
   have hd := congrArg (fun A ↦ A v) (hleft.unique (hright.congr_of_eventuallyEq he))
-  simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+  simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
   convert! hd using 1
 
 /-- The actual induced quadratic metric on level tangents is nondecreasing

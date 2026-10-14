@@ -11,7 +11,6 @@ Morgan--Tian context: Lemma 19.15 and its annular area-to-energy construction, p
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -46,7 +45,10 @@ theorem m64ObservedMetric_coercivity_of_diagonal
   refine ⟨D ^ 2, sq_nonneg D, ?_⟩
   rintro q v ⟨w, rfl⟩
   have hnorm : ‖(show E from mfderiv (𝓡 n) (𝓡 m) e q w)‖ ≤ D * ‖w‖ := by
-    rw [← norm_tangentSpace_vectorSpace (x := e q)]
+    change ‖NormedSpace.fromTangentSpace (e q)
+      ((mfderiv (𝓡 n) (𝓡 m) e q).toFun w)‖ ≤ D * ‖w‖
+    rw [← norm_tangentSpace_vectorSpace (x := e q)
+      (v := (mfderiv (𝓡 n) (𝓡 m) e q).toFun w)]
     exact ((mfderiv (𝓡 n) (𝓡 m) e q).le_opNorm w).trans
       (mul_le_mul_of_nonneg_right (hbound q) (norm_nonneg w))
   have hnormsq : ‖w‖ ^ 2 = g.inner q w w := (real_inner_self_eq_norm_sq w).symm

@@ -48,8 +48,7 @@ theorem memLp_top_spatial_gradient_quadratic_of_lipschitz
   intro i _
   apply memLp_finsetSum
   intro j _
-  simpa only [Pi.mul_def] using (hd i).mul' (r := ∞)
-    ((hd j).mul' (r := ∞) (hA i j))
+  simpa only [Pi.mul_def] using ((hA i j).fun_mul (r := ∞) (hd j)).fun_mul (r := ∞) (hd i)
 
 theorem ae_eq_zero_of_ae_slices
     {X Y : Type*} [MeasurableSpace X] [MeasurableSpace Y]

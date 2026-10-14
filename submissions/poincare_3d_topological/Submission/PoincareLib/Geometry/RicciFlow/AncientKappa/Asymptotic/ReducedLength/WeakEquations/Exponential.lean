@@ -11,7 +11,6 @@ Reference: Morgan--Tian, Proposition 9.20, Clay pp. 188--198.
 
 noncomputable section
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory
 open scoped Manifold ContDiff Topology NNReal ENNReal

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Length.Angular
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Compatibility.ShortLoops
@@ -51,7 +52,7 @@ theorem m65PeriodicLoopTangent_eq (gamma : C1FreeLoopSpace (M := M)) (x : ℝ) :
         c1LoopTangent gamma ⟨angularPoint x, norm_angularPoint x⟩ := by
   let z : LoopCircle := ⟨angularPoint x, norm_angularPoint x⟩
   have hd : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) angularPoint x 1 = loopCircleTangent z := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
       (m65AngularPoint_hasDerivAt x).deriv
   have hchain := mfderiv_comp_apply (f := angularPoint) (g := gamma.extension) x
     ((contMDiffAt_loop_extension gamma.regularity z).mdifferentiableAt one_ne_zero)

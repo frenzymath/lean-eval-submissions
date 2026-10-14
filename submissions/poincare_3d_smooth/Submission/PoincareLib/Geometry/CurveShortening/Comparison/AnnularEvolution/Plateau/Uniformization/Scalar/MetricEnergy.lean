@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.FiniteEnergy
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.EnergyPositive
 
@@ -41,7 +42,7 @@ theorem scalarGradient_energy_bound (H : Plane → ℝ) (x : Plane) :
     |g.inner x (D.gradient H x) (D.gradient H x)| ≤
       ‖(g.euclideanCoefficients x).inverse‖ * ‖fderiv ℝ H x‖ ^ 2 := by
   have hdf : mvfderiv (𝓡 2) H x = fderiv ℝ H x := by
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   have hgrad : D.gradient H x = (g.euclideanCoefficients x).inverse (fderiv ℝ H x) := by
     unfold LeviCivitaData.gradient

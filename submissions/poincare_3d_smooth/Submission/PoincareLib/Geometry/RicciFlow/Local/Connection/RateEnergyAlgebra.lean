@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/ConnectionRateEnergyAlgebra.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -192,7 +193,7 @@ theorem ricciFlow_inverse_and_lowered_frame_terminal_bounds
         W ^ (k + 3) := by
       simpa only [Finset.prod_const, Finset.card_univ, Fintype.card_fin,
         RiemannianMetric.tangentNorm] using
-        (Finset.prod_le_prod
+        (Finset.prod_le_prod₀
           (fun j (_ : j ∈ (Finset.univ : Finset (Fin (k + 3)))) => Real.sqrt_nonneg _)
           (fun j (_ : j ∈ (Finset.univ : Finset (Fin (k + 3)))) =>
             hframeNorm (hold hs) hx (α j.castSucc)))
@@ -312,7 +313,7 @@ theorem ricciFlow_metric_first_coordinate_jet_terminal_control
     change e.symmL ℝ (c.symm z) = mfderiv 𝓘(ℝ, V) (𝓡 n) c.symm
       (c (c.symm z)) at he
     rw [c.right_inv hz] at he
-    rw [hEframe l (hbase hz), ← mfderiv_eq_fderiv]
+    rw [hEframe l (hbase hz), ← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mvfderiv 𝓘(ℝ, V) (f ∘ c.symm) z (EuclideanSpace.single l 1) = _
     erw [mvfderiv_comp_apply z
       ((hf.contMDiffAt (e.open_baseSet.mem_nhds (hbase hz))).mdifferentiableAt (by simp))

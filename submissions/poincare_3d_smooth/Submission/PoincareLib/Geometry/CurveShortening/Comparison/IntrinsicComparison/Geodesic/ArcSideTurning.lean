@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Geodesic.Turning
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Arc.Reparametrization
 
@@ -64,7 +65,7 @@ theorem m64Intrinsic_coordinate_side_geodesic_arc_turning_eq_zero
     have h := coordinateTriangle_side_velocity F b hF hFi hsource i j ht
     refine ⟨contMDiffAt_iff_contDiffAt.mp h.1, ?_⟩
     have hd := h.2
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     change fderiv ℝ eta t 1 = V (eta t) at hd
     simpa only [fderiv_eq_smul_deriv, one_smul] using hd
   have hv : standardTriangleVertex j - standardTriangleVertex i ≠ 0 := by

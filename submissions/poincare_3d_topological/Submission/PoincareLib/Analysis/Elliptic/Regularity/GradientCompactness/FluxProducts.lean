@@ -29,7 +29,7 @@ theorem integrable_gradient_pairing_of_lipschitz
   intro i _
   apply integrable_finsetSum
   intro j _
-  exact ((hχ i).mul' (r := ∞) ((hd j).mul' (r := ∞) (hA i j))).integrable le_top
+  exact (((hA i j).fun_mul (r := ∞) (hd j)).fun_mul (r := ∞) (hχ i)).integrable le_top
 
 theorem tendsto_integral_abs_gradient_pairing_sub
     {O U : Set E} (hO : IsOpen O) (hU : IsOpen U) (hUO : U ⊆ O)

@@ -23,6 +23,7 @@ namespace PoincareMT.M76
 
 local notation "V3" => (Fin 3 → ℝ)
 
+set_option backward.isDefEq.respectTransparency false in
 theorem exists_original_cut_incidence_injection
     {X κ : Type u} {ι : Type*} [MetricSpace X] [Fintype κ] [DecidableEq κ]
     {e : ι → OpenPartialHomeomorph X V3} {R U : Set X}
@@ -64,11 +65,11 @@ theorem exists_original_cut_incidence_injection
             Fintype.card (ConnectedComponents Q) = Fintype.card κ + 1) ∧
         Fintype.card κ ≤ Module.finrank (ZMod 2)
           ↑((TopCat.toSSet.obj (TopCat.of R)).homology
-            (ModuleCat.of (ZMod 2) (ULift.{u} (ZMod 2))) 1) +
+            (@ModuleCat.of (ZMod 2) inferInstance (ULift.{u} (ZMod 2)) inferInstance ULift.module') 1) +
               Fintype.card (ConnectedComponents Q) ∧
         (IsConnected R → Fintype.card κ + 1 ≤ Module.finrank (ZMod 2)
           ↑((TopCat.toSSet.obj (TopCat.of R)).homology
-            (ModuleCat.of (ZMod 2) (ULift.{u} (ZMod 2))) 1) +
+            (@ModuleCat.of (ZMod 2) inferInstance (ULift.{u} (ZMod 2)) inferInstance ULift.module') 1) +
               Fintype.card (ConnectedComponents Q)) ∧
         ∃ j : C(Q, R), (∀ x, (j x : X) = x) ∧
           Function.Injective (ModTwoMayerVietoris.homologyMapOf j 1) ∧

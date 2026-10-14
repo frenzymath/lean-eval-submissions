@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Normalization.Volume.Finite
 
 /-!
@@ -70,7 +71,7 @@ theorem normalization_exists_normalizedChart
     have hy' : y ∈ (chartAt E x).source := by
       simpa only [hsource, extChartAt_source] using hy
     rw [he, mfderiv_comp y L.differentiableAt.mdifferentiableAt
-      (mdifferentiableAt_extChartAt hy'), mfderiv_eq_fderiv, L.fderiv]
+      (mdifferentiableAt_extChartAt hy'), Poincare.Compatibility.mfderiv_eq_fderiv_model, L.fderiv]
     rw [← TangentBundle.continuousLinearMapAt_trivializationAt hy']
     rfl
   have hdi (a : TangentSpace 𝓘(ℝ, E) x) (ha : a ∈ e.target) :
@@ -88,7 +89,7 @@ theorem normalization_exists_normalizedChart
     rw [hei, mfderiv_comp a
       ((mdifferentiableWithinAt_extChartAt_symm hAa).mdifferentiableAt
         (by simp only [ModelWithCorners.range_eq_univ, univ_mem]))
-      A.differentiableAt.mdifferentiableAt, mfderiv_eq_fderiv, A.fderiv]
+      A.differentiableAt.mdifferentiableAt, Poincare.Compatibility.mfderiv_eq_fderiv_model, A.fderiv]
     rw [← hsymm]
     rfl
   refine ⟨e, hxe, hf, hh, ?_, ?_⟩

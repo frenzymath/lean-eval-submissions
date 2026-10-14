@@ -32,9 +32,9 @@ theorem isLocallyConstant_of_mvfderiv_eq_zero {f : M → ℝ}
   have hdf' : e.target.EqOn (fderiv ℝ (f ∘ e.symm)) 0 := by
     intro y hy
     ext v
-    rw [← mfderiv_eq_fderiv]
-    change mvfderiv 𝓘(ℝ, E) (f ∘ e.symm) y v = 0
-    exact (mvfderiv_comp_apply y (hf (e.symm y)) (he' y hy) v).trans (hdf _ _)
+    simpa [mvfderiv_eq_fderiv, NormedSpace.fromTangentSpace, tangentSpaceCastModel]
+      using (mvfderiv_comp_apply y (hf (e.symm y)) (he' y hy)
+        ((NormedSpace.fromTangentSpace y).symm v)).trans (hdf _ _)
   have hu := he.isOpen_inter_preimage_of_fderiv_eq_zero hf' hdf' s
   refine ⟨e.source ∩ e ⁻¹' (e.target ∩ (f ∘ e.symm) ⁻¹' s), ?_,
     isOpen_extChartAt_preimage' x hu, ?_⟩

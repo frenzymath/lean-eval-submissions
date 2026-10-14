@@ -124,7 +124,7 @@ theorem axisWarpingSlope_div_normalized_radius_tendsto_zero
     intro heq
     have hzero : (E.flow.metric (t k)).edist 0 (x k) = 0 := by
       rw [heq]
-      exact @edist_self StandardCapSpace (E.flow.metric (t k)).toEMetricSpace.toPseudoEMetricSpace 0
+      exact @edist_self StandardCapSpace _ (E.flow.metric (t k)).toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0
     have hfalse := hk
     simp only [hzero, ENNReal.toReal_zero, zero_mul, lt_self_iff_false] at hfalse
   have hb : ∀ᶠ k in atTop,

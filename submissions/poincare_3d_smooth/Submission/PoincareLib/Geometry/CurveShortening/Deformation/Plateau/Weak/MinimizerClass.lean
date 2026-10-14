@@ -114,7 +114,7 @@ theorem energy_integrable (F : M65WeakDisk e γ) (g : RiemannianMetric 3 M)
     IntegrableOn (m65EmbeddedEnergyDensity g e F.value (fun i z => F.derivative i z))
       loopDiskSet volume :=
   m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact
-    ((Lp.memLp F.embeddedValue).1.congr F.embeddedValue_ae) (fun i => Lp.memLp (F.derivative i))
+    ((Lp.aestronglyMeasurable F.embeddedValue).congr F.embeddedValue_ae) (fun i => Lp.memLp (F.derivative i))
 
 end M65WeakDisk
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Calculus.Differential.RectanglePartialTangent
 import Mathlib.Analysis.Normed.Group.Bounded
 
@@ -36,7 +37,7 @@ theorem ContDiffOn.contDiffOn_derivWithin_fst_param (hq : ContDiffOn 𝕜 m q (S
   rw [← modelWithCornersSelf_prod, chartedSpaceSelf_prod] at h
   convert h.contDiffOn using 1
   funext z
-  simp only [Function.comp_def, mfderivWithin_eq_fderivWithin, derivWithin]
+  simp only [Function.comp_def, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model, derivWithin]
   rfl
 
 /-- One compact parameter set gives a uniform bound for every actual

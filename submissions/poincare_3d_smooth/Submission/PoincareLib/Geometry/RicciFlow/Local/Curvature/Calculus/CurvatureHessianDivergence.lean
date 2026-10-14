@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/CurvatureHessianDivergence.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -62,10 +63,8 @@ theorem hasDerivAt_curvature_difference
     hasDerivAt_ricciFlow_curvature_diffusion_reaction F' ht' x u v w
   have hF' := by
     simpa only [← hinit] using hF'raw
-  convert hF.sub hF' using 1
-  · ext s
-    simp only [Pi.sub_apply]
-  · rw [hF.deriv, hF'.deriv]
+  convert! hF.sub hF' using 1
+  rw [hF.deriv, hF'.deriv]
 
 theorem hasDerivAt_curvature_difference_apply
     {J J' : Set ℝ} (F : RicciFlow n M J) (F' : RicciFlow n M J')
@@ -589,7 +588,7 @@ theorem curvature_hessian_contraction_eq_covariant_divergence
         _ = e.symmL ℝ x (EuclideanSpace.single i 1) := (e.symmL_apply hx _).symm
     have hfd : fderiv ℝ (fun w => f (c.symm w)) z (EuclideanSpace.single i 1) =
         mvfderiv (𝓡 n) f x (e.symmL ℝ x (EuclideanSpace.single i 1)) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change mvfderiv 𝓘(ℝ, V) (f ∘ c.symm) z (EuclideanSpace.single i 1) = _
       have hff : MDifferentiableAt (𝓡 n) 𝓘(ℝ, ℝ) f (c.symm z) :=
         (hf.contMDiffAt (e.open_baseSet.mem_nhds hx)).mdifferentiableAt (by simp)

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.GoodTimes.CircleRelabeling
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.MinimalDiskConformal
@@ -172,7 +173,7 @@ private theorem lift_contDiff_of_regular_curve
     (mfderiv_comp (h x) hqd hcd)
   have hd : deriv C (h x) = mfderiv (𝓡 3) (𝓡 3) q (c (h x))
       (curveVelocity c (h x)) := by
-    simpa +instances only [mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
       fderiv_apply_one_eq_deriv, curveVelocity, C] using! hchain
   have hdne : deriv C (h x) ≠ 0 := by
     intro hz

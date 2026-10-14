@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.ThreeDimensional.Noncompact.Rigidity.Levels.PotentialLimit.Growth
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.ThreeDimensional.Noncompact.Rigidity.Levels.PotentialLimit.Pullback
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.Convergence.Volume.Coverage
@@ -296,7 +297,7 @@ theorem normalizedPotentialPullback_eventually_coordinate_C1_bounded
     (((G.normalizedPotentialPullback_contMDiffOn L k).contMDiffAt
       ((L.exhaustion_open k).mem_nhds (hkdom.1 hximage))).mdifferentiableAt (by simp))
     ((hc x (hKt hx)).mdifferentiableAt (by simp)) v
-  simp only [mvfderiv, ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv] at hchain
+  simp only [mvfderiv, ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   change fderiv ℝ (G.normalizedPotentialPullback L k ∘ c.symm) x v = _ at hchain
   rw [Real.norm_eq_abs, hchain]
   exact ((hk _ hximage).2 _).trans

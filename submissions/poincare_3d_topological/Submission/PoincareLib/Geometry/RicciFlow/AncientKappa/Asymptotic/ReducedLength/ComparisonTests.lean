@@ -60,7 +60,7 @@ theorem reducedLength_coordinate_flux_memLp
       ((contDiffOn_divergenceCoefficients e he hei i j).continuousOn.mono hOs)
   have hsum : MemLp (fun x ↦ ∑ j, divergenceCoefficients g e x i j *
       fderiv ℝ l x (EuclideanSpace.single j 1)) 2 (volume.restrict O) :=
-    memLp_finsetSum _ (fun j _ ↦ (hd j).mul' (ha j))
+    memLp_finsetSum _ (fun j _ ↦ (ha j).fun_mul (hd j))
   have hflux (x) : -g.pullbackVolumeDensity e x *
       WithLp.ofLp ((g.pullbackCoefficients e x).inverse (fderiv ℝ l x)) i =
       -(∑ j, divergenceCoefficients g e x i j * fderiv ℝ l x (EuclideanSpace.single j 1)) := by

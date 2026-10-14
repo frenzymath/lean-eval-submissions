@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.CoordinateSemiconcavity
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.Bounds
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Smoothing.Constants
@@ -281,7 +282,7 @@ theorem exists_local_distance_smoothing_with_directional_bounds_of_upper_support
     have heq := congrArg (fun T => T (w i z))
       (mfderiv_comp z (hrhoez.mdifferentiableAt (by simp))
         ((he.contMDiffAt (e.open_source.mem_nhds hz)).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change fderiv ℝ (rho ∘ e) z (w i z) =
       mvfderiv (𝓡 n) rho (e z) (mfderiv (𝓡 n) (𝓡 n) e z (w i z)) at heq
     rw [heqU.fderiv_eq, hpush i z hz, ← D.inner_gradient rho] at heq

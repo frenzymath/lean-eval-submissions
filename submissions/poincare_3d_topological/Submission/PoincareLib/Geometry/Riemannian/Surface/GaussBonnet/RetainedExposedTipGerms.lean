@@ -150,7 +150,9 @@ theorem core_complement_cap_union_germ
   apply propext
   have h := propext_iff.mp hkw
   change _ ↔ ¬ interior _ w at h ⊢
-  rwa [hiw] at h
+  change interior _ w = interior _ w at hiw
+  rw [hiw] at h
+  exact h
 
 /-- The actual core and the full cap union have the same local boundary
 in the retained region chart. Regular closedness removes the interior

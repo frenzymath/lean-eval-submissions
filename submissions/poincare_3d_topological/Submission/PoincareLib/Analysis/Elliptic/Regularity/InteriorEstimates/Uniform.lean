@@ -62,7 +62,8 @@ theorem uniform_interior_estimate_of_elliptic_powers
       ∑ j ∈ Finset.range (m + 1 + d + 1),
         (eLpNorm ((secondOrderOperator a b)^[j] u) 2 (volume.restrict V)).toReal := by
     unfold ellipticPowerProfile
-    simp only [derivativeProfile_zero]
+    simp only [derivativeProfile_zero _ _ _
+      (contDiff_iterate_secondOrderOperator B.smooth_a hb' hv _).continuous.aestronglyMeasurable]
     rw [ENNReal.toReal_sum (fun j _ => hfinite j)]
     exact Finset.sum_congr rfl (fun j _ => congrArg ENNReal.toReal (eLpNorm_congr_ae (heq j)))
   have hprofile : (derivativeProfile 2 W (m + 1 + d) v).toReal ≤

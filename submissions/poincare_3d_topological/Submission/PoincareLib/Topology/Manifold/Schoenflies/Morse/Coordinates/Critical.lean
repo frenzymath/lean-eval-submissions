@@ -45,6 +45,7 @@ theorem mfderiv_eq_zero_iff_fderiv_sphere_coordinates_eq_zero
   have hchain := mfderiv_comp x ((hh (e x)).mdifferentiableAt (by simp))
     (heloc.mdifferentiableAt (by simp))
   rw [mfderiv_eq_fderiv] at hchain
+  change fderiv Real (h ∘ e) x = _ at hchain
   constructor
   · intro hzero
     rw [hchain, hzero]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.MetricExtension
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Inverse
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Divergence.Pullback
@@ -99,7 +100,7 @@ lemma inverse_pullback_elliptic
   have hval : g.pullbackCoefficients F.symm x v v = g.inner (F.symm x)
       (fderiv ℝ F.symm x v) (fderiv ℝ F.symm x v) := by
     change g.inner _ (mfderiv _ _ _ _ _) (mfderiv _ _ _ _ _) = _
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   rw [hval]
   constructor

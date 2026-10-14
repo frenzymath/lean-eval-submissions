@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.Basic
 import Submission.PoincareLib.Geometry.Riemannian.Geodesic.Complete
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Hessian.Chart
@@ -107,7 +108,7 @@ theorem geodesic_velocity_eq_gradient [T3Space M]
       mvfderiv (𝓡 n) f (γ u) (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ u 1) := by
     have heq := congrArg (fun L => L 1) (mfderiv_comp u
       ((hf (γ u)).mdifferentiableAt (by simp)) ((hγs u).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     exact heq
   have hdf0 : deriv (f ∘ γ) 0 = 1 := by
     rw [hd, hinit, ← D.inner_gradient]

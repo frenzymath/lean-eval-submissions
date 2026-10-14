@@ -44,13 +44,17 @@ theorem exists_regular_coordinates
     (contDiffOn_comp_extChartAt_symm hf p).mono (by
       intro x hx
       simpa [extChartAt, κ] using hx.1)
-  have hder : HasFDerivAt F (mfderiv (𝓡 (n + 1)) 𝓘(ℝ, ℝ) f p) a :=
-    hasFDerivAt_comp_extChartAt_symm hf p
-  let L := fderiv ℝ F a
+  have hder : (mfderiv (𝓡 (n + 1)) 𝓘(ℝ, ℝ) f p : E →L[ℝ] ℝ) =
+      fderiv ℝ F a := by
+    rw [mfderiv, if_pos ((hf p).mdifferentiableAt (by simp))]
+    simp [F, a, κ, writtenInExtChartAt]
+    ext v
+    rfl
+  let L : E →L[ℝ] ℝ := fderiv ℝ F a
   have hL : (L : E →ₗ[ℝ] ℝ) ≠ 0 := by
     intro hzero
     apply hreg
-    rw [← hder.fderiv]
+    rw [hder]
     exact ContinuousLinearMap.ext fun v => DFunLike.congr_fun hzero v
   obtain ⟨q, haq, hqV, hqa, hq, hqi, hqf, _⟩ :=
     Poincare.Analysis.exists_smooth_superlevel_chart hV hF ha (LinearMap.surjective hL)

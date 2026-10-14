@@ -71,7 +71,8 @@ theorem exists_euclidean_ball_sobolev (hn : 2 ≤ n) (R : ℝ) :
       (μ := volume.restrict S) (f := fderiv ℝ f)
       (show (p : ℝ≥0∞) ≤ 2 by exact_mod_cast hp2)
       (hf.continuous_fderiv (by simp)).aestronglyMeasurable
-    simpa only [eLpNorm_restrict_eq_of_support_subset (f := fderiv ℝ f) hdS, Measure.restrict_apply_univ,
+    simpa only [eLpNorm_restrict_eq_of_support_subset (f := fderiv ℝ f)
+      (hf.continuous_fderiv (by simp)).aestronglyMeasurable hdS, Measure.restrict_apply_univ,
       ENNReal.coe_toReal, ENNReal.toReal_ofNat, ← hV, α] using h
   calc
     _ ≤ (G : ℝ≥0∞) * eLpNorm (fderiv ℝ f) p volume :=
@@ -99,7 +100,8 @@ theorem exists_uniform_coordinate_sobolev (hn : 2 ≤ n)
   have hd : MemLp (fun x => ‖fderiv ℝ f x‖) 2 volume :=
     (hf.continuous_fderiv (by simp)).norm.memLp_of_hasCompactSupport (hfc.fderiv ℝ).norm
   have hs := hA f hf hfs
-  rw [← eLpNorm_norm (f := fderiv ℝ f)] at hs
+  rw [← eLpNorm_norm (f := fderiv ℝ f)
+    (hf.continuous_fderiv (by simp)).aestronglyMeasurable] at hs
   have hreal := ENNReal.toReal_mono (ENNReal.mul_ne_top ENNReal.coe_ne_top
     hd.eLpNorm_lt_top.ne) hs
   rw [ENNReal.toReal_mul, ENNReal.coe_toReal] at hreal

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.ThreeDimensional.Noncompact.RicciIntegral
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.TwoDimensional.Compact.Regularity.Euclidean
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.TwoDimensional.Compact.Regularity.Pullback
@@ -127,11 +128,16 @@ private theorem hasDerivAt_deriv_potential_geodesic {g : RiemannianMetric 3 M}
     (extChartAt_target_mem_nhds' hqt.2.1)).mdifferentiableAt (by simp)
   have hv := congrArg (fun A => A (1 : ℝ))
     (mfderiv_comp t hc hqt.2.2.1.differentiableAt.mdifferentiableAt)
-  rw [mfderiv_eq_fderiv] at hv
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hv
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 3) (fun u => c.symm (q u)) t 1 =
     mfderiv (𝓡 3) (𝓡 3) c.symm (q t) (deriv q t) at hv
   rw [hqt.2.2.1.deriv] at hv
-  rw [hcurve.mfderiv_eq, hcurve.self_of_nhds, hv]
+  rw [hcurve.mfderiv_eq, hcurve.self_of_nhds]
+  change HasDerivAt (deriv (f ∘ γ))
+    (D.hessian f (c.symm (q t))
+      (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) (fun u => c.symm (q u)) t 1)
+      (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) (fun u => c.symm (q u)) t 1)) t
+  rw [hv]
   exact hfieldH
 
 variable [MeasurableSpace M] [BorelSpace M] [T2Space M] [T3Space M]

@@ -174,7 +174,7 @@ theorem suAlpha_observed_weak_derivatives
       (EuclideanSpace.basisFun (Fin 2) ℝ i))‖ ≤ T := by
     rw [Lp.norm_toLp]
     apply (ENNReal.toReal_mono (hD j).1.eLpNorm_ne_top ?_).trans (hD j).2
-    exact (eLpNorm_mono_ae (Eventually.of_forall (hcol j i))).trans
+    exact (eLpNorm_mono_ae (hd j i).aestronglyMeasurable (Eventually.of_forall (hcol j i))).trans
       (eLpNorm_mono_measure _ Measure.restrict_le_self)
   obtain ⟨v, V, k, hk, hv, hV, htest, _, _⟩ :=
     Poincare.Analysis.Sobolev.WeakCompactness.weak_w12_subsequence Metric.isOpen_ball u
@@ -200,7 +200,7 @@ theorem suAlpha_observed_weak_derivatives
     intro j
     obtain ⟨hmem, _, hpower⟩ := hb alpha ha (f (k j)) (hf (k j)) p
     have hint : Integrable (fun z => ‖fderiv ℝ (u (k j)) z‖ ^ (2 * alpha)) volume := by
-      have hi := (integrable_norm_rpow_iff hmem.1
+      have hi := (integrable_norm_rpow_iff hmem.aestronglyMeasurable
         (ENNReal.ofReal_pos.mpr hap).ne' ENNReal.ofReal_ne_top).mpr hmem
       simpa only [ENNReal.toReal_ofReal hap.le] using hi
     calc

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Approximation.Canonical.RampInitialFamilyJets
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Approximation.Canonical.RampLength
@@ -107,7 +108,7 @@ theorem exists_canonicalRamp_initial_family_bounds
     have hchain : fderiv ℝ (f z) x =
         (mfderiv (𝓡 (3 + 1)) 𝓘(ℝ, W) e (gamma z x)).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 (3 + 1)) (gamma z) x) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hgamma z).mdifferentiableAt (by simp))
     exact congrArg (fun L : ℝ →L[ℝ] W => L 1) hchain

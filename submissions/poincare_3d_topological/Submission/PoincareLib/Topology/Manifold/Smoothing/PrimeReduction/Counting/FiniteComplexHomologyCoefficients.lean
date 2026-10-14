@@ -4,6 +4,7 @@ import Mathlib.Algebra.Homology.DerivedCategory.KProjective
 import Mathlib.Algebra.Category.ModuleCat.ChangeOfRings
 import Mathlib.Algebra.Category.ModuleCat.Projective
 import Mathlib.Data.ZMod.Basic
+import Mathlib.Algebra.Module.ULift
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.FiniteNerveChains
 
 /-!
@@ -90,7 +91,7 @@ set_option backward.isDefEq.respectTransparency.types false in
 def modTwoCoefficientIso :
     (ModuleCat.extendScalars (Int.castRingHom (ZMod 2))).obj
       PoincareMT.Proofs.M02.Topology.integralCoefficient.{w} ≅
-      ModuleCat.of (ZMod 2) (ULift.{w} (ZMod 2)) := by
+      @ModuleCat.of (ZMod 2) inferInstance (ULift.{w} (ZMod 2)) inferInstance ULift.module' := by
   apply LinearEquiv.toModuleIso
   -- Extension of scalars uses an integer action equal to the canonical one by uniqueness.
   convert! (((TensorProduct.AlgebraTensorModule.congr

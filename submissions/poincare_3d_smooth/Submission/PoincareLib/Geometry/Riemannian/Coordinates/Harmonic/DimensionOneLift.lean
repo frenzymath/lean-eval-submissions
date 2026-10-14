@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.DimensionOne
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.RadialCurve
 import Submission.PoincareLib.Geometry.Riemannian.Distance.CompleteBalls
@@ -117,7 +118,7 @@ theorem exists_arclength_lift_of_precompact_ball_one [T2Space M]
       simpa only [one_smul] using
         (he.contMDiffAt (Metric.isOpen_ball.mem_nhds hx)).mdifferentiableAt (by simp)
     have hd := mfderiv_comp (1 : ℝ) hem hline.differentiableAt.mdifferentiableAt
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hd1 := congrArg (fun A => A (1 : ℝ)) hd
     change mfderiv 𝓘(ℝ, ℝ) (𝓡 1) (fun t : ℝ => e (t • x)) 1 1 =
       mfderiv (𝓡 1) (𝓡 1) e ((1 : ℝ) • x)

@@ -42,7 +42,7 @@ private theorem averagingRadiusField_bounds
     apply ((Lp.memLp (d i)).mono_measure Measure.restrict_le_self).of_le
     · have hc : Continuous (fun z : LoopPlane => (x i - z i) / r) := by fun_prop
       exact hc.aestronglyMeasurable.mul
-        ((Lp.memLp (d i)).1.mono_measure Measure.restrict_le_self)
+        ((Lp.memLp (d i)).aestronglyMeasurable.mono_measure Measure.restrict_le_self)
     · exact ae_restrict_of_forall_mem isClosed_closedBall.measurableSet (hterm i)
   refine ⟨by
     simpa +instances only [Fin.sum_univ_two, Pi.add_apply] using! (hm 0).add (hm 1), ?_⟩

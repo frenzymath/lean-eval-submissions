@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Annulus.CircleCurrent
 
 /-! The real phase differential is the actual product circle current.
@@ -41,7 +42,7 @@ theorem m64CirclePhase_current
   have hl := mfderiv_comp_apply (f := L) (g := P.circle.quotient) p
     (P.circle.quotient_smooth.mdifferentiableAt (by simp))
     hL.hasFDerivAt.hasMFDerivAt.mdifferentiableAt v
-  rw [hquot.mfderiv_eq, mfderiv_eq_fderiv] at hl
+  rw [hquot.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hl
   have hv : (P.charts.split (f p) W).2 =
       mfderiv 𝓘(ℝ, ℝ) (𝓡 1) P.circle.quotient (L p) (fderiv ℝ L p v) := by
     rw [P.charts.split_circle]

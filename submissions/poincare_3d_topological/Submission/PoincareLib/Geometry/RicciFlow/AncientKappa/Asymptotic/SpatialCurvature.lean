@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.ReducedLength.Harnack
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.RescalingGeometry
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Path.Energy
@@ -73,7 +74,7 @@ private theorem ancient_path_energy_le_distance
         δ⁻¹ • mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (z t) 1 := by
       rw [show η = γ ∘ z from rfl, mfderiv_comp_apply t
         (hγt.mdifferentiableAt one_ne_zero) (hz.mdifferentiable one_ne_zero t),
-        mfderiv_eq_fderiv, hzd.hasFDerivAt.fderiv]
+        Poincare.Compatibility.mfderiv_eq_fderiv_model, hzd.hasFDerivAt.fderiv]
       change (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (z t)) ((1 : ℝ) • δ⁻¹) =
         δ⁻¹ • (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (z t)) 1
       rw [one_smul, ← map_smul, smul_eq_mul, mul_one]

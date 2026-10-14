@@ -16,7 +16,6 @@ identity is asserted here.
 
 noncomputable section
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter Metric
 open scoped Manifold ContDiff Topology ENNReal NNReal
@@ -56,18 +55,19 @@ private theorem exists_uniform_lipschitz_limit_on_closedBall
     · intro K hK x hx
       refine ⟨closedBall (0 : ℝ) B, isCompact_closedBall _ _, ?_⟩
       rintro w ⟨k, rfl⟩
-      simpa only [mem_closedBall, Real.dist_eq, sub_zero, v, ContinuousMap.coe_mk] using
-        hbound k x x.property
+      rw [mem_closedBall, Real.dist_eq, sub_zero]
+      change |u k x| ≤ B
+      exact hbound k x x.property
   obtain ⟨a, _, τ, hτ, hlim⟩ := hc.tendsto_subseq
     (fun k => subset_closure (mem_range_self k))
   have hu := ContinuousMap.tendsto_iff_tendstoUniformly.mp hlim
   let f : E → ℝ := fun x => if hx : x ∈ closedBall 0 r then a ⟨x, hx⟩ else 0
   have hf (x : X) : f x = a x := by
-    exact dif_pos (show (x : E) ∈ closedBall 0 r from x.property)
+    exact dite_eq_left (show (x : E) ∈ closedBall 0 r from x.property)
   have hpoint (x : E) (hx : x ∈ closedBall 0 r) :
       Tendsto (fun k => u (τ k) x) atTop (𝓝 (f x)) := by
-    simpa only [Function.comp_apply, v, ContinuousMap.coe_mk, ← hf] using
-      hu.tendsto_at (⟨x, hx⟩ : X)
+    rw [show f x = a ⟨x, hx⟩ from dite_eq_left hx]
+    exact hu.tendsto_at (⟨x, hx⟩ : X)
   refine ⟨τ, hτ, f, ?_, ?_⟩
   · apply lipschitzOnWith_iff_dist_le_mul.mpr
     intro x hx y hy

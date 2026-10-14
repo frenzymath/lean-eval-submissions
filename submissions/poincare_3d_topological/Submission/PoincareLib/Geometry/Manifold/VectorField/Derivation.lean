@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Geometry.Manifold.VectorField.LieBracket
 
 set_option autoImplicit false
@@ -27,9 +28,8 @@ theorem fderiv_comp_extChartAt_symm {f : M → ℝ} {p : M} {z : E}
     have h := mdifferentiableWithinAt_extChartAt_symm (I := I) (x := p) hz
     rwa [I.range_eq_univ, mdifferentiableWithinAt_univ] at h
   have hcomp := mfderiv_comp z hf hsymm
-  rw [mfderiv_eq_fderiv] at hcomp
-  rw [hcomp]
-  rfl
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
+  exact congrArg (fun L : E →L[ℝ] ℝ => L w) hcomp
 
 /-- The inverse chart differential is invertible on the chart target. -/
 theorem isInvertible_mfderiv_extChartAt_symm {p : M} {z : E}

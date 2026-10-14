@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Cylinder.Geometry.EuclideanCylinder
 import Mathlib.Geometry.Manifold.MFDeriv.SpecificFunctions
@@ -75,9 +76,9 @@ theorem mfderiv_cylinderChart (q : UnitTwoSphere)
   have hc := (sphere_chart_symm_smooth q (L p)).mdifferentiableAt (by simp)
   have hprod := mfderiv_prodMk (hc.comp p hL) hA
   have hcomp := mfderiv_comp p hc hL
-  rw [mfderiv_eq_fderiv, L.hasFDerivAt.fderiv] at hcomp
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, L.hasFDerivAt.fderiv] at hcomp
   have heq := congrArg (fun D => D v) hprod
-  rw [hcomp, mfderiv_eq_fderiv, A.hasFDerivAt.fderiv] at heq
+  rw [hcomp, Poincare.Compatibility.mfderiv_eq_fderiv_model, A.hasFDerivAt.fderiv] at heq
   exact heq
 
 /-- Definition 2.16, p. 30: the actual preferred cylinder chart has an

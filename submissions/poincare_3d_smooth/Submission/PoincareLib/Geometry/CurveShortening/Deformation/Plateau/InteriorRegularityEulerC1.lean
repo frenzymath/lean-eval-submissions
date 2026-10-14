@@ -117,7 +117,7 @@ theorem weak_harmonic_contDiffAt {N : ℕ}
     apply integrable_finsetSum
     intro i _
     exact (EuclideanSpace.proj (𝕜 := ℝ) j).integrable_comp
-      (connection_quadratic_integrable D X.value (X.derivative i) hXm.1 (hAm i)
+      (connection_quadratic_integrable D X.value (X.derivative i) hXm.aestronglyMeasurable (hAm i)
         (isCompact_closedBall _ _) hcap)
   have hfI (j : Fin N) : Integrable (f j) :=
     (integrable_indicator_iff hK.measurableSet).mpr (hQI j).neg

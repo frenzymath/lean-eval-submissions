@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Convexity.NormalizedGradient
 import Mathlib.Geometry.Manifold.IntegralCurve.ExistUnique
 
@@ -46,7 +47,7 @@ theorem hasDerivAt_comp_normalizedNegGradient
   have h := hd.comp_hasDerivAt t hγ
   have he : fderiv ℝ f (γ t) (normalizedNegGradient D f (γ t)) = -1 := by
     have he := mvfderiv_normalizedNegGradient D f (γ t) hregular
-    simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] at he
+    simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] at he
     convert! he using 1
   exact h.congr_deriv he
 
@@ -99,7 +100,7 @@ theorem normalized_flow_preserves_level_differential
   have hleft := (hfd t ht).hasFDerivAt.comp x (hqd t ht).hasFDerivAt
   have hright := ((hfd a ha).hasFDerivAt.comp x (hqd a ha).hasFDerivAt).sub_const (t - a)
   have hd := congrArg (fun A => A v) (hleft.unique (hright.congr_of_eventuallyEq he))
-  simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+  simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
   convert! hd using 1
 
 end Poincare.Geometry.Riemannian.Convexity

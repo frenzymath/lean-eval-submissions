@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.LoopCollar
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.Polar.Derivatives
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Compatibility.ShortLoops
@@ -56,7 +57,7 @@ theorem m60LoopCollar_mfderiv_radial (C : ℝ × (M × M) → M)
     simpa +instances only [one_smul] using! (hasDerivAt_id r).smul_const (angularPoint t)
   have hδM := hδ.differentiableAt.mdifferentiableAt
   have hδv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) δ r 1 = angularPoint t := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hδ.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hδ.deriv
   let χ := fun s => 1 - diskTimeProfile s
   have hχd : HasDerivAt χ (-deriv diskTimeProfile r) r := by
     simpa +instances only [zero_sub] using! (hasDerivAt_const r (1 : ℝ)).sub
@@ -78,7 +79,7 @@ theorem m60LoopCollar_mfderiv_radial (C : ℝ × (M × M) → M)
     mfderiv_prodMk mdifferentiableAt_const mdifferentiableAt_const] at hc
   simp only [mfderiv_const] at hc
   have hχv : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) χ r 1 = -deriv diskTimeProfile r := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hχd.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hχd.deriv
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 3)
       (fun s => C (χ s, periodicFreeLoop γ₁ t, periodicFreeLoop γ₀ t)) r 1 =
     mfderiv (𝓘(ℝ, ℝ).prod ((𝓡 3).prod (𝓡 3))) (𝓡 3) C
@@ -106,7 +107,7 @@ theorem m60LoopCollar_mfderiv_angular (C : ℝ × (M × M) → M)
   have hδ : HasDerivAt δ (r • angularVector t) t := (hasDerivAt_angularPoint t).const_smul r
   have hδM := hδ.differentiableAt.mdifferentiableAt
   have hδv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) δ t 1 = r • angularVector t := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hδ.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hδ.deriv
   have hγ₀ := (contMDiff_periodicFreeLoop γ₀ t).mdifferentiableAt one_ne_zero
   have hγ₁ := (contMDiff_periodicFreeLoop γ₁ t).mdifferentiableAt one_ne_zero
   have hi : MDifferentiableAt 𝓘(ℝ, ℝ)

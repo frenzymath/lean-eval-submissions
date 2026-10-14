@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.RegularityTargetChart
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.RegularityHalfConeEnergy
@@ -65,7 +66,7 @@ theorem punctured_curve_regular {M : Type u} [TopologicalSpace M]
   have hchain := congrArg (fun L : ℝ →L[ℝ] LoopAmbient => L 1)
     (mfderiv_comp 0 ((hγ (0 + a)).mdifferentiableAt (by simp))
       ((hs 0).mdifferentiableAt (by simp)))
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   change curveVelocity ((γ ∘ m65LoopAngular) ∘ (fun t : ℝ => t + a)) 0 =
     mfderiv (𝓘(ℝ, ℝ)) (𝓡 3) (γ ∘ m65LoopAngular) (0 + a)
       (fderiv ℝ (fun t : ℝ => t + a) 0 1) at hchain
@@ -157,7 +158,7 @@ private theorem semicircle_coordinate_data {N : ℕ}
     have happ : Continuous (fun z :
         (EuclideanSpace ℝ (Fin N) →L[ℝ] LoopAmbient) × EuclideanSpace ℝ (Fin N) => z.1 z.2) :=
       continuous_fst.clm_apply continuous_snd
-    exact happ.comp_aestronglyMeasurable (hcoeff.prodMk hW.1)
+    exact happ.comp_aestronglyMeasurable (hcoeff.prodMk hW.aestronglyMeasurable)
   have hWIcc : IntegrableOn W (Icc (0 : ℝ) Real.pi) :=
     hW.integrable (by norm_num : (1 : ENNReal) ≤ 2)
   have hWI : IntervalIntegrable W volume 0 Real.pi :=
@@ -387,7 +388,7 @@ theorem boundary_small_semicircle_comparison_uniform {M : Type u} [TopologicalSp
   have hLp := halfCone_memLp hr hρ hK.le hvc hg hm hvb hd hAD (0 : LoopPlane)
   have hEI : IntegrableOn (m65EmbeddedEnergyDensity g e (coneDiskMap A r m v 0)
       (coneDiskField (e ∘ A) r m v d 0)) S :=
-    m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact hLp.1.1 hLp.2
+    m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact hLp.1.aestronglyMeasurable hLp.2
   have hder := halfCone_derivativeEnergy_le hr hρ hK.le hvc hg hm hvb hd hAD (0 : LoopPlane)
   have heBound : (∫ z in S, m65EmbeddedEnergyDensity g e (coneDiskMap A r m v 0)
       (coneDiskField (e ∘ A) r m v d 0) z) ≤

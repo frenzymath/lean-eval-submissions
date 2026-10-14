@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Variation.Manifold
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Jacobi
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.RadialJacobi
@@ -118,7 +119,7 @@ theorem manifoldVariation_jacobi
     have hd := mfderiv_comp 0 (mdifferentiableAt_extChartAt
       (by simpa only [c, extChartAt_source] using hmem h0' hr))
       (hsmooth.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact (congrArg (fun L => L 1) hd).symm
   have hJnear {r : ℝ} (hr : r ∈ I') :
       (fun τ => mfderiv (𝓡 n) (𝓡 n) c (γ τ) (J τ)) =ᶠ[𝓝 r] V := by
@@ -155,7 +156,7 @@ theorem manifoldVariation_jacobi
     have hd := mfderiv_comp t (mdifferentiableAt_extChartAt
       (by simpa only [c, extChartAt_source] using hmem h0' ht'))
       ((hγ ht').mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hd1 := congrArg (fun L => L 1) hd
     rw [hTderiv h0' ht']
     exact hd1.symm
@@ -251,7 +252,7 @@ theorem manifoldRadialVariation_initial_covariantDerivative
         (g := fun p => ((D.radialGeodesicVariation hv w).phase p).1) 0
         hq'.fst (contDiffAt_id.prodMk contDiffAt_const)
     have hcomp := mfderiv_comp 0 hc (hq.differentiableAt (by simp)).mdifferentiableAt
-    rw [mfderiv_eq_fderiv] at hcomp
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
     have hJ : J t = mfderiv (𝓡 n) (𝓡 n) c.symm
         ((D.radialGeodesicVariation hv w).phase (0, t)).1 (V t) := by
       exact congrArg (fun L => L 1) hcomp
@@ -310,7 +311,7 @@ theorem manifoldRadialVariation_endpoint
   have hc' : MDifferentiableAt (𝓡 n) (𝓡 n) c.symm (r 0) := by
     simpa only [r, zero_smul, add_zero] using hc
   have hcomp := mfderiv_comp 0 hc' hr.differentiableAt.mdifferentiableAt
-  rw [mfderiv_eq_fderiv] at hcomp
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
   have hrewrite : (fun s => manifoldRadialVariation g a hv w s 1) =
       c.symm ∘ r := by
     funext s

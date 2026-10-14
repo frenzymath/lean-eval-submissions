@@ -60,8 +60,8 @@ theorem chainComplexMap_subcomplex_mono_f (n : ℕ) :
     have hf := (B.toSSet.isColimitChainComplexXCofan R n).fac c
       (Discrete.mk ((Subcomplex.homOfLE h).app _ a))
     change B.toSSet.ιChainComplex ((Subcomplex.homOfLE h).app _ a) ≫ r = _ at hf
-    simp only [c, Cofan.mk_ι_app, Subcomplex.homOfLE_app_val,
-      dif_pos a.property] at hf
+    have ha : ((Subcomplex.homOfLE h).app _ a).val ∈ A.obj _ := a.property
+    simp only [c, Cofan.mk_ι_app, dif_pos ha] at hf
     rw [Category.comp_id]
     refine hf.trans ?_
     apply congrArg (fun b : A.toSSet _⦋n⦌ => A.toSSet.ιChainComplex (R := R) b)

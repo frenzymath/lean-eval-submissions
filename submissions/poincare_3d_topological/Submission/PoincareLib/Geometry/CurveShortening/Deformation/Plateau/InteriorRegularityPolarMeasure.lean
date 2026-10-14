@@ -102,6 +102,7 @@ theorem polarPlane_map_strip_le (x : LoopPlane) {ε R : ℝ} (hε : 0 < ε) :
         (ENNReal.ofReal ε)⁻¹ • (volume : Measure LoopPlane) := by
   have h := Measure.map_mono (polar_strip_measure_le (R := R) hε)
     (polarPlane_measurePreserving x).measurable
-  rwa [Measure.map_smul, (polarPlane_measurePreserving x).map_eq] at h
+  rwa [Measure.map_smul _ (polarPlane_measurePreserving x).measurable.aemeasurable,
+    (polarPlane_measurePreserving x).map_eq] at h
 
 end PoincareMT.M65Interior

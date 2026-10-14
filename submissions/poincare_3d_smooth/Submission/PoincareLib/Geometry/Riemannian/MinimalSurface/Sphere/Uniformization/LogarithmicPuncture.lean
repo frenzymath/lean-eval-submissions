@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.FlatDevelopment
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.SphereCurvature
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.Flattening
@@ -325,10 +326,10 @@ theorem exists_flat_chart_logarithmic_puncture
       (show ContMDiffAt (𝓡 2) (𝓡 2) ∞ (fun y : Plane => y - a) x from
         contMDiffAt_iff_contDiffAt.mpr (contDiffAt_id.sub contDiffAt_const))
       (Eventually.of_forall (fun y => by
-        rw [mfderiv_eq_fderiv, (hshift y).fderiv]
+        rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (hshift y).fderiv]
         exact ⟨ContinuousLinearEquiv.refl ℝ Plane, rfl⟩))
       (Eventually.of_forall (fun y v w => by
-        rw [mfderiv_eq_fderiv, (hshift y).fderiv]
+        rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (hshift y).fderiv]
         rfl)) (contMDiffAt_iff_contDiffAt.mpr (hAs (x - a) (sub_ne_zero.mpr hx)))
     exact h.trans (hA_lap (x - a) (sub_ne_zero.mpr hx))
   have hlap (p : UnitTwoSphere) (hp : p ≠ e a) : D.laplacian V p = C p := by

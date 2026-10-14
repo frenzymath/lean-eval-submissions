@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.InverseConformal
 import Submission.PoincareLib.Geometry.Riemannian.Normalization.Connection.Existence
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Annulus
@@ -145,7 +146,7 @@ theorem exists_smooth_modulus_conformal_open_cylinder (g : RiemannianMetric 2 Pl
     have hgram (i j : Fin 2) : m60AreaGram g F p i j =
         g.inner (F p) (fderiv ℝ F p (b i)) (fderiv ℝ F p (b j)) := by
       unfold m60AreaGram
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       rfl
     have h00 : E * m60AreaGram g F p 0 0 = P ^ 2 * curvePeriod⁻¹ * curvePeriod⁻¹ := by
       rw [hgram]

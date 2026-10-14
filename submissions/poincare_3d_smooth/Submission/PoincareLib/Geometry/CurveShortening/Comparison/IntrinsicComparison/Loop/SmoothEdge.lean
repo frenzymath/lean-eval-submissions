@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Loop.RegionChart
 import Submission.PoincareLib.Topology.Surface.Triangulation.Faces.Bands.Gluing
 
@@ -70,7 +71,7 @@ theorem m64Intrinsic_exists_loop_smooth_edge
     smooth := (hg.comp (by dsimp [parameter]; fun_prop)).contMDiff.contMDiffOn
     regular := by
       intro t ht
-      rw [mfderiv_eq_fderiv, (hderiv t).hasFDerivAt.fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (hderiv t).hasFDerivAt.fderiv]
       have hne : (b - a) • deriv gamma (parameter t) ≠ 0 :=
         smul_ne_zero (sub_pos.mpr hab).ne' (hregular _ (hparamI t (Ioo_subset_Icc_self ht)))
       exact smul_left_injective ℝ hne }

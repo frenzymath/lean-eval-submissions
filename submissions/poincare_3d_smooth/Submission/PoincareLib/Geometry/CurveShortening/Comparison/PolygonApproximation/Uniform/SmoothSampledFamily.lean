@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.PolygonApproximation.Static.AngularJets
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.PolygonApproximation.Uniform.SampledPolygonCloseness
@@ -303,7 +304,7 @@ theorem m64_exists_uniform_sampled_smooth_loop_family
     rw [hinclusion] at hchain
     change deriv (fun s => f (s, w.2)) w.1 = mfderivWithin I 𝓘(ℝ, W) f Omega w (1, 0)
     rw [mfderivWithin_of_isOpen hOmega hw]
-    simpa +instances only [Function.comp_def, mfderiv_eq_fderiv] using! hchain
+    simpa +instances only [Function.comp_def, Poincare.Compatibility.mfderiv_eq_fderiv_model] using! hchain
   have hT0 : ContMDiffOn I 𝓘(ℝ, W) ∞ T0 Omega := he.comp_contMDiffOn hH
   have hT1 : ContMDiffOn I 𝓘(ℝ, W) ∞ T1 Omega := hpartial T0 hT0
   have hT2 : ContMDiffOn I 𝓘(ℝ, W) ∞ T2 Omega := hpartial T1 hT1

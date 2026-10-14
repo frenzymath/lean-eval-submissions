@@ -36,10 +36,15 @@ theorem SmoothEdge.contDiffAt_chart_and_deriv_ne_zero (e : SmoothEdge M)
   have hcomp := hc.comp t he
   have hinj : Function.Injective
       (fderiv ℝ ((chartAt (EuclideanSpace ℝ (Fin 2)) p) ∘ e.map) t) := by
-    rw [← mfderiv_eq_fderiv, mfderiv_comp t
-      (hc.mdifferentiableAt (by simp)) (he.mdifferentiableAt (by simp))]
-    exact ((mdifferentiable_chart (I := 𝓡 2) p).mfderiv_injective hsource).comp
+    have h := ((mdifferentiable_chart (I := 𝓡 2) p).mfderiv_injective hsource).comp
       (e.regular t ht)
+    change Function.Injective
+      ((mfderiv (𝓡 2) (𝓡 2) (chartAt (EuclideanSpace ℝ (Fin 2)) p) (e.map t)).comp
+        (mfderiv 𝓘(ℝ, ℝ) (𝓡 2) e.map t)) at h
+    rw [← mfderiv_comp t
+      (hc.mdifferentiableAt (by simp)) (he.mdifferentiableAt (by simp)),
+      mfderiv_eq_fderiv] at h
+    exact h
   refine ⟨hcomp.contDiffAt, ?_⟩
   intro hzero
   apply one_ne_zero (α := ℝ)

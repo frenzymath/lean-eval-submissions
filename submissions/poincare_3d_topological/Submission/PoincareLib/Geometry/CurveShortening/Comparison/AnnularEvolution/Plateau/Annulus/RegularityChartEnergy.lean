@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Annulus.RegularityInverseChart
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Weak.ReplacementEnergy
 
@@ -72,7 +73,7 @@ theorem m64InverseChart_observed_metric
     ((isOpen_extChartAt_target b).mem_nhds hy)
   have hd := mfderiv_comp y ((he _).mdifferentiableAt (by simp))
     (hi.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   rw [hd]
   exact hQ _ _
 

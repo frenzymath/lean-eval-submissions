@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Boundary.Closed.StripDifferential
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Annulus.SliceDifferential
 
@@ -43,7 +44,7 @@ theorem closedStrip_horizontal_velocity {f : LoopPlane → M}
       (fun y => annulusPoint y s) x := hline.differentiableAt.mdifferentiableAt
   have hd : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (fun y => annulusPoint y s) x 1 =
       EuclideanSpace.single (0 : Fin 2) 1 := by
-    rw [mfderiv_eq_fderiv, hline.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ _
   have hchain := mfderivWithin_comp x
     ((hf (annulusPoint x s) hs).mdifferentiableWithinAt one_ne_zero)

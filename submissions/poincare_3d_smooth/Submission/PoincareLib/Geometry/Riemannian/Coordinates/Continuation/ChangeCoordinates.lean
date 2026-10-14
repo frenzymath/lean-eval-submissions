@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Geodesic
 import Mathlib.Analysis.Calculus.FDeriv.Symmetric
 
@@ -159,7 +160,7 @@ private theorem chart_coefficients_transition (g : RiemannianMetric n M) (p r : 
     exact (extChartAt (𝓡 n) r).left_inv hy
   have hderiv := mfderiv_comp x (hfr.mdifferentiableAt (by simp))
     (hf.differentiableAt (by simp)).mdifferentiableAt
-  rw [heq.mfderiv_eq, mfderiv_eq_fderiv] at hderiv
+  rw [heq.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hderiv
   change g.inner ((extChartAt (𝓡 n) p).symm x)
       (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p).symm x u)
       (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p).symm x v) =

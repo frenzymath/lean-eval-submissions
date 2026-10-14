@@ -75,7 +75,7 @@ theorem exists_initial_neck_margin (A epsilon : ℝ) (hA : 0 ≤ A)
     have hnot : ¬g.edist y 0 < ENNReal.ofReal ((d⁻¹ / 2 - 2 * epsilon⁻¹) / 2) :=
       fun h => hexcluded (hball h)
     have hsymm : g.edist y 0 = g.edist 0 y :=
-      @edist_comm StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace y 0
+      @edist_comm StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace y 0
     rw [hsymm] at hnot
     exact hroom.trans_le
       ((ENNReal.ofReal_le_iff_le_toReal (g.edist_ne_top 0 y)).mp (le_of_not_gt hnot))

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/Existence/ConjugatorPullbackDerivativeNative.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -58,7 +59,7 @@ theorem chartMap_spatial_derivative
       mfderiv 𝓘(ℝ, E) (𝓡 n) (chartAt E p).symm (chartAt E p x)
         (mfderiv (𝓡 n) 𝓘(ℝ, E) (chartAt E p) x u) = u := hinv
   rw [hinv'] at hinner
-  rw [hinner, mfderiv_eq_fderiv] at houter
+  rw [hinner, Poincare.Compatibility.mfderiv_eq_fderiv_model] at houter
   exact houter
 
 theorem chartMetricForm_chartMap

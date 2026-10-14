@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Smoothing.Basic
 import Submission.PoincareLib.Geometry.Riemannian.Distance.DerivativeLipschitz
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Hessian.Pullback
@@ -183,7 +184,7 @@ lemma norm_fderiv_lift_sub_const_le (F : HeatSolution g D)
   have hd' : fderiv ℝ (fun y ↦ F.toFun (e y) t) x v =
       mvfderiv (𝓡 n) (fun y ↦ F.toFun y t) (e x)
         (mfderiv (𝓡 n) (𝓡 n) e x v) := by
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
       ContinuousLinearMap.comp_apply] at hd
     convert! hd using 1
   rw [hd', Real.norm_eq_abs]

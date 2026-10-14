@@ -35,6 +35,7 @@ theorem parametrizedVolumeDensity_congr (g : RiemannianMetric n N)
     g.parametrizedVolumeDensity e₁ x = g.parametrizedVolumeDensity e₂ x := by
   unfold parametrizedVolumeDensity
   rw [he.eq_of_nhds, he.mfderiv_eq]
+  rfl
 
 /-- Computing the density intrinsically in the induced metric agrees with
 computing the ambient Gram determinant of the immersed parametrization. -/

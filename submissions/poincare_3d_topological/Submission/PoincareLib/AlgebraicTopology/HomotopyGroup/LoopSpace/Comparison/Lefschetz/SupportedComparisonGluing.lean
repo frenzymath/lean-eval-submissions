@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.ComparisonGluing
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.SupportedComparison
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.NeighborhoodSubspaces
@@ -91,22 +92,22 @@ theorem supportedSingularComparison_minimal_gluing
   · ext n : 1
     apply ConcreteCategory.hom_ext
     intro z
-    apply ((TopCat.of U).toSSetObjEquiv n).injective
+    apply ((TopCat.of U).toLegacySSetObjEquiv n).injective
     rfl
   · ext n : 1
     apply ConcreteCategory.hom_ext
     intro z
-    apply ((TopCat.of V).toSSetObjEquiv n).injective
+    apply ((TopCat.of V).toLegacySSetObjEquiv n).injective
     rfl
   · ext n : 1
     apply ConcreteCategory.hom_ext
     intro z
-    apply ((TopCat.of (W s)).toSSetObjEquiv n).injective
+    apply ((TopCat.of (W s)).toLegacySSetObjEquiv n).injective
     rfl
   · ext n : 1
     apply ConcreteCategory.hom_ext
     intro z
-    apply ((TopCat.of (W s)).toSSetObjEquiv n).injective
+    apply ((TopCat.of (W s)).toLegacySSetObjEquiv n).injective
     rfl
   · let := hl
     let := homeomorphSingularChainMap_quasiIso eL

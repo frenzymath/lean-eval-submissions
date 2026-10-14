@@ -86,7 +86,7 @@ theorem m64Polar_strong_transfer
   have hVP (i : Fin 2) : MemLp (fun p => V i (P p)) 2 mu :=
     m64MorreyPolarStrip_memLp_two a hrho (hVK i)
   have hv : MemLp (m64MorreyPolarAngularColumn a rho V) 2 mu :=
-    (MemLp.smul (hVP 0) (hat 0)).add (MemLp.smul (hVP 1) (hat 1))
+    (MemLp.smul (hat 0) (hVP 0)).add (MemLp.smul (hat 1) (hVP 1))
   refine ⟨m64MorreyPolarStrip_memLp_two a hrho huK, hv, ?_⟩
   let D := fun j i p => fderiv ℝ (f j) p (EuclideanSpace.single i 1)
   have hD (j : ℕ) (i : Fin 2) : Continuous (D j i) :=
@@ -110,7 +110,7 @@ theorem m64Polar_strong_transfer
         ((hDl j i).sub (hVK i))
     · exact hcol i
   have hAR (j : ℕ) (i : Fin 2) : MemLp (fun p => A i p • R j i p) 2 mu :=
-    MemLp.smul (hR j i) (hat i)
+    MemLp.smul (hat i) (hR j i)
   have hARlim (i : Fin 2) :
       Tendsto (fun j => ∫ p in S, ‖A i p • R j i p‖ ^ 2) atTop (𝓝 0) := by
     apply m64StrongSquare_smul (fun j => R j i) (fun j => hR j i)

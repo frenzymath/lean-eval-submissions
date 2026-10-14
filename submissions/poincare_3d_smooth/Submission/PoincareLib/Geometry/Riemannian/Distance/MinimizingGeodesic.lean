@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.MinimizingStep
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Minimizing.ExponentialChord
 import Submission.PoincareLib.Geometry.Riemannian.Distance.SegmentSpeed
@@ -48,7 +49,7 @@ private theorem chart_speed {g : RiemannianMetric n M} {γ : ℝ → M}
     (mem_chart_source _ (γ t))).mdifferentiableAt (by simp)
   have heq := congrArg (fun L => L 1)
     (mfderiv_comp t hc ((hγ.contMDiffAt ht).mdifferentiableAt one_ne_zero))
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change deriv (fun u => extChartAt (𝓡 n) (γ t) (γ u)) t = _ at heq
   rw [hv.deriv] at heq
   change v = (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) (γ t)) (γ t))

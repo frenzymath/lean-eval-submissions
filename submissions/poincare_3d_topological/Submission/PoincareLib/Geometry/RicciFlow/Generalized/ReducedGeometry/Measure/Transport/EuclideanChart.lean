@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Exponential.Stability.StableSliceChart
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Exponential.Endpoint.EndpointDifferential
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Measure.Transport.BasisCoordinateVolume
@@ -100,7 +101,7 @@ theorem stableCoordinateChart_differential (H : M14StableSet G T τ x E)
   change mfderiv (𝓡 n) (𝓡 n) (H.endpoint_slice_map ∘ C) z v =
     mfderiv (𝓘(ℝ, G.Horizontal x)) (𝓡 n) H.endpoint_slice_map (C z) (C v)
   have hd := mfderiv_comp_apply z hf C.differentiableAt.mdifferentiableAt v
-  rw [mfderiv_eq_fderiv, C.fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, C.fderiv] at hd
   exact hd
 
 end PoincareMT.M14

@@ -36,14 +36,30 @@ theorem mfderiv_pi_apply
   have hjoint : ContMDiff 𝓘(ℝ, E) 𝓘(ℝ, ι → ℝ) ∞ (fun y i => f i y) :=
     contMDiff_pi_space.mpr hf
   have hi (j : ι) : HasFDerivAt (f j ∘ c.symm)
-      (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ℝ) (f j) x) (c x) := by
-    simpa [c, writtenInExtChartAt, hasFDerivWithinAt_univ] using
-      ((hf j x).mdifferentiableAt (by simp)).hasMFDerivAt.2
+      (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ℝ) (f j) x : E →L[ℝ] ℝ) (c x) := by
+    have h := ((hf j x).mdifferentiableAt (by simp)).hasMFDerivAt.2
+    have heq : ((tangentSpaceCastModel 𝓘(ℝ, ℝ) (f j x)).toContinuousLinearMap.comp
+        ((mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ℝ) (f j) x).comp
+          (tangentSpaceCastModel 𝓘(ℝ, E) x).symm.toContinuousLinearMap)) =
+        (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ℝ) (f j) x : E →L[ℝ] ℝ) := by
+      ext w
+      rfl
+    rw [heq] at h
+    simpa [c, writtenInExtChartAt, hasFDerivWithinAt_univ] using h
   have hJ : HasFDerivAt (fun z j => f j (c.symm z))
-      (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ι → ℝ) (fun y i => f i y) x) (c x) := by
-    simpa [c, writtenInExtChartAt, hasFDerivWithinAt_univ] using
-      ((hjoint x).mdifferentiableAt (by simp)).hasMFDerivAt.2
-  exact congrArg (fun L => L v i) (hJ.unique (hasFDerivAt_pi.mpr hi))
+      (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ι → ℝ) (fun y i => f i y) x : E →L[ℝ] (ι → ℝ))
+      (c x) := by
+    have h := ((hjoint x).mdifferentiableAt (by simp)).hasMFDerivAt.2
+    have heq : ((tangentSpaceCastModel 𝓘(ℝ, ι → ℝ) (fun i => f i x)).toContinuousLinearMap.comp
+        ((mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ι → ℝ) (fun y i => f i y) x).comp
+          (tangentSpaceCastModel 𝓘(ℝ, E) x).symm.toContinuousLinearMap)) =
+        (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ι → ℝ) (fun y i => f i y) x : E →L[ℝ] (ι → ℝ)) := by
+      ext w
+      rfl
+    rw [heq] at h
+    simpa [c, writtenInExtChartAt, hasFDerivWithinAt_univ] using h
+  exact congrArg (fun L : E →L[ℝ] (ι → ℝ) => L (show E from v) i)
+    (hJ.unique (hasFDerivAt_pi.mpr hi))
 
 private theorem exists_smooth_local_equiv
     {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E]
@@ -106,7 +122,13 @@ theorem exists_projection_chart_of_surjective_mfderiv
     exact hf.comp_contMDiffOn (contMDiffOn_chart_symm (I := 𝓘(ℝ, E)) (x := x))
   have hd : HasFDerivAt fc L u := by
     have h := ((hf x).mdifferentiableAt (by simp)).hasMFDerivAt.2
-    simpa [fc, L, u, c, writtenInExtChartAt, hasFDerivWithinAt_univ] using h
+    have heq : ((tangentSpaceCastModel 𝓘(ℝ, F) (f x)).toContinuousLinearMap.comp
+        ((mfderiv 𝓘(ℝ, E) 𝓘(ℝ, F) f x).comp
+          (tangentSpaceCastModel 𝓘(ℝ, E) x).symm.toContinuousLinearMap)) = L := by
+      ext w
+      rfl
+    rw [heq] at h
+    simpa [fc, u, c, writtenInExtChartAt, hasFDerivWithinAt_univ] using h
   obtain ⟨p, hp⟩ := L.ker_closedComplemented_of_finiteDimensional_range
   let e : E ≃L[ℝ] (F × L.ker) := L.equivProdOfSurjectiveOfIsCompl p
     (LinearMap.range_eq_top.mpr hsurj) (LinearMap.range_eq_of_proj hp)

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Mathlib.AlgebraicTopology.SingularHomology.HomotopyInvariance
 
 /-!
@@ -33,14 +34,14 @@ theorem simplicialSimplexDifference_d_eq_zero (R : C) (X : SSet.{w})
 /-- The constant continuous map viewed as a singular simplex. -/
 noncomputable def singularConstantSimplex (X : TopCat.{w}) (n : ℕ) (x : X) :
     (TopCat.toSSet.obj X) _⦋n⦌ :=
-  (X.toSSetObjEquiv _).symm (ContinuousMap.const _ x)
+  (X.toLegacySSetObjEquiv _).symm (ContinuousMap.const _ x)
 
 /-- Restriction to a face preserves the value of a constant simplex. -/
 theorem singularConstantSimplex_face (X : TopCat.{w}) {n : ℕ}
     (x : X) (i : Fin (n + 2)) :
     (TopCat.toSSet.obj X).δ i (singularConstantSimplex X (n + 1) x) =
       singularConstantSimplex X n x := by
-  refine (X.toSSetObjEquiv _).injective ?_
+  refine (X.toLegacySSetObjEquiv _).injective ?_
   exact ContinuousMap.ext (fun _ => rfl)
 
 /-- Constant simplices commute with continuous postcomposition. -/
@@ -48,7 +49,7 @@ theorem singularConstantSimplex_map {X Y : TopCat.{w}} (f : X ⟶ Y)
     (n : ℕ) (x : X) :
     (TopCat.toSSet.map f).app _ (singularConstantSimplex X n x) =
       singularConstantSimplex Y n (f x) := by
-  refine (Y.toSSetObjEquiv _).injective ?_
+  refine (Y.toLegacySSetObjEquiv _).injective ?_
   exact ContinuousMap.ext (fun _ => rfl)
 
 /-- Subtract the constant simplex to obtain a cycle in every positive degree. -/

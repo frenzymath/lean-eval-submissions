@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Neck.Jets.FullNeckMetricJets
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Neck.Jets.PointIsometryJets
@@ -137,7 +138,7 @@ theorem full_coordinate_jets_of_target_realization (N : EpsilonNeck g)
     have hd := mfderiv_comp y
       ((contMDiffAt_extChartAt' (I := 𝓡 3) (n := ∞) hcy).mdifferentiableAt (by simp))
       ((N.full_euclidean_chart_regular (q i) hy.1).1.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     rw [hBy, hAy]
     change N.scale⁻¹ ^ 2 * g.pullbackCoefficients (extChartAt (𝓡 3) c).symm
       (extChartAt (𝓡 3) c (f i y)) (fderiv ℝ (psi i) y v) (fderiv ℝ (psi i) y w) =

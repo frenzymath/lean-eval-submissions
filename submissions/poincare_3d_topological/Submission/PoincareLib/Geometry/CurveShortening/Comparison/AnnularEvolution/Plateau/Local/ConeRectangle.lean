@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Local.ConeInterpolator
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Boundary.TraceEstimate
 
@@ -37,7 +38,7 @@ theorem m64_local_cone_vertical_column_eq_slice {f : LoopPlane → M} {p : LoopP
   have hp : annulusPoint (p 0) (p 1) = p := by ext i; fin_cases i <;> rfl
   have hd : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (annulusPoint (p 0)) (p 1) 1 =
       EuclideanSpace.basisFun (Fin 2) ℝ 1 := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hline.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hline.deriv
   have hc := mfderiv_comp_apply_of_eq (p 1) hf
     hline.differentiableAt.mdifferentiableAt hp (1 : ℝ)
   rw [hd] at hc

@@ -111,6 +111,6 @@ theorem norm_spatial_jet_sub_le_spacetime_jet_sub
     iteratedFDerivWithin ℝ r g (K ×ˢ U) (0, x)
   change ‖B.compContinuousLinearMap (fun _ => L)‖ ≤ ‖B‖
   exact (B.norm_compContinuousLinearMap_le (fun _ => L)).trans
-    ((mul_le_mul_of_nonneg_left (Finset.prod_le_one
+    ((mul_le_mul_of_nonneg_left (Finset.prod_le_one₀
       (fun _ _ => norm_nonneg _) (fun _ _ => ContinuousLinearMap.norm_inr_le_one ℝ ℝ E))
       (norm_nonneg B)).trans_eq (mul_one _))

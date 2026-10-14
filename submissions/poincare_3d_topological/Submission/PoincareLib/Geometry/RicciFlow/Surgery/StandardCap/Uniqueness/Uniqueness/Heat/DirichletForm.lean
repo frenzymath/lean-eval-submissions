@@ -17,7 +17,6 @@ closability theorem. No compact structure is put on the ambient R3.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -119,6 +118,13 @@ theorem norm_dirichletInclusion_apply_le (K : Set V) (v : dirichletForm K) :
     ‖dirichletInclusion K v‖ ≤ ‖v‖ :=
   WithLp.norm_fst_le (dirichletValue K) (v : DirichletAmbient K)
 
+local instance dirichletValue_normedSpace (K : Set V) : NormedSpace ℝ (dirichletValue K) :=
+  (dirichletValue K).normedSpace
+
+local instance dirichletForm_normedSpace (K : Set V) : NormedSpace ℝ (dirichletForm K) :=
+  (dirichletForm K).normedSpace
+
+set_option backward.isDefEq.respectTransparency false in
 theorem norm_dirichletInclusion_le_one (K : Set V) : ‖dirichletInclusion K‖ ≤ 1 := by
   apply ContinuousLinearMap.opNorm_le_bound _ zero_le_one
   intro v

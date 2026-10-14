@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.DerivativeBounds
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Length.Path
 import Mathlib.Analysis.Calculus.Deriv.AffineMap
@@ -39,7 +40,7 @@ theorem disk_edist_le_of_derivative_bound (g : RiemannianMetric 3 M)
   have hδ : ContMDiff 𝓘(ℝ, ℝ) (𝓡 2) 1 δ := (AffineMap.contDiff_lineMap x y).contMDiff
   have hpath : ContMDiff 𝓘(ℝ, ℝ) (𝓡 3) 1 (F ∘ δ) := hF.comp hδ
   have hδvelocity (t : ℝ) : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) δ t 1 = y - x := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
       (AffineMap.hasDerivAt_lineMap (a := x) (b := y) (x := t)).deriv
   have hspeed : ∀ t ∈ Icc (0 : ℝ) 1, pathSpeed g (F ∘ δ) t ≤ K * ‖y - x‖ := by
     intro t ht

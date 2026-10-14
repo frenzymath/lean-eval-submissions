@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Corner.TangentCones
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Finite.ConeFan
 
@@ -124,7 +125,7 @@ theorem m64Intrinsic_coordinate_interior_vertex_angle_sum
       (hsource i) w
     rw [hvertex] at h
     simpa only [x, y, coordinateTriangleVelocity_eq_differential _ _ (hF i) (hsource i),
-      mfderiv_eq_fderiv, TangentSpace] using h
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using h
   have hpartition : ∀ᵐ w : AnnulusCoordinates, ∃! i, ∃ a c : ℝ,
       0 < a ∧ 0 < c ∧ w = a • x i + c • y i := by
     filter_upwards [m64Intrinsic_regional_tangent_partition_ae F b hF hFi hsource hfront hq]

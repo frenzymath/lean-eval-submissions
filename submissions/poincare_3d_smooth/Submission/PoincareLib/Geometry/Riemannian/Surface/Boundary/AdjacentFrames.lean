@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Boundary.Separation
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Boundary.Orientation
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Frame.Chart
@@ -46,7 +47,7 @@ theorem chartField_transition
   have h := congrArg (fun L => L v) (mfderiv_comp p
     (heD.mdifferentiableAt hx) (hfD.mdifferentiableAt_symm hp))
   dsimp only [TangentSpace] at h ⊢
-  simpa only [mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply, Function.comp_def] using h.symm
+  simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply, Function.comp_def] using h.symm
 
 omit [IsManifold (𝓡 2) ∞ S] in
 /-- A constant chart field has its actual coordinate components in the two

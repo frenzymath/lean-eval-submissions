@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Tube.Gluing.Coordinates.AxialShift
 
 /-! # The metric contraction inverse to an axial expansion -/
@@ -25,7 +26,7 @@ theorem mfderiv_axial_map_apply {k : ℝ → ℝ} {a : ℝ}
       (fun p : RoundCylinderSpace => k p.2) z := hkd.comp z mdifferentiableAt_snd
   erw [mfderiv_prodMk mdifferentiableAt_fst hcomp,
     mfderiv_fst, mfderiv_comp z hkd mdifferentiableAt_snd,
-    mfderiv_snd, mfderiv_eq_fderiv]
+    mfderiv_snd, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change (v.1, fderiv ℝ k z.2 v.2) = (v.1, a * v.2)
   rw [fderiv_eq_deriv_mul, hk.deriv]
 

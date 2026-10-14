@@ -1,0 +1,10 @@
+{
+  "variant": "smooth",
+  "source_sha256": "6aa920b5dfea059b85e26ff62f7deb0f1aa0de1c334fc5319df2c5c97891b821",
+  "source_files": 23566,
+  "command": [
+    "/var/tmp/poincare-port-4108752-bhko13pv/compiler/bin/lake",
+    "build"
+  ],
+  "lean_threads": "6"
+}

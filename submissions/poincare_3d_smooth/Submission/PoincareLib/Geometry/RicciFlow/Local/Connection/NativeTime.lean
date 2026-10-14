@@ -438,8 +438,6 @@ theorem ricciFlow_curvature_derivative_energy_terminal_bound
           have hl := ((hasDerivAt_id p.1).sub_const a).const_mul ε
           convert (he.mul (hQderiv p.1 hpt p.2)).sub hl using 1
           · rfl
-          · rfl
-          · rfl
           · dsimp only [rate, id_eq]
             ring
         have hrateNonneg : 0 ≤ rate := by

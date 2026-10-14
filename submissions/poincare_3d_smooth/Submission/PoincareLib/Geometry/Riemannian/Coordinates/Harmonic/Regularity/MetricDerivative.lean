@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.AlongCurve.Coefficients
 import Submission.PoincareLib.Geometry.Riemannian.Hessian.Tensor
 import Submission.PoincareLib.Geometry.Riemannian.Tensor.NormBounds
@@ -36,7 +37,7 @@ theorem hessian_coordinate_eq_neg_connectionCoefficient (D : LeviCivitaData g)
     contMDiff_vectorSpace_iff_contDiff.mpr contDiff_const
   have hcoord (y w : EuclideanSpace ℝ (Fin n)) :
       mvfderiv (𝓡 n) (fun z : EuclideanSpace ℝ (Fin n) => z i) y w = w i := by
-    simp only [mvfderiv, mfderiv_eq_fderiv]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change fderiv ℝ (EuclideanSpace.proj (𝕜 := ℝ) i) y w = w i
     rw [ContinuousLinearMap.fderiv]
     rfl

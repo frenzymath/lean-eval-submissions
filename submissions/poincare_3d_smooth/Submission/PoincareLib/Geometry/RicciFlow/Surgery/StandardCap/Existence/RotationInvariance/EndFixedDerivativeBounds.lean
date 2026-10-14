@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.RotationInvariance.EndPullbackFlow
 
 /-!
@@ -36,7 +37,7 @@ theorem exists_endFixed_derivative_inverse_bound
     (endReferenceTranslation_contMDiffOn e hs).contDiffOn.continuousOn_fderiv_of_isOpen
       (endReferenceRegion_isOpen e) (by decide)
   have hi (x : StandardCapSpace) (hx : x ∈ endReferenceRegion e) : (L x).IsInvertible := by
-    simpa only [L, mfderiv_eq_fderiv] using endReferenceTranslation_mfderiv_isInvertible e hs hx
+    simpa only [L, Poincare.Compatibility.mfderiv_eq_fderiv_model] using endReferenceTranslation_mfderiv_isInvertible e hs hx
   have hci : ContinuousOn (fun x => (L x).inverse) (endReferenceRegion e) := by
     intro x hx
     exact ((hi x hx).contDiffAt_map_inverse (n := 1)).continuousAt.comp_continuousWithinAt (hc x hx)
@@ -45,9 +46,9 @@ theorem exists_endFixed_derivative_inverse_bound
   refine ⟨max 1 (max B D), le_max_left _ _, ?_⟩
   intro x hx
   constructor
-  · simpa only [L, mfderiv_eq_fderiv] using
+  · simpa only [L, Poincare.Compatibility.mfderiv_eq_fderiv_model] using
       (hB x hx).trans ((le_max_left B D).trans (le_max_right 1 _))
-  · simpa only [L, mfderiv_eq_fderiv] using
+  · simpa only [L, Poincare.Compatibility.mfderiv_eq_fderiv_model] using
       (hD x hx).trans ((le_max_right B D).trans (le_max_right 1 _))
 
 end PoincareMT.M34

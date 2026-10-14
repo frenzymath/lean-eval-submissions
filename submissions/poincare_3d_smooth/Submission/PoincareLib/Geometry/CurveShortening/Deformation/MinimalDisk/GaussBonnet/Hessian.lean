@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.Projection
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.Gauss.MapConnection
 import Submission.PoincareLib.Geometry.RicciFlow.Extinction.Width.Class.SphereArea
@@ -47,7 +48,7 @@ theorem conformalTangentProjection_fixes
   have he (i j : Fin 2) : g.inner (F x) (fderiv ℝ F x (e i)) (fderiv ℝ F x (e j)) =
       if i = j then c else 0 := by
     have hh := congrArg (fun G : Matrix (Fin 2) (Fin 2) ℝ => G i j) hconf
-    simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+    simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
       Matrix.one_apply, smul_eq_mul, mul_ite, mul_one, mul_zero, e] using! hh
   have h00 : g.inner (F x) (fderiv ℝ F x (e 0)) (fderiv ℝ F x (e 0)) = c := by
     simpa using he 0 0
@@ -139,7 +140,7 @@ theorem secondFundamentalForm_eq_projection_derivative
   have h00 : g.inner (F x) (fderiv ℝ F x (EuclideanSpace.basisFun (Fin 2) ℝ 0))
       (fderiv ℝ F x (EuclideanSpace.basisFun (Fin 2) ℝ 0)) = c := by
     have hh := congrArg (fun G : Matrix (Fin 2) (Fin 2) ℝ => G 0 0) hx
-    simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+    simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
       Matrix.one_apply_eq, smul_eq_mul, mul_one] using! hh
   have hP := differentiableAt_conformalTangentProjection hF (h00.trans_ne hc.ne')
   have hfix : ∀ᶠ y in 𝓝 x,

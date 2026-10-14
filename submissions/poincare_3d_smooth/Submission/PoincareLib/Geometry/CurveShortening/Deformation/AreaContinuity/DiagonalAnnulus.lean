@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.AreaContinuity.ContractionDerivative
 
@@ -39,7 +40,7 @@ theorem m65ContractionAnnulusMap_diagonal_density (g : RiemannianMetric 3 M)
       (EuclideanSpace.proj (𝕜 := ℝ) (0 : Fin 2)).differentiableAt).mdifferentiableAt
   have hd : mfderiv (𝓡 2) 𝓘(ℝ, ℝ) (fun q : LoopPlane => q 0) p
       (EuclideanSpace.basisFun (Fin 2) ℝ 1) = 0 := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change (fderiv ℝ (EuclideanSpace.proj (𝕜 := ℝ) (0 : Fin 2)) p)
       (EuclideanSpace.basisFun (Fin 2) ℝ 1) = 0
     rw [(EuclideanSpace.proj (𝕜 := ℝ) (0 : Fin 2)).fderiv]

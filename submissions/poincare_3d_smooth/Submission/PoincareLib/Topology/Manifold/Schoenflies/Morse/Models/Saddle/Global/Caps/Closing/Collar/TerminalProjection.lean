@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.TerminalCollars
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.Collar.SphereProjection
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.Collar.ProjectionChart
@@ -54,7 +55,7 @@ theorem injective_fderiv_actualCapModelCoordinates
       contMDiffOn_invFun := data.actualDisk_symm_smooth i }
   have hm := m.isLocalDiffeomorphAt (𝓡 2) (𝓡 2) ∞ hx
   have hs := M.tree.embedding_of_mem_leaves hg
-  rw [← mfderiv_eq_fderiv]
+  rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change Injective (mfderiv (𝓡 2) (𝓡 3) (A ∘ g ∘ (m : E2 → S2)) x)
   rw [mfderiv_comp x (A.contMDiff.mdifferentiable (by simp) _)
     ((hs.contMDiff.contMDiffAt.comp x hm.contMDiffAt).mdifferentiableAt (by simp))]

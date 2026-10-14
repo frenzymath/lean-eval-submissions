@@ -63,9 +63,9 @@ private theorem m65WeakCutoff_norm_bounds
   intro i
   let e := EuclideanSpace.basisFun (Fin 2) ℝ i
   have hf : MemLp (fun z => θ z * d i z) 2 (volume.restrict loopDiskSet) :=
-    (Lp.memLp (d i)).mul' ((θ.memLp ∞ volume).restrict loopDiskSet)
+    ((θ.memLp ∞ volume).restrict loopDiskSet).fun_mul (Lp.memLp (d i))
   have hg : MemLp (fun z => fderiv ℝ θ z e * u z) 2 (volume.restrict loopDiskSet) :=
-    (Lp.memLp u).mul' (((∂_{e} θ).memLp ∞ volume).restrict loopDiskSet)
+    (((∂_{e} θ).memLp ∞ volume).restrict loopDiskSet).fun_mul (Lp.memLp u)
   have hF := (memLp_indicator_iff_restrict
     (show MeasurableSet loopDiskSet from measurableSet_closedBall)).mpr hf
   have hG := (memLp_indicator_iff_restrict

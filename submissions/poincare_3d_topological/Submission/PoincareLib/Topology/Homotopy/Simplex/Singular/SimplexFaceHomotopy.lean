@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.SingularComplex.SingularKan
 import Mathlib.Topology.Homotopy.Affine
 import Mathlib.AlgebraicTopology.SimplicialSet.KanComplex.MulStruct
@@ -113,14 +114,13 @@ theorem stdSimplex_adjacent_faces_homotopicRel
 theorem singular_const_apply (X : TopCat.{u}) (n : Nat)
     (x : (TopCat.toSSet.obj X).obj (Opposite.op (SimplexCategory.mk 0)))
     (z : stdSimplex Real (Fin (n + 1))) :
-    X.toSSetObjEquiv _ (SSet.yonedaEquiv
+    X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv
       (SSet.const (X := SSet.stdSimplex.{u}.obj (SimplexCategory.mk n)) x)) z =
       TopCat.toSSetObj₀Equiv x := by
-  change X.toSSetObjEquiv _
+  change X.toLegacySSetObjEquiv _
     ((TopCat.toSSet.obj X).map ((SimplexCategory.mk n).const _ 0).op x) z = _
-  rw [TopCat.toSSetObjEquiv_naturality_apply]
-  change X.toSSetObjEquiv _ x _ = X.toSSetObjEquiv _ x default
-  exact congrArg (X.toSSetObjEquiv _ x) (Subsingleton.elim _ _)
+  rw [TopCat.toLegacySSetObjEquiv_naturality_apply]
+  exact (TopCat.toSSetObj₀Equiv_eq_legacy x _).symm
 
 /-- A pointed singular-simplex relation gives a homotopy relative to the boundary. -/
 theorem singular_relStruct_homotopicRel (X : TopCat.{u}) (n : Nat)
@@ -128,11 +128,11 @@ theorem singular_relStruct_homotopicRel (X : TopCat.{u}) (n : Nat)
     (f g : (TopCat.toSSet.obj X).PtSimplex n x) (i : Fin (n + 1))
     (r : SSet.PtSimplex.RelStruct f g i) :
     ContinuousMap.HomotopicRel
-      (X.toSSetObjEquiv _ (SSet.yonedaEquiv f.map))
-      (X.toSSetObjEquiv _ (SSet.yonedaEquiv g.map))
+      (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv f.map))
+      (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv g.map))
       (Set.ofPred (fun z : stdSimplex Real (Fin (n + 1)) =>
         Exists fun k : Fin (n + 1) => z k = 0)) := by
-  let F := X.toSSetObjEquiv _ (SSet.yonedaEquiv r.map)
+  let F := X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv r.map)
   have hF (j : Fin (n + 2)) (hj0 : j ≠ i.castSucc) (hj1 : j ≠ i.succ)
       (z : stdSimplex Real (Fin (n + 1))) :
       F (stdSimplex.map j.succAbove z) = TopCat.toSSetObj₀Equiv x := by
@@ -143,8 +143,8 @@ theorem singular_relStruct_homotopicRel (X : TopCat.{u}) (n : Nat)
         have hsj : i.succ ≤ j := Fin.castSucc_lt_iff_succ_le.mp hij
         exact r.δ_map_of_gt j (lt_of_le_of_ne hsj hj1.symm)
     have h := congrArg (fun q : (Δ[n] : SSet.{u}) ⟶ TopCat.toSSet.obj X =>
-      X.toSSetObjEquiv _ (SSet.yonedaEquiv q) z) hr
-    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toSSetObjEquiv_δ_apply,
+      X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv q) z) hr
+    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toLegacySSetObjEquiv_δ_apply,
       singular_const_apply] at h
     exact h
   obtain ⟨H⟩ := stdSimplex_adjacent_faces_homotopicRel n i F
@@ -152,13 +152,13 @@ theorem singular_relStruct_homotopicRel (X : TopCat.{u}) (n : Nat)
   refine ⟨H.cast ?_ ?_⟩
   · ext z
     have h := congrArg (fun q : (Δ[n] : SSet.{u}) ⟶ TopCat.toSSet.obj X =>
-      X.toSSetObjEquiv _ (SSet.yonedaEquiv q) z) r.δ_castSucc_map
-    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toSSetObjEquiv_δ_apply] at h
+      X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv q) z) r.δ_castSucc_map
+    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toLegacySSetObjEquiv_δ_apply] at h
     exact h
   · ext z
     have h := congrArg (fun q : (Δ[n] : SSet.{u}) ⟶ TopCat.toSSet.obj X =>
-      X.toSSetObjEquiv _ (SSet.yonedaEquiv q) z) r.δ_succ_map
-    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toSSetObjEquiv_δ_apply] at h
+      X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv q) z) r.δ_succ_map
+    rw [SSet.stdSimplex.yonedaEquiv_δ_comp, TopCat.toLegacySSetObjEquiv_δ_apply] at h
     exact h
 
 end Poincare.Topology

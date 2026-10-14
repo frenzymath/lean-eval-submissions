@@ -51,7 +51,7 @@ theorem source_recent_tensor_norm_time_le {u v d : ℝ}
     evolving_roundCylinderTensorNormSquared_center (hv.trans_lt zero_lt_one), Finset.mul_sum]
   apply Finset.sum_le_sum
   intro a _
-  have hprod := Finset.prod_le_prod (s := (Finset.univ : Finset (Fin r)))
+  have hprod := Finset.prod_le_prod₀ (s := (Finset.univ : Finset (Fin r)))
     (fun i _ => (M35.roundCylinderInverseWeight_pos (hu.trans_lt zero_lt_one) (a i)).le)
     (fun i _ => source_recent_inverse_weight_le hu hv hd huv (a i))
   have hprod' : (∏ i, evolvingCylinderInverseWeight u (a i)) ≤

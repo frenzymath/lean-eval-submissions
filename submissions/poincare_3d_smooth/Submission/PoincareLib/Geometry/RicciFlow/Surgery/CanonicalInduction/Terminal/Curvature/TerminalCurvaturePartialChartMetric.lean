@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 import Mathlib.Geometry.Manifold.LocalDiffeomorph
 
@@ -48,7 +49,7 @@ theorem terminalCurvature_partial_chart_inverse_derivative
       with y hy
     exact c.left_inv hy
   have hd := mfderiv_comp x hci (hc.comp x hphi)
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   exact hd.symm.trans heq.mfderiv_eq
 
 /-- Both metric slots use the same actual partial-chart inverse. -/

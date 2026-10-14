@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Charts
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Sectional
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Curvature
@@ -34,7 +35,7 @@ theorem m64_gaussian_eq_of_induced_surface_germ
     Dg.scalarCurvature p / 2 = Dh.scalarCurvature (f p) / 2 := by
   have hinv : ∀ᶠ q in 𝓝 p, (mfderiv (𝓡 2) (𝓡 2) f q).IsInvertible := by
     filter_upwards [hmetric] with q hq
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     have hi := fderiv_injective_of_pullback_metric hq
     have hs := LinearMap.surjective_of_injective (f := (fderiv ℝ f q).toLinearMap) hi
     change (fderiv ℝ f q).IsInvertible
@@ -43,7 +44,7 @@ theorem m64_gaussian_eq_of_induced_surface_germ
   have hmetric' : ∀ᶠ q in 𝓝 p, ∀ u v : EuclideanSpace ℝ (Fin 2), g.inner q u v =
       h.inner (f q) (mfderiv (𝓡 2) (𝓡 2) f q u) (mfderiv (𝓡 2) (𝓡 2) f q v) := by
     filter_upwards [hmetric] with q hq u v
-    simp only [mfderiv_eq_fderiv]
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     convert! hq u v using 1
   obtain ⟨L, hL⟩ := g.exists_orthonormal_coordinate_frame p
   simp only [g.chartCoefficients_center] at hL

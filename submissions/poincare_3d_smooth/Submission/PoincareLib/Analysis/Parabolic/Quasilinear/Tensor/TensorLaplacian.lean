@@ -2,6 +2,7 @@
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
 
+import Mathlib.Analysis.InnerProductSpace.ProdL2
 import Submission.PoincareLib.Analysis.Parabolic.Quasilinear.Charts.Measure.ChartIntegration
 import Submission.PoincareLib.Analysis.Parabolic.Quasilinear.Frames.ParsevalTensorSmooth
 import Submission.PoincareLib.Analysis.Parabolic.Quasilinear.Frames.ParsevalTensorL2
@@ -20,7 +21,6 @@ first-order tensor form. Density extends this to the complete form domain.
 
 set_option autoImplicit false
 set_option maxHeartbeats 1600000
-set_option backward.isDefEq.respectTransparency false
 
 open MeasureTheory Set Filter
 open scoped Manifold ContDiff Topology Bundle BigOperators
@@ -211,6 +211,13 @@ theorem derivativeToLp_pairing_laplacian (g : RiemannianMetric n M)
         tensorToLp_coe F d.measure (smoothTensorLaplacian F d g h)] with x hk hh
       rw [hk, hh]
 
+local instance firstOrderAmbient_innerProductSpace : InnerProductSpace ℝ (FirstOrderAmbient F d.measure) :=
+  WithLp.instProdInnerProductSpace
+
+local instance firstOrderGraph_innerProductSpace : InnerProductSpace ℝ (firstOrderGraph F d.measure) :=
+  Submodule.innerProductSpace (firstOrderGraph F d.measure)
+
+set_option backward.isDefEq.respectTransparency false in
 /-- The smooth operator gives the variational equation on the completed native form domain. -/
 theorem form_pairing_laplacian (g : RiemannianMetric n M)
     (hF : ∀ (x : M) (v : TangentSpace (𝓡 n) x), (∑ i, g.inner x (F i x) v • F i x) = v)
@@ -312,6 +319,7 @@ theorem contMDiffOn_scalarDirectional {U : Set M} (hU : IsOpen U) {f : M → ℝ
   apply hproj.congr
   intro x hx
   simp only [scalarDirectional, mfderivWithin_of_isOpen hU hx]
+  rfl
 
 private theorem scalarDirectional_add (V : SmoothField (n := n) (M := M))
     {f q : M → ℝ} {x : M}
@@ -327,25 +335,18 @@ private theorem scalarDirectional_finsetSum {jota : Type*} (s : Finset jota)
     scalarDirectional V (fun y => ∑ j ∈ s, f j y) x =
       ∑ j ∈ s, scalarDirectional V (f j) x := by
   classical
-  have hd : HasMFDerivAt (𝓡 n) 𝓘(ℝ, ℝ) (fun y => ∑ j ∈ s, f j y) x
-      (∑ j ∈ s, mfderiv (𝓡 n) 𝓘(ℝ, ℝ) (f j) x) := by
-    induction s using Finset.induction_on with
-    | empty =>
-      simpa only [Finset.sum_empty] using
-        (hasMFDerivAt_const (I := 𝓡 n) (I' := 𝓘(ℝ, ℝ)) (0 : ℝ) x)
-    | @insert j s hj ih =>
-      have heq : (fun y => ∑ k ∈ insert j s, f k y) =
-          (fun y => f j y + ∑ k ∈ s, f k y) := by
-        funext y
-        exact Finset.sum_insert hj
-      rw [heq, Finset.sum_insert hj]
-      exact (hf j (Finset.mem_insert_self j s)).hasMFDerivAt.add
-        (ih (fun k hk => hf k (Finset.mem_insert_of_mem hk)))
-  change (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) (fun y => ∑ j ∈ s, f j y) x) (V x) =
-    ∑ j ∈ s, (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) (f j) x) (V x)
-  rw [hd.mfderiv]
-  simp only [ContinuousLinearMap.sum_apply]
-  rfl
+  induction s using Finset.induction_on with
+  | empty => simp only [Finset.sum_empty, scalarDirectional, mfderiv_const]; rfl
+  | @insert j s hj ih =>
+    have heq : (fun y => ∑ k ∈ insert j s, f k y) =
+        (fun y => f j y + ∑ k ∈ s, f k y) := by
+      funext y
+      exact Finset.sum_insert hj
+    rw [heq, Finset.sum_insert hj]
+    rw [scalarDirectional_add V (hf j (Finset.mem_insert_self j s))
+      (by simpa only [Finset.sum_fn] using
+        MDifferentiableAt.sum (fun k hk => hf k (Finset.mem_insert_of_mem hk)))]
+    rw [ih (fun k hk => hf k (Finset.mem_insert_of_mem hk))]
 
 /-- The actual second directional derivative includes the two mixed first derivatives. -/
 theorem scalarDirectional_twice_mul (V : SmoothField (n := n) (M := M))
@@ -757,11 +758,17 @@ def smoothCoreResidual {g0 g : RiemannianMetric n M}
   smoothTensorLaplacian F d g0 h x v w - 2 * D.ricci x v w +
     DeTurckNative.metricLieDerivative D (DeTurckNative.intrinsicDeTurckField D B) x v w
 
+set_option synthInstance.maxHeartbeats 100000 in
 /-- The concrete forcing residual, retaining both geometric source and fixed generator. -/
 def smoothResidualTensor {g0 g : RiemannianMetric n M}
     (D : LeviCivitaData g) (B : LeviCivitaData g0)
     (h : SmoothTensor (n := n) (M := M)) : SmoothTensor (n := n) (M := M) :=
-  smoothTensorLaplacian F d g0 h + DeTurckNative.smoothRicciDeTurckTensor D B
+  by
+  letI : ∀ x : M, IsTopologicalAddGroup (TangentSpace (𝓡 n) x →L[ℝ] ℝ) :=
+    fun x => ContinuousLinearMap.isTopologicalAddGroup
+  letI : ∀ x : M, IsTopologicalAddGroup (TangentSpace (𝓡 n) x →L[ℝ] TangentSpace (𝓡 n) x →L[ℝ] ℝ) :=
+    fun x => ContinuousLinearMap.isTopologicalAddGroup
+  exact smoothTensorLaplacian F d g0 h + DeTurckNative.smoothRicciDeTurckTensor D B
 
 @[simp] theorem smoothResidualTensor_apply {g0 g : RiemannianMetric n M}
     (D : LeviCivitaData g) (B : LeviCivitaData g0)

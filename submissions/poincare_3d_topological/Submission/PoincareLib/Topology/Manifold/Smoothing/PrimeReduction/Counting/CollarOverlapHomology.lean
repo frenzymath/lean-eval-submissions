@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Counting.ModTwoMayerVietoris
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Subdivision.SingularOneCocycles
 import Mathlib.Topology.ContinuousMap.Sigma
@@ -52,22 +53,22 @@ theorem sigma_one_cocycle_is_coboundary
   choose g hg using hi
   let E := ContinuousMap.sigmaCodHomeomorph (integralSimplex 0) Y
   let g' (s : S _⦋0⦌) : G :=
-    let z := E ((TopCat.of (Σ i, Y i)).toSSetObjEquiv _ s)
-    g z.1 (((TopCat.of (Y z.1)).toSSetObjEquiv _).symm z.2)
+    let z := E ((TopCat.of (Σ i, Y i)).toLegacySSetObjEquiv _ s)
+    g z.1 (((TopCat.of (Y z.1)).toLegacySSetObjEquiv _).symm z.2)
   have hg' (i : I) (s : Si i _⦋0⦌) : g' ((j i).app _ s) = g i s := by
-    have he : ((TopCat.of (Σ i, Y i)).toSSetObjEquiv _ ((j i).app _ s)) =
-        E.symm ⟨i, (TopCat.of (Y i)).toSSetObjEquiv _ s⟩ := rfl
+    have he : ((TopCat.of (Σ i, Y i)).toLegacySSetObjEquiv _ ((j i).app _ s)) =
+        E.symm ⟨i, (TopCat.of (Y i)).toLegacySSetObjEquiv _ s⟩ := rfl
     let v (z : Σ i, C(integralSimplex 0, Y i)) :=
-      g z.1 (((TopCat.of (Y z.1)).toSSetObjEquiv _).symm z.2)
+      g z.1 (((TopCat.of (Y z.1)).toLegacySSetObjEquiv _).symm z.2)
     change v (E _) = _
     rw [he, E.apply_symm_apply]
-    exact congrArg (g i) (((TopCat.of (Y i)).toSSetObjEquiv _).symm_apply_apply s)
+    exact congrArg (g i) (((TopCat.of (Y i)).toLegacySSetObjEquiv _).symm_apply_apply s)
   refine ⟨g', ?_⟩
   intro s
-  obtain ⟨i, t, ht⟩ := ((TopCat.of (Σ i, Y i)).toSSetObjEquiv _ s).exists_lift_sigma
-  let si : Si i _⦋1⦌ := ((TopCat.of (Y i)).toSSetObjEquiv _).symm t
+  obtain ⟨i, t, ht⟩ := ((TopCat.of (Σ i, Y i)).toLegacySSetObjEquiv _ s).exists_lift_sigma
+  let si : Si i _⦋1⦌ := ((TopCat.of (Y i)).toLegacySSetObjEquiv _).symm t
   have hs : s = (j i).app _ si := by
-    apply ((TopCat.of (Σ i, Y i)).toSSetObjEquiv _).injective
+    apply ((TopCat.of (Σ i, Y i)).toLegacySSetObjEquiv _).injective
     exact ht
   rw [hs]
   have hj (k : Fin 2) : S.δ k ((j i).app _ si) = (j i).app _ ((Si i).δ k si) :=

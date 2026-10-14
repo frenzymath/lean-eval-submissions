@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/CurvatureTimeHessian.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -223,7 +224,7 @@ theorem ricciFlow_curvature_time_derivative_pairing
         (mfderivWithin_range_extChartAt_symm (I := 𝓡 n) (x := y))
     have hdf : fderiv ℝ (fun z => f (ch.symm z)) (ch y) =
         mvfderiv (𝓡 n) f y := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change mvfderiv 𝓘(ℝ, EuclideanSpace ℝ (Fin n))
         (f ∘ ch.symm) (ch y) = _
       have hf' : MDifferentiableAt (𝓡 n) 𝓘(ℝ, ℝ) f (ch.symm (ch y)) := by
@@ -293,6 +294,7 @@ theorem ricciFlow_curvature_time_derivative_pairing
           (fun y => -dRic B C E y - dRic C E B y + dRic E B C y) x (A x) := by
         dsimp only [mvfderiv]
         rw [heq.mfderiv_eq (I := 𝓡 n) (I' := 𝓘(ℝ, ℝ)), heq.eq_of_nhds]
+        rfl
       _ = _ := by
         rw [mvfderiv_fun_add (g := fun y => -dRic B C E y - dRic C E B y)
           (g' := dRic E B C) (h₁.neg.sub h₂) h₃, add_apply,
@@ -401,7 +403,7 @@ theorem ricciFlow_connection_variation_pairing_eq_curvature_derivative_trace
       simpa only [(𝓡 n).range_eq_univ, mfderivWithin_univ] using
         (mfderivWithin_range_extChartAt_symm (I := 𝓡 n) (x := x))
     have hdf : fderiv ℝ (fun z => f (ch.symm z)) (ch x) = mvfderiv (𝓡 n) f x := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change mvfderiv 𝓘(ℝ, EuclideanSpace ℝ (Fin n)) (f ∘ ch.symm) (ch x) = _
       have hf' : MDifferentiableAt (𝓡 n) 𝓘(ℝ, ℝ) f (ch.symm (ch x)) := by
         simpa only [hcsymm] using hf

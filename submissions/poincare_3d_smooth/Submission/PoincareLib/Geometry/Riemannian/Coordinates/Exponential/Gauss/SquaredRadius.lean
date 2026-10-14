@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.Manifold
 import Submission.PoincareLib.Geometry.Riemannian.Metric.Gradient
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Locality
@@ -61,7 +62,7 @@ theorem gradient_squared_radius_of_gauss (g : RiemannianMetric n M) (p : M)
     ring
   have hquad' : mvfderiv (𝓡 n) (fun y : E => g.inner p y y) v w =
       2 * g.inner p v w := by
-    simp +instances only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp +instances only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     exact hquad
   rw [hquad'] at hd
   rw [g.inner_gradient, ← hw, map_smul, map_smul, smul_apply, smul_eq_mul, hgauss]

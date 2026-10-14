@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.RampTransport.Immersion.CurveProjection
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Charts
@@ -118,7 +119,7 @@ theorem m64_induced_manifold_curve_connection_norm_le
         (mfderiv (𝓡 m) (𝓡 n) j q v) := by
     have hd := mfderiv_comp q ((he q hqc).mdifferentiableAt (by simp))
       (hq.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact congrArg (fun L => L v) hd
   obtain ⟨gE, DE, hgE⟩ := LeviCivitaData.exists_chart_metric g p
   have hB : gE.euclideanCoefficients =ᶠ[𝓝 (f (c x))] B := by

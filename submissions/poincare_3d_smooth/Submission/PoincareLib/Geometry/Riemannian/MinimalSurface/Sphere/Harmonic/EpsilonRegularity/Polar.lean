@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Harmonic.EpsilonRegularity.Decay
 import Mathlib.MeasureTheory.Integral.ExpDecay
 import Mathlib.Geometry.Manifold.WhitneyEmbedding
@@ -122,7 +123,7 @@ theorem suLogPolar_energy (g : RiemannianMetric n M) (φ : LoopPlane → M) (x :
     (by simp) (sq_pos_of_pos (Real.exp_pos _)) (suLogPolar_gram x)
   simp only [m60EnergyDensity, Matrix.trace_fin_two, m60AreaGram]
   rw [mfderiv_comp x hφ (suLogPolar_contDiff.contMDiff.mdifferentiable (by simp) x),
-    mfderiv_eq_fderiv]
+    Poincare.Compatibility.mfderiv_eq_fderiv_model]
   simp only [ContinuousLinearMap.comp_apply, Function.comp_def]
   simp only [B, A, ContinuousLinearMap.toBilinForm_apply,
     LinearMap.compl₁₂_apply, Fin.sum_univ_two, ContinuousLinearMap.coe_coe] at hh

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Boundary.Finite.TargetChart
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Conjugate.Variation.Intrinsic
 
@@ -32,7 +33,7 @@ theorem within_chart_derivative (p : M) {f : E → M} {K : Set E} {x : E}
       (mfderiv (𝓡 n) (𝓡 n) (chartAt (EuclideanSpace ℝ (Fin n)) p) (f x)).comp
         (mfderivWithin 𝓘(ℝ, E) (𝓡 n) f K x) := by
   have hq := (mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt hs
-  simpa only [mfderivWithin_eq_fderivWithin] using
+  simpa only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model] using
     mfderiv_comp_mfderivWithin x hq hf hK.uniqueMDiffWithinAt
 
 /-- The chart preserves injectivity of the genuine within differential. Source: Morgan--Tian
@@ -63,7 +64,7 @@ theorem within_affine_derivative (e : ℂ ≃L[ℝ] E) (a : E)
     e.hasFDerivAt.const_add a
   have hPd : MDifferentiableWithinAt 𝓘(ℝ, ℂ) 𝓘(ℝ, E) (fun w => a + e w) K z :=
     hP.differentiableAt.mdifferentiableAt.mdifferentiableWithinAt
-  simpa +instances only [mfderivWithin_eq_fderivWithin,
+  simpa +instances only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model,
     hP.hasFDerivWithinAt.fderivWithin hK] using!
     mfderivWithin_comp z hf hPd hmap hK.uniqueMDiffWithinAt
 

@@ -30,7 +30,7 @@ theorem annulusBoundarySource_mapsTo_closedStrip (r x : ℝ) (hr : r ≠ 0)
   have hy : 0 ≤ z.im := hz.2
   rw [annulusBoundarySource_apply]
   change (if upper then 1 - z.im else z.im) ∈ Icc (0 : ℝ) 1
-  cases upper <;> simp only [Bool.false_eq_true, if_false, if_true, mem_Icc]
+  cases upper <;> simp only [Bool.false_eq_true, ite_false, ite_true, mem_Icc]
   · exact ⟨hy, him.trans hR.le⟩
   · exact ⟨by linarith, by linarith⟩
 
@@ -49,7 +49,7 @@ theorem annulusBoundarySource_mapsTo_openStrip (r x : ℝ) (hr : r ≠ 0)
   rw [annulusBoundarySource_apply]
   change 0 < (if upper then 1 - z.im else z.im) ∧
     (if upper then 1 - z.im else z.im) < 1
-  cases upper <;> simp only [Bool.false_eq_true, if_false, if_true]
+  cases upper <;> simp only [Bool.false_eq_true, ite_false, ite_true]
   · exact ⟨hy, him.trans_lt hR⟩
   · exact ⟨by linarith, by linarith⟩
 

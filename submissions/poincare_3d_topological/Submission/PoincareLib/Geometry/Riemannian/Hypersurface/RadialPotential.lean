@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Pullback
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.Euclidean
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Euclidean
@@ -126,7 +127,7 @@ theorem radial_gradient_pushforward_smooth_and_mfderiv
     rw [hnear.mfderiv_eq, mfderiv_comp x (hY.mdifferentiableAt (by simp))
       (hF.mdifferentiable (by simp) x)]
     ext v
-    rw [ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+    rw [ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact hDY _
   exact ⟨fun x => (hlocal x).1, fun x => (hlocal x).2⟩
 

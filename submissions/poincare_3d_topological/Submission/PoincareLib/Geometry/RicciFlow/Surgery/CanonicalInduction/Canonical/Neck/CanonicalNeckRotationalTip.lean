@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Poincare.Final.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Geometry.Basic.RotationOrbit
 import Submission.PoincareLib.Geometry.Riemannian.Homothety.Curvature.ContractionTransport
@@ -51,7 +52,7 @@ private theorem rotation_mfderiv
     (A : Matrix.specialOrthogonalGroup (Fin 3) ℝ) (x : StandardCapSpace) :
     mfderiv (𝓡 3) (𝓡 3) (standardRotation A) x =
       (Matrix.toEuclideanLin A.1).toContinuousLinearMap := by
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   exact (Matrix.toEuclideanLin A.1).toContinuousLinearMap.hasFDerivAt.fderiv
 
 /-- Rotational invariance of the actual metric forces actual Ricci isotropy

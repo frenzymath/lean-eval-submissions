@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Terminal.Curvature.TerminalCurvatureFlowCoordinates
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Terminal.Curvature.TerminalCurvatureCompleteFlow
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.MetricVariation
@@ -88,7 +89,7 @@ private theorem metric_pullback_in_charts
     simpa only [d, extChartAt_to_inv] using hc
   have hderiv := mfderiv_comp (d x) hcd (hFd.comp (d x) hd)
   rw [mfderiv_comp (d x) hFd hd, hdid, ContinuousLinearMap.comp_id] at hderiv
-  rw [mfderiv_eq_fderiv] at hderiv
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hderiv
   change fderiv ℝ (c ∘ F ∘ d.symm) (d x) =
     (mfderiv (𝓡 n) (𝓡 n) c (F (d.symm (d x)))).comp
       (mfderiv (𝓡 n) (𝓡 n) F (d.symm (d x))) at hderiv

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.MetricConvergence.MetricChartCancellation
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Cylinder.Geometry.CylinderCharts
@@ -51,7 +52,7 @@ theorem metric_pullback_cylinder_chart_sum
   have hc := contMDiffAt_extChartAt' (I := 𝓡 3) (n := ∞) hsource
   have hd := mfderiv_comp p (hc.mdifferentiableAt (by simp))
     (hf.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hmetric := g.pullbackCoefficients_chart_cancel F q hp hF
     (mfderiv 𝓘(ℝ, RoundCylinderCoordinates) (𝓡 3) f p v)
     (mfderiv 𝓘(ℝ, RoundCylinderCoordinates) (𝓡 3) f p w)
@@ -121,7 +122,7 @@ theorem roundCylinderPullback_coefficient_eq_chart_sum
     rw [hKdef, mfderiv_comp p ((cylinderChart_contMDiff q _).mdifferentiableAt (by simp))
       ((cylinderCoordinateEquiv.symm.contDiff (n := ∞)).contDiffAt.contMDiffAt.mdifferentiableAt
         (by simp)),
-      mfderiv_eq_fderiv, cylinderCoordinateEquiv.symm.hasFDerivAt.fderiv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, cylinderCoordinateEquiv.symm.hasFDerivAt.fderiv]
     change mfderiv (𝓡 3) ((𝓡 2).prod 𝓘(ℝ, ℝ)) (cylinderChart q)
       (cylinderCoordinateEquiv.symm p) (cylinderCoordinateEquiv.symm v) = _
     rw [mfderiv_cylinderChart, ContinuousLinearEquiv.apply_symm_apply,

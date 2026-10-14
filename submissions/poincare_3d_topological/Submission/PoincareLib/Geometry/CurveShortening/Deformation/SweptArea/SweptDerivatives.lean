@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.SweptArea.InteriorSweptAnnulus
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Analysis.SmoothTimeChange
 
@@ -63,7 +64,7 @@ theorem m65SweptMap_angular_derivative {c : ℝ → ℝ → M} (hc : M62Shrinkin
   have hd := hasDerivAt_annulusPoint_left x y
   have hdv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (fun r => annulusPoint r y) x 1 =
       EuclideanSpace.basisFun (Fin 2) ℝ 0 := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hd.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hd.deriv
   have hchain := mfderiv_comp_apply (f := fun r => annulusPoint r y)
     (g := m65SweptMap c s t) x
     ((m65SweptMap_contMDiff hc has hst htb).mdifferentiableAt (by simp))
@@ -91,11 +92,11 @@ theorem m65SweptMap_time_derivative {c : ℝ → ℝ → M} (hc : M62ShrinkingCu
   have htd := Real.hasDerivAt_affine_smoothTransition s t y
   have htv : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) tau y 1 =
       (t - s) * deriv Real.smoothTransition y := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! htd.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! htd.deriv
   have hd := hasDerivAt_annulusPoint_right x y
   have hdv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (annulusPoint x) y 1 =
       EuclideanSpace.basisFun (Fin 2) ℝ 1 := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hd.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hd.deriv
   have hplane := mfderiv_comp_apply (f := annulusPoint x) (g := m65SweptMap c s t) y
     ((m65SweptMap_contMDiff hc has hst htb).mdifferentiableAt (by simp))
     hd.differentiableAt.mdifferentiableAt (1 : ℝ)

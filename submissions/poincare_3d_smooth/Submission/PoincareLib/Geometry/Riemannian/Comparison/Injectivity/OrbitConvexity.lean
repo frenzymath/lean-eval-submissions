@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.RadialConvexity
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.LocalIsometry
 import Mathlib.Analysis.Convex.Deriv
@@ -71,7 +72,7 @@ theorem IsGeodesicOn.deriv_ne_zero_of_endpoints_ne
     hγ.hasDerivAt_tangentNorm_zero (hsub hs)
   have htzero : V t = 0 := by
     dsimp only [V]
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change g.tangentNorm (γ t) (fderiv ℝ γ t (1 : ℝ)) = 0
     rw [fderiv_eq_smul_deriv, one_smul, hz]
     simp [tangentNorm]
@@ -82,7 +83,7 @@ theorem IsGeodesicOn.deriv_ne_zero_of_endpoints_ne
     simp only [zero_mul, norm_le_zero_iff, sub_eq_zero] at hv
     have hvs : V s = 0 := hv.trans htzero
     dsimp only [V] at hvs
-    rw [mfderiv_eq_fderiv] at hvs
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hvs
     change g.tangentNorm (γ s) (fderiv ℝ γ s (1 : ℝ)) = 0 at hvs
     rw [fderiv_eq_smul_deriv, one_smul] at hvs
     by_contra hsne

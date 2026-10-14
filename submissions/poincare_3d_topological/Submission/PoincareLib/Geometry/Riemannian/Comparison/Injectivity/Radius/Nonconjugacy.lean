@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Radius.Exponential
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Nonconjugacy
 
@@ -63,7 +64,7 @@ theorem injective_mfderiv_globalExponential_of_tangentNorm_lt
   have hLdiff : MDifferentiableAt (𝓡 n) (𝓡 n) L.symm v :=
     (contMDiffAt_iff_contDiffAt.mpr
       (L.symm.contDiff.contDiffAt : ContDiffAt ℝ ∞ L.symm v)).mdifferentiableAt (by simp)
-  rw [heq.mfderiv_eq, mfderiv_comp v hediff hLdiff, mfderiv_eq_fderiv, L.symm.fderiv]
+  rw [heq.mfderiv_eq, mfderiv_comp v hediff hLdiff, Poincare.Compatibility.mfderiv_eq_fderiv_model, L.symm.fderiv]
   exact (hb _ hvmem (by rw [hnorm]; exact hv.le)).1.1.comp L.symm.injective
 
 end PoincareMT.RiemannianMetric

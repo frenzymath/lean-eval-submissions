@@ -35,7 +35,9 @@ theorem hasDerivAt_control_along_timeDependent_integralCurve
   have hd := (hasMFDerivAt_iff_hasFDerivAt.mp (hf.hasMFDerivAt.comp t hγ)).hasDerivAt
   change HasDerivAt (fun r => f (γ r))
     (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) f (γ t) ((1 : ℝ) • X t (γ t))) t at hd
-  simpa [mvfderiv, NormedSpace.fromTangentSpace] using hd
+  convert! hd using 1
+  simp only [one_smul]
+  rfl
 
 /-- Bounding the control derivative bounds its change in either time
 direction along every integral curve. -/
@@ -122,8 +124,8 @@ theorem exists_smooth_globalFlow_of_proper_clock
       ContMDiff (𝓘(ℝ, ℝ).prod (𝓡 n)) (𝓡 n) ∞ (Function.uncurry Φ) ∧
       ∀ t x, f (Φ t x) = f x + t := by
   have hdf (x : M) : mvfderiv (𝓡 n) f x (X x) = 1 := by
-    simpa [mvfderiv, NormedSpace.fromTangentSpace]
-      using hclock x
+    rw [mvfderiv]
+    exact (hclock x).trans (by rfl)
   have hsmooth : ContMDiffOn (𝓘(ℝ, ℝ).prod (𝓡 n)) ((𝓡 n).prod (𝓡 n)) ∞
       (fun tx : ℝ × M => (⟨tx.2, X tx.2⟩ : TangentBundle (𝓡 n) M)) (univ ×ˢ univ) :=
     (hX.comp contMDiff_snd).contMDiffOn

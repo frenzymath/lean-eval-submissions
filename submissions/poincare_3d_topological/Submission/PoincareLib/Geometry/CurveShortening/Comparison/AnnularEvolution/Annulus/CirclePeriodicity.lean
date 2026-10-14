@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Annulus.CircleCurrent
 
 /-!
@@ -54,7 +55,7 @@ theorem m64Annulus_mfderiv_periodic (A : M64Annulus g c0 c1) (p : LoopPlane) :
       hshift.differentiableAt.mdifferentiableAt
     have hT : mfderiv (𝓡 2) (𝓡 2) (fun q : LoopPlane => T + q) p =
         ContinuousLinearMap.id ℝ LoopPlane := by
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact hshift.fderiv
     rw [hfun, hT] at hd
     symm

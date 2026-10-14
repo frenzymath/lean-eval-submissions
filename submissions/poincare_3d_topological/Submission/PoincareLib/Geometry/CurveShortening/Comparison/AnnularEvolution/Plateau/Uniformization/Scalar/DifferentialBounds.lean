@@ -28,6 +28,7 @@ local notation "Cover" => ℝ × ℝ
 
 variable {g : RiemannianMetric 2 Plane} (D : LeviCivitaData g)
 
+set_option synthInstance.maxHeartbeats 100000 in
 /-- The classical differential of an actual harmonic annular potential has a continuous
 extension to the closed annulus; its boundary values are nonzero by the proved radial
 barriers and boundary regularity. Source: Morgan--Tian (2007), Lemma 19.15, pp. 447-449; the

@@ -105,14 +105,21 @@ theorem horizontalCovariantDerivative_gauge_coordinates
     rw [mfderiv_prod_eq_add_apply hsp, hvt, map_smul]
     rfl
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  -- Freeze the original topological module before installing the metric norm.
+  let horizontalAdd : AddCommGroup (G.Horizontal (e.toSpacetime (b s))) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal (e.toSpacetime (b s))) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal (e.toSpacetime (b s))) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal (e.toSpacetime (b s))) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal (e.toSpacetime (b s))) := inferInstance
+  let metricCore := metric.toCore (e.toSpacetime (b s))
+  have metricContinuous := metric.continuousAt (e.toSpacetime (b s))
+  have metricBounded := metric.isVonNBounded (e.toSpacetime (b s))
   let : NormedAddCommGroup (G.Horizontal (e.toSpacetime (b s))) :=
-    (metric.toCore (e.toSpacetime (b s))).toNormedAddCommGroupOfTopology
-      (metric.continuousAt (e.toSpacetime (b s)))
-      (metric.isVonNBounded (e.toSpacetime (b s)))
-  let : InnerProductSpace ℝ (G.Horizontal (e.toSpacetime (b s))) :=
-    .ofCoreOfTopology (metric.toCore (e.toSpacetime (b s)))
-      (metric.continuousAt (e.toSpacetime (b s)))
-      (metric.isVonNBounded (e.toSpacetime (b s)))
+    metricCore.toNormedAddCommGroupOfTopology metricContinuous metricBounded
+  let : NormedSpace ℝ (G.Horizontal (e.toSpacetime (b s))) :=
+    @InnerProductSpace.Core.toNormedSpaceOfTopology ℝ (G.Horizontal (e.toSpacetime (b s))) _
+      horizontalAdd horizontalModule metricCore horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul metricContinuous metricBounded
   obtain ⟨d, hd⟩ := E.parameter_derivative s hs
   let L : G.Horizontal (e.toSpacetime (b s)) →L[ℝ] EuclideanSpace ℝ (Fin n) :=
     (g.spatialTangentEquiv (b s).1 (b s).2).symm.toContinuousLinearMap

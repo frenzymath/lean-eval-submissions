@@ -86,9 +86,9 @@ theorem m65EmbeddedEnergyDensity_integrable (g : RiemannianMetric 3 M)
   obtain ⟨c, C, _, _, hb⟩ := m65EmbeddingMetric_uniform_bounds g e he hinj compact
   have hterm (i : Fin 2) :
       Integrable (fun z => m65EmbeddingMetric g e (q z) (d i z) (d i z)) μ := by
-    have hi := (memLp_two_iff_integrable_sq_norm (hd i).1).mp (hd i)
+    have hi := (memLp_two_iff_integrable_sq_norm (hd i).aestronglyMeasurable).mp (hd i)
     apply (hi.const_mul C).mono'
-      (hpair.comp_aestronglyMeasurable (hq'.prodMk (hd i).1))
+      (hpair.comp_aestronglyMeasurable (hq'.prodMk (hd i).aestronglyMeasurable))
     exact ae_of_all _ (fun z => by
       rw [Real.norm_eq_abs, abs_of_nonneg (m65EmbeddingMetric_nonneg g e (q z) (d i z))]
       exact (hb (q z) (d i z)).2)

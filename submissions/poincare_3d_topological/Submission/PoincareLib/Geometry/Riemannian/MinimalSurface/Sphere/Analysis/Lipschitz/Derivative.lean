@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Comparison.Smoothing.Charts.Distance
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Compatibility.Comparison
 
@@ -60,7 +61,7 @@ theorem norm_mfderiv_apply_le_of_lipschitzOn {f : E → M} {S : Set E}
     have hchain : fderiv ℝ (n ∘ f) z v = mfderiv 𝓘(ℝ, E) 𝓘(ℝ, F) f z v := by
       have hc := M40.normalizedSmoothChart_mfderiv_apply e he hx
         (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, F) f z v)
-      rw [← mfderiv_comp_apply z hnd hd, mfderiv_eq_fderiv] at hc
+      rw [← mfderiv_comp_apply z hnd hd, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
       exact hc
     rw [← hchain]
     exact (ContinuousLinearMap.le_opNorm _ _).trans

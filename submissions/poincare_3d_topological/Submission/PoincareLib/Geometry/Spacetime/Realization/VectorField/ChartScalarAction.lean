@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Geometry.Manifold.VectorField.LieBracket
 
 /-!
@@ -25,7 +26,7 @@ theorem extChart_scalar_action (x : M) {y : E} (hy : y ∈ (extChartAt I x).targ
   have hc := mfderiv_comp_mfderivWithin y hf
     (mdifferentiableWithinAt_extChartAt_symm hy)
     (I.uniqueMDiffOn y (extChartAt_target_subset_range x hy))
-  rw [mfderivWithin_eq_fderivWithin] at hc
+  rw [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model] at hc
   rw [hc, VectorField.mpullbackWithin_apply]
   change mfderiv I 𝓘(ℝ) f ((extChartAt I x).symm y)
       (mfderivWithin 𝓘(ℝ, E) I (extChartAt I x).symm (range I) y

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialMetricContraction
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.IntrinsicRadialVariation
@@ -92,7 +93,7 @@ theorem intrinsicSpatialInverse_tangentNorm_lower {R m : ℝ}
       Real.sqrt_le_sqrt (intrinsicSpatialMetric_inner_lower
         g D hrotation hcomplete hsec hR hm0 hm hxR v)
     _ = _ := by
-      rw [RiemannianMetric.tangentNorm, mfderiv_eq_fderiv]
+      rw [RiemannianMetric.tangentNorm, Poincare.Compatibility.mfderiv_eq_fderiv_model]
       convert! congrArg Real.sqrt (intrinsicSpatialMetric_pullback
         g hrotation hcomplete x v v) using 1
 

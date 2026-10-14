@@ -114,9 +114,9 @@ theorem exists_periodicLabel_displacement_L2_control
       ‖T f‖ ^ 2 = ∫ z : AddCircle P, ‖f z‖ ^ 2 ∂haarAddCircle := by
     rw [Lp.norm_def, eLpNorm_congr_ae
       (ContinuousMap.coeFn_toLp (p := 2) haarAddCircle (𝕜 := ℝ) f),
-      toReal_eLpNorm (f.memLp (p := 2) (μ := haarAddCircle) ℝ).1,
+      toReal_eLpNorm,
       lpNorm_eq_integral_norm_rpow_toReal (by norm_num) (by norm_num)
-        (f.memLp (p := 2) (μ := haarAddCircle) ℝ).1]
+        (f.memLp (p := 2) (μ := haarAddCircle) ℝ).aestronglyMeasurable]
     simp only [ENNReal.toReal_ofNat, Real.rpow_two, inv_eq_one_div, ← Real.sqrt_eq_rpow]
     exact Real.sq_sqrt (integral_nonneg fun _ => sq_nonneg _)
   have hperiod (f : C(AddCircle P, ℝ)) :

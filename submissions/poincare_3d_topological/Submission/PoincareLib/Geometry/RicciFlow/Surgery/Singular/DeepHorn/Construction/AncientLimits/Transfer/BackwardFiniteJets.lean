@@ -75,7 +75,7 @@ private theorem backward_center_norm_le_zero {t : ℝ} (ht : t ≤ 0)
   apply Finset.sum_le_sum
   intro a _
   exact mul_le_mul_of_nonneg_right
-    (Finset.prod_le_prod (fun i _ => (hweight (a i)).1) (fun i _ => (hweight (a i)).2))
+    (Finset.prod_le_prod₀ (fun i _ => (hweight (a i)).1) (fun i _ => (hweight (a i)).2))
     (sq_nonneg (T a))
 
 private theorem backward_error_le_zero {t : ℝ} (ht : t ≤ 0)

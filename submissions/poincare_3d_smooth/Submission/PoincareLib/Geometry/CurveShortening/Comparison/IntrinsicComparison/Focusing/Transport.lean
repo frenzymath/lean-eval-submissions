@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Focusing.Endpoint
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Variation.Manifold
@@ -73,13 +74,13 @@ theorem m64Intrinsic_pullback_coordinate_transport
   have hbase : DifferentiableAt ℝ (e ∘ u) t :=
     (heu.differentiableAt (by simp)).comp t (hut.differentiableAt (by simp))
   have hif : Function.Injective (fderiv ℝ e (u t)) := by
-    simpa only [mfderiv_eq_fderiv] using! hi
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using! hi
   have hmetric (y a b : AnnulusCoordinates) :
       N.metric.pullbackCoefficients e y a b =
         N.metric.euclideanCoefficients (e y) (fderiv ℝ e y a) (fderiv ℝ e y b) := by
     change N.metric.inner (e y) (mfderiv (𝓡 2) (𝓡 2) e y a)
       (mfderiv (𝓡 2) (𝓡 2) e y b) = _
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have h := ConnectionVariation.covDerivAlong_change_coordinates
     ((N.metric.contDiffAt_pullbackCoefficients
@@ -122,7 +123,7 @@ theorem m64Intrinsic_pushed_radial_pairing
     rw [map_smul, smul_apply, smul_eq_mul, hgauss]
   change N.metric.inner (e x) (mfderiv (𝓡 2) (𝓡 2) e x (c • x))
     (mfderiv (𝓡 2) (𝓡 2) e x w) = _ at h
-  simpa only [mfderiv_eq_fderiv] using! h
+  simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using! h
 
 /-- The norm of the pushed spherical focusing field is exactly the model sine radius.
 Source: MT Claim 19.43, p. 473; `reports/2026-09-24-intrinsic-radial-scalar.md`. -/
@@ -196,7 +197,7 @@ theorem m64Intrinsic_pushed_boundary_focusing
         N.metric.inner (gamma t) (fderiv ℝ e (u t) v) (fderiv ℝ e (u t) w) := by
     change N.metric.inner (e (u t)) (mfderiv (𝓡 2) (𝓡 2) e (u t) v)
       (mfderiv (𝓡 2) (𝓡 2) e (u t) w) = _
-    rw [mfderiv_eq_fderiv, hboundary t ht]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hboundary t ht]
     rfl
   have hspeed := m64Intrinsic_boundarySpeed_pos N hradius t
   have hspeedSq : intrinsicBoundarySpeed N.metric radius t ^ 2 =

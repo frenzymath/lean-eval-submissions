@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Limit.SpeedRelabeling
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Connection.Algebra
 
@@ -33,7 +34,7 @@ theorem m65CurveVelocity_comp {gamma : ℝ → M} {phi : ℝ → ℝ} {x d : ℝ
   have hchain := mfderiv_comp_apply (f := phi) (g := gamma) x
     hgamma hphi.differentiableAt.mdifferentiableAt (1 : ℝ)
   have hparam : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) phi x (1 : ℝ) = d := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hphi.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hphi.deriv
   change curveVelocity (n := n) (gamma ∘ phi) x = _ at hchain
   erw [hparam] at hchain
   rw [hchain]

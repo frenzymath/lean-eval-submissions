@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Transfer.ImmersedPerturbationComposition
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Limit.Relabeling.Connection
@@ -140,7 +141,7 @@ theorem foldControls_chart_fderiv_single
     L hL j hj x y
   have hchart := mfderiv_congr_point (I := 𝓡 3) (I' := 𝓡 3)
     (f := chartAt LoopAmbient q) hpoint
-  simpa +instances only [mfderiv_eq_fderiv, Function.comp_def, hcolumn, hchart, map_smul]
+  simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, Function.comp_def, hcolumn, hchart, map_smul]
     using! hchain
 
 end PoincareMT.M65Perturbation

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.PartialLimits.Geometry.CoordinateGerms
 
@@ -38,7 +39,7 @@ theorem pullbackCoefficients_comp (g : RiemannianMetric n M)
     g.inner (f (a x))
       (mfderiv (𝓡 n) (𝓡 n) f (a x) (fderiv ℝ a x v))
       (mfderiv (𝓡 n) (𝓡 n) f (a x) (fderiv ℝ a x w))
-  rw [mfderiv_comp x hf ha.mdifferentiableAt, mfderiv_eq_fderiv]
+  rw [mfderiv_comp x hf ha.mdifferentiableAt, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rfl
 
 /-- A smooth map landing in the actual chart source has exactly the chart

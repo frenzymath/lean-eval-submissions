@@ -91,7 +91,7 @@ private theorem m65CircleBoundary_pairing (b : Lp ℝ 2 m65CircleBoundaryMeasure
         ∫ z, b z * (test z * z i) ∂m65CircleBoundaryMeasure := by
   have hm : AEStronglyMeasurable (fun z : LoopPlane => b z * (test z * z i))
       m65CircleBoundaryMeasure :=
-    (Lp.memLp b).1.mul
+    (Lp.memLp b).aestronglyMeasurable.mul
       ((test.continuous.mul (EuclideanSpace.proj i).continuous).aestronglyMeasurable)
   calc
     _ = ∫ t in Icc (-Real.pi) Real.pi, b (Proofs.M58.angularPoint t) *

@@ -29,7 +29,7 @@ theorem directional_fderiv_commute {f : E → F} (hf : ContDiff ℝ ∞ f)
   have hd := (hf.fderiv_right (m := ∞) (by simp)).differentiable (by simp)
   simp only [fderiv_clm_apply (hd x) (differentiableAt_const _)]
   simpa using (hf.contDiffAt.isSymmSndFDerivAt
-    (by simp; exact ENat.natCast_le_of_coe_top_le_withTop le_rfl 2)) w v
+    (by simp)) w v
 
 theorem timeDerivative_spatialDerivative_apply {f : E × ℝ → F}
     (hf : ContDiff ℝ ∞ f) (v : E) (p : E × ℝ) :

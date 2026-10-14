@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /-
 Copyright (c) 2026 The PoincareLib contributors.
 -/
@@ -49,7 +50,7 @@ theorem edge_mfderiv_injective (a : D.EdgeIndex) (t : ℝ) :
     ((mdifferentiable_chart (I := 𝓡 2) (a.1.1 : M)).mdifferentiableAt_symm
       (D.edgeCurve_mem_target a t))
     ((D.edgeCurve_smooth a).differentiable (by simp) t).mdifferentiableAt,
-    mfderiv_eq_fderiv]
+    Poincare.Compatibility.mfderiv_eq_fderiv_model]
   apply ((mdifferentiable_chart (I := 𝓡 2) (a.1.1 : M)).symm.mfderiv_injective
     (D.edgeCurve_mem_target a t)).comp
   change Function.Injective (fderiv ℝ (D.edgeCurve a) t)
@@ -75,7 +76,7 @@ theorem edge_coordinate_deriv_ne_zero (a : D.EdgeIndex)
   have hdiff : C.MDifferentiable (𝓡 2) (𝓡 2) :=
     ⟨hC.mdifferentiableOn (by simp), hCinv.mdifferentiableOn (by simp)⟩
   have hinj : Function.Injective (fderiv ℝ (C.symm ∘ (D.edge a.1 a.2).map) t) := by
-    rw [← mfderiv_eq_fderiv, mfderiv_comp t (hdiff.symm.mdifferentiableAt ht)
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp t (hdiff.symm.mdifferentiableAt ht)
       ((D.edge_contMDiff a).mdifferentiable (by simp) t)]
     exact (hdiff.symm.mfderiv_injective ht).comp (D.edge_mfderiv_injective a t)
   intro hzero

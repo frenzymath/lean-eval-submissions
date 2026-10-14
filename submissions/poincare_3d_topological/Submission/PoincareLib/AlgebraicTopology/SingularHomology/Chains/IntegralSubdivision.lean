@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Chains.IntegralTupleRealization
 import Mathlib.Analysis.SpecificLimits.Basic
 import Mathlib.Topology.MetricSpace.Pseudo.Lemmas
@@ -103,7 +104,7 @@ def integralBarycentricSubdivision (X : Type u) [TopologicalSpace X] :
   apply SSet.chainComplex_hom_ext
   intro x
   obtain ⟨s, rfl⟩ :=
-    ((TopCat.of X).toSSetObjEquiv (Opposite.op ⦋j + 1⦌)).symm.surjective x
+    ((TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋j + 1⦌)).symm.surjective x
   change integralSingularGenerator s ≫ (F (j + 1) ≫ (integralChains X).d (j + 1) j) =
     integralSingularGenerator s ≫ ((integralChains X).d (j + 1) j ≫ F j)
   apply ModuleCat.hom_ext
@@ -265,7 +266,7 @@ def integralSubdivisionPrism (X : Type u) [TopologicalSpace X] :
     apply SSet.chainComplex_hom_ext
     intro x
     obtain ⟨s, rfl⟩ :=
-      ((TopCat.of X).toSSetObjEquiv (Opposite.op ⦋n⦌)).symm.surjective x
+      ((TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)).symm.surjective x
     change integralSingularGenerator s ≫ 𝟙 ((integralChains X).X n) =
       integralSingularGenerator s ≫
         (dNext n P + prevD n P + (integralBarycentricSubdivision X).f n)
@@ -366,7 +367,7 @@ theorem integralSubdivision_natural (f : C(X, Y)) :
   apply SSet.chainComplex_hom_ext
   intro x
   obtain ⟨s, rfl⟩ :=
-    ((TopCat.of X).toSSetObjEquiv (Opposite.op ⦋n⦌)).symm.surjective x
+    ((TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)).symm.surjective x
   change integralSingularGenerator s ≫
       ((integralBarycentricSubdivision X).f n ≫
         (integralChainsFunctor.map (TopCat.ofHom f)).f n) =
@@ -562,6 +563,7 @@ theorem integral_subdivision_eventually_small (U : I → Set X)
         (integralSingularGenerator s (ULift.up 1)) ∈ integralSmallChains U n := by
     cases n with
     | zero =>
+        letI : Subsingleton (integralSimplex 0) := coordinateSimplexZeroSubsingleton
         have hx : s (integralSimplexVertices 0 0) ∈ ⋃ i, U i := by
           rw [hcover]
           exact Set.mem_univ _

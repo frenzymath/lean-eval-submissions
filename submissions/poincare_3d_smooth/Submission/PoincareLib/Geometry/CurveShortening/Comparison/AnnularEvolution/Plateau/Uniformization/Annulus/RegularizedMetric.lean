@@ -75,8 +75,17 @@ def m64RegularizedPullbackMetric (g : RiemannianMetric n M)
       linarith
     · change (Real.sqrt delta)⁻¹ • (Real.sqrt delta • v) = v
       rw [smul_smul, inv_mul_cancel₀ (Real.sqrt_ne_zero'.mpr hdelta), one_smul]
-  contMDiff p := (M60.metricPullbackForm_contMDiffAt g (hf p)).add_section
-    ((regularizationPlaneMetric.contMDiff p).const_smul_section (a := delta))
+  contMDiff p := by
+    let (x : LoopPlane) : NormedAddCommGroup (TangentSpace (𝓡 2) x) :=
+      normedAddCommGroupTangentSpaceVectorSpace x
+    let (x : LoopPlane) : NormedSpace ℝ (TangentSpace (𝓡 2) x) :=
+      normedSpaceTangentSpaceVectorSpace x
+    let : ∀ x : LoopPlane, ContinuousAdd (TangentSpace (𝓡 2) x →L[ℝ] ℝ) :=
+      fun x => inferInstance
+    let : ∀ x : LoopPlane, ContinuousSMul ℝ (TangentSpace (𝓡 2) x →L[ℝ] ℝ) :=
+      fun x => inferInstance
+    exact (M60.metricPullbackForm_contMDiffAt g (hf p)).add_section
+      ((regularizationPlaneMetric.contMDiff p).const_smul_section (a := delta))
 
 /-- The regularized source metric is the actual pullback plus delta times the Euclidean
 form. Source: Morgan--Tian (2007), Lemma 19.15, pp. 447-449, with the project construction

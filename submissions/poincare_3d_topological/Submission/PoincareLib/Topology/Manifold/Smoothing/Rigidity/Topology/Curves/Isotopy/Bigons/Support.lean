@@ -12,7 +12,7 @@ is proved injective on that whole disk, including its boundary.
 -/
 
 set_option autoImplicit false
-set_option maxHeartbeats 800000
+set_option maxHeartbeats 4000000
 open Set Geometry PLAnnularStrip
 
 namespace PoincareMT.M76.Dehn

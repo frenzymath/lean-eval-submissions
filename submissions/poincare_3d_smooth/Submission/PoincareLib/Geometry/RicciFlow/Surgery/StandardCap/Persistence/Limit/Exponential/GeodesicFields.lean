@@ -15,6 +15,7 @@ pp. 371-372; see `derivations/16-geodesic-field-convergence.md`.
 -/
 
 set_option autoImplicit false
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 
 open Set Filter

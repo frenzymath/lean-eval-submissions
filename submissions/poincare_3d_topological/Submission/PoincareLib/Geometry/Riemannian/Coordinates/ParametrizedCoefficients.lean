@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 import Submission.PoincareLib.Geometry.Manifold.ContDiff.LinearMap
 
@@ -52,6 +53,7 @@ theorem parametrizedCoefficients_congr_of_eventuallyEq (g : RiemannianMetric n M
   ext v w
   simp only [parametrizedCoefficients_apply]
   erw [heq.mfderiv_eq, heq.self_of_nhds]
+  rfl
 
 theorem contDiffAt_parametrizedCoefficients [FiniteDimensional ℝ E]
     (g : RiemannianMetric n M) {f : E → M} {x : E}
@@ -76,7 +78,7 @@ theorem parametrizedCoefficients_comp_of_eventuallyEq
     (g.parametrizedCoefficients q (f x)).bilinearComp
       (fderiv ℝ f x) (fderiv ℝ f x) = g.parametrizedCoefficients p x := by
   have hd := mfderiv_comp x hq hf.mdifferentiableAt
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hchain : (mfderiv 𝓘(ℝ, E) (𝓡 n) q (f x)).comp (fderiv ℝ f x) =
       mfderiv 𝓘(ℝ, E) (𝓡 n) p x := hd.symm.trans heq.mfderiv_eq
   ext v w

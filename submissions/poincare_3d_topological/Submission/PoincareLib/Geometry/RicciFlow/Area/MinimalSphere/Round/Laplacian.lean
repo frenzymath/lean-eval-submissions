@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Area.MinimalSphere.Round.Volume
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Divergence.Coordinates
 
@@ -59,7 +60,7 @@ theorem m60RoundSphere_gradientFlux (D : LeviCivitaData m60RoundSphereMetric)
     _ = mvfderiv (𝓡 2) f (m60SphereParameter z)
         (mfderiv (𝓡 2) (𝓡 2) m60SphereParameter z v) := D.inner_gradient _ _ _
     _ = mvfderiv (𝓡 2) (f ∘ m60SphereParameter) z v := hchain.symm
-    _ = _ := by rw [mvfderiv, mfderiv_eq_fderiv]; rfl
+    _ = _ := by rw [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]; rfl
 
 /-- Multiplying the round Laplacian by the stereographic density gives
 the Euclidean coordinate Laplacian. Only local smoothness of the scalar

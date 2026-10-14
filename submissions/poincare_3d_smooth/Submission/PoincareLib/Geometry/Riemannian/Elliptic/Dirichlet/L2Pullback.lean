@@ -79,7 +79,7 @@ theorem exists_map_compact_coordinate_le (g : RiemannianMetric n M)
   calc
     _ ≤ (c⁻¹ • ν).map e := Measure.map_mono_of_aemeasurable hbound hm
     _ = c⁻¹ • g.volumeMeasure.restrict e.target := by
-      rw [Measure.map_smul, g.map_coordinate_density e he hei]
+      rw [Measure.map_smul _ (e.continuousOn.aemeasurable e.open_source.measurableSet), g.map_coordinate_density e he hei]
     _ ≤ _ := smul_le_smul_left c⁻¹ Measure.restrict_le_self
 
 /-- A compact coordinate pullback is represented by a continuous linear map

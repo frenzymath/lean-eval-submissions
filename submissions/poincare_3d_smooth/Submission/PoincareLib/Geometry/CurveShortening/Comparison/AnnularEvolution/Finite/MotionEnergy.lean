@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Finite.MotionTangent
 
 /-! The ambient first-jet energy and its actual time derivative are
@@ -79,7 +80,7 @@ theorem m64TangentScalar_timePartial_continuousOn {T : Set ℝ} (hT : IsOpen T)
   have hh := hd.clm_apply (contMDiffAt_const (c := (1 : ℝ)))
   have hresult : ContMDiffAt ((𝓘(ℝ, ℝ)).prod ((𝓡 n).prod (𝓡 n))) 𝓘(ℝ, ℝ) 0
       (fun p : ℝ × TangentBundle (𝓡 n) M => deriv (fun s => H (s, p.2)) p.1) w := by
-    simpa +instances only [inTangentCoordinates_model_space, mfderiv_eq_fderiv,
+    simpa +instances only [inTangentCoordinates_model_space, Poincare.Compatibility.mfderiv_eq_fderiv_model,
       fderiv_apply_one_eq_deriv] using! hh
   exact hresult.continuousAt.continuousWithinAt
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Exponential.Differential.ExponentialLineRegularity
 
 /-!
@@ -10,6 +11,7 @@ the derivative of every smooth inverse-gauge coordinate to vanish.
 -/
 
 set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
 -- Actual horizontal and self-model tangent fibers use the installed metric norm.
 set_option backward.isDefEq.respectTransparency false
 
@@ -37,17 +39,26 @@ theorem exponentialLine_mfderiv (E : M14ExponentialFamily G T x)
     mfderiv (𝓘(ℝ, ℝ)) (spacetimeModel n) (fun r : ℝ => E.gamma (Z + r • W) s) 0 (1 : ℝ) =
       (E.differential Z s hs W).val := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   have hline : HasDerivAt (fun r : ℝ => Z + r • W) W 0 := by
     simpa only [id_eq, one_smul] using ((hasDerivAt_id (0 : ℝ)).smul_const W).const_add Z
   have hlineM : mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, G.Horizontal x))
       (fun r : ℝ => Z + r • W) 0 (1 : ℝ) = W := by
-    rw [mfderiv_eq_fderiv, hline.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.hasFDerivAt.fderiv]
     change (1 : ℝ) • W = W
     exact one_smul ℝ W
   have hchain := mfderiv_comp_apply_of_eq (x := (0 : ℝ))
@@ -85,7 +96,7 @@ theorem exponentialLine_coordinate_deriv_eq_zero (E : M14ExponentialFamily G T x
     hchain.trans (map_zero _)
   have hmf : mfderiv (𝓘(ℝ, ℝ)) (𝓡 n)
       (fun r : ℝ => (lift (E.gamma (Z + r • W) c)).2.val) 0 =
-      fderiv ℝ (fun r : ℝ => (lift (E.gamma (Z + r • W) c)).2.val) 0 := mfderiv_eq_fderiv
+      fderiv ℝ (fun r : ℝ => (lift (E.gamma (Z + r • W) c)).2.val) 0 := Poincare.Compatibility.mfderiv_eq_fderiv_model
   have hd : fderiv ℝ (fun r : ℝ => (lift (E.gamma (Z + r • W) c)).2.val) 0 (1 : ℝ) = 0 :=
     (congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => L 1) hmf).symm.trans hchain0
   exact fderiv_apply_one_eq_deriv.symm.trans hd

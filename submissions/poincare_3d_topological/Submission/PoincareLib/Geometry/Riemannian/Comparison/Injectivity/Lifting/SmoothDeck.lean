@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Lifting.DeckMotion
 
 /-!
@@ -127,20 +128,32 @@ theorem pullbackCoefficients_deck_motion
     g.pullbackCoefficients f (d x) (fderiv ℝ d x v) (fderiv ℝ d x w) =
       g.pullbackCoefficients f x v w := by
   have hchain := mfderiv_comp x hf hd.mdifferentiableAt
-  rw [hproj.mfderiv_eq, mfderiv_eq_fderiv] at hchain
+  rw [hproj.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   have hv := congrArg (fun A : EuclideanSpace ℝ (Fin n) →L[ℝ]
     EuclideanSpace ℝ (Fin n) => A v) hchain
   have hw := congrArg (fun A : EuclideanSpace ℝ (Fin n) →L[ℝ]
     EuclideanSpace ℝ (Fin n) => A w) hchain
   simp only [ContinuousLinearMap.comp_apply, TangentSpace] at hv hw
+  have hv' : (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) f x v) =
+      mfderiv (𝓡 n) (𝓡 n) f (d x) (fderiv ℝ d x v) := by
+    convert! hv using 1
+  have hw' : (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) f x w) =
+      mfderiv (𝓡 n) (𝓡 n) f (d x) (fderiv ℝ d x w) := by
+    convert! hw using 1
   change g.inner (f (d x))
     (mfderiv (𝓡 n) (𝓡 n) f (d x) (fderiv ℝ d x v))
     (mfderiv (𝓡 n) (𝓡 n) f (d x) (fderiv ℝ d x w)) =
       g.inner (f x) (mfderiv (𝓡 n) (𝓡 n) f x v) (mfderiv (𝓡 n) (𝓡 n) f x w)
-  simp only [TangentSpace]
-  rw [← hv, ← hw]
-  exact congrArg (fun p : M => g.inner p
-    (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) f x v)
-    (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) f x w)) hproj.self_of_nhds
+  calc
+    _ = g.inner (f (d x))
+        (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) f x v)
+        (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) f x w) := by
+      convert! congrArg₂ (fun a b : EuclideanSpace ℝ (Fin n) =>
+        g.inner (f (d x)) a b) hv'.symm hw'.symm using 1
+    _ = _ := by
+      convert! congrArg (fun p : M => g.inner p
+        (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) f x v)
+        (show EuclideanSpace ℝ (Fin n) from mfderiv (𝓡 n) (𝓡 n) f x w))
+        hproj.self_of_nhds using 1
 
 end PoincareMT

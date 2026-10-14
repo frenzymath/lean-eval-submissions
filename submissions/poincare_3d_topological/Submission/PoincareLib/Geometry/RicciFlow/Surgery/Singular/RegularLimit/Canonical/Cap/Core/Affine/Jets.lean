@@ -74,7 +74,7 @@ theorem tensorWeight_nonneg {a : ℝ} (ha : 0 ≤ a) {r : ℕ} (i : Fin r → Fi
 
 theorem tensorWeight_le_one {a : ℝ} (ha : 0 ≤ a) (haone : a ≤ 1)
     {r : ℕ} (i : Fin r → Fin 3) : tensorWeight a i ≤ 1 := by
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro k _
     simp only [axisWeight]
     split <;> positivity

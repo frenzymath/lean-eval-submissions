@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Observed.Lipschitz
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Lipschitz.VectorGreen
 
@@ -60,7 +61,7 @@ theorem m64ObservedWeakAnnulus_of_annulus [CompactSpace M]
     refine ⟨mfderiv (𝓡 2) (𝓡 n) A.map p (EuclideanSpace.single i 1), ?_⟩
     have hc := mfderiv_comp p (he.mdifferentiable (by simp) _) hp
     have hd := congrArg (fun L => L (EuclideanSpace.single i 1)) hc
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact hd.symm
   let W : M64ObservedWeakAnnulus (n := n) e c0 c1 := {
     map := A.map

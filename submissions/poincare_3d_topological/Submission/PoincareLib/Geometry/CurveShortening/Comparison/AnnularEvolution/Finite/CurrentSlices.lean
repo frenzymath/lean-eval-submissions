@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Finite.CurrentTraces
 
 /-! Source derivatives of the genuine finite-regularity current
@@ -39,7 +40,7 @@ theorem m64FiniteAnnulusCurrent_along_slice_hasDerivAt
   filter_upwards [hinside, hbase] with y hy hby
   have hline : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) ell y 1 =
       EuclideanSpace.basisFun (Fin 2) ℝ i := by
-    rw [mfderiv_eq_fderiv, (hell y).hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (hell y).hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ _
   have hchain := mfderiv_comp_apply y hby (hell y).differentiableAt.mdifferentiableAt (1 : ℝ)
   rw [hline] at hchain

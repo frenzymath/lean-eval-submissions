@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.RampTransport.Chart.CurveProjection
 
@@ -102,7 +103,7 @@ theorem m64_pushforward_pullback_norm_continuous
       hc.continuous.continuousAt.eventually hchart] with s hs hse
     have hd := mfderiv_comp (c s) ((he (c s) hse).mdifferentiableAt (by simp))
       (hs.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hv' : v s = mfderiv (𝓡 n) (𝓡 n) e (j (c s))
         (mfderiv (𝓡 m) (𝓡 n) j (c s) (W s)) := congrArg (fun L => L (W s)) hd
     rw [hv']

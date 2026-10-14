@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Spacetime.Interval
 import Submission.PoincareLib.Geometry.Spacetime.Interval.UniqueDifferential
 import Submission.PoincareLib.Analysis.Calculus.InverseWithin
@@ -56,7 +57,7 @@ private theorem chart_real_invertible (T : SmoothSpacetimeInterval I) (p : T.Poi
       mfderivWithin 𝓘(ℝ, EuclideanSpace ℝ (Fin 1)) (𝓡∂ 1)
         c.symm (range (𝓡∂ 1)) y :=
     hc.mfderivWithin_mono hu (extChartAt_target_subset_range p)
-  rw [← mfderivWithin_eq_fderivWithin]
+  rw [← Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
   change (mfderivWithin 𝓘(ℝ, EuclideanSpace ℝ (Fin 1)) 𝓘(ℝ)
     ((Subtype.val : T.Point → ℝ) ∘ c.symm) c.target y).IsInvertible
   rw [mfderiv_comp_mfderivWithin y
@@ -111,7 +112,7 @@ theorem realParam_mfderivWithin (T : SmoothSpacetimeInterval I)
   have hid : mfderivWithin 𝓘(ℝ) 𝓘(ℝ)
       ((Subtype.val : T.Point → ℝ) ∘ T.realParam) I.domain t =
       ContinuousLinearMap.id ℝ ℝ := by
-    rw [mfderivWithin_eq_fderivWithin]
+    rw [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
     exact ((hasFDerivWithinAt_id t I.domain).congr
       (fun s hs => T.realParam_val hs) (T.realParam_val ht)).fderivWithin hu
   rw [hid, ← T.inclusionDerivative_eq] at hcomp

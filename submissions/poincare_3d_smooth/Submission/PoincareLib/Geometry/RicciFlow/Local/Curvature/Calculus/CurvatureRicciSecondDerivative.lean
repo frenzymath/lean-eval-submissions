@@ -281,6 +281,7 @@ theorem ricci_second_covariant_derivative_eq_sum_basis
       _ = mvfderiv (𝓡 n) (fun y => ∑ i, q i (K A (E i) B C) y) x (P x) := by
         dsimp only [mvfderiv]
         rw [heq.mfderiv_eq (I := 𝓡 n) (I' := 𝓘(ℝ, ℝ)), heq.eq_of_nhds]
+        rfl
       _ = _ := (hdsum _
         (fun i => hqmd i _ (hK A _ B C hA (hE i) hB hC)) (P x)).2
   obtain ⟨T, hT⟩ := exists_curvatureOnFields_derivative_quadrilinearMap D x

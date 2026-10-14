@@ -107,7 +107,9 @@ theorem isImmersionAtOfComplement_of_injective_mfderiv
     (hf.comp_contMDiffOn (contMDiffOn_chart_symm (I := 𝓘(Real, E)))).contDiffOn
   have hder : mfderiv 𝓘(Real, E) 𝓘(Real, F) f x = fderiv Real g (c x) := by
     rw [mfderiv, if_pos ((hf x).mdifferentiableAt (by simp))]
-    simp [g, c, writtenInExtChartAt]
+    simp [g, c, writtenInExtChartAt, tangentSpaceCastModel, TangentSpace]
+    ext v
+    rfl
   obtain ⟨A, hA⟩ := exists_continuousLinearEquiv_prod_of_injective
     (fderiv Real g (c x)) (hder ▸ hinj)
   let G : E × C -> F := fun z => g z.1 + A (0, z.2)

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Radial.Scalar
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.RadialCurve
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.JetBounds.PrecompactGauss
@@ -86,7 +87,7 @@ theorem m64Intrinsic_exists_regular_radial_exponential
   have hinj : Function.Injective (fderiv ℝ e 0) := by
     intro u v huv
     have h := hmetric (u - v) (u - v)
-    simp only [TangentSpace, mfderiv_eq_fderiv] at h
+    simp only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     change N.metric.inner (e 0) ((fderiv ℝ e 0) (u - v))
       ((fderiv ℝ e 0) (u - v)) = inner ℝ (u - v) (u - v) at h
     rw [map_sub, huv, sub_self, map_zero] at h
@@ -115,7 +116,7 @@ theorem m64Intrinsic_exists_regular_radial_exponential
   · intro v hv t ht
     exact (hgeo v (hball hv)).1 t (hball ht)
   · intro v hv
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (hsmall hv).2.injective
   · intro v hv
     simpa only [one_smul, ENNReal.ofReal_one, mul_one] using

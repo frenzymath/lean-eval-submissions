@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.ConformalCurvature
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.NormalDensity
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.Gauss.Equation
@@ -34,7 +35,7 @@ private theorem conformalGram_pairing
       g.euclideanCoefficients (F x) (fderiv ℝ F x (e i)) (fderiv ℝ F x (e j)) =
         if i = j then c else 0 := by
     have hh := congrArg (fun A : Matrix (Fin 2) (Fin 2) ℝ => A i j) hconf
-    simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+    simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
       Matrix.one_apply, smul_eq_mul, mul_ite, mul_one, mul_zero] using! hh
   have hv (a : LoopPlane) : a = a 0 • e 0 + a 1 • e 1 := by
     ext i

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Elliptic.Dirichlet.Coordinates
 
 /-!
@@ -37,7 +38,7 @@ theorem fderiv_comp_eq_inner_gradient
   have h := mvfderiv_comp x ((f.smooth (e x)).mdifferentiableAt (by simp))
     ((he.contMDiffAt (e.open_source.mem_nhds hx)).mdifferentiableAt (by simp))
   have h' := congrArg (fun L => L v) h
-  simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
     ContinuousLinearMap.comp_apply] at h'
   convert! h' using 1
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityGeometry
 import Mathlib.Analysis.Calculus.InverseFunctionTheorem.ContDiff
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
@@ -83,7 +84,7 @@ theorem m65Embedding_exists_linear_chart (e : M → EuclideanSpace ℝ (Fin N))
     have hright := mfderivWithin_extChartAt_symm_comp_mfderiv_extChartAt ha
     simp only [ModelWithCorners.range_eq_univ, mfderivWithin_univ] at hleft hright
     have hbij := (ContinuousLinearMap.IsInvertible.of_inverse hright hleft).bijective
-    rw [← mfderiv_eq_fderiv, mfderiv_comp a (he.contMDiffAt.mdifferentiableAt (by simp))
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp a (he.contMDiffAt.mdifferentiableAt (by simp))
       (hpsi.mdifferentiableAt (by simp))]
     exact (hinj _).comp hbij.injective
   obtain ⟨L, k, hk, hksmooth, hkinv⟩ := M65Interior.exists_linear_local_inverse hj hA

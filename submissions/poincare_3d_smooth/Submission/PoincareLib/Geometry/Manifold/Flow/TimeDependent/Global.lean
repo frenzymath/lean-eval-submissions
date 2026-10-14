@@ -248,6 +248,7 @@ theorem exists_smooth_timeDependentFlow_from_anchor_of_compact_confinement
     have heval : Φ (t, x) = Ψ ⟨t, ht⟩ x (t, x) := he _ _ ⟨hta _, hxV _ _⟩
     apply (((hΨ ⟨t, ht⟩ x).orbit x (hxV _ _) t (hta _)).congr_of_eventuallyEq hev).congr_mfderiv
     rw [heval]
+    rfl
 
 /-- Finite-slab confinement constructs the evolution between arbitrary start
 and end times. Its composition law supplies inverse slices by reversing the

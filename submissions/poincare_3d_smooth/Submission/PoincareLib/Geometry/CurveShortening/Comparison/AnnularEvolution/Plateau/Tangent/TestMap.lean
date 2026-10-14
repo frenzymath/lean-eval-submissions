@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Chart.ReaderProjection
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 
@@ -75,7 +76,7 @@ theorem m64_exists_smooth_tangent_test (q : M) (w : TangentSpace (𝓡 n) q) :
   · have hcomp := mfderiv_comp (I := 𝓡 2) (I' := 𝓡 n) (I'' := 𝓡 n) 0
       (hc.mdifferentiableAt_symm (hFt 0)) hDF.differentiableAt.mdifferentiableAt
     change mfderiv (𝓡 2) (𝓡 n) (c.symm ∘ F) 0 _ = w
-    rw [hcomp, mfderiv_eq_fderiv, hDF.fderiv, hF0]
+    rw [hcomp, Poincare.Compatibility.mfderiv_eq_fderiv_model, hDF.fderiv, hF0]
     have hid := congrArg (fun T => T w) (hc.symm_comp_deriv hq)
     erw [ContinuousLinearMap.comp_apply, ContinuousLinearMap.smulRight_apply]
     have hb : (EuclideanSpace.proj (𝕜 := ℝ) (0 : Fin 2))

@@ -205,7 +205,8 @@ theorem exists_northern_cylindrical_cap_with_range (v : E3) (hv : ‖v‖ = 1) :
     have hFd : Function.Injective (fderiv Real F (p x)) := by
       have h := (F.mfderivToContinuousLinearEquiv (by simp) (p x)).injective
       change Function.Injective (mfderiv (𝓡 3) (𝓡 3) F (p x)) at h
-      simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+      rw [mfderiv_eq_fderiv] at h
+      exact h
     rw [show g = F ∘ p from rfl, fderiv_comp x
       (F.contMDiff.contDiff.differentiable (by simp) (p x))
       ((contDiff_northernDiskSphere hv).differentiable (by simp) x)]

@@ -48,6 +48,7 @@ theorem mvfderiv_eq_of_eventuallyEq {f h : M → ℝ} {x : M}
   unfold mvfderiv
   rw [heq.mfderiv_eq]
   rw [heq.eq_of_nhds]
+  rfl
 
 /-- The derivatives of a smooth partition of unity sum to zero at every point. -/
 theorem sum_mvfderiv_partition_eq_zero (ρ : SmoothPartitionOfUnity ι (𝓡 n) M)

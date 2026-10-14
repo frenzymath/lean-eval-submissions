@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.HausdorffDensity
 import Submission.PoincareLib.Geometry.Riemannian.Surface.CurvatureDensity
 import Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap
@@ -67,7 +68,7 @@ private theorem pullbackVolumeDensity_planeEquiv
       mfderiv (𝓡 2) (𝓡 2) (f ∘ planeEquiv) x w =
         mfderiv 𝓘(ℝ, ℝ × ℝ) (𝓡 2) f (planeEquiv x) (planeEquiv w) := by
     have h := congrArg (fun L => L w) hd
-    simp only [mfderiv_eq_fderiv, planeEquiv.fderiv] at h
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, planeEquiv.fderiv] at h
     exact h
   have h₀ : planeEquiv (EuclideanSpace.basisFun (Fin 2) ℝ 0) = (1, 0) := by
     ext <;> simp [planeEquiv, EuclideanSpace.basisFun_apply, EuclideanSpace.single]

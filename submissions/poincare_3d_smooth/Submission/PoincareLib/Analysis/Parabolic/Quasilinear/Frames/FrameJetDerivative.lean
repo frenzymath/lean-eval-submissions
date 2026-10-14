@@ -116,6 +116,7 @@ theorem mvfderiv_matrix_inv_entry
             (1 : Matrix (Fin n) (Fin n) ℝ) a b) x := by
       simp only [mvfderiv]
       rw [hevent.mfderiv_eq, hevent.eq_of_nhds]
+      rfl
     have hd := congrArg (fun L => L v) heq
     rw [mvfderiv_const, ContinuousLinearMap.zero_apply,
       mvfderiv_finset_sum (fun c y => (G y)⁻¹ a c * G y c b)

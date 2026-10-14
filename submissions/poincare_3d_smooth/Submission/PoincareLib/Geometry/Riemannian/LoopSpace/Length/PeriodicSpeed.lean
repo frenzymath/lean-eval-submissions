@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Length.Angular
 import Submission.PoincareLib.Topology.VectorBundle.CompactDisk
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
@@ -44,7 +45,7 @@ theorem periodic_freeLoopSpeed (g : RiemannianMetric 3 M)
     ((contDiff_id.add contDiff_const).contDiffAt : ContDiffAt ℝ ∞ a t).contMDiffAt.mdifferentiableAt
       (by simp)
   have hda : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) a t (1 : ℝ) = 1 := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
       ((hasDerivAt_id t).add_const rampPeriod).deriv
   have heq : periodicFreeLoop γ ∘ a = periodicFreeLoop γ :=
     funext (periodic_periodicFreeLoop γ)

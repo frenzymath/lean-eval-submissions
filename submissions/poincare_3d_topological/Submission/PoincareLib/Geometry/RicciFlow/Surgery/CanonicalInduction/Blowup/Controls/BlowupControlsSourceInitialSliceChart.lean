@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Poincare.Final.Compatibility.Metric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Blowup.Controls.BlowupControlsSourceInitialSliceMetric
 
@@ -99,7 +100,7 @@ theorem source_neck_slice_axial_mfderiv (s : ℝ) (hs : s ∈ I)
   have hderiv : mfderiv (𝓡 3) 𝓘(ℝ, ℝ) (height ∘ f) p =
       mfderiv (𝓡 3) 𝓘(ℝ, ℝ) cylinderHeightCovector p := heq.mfderiv_eq
   have hL : mfderiv (𝓡 3) 𝓘(ℝ, ℝ) cylinderHeightCovector p = cylinderHeightCovector := by
-    rw [mfderiv_eq_fderiv, cylinderHeightCovector.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, cylinderHeightCovector.hasFDerivAt.fderiv]
   rw [mfderiv_comp p (hheight.mdifferentiableAt (by simp))
     (hf.mdifferentiableAt (by simp)), hL] at hderiv
   exact congrArg (fun A => A v) hderiv

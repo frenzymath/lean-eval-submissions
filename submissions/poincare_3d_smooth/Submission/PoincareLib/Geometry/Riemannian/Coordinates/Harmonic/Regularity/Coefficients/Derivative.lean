@@ -1,4 +1,5 @@
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Perturbation
+import Submission.PoincareLib.Compatibility.Tangent
 
 /-!
 # Derivatives of the density-weighted inverse metric
@@ -40,7 +41,13 @@ theorem euclideanDivergenceOperator_basis_apply
       (OpenPartialHomeomorph.refl (EuclideanSpace ℝ (Fin n))) x =
       g.euclideanCoefficients x := by
     ext u v
-    simp [pullbackCoefficients]
+    change g.inner x
+      ((mfderiv (𝓡 n) (𝓡 n) id x :
+        EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) u)
+      ((mfderiv (𝓡 n) (𝓡 n) id x :
+        EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) v) = _
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
+    simp only [fderiv_id, euclideanCoefficients]
     rfl
   have hdual : innerSL ℝ (EuclideanSpace.basisFun (Fin n) ℝ j) =
       EuclideanSpace.proj (𝕜 := ℝ) j := by

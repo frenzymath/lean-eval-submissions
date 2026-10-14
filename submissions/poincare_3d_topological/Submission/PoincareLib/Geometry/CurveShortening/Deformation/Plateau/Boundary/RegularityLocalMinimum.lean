@@ -245,7 +245,7 @@ theorem boundary_localMap_minimizes_uniform
   let replacement := m65EmbeddedEnergyDensity g e G.value G.derivative
   let changed := m65EmbeddedEnergyDensity g e q d
   have hFint : IntegrableOn original S :=
-    m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact hOldU.1 hOldD
+    m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact hOldU.aestronglyMeasurable hOldD
   have hGint : IntegrableOn replacement Z := G.energy_integrable g he hinj hemb compact Z hZ hsU
   have hpiece : changed = Z.piecewise replacement original := by
     funext z

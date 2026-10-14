@@ -171,13 +171,13 @@ theorem suWeakPartial_comp_quadratic {m : ℕ}
     (fun _ z => F z.1)
     (Eventually.of_forall fun _ => (hF.continuous.comp continuous_fst).continuousAt)
     (fun j => (hF.continuous.comp (hv j).continuous).aestronglyMeasurable)
-    (hF.continuous.comp_aestronglyMeasurable huI.1) (by positivity : 0 < C + ‖F 0‖ + 1)
+    (hF.continuous.comp_aestronglyMeasurable huI.aestronglyMeasurable) (by positivity : 0 < C + ‖F 0‖ + 1)
     (fun j => Eventually.of_forall fun x => hbase (v j x) (q j x))
     (Eventually.of_forall fun x => hbase (u x) (W i x))
   obtain ⟨hgradj, hgrad0, hgradLim⟩ := suMixedGrowth_L1_limit hvLp huI hqLp hWI hvl hql
     (fun _ z => fderiv ℝ F z.1 z.2) (Eventually.of_forall fun _ => hAc.continuousAt)
     (fun j => ((hDFc.comp (hv j).continuous).clm_apply (hq j).continuous).aestronglyMeasurable)
-    (hAc.comp_aestronglyMeasurable (huI.1.prodMk hWI.1)) hC
+    (hAc.comp_aestronglyMeasurable (huI.aestronglyMeasurable.prodMk hWI.aestronglyMeasurable)) hC
     (fun j => Eventually.of_forall fun x => hderiv (v j x) (q j x))
     (Eventually.of_forall fun x => hderiv (u x) (W i x))
   apply suWeakPartial_of_L1_approx hval0 hgrad0 hvalj hgradj (fun j => ?_) hvalLim hgradLim

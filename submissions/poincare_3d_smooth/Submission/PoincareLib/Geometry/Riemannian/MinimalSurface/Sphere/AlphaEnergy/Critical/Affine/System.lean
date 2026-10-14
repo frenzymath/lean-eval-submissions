@@ -101,13 +101,12 @@ theorem suScalarEquations_vectorEquation {m : ℕ} {center : LoopPlane} {R : ℝ
       suContinuous_memLp_ball (((hp' a).continuous_fderiv (by simp)).clm_apply continuous_const
         |>.continuousOn)
     exact memLp_one_iff_integrable.mp
-      (hv.mul' ((ContinuousLinearMap.apply ℝ ℝ (suColumnBasis a i)).comp_memLp' hF))
+      (((ContinuousLinearMap.apply ℝ ℝ (suColumnBasis a i)).comp_memLp' hF).fun_mul hv)
   have hBI (a : Fin m) : IntegrableOn
       (fun x => B x (EuclideanSpace.single a 1) * p a x) (ball center R) := by
     have hv : MemLp (p a) 2 (volume.restrict (ball center R)) :=
       suContinuous_memLp_ball (hp' a).continuous.continuousOn
-    exact memLp_one_iff_integrable.mp (hv.mul'
-      ((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single a (1 : ℝ))).comp_memLp' hB))
+    exact memLp_one_iff_integrable.mp (((ContinuousLinearMap.apply ℝ ℝ (EuclideanSpace.single a (1 : ℝ))).comp_memLp' hB).fun_mul hv)
   calc
     _ = ∫ x in ball center R, ∑ a : Fin m, ∑ i : Fin 2,
         F x (suColumnBasis a i) * fderiv ℝ (p a) x (EuclideanSpace.single i 1) := by
@@ -302,10 +301,14 @@ theorem suAffineQuadraticSystem {m : ℕ}
         (((hp.continuous_fderiv (by simp)).clm_apply continuous_const).prodMk
           ((hp.continuous_fderiv (by simp)).clm_apply continuous_const)).continuousOn
     exact memLp_one_iff_integrable.mp
-      ((ContinuousLinearMap.apply ℝ ℝ (E := Grad m)).memLp_of_bilin 1 hdphi hFI)
+      ((ContinuousLinearMap.apply ℝ ℝ (E := Grad m)).memLp_of_bilin
+        (f := fun x => (fderiv ℝ phi x (EuclideanSpace.single 0 1),
+          fderiv ℝ phi x (EuclideanSpace.single 1 1)))
+        (g := fun x => C.flux (x, u x) (V 0 x, V 1 x)) 1 hdphi hFI)
   · intro phi hp _ _
     exact memLp_one_iff_integrable.mp
-      ((ContinuousLinearMap.apply ℝ ℝ (E := E m)).memLp_of_bilin (p := 2) 1
+      ((ContinuousLinearMap.apply ℝ ℝ (E := E m)).memLp_of_bilin
+        (f := phi) (g := fun x => C.source (x, u x) (V 0 x, V 1 x)) (p := 2) 1
         (suContinuous_memLp_ball hp.continuous.continuousOn) hBI)
   · intro phi hp hpc hps
     exact suScalarEquations_vectorEquation hFI hBI heq hp hpc hps

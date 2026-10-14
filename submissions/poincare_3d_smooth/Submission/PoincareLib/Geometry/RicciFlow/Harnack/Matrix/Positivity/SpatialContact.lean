@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Matrix.Positivity.Contact
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Product
 import Submission.PoincareLib.Geometry.Riemannian.Tensor.MaximumPrinciple.SupportingLaplacian
@@ -46,7 +47,7 @@ lemma laplacian_quadratic_at_null
         A x i j * g.inner x (D.gradient (fun y => z y i) x)
           (D.gradient (fun y => z y j) x))) := by
   have hzero : A x *ᵥ z x = 0 :=
-    (hpos.dotProduct_mulVec_zero_iff (z x)).mp (by simpa only [star_trivial] using hnull)
+    (hpos.dotProduct_mulVec_zero_iff).mp (by simpa only [star_trivial] using hnull)
   have hright (i : I) : (∑ j, A x i j * z x j) = 0 := congrFun hzero i
   have hleft (j : I) : (∑ i, z x i * A x i j) = 0 := by
     have hs (i : I) : A x i j = A x j i := by
@@ -169,7 +170,7 @@ private lemma exists_smooth_scalar_first_jet [T2Space M]
     rw [mvfderiv_comp x (hh.differentiable (by simp)).differentiableAt.mdifferentiableAt
       (mdifferentiableAt_extChartAt (mem_chart_source _ _))]
     simp only [mfderiv_extChartAt_self, ContinuousLinearMap.comp_id]
-    simp only [mvfderiv, mfderiv_eq_fderiv]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     ext v
     change fderiv ℝ h (chart x) (e v) = L v
     rw [hd']

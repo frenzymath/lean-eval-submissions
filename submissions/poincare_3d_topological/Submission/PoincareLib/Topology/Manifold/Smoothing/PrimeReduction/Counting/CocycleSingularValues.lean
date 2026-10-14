@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Counting.CocyclePathIntegral
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Counting.IncidenceSingularCycles
 import Mathlib.Analysis.Convex.Contractible
@@ -44,7 +45,7 @@ variable {ι : Type*} [Fintype ι] {A : PreAbstractSimplicialComplex ι}
 
 noncomputable def singularValue (c : A.ModTwoEdgeCocycle)
     (s : (TopCat.toSSet.obj (TopCat.of A.barycentricSpace)) _⦋1⦌) : ZMod 2 :=
-  c.pathValue (simplexEdgePath ((TopCat.of A.barycentricSpace).toSSetObjEquiv _ s))
+  c.pathValue (simplexEdgePath ((TopCat.of A.barycentricSpace).toLegacySSetObjEquiv _ s))
 
 theorem singularValue_pathSimplex (c : A.ModTwoEdgeCocycle)
     {x y : A.barycentricSpace} (p : Path x y) :
@@ -52,7 +53,7 @@ theorem singularValue_pathSimplex (c : A.ModTwoEdgeCocycle)
   let L := c.isCoveringMap.liftPath p.toContinuousMap (c.sheetPoint x 0) p.source
   let LP : Path (c.sheetPoint x 0) (L 1) :=
     ⟨L, c.isCoveringMap.liftPath_zero p.toContinuousMap (c.sheetPoint x 0) p.source, rfl⟩
-  let f := (TopCat.of A.barycentricSpace).toSSetObjEquiv _
+  let f := (TopCat.of A.barycentricSpace).toLegacySSetObjEquiv _
     (pathSimplex (X := TopCat.of A.barycentricSpace) p)
   have hL (t) : c.bundle.proj (LP t) = simplexEdgePath f t := by
     change c.bundle.proj (L t) =
@@ -71,7 +72,7 @@ theorem singularValue_cocycle (c : A.ModTwoEdgeCocycle)
     (∑ j : Fin 3, ((-1 : ℤ) ^ j.val) •
       c.singularValue ((TopCat.toSSet.obj (TopCat.of A.barycentricSpace)).δ j s)) = 0 := by
   let X := TopCat.of A.barycentricSpace
-  let f : C(stdSimplex ℝ (Fin 3), A.barycentricSpace) := X.toSSetObjEquiv _ s
+  let f : C(stdSimplex ℝ (Fin 3), A.barycentricSpace) := X.toLegacySSetObjEquiv _ s
   let v : Fin 3 → stdSimplex ℝ (Fin 3) := stdSimplex.vertex
   let : ContractibleSpace (stdSimplex ℝ (Fin 3)) :=
     (convex_stdSimplex ℝ (Fin 3)).contractibleSpace ⟨v 0, (v 0).property⟩
@@ -84,11 +85,11 @@ theorem singularValue_cocycle (c : A.ModTwoEdgeCocycle)
   have hedge (j : Fin 3) : c.singularValue ((TopCat.toSSet.obj X).δ j s) =
       c.sheetCoordinate (F (v (j.succAbove 1))) -
         c.sheetCoordinate (F (v (j.succAbove 0))) := by
-    have hf : X.toSSetObjEquiv _ ((TopCat.toSSet.obj X).δ j s) = f.comp (face j) := by
+    have hf : X.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj X).δ j s) = f.comp (face j) := by
       ext z
-      rw [TopCat.toSSetObjEquiv_δ_apply]
+      rw [TopCat.toLegacySSetObjEquiv_δ_apply]
       rfl
-    change c.pathValue (simplexEdgePath (X.toSSetObjEquiv (Opposite.op ⦋1⦌)
+    change c.pathValue (simplexEdgePath (X.toLegacySSetObjEquiv (Opposite.op ⦋1⦌)
       ((TopCat.toSSet.obj X).δ j s))) = _
     rw [hf]
     have hlift (t : unitInterval) :

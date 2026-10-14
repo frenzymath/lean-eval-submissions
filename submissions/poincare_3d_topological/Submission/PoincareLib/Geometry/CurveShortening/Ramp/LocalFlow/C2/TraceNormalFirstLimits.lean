@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Pullback.MetricHessian
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Smooth.RetractionDifferentials
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.CurveEstimates.Relabeling.Geometry
@@ -187,7 +188,7 @@ theorem exists_closed_normal_value_unitTangent_limits
       erw [mfderiv_comp y
         ((hρ.contMDiffAt (hU.mem_nhds (hguard j t (y : AddCircle L)).1)).mdifferentiableAt
           (by simp)) (hder j t y).differentiableAt.mdifferentiableAt,
-        ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv,
+        ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model,
         (hder j t y).hasFDerivAt.fderiv]
       exact congrArg (mfderiv 𝓘(ℝ, W) (𝓡 n) ρ (f y))
         (ContinuousLinearMap.toSpanSingleton_apply_one ℝ (f' y))

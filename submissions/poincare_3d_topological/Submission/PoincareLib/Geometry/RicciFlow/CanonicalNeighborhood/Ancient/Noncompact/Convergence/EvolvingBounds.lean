@@ -204,7 +204,7 @@ private theorem tensor_contraction_le
         rw [norm_prod]
         calc
           _ ≤ ∏ _i : Fin r, D :=
-            Finset.prod_le_prod (fun i _ => norm_nonneg _) (fun i _ => hH _ _)
+            Finset.prod_le_prod₀ (fun i _ => norm_nonneg _) (fun i _ => hH _ _)
           _ = _ := by simp
       calc
         _ ≤ ‖(∏ i : Fin r, H (a i) (b i)) * T a * T b‖ := le_abs_self _

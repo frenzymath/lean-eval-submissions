@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.FiniteNerveChains
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.OrderComplexStars
 import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
@@ -89,14 +90,14 @@ def singularMapOfContinuousSimplices (A : SSet.{u}) (X : TopCat.{u})
     (hF : ∀ {n m : SimplexCategory} (f : n ⟶ m) (s : A.obj (Opposite.op m)),
       (F m s).comp ⟨stdSimplex.map f, stdSimplex.continuous_map f⟩ =
         F n (A.map f.op s)) : A ⟶ TopCat.toSSet.obj X where
-  app n := ↾fun s => (X.toSSetObjEquiv n).symm (F n.unop s)
+  app n := ↾fun s => (X.toLegacySSetObjEquiv n).symm (F n.unop s)
   naturality {n m} f := by
     apply ConcreteCategory.hom_ext
     intro s
-    change (X.toSSetObjEquiv m).symm (F m.unop (A.map f s)) =
-      (TopCat.toSSet.obj X).map f ((X.toSSetObjEquiv n).symm (F n.unop s))
-    exact (congrArg (X.toSSetObjEquiv m).symm (hF f.unop s).symm).trans
-      (TopCat.toSSetObjEquiv_symm_naturality f.unop (F n.unop s)).symm
+    change (X.toLegacySSetObjEquiv m).symm (F m.unop (A.map f s)) =
+      (TopCat.toSSet.obj X).map f ((X.toLegacySSetObjEquiv n).symm (F n.unop s))
+    exact (congrArg (X.toLegacySSetObjEquiv m).symm (hF f.unop s).symm).trans
+      (TopCat.toLegacySSetObjEquiv_symm_naturality f.unop (F n.unop s)).symm
 
 /-- The actual characteristic-simplex map from the finite nerve to the
 singular simplicial set of its coordinate realization.

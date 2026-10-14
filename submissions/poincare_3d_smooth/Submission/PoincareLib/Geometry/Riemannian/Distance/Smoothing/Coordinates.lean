@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.Coordinates
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient
 
@@ -62,7 +63,7 @@ theorem fderiv2_parametrization_le_of_hessian_le (D : LeviCivitaData g)
       |fderiv ℝ (f ∘ e) z w| ≤ A * ‖w‖ := by
     have heq := congrArg (fun F => F w)
       (mfderiv_comp z (hf.mdifferentiableAt (by simp)) (hez.mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change fderiv ℝ (f ∘ e) z w = mvfderiv (𝓡 n) f (e z) (T w) at heq
     rw [heq]
     have h := D.abs_mvfderiv_le_gradient_norm f (e z) (T w)
@@ -127,7 +128,7 @@ theorem intrinsic_bounds_of_parametrization (D : LeviCivitaData g)
     have hez := he.contMDiffAt (e.open_source.mem_nhds hz)
     have heq := congrArg (fun F => F v)
       (mfderiv_comp z (hf.mdifferentiableAt (by simp)) (hez.mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change fderiv ℝ (f ∘ e) z v = mvfderiv (𝓡 n) f (e z) (T v) at heq
     rw [← heq]
     exact (hfirst' v).trans (by

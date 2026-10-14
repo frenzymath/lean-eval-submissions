@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceArcCapture
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceTangentExtension
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.PlaneHessian
@@ -57,7 +58,7 @@ theorem exists_chart_Jordan_tangent
   have hchain := congrArg (fun T : ℝ →L[ℝ] LoopAmbient => T 1)
     (mfderiv_comp s hqd hCd)
   have hder : deriv c s = mfderiv (𝓡 3) (𝓡 3) q (C s) (curveVelocity C s) := by
-    simpa +instances only [mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
       fderiv_apply_one_eq_deriv, curveVelocity, c, C, q] using! hchain
   have hne : deriv c s ≠ 0 := by
     intro hz

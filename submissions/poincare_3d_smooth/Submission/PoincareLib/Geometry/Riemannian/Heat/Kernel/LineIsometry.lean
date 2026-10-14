@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.DerivativeLipschitz
 import Submission.PoincareLib.Geometry.Riemannian.MetricComparison
 
@@ -54,7 +55,7 @@ theorem edist_eq_of_metric_line_coordinate (g : RiemannianMetric 1 M)
       have hd : HasDerivAt l (e y - e x) t := by
         simpa [l] using ((hasDerivAt_id t).mul_const (e y - e x)).const_add (e x)
       have hdl : mvfderiv 𝓘(ℝ, ℝ) l t 1 = e y - e x := by
-        rw [mvfderiv, mfderiv_eq_fderiv]
+        rw [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
         change fderiv ℝ l t 1 = e y - e x
         exact hd.deriv
       rw [heq] at hc

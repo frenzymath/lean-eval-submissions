@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Continuation.ChangeCoordinates
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Uniqueness
 
@@ -72,7 +73,7 @@ private theorem isometry_chart_coefficients
     (hF.differentiableAt (by simp)).mdifferentiableAt
   rw [heq.mfderiv_eq,
     mfderiv_comp x (hfx.mdifferentiableAt (by simp)) (hc.mdifferentiableAt (by simp)),
-    mfderiv_eq_fderiv] at hderiv
+    Poincare.Compatibility.mfderiv_eq_fderiv_model] at hderiv
   have he (a : EuclideanSpace ℝ (Fin n)) :
       mfderiv (𝓡 n) (𝓡 n) f (c.symm x) (mfderiv (𝓡 n) (𝓡 n) c.symm x a) =
         mfderiv (𝓡 n) (𝓡 n) d.symm (F x) (fderiv ℝ F x a) :=

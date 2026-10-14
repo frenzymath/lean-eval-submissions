@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.GeodesicCorner
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.NormalChart
 import Submission.PoincareLib.Geometry.Riemannian.Measure.HausdorffDensity.FrozenMetric
@@ -55,7 +56,7 @@ theorem exists_exponential_chord_bound
         (by simp)
     have hcomp := mfderiv_comp (0 : EuclideanSpace ℝ (Fin n)) hchart
       ((he.contMDiffAt (e.open_source.mem_nhds h0)).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hcomp
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
     change fderiv ℝ (fun v => extChartAt (𝓡 n) p (e v)) 0 = _ at hcomp
     rw [hd.fderiv] at hcomp
     have hv := congr($hcomp v)

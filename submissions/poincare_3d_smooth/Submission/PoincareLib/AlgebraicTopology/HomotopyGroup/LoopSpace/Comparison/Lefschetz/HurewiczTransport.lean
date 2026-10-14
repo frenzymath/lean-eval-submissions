@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.CubeTransport
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Compatibility.ThreeManifoldTopology
 
@@ -42,8 +43,8 @@ theorem simplexDifferenceHomologyClass_eq_of_paired_homotopies (R : C)
         (TopCat.toSSet.obj X).δ i ((TopCat.toSSet.map q).app _ s))
     (hboundary : ∀ (i : Fin (n + 2)) (t : unitInterval)
       (z : stdSimplex ℝ (Fin (n + 1))),
-      H (t, A.toSSetObjEquiv _ ((TopCat.toSSet.obj A).δ i s) z) =
-        K (t, A.toSSetObjEquiv _ ((TopCat.toSSet.obj A).δ i s) z)) :
+      H (t, A.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj A).δ i s) z) =
+        K (t, A.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj A).δ i s) z)) :
     simplicialSimplexDifferenceHomologyClass R (TopCat.toSSet.obj X)
       ((TopCat.toSSet.map f).app _ s) ((TopCat.toSSet.map p).app _ s) hleft =
     simplicialSimplexDifferenceHomologyClass R (TopCat.toSSet.obj X)
@@ -70,18 +71,24 @@ theorem genLoopSingularHomologyClass_eq_of_homotopyAlong (R : C) (X : TopCat.{w}
   let D : TopCat.{w} := SimplexCategory.toTop.obj ⦋n + 1⦌
   let s : (TopCat.toSSet.obj D) _⦋n + 1⦌ := ⟨𝟙 D⟩
   let e := Classical.choose (exists_stdSimplex_cube_pair_homeomorph (n + 1))
-  let eD : C(D, I^(Fin (n + 1))) :=
-    ⟨fun z => e z.down, e.continuous.comp Homeomorph.ulift.continuous⟩
+  let eC : C(stdSimplex ℝ (Fin (n + 2)), I^(Fin (n + 1))) :=
+    ⟨e, e.continuous⟩
   let lift {z : X} (c : GenLoop (Fin (n + 1)) X z) : D ⟶ X :=
     (genLoopSingularSimplex X c).down
-  let H' : TopCat.Homotopy (lift a) (lift b) := H.toHomotopy.compContinuousMap eD
+  have heC {z : X} (c : GenLoop (Fin (n + 1)) X z) :
+      c.val.comp eC = X.toLegacySSetObjEquiv _ (genLoopSingularSimplex X c) := by
+    simp only [genLoopSingularSimplex, Equiv.apply_symm_apply, eC, e]
+  let H' : TopCat.Homotopy (lift a) (lift b) :=
+    TopCat.liftLegacyHomotopy ((H.toHomotopy.compContinuousMap eC).cast (heC a) (heC b))
   let K' : TopCat.Homotopy
       (lift (GenLoop.const : GenLoop (Fin (n + 1)) X x))
       (lift (GenLoop.const : GenLoop (Fin (n + 1)) X y)) :=
-    (GenLoop.HomotopyAlong.const (N := Fin (n + 1)) p).toHomotopy.compContinuousMap eD
+    TopCat.liftLegacyHomotopy
+      (((GenLoop.HomotopyAlong.const (N := Fin (n + 1)) p).toHomotopy.compContinuousMap eC).cast
+        (heC GenLoop.const) (heC GenLoop.const))
   have himage {z : X} (c : GenLoop (Fin (n + 1)) X z) :
       (TopCat.toSSet.map (lift c)).app _ s = genLoopSingularSimplex X c :=
-    ULift.ext _ _ (Category.id_comp (lift c))
+    ULift.ext (Category.id_comp (lift c))
   have hfaces {z : X} (c : GenLoop (Fin (n + 1)) X z) (j : Fin (n + 2)) :
       (TopCat.toSSet.obj X).δ j ((TopCat.toSSet.map (lift c)).app _ s) =
         (TopCat.toSSet.obj X).δ j
@@ -89,8 +96,11 @@ theorem genLoopSingularHomologyClass_eq_of_homotopyAlong (R : C) (X : TopCat.{w}
     rw [himage, himage, genLoopSingularSimplex_face, genLoopSingularSimplex_face]
   have htrace (j : Fin (n + 2)) (time : unitInterval)
       (z : stdSimplex ℝ (Fin (n + 1))) :
-      H' (time, D.toSSetObjEquiv _ ((TopCat.toSSet.obj D).δ j s) z) =
-        K' (time, D.toSSetObjEquiv _ ((TopCat.toSSet.obj D).δ j s) z) := by
+      H' (time, D.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj D).δ j s) z) =
+        K' (time, D.toLegacySSetObjEquiv _ ((TopCat.toSSet.obj D).δ j s) z) := by
+    simp only [H', K', TopCat.liftLegacyHomotopy_apply,
+      TopCat.toLegacySSetObjEquiv_δ_apply, s, D,
+      TopCat.toLegacySSetObjEquiv_identity, Homeomorph.apply_symm_apply]
     change H.toHomotopy (time, e (stdSimplex.map j.succAbove z)) = p time
     apply H.boundary_path time
       ⟨e (stdSimplex.map j.succAbove z), ?_⟩

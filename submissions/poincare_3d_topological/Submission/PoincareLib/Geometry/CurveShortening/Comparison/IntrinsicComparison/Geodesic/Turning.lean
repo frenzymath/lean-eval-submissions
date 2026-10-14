@@ -127,9 +127,10 @@ theorem m64Intrinsic_normalized_geodesic_connection_eq_zero
   filter_upwards [hvel, heta, hc, hphi.continuousAt.eventually hunit] with s hs heq hcs hus
   have hn : g.inner (eta s) (V (eta s)) (V (eta s)) = (deriv phi s) ^ 2 := by
     rw [hs, heq]
-    simp only [Function.comp_apply, map_smul, smul_eq_mul]
-    rw [g.symm _ (deriv phi s • deriv gamma (phi s)) (deriv gamma (phi s)),
-      map_smul, smul_eq_mul, hus]
+    change g.inner (gamma (phi s))
+      (deriv phi s • (show TangentSpace (𝓡 2) (gamma (phi s)) from deriv gamma (phi s)))
+      (deriv phi s • (show TangentSpace (𝓡 2) (gamma (phi s)) from deriv gamma (phi s))) = _
+    simp only [map_smul, smul_apply, smul_eq_mul, hus]
     ring
   rw [hn, Real.sqrt_sq_eq_abs, hs, smul_smul, hcs]
 

@@ -43,11 +43,11 @@ theorem m64WeakReplacement_flux_defect
   have heqv : (fun x => phi x • K.piecewise v1 v0 x) =
       K.piecewise (fun x => phi x • v1 x) (fun x => phi x • v0 x) := by
     funext x
-    by_cases hx : x ∈ K <;> simp only [piecewise, hx, if_true, if_false]
+    by_cases hx : x ∈ K <;> simp only [piecewise, hx, ite_true, ite_false]
   have hequ : (fun x => psi x • K.piecewise u1 u0 x) =
       K.piecewise (fun x => psi x • u1 x) (fun x => psi x • u0 x) := by
     funext x
-    by_cases hx : x ∈ K <;> simp only [piecewise, hx, if_true, if_false]
+    by_cases hx : x ∈ K <;> simp only [piecewise, hx, ite_true, ite_false]
   rw [heqv, hequ,
     m64Integral_piecewise_of_subset hK hKS (m64L2_test_integrable hv1 hpK)
       (m64L2_test_integrable hv0 hphi),

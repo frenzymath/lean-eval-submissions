@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Spacetime.Interval.RealTime
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.Gauge.SectionTransport.TimeBracket
 
@@ -40,7 +41,7 @@ theorem SmoothSpacetimeInterval.hasDerivWithinAt_realParam
     mfderiv (𝓡∂ 1) 𝓘(ℝ, E) f (T.realParam t.val)
       (mfderivWithin 𝓘(ℝ) (𝓡∂ 1) T.realParam K.domain t.val 1) at hc1
   rw [T.realParam_mfderivWithin_one,
-    T.realParam_coe, mfderivWithin_eq_fderivWithin] at hc1
+    T.realParam_coe, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model] at hc1
   exact hd.differentiableWithinAt.hasFDerivWithinAt.hasDerivWithinAt.congr_deriv hc1
 
 variable {n : ℕ} {X : Type u} [TopologicalSpace X] {time : X → ℝ}

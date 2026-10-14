@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.EnergyBounds
 import Submission.PoincareLib.Geometry.Riemannian.Elliptic.Dirichlet.Coefficients
 
@@ -35,11 +36,13 @@ lemma divergenceCoefficients_refl_eq_energy (D : LeviCivitaData g)
   have heq : (e : EuclideanSpace ℝ (Fin n) → EuclideanSpace ℝ (Fin n)) = id := rfl
   have hb : g.pullbackCoefficients e x = g.euclideanCoefficients x := by
     ext u w
-    simp [RiemannianMetric.pullbackCoefficients, heq]
+    change g.inner x (mfderiv (𝓡 n) (𝓡 n) id x u)
+      (mfderiv (𝓡 n) (𝓡 n) id x w) = g.inner x u w
+    rw [mfderiv_id]
     rfl
   have hderiv : mvfderiv (𝓡 n) (innerSL ℝ v) x = innerSL ℝ v := by
     ext u
-    simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.fderiv]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.fderiv]
     rfl
   have hg : D.gradient (innerSL ℝ v) x =
       (g.euclideanCoefficients x).inverse (innerSL ℝ v) := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.MetricConvergence.TerminalMetricConvergence
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.ScalarOperators.ScalarMetricJets
@@ -125,7 +126,7 @@ private theorem exists_shifted_scalar_realization
   let f : EuclideanSpace ℝ (Fin 3) → EuclideanSpace ℝ (Fin 3) := fun z => z + p
   have hd (z : EuclideanSpace ℝ (Fin 3)) :
       mfderiv (𝓡 3) (𝓡 3) f z = ContinuousLinearMap.id ℝ (EuclideanSpace ℝ (Fin 3)) := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact ((hasFDerivAt_id z).add_const p).fderiv
   obtain ⟨g', D', hcoeff, hscalar⟩ := exists_scaled_scalar_realization g D 1 zero_lt_one f
     isOpen_univ (mem_univ (0 : EuclideanSpace ℝ (Fin 3)))

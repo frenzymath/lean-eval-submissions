@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Connection
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Charts
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Hessian.Coordinates
@@ -195,7 +196,7 @@ theorem exists_normal_hessian_correction
       have heφ := mfderiv_comp (d (F x))
         (hφq.mdifferentiableAt (by simp))
         (hd.mdifferentiableAt (by simp))
-      rw [mfderiv_eq_fderiv] at heφ
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heφ
       have heB := congrArg (fun A => A B) heφ
       change fderiv ℝ (φ ∘ d.symm) (d (F x)) B =
         mfderiv (𝓡 n) 𝓘(ℝ, ℝ) φ (d.symm (d (F x)))

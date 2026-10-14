@@ -79,7 +79,7 @@ private theorem memLp_coeff_mul {W O : Set E} (hWc : IsCompact (closure W))
     (hv : MemLp v 2 (volume.restrict O)) :
     MemLp (fun x => a x * v x) 2 (volume.restrict O) := by
   obtain ⟨C, hC⟩ := hWc.exists_bound_of_continuousOn ha.continuousOn
-  apply hv.of_le_mul (c := C) (ha.aestronglyMeasurable.mul hv.1)
+  apply hv.of_le_mul (c := C) (ha.aestronglyMeasurable.mul hv.aestronglyMeasurable)
   filter_upwards [ae_restrict_mem hO.measurableSet] with x hx
   simp only [Pi.mul_apply, norm_mul]
   exact mul_le_mul_of_nonneg_right (hC x (subset_closure (hs hx))) (norm_nonneg _)

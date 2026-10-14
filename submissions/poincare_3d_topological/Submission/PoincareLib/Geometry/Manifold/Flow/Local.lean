@@ -102,8 +102,9 @@ theorem exists_smooth_localFlow_on_open
     apply hd.congr_mfderiv
     apply ContinuousLinearMap.ext
     intro a
-    change mfderiv (𝓡 n) (𝓡 n) c.symm (q (c y, t)) (a • F (q (c y, t))) =
-      a • X (c.symm (q (c y, t)))
+    change mfderiv (𝓡 n) (𝓡 n) c.symm (q (c y, t))
+      ((NormedSpace.fromTangentSpace t a) • F (q (c y, t))) =
+        (NormedSpace.fromTangentSpace t a) • X (c.symm (q (c y, t)))
     rw [map_smul, hpush _ (hpoint t y hy ht)]
 
 /-- A common local time works for smooth local flows near every point of a

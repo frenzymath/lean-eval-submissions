@@ -67,7 +67,7 @@ theorem suQuadraticDerivative_integrable
     simpa using hW.norm_rpow (by norm_num : (2 : ℝ≥0∞) ≠ 0) (by norm_num)
   have hc : Continuous (fun z : E × E => fderiv ℝ A z.1 z.2) :=
     ((hA.continuous_fderiv (by norm_num)).comp continuous_fst).clm_apply continuous_snd
-  have hm := hc.comp_aestronglyMeasurable (hu.1.prodMk hW.1)
+  have hm := hc.comp_aestronglyMeasurable (hu.aestronglyMeasurable.prodMk hW.aestronglyMeasurable)
   apply memLp_one_iff_integrable.mp
   apply ((((memLp_const (1 : ℝ)).add hu4).add hW2).const_mul C).of_le hm
   filter_upwards [] with x

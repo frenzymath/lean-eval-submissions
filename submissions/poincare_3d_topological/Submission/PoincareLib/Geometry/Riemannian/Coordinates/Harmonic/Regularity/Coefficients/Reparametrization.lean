@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Inverse
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Perturbation
 
@@ -109,7 +110,7 @@ theorem inverse_pullback_quadratic_error_le
   have hval : g.pullbackCoefficients F.symm x v v =
       g.euclideanCoefficients (F.symm x) (A v) (A v) := by
     change g.inner _ (mfderiv _ _ _ _ _) (mfderiv _ _ _ _ _) = _
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   calc
     _ = |(g.euclideanCoefficients (F.symm x) (A v) (A v) - ‖A v‖ ^ 2) +

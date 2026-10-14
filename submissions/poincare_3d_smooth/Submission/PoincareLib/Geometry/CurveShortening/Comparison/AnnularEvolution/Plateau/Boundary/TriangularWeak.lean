@@ -100,6 +100,6 @@ theorem m64TriangularSource_weighted_column_memLp
   have htop : MemLp a ∞ mu := memLp_top_of_bound ha.aestronglyMeasurable C (by
     filter_upwards [ae_restrict_mem isOpen_interior.measurableSet] with p hp
     exact hC p (interior_subset hp))
-  exact (m64TriangularSource_memLp_two T hT hi hsecond hpos hpre hV).smul htop
+  exact htop.smul (m64TriangularSource_memLp_two T hT hi hsecond hpos hpre hV)
 
 end PoincareMT

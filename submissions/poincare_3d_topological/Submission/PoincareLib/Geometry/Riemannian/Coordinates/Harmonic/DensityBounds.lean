@@ -60,13 +60,13 @@ theorem pullbackVolumeDensity_id_bounds (x : EuclideanSpace ℝ (Fin n))
       hell (hG.eigenvectorBasis i)
   have hdet_lower : a ^ n ≤ G.det := by
     rw [hG.det_eq_prod_eigenvalues]
-    have h := Finset.prod_le_prod (s := Finset.univ)
+    have h := Finset.prod_le_prod₀ (s := Finset.univ)
       (f := fun _ : Fin n => a) (g := hG.eigenvalues)
       (fun _ _ => ha.le) (fun i _ => (heigen_bounds i).1)
     simpa using h
   have hdet_upper : G.det ≤ b ^ n := by
     rw [hG.det_eq_prod_eigenvalues]
-    have h := Finset.prod_le_prod (s := Finset.univ)
+    have h := Finset.prod_le_prod₀ (s := Finset.univ)
       (f := hG.eigenvalues) (g := fun _ : Fin n => b)
       (fun i _ => ha.le.trans (heigen_bounds i).1)
       (fun i _ => (heigen_bounds i).2)

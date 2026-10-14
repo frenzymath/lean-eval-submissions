@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/Existence/DeTurckParameterBackgroundNative.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -88,7 +89,7 @@ theorem contMDiffOn_parameter_fderiv {U : Set P} (hU : IsOpen U)
     hfa.comp (q, q.1) (contMDiffAt_snd.prodMk contMDiffAt_fst.snd)
   have hd := hcomp.mfderiv (fun z : P × M => fun a : P => f (a, z.2))
     Prod.fst (contMDiffAt_fst (n := (k : WithTop ℕ∞))) (by simp)
-  simpa only [inTangentCoordinates_model_space, mfderiv_eq_fderiv] using
+  simpa only [inTangentCoordinates_model_space, Poincare.Compatibility.mfderiv_eq_fderiv_model] using
     hd.contMDiffWithinAt
 
 set_option synthInstance.maxHeartbeats 100000 in

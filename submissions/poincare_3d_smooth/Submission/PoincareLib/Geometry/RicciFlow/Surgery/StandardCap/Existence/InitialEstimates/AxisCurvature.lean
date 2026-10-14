@@ -69,7 +69,6 @@ theorem initialCurvature_angular_axis (g₀ : StandardInitialMetric) {r : ℝ} (
     Real.norm_eq_abs, abs_of_pos hr]
   norm_num
   rw [initialCurvature_coefficient_F g₀ hr]
-  simp
 
 set_option backward.isDefEq.respectTransparency false in
 /-- The radial axis curvature vector in terms of the derivative of

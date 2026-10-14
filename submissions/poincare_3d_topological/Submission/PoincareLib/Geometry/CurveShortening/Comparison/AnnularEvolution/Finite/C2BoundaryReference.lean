@@ -92,7 +92,7 @@ theorem m64C2ShrinkingCurve_exists_finite_reference
     ⟨hat.trans (htime z hz).1, (htime z hz).2.trans hsb⟩
   let f : ℝ → ℝ → M := fun z x => d x (if t + z ∈ Icc tau s then t + z else t)
   have hfnear (z : ℝ) (hz : z ∈ Ioo (-epsilon) epsilon) (x : ℝ) : f z x = d x (t + z) := by
-    simp only [f, if_pos (Ioo_subset_Icc_self (htime z hz))]
+    simp only [f, ite_eq_left (Ioo_subset_Icc_self (htime z hz))]
   have hdlocal : ContMDiffOn 𝓘(ℝ, ℝ × ℝ) (𝓡 n) ∞
       (fun q : ℝ × ℝ => d q.1 q.2) (univ ×ˢ Ioo tau s) := by
     simpa only [interior_Icc] using hd.2

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Geometry.Manifold.VectorField.LieBracket
 
 /-!
@@ -102,7 +103,7 @@ theorem chartFrame_curve_deriv {γ : ℝ → M} {x : M} {s : ℝ}
   have hderiv : mfderiv 𝓘(ℝ) 𝓘(ℝ, E) ((extChartAt I x) ∘ γ) s (1 : ℝ) =
       deriv ((extChartAt I x) ∘ γ) s := by
     exact (congrArg (fun L : ℝ →L[ℝ] E => L 1)
-      (mfderiv_eq_fderiv (f := (extChartAt I x) ∘ γ) (x := s))).trans
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := (extChartAt I x) ∘ γ) (x := s))).trans
         fderiv_apply_one_eq_deriv
   have hd : deriv ((extChartAt I x) ∘ γ) s =
       mfderiv I 𝓘(ℝ, E) (extChartAt I x) (γ s) (mfderiv 𝓘(ℝ) I γ s (1 : ℝ)) := by

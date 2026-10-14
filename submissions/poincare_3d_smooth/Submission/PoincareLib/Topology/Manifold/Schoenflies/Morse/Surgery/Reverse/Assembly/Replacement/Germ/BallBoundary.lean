@@ -80,7 +80,9 @@ theorem bijective_fderiv_homotopy_of_ambient_ball_boundary
   have hBL : Function.Bijective (fderiv Real B p) := by
     have hh := (B.mfderivToContinuousLinearEquiv (by simp) p).bijective
     change Function.Bijective (mfderiv (𝓡 3) (𝓡 3) B p) at hh
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using hh
+    rw [mfderiv_eq_fderiv] at hh
+    change Function.Bijective (fderiv Real B p) at hh
+    exact hh
   have hdG := ((hasFDerivAt_id p).const_smul (1 - t)).add
     ((hGd p).hasFDerivAt.const_smul t)
   change Function.Bijective

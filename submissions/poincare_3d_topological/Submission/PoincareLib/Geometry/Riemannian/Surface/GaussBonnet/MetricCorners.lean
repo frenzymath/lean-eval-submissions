@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.CoordinateTriangle
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Boundary.FanAngles
 
@@ -53,10 +54,10 @@ theorem coordinateTriangleVelocity_eq_differential
   have h := congrArg (fun L => L 1) (mfderiv_comp (0 : ℝ)
     (by simpa using hFi) hd.differentiableAt.mdifferentiableAt)
   dsimp only [TangentSpace] at h ⊢
-  simp only [ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv, hd.hasFDerivAt.fderiv,
+  simp only [ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model, hd.hasFDerivAt.fderiv,
     ContinuousLinearMap.toSpanSingleton_apply, one_smul] at h
   rw [AffineMap.lineMap_apply_zero] at h
-  exact h
+  convert! h using 1
 
 omit [IsManifold (𝓡 2) ∞ S] in
 theorem coordinateTriangleVelocity_eq_mfderivWithin

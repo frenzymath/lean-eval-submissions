@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Polygon
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.AmbientAcceleration
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Smooth.RetractionDifferentials
@@ -55,7 +56,7 @@ theorem continuous_embedded_initial_jets
     have hchain : fderiv ℝ (fun y => e (gamma z y)) x =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e (gamma z x)).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (gamma z) x) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hC2 z x).mdifferentiableAt (by norm_num))
     exact ((hspace z).differentiable (by norm_num) x).hasDerivAt.congr_deriv

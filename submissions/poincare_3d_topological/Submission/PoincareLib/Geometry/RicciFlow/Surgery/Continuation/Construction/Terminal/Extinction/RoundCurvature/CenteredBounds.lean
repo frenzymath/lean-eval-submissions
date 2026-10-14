@@ -69,7 +69,7 @@ theorem norm_euclideanConnection_le_of_covariantMetricDifference
     (Dg : LeviCivitaData g) (Dh : LeviCivitaData h)
     (x : EuclideanSpace ℝ (Fin n)) {epsilon : ℝ}
     (hepsilon : 0 ≤ epsilon) (hepsilon_one : epsilon < 1)
-    (hnormal : g.euclideanCoefficients x = innerSL ℝ)
+    (hnormal : g.euclideanCoefficients x = innerSL ℝ (E := EuclideanSpace ℝ (Fin n)))
     (hzero : christoffelBilinear g.euclideanCoefficients x = 0)
     (hmetric : ∀ w : EuclideanSpace ℝ (Fin n),
       |metricDifferenceTensor g h x ![w, w]| ≤ epsilon * ‖w‖ ^ 2)

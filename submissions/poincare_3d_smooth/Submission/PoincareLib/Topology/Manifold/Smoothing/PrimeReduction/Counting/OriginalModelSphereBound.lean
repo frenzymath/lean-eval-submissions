@@ -53,7 +53,7 @@ theorem OriginalTetrahedralCutFamily.card_le_original_model_homology_bound
     Fintype.card κ + 1 ≤ Module.finrank (ZMod 2) (ModTwoMayerVietoris.homology R 1) +
       4 * Nat.card (K.FaceOfCard 3) + J.vertices.ncard := by
   classical
-  let M := ModuleCat.of (ZMod 2) (ULift.{u} (ZMod 2))
+  let M := @ModuleCat.of (ZMod 2) inferInstance (ULift.{u} (ZMod 2)) inferInstance ULift.module'
   obtain ⟨_,_,_,_,hzero⟩ := B.exists_nonexceptional_cut_homology K J hK hJK hpure
     g hg hgR F hFc hFK hFg hgF hF hmark S sS hdis hSR Q a hmap ha havoid hposition
     O W hO hCR hSO hcenter hstrip hCC hQeq hQ hQPL hno Sb sSb hbdis hfront M

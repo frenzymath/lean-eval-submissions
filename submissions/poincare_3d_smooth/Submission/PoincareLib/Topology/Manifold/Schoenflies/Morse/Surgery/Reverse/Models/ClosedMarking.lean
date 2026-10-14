@@ -80,7 +80,7 @@ theorem exists_spherical_marking_on_closedBall
       have hder' : fderiv Real N x =
           (mfderiv (𝓡 2) (𝓡 3) (fun p : S2 => (p : E3)) (m x)).comp
             (mfderiv (𝓡 2) (𝓡 2) m x) := by
-        rw [← mfderiv_eq_fderiv]
+        rw [mfderiv_eq_fderiv] at hchain
         exact hchain
       rw [hder']
       exact congrArg (mfderiv (𝓡 2) (𝓡 3) (fun p : S2 => (p : E3)) (m x)) huw

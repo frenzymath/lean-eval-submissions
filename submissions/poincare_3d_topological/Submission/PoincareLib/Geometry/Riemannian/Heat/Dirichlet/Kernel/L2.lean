@@ -33,17 +33,21 @@ variable {n : ℕ} {M : Type u} [TopologicalSpace M]
 variable (D : LeviCivitaData g) (Ω : Set M) (hn : 0 < n)
   (hΩ : IsOpen Ω) (hc : IsCompact (closure Ω))
 
-/-- The product L2 kernel constructed from the Dirichlet spectral data. -/
-def heatKernelL2 (t : ℝ≥0) :
-    Lp ℝ 2 ((g.volumeMeasure.restrict Ω).prod (g.volumeMeasure.restrict Ω)) :=
-  Poincare.Analysis.Dirichlet.Spectral.kernelL2 (eigenbasis D Ω hn hΩ hc)
-    (eigenvalueNN D Ω hn hΩ hc) t
-
 include hc in
 theorem domainMeasure_isFinite : IsFiniteMeasure (g.volumeMeasure.restrict Ω) :=
   isFiniteMeasure_restrict.mpr
     ((measure_mono (subset_closure : Ω ⊆ closure Ω)).trans_lt
       (g.volumeMeasure_lt_top_of_isCompact hc)).ne
+
+
+/-- The product L2 kernel constructed from the Dirichlet spectral data. -/
+def heatKernelL2 (t : ℝ≥0) :
+    Lp ℝ 2 ((g.volumeMeasure.restrict Ω).prod (g.volumeMeasure.restrict Ω)) :=
+  by
+  letI := domainMeasure_isFinite (g := g) Ω hc
+  exact Poincare.Analysis.Dirichlet.Spectral.kernelL2 (eigenbasis D Ω hn hΩ hc)
+    (eigenvalueNN D Ω hn hΩ hc) t
+
 
 include hn hΩ hc in
 theorem summable_heatCoefficient (t : ℝ≥0) (ht : 0 < t) :
@@ -54,7 +58,8 @@ theorem summable_heatCoefficient (t : ℝ≥0) (ht : 0 < t) :
 theorem heatKernelL2_hasSum (t : ℝ≥0) (ht : 0 < t) :
     HasSum (fun i : EigenIndex D Ω =>
       Real.exp (-eigenvalue D Ω i * (t : ℝ)) •
-        Poincare.Analysis.Dirichlet.tensorL2
+        @Poincare.Analysis.Dirichlet.tensorL2 M M _ _ _ _
+          (by letI := domainMeasure_isFinite (g := g) Ω hc; infer_instance)
           (eigenbasis D Ω hn hΩ hc i) (eigenbasis D Ω hn hΩ hc i))
       (heatKernelL2 D Ω hn hΩ hc t) := by
   let := domainMeasure_isFinite (g := g) Ω hc
@@ -65,7 +70,8 @@ theorem heatKernelL2_hasSum (t : ℝ≥0) (ht : 0 < t) :
 theorem summable_norm_heatKernelL2 (t : ℝ≥0) (ht : 0 < t) :
     Summable (fun i : EigenIndex D Ω =>
       ‖Real.exp (-eigenvalue D Ω i * (t : ℝ)) •
-        Poincare.Analysis.Dirichlet.tensorL2
+        @Poincare.Analysis.Dirichlet.tensorL2 M M _ _ _ _
+          (by letI := domainMeasure_isFinite (g := g) Ω hc; infer_instance)
           (eigenbasis D Ω hn hΩ hc i) (eigenbasis D Ω hn hΩ hc i)‖) := by
   let := domainMeasure_isFinite (g := g) Ω hc
   exact Poincare.Analysis.Dirichlet.Spectral.summable_norm_kernelL2
@@ -76,7 +82,9 @@ theorem integrable_heatKernelL2_pair (t : ℝ≥0)
     (f h : Lp ℝ 2 (g.volumeMeasure.restrict Ω)) :
     Integrable (fun z : M × M => heatKernelL2 D Ω hn hΩ hc t z * h z.1 * f z.2)
       ((g.volumeMeasure.restrict Ω).prod (g.volumeMeasure.restrict Ω)) :=
-  Poincare.Analysis.Dirichlet.Spectral.integrable_kernelL2_pair
+  by
+  letI := domainMeasure_isFinite (g := g) Ω hc
+  exact Poincare.Analysis.Dirichlet.Spectral.integrable_kernelL2_pair
     (eigenbasis D Ω hn hΩ hc) (eigenvalueNN D Ω hn hΩ hc) t f h
 
 theorem integral_heatKernelL2_pair (t : ℝ≥0) (ht : 0 < t)

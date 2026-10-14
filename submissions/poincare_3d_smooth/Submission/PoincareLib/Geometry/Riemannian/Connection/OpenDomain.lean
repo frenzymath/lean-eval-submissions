@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.EuclideanConstruction
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
 
@@ -94,9 +95,10 @@ private lemma tangent_inCoordinates
     simp only [id_eq, hchart]
     ext v
     simp only [ContinuousLinearMap.comp_apply]
-    rw [(tangentBundleCore (𝓡 n) U).coordChange_self
+    erw [(tangentBundleCore (𝓡 n) U).coordChange_self
       (achart (E n) y) y (mem_chart_source _ y)]
     simp +instances
+    rfl
   · simp [Opens.chartAt_eq]
   · simp
 
@@ -176,7 +178,7 @@ private theorem metricDerivative_apply (g : RiemannianMetric n U)
   have h := mfderiv_comp x (L.differentiableAt.mdifferentiableAt) hG
   have hL : mfderiv 𝓘(ℝ, E n →L[ℝ] E n →L[ℝ] ℝ) 𝓘(ℝ, ℝ)
       L (coefficients U g x) = L := by
-    simpa only [mfderiv_eq_fderiv] using L.fderiv
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using L.fderiv
   rw [hL] at h
   exact congrArg (fun A => A c) h
 

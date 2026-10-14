@@ -63,7 +63,8 @@ theorem exists_supported_chart_linearization
   have hCb : Function.Bijective (fderiv Real C 0) := by
     have H := (hlocal.mfderivToContinuousLinearEquiv (by simp)).bijective
     change Function.Bijective (mfderiv 𝓘(Real, E) 𝓘(Real, E) C 0) at H
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using H
+    rw [mfderiv_eq_fderiv] at H
+    exact H
   obtain ⟨G, V, hG, hV, h0V, hVC, hGC⟩ :=
     Poincare.Analysis.exists_contDiff_extension_near_compact isCompact_singleton C.open_source
       (singleton_subset_iff.mpr hC0) C (by

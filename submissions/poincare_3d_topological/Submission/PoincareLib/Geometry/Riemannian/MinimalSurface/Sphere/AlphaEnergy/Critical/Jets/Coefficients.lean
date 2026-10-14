@@ -10,7 +10,7 @@ the continuous weak jet.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
+set_option synthInstance.maxHeartbeats 200000
 
 open Set Filter MeasureTheory Metric
 open scoped Manifold ContDiff Topology ENNReal
@@ -346,6 +346,10 @@ theorem suAlphaFirstJetPoint_fderiv {n : ℕ} (z w : LoopPlane × Jet n) :
     ((ContinuousLinearMap.fst ℝ LoopPlane (Jet n)).prod
       ((suJetBlock (0 : Fin 3)).comp P)).prod
         (((suJetBlock (1 : Fin 3)).comp P).prod ((suJetBlock (2 : Fin 3)).comp P))
+  letI : ContinuousSMul ℝ (Grad n) := Prod.continuousSMul
+  letI : ContinuousSMul ℝ (Base n) := Prod.continuousSMul
+  letI : ContinuousSMul ℝ (Point n) := Prod.continuousSMul
+  letI : ContinuousSMul ℝ (LoopPlane × Jet n) := Prod.continuousSMul
   change fderiv ℝ L z w = L w
   rw [L.fderiv]
 

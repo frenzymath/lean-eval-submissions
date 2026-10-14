@@ -14,7 +14,6 @@ zero boundary value. Source: MT Lemma 19.31, pp. 464-466, and the
 
 set_option autoImplicit false
 set_option warningAsError true
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 

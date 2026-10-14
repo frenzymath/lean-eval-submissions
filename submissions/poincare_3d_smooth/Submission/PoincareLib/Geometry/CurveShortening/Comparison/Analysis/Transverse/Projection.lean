@@ -70,8 +70,8 @@ theorem m64TransverseProjection_energy {κ : Type*} [Fintype κ] (j : ι) (V : �
   apply Finset.sum_congr rfl
   intro a _
   by_cases haj : a = j
-  · simp only [if_pos haj, zero_pow two_ne_zero, Finset.sum_const_zero]
-  · simp only [if_neg haj]
+  · simp only [ite_eq_left haj, zero_pow two_ne_zero, Finset.sum_const_zero]
+  · simp only [ite_eq_right haj]
 
 /-- The first derivative of the actual projected map. Source: the chain rule in the M64
 transverse-conformality derivation. Source/construction:

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
 import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
@@ -47,7 +48,7 @@ theorem plane_map_eq_of_mfderiv_zero {E : Type*}
     have hd (q : E) (hq : q ∈ Metric.ball p r) :
         DifferentiableAt ℝ (c ∘ f) q := ((hdc q hq).comp q (hf q)).differentiableAt
     have hz (q : E) (hq : q ∈ Metric.ball p r) : fderiv ℝ (c ∘ f) q = 0 := by
-      rw [← mfderiv_eq_fderiv, mfderiv_comp q (hdc q hq) (hf q), hzero]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp q (hdc q hq) (hf q), hzero]
       ext w
       change mfderiv (𝓡 n) (𝓡 n) c (f q) 0 = 0
       exact map_zero _

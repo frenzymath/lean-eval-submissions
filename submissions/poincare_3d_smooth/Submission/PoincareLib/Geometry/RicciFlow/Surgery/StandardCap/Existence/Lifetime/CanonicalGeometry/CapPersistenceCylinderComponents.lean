@@ -36,7 +36,7 @@ theorem capPersistence_component_sq_le (q : UnitTwoSphere) (s : ℝ) {r : ℕ}
     have hp0 (i : Fin r) (_hi : i ∈ (Finset.univ : Finset (Fin r))) :
         (0 : ℝ) ≤ 1 / 2 := by norm_num
     simpa only [Finset.prod_const, Finset.card_univ, Fintype.card_fin] using
-      (Finset.prod_le_prod hp0 (fun i _ => hd (a i)))
+      (Finset.prod_le_prod₀ hp0 (fun i _ => hd (a i)))
   exact (mul_le_mul_of_nonneg_right hp (sq_nonneg _)).trans
     (Finset.single_le_sum (fun b _ =>
       mul_nonneg (Finset.prod_nonneg fun i _ => hd0 (b i)) (sq_nonneg _))

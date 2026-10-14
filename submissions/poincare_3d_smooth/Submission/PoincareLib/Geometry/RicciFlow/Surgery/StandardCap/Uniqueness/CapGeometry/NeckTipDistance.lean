@@ -43,7 +43,7 @@ theorem neck_center_tip_distance_of_exclusion
     convert h using 2
     ring
   have hsymm : g.edist x 0 = g.edist 0 x :=
-    @edist_comm StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace x 0
+    @edist_comm StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace x 0
   rw [hsymm] at hnot
   exact (ENNReal.ofReal_le_iff_le_toReal (g.edist_ne_top 0 x)).mp (le_of_not_gt hnot)
 

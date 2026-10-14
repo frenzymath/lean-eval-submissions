@@ -124,11 +124,11 @@ theorem suNaturalGrowth_weak_test
       (fun j => ∫ x, ∑ i : Fin 2, F i x * fderiv ℝ (φ j) x (EuclideanSpace.single i 1))
       atTop (𝓝 (∫ x, ∑ i : Fin 2, F i x * dv i x)) := by
     simp_rw [integral_finsetSum Finset.univ (fun i _ =>
-      memLp_one_iff_integrable.mp ((hdv i).mul' (hF i)))]
+      memLp_one_iff_integrable.mp ((hF i).fun_mul (hdv i)))]
     convert tendsto_finsetSum Finset.univ (fun i _ => hleft i) using 1
     funext j
     exact integral_finsetSum Finset.univ (fun i _ =>
-      memLp_one_iff_integrable.mp ((hdφ j i).mul' (hF i)))
+      memLp_one_iff_integrable.mp ((hF i).fun_mul (hdφ j i)))
   have hunif : TendstoUniformly φ v atTop := uniform_mollification hv hvc hε hεlim
   have hvtop : MemLp v ⊤ volume := hv.memLp_of_hasCompactSupport hvc
   have hφtop (j) : MemLp (φ j) ⊤ volume :=
@@ -139,7 +139,7 @@ theorem suNaturalGrowth_weak_test
     obtain ⟨r, _, hr, hra⟩ := ENNReal.lt_iff_exists_real_btwn.mp ha
     have hrpos : 0 < r := ENNReal.ofReal_pos.mp hr
     filter_upwards [Metric.tendstoUniformly_iff.mp hunif r hrpos] with j hj
-    rw [eLpNorm_exponent_top]
+    rw [eLpNorm_exponent_top ((hφ j).continuous.aestronglyMeasurable.sub hv.aestronglyMeasurable)]
     apply (eLpNormEssSup_le_of_ae_bound
       (Eventually.of_forall fun x => ?_)).trans hra.le
     simpa only [Pi.sub_apply, ← dist_eq_norm, dist_comm] using (hj x).le
@@ -185,7 +185,7 @@ theorem suNaturalGrowth_cutoff_test
     (hη.continuous.mul hu) hηc.mul_right
     (tsupport_mul_subset_left.trans (hηsupp.trans hξO))
     ((hη.continuous.mul hu).memLp_of_hasCompactSupport hηc.mul_right)
-    (fun i => ((hdu i).mul' hηtop).add
+    (fun i => (hηtop.fun_mul (hdu i)).add
       ((((hη.continuous_fderiv (by simp)).clm_apply continuous_const).mul hu
         ).memLp_of_hasCompactSupport ((hηc.fderiv_apply (𝕜 := ℝ) _).mul_right)))
     (fun i => (hweak i).mul_smooth isOpen_univ hη
@@ -208,11 +208,11 @@ private theorem naturalGrowth_diffQuot_pairing
     (k : Fin 2) {h : ℝ} (hh : h ≠ 0) :
     (∫ x, diffQuot k h f x * v x) = -(∫ x, f x * diffQuot k (-h) v x) := by
   have hfv : Integrable (fun x => f x * v x) :=
-    memLp_one_iff_integrable.mp (hv.mul' hf)
+    memLp_one_iff_integrable.mp (hf.fun_mul hv)
   have htv : Integrable (fun x => translate k h f x * v x) :=
-    memLp_one_iff_integrable.mp (hv.mul' (memLp_translate k h hf))
+    memLp_one_iff_integrable.mp ((memLp_translate k h hf).fun_mul hv)
   have hft : Integrable (fun x => f x * translate k (-h) v x) :=
-    memLp_one_iff_integrable.mp ((memLp_translate k (-h) hv).mul' hf)
+    memLp_one_iff_integrable.mp (hf.fun_mul (memLp_translate k (-h) hv))
   have ht : (∫ x, translate k h f x * v x) = ∫ x, f x * translate k (-h) v x := by
     have he := integral_add_right_eq_self
       (μ := (volume : Measure Plane))
@@ -269,8 +269,8 @@ theorem suNaturalGrowth_nirenberg_identity
   have hwc : HasCompactSupport w := hξ2c.mul_right
   have hwcont : Continuous w := (hξ.continuous.pow 2).mul huc
   have hdw (i : Fin 2) : MemLp (dw i) p volume := by
-    apply ((suWeakMap_diffQuot_memLp (hdu i) k h).mul'
-      ((hξ.continuous.pow 2).memLp_of_hasCompactSupport hξ2c : MemLp _ ⊤ volume)).add
+    apply (((hξ.continuous.pow 2).memLp_of_hasCompactSupport hξ2c : MemLp _ ⊤ volume).fun_mul
+      (suWeakMap_diffQuot_memLp (hdu i) k h)).add
     have hc : Continuous (fun x => 2 * ξ x *
         fderiv ℝ ξ x (EuclideanSpace.single i 1) * diffQuot k h u x) :=
       ((continuous_const.mul hξ.continuous).mul
@@ -296,9 +296,9 @@ theorem suNaturalGrowth_nirenberg_identity
   have hbpair := naturalGrowth_diffQuot_pairing (memLp_one_iff_integrable.mpr hb)
     (hwcont.memLp_of_hasCompactSupport hwc : MemLp w ⊤ volume) k hh
   rw [integral_finsetSum _ (fun i _ => memLp_one_iff_integrable.mp
-    ((suWeakMap_diffQuot_memLp (hdw i) k (-h)).mul' (hF i)))] at ht
+    ((hF i).fun_mul (suWeakMap_diffQuot_memLp (hdw i) k (-h))))] at ht
   rw [integral_finsetSum _ (fun i _ => memLp_one_iff_integrable.mp
-    ((hdw i).mul' (suWeakMap_diffQuot_memLp (hF i) k h)))]
+    ((suWeakMap_diffQuot_memLp (hF i) k h).fun_mul (hdw i)))]
   have hsum := Finset.sum_congr (s₁ := Finset.univ) rfl (fun i _ => hpair i)
   rw [Finset.sum_neg_distrib, ht] at hsum
   exact hsum.trans hbpair.symm
@@ -365,8 +365,8 @@ theorem suWeightedPotential_weak_bound
         (fderiv ℝ (φ j) x (EuclideanSpace.single i 1)) ^ 2) atTop
       (𝓝 (∫ x, W x * ∑ i : Fin 2, dv i x ^ 2)) := by
     have hi {f : Plane → ℝ} (hf : MemLp f p volume) : Integrable (fun x => W x * f x ^ 2) := by
-      have hs : MemLp (fun x => f x ^ 2) t volume := by simpa only [pow_two] using hf.mul' hf
-      exact memLp_one_iff_integrable.mp (hs.mul' hW)
+      have hs : MemLp (fun x => f x ^ 2) t volume := by simpa only [pow_two] using hf.fun_mul hf
+      exact memLp_one_iff_integrable.mp (hW.fun_mul hs)
     simpa only [Finset.mul_sum, integral_finsetSum _ (fun i _ => hi (hdv i)),
       integral_finsetSum _ (fun i _ => hi (hdφ _ i))] using
       tendsto_finsetSum Finset.univ (fun i _ => hdlim i)
@@ -376,7 +376,7 @@ theorem suWeightedPotential_weak_bound
     intro a ha
     obtain ⟨s, _, hs, hsa⟩ := ENNReal.lt_iff_exists_real_btwn.mp ha
     filter_upwards [Metric.tendstoUniformly_iff.mp hunif s (ENNReal.ofReal_pos.mp hs)] with j hj
-    rw [eLpNorm_exponent_top]
+    rw [eLpNorm_exponent_top ((hφ j).continuous.aestronglyMeasurable.sub hv.aestronglyMeasurable)]
     apply (eLpNormEssSup_le_of_ae_bound (Eventually.of_forall fun x => ?_)).trans hsa.le
     simpa only [Pi.sub_apply, ← dist_eq_norm, dist_comm] using (hj x).le
   have hleft := weighted_square_tendsto (t := ⊤) (memLp_one_iff_integrable.mpr hH)
@@ -411,12 +411,12 @@ theorem suWeakMap_diffQuot_bounded
     calc
       _ = eLpNorm ((d j i - du i) + du i) p volume := by rw [sub_add_cancel]
       _ ≤ eLpNorm (d j i - du i) p volume + eLpNorm (du i) p volume :=
-        eLpNorm_add_le ((hdc j i).aestronglyMeasurable.sub (hdu i).1) (hdu i).1 hp
+        eLpNorm_add_le hp
       _ ≤ 1 + eLpNorm (du i) p volume := add_le_add hj.le le_rfl
   let C := (1 + eLpNorm (du 0) p volume) + (1 + eLpNorm (du 1) p volume)
   have hC : C < ⊤ := by
-    exact ENNReal.add_lt_top.mpr ⟨ENNReal.add_lt_top.mpr ⟨by simp, (hdu 0).2⟩,
-      ENNReal.add_lt_top.mpr ⟨by simp, (hdu 1).2⟩⟩
+    exact ENNReal.add_lt_top.mpr ⟨ENNReal.add_lt_top.mpr ⟨by simp, (hdu 0).eLpNorm_lt_top⟩,
+      ENNReal.add_lt_top.mpr ⟨by simp, (hdu 1).eLpNorm_lt_top⟩⟩
   have hL (L : Plane →L[ℝ] ℝ) :
       ‖L‖ ≤ |L (EuclideanSpace.single 0 1)| + |L (EuclideanSpace.single 1 1)| := by
     have hsq := (EuclideanSpace.basisFun (Fin 2) ℝ).norm_dual L
@@ -428,13 +428,14 @@ theorem suWeakMap_diffQuot_bounded
     filter_upwards [hdb] with j hj
     calc
       _ ≤ eLpNorm (fun x => ‖d j 0 x‖ + ‖d j 1 x‖) p volume := by
-        apply eLpNorm_mono
+        apply eLpNorm_mono ((hφ j).continuous_fderiv (by simp)).norm.aestronglyMeasurable
         intro x
         rw [norm_norm, Real.norm_of_nonneg (add_nonneg (norm_nonneg _) (norm_nonneg _))]
         simpa only [d, Real.norm_eq_abs] using hL (fderiv ℝ (φ j) x)
       _ ≤ eLpNorm (d j 0) p volume + eLpNorm (d j 1) p volume := by
-        simpa only [Pi.add_def, eLpNorm_norm] using
-          eLpNorm_add_le (hdc j 0).norm.aestronglyMeasurable (hdc j 1).norm.aestronglyMeasurable hp
+        simpa only [Pi.add_def, eLpNorm_norm _ (hdc j 0).aestronglyMeasurable,
+          eLpNorm_norm _ (hdc j 1).aestronglyMeasurable] using
+          eLpNorm_add_le (f := fun x => ‖d j 0 x‖) (g := fun x => ‖d j 1 x‖) hp
       _ ≤ C := add_le_add (hj 0) (hj 1)
   refine ⟨C, hC, fun k h => ?_⟩
   by_cases hh : h = 0
@@ -459,6 +460,7 @@ theorem suWeakMap_diffQuot_bounded
       (ENNReal.ofReal_pos.mpr (abs_pos.mpr hh)).ne' ENNReal.ofReal_ne_top).mp ht').trans hj
   apply Lp.eLpNorm_le_of_ae_tendsto hbound
     (fun j => (continuous_diffQuot_of_continuous k h (hφ j).continuous).aestronglyMeasurable)
+    (continuous_diffQuot_of_continuous k h hu).aestronglyMeasurable
   have ht := (uniform_mollification hu huc hε hεlim).tendsto_at
   exact Eventually.of_forall fun x => by
     simp only [diffQuot_apply_of_ne k hh]
@@ -497,7 +499,7 @@ theorem suWeakMap_compact_cutoff
         (volume.restrict O) :=
       (((hξ.continuous_fderiv (by simp)).clm_apply continuous_const).memLp_of_hasCompactSupport
         (hξc.fderiv_apply (𝕜 := ℝ) _)).restrict O
-    exact ((hdu i).mul' hξtop).add (hup.mul' hdξ)
+    exact (hξtop.fun_mul (hdu i)).add (hdξ.fun_mul hup)
   let hw : MemW1pWitness (ENNReal.ofReal p) v O :=
     { memLp := (hv.memLp_of_hasCompactSupport hvc).restrict O
       weakGrad := fun x => WithLp.toLp 2 (fun i => dv i x)
@@ -620,8 +622,8 @@ theorem operator_memLp (S : SUQuadraticWeakSystem u V center R) :
   let z (x : LoopPlane) := ((x, u x), q x)
   have hq : MemLp q 2 mu := memLp_prod_iff.mpr ⟨S.column_memLp 0, S.column_memLp 1⟩
   have hz : AEMeasurable z mu :=
-    (measurable_id.aemeasurable.prodMk S.coordinate_memLp.1.aemeasurable).prodMk
-      hq.1.aemeasurable
+    (measurable_id.aemeasurable.prodMk S.coordinate_memLp.aestronglyMeasurable.aemeasurable).prodMk
+      hq.aestronglyMeasurable.aemeasurable
   have hzK : ∀ᵐ x ∂mu, z x ∈ K := by
     filter_upwards [ae_restrict_mem measurableSet_ball] with x hx
     exact ⟨S.base_mem (Metric.ball_subset_closedBall hx), mem_univ _⟩
@@ -651,7 +653,7 @@ theorem operator_memLp (S : SUQuadraticWeakSystem u V center R) :
   have hFlp : MemLp (fun x => S.constant * (1 + ‖q x‖)) 2 mu :=
     ((memLp_const (1 : ℝ)).add hq.norm).const_mul S.constant
   have hsq : MemLp (fun x => ‖q x‖ ^ 2) 1 mu := by
-    simpa only [pow_two] using hq.norm.mul' hq.norm
+    simpa only [pow_two] using hq.norm.fun_mul hq.norm
   have hBlp : MemLp (fun x => S.constant * (1 + ‖q x‖ ^ 2)) 1 mu :=
     ((memLp_const (1 : ℝ)).add hsq).const_mul S.constant
   refine ⟨hFlp.mono' hF ?_, memLp_one_iff_integrable.mp (hBlp.mono' hB ?_)⟩

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Regularity.Coefficients.Reparametrization
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Regularity.WeakCoordinateCloseness
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.CoordinateMap
@@ -35,7 +36,7 @@ private theorem laplacian_sub_const_euclidean {n : ℕ}
   have hd (y : EuclideanSpace ℝ (Fin n)) :
       mvfderiv (𝓡 n) (fun z => f z - c) y = mvfderiv (𝓡 n) f y := by
     ext v
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     exact congrArg (fun A => A v) (fderiv_sub_const (𝕜 := ℝ) (f := f) (x := y) c)
   simp only [LeviCivitaData.laplacian, LeviCivitaData.hessian,
     LeviCivitaData.hessianOnFields, hd]

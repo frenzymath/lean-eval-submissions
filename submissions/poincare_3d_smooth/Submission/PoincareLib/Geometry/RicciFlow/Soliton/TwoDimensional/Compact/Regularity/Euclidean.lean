@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.TwoDimensional.Compact.Gradient
 import Submission.PoincareLib.Geometry.Riemannian.Connection.AlongCurve.Coefficients
 
@@ -46,7 +47,7 @@ theorem hessian_eq_fderiv_sub_connectionCoefficient_of_C2 (D : LeviCivitaData g)
   have hd := ((hf.fderiv_right (m := 1) (by norm_num)).differentiableAt
     (by norm_num)).hasFDerivAt
   have heval := hd.clm_apply (hasFDerivAt_const w x)
-  simp +instances only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] at h
+  simp +instances only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] at h
   change fderiv ℝ (fun y => fderiv ℝ f y w) x v =
     g.inner x (D.connection (D.gradient f) x v) w +
       fderiv ℝ f x (D.connectionCoefficient x v w) at h

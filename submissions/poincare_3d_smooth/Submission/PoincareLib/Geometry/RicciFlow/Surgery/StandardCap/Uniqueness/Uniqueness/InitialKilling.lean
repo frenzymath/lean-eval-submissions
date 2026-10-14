@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Geometry
 import Submission.PoincareLib.Geometry.RicciFlow.Local.DeTurck.Construction.IntrinsicLieMetric
@@ -61,7 +62,7 @@ theorem metricLieDerivative_linear {n : ℕ}
   rw [hb, hb] at h
   have hm : mvfderiv (𝓡 n) (fun y => g.inner y u v) x (B x) =
       fderiv ℝ (fun y => g.inner y u v) x (B x) := by
-    rw [mvfderiv, mfderiv_eq_fderiv]
+    rw [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   rw [hm] at h
   simpa only [map_neg, neg_apply, sub_neg_eq_add] using h
@@ -72,7 +73,7 @@ theorem standardRotation_mfderiv
     (A : Matrix.specialOrthogonalGroup (Fin 3) ℝ) (x : StandardCapSpace) :
     mfderiv (𝓡 3) (𝓡 3) (standardRotation A) x =
       (Matrix.toEuclideanLin A.1).toContinuousLinearMap := by
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change fderiv ℝ (Matrix.toEuclideanLin A.1) x = _
   exact (Matrix.toEuclideanLin A.1).toContinuousLinearMap.fderiv
 

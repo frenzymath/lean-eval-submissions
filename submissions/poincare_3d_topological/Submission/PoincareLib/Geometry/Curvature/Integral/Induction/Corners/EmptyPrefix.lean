@@ -81,6 +81,7 @@ theorem openFiber_zero_volume_preimage_of_isCompact
       ((hliftsmooth.contMDiffAt (U.isOpen.mem_nhds hx)).mdifferentiableAt (by simp))
     have hid : mfderiv (𝓡 n) (𝓡 n) (incl ∘ lift) x = ContinuousLinearMap.id ℝ _ := by
       rw [hevent.mfderiv_eq, mfderiv_id]
+      rfl
     have hcomp := congrArg (fun A => A v) (hder.symm.trans hid)
     change mfderiv (𝓡 n) (𝓡 n) incl (lift x) (mfderiv (𝓡 n) (𝓡 n) lift x v) = v at hcomp
     rw [hcomp]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.Basic
 
@@ -72,7 +73,7 @@ theorem pullbackCoefficients_zero_of_orthonormal
     rw [he0]
     exact mdifferentiableAt_extChartAt (mem_chart_source _ _)
   have hd := mfderiv_comp 0 hchart (he.mdifferentiableAt (by simp))
-  simp only [TangentSpace, mfderiv_eq_fderiv, Function.comp_def] at hd
+  simp only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model, Function.comp_def] at hd
   rw [hed.fderiv] at hd
   have hc : mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p) (e 0) =
       ContinuousLinearMap.id ℝ (EuclideanSpace ℝ (Fin n)) := by

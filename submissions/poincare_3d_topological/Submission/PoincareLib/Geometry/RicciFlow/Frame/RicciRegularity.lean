@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Frame.RicciTransport
 import Submission.PoincareLib.Geometry.RicciFlow.Connection.BoundaryRegularity
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Regularity
@@ -65,7 +66,7 @@ private lemma contMDiffWithinAt_derivWithin_time
   convert h using 1
   funext p
   rw [inTangentCoordinates_model_space]
-  simp only [mfderivWithin_eq_fderivWithin, derivWithin]
+  simp only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model, derivWithin]
 
 /-- Ricci evaluated on smooth spatial fields is smooth within the full time
 interval, including its initial endpoint. -/

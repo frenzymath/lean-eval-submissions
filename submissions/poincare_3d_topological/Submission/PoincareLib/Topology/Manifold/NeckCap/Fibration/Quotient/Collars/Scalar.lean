@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Tube.Gluing.Scalar
 import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
 
@@ -30,7 +31,7 @@ theorem contMDiff_axial_deriv (f : RoundCylinderSpace → ℝ)
     (contMDiff_snd.contMDiffAt (x := p)) (by simp : (∞ : ℕ∞ω) + 1 ≤ ∞)
   rw [inTangentCoordinates_model_space] at hd
   have hv := hd.clm_apply (contMDiffAt_const (c := (1 : ℝ)))
-  simpa only [mfderiv_eq_fderiv, fderiv_eq_deriv_mul, mul_one, a] using hv
+  simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_eq_deriv_mul, mul_one, a] using hv
 
 /-- A universal derivative neighborhood of the identity admits extensions
 supported inside any prescribed positive collar. -/

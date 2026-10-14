@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Cylindrical.CylindricalRadial
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialEquality
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Collapse.PolarInverse
@@ -28,7 +29,7 @@ theorem cylindrical_vertical_velocity (g₀ : StandardInitialMetric)
     (cylindrical_vertical_contMDiffAt g₀ theta ht.le).contDiffAt.differentiableAt (by simp)
   have hspeed := cylindrical_vertical_speed g₀ theta ht.le
   have hv : mfderiv 𝓘(ℝ, ℝ) (𝓡 3) gamma t 1 = deriv gamma t := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   change Real.sqrt (g₀.metric.inner (gamma t)
     (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) gamma t 1)

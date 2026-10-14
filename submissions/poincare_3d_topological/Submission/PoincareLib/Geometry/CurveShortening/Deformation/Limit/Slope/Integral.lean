@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Limit.Slope.Derivative
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Data
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
@@ -37,7 +38,7 @@ theorem m65CircleLift_velocity_pairing (C : M62.CircleGeometry circumference)
     (C.quotient_smooth.mdifferentiableAt (by simp)) hd (1 : ℝ)
   change curveVelocity (C.quotient ∘ lift) x = _ at hchain
   have hvel : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) lift x (1 : ℝ) = deriv lift x := by
-    simpa +instances only [mfderiv_eq_fderiv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using!
       (fderiv_apply_one_eq_deriv (f := lift) (x := x))
   erw [hvel] at hchain
   rw [hchain]

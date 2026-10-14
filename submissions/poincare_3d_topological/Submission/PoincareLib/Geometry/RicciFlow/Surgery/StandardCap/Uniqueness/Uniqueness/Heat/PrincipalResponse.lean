@@ -27,6 +27,12 @@ variable {n : ℕ}
 
 local notation "V" => EuclideanSpace ℝ (Fin n)
 
+local instance principalResponse_value_normedSpace (K : Set V) : NormedSpace ℝ (dirichletValue K) :=
+  (dirichletValue K).normedSpace
+
+local instance principalResponse_form_normedSpace (K : Set V) : NormedSpace ℝ (dirichletForm K) :=
+  (dirichletForm K).normedSpace
+
 /-- The actual Dirichlet form with an equivalent coefficient energy norm. -/
 def WeightedForm (K : Set V) : Type := dirichletForm K
 
@@ -70,6 +76,10 @@ instance (K : Set V) : ContinuousConstSMul ℝ (WeightedForm K) :=
     change principalFormPairing K A (r • u) v = r * principalFormPairing K A u v
     simp only [principalFormPairing, principalEnergy, map_smul, real_inner_smul_left,
       mul_add, Finset.mul_sum]
+    congr 1
+    change inner ℝ (r • (dirichletInclusion K u : Lp ℝ 2 (volume : Measure V)))
+      (dirichletInclusion K v : Lp ℝ 2 (volume : Measure V)) = _
+    exact real_inner_smul_left _ _ _
   definite u hu := by
     let : NormedAddCommGroup (WeightedForm K) :=
       inferInstanceAs (NormedAddCommGroup (dirichletForm K))

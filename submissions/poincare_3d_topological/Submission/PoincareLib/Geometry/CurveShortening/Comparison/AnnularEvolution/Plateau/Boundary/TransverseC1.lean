@@ -81,9 +81,9 @@ theorem m64Conformal_transverse_contDiffOn {N : ℕ} {R C H beta Lambda lower up
       HasWeakPartialDeriv i (fun z => W i z a) (fun z => Y z a) (ball (0 : LoopPlane) R) := by
     by_cases haj : a = j
     · intro phi _ _ _
-      simp only [Y, W, Function.comp_apply, m64TransverseProjection_apply, if_pos haj,
+      simp only [Y, W, Function.comp_apply, m64TransverseProjection_apply, ite_eq_left haj,
         zero_mul, integral_zero, neg_zero]
-    · simpa only [Y, W, Function.comp_apply, m64TransverseProjection_apply, if_neg haj] using
+    · simpa only [Y, W, Function.comp_apply, m64TransverseProjection_apply, ite_eq_right haj] using
         hweak i a
   have hYs : ContDiffOn ℝ 2 Y U :=
     (m64TransverseProjection j).contDiff.comp_contDiffOn hsmooth

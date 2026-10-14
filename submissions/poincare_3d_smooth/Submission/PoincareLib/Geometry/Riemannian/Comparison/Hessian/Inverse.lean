@@ -99,6 +99,7 @@ theorem hessian_inverse_radius_le_of_sectional_lower_bound [T2Space M]
     change e =ᶠ[𝓝 y] B at hy
     unfold pullbackCoefficients
     rw [hy.mfderiv_eq, hy.self_of_nhds]
+    rfl
   have hΓ : coordinateChristoffel (g.pullbackCoefficients e) v =
       coordinateChristoffel (g.pullbackCoefficients B) v := by
     funext a b
@@ -112,7 +113,15 @@ theorem hessian_inverse_radius_le_of_sectional_lower_bound [T2Space M]
   have hbound := Hessian.radial_pairing_le_of_sectional_lower_bound
     g D hK hsec he hnorm hradial hv hv0 hi.bijective hmin z
   have hsq := g.hessian_inverse_radius_sq D B hB hBi hvB hv0 hgauss z
-  rw [← heq.mfderiv_eq, ← heq.self_of_nhds, hi.self_apply_inverse] at hsq
+  have hsqe : D.hessian (fun y => ‖B.symm y‖ ^ 2) (e v)
+      (mfderiv (𝓡 n) (𝓡 n) e v z) (mfderiv (𝓡 n) (𝓡 n) e v z) =
+      2 * g.pullbackCoefficients B v ((show EuclideanSpace ℝ (Fin n) from z) + coordinateChristoffel
+        (g.pullbackCoefficients B) v v z) z := by
+    rw [heq.mfderiv_eq, heq.self_of_nhds]
+    exact hsq
+  clear hsq
+  have hsq := hsqe
+  rw [hi.self_apply_inverse] at hsq
   rw [hcoeff.self_of_nhds, hΓ] at hbound
   have hquad : g.pullbackCoefficients B v z z = g.inner (e v) w w := by
     rw [← hcoeff.self_of_nhds]

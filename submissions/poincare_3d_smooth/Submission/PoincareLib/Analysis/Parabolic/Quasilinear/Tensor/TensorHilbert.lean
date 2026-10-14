@@ -63,6 +63,13 @@ abbrev Value := tensorL2 d.fields d.charts.measure
 
 abbrev Form := firstOrderGraph d.fields d.charts.measure
 
+local instance firstOrderAmbient_innerProductSpace :
+    InnerProductSpace ℝ (FirstOrderAmbient d.fields d.charts.measure) :=
+  WithLp.instProdInnerProductSpace
+
+local instance firstOrderGraph_innerProductSpace : InnerProductSpace ℝ d.Form :=
+  Submodule.innerProductSpace (firstOrderGraph d.fields d.charts.measure)
+
 def inclusion : d.Form →L[ℝ] d.Value := graphValue d.fields d.charts.measure
 
 theorem inclusion_injective : Function.Injective d.inclusion :=
@@ -277,6 +284,8 @@ end CoefficientAction
 namespace Data
 
 open ParsevalTensorNative
+
+attribute [local instance] firstOrderAmbient_innerProductSpace firstOrderGraph_innerProductSpace
 
 variable {g : RiemannianMetric n M} (d : Data g)
   [MeasurableSpace M] [BorelSpace M]
@@ -835,6 +844,8 @@ theorem coordinateComplexification_derivative (f : 𝓢(ModelE, ℝ)) (v : Model
 end Complexification
 
 namespace Data
+
+attribute [local instance] firstOrderAmbient_innerProductSpace firstOrderGraph_innerProductSpace
 
 variable {g : RiemannianMetric n M} (d : Data g)
   [MeasurableSpace M] [BorelSpace M]

@@ -138,8 +138,7 @@ lemma neg_mul_sum_sq_geometric_prescribed_jet_ge
     (sum_sq_geometric_prescribed_jet_le D hD x K k hK hcurv W)
     (show -2 * ψ ≤ 0 by linarith)
   convert h using 1
-  · rfl
-  · ring
+  ring
 
 /-- On a time slab of length at most `T`, the actual reciprocal-time
 Hamilton jet satisfies the `C / τ^2` estimate used in Lemma 15.24. -/

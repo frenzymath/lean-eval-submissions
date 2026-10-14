@@ -135,6 +135,8 @@ private theorem ExpandingFlow.congr
     convert! hd'.hasMFDerivWithinAt using 1
     dsimp only
     rw [he (show (t, y) ∈ Ioo a b ×ˢ V from ⟨ht, hy⟩)]
+    ext v
+    rfl
   · intro y hy t ht
     rw [he ⟨⟨ha.trans_le ht.1, ht.2⟩, hy⟩]
     exact h.level y hy t ht
@@ -414,6 +416,8 @@ private theorem ExpandingFlow.extend
       convert! hd'.hasMFDerivWithinAt using 1
       dsimp only
       rw [show Ξ (t, y) = Φ (t, y) from if_pos hts]
+      ext v
+      rfl
     · have hti : t - s ∈ Ioo (-τ) τ := ⟨by linarith, by linarith [ht.2]⟩
       have he : (fun r => Ξ (r, y)) =ᶠ[𝓝 t] (fun r => Q (r, y)) := by
         filter_upwards [Ioo_mem_nhds (show s - η < t by linarith) ht.2] with r hr
@@ -424,6 +428,8 @@ private theorem ExpandingFlow.extend
       convert! hd'.hasMFDerivWithinAt using 1
       dsimp only
       rw [show Ξ (t, y) = Q (t, y) from if_neg hts]
+      ext v
+      rfl
   · intro y hy t ht
     by_cases hts : t ≤ s
     · rw [show Ξ (t, y) = Φ (t, y) from if_pos hts]

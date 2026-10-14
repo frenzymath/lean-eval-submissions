@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.C1.ChartPullback
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Embedding.HessianVector
@@ -94,7 +95,7 @@ theorem hasDerivAt_embedding_pushforward_of_contMDiffAt_one
     have htarget : z r ∈ c.target := c.map_source hr.2
     have hchain := mfderiv_comp (z r) (he.mdifferentiable (by simp)).mdifferentiableAt
       ((mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt_symm htarget)
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
     have hv := congrArg (fun L : E →L[ℝ] W => L v) hchain
     change fderiv ℝ f (z r) v =
       mfderiv (𝓡 n) 𝓘(ℝ, W) e (c.symm (z r))

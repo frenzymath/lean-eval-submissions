@@ -1,0 +1,169 @@
+{
+  "status": "Final packaging/source audit only; compiler, Comparator and Nanoda verification remain separate and pending",
+  "benchmark_commit": "38361be884302c7edce1908c4aef8296eb2cb27e",
+  "provenance_sha256": "59ece88b41c84ae0354b174285b642e70cdd85b20868b836c0b42b45effd9211",
+  "provenance_preserved": true,
+  "smooth_modules": 23559,
+  "smooth_source_bytes": 151843782,
+  "closures": {
+    "smooth": {
+      "reachable_modules": 23559,
+      "missing_local_imports": [],
+      "external_import_count": 991
+    },
+    "topological": {
+      "reachable_modules": 23559,
+      "missing_local_imports": [],
+      "external_import_count": 991
+    }
+  },
+  "mirrored_helper_files": 23558,
+  "mirror_mismatches": [],
+  "topological_extra_helpers": [],
+  "trusted_templates": [
+    {
+      "path": "submissions/poincare_3d_smooth/lakefile.toml",
+      "actual_sha256": "a2f4a5581c8028d19eb3457c5f5949881d35cf4c9820c4f4b3ce0cd9702b936a",
+      "provenance_sha256": "a2f4a5581c8028d19eb3457c5f5949881d35cf4c9820c4f4b3ce0cd9702b936a",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "The read operation timed out"
+    },
+    {
+      "path": "submissions/poincare_3d_smooth/lean-toolchain",
+      "actual_sha256": "bc84812c94489d1e3e191baa1dc10d5eb684382d7fe9d2a5ab085e72c1c67e47",
+      "provenance_sha256": "bc84812c94489d1e3e191baa1dc10d5eb684382d7fe9d2a5ab085e72c1c67e47",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "The read operation timed out"
+    },
+    {
+      "path": "submissions/poincare_3d_smooth/Challenge.lean",
+      "actual_sha256": "1b7d3029337feb0c7408bb1f8ac094b6481701fd2356c6abaa98dbf888ed6269",
+      "provenance_sha256": "1b7d3029337feb0c7408bb1f8ac094b6481701fd2356c6abaa98dbf888ed6269",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "The read operation timed out"
+    },
+    {
+      "path": "submissions/poincare_3d_smooth/Solution.lean",
+      "actual_sha256": "5c67967d30d8f2d83f0624cb33c21f320570005e5acbdaa50463cadf7a7c5573",
+      "provenance_sha256": "5c67967d30d8f2d83f0624cb33c21f320570005e5acbdaa50463cadf7a7c5573",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "<urlopen error _ssl.c:989: The handshake operation timed out>"
+    },
+    {
+      "path": "submissions/poincare_3d_smooth/config.json",
+      "actual_sha256": "6dbbf39da3eb547f98fd71da07e128a6571fa4cab4bf7b3791a92b333369b863",
+      "provenance_sha256": "6dbbf39da3eb547f98fd71da07e128a6571fa4cab4bf7b3791a92b333369b863",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "The read operation timed out"
+    },
+    {
+      "path": "submissions/poincare_3d_smooth/WorkspaceTest.lean",
+      "actual_sha256": "17bd1978ec5ec46b151a616ae626d14cef01fcb6ce90a2d104dffae9a95e40df",
+      "provenance_sha256": "17bd1978ec5ec46b151a616ae626d14cef01fcb6ce90a2d104dffae9a95e40df",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "The read operation timed out"
+    },
+    {
+      "path": "submissions/poincare_3d_smooth/Submission/Helpers.lean",
+      "actual_sha256": "b5b5c31e59632f5c10241037df5e8d8d3f4ba346d99917caffd60932c7dae226",
+      "provenance_sha256": "b5b5c31e59632f5c10241037df5e8d8d3f4ba346d99917caffd60932c7dae226",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "The read operation timed out"
+    },
+    {
+      "path": "submissions/poincare_3d_topological/lakefile.toml",
+      "actual_sha256": "e5b27b9d64709fcaaf236ddf2d32d2bcd37e07fef608da64c9725b57fc2baef0",
+      "provenance_sha256": "e5b27b9d64709fcaaf236ddf2d32d2bcd37e07fef608da64c9725b57fc2baef0",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "The read operation timed out"
+    },
+    {
+      "path": "submissions/poincare_3d_topological/lean-toolchain",
+      "actual_sha256": "bc84812c94489d1e3e191baa1dc10d5eb684382d7fe9d2a5ab085e72c1c67e47",
+      "provenance_sha256": "bc84812c94489d1e3e191baa1dc10d5eb684382d7fe9d2a5ab085e72c1c67e47",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "<urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "path": "submissions/poincare_3d_topological/Challenge.lean",
+      "actual_sha256": "e139f6f39d8fc16f5e2ec36a5b3b1483d5b4494695190812decab5cc999cb894",
+      "provenance_sha256": "e139f6f39d8fc16f5e2ec36a5b3b1483d5b4494695190812decab5cc999cb894",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "<urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "path": "submissions/poincare_3d_topological/Solution.lean",
+      "actual_sha256": "833a6f38d9526980e671a2cfa6587e228398f49d8460a993880569f74155d881",
+      "provenance_sha256": "833a6f38d9526980e671a2cfa6587e228398f49d8460a993880569f74155d881",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "<urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "path": "submissions/poincare_3d_topological/config.json",
+      "actual_sha256": "f8230f9b8928bea2f6c24ebbc97448063486f5d9be8bdc025a8f5c5a310238d5",
+      "provenance_sha256": "f8230f9b8928bea2f6c24ebbc97448063486f5d9be8bdc025a8f5c5a310238d5",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "<urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "path": "submissions/poincare_3d_topological/WorkspaceTest.lean",
+      "actual_sha256": "17bd1978ec5ec46b151a616ae626d14cef01fcb6ce90a2d104dffae9a95e40df",
+      "provenance_sha256": "17bd1978ec5ec46b151a616ae626d14cef01fcb6ce90a2d104dffae9a95e40df",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "<urlopen error [Errno 101] Network is unreachable>"
+    },
+    {
+      "path": "submissions/poincare_3d_topological/Submission/Helpers.lean",
+      "actual_sha256": "b5b5c31e59632f5c10241037df5e8d8d3f4ba346d99917caffd60932c7dae226",
+      "provenance_sha256": "b5b5c31e59632f5c10241037df5e8d8d3f4ba346d99917caffd60932c7dae226",
+      "official_remote_sha256": null,
+      "matches_provenance": true,
+      "matches_remote": null,
+      "error": "<urlopen error [Errno 101] Network is unreachable>"
+    }
+  ],
+  "all_trusted_files_match_provenance": true,
+  "all_trusted_files_match_official_remote": null,
+  "symlinks_excluding_lake": [],
+  "top_level_shadows": [],
+  "serious_trust_findings": [],
+  "changed_lean_files": 1346,
+  "changed_lean_trust_findings": [],
+  "source_manifest_sha256": "449fd628456d78ff4712acdb6ea7d08f77096fa7de348fa46dcb95c8290ec74e",
+  "elapsed_seconds": 276.33949851989746,
+  "official_remote_refetch_status": "Unavailable: requests timed out or network unreachable; no remote hash mismatch was observed",
+  "broad_scan_review": {
+    "ordinary_eval_identifier_occurrences": 242,
+    "local_or_scoped_term_macros": 36,
+    "macro_review_evidence": "final-local-macro-review.txt",
+    "interpretation": "eval hits are ordinary mathematical evaluation identifiers; macros expand to ordinary typed terms/theorem references, with no declaration injection or admission code found"
+  },
+  "independent_scan_matches_refreshed_packaging_snapshot": true,
+  "source_changes_between_independent_scans": []
+}

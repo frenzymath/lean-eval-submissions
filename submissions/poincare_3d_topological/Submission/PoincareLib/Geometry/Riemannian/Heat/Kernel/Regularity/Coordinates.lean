@@ -97,13 +97,13 @@ theorem exists_eLpNorm_coordinate_pullback_le
   have hnorm : eLpNorm (fun x => f (e x)) 2 ν =
       eLpNorm f 2 (g.volumeMeasure.restrict (e '' V)) := by
     rw [← hmapback]
-    exact (eLpNorm_map_measure hfmap.1 heν).symm
+    exact (eLpNorm_map_measure hfmap.aestronglyMeasurable heν).symm
   refine ⟨hfpull.of_measure_le_smul (ENNReal.inv_ne_top.mpr hc) hdom, ?_⟩
   have hb : eLpNorm (fun x => f (e x)) 2 (volume.restrict V) ≤
       A * eLpNorm f 2 (g.volumeMeasure.restrict (e '' V)) := by
     simpa only [one_div, hnorm, A, smul_eq_mul] using
       (eLpNorm_le_of_measure_le_smul (f := fun x => f (e x)) (p := 2) hdom)
-  have hbt := ENNReal.toReal_mono (ENNReal.mul_ne_top hAt hf.2.ne) hb
+  have hbt := ENNReal.toReal_mono (ENNReal.mul_ne_top hAt hf.ne) hb
   simpa only [ENNReal.toReal_mul] using hbt
 
 /-- The coordinate comparison is uniform over all containing domains. -/
@@ -127,7 +127,7 @@ theorem exists_eLpNorm_coordinate_pullback_restrict_le
   obtain ⟨hmem, hnorm⟩ := hbound f (hf.mono_measure hmeasure)
   refine ⟨hmem, hnorm.trans ?_⟩
   exact mul_le_mul_of_nonneg_left
-    (ENNReal.toReal_mono hf.2.ne (eLpNorm_mono_measure f hmeasure)) hC.le
+    (ENNReal.toReal_mono hf.ne (eLpNorm_mono_measure f hmeasure)) hC.le
 
 end PoincareMT.RiemannianMetric
 

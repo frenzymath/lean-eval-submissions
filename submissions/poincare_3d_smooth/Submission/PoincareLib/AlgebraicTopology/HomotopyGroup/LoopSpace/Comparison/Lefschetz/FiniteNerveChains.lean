@@ -23,6 +23,8 @@ open scoped Simplicial
 
 universe u
 
+local instance : HasCoproducts.{u} (ModuleCat.{u} ℤ) := fun _ => inferInstance
+
 namespace PoincareMT.Proofs.M59
 
 open M02.Topology

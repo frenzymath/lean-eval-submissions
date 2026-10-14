@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Predecessors.Necks.Geometry.GermRealization
 import Submission.PoincareLib.Geometry.Riemannian.Normalization.Scaling.Curvature
@@ -72,7 +73,7 @@ theorem normalizedEuclideanCoefficients_pullback (N : EpsilonNeck g)
         (N.centeredParametrization q) (phi x)).comp T.toContinuousLinearMap := by
     change mfderiv (𝓡 3) (𝓡 3) (N.centeredParametrization q ∘ phi) x = _
     rw [mfderiv_comp x hN hphi.differentiableAt.mdifferentiableAt,
-      mfderiv_eq_fderiv, hphi.fderiv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, hphi.fderiv]
   simp only [m25_normalizedEuclideanCoefficients, RiemannianMetric.parameterBilinearEquiv_apply,
     normalizedCenteredCoefficients, smul_apply, smul_eq_mul,
     RiemannianMetric.parametrizedCoefficients_apply, hder]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.ThreeDimensional.Noncompact.Rigidity.Levels.Graph
 
 /-!
@@ -85,7 +86,7 @@ theorem level_height_mvfderiv
   rw [hg, mfderiv_id] at hv
   change (0 : ℝ) = mfderiv (𝓘(ℝ, ℝ).prod (𝓡 n)) 𝓘(ℝ, ℝ) F (u y, y)
     (mvfderiv (𝓡 n) u y v, v) at hv
-  rw [mfderiv_prod_eq_add_apply hdF, mfderiv_eq_fderiv] at hv
+  rw [mfderiv_prod_eq_add_apply hdF, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hv
   change 0 = fderiv ℝ (fun r ↦ F (r, y)) (u y) (mvfderiv (𝓡 n) u y v) +
     mvfderiv (𝓡 n) (fun z ↦ F (u y, z)) y v at hv
   rw [fderiv_eq_deriv_mul] at hv

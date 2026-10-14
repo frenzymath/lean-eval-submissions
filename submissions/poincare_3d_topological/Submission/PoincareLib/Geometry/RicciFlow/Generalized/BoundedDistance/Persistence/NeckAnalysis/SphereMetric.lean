@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Persistence.NeckAnalysis.SphereGram
 
@@ -105,7 +106,7 @@ theorem sphere_chart_inverse_inner_at (q : UnitTwoSphere)
       (mfderiv (𝓡 2) (𝓡 3) (fun y : UnitTwoSphere => y.1) (c.symm x)).comp
         (mfderiv (𝓡 2) (𝓡 2) c.symm x) =
       (fderiv ℝ (stereoInvFunAux (↑(-q) : EuclideanSpace ℝ (Fin 3))) (A x)).comp A := by
-    rw [← mfderiv_comp x hcoe hsymm, mfderiv_eq_fderiv]
+    rw [← mfderiv_comp x hcoe hsymm, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact hderiv.fderiv
   change inner ℝ
     (((mfderiv (𝓡 2) (𝓡 3) (fun y : UnitTwoSphere => y.1) (c.symm x)).comp

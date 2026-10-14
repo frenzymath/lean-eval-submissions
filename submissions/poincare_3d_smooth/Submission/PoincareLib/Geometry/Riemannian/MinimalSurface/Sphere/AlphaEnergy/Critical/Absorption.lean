@@ -72,16 +72,16 @@ theorem suNaturalGrowth_potential_bound
   have hdξ (i : Fin 2) : Continuous (dξ i) :=
     (hξ.continuous_fderiv (by simp)).clm_apply continuous_const
   have hdv (k : Fin n) (i : Fin 2) : MemLp (dv k i) p volume := by
-    apply ((hdu k i).mul' hξ2top).add
+    apply (hξ2top.fun_mul (hdu k i)).add
     have hc : Continuous (fun x => 2 * ξ x * dξ i x * u k x) :=
       ((continuous_const.mul hξ.continuous).mul (hdξ i)).mul (hu k)
     exact hc.memLp_of_hasCompactSupport ((hξc.mul_left.mul_right).mul_right)
   have hv (k : Fin n) : MemLp (v k) ⊤ volume :=
     ((hξ.continuous.pow 2).mul (hu k)).memLp_of_hasCompactSupport hξ2c.mul_right
   have hleft (k : Fin n) (i : Fin 2) : Integrable (fun x => F k i x * dv k i x) :=
-    memLp_one_iff_integrable.mp ((hdv k i).mul' (hF k i))
+    memLp_one_iff_integrable.mp ((hF k i).fun_mul (hdv k i))
   have hright (k : Fin n) : Integrable (fun x => b k x * v k x) :=
-    memLp_one_iff_integrable.mp ((hv k).mul' (memLp_one_iff_integrable.mpr (hb k)))
+    memLp_one_iff_integrable.mp ((memLp_one_iff_integrable.mpr (hb k)).fun_mul (hv k))
   let L (x : Plane) := ∑ k, ∑ i, F k i x * dv k i x
   let T (x : Plane) := ∑ k, b k x * v k x
   have hLI : Integrable L := integrable_finsetSum _ fun k _ =>
@@ -375,8 +375,8 @@ theorem suWeightedPotential_diffQuot_bound
     fderiv ℝ ξ x (EuclideanSpace.single i 1) * diffQuot k h u x
   have hcont := continuous_diffQuot_of_continuous k h hu
   have ha (i : Fin 2) : MemLp (a i) p volume :=
-    (suWeakMap_diffQuot_memLp (hdu i) k h).mul'
-      (hξ.continuous.memLp_of_hasCompactSupport hξc : MemLp ξ ⊤ volume)
+    (hξ.continuous.memLp_of_hasCompactSupport hξc : MemLp ξ ⊤ volume).fun_mul
+      (suWeakMap_diffQuot_memLp (hdu i) k h)
   have hb (i : Fin 2) : MemLp (b i) p volume :=
     (((hξ.continuous_fderiv (by simp)).clm_apply continuous_const).mul hcont
       ).memLp_of_hasCompactSupport ((hξc.fderiv_apply (𝕜 := ℝ) _).mul_right)
@@ -392,8 +392,8 @@ theorem suWeightedPotential_diffQuot_bound
     (hξ.continuous.mul hcont) hξc.mul_right (tsupport_mul_subset_left.trans hξO)
     (fun i => (ha i).add (hb i)) hw hbound
   have hi {f : Plane → ℝ} (hf : MemLp f p volume) : Integrable (fun x => W x * f x ^ 2) := by
-    have hsq : MemLp (fun x => f x ^ 2) t volume := by simpa only [pow_two] using hf.mul' hf
-    exact memLp_one_iff_integrable.mp (hsq.mul' hW)
+    have hsq : MemLp (fun x => f x ^ 2) t volume := by simpa only [pow_two] using hf.fun_mul hf
+    exact memLp_one_iff_integrable.mp (hW.fun_mul hsq)
   have hs (f : Fin 2 → Plane → ℝ) (hf : ∀ i, MemLp (f i) p volume) :
       Integrable (fun x => W x * ∑ i : Fin 2, f i x ^ 2) := by
     simp_rw [Finset.mul_sum]
@@ -467,8 +467,8 @@ theorem suNaturalGrowth_diffQuot_absorb
     ξ x ^ 2 * diffQuot k h (du a i) x + 2 * ξ x * dξ i x * U a x
   have hUc (a : Fin n) : Continuous (U a) := continuous_diffQuot_of_continuous k h (hu a)
   have hAc (a : Fin n) (i : Fin 2) : MemLp (A a i) p volume :=
-    (suWeakMap_diffQuot_memLp (hdu a i) k h).mul'
-      (hξ.continuous.memLp_of_hasCompactSupport hξc : MemLp ξ ⊤ volume)
+    (hξ.continuous.memLp_of_hasCompactSupport hξc : MemLp ξ ⊤ volume).fun_mul
+      (suWeakMap_diffQuot_memLp (hdu a i) k h)
   have hJc (a : Fin n) (i : Fin 2) : MemLp (J a i) p volume :=
     (((hξ.continuous_fderiv (by simp)).clm_apply continuous_const).mul (hUc a)
       ).memLp_of_hasCompactSupport ((hξc.fderiv_apply (𝕜 := ℝ) _).mul_right)
@@ -478,19 +478,17 @@ theorem suNaturalGrowth_diffQuot_absorb
   have hV (a : Fin n) : MemLp (V a) ⊤ volume :=
     ((hξ.continuous.pow 2).mul (hUc a)).memLp_of_hasCompactSupport hξsqc.mul_right
   have hDV (a : Fin n) (i : Fin 2) : MemLp (DV a i) p volume := by
-    have hfirst : MemLp (fun x => ξ x * A a i x) p volume := (hAc a i).mul'
-      (hξ.continuous.memLp_of_hasCompactSupport hξc : MemLp ξ ⊤ volume)
-    have hsecond : MemLp (fun x => (2 * ξ x) * J a i x) p volume := (hJc a i).mul'
-      ((continuous_const.mul hξ.continuous).memLp_of_hasCompactSupport hξc.mul_left :
-        MemLp (fun x => 2 * ξ x) ⊤ volume)
+    have hfirst : MemLp (fun x => ξ x * A a i x) p volume := (hξ.continuous.memLp_of_hasCompactSupport hξc : MemLp ξ ⊤ volume).fun_mul (hAc a i)
+    have hsecond : MemLp (fun x => (2 * ξ x) * J a i x) p volume := ((continuous_const.mul hξ.continuous).memLp_of_hasCompactSupport hξc.mul_left :
+        MemLp (fun x => 2 * ξ x) ⊤ volume).fun_mul (hJc a i)
     convert hfirst.add hsecond using 1
     funext x
     dsimp only [A, J, DV, Pi.add_apply]
     ring
   have hsquare {v : Plane → ℝ} (hv : MemLp v p volume) :
       Integrable (fun x => W x * v x ^ 2) := by
-    have hsq : MemLp (fun x => v x ^ 2) t volume := by simpa only [pow_two] using hv.mul' hv
-    exact memLp_one_iff_integrable.mp (hsq.mul' hW)
+    have hsq : MemLp (fun x => v x ^ 2) t volume := by simpa only [pow_two] using hv.fun_mul hv
+    exact memLp_one_iff_integrable.mp (hW.fun_mul hsq)
   have hweighted (f : Fin n → Fin 2 → Plane → ℝ) (hf : ∀ a i, MemLp (f a i) p volume) :
       Integrable (fun x => W x * ∑ a : Fin n, ∑ i : Fin 2, f a i x ^ 2) := by
     simp_rw [Finset.mul_sum]
@@ -504,31 +502,28 @@ theorem suNaturalGrowth_diffQuot_absorb
       hξc.mul_right.of_isClosed_subset (isClosed_tsupport _)
         (tsupport_comp_subset (g := fun s : ℝ => s ^ 2) (by simp) (fun x => ξ x * U a x))
     exact memLp_one_iff_integrable.mp
-      ((hc.memLp_of_hasCompactSupport hs : MemLp _ ⊤ volume).mul'
-        (memLp_one_iff_integrable.mpr hH))
+      ((memLp_one_iff_integrable.mpr hH).fun_mul
+        (hc.memLp_of_hasCompactSupport hs : MemLp _ ⊤ volume))
   have hKI : Integrable (fun x => H x * ξ x ^ 2) := by
     have hs : HasCompactSupport (fun x => ξ x ^ 2) := hξc.of_isClosed_subset
       (isClosed_tsupport _) (tsupport_comp_subset (g := fun s : ℝ => s ^ 2) (by simp) ξ)
     exact memLp_one_iff_integrable.mp
-      (((hξ.continuous.pow 2).memLp_of_hasCompactSupport hs : MemLp _ ⊤ volume).mul'
-        (memLp_one_iff_integrable.mpr hH))
+      ((memLp_one_iff_integrable.mpr hH).fun_mul
+        ((hξ.continuous.pow 2).memLp_of_hasCompactSupport hs : MemLp _ ⊤ volume))
   let L (x : Plane) := ∑ a : Fin n, ∑ i : Fin 2, diffQuot k h (F a i) x * DV a i x
   let T (x : Plane) := ∑ a : Fin n, diffQuot k h (b a) x * V a x
   have hLI : Integrable L := integrable_finsetSum _ fun a _ =>
     integrable_finsetSum _ fun i _ => memLp_one_iff_integrable.mp
-      ((hDV a i).mul' (suWeakMap_diffQuot_memLp (hF a i) k h))
+      ((suWeakMap_diffQuot_memLp (hF a i) k h).fun_mul (hDV a i))
   have hTI : Integrable T := integrable_finsetSum _ fun a _ =>
-    memLp_one_iff_integrable.mp ((hV a).mul'
-      (suWeakMap_diffQuot_memLp (memLp_one_iff_integrable.mpr (hb a)) k h))
+    memLp_one_iff_integrable.mp ((suWeakMap_diffQuot_memLp (memLp_one_iff_integrable.mpr (hb a)) k h).fun_mul (hV a))
   have hequal : (∫ x, L x) = ∫ x, T x := by
     rw [show L = fun x => ∑ a : Fin n, ∑ i : Fin 2,
         diffQuot k h (F a i) x * DV a i x from rfl,
       integral_finsetSum _ (fun a _ => integrable_finsetSum _ fun i _ =>
-        memLp_one_iff_integrable.mp ((hDV a i).mul'
-          (suWeakMap_diffQuot_memLp (hF a i) k h))),
+        memLp_one_iff_integrable.mp ((suWeakMap_diffQuot_memLp (hF a i) k h).fun_mul (hDV a i))),
       show T = fun x => ∑ a : Fin n, diffQuot k h (b a) x * V a x from rfl,
-      integral_finsetSum _ (fun a _ => memLp_one_iff_integrable.mp ((hV a).mul'
-        (suWeakMap_diffQuot_memLp (memLp_one_iff_integrable.mpr (hb a)) k h)))]
+      integral_finsetSum _ (fun a _ => memLp_one_iff_integrable.mp ((suWeakMap_diffQuot_memLp (memLp_one_iff_integrable.mpr (hb a)) k h).fun_mul (hV a)))]
     apply Finset.sum_congr rfl
     intro a _
     exact suNaturalGrowth_nirenberg_identity hp hpfin hq hO (hF a) (hb a)
@@ -589,46 +584,46 @@ theorem suWeightedCutoff_diffQuot_bounded
       (hξc.fderiv_apply (𝕜 := ℝ) _)
   let CV (i : Fin 2) := eLpNorm (d i) ⊤ volume * CU
   let CB (i : Fin 2) := (eLpNorm W r volume + eLpNorm W r volume) * (CV i * CV i)
-  have hCV (i : Fin 2) : CV i < ⊤ := ENNReal.mul_lt_top (hd i).2 hCU
+  have hCV (i : Fin 2) : CV i < ⊤ := ENNReal.mul_lt_top (hd i).eLpNorm_lt_top hCU
   have hCB (i : Fin 2) : CB i < ⊤ := ENNReal.mul_lt_top
-    (ENNReal.add_lt_top.mpr ⟨hW.2, hW.2⟩) (ENNReal.mul_lt_top (hCV i) (hCV i))
+    (ENNReal.add_lt_top.mpr ⟨hW.eLpNorm_lt_top, hW.eLpNorm_lt_top⟩) (ENNReal.mul_lt_top (hCV i) (hCV i))
   refine ⟨fun i => (CB i).toReal, fun i => ENNReal.toReal_nonneg, fun i k h => ?_⟩
   let U := diffQuot k h u
   let V (x : Plane) := d i x * U x
   let S (x : Plane) := W x + translate k h W x
   have hU : MemLp U p volume := suWeakMap_diffQuot_memLp
     (hu.memLp_of_hasCompactSupport huc) k h
-  have hV : MemLp V p volume := hU.mul' (hd i)
+  have hV : MemLp V p volume := (hd i).fun_mul hU
   have hVbound : eLpNorm V p volume ≤ CV i := by
-    have hb := eLpNorm_smul_le_mul_eLpNorm (p := ⊤) (q := p) (r := p) hU.1 (hd i).1
+    have hb := eLpNorm_smul_le_mul_eLpNorm (p := ⊤) (q := p) (r := p) (hd i).aestronglyMeasurable hU.aestronglyMeasurable
     have hb' : eLpNorm V p volume ≤ eLpNorm (d i) ⊤ volume * eLpNorm U p volume := by
       simpa only [Pi.smul_def, smul_eq_mul, Pi.mul_def, V] using hb
     exact hb'.trans (mul_le_mul' le_rfl (hUbound k h))
   have hS : MemLp S r volume := hW.add (memLp_translate k h hW)
   have hSbound : eLpNorm S r volume ≤ eLpNorm W r volume + eLpNorm W r volume := by
     have ht : eLpNorm (translate k h W) r volume = eLpNorm W r volume :=
-      eLpNorm_comp_measurePreserving hW.1
+      eLpNorm_comp_measurePreserving hW.aestronglyMeasurable
         (measurePreserving_add_right volume (h • EuclideanSpace.single k (1 : ℝ)))
-    exact (eLpNorm_add_le hW.1 (memLp_translate k h hW).1 Fact.out).trans_eq (by rw [ht])
-  have hVsq : MemLp (fun x => V x ^ 2) t volume := by simpa only [pow_two] using hV.mul' hV
+    exact (eLpNorm_add_le Fact.out).trans_eq (by rw [ht])
+  have hVsq : MemLp (fun x => V x ^ 2) t volume := by simpa only [pow_two] using hV.fun_mul hV
   have hVsqbound : eLpNorm (fun x => V x ^ 2) t volume ≤ CV i * CV i := by
-    have hb := eLpNorm_smul_le_mul_eLpNorm (p := p) (q := p) (r := t) hV.1 hV.1
+    have hb := eLpNorm_smul_le_mul_eLpNorm (p := p) (q := p) (r := t) hV.aestronglyMeasurable hV.aestronglyMeasurable
     have hb' : eLpNorm (fun x => V x ^ 2) t volume ≤ eLpNorm V p volume *
         eLpNorm V p volume := by
       simpa only [Pi.smul_def, smul_eq_mul, Pi.mul_def, pow_two] using hb
     exact hb'.trans (mul_le_mul' hVbound hVbound)
   have hI : Integrable (fun x => S x * V x ^ 2) :=
-    memLp_one_iff_integrable.mp (hVsq.mul' hS)
+    memLp_one_iff_integrable.mp (hS.fun_mul hVsq)
   refine ⟨hI, ?_⟩
   have hprod : eLpNorm (fun x => S x * V x ^ 2) 1 volume ≤ CB i := by
-    have hb := eLpNorm_smul_le_mul_eLpNorm (p := r) (q := t) (r := 1) hVsq.1 hS.1
+    have hb := eLpNorm_smul_le_mul_eLpNorm (p := r) (q := t) (r := 1) hS.aestronglyMeasurable hVsq.aestronglyMeasurable
     have hb' : eLpNorm (fun x => S x * V x ^ 2) 1 volume ≤
         eLpNorm S r volume * eLpNorm (fun x => V x ^ 2) t volume := by
       simpa only [Pi.smul_def, smul_eq_mul, Pi.mul_def] using hb
     exact hb'.trans (mul_le_mul' hSbound hVsqbound)
   have hint : ‖∫ x, S x * V x ^ 2‖ₑ ≤ CB i := by
     apply (enorm_integral_le_lintegral_enorm _).trans
-    simpa only [eLpNorm_one_eq_lintegral_enorm] using hprod
+    simpa only [eLpNorm_one_eq_lintegral_enorm hI.aestronglyMeasurable] using hprod
   have ht := ENNReal.toReal_mono (hCB i).ne hint
   have habs : |∫ x, S x * V x ^ 2| ≤ (CB i).toReal := by
     simpa only [Real.enorm_eq_ofReal_abs, ENNReal.toReal_ofReal (abs_nonneg _)] using ht

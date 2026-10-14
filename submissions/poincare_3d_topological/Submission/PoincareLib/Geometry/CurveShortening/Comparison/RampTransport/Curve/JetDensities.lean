@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.C2.TraceGaugeCurvatureLp
 
 /-!
@@ -43,7 +44,7 @@ theorem observed_velocity_reconstruction
       curveVelocity gamma x := by
   have hd := mfderiv_comp_apply (f := gamma) (g := e) x
     (he.mdifferentiable (by simp) _) (hgamma x) 1
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change deriv (e ∘ gamma) x =
     mfderiv (𝓡 n) 𝓘(ℝ, W) e (gamma x) (curveVelocity gamma x) at hd
   rw [hd]

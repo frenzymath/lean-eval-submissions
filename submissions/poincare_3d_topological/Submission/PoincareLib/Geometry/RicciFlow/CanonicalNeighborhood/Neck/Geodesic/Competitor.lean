@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Neck.Geodesic.Chord
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Neck.Geometry.Comparison
 
@@ -107,7 +108,7 @@ theorem model_path_length_le
       have hline_deriv :
           (mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ)
             (fun u : ℝ ↦ z.2 + u * (w.2 - z.2)) t) 1 = w.2 - z.2 := by
-        rw [mfderiv_eq_fderiv]
+        rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
         have hd : HasDerivAt (fun u : ℝ ↦ z.2 + u * (w.2 - z.2))
             (w.2 - z.2) t := by
           convert (hasDerivAt_const t z.2).add

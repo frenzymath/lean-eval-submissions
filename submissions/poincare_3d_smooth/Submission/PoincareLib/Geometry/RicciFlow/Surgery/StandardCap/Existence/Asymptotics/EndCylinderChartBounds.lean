@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Asymptotics.EndCylinderCharts
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.RotationInvariance.EndCompactSlabs
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.TransitionBounds
@@ -91,7 +92,7 @@ private theorem endStereographicChart_sequence_jet_bounds (q : ℕ → UnitTwoSp
   · intro i x hx u v
     have h := endCylinderAuxMetric_stereographic e (q i) 0
       (by have := hx.2.1; linarith : 2 < x 2) u v
-    rw [endCylinderAuxMetric_zero, mfderiv_eq_fderiv] at h
+    rw [endCylinderAuxMetric_zero, Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     norm_num [endCylinderParameter] at h
     convert! h using 1
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Focusing.Field
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Connection.Torsion
@@ -44,7 +45,7 @@ coordinates. Source: MT Claim 19.43, p. 473;
 `reports/2026-09-24-intrinsic-radial-scalar.md`. -/
 theorem m64Intrinsic_curveVelocity_eq_deriv (γ : ℝ → AnnulusCoordinates) (x : ℝ) :
     curveVelocity (n := 2) γ x = deriv γ x := by
-  rw [curveVelocity, mfderiv_eq_fderiv]
+  rw [curveVelocity, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change (fderiv ℝ γ x) (1 : ℝ) = deriv γ x
   rw [fderiv_eq_smul_deriv, one_smul]
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialEndSlope
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.MetricConvergence.CurvatureMetricJets
@@ -47,7 +48,7 @@ private theorem curvatureDerivative_const
   rw [D.covariantTensorDerivative_riemannEvaluation_eq]
   dsimp only
   rw [he, he, he, he]
-  rw [mvfderiv, mfderiv_eq_fderiv]
+  rw [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rfl
 
 /-- The norm of the retained first curvature derivative bounds every

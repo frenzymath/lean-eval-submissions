@@ -72,8 +72,9 @@ theorem exists_polar_openPartialHomeomorph
   have hF : ContDiffAt ℝ ∞ F (C o) := by
     simpa [F, C, I, contDiffWithinAt_univ] using (contMDiffAt_iff.mp hf).2
   have hderiv : mfderiv I (𝓡 (n + 1)) f o = fderiv ℝ F (C o) := by
-    rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
-    simp [F, C, I]
+    rw [mfderiv, ite_eq_left (hf.mdifferentiableAt (by simp))]
+    simp [F, C, I, tangentSpaceCastModel]
+    rfl
   have hFinv : (fderiv ℝ F (C o)).IsInvertible := by
     rw [← hderiv]
     exact d.isInvertible_mfderiv_polarMap c hc z

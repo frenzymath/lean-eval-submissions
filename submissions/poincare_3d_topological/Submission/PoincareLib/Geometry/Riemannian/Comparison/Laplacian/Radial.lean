@@ -110,6 +110,7 @@ theorem pullbackVolumeDensity_congr_nhds (g : RiemannianMetric n M)
   change e =ᶠ[𝓝 y] f at hy
   unfold pullbackVolumeDensity
   rw [hy.mfderiv_eq, hy.self_of_nhds]
+  rfl
 
 theorem inner_gradient_inverse_branch (g : RiemannianMetric n M) (D : LeviCivitaData g)
     {e : EuclideanSpace ℝ (Fin n) → M}
@@ -151,8 +152,9 @@ theorem laplacian_inverse_branch (g : RiemannianMetric n M) (D : LeviCivitaData 
         (mfderiv (𝓡 n) (𝓡 n) B y v) = inner ℝ y v := by
     filter_upwards [eventually_eventually_nhds.mpr hlocal, hgauss] with y hy hgy
     change e =ᶠ[𝓝 y] B at hy
-    rw [hy.mfderiv_eq, hy.self_of_nhds] at hgy
-    exact hgy
+    simp only [hy.mfderiv_eq (I := 𝓡 n) (I' := 𝓡 n), ContinuousLinearMap.comp_apply] at hgy
+    rw [hy.eq_of_nhds] at hgy
+    convert hgy using 1 <;> rfl
   have hdensity := g.pullbackVolumeDensity_congr_nhds hlocal
   rw [heB hx, D.laplacian_radial_coordinate B hB hBi hx hx0 hBgauss,
     hdensity.fderiv_eq, hdensity.self_of_nhds]

@@ -321,7 +321,7 @@ private theorem alpha_potential_bound
   have hWLp : MemLp W (ENNReal.ofReal alpha / ENNReal.ofReal (alpha - 1)) volume :=
     (memLp_indicator_iff_restrict measurableSet_ball).mpr
       (hWeight.mono_measure (Measure.restrict_mono (ball_subset_ball hrR.le) le_rfl))
-  have hWI : Integrable W := hHI.mono' hWLp.1 (MeasureTheory.ae_of_all volume fun x => by
+  have hWI : Integrable W := hHI.mono' hWLp.aestronglyMeasurable (MeasureTheory.ae_of_all volume fun x => by
     by_cases hx : x ∈ O
     · simp only [W, H, indicator_of_mem hx, Real.norm_eq_abs,
         abs_of_nonneg (Real.rpow_nonneg (by positivity : 0 ≤ 1 + ‖q x‖ ^ 2) _)]
@@ -396,7 +396,7 @@ private theorem alpha_potential_bound
     exact (hd.pow 2).memLp_of_hasCompactSupport
       ((hpc.fderiv_apply (𝕜 := ℝ) _).of_isClosed_subset (isClosed_tsupport _)
         (tsupport_comp_subset (g := fun t : ℝ => t ^ 2) (by simp) _))
-  have htestW := memLp_one_iff_integrable.mp (hJ.mul' (memLp_one_iff_integrable.mpr hWI))
+  have htestW := memLp_one_iff_integrable.mp ((memLp_one_iff_integrable.mpr hWI).fun_mul hJ)
   refine ⟨htestW, ?_⟩
   exact suNaturalGrowth_potential_bound hpp ENNReal.ofReal_ne_top hqq isOpen_ball hnu hsmall
     (fun x => indicator_nonneg (fun y _ => by positivity) x)
@@ -405,7 +405,7 @@ private theorem alpha_potential_bound
     (fun a i => ((hcut a).2.2.2 i).2) hp hpc hps
     (fun a phi hphi hc hs => S.indicator_equation ha hrR.le a hphi hc hs)
     hcoercive hsourcebound hcross
-    (memLp_one_iff_integrable.mp (hphi2.mul' (memLp_one_iff_integrable.mpr hHI))) htestW
+    (memLp_one_iff_integrable.mp ((memLp_one_iff_integrable.mpr hHI).fun_mul hphi2)) htestW
 
 set_option maxHeartbeats 800000 in
 -- The actual weak test, fixed geometric constants, and two disk integrals are assembled here.

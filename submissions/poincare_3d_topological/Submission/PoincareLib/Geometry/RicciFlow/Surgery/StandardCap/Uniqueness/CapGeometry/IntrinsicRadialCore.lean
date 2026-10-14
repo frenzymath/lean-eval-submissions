@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.IntrinsicRadialDistance
 import Mathlib.Analysis.Normed.Module.Ball.Pointwise
@@ -61,7 +62,7 @@ theorem radial_metric_ball_closed_core_witness {s : ℝ} (hs : 0 < s) :
   have hinj : Function.Injective f := smul_right_injective StandardCapSpace hr.ne'
   refine ⟨f, hf.contMDiffOn, hinj.injOn, ?_, ?_, ?_⟩
   · intro p _hp
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change Function.Injective (fderiv ℝ (fun x : StandardCapSpace => r • x) p)
     have hd : HasFDerivAt (fun x : StandardCapSpace => r • x)
         (r • ContinuousLinearMap.id ℝ StandardCapSpace) p :=

@@ -104,11 +104,11 @@ theorem bridge_nonendpoint_source_not_mem_primal
       (originalTriangleCofaceCounts K hcofaces) (A.bridgeLabelling i).1.val).property
     (A.bands (A.bridgeLabelling i).1).ends_ne
     (A.bands (A.bridgeLabelling i).1).edge_eq).subset ⟨hnp, hx⟩
-  change sm p ∈ {primalEdgeMark K
+  change sm p ∈ ({(primalEdgeMark K
     (complementaryOriginalEdge K P hcofaces (A.bridgeLabelling i).1.val)
-      ((A.bands (A.bridgeLabelling i).1).ends 0), primalEdgeMark K
+      ((A.bands (A.bridgeLabelling i).1).ends 0)), (primalEdgeMark K
     (complementaryOriginalEdge K P hcofaces (A.bridgeLabelling i).1.val)
-      ((A.bands (A.bridgeLabelling i).1).ends 1)} at he
+      ((A.bands (A.bridgeLabelling i).1).ends 1))} : Set _) at he
   rw [← A.source_bridge_endpoints i] at he
   rcases he with he | he
   · exact hp0 (A.sourceMap_injOn_boundaryBridge i hp

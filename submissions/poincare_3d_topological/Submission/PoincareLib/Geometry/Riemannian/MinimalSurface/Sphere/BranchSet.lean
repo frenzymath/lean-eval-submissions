@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.HarmonicBranchIsolation
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Conformal.PlaneLaplacian
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Local.lyIsolatedZeroSet
@@ -71,7 +72,7 @@ theorem m60SphereChart_transition_data (p : UnitTwoSphere) (z : LoopPlane)
     contMDiffAt_iff_contDiffAt.mp (hssm.comp z (hcsm z))
   refine ⟨htsm, ?_, ?_⟩
   · change (fderiv ℝ (m60SphereChart ∘ c.symm) z).IsInvertible
-    rw [← mfderiv_eq_fderiv, mfderiv_comp z
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp z
       (hssm.mdifferentiableAt (by simp)) ((hcsm z).mdifferentiableAt (by simp))]
     exact (show (mfderiv (𝓡 2) (𝓡 2) m60SphereChart (c.symm z)).IsInvertible from
       ⟨hs.mfderiv hz, rfl⟩).comp ⟨hc.mfderiv hcz, rfl⟩
@@ -360,7 +361,7 @@ private theorem chart_differential_eq_zero_iff
       change z ∈ (stereographic' 2 (-p)).target
       simp
     exact ⟨hψd.mfderiv hzs, rfl⟩
-  rw [← mfderiv_eq_fderiv, mfderiv_comp z hcd
+  rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp z hcd
     ((hf.comp hψ).mdifferentiable (by simp) z), mfderiv_comp z
       (hf.mdifferentiable (by simp) _) (hψ.mdifferentiable (by simp) z)]
   constructor

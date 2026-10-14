@@ -46,7 +46,8 @@ theorem mfderiv_hittingMap_eq
         (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) σ y v, v) at hcomp
     rw [mfderiv_prod_eq_add_apply hΦ, horbit.hasMFDerivAt.mfderiv] at hcomp
     change mfderiv (𝓡 n) (𝓡 n) R y v =
-      (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) σ y v) • X (R y) + L v at hcomp
+      ((NormedSpace.fromTangentSpace (𝕜 := ℝ) (σ y))
+        (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) σ y v)) • X (R y) + L v at hcomp
     simpa [a, mvfderiv, NormedSpace.fromTangentSpace] using hcomp
   have hnormal : ell (mfderiv (𝓡 n) (𝓡 n) R y v) = 0 := by
     have hcomp := congrArg (fun A => A v) (mfderiv_comp y hf hR)

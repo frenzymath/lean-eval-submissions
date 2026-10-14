@@ -37,7 +37,7 @@ theorem abs_coordinateCurvatureComponent_le (D : LeviCivitaData g)
   have heval := abs_tensor_evaluation_le_tensorNorm g _ x A hA (fun j => b (J j))
   have hprod : (∏ j : Fin (4 + l), g.tangentNorm x (b (J j))) ≤ c ^ (4 + l) := by
     calc
-      _ ≤ ∏ _j : Fin (4 + l), c := Finset.prod_le_prod
+      _ ≤ ∏ _j : Fin (4 + l), c := Finset.prod_le_prod₀
         (fun _ _ => Real.sqrt_nonneg _) (fun j _ => by
           simpa only [RiemannianMetric.tangentNorm, b.norm_eq_one, mul_one] using
             hmetric (b (J j)))

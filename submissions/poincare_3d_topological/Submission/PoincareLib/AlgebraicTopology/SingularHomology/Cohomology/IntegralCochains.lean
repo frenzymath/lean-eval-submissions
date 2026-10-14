@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Chains.IntegralChainCoordinates
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Subdivision.SingularOneCocycles
 import Mathlib.CategoryTheory.Abelian.Ext
@@ -224,7 +225,7 @@ theorem integral_cohomology_one_isZero
     simpa only [map_zsmul, ev, f] using! h.symm
   obtain ⟨g, hg⟩ := singular_one_cocycle_is_coboundary (TopCat.of X) f hf
   let G : C(integralSimplex 0, X) -> ULift.{u} Int := fun s =>
-    g (((TopCat.of X).toSSetObjEquiv (Opposite.op (SimplexCategory.mk 0))).symm s)
+    g (((TopCat.of X).toLegacySSetObjEquiv (Opposite.op (SimplexCategory.mk 0))).symm s)
   let psi : C.X 0 ⟶ integralCoefficient := ModuleCat.ofHom
     ((Finsupp.lsum Int (fun s : C(integralSimplex 0, X) =>
       (ULift.moduleEquiv : ULift.{u} Int ≃ₗ[Int] Int).toLinearMap.smulRight (G s))).comp
@@ -239,11 +240,11 @@ theorem integral_cohomology_one_isZero
   have hgen (s : Y.obj (Opposite.op (SimplexCategory.mk 0))) :
       psi (Y.ιChainComplex (R := integralCoefficient.{u}) s (ULift.up 1)) = g s := by
     simpa [Y, G, integralSingularGenerator] using!
-      hpsi ((TopCat.of X).toSSetObjEquiv _ s)
+      hpsi ((TopCat.of X).toLegacySSetObjEquiv _ s)
   have hedge (s : C(integralSimplex 1, X)) :
       (C.d 1 0 ≫ psi) (integralSingularGenerator s (ULift.up 1)) =
         ph (integralSingularGenerator s (ULift.up 1)) := by
-    let t := ((TopCat.of X).toSSetObjEquiv (Opposite.op (SimplexCategory.mk 1))).symm s
+    let t := ((TopCat.of X).toLegacySSetObjEquiv (Opposite.op (SimplexCategory.mk 1))).symm s
     have hs := hg t
     change f t = g (Y.δ 0 t) - g (Y.δ 1 t) at hs
     let ev : (integralCoefficient.{u} ⟶ (Y.chainComplex integralCoefficient).X 0) →+

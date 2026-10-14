@@ -2,6 +2,7 @@
 Copyright (c) 2026 The PoincareLib contributors.
 -/
 import Submission.PoincareLib.Topology.Surface.Triangulation.Basic
+import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 
 /-!
 # Affine chart edges
@@ -58,6 +59,9 @@ theorem exists_smoothEdge_of_affineChartSegment
       rw [mfderiv_comp t
         ((mdifferentiable_chart (I := 𝓡 2) p).mdifferentiableAt_symm htarget)
         (hd t).differentiableAt.mdifferentiableAt, mfderiv_eq_fderiv, (hd t).fderiv]
+      change Function.Injective (fun v : ℝ =>
+        mfderiv (𝓡 2) (𝓡 2) (chartAt (EuclideanSpace ℝ (Fin 2)) p).symm
+          (affineChartSegment a b t) (v • (b - a)))
       exact ((mdifferentiable_chart (I := 𝓡 2) p).symm.mfderiv_injective htarget).comp
         (smul_left_injective ℝ hba) }
   refine ⟨e, rfl, ?_, ?_, ?_⟩

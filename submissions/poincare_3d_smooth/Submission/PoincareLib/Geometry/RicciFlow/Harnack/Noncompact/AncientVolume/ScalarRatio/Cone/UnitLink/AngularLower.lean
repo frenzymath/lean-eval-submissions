@@ -311,7 +311,7 @@ private theorem exists_distinct_nearby_link_point
     [ChartedSpace (EuclideanSpace ℝ (Fin n)) S] (x : S) {ε : ℝ} (hε : 0 < ε) :
     ∃ y : S, y ≠ x ∧ dist x y < ε := by
   let : Nonempty (Fin n) := ⟨⟨0, by omega⟩⟩
-  let : PerfectSpace (EuclideanSpace ℝ (Fin n)) := perfectSpace_of_module ℝ _
+  let : PerfectSpace (EuclideanSpace ℝ (Fin n)) := perfectSpace_of_module ℝ (EuclideanSpace ℝ (Fin n))
   let e := chartAt (EuclideanSpace ℝ (Fin n)) x
   have hx : x ∈ e.source := mem_chart_source _ x
   have hxe : e x ∈ e.target := e.map_source hx

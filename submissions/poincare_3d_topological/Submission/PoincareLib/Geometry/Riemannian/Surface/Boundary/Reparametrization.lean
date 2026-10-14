@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Boundary.Locality
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.IntegrationByParts
 
@@ -31,7 +32,7 @@ theorem mfderiv_curve_reparam {γ : ℝ → S} {φ : ℝ → ℝ} {t c : ℝ}
     mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (γ ∘ φ) t 1 =
       c • mfderiv 𝓘(ℝ, ℝ) (𝓡 2) γ (φ t) 1 := by
   rw [mfderiv_comp t hγ hφ.differentiableAt.mdifferentiableAt]
-  simp only [mfderiv_eq_fderiv]
+  simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 2) γ (φ t) (fderiv ℝ φ t 1) = _
   rw [hφ.hasFDerivAt.fderiv]
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 2) γ (φ t) ((1 : ℝ) • c) = _

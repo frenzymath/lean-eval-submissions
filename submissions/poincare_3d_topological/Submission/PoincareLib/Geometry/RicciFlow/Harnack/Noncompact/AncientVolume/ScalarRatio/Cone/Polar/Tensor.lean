@@ -83,6 +83,8 @@ theorem inner_polarMap_at
       (mfderiv (𝓡 (n + 1)) (𝓡 (n + 1)) T x).comp
         (mfderiv I (𝓡 (n + 1)) (d.polarMap r) q) := by
     rw [heq.mfderiv_eq, mfderiv_comp q hTdiff ((d.contMDiffAt_polarMap hr z).mdifferentiableAt (by simp)), hcenter]
+    ext v
+    rfl
   have hvalue : d.polarMap c q = T x := by
     rw [← hcenter]
     exact heq.eq_of_nhds

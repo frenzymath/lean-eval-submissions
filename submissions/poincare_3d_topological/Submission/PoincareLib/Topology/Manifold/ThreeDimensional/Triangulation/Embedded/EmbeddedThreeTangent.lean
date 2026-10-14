@@ -1,3 +1,4 @@
+import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Submission.PoincareLib.Topology.Manifold.ThreeDimensional.Triangulation.Sections.UniformLocalThreeGraphs
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
@@ -88,9 +89,11 @@ theorem exists_uniform_embedded_three_graph [T2Space M] [CompactSpace M] [Nonemp
         fderiv Real F x =
           (mfderiv (𝓡 3) (𝓘(Real, EuclideanSpace Real (Fin N))) e (c.symm x)).comp
             (mfderiv (𝓡 3) (𝓡 3) c.symm x) := by
-      rw [← mfderiv_eq_fderiv]
-      exact mfderiv_comp x ((hs.mdifferentiable (by simp)).mdifferentiableAt)
+      have hchain := mfderiv_comp x ((hs.mdifferentiable (by simp)).mdifferentiableAt)
         (hc.symm.mdifferentiableAt hx)
+      rw [mfderiv_eq_fderiv] at hchain
+      change fderiv Real F x = _ at hchain
+      exact hchain
     have hFi : Function.Injective (fderiv Real F (c p0)) := by
       rw [hderiv _ hx0]
       exact (hi (c.symm (c p0))).comp (hc.symm.mfderiv_injective hx0)

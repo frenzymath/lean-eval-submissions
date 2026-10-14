@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Volume.Surgery.Neck.RoundCylinderGram
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
@@ -56,7 +57,7 @@ theorem continuousAt_roundCylinderGram (u : ℝ) (q : UnitTwoSphere)
       fderiv ℝ F x =
         (mfderiv (𝓡 2) (𝓡 3) (fun y : UnitTwoSphere => y.1) (c.symm x)).comp
           (mfderiv (𝓡 2) (𝓡 2) c.symm x) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp x (hs.mdifferentiable (by simp) (c.symm x))
       ((hc.contMDiffAt (c.open_target.mem_nhds hx)).mdifferentiableAt (by simp))
   apply continuousAt_pi.2

@@ -15,7 +15,6 @@ Morgan--Tian context: Lemma 19.15 and its annular area-to-energy construction, p
 
 noncomputable section
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Function
 open scoped Topology ContDiff
@@ -81,7 +80,7 @@ theorem m64_exists_smooth_metric_normal_coordinates
     have hNdiff := (hN.contDiffAt (hI.mem_nhds ht)).differentiableAt (by simp)
     have hct : HasFDerivAt (fun z : E => c (X z)) (X.smulRight (v t))
         (EuclideanSpace.single 0 t) := by
-      convert! hcD.hasFDerivAt.comp (EuclideanSpace.single 0 t) X.hasFDerivAt using 1
+      convert! (hcD.hasFDerivAt (𝕜 := ℝ)).comp (EuclideanSpace.single 0 t) X.hasFDerivAt using 1
     have hNt := hNdiff.hasFDerivAt.comp (EuclideanSpace.single 0 t) X.hasFDerivAt
     have hx : X (EuclideanSpace.single 0 t) = t := by simp [X]
     have hh := hNt.clm_apply J.hasFDerivAt

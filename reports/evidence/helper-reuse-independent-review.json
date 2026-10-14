@@ -1,0 +1,50 @@
+{
+  "review_result": "pass for controlled reuse of the existing successful-build cache",
+  "review_type": "independent source-bound review plus independent complete source/hash comparisons; no production source/cache edits",
+  "reviewed_at": "2026-10-13T17:08:38.106918+00:00",
+  "evidence_sha256": {
+    "audit-helper-reuse.py": "e2c6a1ec03d325d651955a198d163ff877276ba3c6ec89905a9b098f7de8e947",
+    "check.py": "54bca17cd08f799d4907410711ca985d29d2d248d53ec2e10216706711b43cdc",
+    "verified-helper-reuse.json": "a36ebc15e397ea2486e5daf2bb5dfefe85c48f01662f1809c8c142d216cafaff",
+    "checks/20261014-002741-3619846.sources.json": "13a8ed17999f4a23881e0c7bfffee75dc10137dbb41546af3b8270f617e7f87a",
+    "successful-snapshot-probe.lean": "6245e2a550a3b0d690c3d87a283019c16b8204d4bb66d06d299841616806d6ec",
+    "shim-negative-control.lean": "2e4944186eab9db6ee398bb0fa4febac997716f84432050347dafb57d87f6e6a",
+    "shim-negative-control-results.json": "18a379f163ee6c7b91cbf3f311a20aa549dc3c9791a1eb66b08671b9ec9d18f0"
+  },
+  "successful_smooth_fingerprint": "6aa920b5dfea059b85e26ff62f7deb0f1aa0de1c334fc5319df2c5c97891b821",
+  "independent_checks": {
+    "exact_successful_fingerprint_reconstructed": true,
+    "source_files_including_unimported_probe": 23566,
+    "byte_identical_helpers": 23558,
+    "helper_sets_equal_between_variants": true,
+    "helper_manifest_equals_actual_smooth_helpers": true,
+    "no_helpers_import_changed_roots": true,
+    "lakefiles_equal_except_package_name": true,
+    "toolchain_files_identical": true,
+    "smooth_build_log_ends_successful_32522_jobs": true
+  },
+  "implementation_review": {
+    "rehash_staged_helpers_before_touching": true,
+    "cache_mutation": "os.utime on existing .olean only; no artifact payload writes",
+    "missing_helpers": "left missing for Lake rebuild",
+    "changed_roots": "Challenge/Submission/Solution artifact families deleted from lib/lean and ir before build",
+    "lake_mode": "official lake --old; intentionally ignores transitive trace changes after external source equivalence audit",
+    "serialized_workspace": "exclusive check.lock prevents concurrent checker staging/build"
+  },
+  "limitations": [
+    "Controlled workspace cache provenance relies on preceding successful full build; code does not independently hash every artifact payload or bind every binary to a per-file compilation receipt.",
+    "Source audit does not by itself freeze compiler/dependency artifacts. Reuse is valid under the same pinned compiler, unchanged resolved dependency cache and options; changed dependencies or options require invalidation/rebuild.",
+    "Source fingerprint excludes lake-manifest.json; actual source lakefile dependencies and options are identical, existing staged manifest/cache retained across variants.",
+    "--test deliberately skips changed-root deletion; invoke only after the requested variant roots have been rebuilt and validated.",
+    "rsync is additive, not --delete. Extra unimported scratch probe is included in successful fingerprint; any new imported/staged sources require independent audit or normal rebuild."
+  ],
+  "shim_negative_control": {
+    "isolated_scratch_source": "shim-negative-control.lean",
+    "import": "Mathlib.Data.Nat.Basic",
+    "statement": "example : False := by decide",
+    "baseline_returncode": 1,
+    "preload_returncode": 1,
+    "diagnostics_identical": true,
+    "diagnostic": "Tactic decide proved that the proposition False is false"
+  }
+}

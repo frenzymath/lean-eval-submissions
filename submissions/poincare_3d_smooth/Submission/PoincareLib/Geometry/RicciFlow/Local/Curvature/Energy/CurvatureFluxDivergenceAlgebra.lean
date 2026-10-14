@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/CurvatureFluxDivergenceAlgebra.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -180,7 +181,7 @@ theorem curvature_iterated_lowered_frame_coordinate_derivative
             OrthonormalBasis.coe_toBasis, EuclideanSpace.basisFun_apply,
             Trivialization.linearEquivAt_symm_apply]
         _ = _ := (e.symmL_apply hx _).symm
-    rw [hframe, ← mfderiv_eq_fderiv]
+    rw [hframe, ← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mvfderiv 𝓘(ℝ, V) (f ∘ c.symm) z (EuclideanSpace.single i 1) = _
     erw [mvfderiv_comp_apply z
       ((hf.contMDiffAt (e.open_baseSet.mem_nhds hx)).mdifferentiableAt (by simp))

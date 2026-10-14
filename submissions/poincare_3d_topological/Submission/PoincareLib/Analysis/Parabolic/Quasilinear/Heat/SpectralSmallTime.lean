@@ -83,7 +83,7 @@ theorem norm_responseState_sq_le_time_energy {T t : ℝ} {F : ℝ → State iota
     apply integral_mono_measure
       (Measure.restrict_mono (Ioc_subset_Ioc le_rfl ht.2) le_rfl)
       (Filter.Eventually.of_forall (fun _ => sq_nonneg _))
-    exact (memLp_two_iff_integrable_sq_norm hD.1).mp hD
+    exact (memLp_two_iff_integrable_sq_norm hD.aestronglyMeasurable).mp hD
   have henergy := integral_response_energy_le_of_memLp hT hF lambda
   have hgen : 0 ≤ ∫ s, ‖generatorState lambda F s‖ ^ 2 ∂timeMeasure T :=
     integral_nonneg (fun _ => sq_nonneg _)
@@ -110,7 +110,7 @@ theorem integral_response_sq_le_time_sq {T : ℝ} (hT : 0 ≤ T)
   have hu := memLp_responseState_of_memLp hT hF lambda
   calc
     _ ≤ ∫ _t, T * energy ∂timeMeasure T := by
-      apply integral_mono_ae ((memLp_two_iff_integrable_sq_norm hu.1).mp hu)
+      apply integral_mono_ae ((memLp_two_iff_integrable_sq_norm hu.aestronglyMeasurable).mp hu)
         (integrable_const _)
       filter_upwards [ae_restrict_mem measurableSet_Ioc] with t ht
       exact (norm_responseState_sq_le_time_energy hF lambda
@@ -136,7 +136,7 @@ theorem integral_trace_sq_le_time {T : ℝ} (hT : 0 ≤ T)
   have hu := memLp_traceState hT hF lambda
   calc
     _ ≤ ∫ _t, (∫ s, ‖F s‖ ^ 2 ∂timeMeasure T) ∂timeMeasure T := by
-      apply integral_mono_ae ((memLp_two_iff_integrable_sq_norm hu.1).mp hu)
+      apply integral_mono_ae ((memLp_two_iff_integrable_sq_norm hu.aestronglyMeasurable).mp hu)
         (integrable_const _)
       filter_upwards [ae_restrict_mem measurableSet_Ioc] with t ht
       exact SpectralTraceNative.norm_traceState_sq_le hF lambda (Ioc_subset_Icc_self ht)

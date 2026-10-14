@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.ConnectionScalar
 import Mathlib.Analysis.Calculus.ContDiff.Deriv
@@ -74,7 +75,7 @@ theorem laplacian_comp {g : RiemannianMetric n M} (D : LeviCivitaData g)
         deriv f (q y) * mvfderiv (𝓡 n) q y a := by
     change mvfderiv (𝓡 n) (f ∘ q) y a = _
     rw [mvfderiv_comp_apply y (hf (q y)).mdifferentiableAt (hqd hy) a]
-    simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
     exact fderiv_eq_deriv_mul (𝕜 := ℝ)
   have hφd : Differentiable ℝ φ := (contDiff_infty_iff_deriv.mp hφ).1
   have hφ' : ContDiff ℝ ∞ (deriv φ) := (contDiff_infty_iff_deriv.mp hφ).2

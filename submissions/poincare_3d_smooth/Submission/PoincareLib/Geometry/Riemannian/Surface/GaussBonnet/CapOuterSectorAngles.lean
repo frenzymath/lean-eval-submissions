@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.CapOuterBoundary
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.Band.AmbientSectorAngles
 import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Vertices.CapTransversals
@@ -35,7 +36,7 @@ private theorem mfderiv_chart_affine_ray
   have h := congrArg (fun L => L 1) (mfderiv_comp (0 : ℝ)
     (by simpa using hCa) hd.differentiableAt.mdifferentiableAt)
   dsimp only [TangentSpace] at h ⊢
-  simp only [ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv, hd.hasFDerivAt.fderiv,
+  simp only [ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model, hd.hasFDerivAt.fderiv,
     ContinuousLinearMap.toSpanSingleton_apply, one_smul] at h
   rw [show a + (0 : ℝ) • d = a by simp] at h
   exact h

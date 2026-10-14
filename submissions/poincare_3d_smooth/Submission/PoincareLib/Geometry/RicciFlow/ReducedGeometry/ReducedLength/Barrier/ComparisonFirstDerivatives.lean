@@ -86,6 +86,7 @@ theorem comparison_family_first_derivatives
       simp only [Function.comp_def, id_eq, div_eq_mul_inv, mul_comm] <;> rfl
   have hpullS : (fun x : E ↦ B (k x, b)) =ᶠ[𝓝 0] (fun x ↦ S x / (2 * c)) :=
     hpull.comp_tendsto (continuous_id.prodMk continuous_const).continuousAt
+  letI : T2Space ℝ := inferInstance
   have hcomp := (hBs.hasMFDerivAt.comp 0 hk.hasMFDerivAt).hasFDerivAt
   have hmaps := (hcomp.congr_of_eventuallyEq hpullS.symm).unique hN
   have hfirst (v : E) : fderiv ℝ S 0 v =

@@ -6,7 +6,6 @@ import Mathlib.Topology.UniformSpace.CompleteSeparated
 /-! C1 compactness of the actual normalized maps in the SU bubble extraction. -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter
 open scoped Topology ContDiff

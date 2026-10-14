@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Smoothing.Coordinates
 import Submission.PoincareLib.Analysis.Approximation.Convolution.DirectionalLocal
 
@@ -47,7 +48,7 @@ theorem norm_fderiv_parametrization_le_of_gradient_norm_le
   intro w
   have heq := congrArg (fun T => T w)
     (mfderiv_comp z (hf.mdifferentiableAt (by simp)) (he.mdifferentiableAt (by simp)))
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change fderiv ℝ (f ∘ e) z w =
     mvfderiv (𝓡 n) f (e z) (mfderiv (𝓡 n) (𝓡 n) e z w) at heq
   rw [Real.norm_eq_abs, heq]
@@ -82,7 +83,7 @@ theorem directional_upper_support_in_parametrization
     D.norm_fderiv_parametrization_le_of_gradient_norm_le e he hq hN hA hgrad hmetric, ?_⟩
   have heq := congrArg (fun T => T v)
     (mfderiv_comp z (hq.mdifferentiableAt (by simp)) (he.mdifferentiableAt (by simp)))
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change fderiv ℝ (q ∘ e) z v =
     mvfderiv (𝓡 n) q (e z) (mfderiv (𝓡 n) (𝓡 n) e z v) at heq
   simpa only [heq] using hdir
@@ -175,7 +176,7 @@ theorem exists_contMDiff_directional_approx_in_parametrization
     have hrhoz := hrho.contMDiffAt (hU.mem_nhds (heU z hz))
     have heq := congrArg (fun T => T (v i z))
       (mfderiv_comp z (hrhoz.mdifferentiableAt (by simp)) (hez.mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change fderiv ℝ (rho ∘ e) z (v i z) =
       mvfderiv (𝓡 n) rho (e z) (mfderiv (𝓡 n) (𝓡 n) e z (v i z)) at heq
     rw [(hparam z (hsmall hz)).fderiv_eq] at heq

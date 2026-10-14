@@ -207,7 +207,7 @@ theorem comparison_component_le_tangent_bound
   have hprod : (∏ i : Fin k, g.tangentNorm x (e (a i))) ≤ L ^ k := by
     calc
       _ ≤ ∏ _i : Fin k, L :=
-        Finset.prod_le_prod (fun _ _ => Real.sqrt_nonneg _) (fun i _ => hbound (a i))
+        Finset.prod_le_prod₀ (fun _ _ => Real.sqrt_nonneg _) (fun i _ => hbound (a i))
       _ = _ := by simp
   exact h.trans ((mul_le_mul hN hprod
     (Finset.prod_nonneg (fun _ _ => Real.sqrt_nonneg _)) hrho).trans_eq (mul_comm _ _))

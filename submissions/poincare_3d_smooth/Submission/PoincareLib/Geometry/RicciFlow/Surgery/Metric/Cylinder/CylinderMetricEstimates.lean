@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Cylinder.CylinderDualBounds
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Curvature.Conformal.CurvatureTrace
 import Submission.PoincareLib.Geometry.RicciFlow.Pinching.Definitions
@@ -24,7 +25,7 @@ local notation "E₃" => EuclideanSpace ℝ (Fin 3)
 
 theorem cylinderHeightCovector_mvfderiv (x v : E₃) :
     mvfderiv (𝓡 3) cylinderHeightCovector x v = cylinderHeightCovector v := by
-  simp +instances only [mvfderiv, mfderiv_eq_fderiv, cylinderHeightCovector.fderiv,
+  simp +instances only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, cylinderHeightCovector.fderiv,
     NormedSpace.fromTangentSpace]
   rfl
 

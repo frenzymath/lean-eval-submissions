@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Volume.Surgery.Measure.Coordinates.HessianTensorial
 import Submission.PoincareLib.Geometry.RicciFlow.Volume.Surgery.Measure.Coordinates.PreferredMetric
 
@@ -82,7 +83,7 @@ theorem fixedChart_second_scalar_derivative {f : M → ℝ} (q₀ : M) {q : M}
       (FiberBundle.extend (EuclideanSpace ℝ (Fin n)) v q) = _
     simpa only [TangentBundle.continuousLinearMapAt_trivializationAt hq] using!
       preferredField_coordinates q₀ v hq
-  rw [hcoords, mfderiv_eq_fderiv] at hchain
+  rw [hcoords, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   change mvfderiv (𝓡 n) (K ∘ e) q
     (FiberBundle.extend (EuclideanSpace ℝ (Fin n)) v q) = fderiv ℝ K (e q) v at hchain
   rw [hchain]

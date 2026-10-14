@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.Convergence.Curvature
 
 /-! # Curvature norms from moving scalar pullback jets -/
@@ -38,7 +39,7 @@ private theorem exists_shifted_metric_germ
     change mfderiv (𝓡 n) (𝓡 n) (φ ∘ (fun z ↦ z + x)) y = _
     rw [hh]
     ext v
-    simp +instances [mfderiv_eq_fderiv, fderiv_add_const]
+    simp +instances [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_add_const]
     rfl
   have hpos : ∀ y ∈ U, ∀ v, v ≠ 0 → 0 < g.pullbackCoefficients φ (y + x) v v := by
     intro y hy v hv

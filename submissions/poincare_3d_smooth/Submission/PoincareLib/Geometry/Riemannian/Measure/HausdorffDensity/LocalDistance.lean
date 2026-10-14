@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.ChartSegment
 
 /-!
@@ -45,7 +46,7 @@ theorem edist_le_mul_pathELength_of_mfderiv_le
       enorm_sub_le_lintegral_derivWithin_Icc_of_contDiffOn_Icc
         (contMDiffOn_iff_contDiffOn.mp hη) zero_le_one
     _ = ∫⁻ t in Icc 0 1, ‖mfderivWithin (𝓘(ℝ, ℝ)) (𝓘(ℝ, F)) η (Icc 0 1) t 1‖ₑ := by
-      simp_rw [← fderivWithin_derivWithin, mfderivWithin_eq_fderivWithin]
+      simp_rw [← fderivWithin_derivWithin, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
       rfl
     _ ≤ ∫⁻ t in Icc 0 1, (K : ℝ≥0∞) * ‖mfderivWithin (𝓘(ℝ, ℝ)) I γ (Icc 0 1) t 1‖ₑ := by
       apply setLIntegral_mono' measurableSet_Icc (fun t ht ↦ ?_)

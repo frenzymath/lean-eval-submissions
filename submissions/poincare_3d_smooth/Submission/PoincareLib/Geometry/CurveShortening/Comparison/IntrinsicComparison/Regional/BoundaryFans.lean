@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Boundary.TangentSectors
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.VertexIncidence
 
@@ -61,7 +62,7 @@ theorem m64Intrinsic_coordinate_boundary_vertex_angle_sum
       (hsource i) w
     rw [hvertex] at h
     simpa only [x, y, coordinateTriangleVelocity_eq_differential _ _ (hF i) (hsource i),
-      mfderiv_eq_fderiv, TangentSpace] using h
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using h
   have hpartition : ∀ᵐ w : AnnulusCoordinates, 0 < ell w →
       ∃! i, ∃ a c : ℝ, 0 < a ∧ 0 < c ∧ w = a • x i + c • y i := by
     filter_upwards [m64Intrinsic_boundary_tangent_partition_ae F b hF hFi hsource hfront

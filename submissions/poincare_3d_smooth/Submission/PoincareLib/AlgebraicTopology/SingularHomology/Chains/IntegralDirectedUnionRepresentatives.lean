@@ -94,7 +94,7 @@ theorem integralNestedChains_preimage_of_support
     obtain ⟨s, rfl⟩ :=
       Finsupp.mem_range_of_mapDomain_ne_zero (Finsupp.mem_support_iff.mp ht)
     have hs : s ∈ (integralChainCoordinates B n c).support := by
-      have heq := Finsupp.mapDomain_apply hf
+      have heq := Finsupp.mapDomain_apply_of_injective hf
         (integralChainCoordinates B n c) s
       rw [Finsupp.mem_support_iff]
       rw [← heq]

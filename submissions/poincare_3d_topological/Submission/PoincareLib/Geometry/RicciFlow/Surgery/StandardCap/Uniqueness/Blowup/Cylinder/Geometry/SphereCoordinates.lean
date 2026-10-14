@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Cylinder.Geometry.CylinderGeometry
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Mathlib.StereographicMetric
@@ -55,7 +56,7 @@ theorem sphere_chart_pullback_inner_at (q : UnitTwoSphere)
   have hderiv : (mfderiv (𝓡 2) (𝓡 3) (fun z : UnitTwoSphere => z.1) (c.symm p)).comp
       (mfderiv (𝓡 2) (𝓡 2) c.symm p) =
         (fderiv ℝ (stereoInvFunAux (-q : EuclideanSpace ℝ (Fin 3))) (L p)).comp L := by
-    rw [← hmf, mfderiv_eq_fderiv]
+    rw [← hmf, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change fderiv ℝ (fun p : EuclideanSpace ℝ (Fin 2) => (c.symm p).1) p = _
     rw [hfun]
     exact (hd.hasFDerivAt.comp p L.hasFDerivAt).fderiv

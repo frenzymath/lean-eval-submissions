@@ -79,7 +79,7 @@ theorem boundaryComplexCoordinates_mixed_data
     rw [hd]
     change (fderivWithin ℝ u (closedBall (0 : ℂ) R ∩ {z | 0 ≤ z.im})
       (boundaryComplexCoordinates p) (boundaryComplexCoordinates (EuclideanSpace.single 0 1))) 0 = 0
-    rw [boundaryComplexCoordinates_basis, if_pos rfl, boundaryComplexCoordinates_face p h0]
+    rw [boundaryComplexCoordinates_basis, ite_eq_left rfl, boundaryComplexCoordinates_face p h0]
     exact hn (p 1) (hfacebound p hp h0)
 
 /-- Closed C2 of the normalized source is exactly closed C2 of the same complex map. Source:

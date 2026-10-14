@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.ReducedLength.WeakGradient
 import Submission.PoincareLib.Geometry.Riemannian.Elliptic.Dirichlet.CoordinateTest
 
@@ -80,7 +81,7 @@ theorem coordinateGradient_eq_inverse_fderiv
   ext v
   have hh := congrArg (fun A ↦ A v) (mvfderiv_comp x
     ((hφ (e x)).mdifferentiableAt (by simp)) (hD.mdifferentiableAt hx))
-  simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
     ContinuousLinearMap.comp_apply] at hh
   change fderiv ℝ (φ ∘ e) x v = g.inner (e x)
     (mfderiv (𝓡 n) (𝓡 n) e x (mpullback (𝓡 n) (𝓡 n) e (D.gradient φ) x))

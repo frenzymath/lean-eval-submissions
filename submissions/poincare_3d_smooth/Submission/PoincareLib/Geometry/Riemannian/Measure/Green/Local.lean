@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.CoordinateGreen
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Green.ChartSupport
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Green.ChangeOfVariables
@@ -53,7 +54,7 @@ theorem fderiv_chartPullback_coordinateGradient
     (hD.mdifferentiableAt hx)
   have h' := congrArg (fun L => L (mpullback (𝓡 n) (𝓡 n) e (D.gradient v) x)) h
   simp only [ContinuousLinearMap.comp_apply, mpullback, hinv.self_apply_inverse] at h'
-  simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
     ContinuousLinearMap.comp_apply] at h'
   convert! h' using 1
 

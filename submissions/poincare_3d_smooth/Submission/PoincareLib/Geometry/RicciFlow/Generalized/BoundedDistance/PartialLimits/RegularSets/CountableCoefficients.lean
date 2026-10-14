@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.PartialLimits.RegularSets.CountableCharts
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.PartialLimits.RegularSets.CurvatureJets
@@ -22,6 +23,9 @@ open Set Filter Metric Poincare.Analysis.Calculus
 open scoped Topology Manifold ContDiff
 
 universe u
+
+attribute [local instance] normedAddCommGroupTangentSpaceVectorSpace
+  normedSpaceTangentSpaceVectorSpace
 
 namespace PoincareMT.M28.RegularNormalChartCover
 
@@ -57,23 +61,26 @@ theorem unitBallMap_pullbackCoefficients
   have he := ((C.chart i).contMDiffOn.contMDiffAt
     ((C.chart i).open_source.mem_nhds hxsource)).mdifferentiableAt (by simp)
   have hd := mfderiv_comp x he L.differentiableAt.mdifferentiableAt
-  rw [heq.mfderiv_eq, mfderiv_eq_fderiv, L.fderiv] at hd
+  rw [heq.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model, L.fderiv] at hd
   change g.inner (f x) (mfderiv (𝓡 n) (𝓡 n) f x v)
       (mfderiv (𝓡 n) (𝓡 n) f x w) =
     (ρ / 2) ^ 2 * g.inner (C.chart i (L x))
       (mfderiv (𝓡 n) (𝓡 n) (C.chart i) (L x) v)
       (mfderiv (𝓡 n) (𝓡 n) (C.chart i) (L x) w)
-  rw [hd]
   have hpoint := heq.self_of_nhds
   change C.chart i (L x) = f x at hpoint
-  rw [← hpoint]
-  simp only [ContinuousLinearMap.comp_apply, L, smul_apply, map_smul, smul_eq_mul]
-  change (ρ / 2) * ((ρ / 2) * g.inner (C.chart i ((ρ / 2) • x))
-    (mfderiv (𝓡 n) (𝓡 n) (C.chart i) ((ρ / 2) • x) v)
-    (mfderiv (𝓡 n) (𝓡 n) (C.chart i) ((ρ / 2) • x) w)) =
+  have hd' : (mfderiv (𝓡 n) (𝓡 n) f x :
+      EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) =
+      (mfderiv (𝓡 n) (𝓡 n) (C.chart i) (L x)).comp L := by
+    exact hd
+  rw [← hpoint, hd']
+  change g.inner (C.chart i ((ρ / 2) • x))
+    (mfderiv (𝓡 n) (𝓡 n) (C.chart i) ((ρ / 2) • x) ((ρ / 2) • v))
+    (mfderiv (𝓡 n) (𝓡 n) (C.chart i) ((ρ / 2) • x) ((ρ / 2) • w)) =
     (ρ / 2) ^ 2 * g.inner (C.chart i ((ρ / 2) • x))
       (mfderiv (𝓡 n) (𝓡 n) (C.chart i) ((ρ / 2) • x) v)
       (mfderiv (𝓡 n) (𝓡 n) (C.chart i) ((ρ / 2) • x) w)
+  simp +instances only [map_smul, smul_apply, smul_eq_mul]
   ring
 
 /-- The same actual rescaled map has a positive coefficient lower bound.

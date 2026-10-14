@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Analysis.Observed.CoordinateMetric
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.C2.BoundaryTargetCoordinates
 
@@ -64,7 +65,7 @@ theorem m64BoundaryCoordinate_metric_data {n m : ℕ} {M : Type*}
     have hd := congrArg (fun L : E →L[ℝ] EuclideanSpace ℝ (Fin m) => L v)
       (mfderiv_comp y (he.mdifferentiable (by simp) _)
         ((hA.contMDiffAt (isOpen_ball.mem_nhds (hsub hy))).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact ⟨mfderiv (𝓡 n) (𝓡 n) A y v, hd.symm⟩
   obtain ⟨hlower, hupper, hmetric⟩ := m64ObservedCoordinateMetric_bounds
     isOpen_ball hJ hH hsub (show EqOn (H ∘ (e ∘ A)) id (ball 0 (2 * rho)) from hinv)

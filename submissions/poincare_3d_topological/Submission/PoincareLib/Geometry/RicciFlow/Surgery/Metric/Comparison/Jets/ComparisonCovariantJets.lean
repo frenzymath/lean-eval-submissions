@@ -332,7 +332,7 @@ theorem comparison_tensor_evaluation_bound {k : ℕ}
   have hprod : (∏ i, ‖v i‖) ≤ L ^ k := by
     calc
       _ ≤ ∏ _i : Fin k, L :=
-        Finset.prod_le_prod (fun _ _ => norm_nonneg _) (fun i _ => hv i)
+        Finset.prod_le_prod₀ (fun _ _ => norm_nonneg _) (fun i _ => hv i)
       _ = _ := by simp
   exact (euclideanThree_multilinear_apply_bound A hrho hA v).trans
     ((mul_le_mul_of_nonneg_left hprod (mul_nonneg (by positivity) hrho)).trans_eq (by ring))

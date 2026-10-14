@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Manifold.InverseFunction.SmoothInverse
 import Submission.PoincareLib.Geometry.Riemannian.Metric
 import Mathlib.Geometry.Manifold.LocalDiffeomorph
@@ -41,7 +42,7 @@ theorem isLocalDiffeomorphOn_of_isInvertible_mfderiv
       ((contMDiffAt_extChartAt' (mem_chart_source _ _)).comp (x : EuclideanSpace ℝ (Fin n)) hfx)
   have hd := mfderiv_comp (x : EuclideanSpace ℝ (Fin n))
     (mdifferentiableAt_extChartAt (mem_chart_source _ _)) (hfx.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hFi : (fderiv ℝ F (x : EuclideanSpace ℝ (Fin n))).IsInvertible := by
     change (fderiv ℝ ((extChartAt (𝓡 n) (f x)) ∘ f) x).IsInvertible
     rw [hd]

@@ -116,9 +116,9 @@ theorem eLpNorm_evenReflect_le {p : ℝ≥0∞} (hp : 1 ≤ p) {u : E → ℝ}
   calc
     _ ≤ eLpNorm ((halfSpace d).indicator u) p volume +
         eLpNorm ((halfSpace d).indicator u ∘ reflect) p volume :=
-      eLpNorm_add_le hi.1 (hi.comp_measurePreserving measurePreserving_reflect).1 hp
+      eLpNorm_add_le hp
     _ = _ := by
-      rw [eLpNorm_comp_measurePreserving hi.1 measurePreserving_reflect,
+      rw [eLpNorm_comp_measurePreserving hi.aestronglyMeasurable measurePreserving_reflect,
         eLpNorm_indicator_eq_eLpNorm_restrict isOpen_halfSpace.measurableSet, two_mul]
 
 private theorem memLp_reflectedPartial {p : ℝ≥0∞} {g : E → ℝ}
@@ -299,7 +299,7 @@ private theorem normalCutoff_error_tendsto {p : ℝ≥0∞} (hp : 1 ≤ p)
     (f := fun _ => (0 : ℝ)) ?_ (hI.const_mul (C * D)) ?_ ?_
   · simpa using h
   · intro n
-    exact (hu.1.mul hψ.continuous.aestronglyMeasurable.restrict).mul
+    exact (hu.aestronglyMeasurable.mul hψ.continuous.aestronglyMeasurable.restrict).mul
       (((normalCutoff_smooth n).continuous_fderiv (by simp)).clm_apply
         continuous_const).aestronglyMeasurable.restrict
   · intro n

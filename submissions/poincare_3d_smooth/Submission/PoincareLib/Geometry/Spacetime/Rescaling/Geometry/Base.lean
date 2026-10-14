@@ -64,7 +64,14 @@ noncomputable def parabolicSpacetime (S : GeneralizedFlowSpacetime n X time I)
   letI := B.fiberBundle
   letI := B.vectorBundle
   letI := B.smoothBundle
-  let g := scaleSmoothMetric B.metric Q hQ
+  letI : ∀ p : S.Point, ContinuousConstSMul ℝ
+      (show Submodule ℝ (SpacetimeModelVector n) from
+        spacetimeHorizontal (n := n) (fun q : S.Point => parabolicTime Q a (S.timeFunction q)) p) :=
+    fun _ => inferInstance
+  let g := scaleSmoothMetric
+    (E := fun p : S.Point => (show Submodule ℝ (SpacetimeModelVector n) from
+      spacetimeHorizontal (n := n) (fun q : S.Point => parabolicTime Q a (S.timeFunction q)) p))
+    B.metric Q hQ
   refine {
     chartedSpace := S.chartedSpace
     isManifold := S.isManifold

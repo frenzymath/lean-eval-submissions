@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Surgery.CappedSphere
 import Submission.PoincareLib.Geometry.Euclidean.PlaneLift.Reflection
 
@@ -129,7 +130,7 @@ theorem exists_outward_capped_sphere_of_cylindrical_tube_with_disk_and_range_for
     have hRd : Injective (fderiv Real R (k x)) := by
       have h := (R.mfderivToContinuousLinearEquiv (by simp) (k x)).injective
       change Injective (mfderiv (𝓡 3) (𝓡 3) R (k x)) at h
-      simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using h
     rw [show g = R ∘ k from rfl, fderiv_comp x
       (R.contDiff.differentiable (by simp) (k x)) (hk.differentiable (by simp) x)]
     exact hRd.comp (hkd x)

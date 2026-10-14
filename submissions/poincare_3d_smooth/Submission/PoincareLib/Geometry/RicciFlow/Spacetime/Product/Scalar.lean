@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Spacetime.Product.Frame
 
 /-!
@@ -42,7 +43,7 @@ theorem mvfderiv_product_scalar (C : SpacetimeCharts n M a b)
   have htime : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ)
       (fun t => f (q.1, t)) (q.2 : ℝ) (C.split q V).2 =
         (C.split q V).2 * deriv (fun t => f (q.1, t)) q.2 := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change fderiv ℝ (fun t => f (q.1, t)) (q.2 : ℝ) (C.split q V).2 = _
     simpa only [smul_eq_mul] using
       (fderiv_eq_smul_deriv (𝕜 := ℝ) (f := fun t => f (q.1, t))

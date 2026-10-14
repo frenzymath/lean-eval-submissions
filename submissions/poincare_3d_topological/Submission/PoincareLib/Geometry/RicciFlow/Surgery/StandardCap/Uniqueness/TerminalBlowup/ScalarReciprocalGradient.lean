@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Geometry
 import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
@@ -67,7 +68,7 @@ theorem scalar_radius_directional_bound
     mvfderiv (𝓡 n) D.scalarCurvature x v := by
     change mvfderiv (𝓡 n) ((fun r : ℝ => r ^ (-1 / 2 : ℝ)) ∘ D.scalarCurvature) x v = _
     rw [mvfderiv_comp_apply x hrpow.differentiableAt.mdifferentiableAt hreg v]
-    simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
     change fderiv ℝ (fun r : ℝ => r ^ (-1 / 2 : ℝ)) (D.scalarCurvature x)
       (mvfderiv (𝓡 n) D.scalarCurvature x v) = _
     rw [fderiv_eq_deriv_mul, hrpow.deriv]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Boundary.Periodic.StripEquation
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Finite.Conformality
 
@@ -72,7 +73,7 @@ theorem annulus_strip_derivative_translate {f : LoopPlane → M}
     hPd hmap hUD.uniqueMDiffWithinAt
   have hPd' : mfderivWithin (𝓡 2) (𝓡 2) (fun q : LoopPlane => T + q) S p =
       ContinuousLinearMap.id ℝ LoopPlane := by
-    rw [mfderivWithin_eq_fderivWithin]
+    rw [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
     exact hP.hasFDerivWithinAt.fderivWithin hUD
   have hfunD : mfderivWithin (𝓡 2) (𝓡 n) (f ∘ fun q : LoopPlane => T + q) S p =
       mfderivWithin (𝓡 2) (𝓡 n) f S p :=

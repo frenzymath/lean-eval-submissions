@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient
 
 /-!
@@ -98,7 +99,7 @@ theorem gradient_linear_sub_frame_norm_le (D : LeviCivitaData g)
     rw [D.inner_gradient]
     have hmf : mvfderiv (𝓡 n) (innerSL ℝ e) x = fderiv ℝ (innerSL ℝ e) x := by
       ext u
-      simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+      simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
       rfl
     rw [hmf, ContinuousLinearMap.fderiv]
     rfl

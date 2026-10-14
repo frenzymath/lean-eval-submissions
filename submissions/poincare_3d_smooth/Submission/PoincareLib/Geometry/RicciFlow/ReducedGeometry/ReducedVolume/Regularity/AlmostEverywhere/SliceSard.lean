@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Regularity.AlmostEverywhere.Countability
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Regularity.AlmostEverywhere.Sard
 
@@ -57,7 +58,7 @@ theorem exponential_slice_criticalValues_eq_zero
       mfderiv (𝓡 n) (𝓡 n) f x =
         (G.toLExponentialFamily.sliceDifferential (e0 x) τ).comp e0.toContinuousLinearMap := by
     have h := mfderiv_comp x (hE (e0 x)) (he0 x)
-    rw [mfderiv_eq_fderiv, e0.hasFDerivAt.fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, e0.hasFDerivAt.fderiv] at h
     exact h
   have hnull := calibratedMetricVolume_criticalValues_eq_zero (F.metric (T - τ)) hf
   apply measure_mono_null _ hnull

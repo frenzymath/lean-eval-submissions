@@ -55,7 +55,7 @@ theorem semicircle_coordinates {E : Type*} [NormedAddCommGroup E] [NormedSpace â
       ((hH.continuous_fderiv one_ne_zero).comp_continuousOn hVC).aestronglyMeasurable
         measurableSet_Icc
     exact (continuous_fst.clm_apply continuous_snd).comp_aestronglyMeasurable
-      (hcoeff.prodMk hW.1)
+      (hcoeff.prodMk hW.aestronglyMeasurable)
   have hWI : IntervalIntegrable W volume 0 Real.pi :=
     (intervalIntegrable_iff_integrableOn_Icc_of_le Real.pi_pos.le).mpr
       (hW.integrable (by norm_num : (1 : ENNReal) â‰¤ 2))
@@ -72,7 +72,7 @@ theorem semicircle_coordinates {E : Type*} [NormedAddCommGroup E] [NormedSpace â
         ((hH.differentiable one_ne_zero _).hasFDerivAt)).fderiv]
       rfl
     have hi := (ac_chain_integral Real.pi_pos hV
-      (pr.lipschitz.comp hLip).lipschitzOnWith (mapsTo_univ _ _)
+      (pr.lipschitzWith.comp hLip).lipschitzOnWith (mapsTo_univ _ _)
       (fun theta _ => pr.differentiableAt.comp _ (hH.differentiable one_ne_zero _))
       hWI hinc).2.2.2 s hs t ht
     change pr (H (V t)) - pr (H (V s)) = pr (âˆ« theta in s..t, d theta)

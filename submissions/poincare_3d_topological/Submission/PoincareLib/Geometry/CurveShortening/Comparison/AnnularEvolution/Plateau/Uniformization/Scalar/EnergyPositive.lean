@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.Nonconstancy
 import Mathlib.Analysis.Normed.Module.Connected
 import Mathlib.Analysis.Calculus.MeanValue
@@ -81,7 +82,7 @@ theorem exists_nonzero_annular_gradient {H : Plane → ℝ}
     have h := D.inner_gradient H x v
     rw [hnone x hx] at h
     have heq : mvfderiv (𝓡 2) H x v = fderiv ℝ H x v := by
-      simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+      simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
       rfl
     rw [heq] at h
     simpa using h.symm

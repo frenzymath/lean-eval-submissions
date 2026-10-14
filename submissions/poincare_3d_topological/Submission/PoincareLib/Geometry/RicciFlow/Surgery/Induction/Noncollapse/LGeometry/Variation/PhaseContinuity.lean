@@ -61,11 +61,20 @@ theorem exponentialPhase_continuousOn (E : M14ExponentialFamily G T x)
     {s : ℝ} (hs : 0 < s) :
     ContinuousOn (fun Z => exponentialPhase E Z s) {Z | (Z, s) ∈ E.domain} := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : RiemannianBundle G.Horizontal := ⟨metric⟩
   intro Z hZ
   obtain ⟨O, hO, hZO, hsub⟩ := E.domain_relative_open (Z, s) hZ
@@ -106,11 +115,21 @@ theorem exponentialPhase_mem_compactDisk_of_tendsto
       G.spacetime.horizontalMetric.inner (exponentialPhase E Z s).proj
         (exponentialPhase E Z s).2 (exponentialPhase E Z s).2 ≤ C := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : ∀ q, AddCommGroup (G.Horizontal q) := fun _ => inferInstance
+  let horizontalModule : ∀ q, Module ℝ (G.Horizontal q) := fun _ => inferInstance
+  let horizontalTopology : ∀ q, TopologicalSpace (G.Horizontal q) := fun _ => inferInstance
+  let horizontalTopologicalAdd : ∀ q, IsTopologicalAddGroup (G.Horizontal q) :=
+    fun _ => inferInstance
+  let horizontalContinuousSMul : ∀ q, ContinuousConstSMul ℝ (G.Horizontal q) :=
+    fun _ => inferInstance
   let : ∀ q, NormedAddCommGroup (G.Horizontal q) := fun q =>
     (metric.toCore q).toNormedAddCommGroupOfTopology
       (metric.continuousAt q) (metric.isVonNBounded q)
   let : ∀ q, InnerProductSpace ℝ (G.Horizontal q) := fun q =>
-    .ofCoreOfTopology (metric.toCore q) (metric.continuousAt q) (metric.isVonNBounded q)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal q) _
+      (horizontalAdd q) (horizontalModule q) (horizontalTopology q)
+      (horizontalTopologicalAdd q) (horizontalContinuousSMul q) (metric.toCore q)
+      (metric.continuousAt q) (metric.isVonNBounded q)
   let : RiemannianBundle G.Horizontal := ⟨metric⟩
   let : IsContinuousRiemannianBundle (EuclideanSpace ℝ (Fin n)) G.Horizontal :=
     ⟨⟨G.spacetime.horizontalMetric.inner,

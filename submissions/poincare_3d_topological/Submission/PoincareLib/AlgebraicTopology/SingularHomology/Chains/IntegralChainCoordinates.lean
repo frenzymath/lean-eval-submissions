@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
+import Mathlib.Analysis.Convex.StdSimplex
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Relative.IntegralRelativeChains
 import Mathlib.LinearAlgebra.Finsupp.LSum
 
@@ -31,7 +33,7 @@ variable {X Y : Type u} [TopologicalSpace X] [TopologicalSpace Y]
 def integralSingularGenerator {n : Nat} (s : C(integralSimplex n, X)) :
     integralCoefficient.{u} ⟶ (integralChains X).X n :=
   (TopCat.toSSet.obj (TopCat.of X)).ιChainComplex
-    (((TopCat.of X).toSSetObjEquiv (Opposite.op ⦋n⦌)).symm s)
+    (((TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)).symm s)
 
 def integralChainCoordinates (X : Type u) [TopologicalSpace X] (n : Nat) :
     (integralChains X).X n ≃ₗ[Int]
@@ -40,13 +42,13 @@ def integralChainCoordinates (X : Type u) [TopologicalSpace X] (n : Nat) :
   let e := (S.isColimitChainComplexXCofan integralCoefficient n).coconePointUniqueUpToIso
     (ModuleCat.finsuppCoconeIsColimit Int (ULift.{u} Int) (S.obj (Opposite.op ⦋n⦌)))
   e.toLinearEquiv.trans
-    (Finsupp.domLCongr ((TopCat.of X).toSSetObjEquiv (Opposite.op ⦋n⦌)))
+    (Finsupp.domLCongr ((TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)))
 
 theorem integralChainCoordinates_generator {n : Nat}
     (s : C(integralSimplex n, X)) (a : ULift.{u} Int) :
     integralChainCoordinates X n (integralSingularGenerator s a) = Finsupp.single s a := by
   let S := TopCat.toSSet.obj (TopCat.of X)
-  let E := (TopCat.of X).toSSetObjEquiv (Opposite.op ⦋n⦌)
+  let E := (TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)
   let e := (S.isColimitChainComplexXCofan integralCoefficient n).coconePointUniqueUpToIso
     (ModuleCat.finsuppCoconeIsColimit Int (ULift.{u} Int) (S.obj (Opposite.op ⦋n⦌)))
   have hι := IsColimit.comp_coconePointUniqueUpToIso_hom
@@ -65,8 +67,8 @@ theorem integralSingularGenerator_boundary {n : Nat}
       ∑ i : Fin (n + 2), ((-1 : Int) ^ i.val) •
         integralSingularGenerator (s.comp (integralSimplexFace n i)) := by
   let S := TopCat.toSSet.obj (TopCat.of X)
-  let E := (TopCat.of X).toSSetObjEquiv (Opposite.op ⦋n⦌)
-  let E' := (TopCat.of X).toSSetObjEquiv (Opposite.op ⦋n + 1⦌)
+  let E := (TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)
+  let E' := (TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋n + 1⦌)
   change S.ιChainComplex (E'.symm s) ≫ (S.chainComplex integralCoefficient).d (n + 1) n =
     ∑ i : Fin (n + 2), ((-1 : Int) ^ i.val) •
       S.ιChainComplex (E.symm (s.comp (integralSimplexFace n i)))
@@ -77,9 +79,9 @@ theorem integralSingularGenerator_boundary {n : Nat}
     ((-1 : Int) ^ i.val) • S.ιChainComplex (R := integralCoefficient) x)
   apply E.injective
   ext z
-  change (TopCat.of X).toSSetObjEquiv _ (S.δ i (E'.symm s)) z =
+  change (TopCat.of X).toLegacySSetObjEquiv _ (S.δ i (E'.symm s)) z =
     (E (E.symm (s.comp (integralSimplexFace n i)))) z
-  rw [TopCat.toSSetObjEquiv_δ_apply, E'.apply_symm_apply, E.apply_symm_apply]
+  rw [TopCat.toLegacySSetObjEquiv_δ_apply, E'.apply_symm_apply, E.apply_symm_apply]
   rfl
 
 theorem integralSingularGenerator_map {n : Nat}
@@ -88,10 +90,10 @@ theorem integralSingularGenerator_map {n : Nat}
       (integralChainsFunctor.map (TopCat.ofHom f)).f n =
         integralSingularGenerator (f.comp s) := by
   change (TopCat.toSSet.obj (TopCat.of X)).ιChainComplex
-      (((TopCat.of X).toSSetObjEquiv (Opposite.op ⦋n⦌)).symm s) ≫
+      (((TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)).symm s) ≫
       (SSet.chainComplexMap (TopCat.toSSet.map (TopCat.ofHom f)) integralCoefficient).f n =
     (TopCat.toSSet.obj (TopCat.of Y)).ιChainComplex
-      (((TopCat.of Y).toSSetObjEquiv (Opposite.op ⦋n⦌)).symm (f.comp s))
+      (((TopCat.of Y).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)).symm (f.comp s))
   rw [SSet.ι_chainComplexMap_f]
   rfl
 
@@ -206,7 +208,7 @@ theorem integral_pair_degree_split (A : Set X) (n : Nat) :
   have hir : i ≫ r = 𝟙 _ := by
     apply SSet.chainComplex_hom_ext
     intro x
-    obtain ⟨s, rfl⟩ := ((TopCat.of A).toSSetObjEquiv (Opposite.op ⦋n⦌)).symm.surjective x
+    obtain ⟨s, rfl⟩ := ((TopCat.of A).toLegacySSetObjEquiv (Opposite.op ⦋n⦌)).symm.surjective x
     change integralSingularGenerator s ≫ (i ≫ r) = integralSingularGenerator s ≫ 𝟙 _
     rw [← Category.assoc, hgen, Category.comp_id]
     ext a

@@ -78,16 +78,16 @@ theorem weak_flux_comparison_energy_le_of_bound
   let R₁ := fun x => f x * (φ x * w x)
   let R₂ := fun x => g x * (φ x * z x)
   let bd := fun x => ∑ i, (w x * F i x + z x * G i x) * dp i x
-  have hwp : MemLp (fun x => φ x * w x) ∞ (volume.restrict O) := hw.mul' hp
-  have hzp : MemLp (fun x => φ x * z x) ∞ (volume.restrict O) := hz.mul' hp
-  have hR₁ : MemLp R₁ 2 (volume.restrict O) := hwp.mul' hf
-  have hR₂ : MemLp R₂ 2 (volume.restrict O) := hzp.mul' hg
+  have hwp : MemLp (fun x => φ x * w x) ∞ (volume.restrict O) := hp.fun_mul hw
+  have hzp : MemLp (fun x => φ x * z x) ∞ (volume.restrict O) := hp.fun_mul hz
+  have hR₁ : MemLp R₁ 2 (volume.restrict O) := hf.fun_mul hwp
+  have hR₂ : MemLp R₂ 2 (volume.restrict O) := hg.fun_mul hzp
   have hbd : MemLp bd 2 (volume.restrict O) := by
     apply memLp_finsetSum
     intro i _
-    have hfirst : MemLp (fun x => w x * F i x) 2 (volume.restrict O) := (hF i).mul' hw
-    have hsecond : MemLp (fun x => z x * G i x) 2 (volume.restrict O) := (hG i).mul' hz
-    exact (hdp i).mul' (hfirst.add hsecond)
+    have hfirst : MemLp (fun x => w x * F i x) 2 (volume.restrict O) := hw.fun_mul (hF i)
+    have hsecond : MemLp (fun x => z x * G i x) 2 (volume.restrict O) := hz.fun_mul (hG i)
+    exact (hfirst.add hsecond).fun_mul (hdp i)
   have hR := (hR₁.add hR₂).sub hbd
   have hbound : (∫ x in O, R₁ x + R₂ x - bd x) ≤
       4 * ε * C * (1 + (d : ℝ) * D) * volume.real O := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.ZeroRatio.Source.MetricConvergence
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.ZeroRatio.Curvature
 import Mathlib.Topology.UniformSpace.UniformApproximation
@@ -12,7 +13,6 @@ origin reduce moving-point convergence to the fixed-point curvature formula.
 
 noncomputable section
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 set_option maxHeartbeats 800000
 set_option maxSynthPendingDepth 8
 
@@ -47,7 +47,7 @@ private theorem exists_shifted_pullback_realization
     change mfderiv (𝓡 n) (𝓡 n) (φ ∘ (fun z => z + x)) y = _
     rw [hh]
     ext v
-    simp +instances [mfderiv_eq_fderiv, fderiv_add_const]
+    simp +instances [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_add_const]
     rfl
   obtain ⟨h, Dh, V, hV, h0V, hVU, heq⟩ :=
     RiemannianMetric.exists_local_realization hU h0

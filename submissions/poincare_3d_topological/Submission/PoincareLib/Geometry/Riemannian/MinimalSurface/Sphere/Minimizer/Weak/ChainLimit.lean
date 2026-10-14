@@ -11,7 +11,6 @@ gain; the weak bootstrap derivation in `reports/weak-alpha-bootstrap.md`.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set MeasureTheory Filter ContinuousLinearMap
 open scoped Topology ContDiff ENNReal
@@ -60,19 +59,17 @@ theorem suMixedGrowth_L1_limit {X E F : Type*} [MeasurableSpace X]
     have hvUI : UnifIntegrable v 4 μ :=
       unifIntegrable_of_tendsto_Lp (by norm_num) (by norm_num) hv hv0 hvlim
     simpa using suAlpha_power_uniformIntegrable (by norm_num : (0 : ℝ) < 4)
-      (by simpa using hvUI)
+      (by simpa using hvUI) (fun j => (hv j).aestronglyMeasurable)
   have hUIw : UnifIntegrable (fun j x => ‖w j x‖ ^ 2) 1 μ := by
     have hwUI : UnifIntegrable w 2 μ :=
       unifIntegrable_of_tendsto_Lp (by norm_num) (by norm_num) hw hw0 hwlim
     simpa using suAlpha_power_uniformIntegrable (by norm_num : (0 : ℝ) < 2)
-      (by simpa using hwUI)
+      (by simpa using hwUI) (fun j => (hw j).aestronglyMeasurable)
   have hbase : UnifIntegrable (fun j x => 1 + ‖v j x‖ ^ 4 + ‖w j x‖ ^ 2) 1 μ :=
     ((unifIntegrable_const (by rfl) ENNReal.one_ne_top (memLp_const (1 : ℝ))).add
-      hUIv (by rfl) (fun _ => aestronglyMeasurable_const) (fun j => (hvpow j).1)).add
-      hUIw (by rfl) (fun j => aestronglyMeasurable_const.add (hvpow j).1)
-        (fun j => (hwpow j).1)
+      hUIv (by rfl)).add hUIw (by rfl)
   have hUI : UnifIntegrable (fun j x => A x (v j x, w j x)) 1 μ :=
-    suAlpha_uniformIntegrable_dominated hC hbase (fun j => by
+    suAlpha_uniformIntegrable_dominated hC hbase hA (fun j => by
       filter_upwards [hbound j] with x hx
       simpa only [Real.norm_of_nonneg (by positivity :
         0 ≤ 1 + ‖v j x‖ ^ 4 + ‖w j x‖ ^ 2)] using hx)
@@ -90,10 +87,10 @@ theorem suMixedGrowth_L1_limit {X E F : Type*} [MeasurableSpace X]
   · apply tendsto_of_subseq_tendsto
     intro ns hns
     have hvm := tendstoInMeasure_of_tendsto_eLpNorm (by norm_num : (4 : ℝ≥0∞) ≠ 0)
-      (fun j => (hv (ns j)).1) hv0.1 (hvlim.comp hns)
+      (hvlim.comp hns)
     obtain ⟨ms, hms, hvpoint⟩ := hvm.exists_seq_tendsto_ae
     have hwm := tendstoInMeasure_of_tendsto_eLpNorm (by norm_num : (2 : ℝ≥0∞) ≠ 0)
-      (fun j => (hw (ns (ms j))).1) hw0.1 (hwlim.comp (hns.comp hms.tendsto_atTop))
+      (hwlim.comp (hns.comp hms.tendsto_atTop))
     obtain ⟨ks, hks, hwpoint⟩ := hwm.exists_seq_tendsto_ae
     have hpoint : ∀ᵐ x ∂μ, Tendsto
         (fun j => A x (v (ns (ms (ks j))) x, w (ns (ms (ks j))) x))
@@ -102,9 +99,7 @@ theorem suMixedGrowth_L1_limit {X E F : Type*} [MeasurableSpace X]
       exact hcx.tendsto.comp ((hvx.comp hks.tendsto_atTop).prodMk_nhds hwx)
     have hUI' : UnifIntegrable (fun j x => A x (v (ns (ms (ks j))) x,
         w (ns (ms (ks j))) x)) 1 μ := by
-      intro eps heps
-      obtain ⟨d, hd, hh⟩ := hUI heps
-      exact ⟨d, hd, fun j => hh (ns (ms (ks j)))⟩
+      exact hUI.comp (fun j => ns (ms (ks j)))
     exact ⟨ms ∘ ks, tendsto_Lp_finite_of_tendsto_ae (by rfl) ENNReal.one_ne_top
       (fun j => hA (ns (ms (ks j)))) hlimLp hUI' hpoint⟩
 

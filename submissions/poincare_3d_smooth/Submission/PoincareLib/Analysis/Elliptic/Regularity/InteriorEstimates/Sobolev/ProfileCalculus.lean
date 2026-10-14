@@ -50,10 +50,10 @@ theorem derivativeProfile_add_le [NeZero d] {Ω : Set E} (_hΩ : IsOpen Ω)
       (fun x => ‖iteratedFDeriv ℝ j u x + iteratedFDeriv ℝ j v x‖) := by
     funext x
     exact congrArg norm (fun_iteratedFDeriv_add_apply huj.contDiffAt hvj.contDiffAt)
-  rw [hsum, eLpNorm_norm, eLpNorm_norm, eLpNorm_norm]
-  exact eLpNorm_add_le
-    (hu.continuous_iteratedFDeriv (by exact_mod_cast le_top)).aestronglyMeasurable
-    (hv.continuous_iteratedFDeriv (by exact_mod_cast le_top)).aestronglyMeasurable hp
+  have hmu : AEStronglyMeasurable (iteratedFDeriv ℝ j u) (volume.restrict Ω) := (hu.continuous_iteratedFDeriv (m := j) (by exact_mod_cast le_top)).aestronglyMeasurable
+  have hmv : AEStronglyMeasurable (iteratedFDeriv ℝ j v) (volume.restrict Ω) := (hv.continuous_iteratedFDeriv (m := j) (by exact_mod_cast le_top)).aestronglyMeasurable
+  rw [hsum, eLpNorm_norm _ (show AEStronglyMeasurable (fun x => iteratedFDeriv ℝ j u x + iteratedFDeriv ℝ j v x) (volume.restrict Ω) from hmu.add hmv), eLpNorm_norm _ hmu, eLpNorm_norm _ hmv]
+  exact eLpNorm_add_le hp
 
 theorem derivativeProfile_finset_sum_le [NeZero d] {Ω : Set E} (hΩ : IsOpen Ω)
     {p : ℝ≥0∞} (hp : 1 ≤ p) (r : ℕ) {ι : Type*} (s : Finset ι)
@@ -89,6 +89,7 @@ theorem derivativeProfile_partial_le [NeZero d] {Ω : Set E}
       apply Finset.sum_le_sum
       intro j hj
       apply eLpNorm_mono_ae
+        ((contDiff_partial hu i).continuous_iteratedFDeriv (by exact_mod_cast le_top)).norm.aestronglyMeasurable
       exact Filter.Eventually.of_forall fun x => by
         rw [norm_norm, norm_norm]
         change ‖iteratedFDeriv ℝ j (fun y => (fderiv ℝ u y) (EuclideanSpace.single i 1)) x‖ ≤ _
@@ -171,6 +172,7 @@ theorem derivativeProfile_succ_le_sum_partial [NeZero d] {Ω : Set E}
         eLpNorm (fun x => ∑ i : Fin d,
           ‖iteratedFDeriv ℝ j (Iteration.partialDeriv i u) x‖) p (volume.restrict Ω) := by
       apply eLpNorm_mono_ae
+        (hu.continuous_iteratedFDeriv (by exact_mod_cast le_top)).norm.aestronglyMeasurable
       exact Filter.Eventually.of_forall fun x => by
         rw [norm_norm, Real.norm_eq_abs,
           abs_of_nonneg (Finset.sum_nonneg (fun i hi => norm_nonneg _))]
@@ -181,10 +183,7 @@ theorem derivativeProfile_succ_le_sum_partial [NeZero d] {Ω : Set E}
       funext x
       rw [Finset.sum_apply]
     rw [heq]
-    apply eLpNorm_sum_le _ hp
-    intro i hi
-    exact ((contDiff_partial hu i).continuous_iteratedFDeriv
-      (by exact_mod_cast le_top)).norm.aestronglyMeasurable
+    exact eLpNorm_sum_le hp
   unfold derivativeProfile
   rw [Finset.sum_range_succ' (n := r + 1)]
   norm_num only [Finset.sum_range_one]

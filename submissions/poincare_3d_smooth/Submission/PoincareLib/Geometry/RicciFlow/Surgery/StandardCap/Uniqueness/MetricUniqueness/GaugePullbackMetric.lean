@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.MetricUniqueness.HarmonicTension
 import Submission.PoincareLib.Geometry.RicciFlow.Local.Gauge.Pullback.PullbackConnection
@@ -52,7 +53,7 @@ theorem contMDiff_gaugePullback_section (g : RiemannianMetric n V)
     simpa [hom_trivializationAt_apply, ContinuousLinearMap.inCoordinates, TangentSpace,
       C, RiemannianMetric.euclideanCoefficients] using he
   have he := pinner_apply g Φ y v w
-  simp only [mfderiv_eq_fderiv] at he
+  simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model] at he
   exact he
 
 /-- The native actual pullback, with smoothness proved on all space. -/
@@ -64,7 +65,7 @@ theorem gaugePullbackMetric_inner (g : RiemannianMetric n V)
     (Φ : Diffeomorph (𝓡 n) (𝓡 n) V V ∞) (x u v : V) :
     (gaugePullbackMetric g Φ).inner x u v =
       g.inner (Φ x) (fderiv ℝ (Φ : V → V) x u) (fderiv ℝ (Φ : V → V) x v) := by
-  rw [gaugePullbackMetric, pullbackMetric_inner, mfderiv_eq_fderiv]
+  rw [gaugePullbackMetric, pullbackMetric_inner, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rfl
 
 end PoincareMT.M35.Uniqueness

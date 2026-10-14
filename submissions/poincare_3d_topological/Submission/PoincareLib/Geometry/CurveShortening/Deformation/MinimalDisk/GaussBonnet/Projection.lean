@@ -42,7 +42,7 @@ theorem actual_comp_derivative_memLp
   have hh : MemLp (fun z => fderiv ℝ H (q z) (fderiv ℝ q z v))
       2 (volume.restrict (K ∩ U)) := by
     apply hdq.of_le_mul (c := C)
-    · exact (ContinuousLinearMap.id ℝ (E →L[ℝ] F)).aestronglyMeasurable_comp₂ hm hdq.1
+    · exact (ContinuousLinearMap.id ℝ (E →L[ℝ] F)).aestronglyMeasurable_comp₂ hm hdq.aestronglyMeasurable
     · filter_upwards [ae_restrict_mem hKU] with z hz
       exact ((fderiv ℝ H (q z)).le_opNorm _).trans
         (mul_le_mul_of_nonneg_right (hC z hz.1) (norm_nonneg _))

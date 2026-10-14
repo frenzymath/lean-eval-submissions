@@ -50,8 +50,6 @@ theorem cylinderModelPlusDifference_smooth {epsilon : ℝ} (u a : ℝ)
       ((chartAt (EuclideanSpace ℝ (Fin 2)) q).target ×ˢ
         Ioo (-epsilon⁻¹) epsilon⁻¹) := by
     convert ContDiffOn.const_smul a ((hB q i j).sub (hC q i j)) using 1
-    funext p
-    simp [smul_eq_mul]
   exact (contDiff_roundCylinderGram u q i j).contDiffOn.add
     hscaled
 

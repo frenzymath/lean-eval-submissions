@@ -44,7 +44,7 @@ theorem exists_boundary_loop_power_homotopy
   let g := ((FundamentalGroup.fundamentalGroupMulEquivOfPath k.symm).toMonoidHom).comp
     (FundamentalGroup.map i₁ x₁)
   obtain ⟨n, hn, _, hnmem⟩ :=
-    Subgroup.exists_pow_mem_of_relIndex_ne_zero hc.2 (show f a ∈ f.range from ⟨a, rfl⟩)
+    Subgroup.exists_pow_mem_of_relIndex_ne_zero hc.2.relIndex_ne_zero (show f a ∈ f.range from ⟨a, rfl⟩)
   obtain ⟨b, hb⟩ := hnmem.1
   obtain ⟨beta, hbeta⟩ := Path.Homotopic.Quotient.mk_surjective b
   refine ⟨n, hn, beta, Path.Homotopic.Quotient.exact ?_⟩

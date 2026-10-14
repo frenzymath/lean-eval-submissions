@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Local.ConeRectangle
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic
@@ -92,7 +93,7 @@ theorem m64_periodic_circle_speed
     ((contDiff_id.add contDiff_const).contDiffAt : ContDiffAt ℝ ∞ a t).contMDiffAt
       |>.mdifferentiableAt (by simp)
   have hda : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) a t (1 : ℝ) = 1 := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
       ((hasDerivAt_id t).add_const curvePeriod).deriv
   have heq : gamma ∘ a = gamma := funext hperiod
   have ht := tangentMap_comp_at (I := 𝓘(ℝ, ℝ)) (I' := 𝓘(ℝ, ℝ)) (I'' := 𝓡 n)

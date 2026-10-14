@@ -25,7 +25,7 @@ theorem curvatureTensor_pos_orthonormal_of_centered_round_twoJet
     (Dg : LeviCivitaData g) (Dh : LeviCivitaData h)
     (x : EuclideanSpace ℝ (Fin n)) {epsilon : ℝ}
     (hepsilon : 0 ≤ epsilon) (hepsilon_small : epsilon ≤ 1 / 200)
-    (hnormal : g.euclideanCoefficients x = innerSL ℝ)
+    (hnormal : g.euclideanCoefficients x = innerSL ℝ (E := EuclideanSpace ℝ (Fin n)))
     (hzero : christoffelBilinear g.euclideanCoefficients x = 0)
     (hjet : ∀ j : ℕ, j ≤ 2 → ∀ v : Fin (2 + j) → EuclideanSpace ℝ (Fin n),
       |Dg.iteratedCovariantTensorDerivative (metricDifferenceTensor g h) j x v| ≤
@@ -149,7 +149,7 @@ theorem curvatureTensor_pos_of_centered_round_twoJet
     (Dg : LeviCivitaData g) (Dh : LeviCivitaData h)
     (x : EuclideanSpace ℝ (Fin n)) {epsilon : ℝ}
     (hepsilon : 0 ≤ epsilon) (hepsilon_small : epsilon ≤ 1 / 200)
-    (hnormal : g.euclideanCoefficients x = innerSL ℝ)
+    (hnormal : g.euclideanCoefficients x = innerSL ℝ (E := EuclideanSpace ℝ (Fin n)))
     (hzero : christoffelBilinear g.euclideanCoefficients x = 0)
     (hjet : ∀ j : ℕ, j ≤ 2 → ∀ v : Fin (2 + j) → EuclideanSpace ℝ (Fin n),
       |Dg.iteratedCovariantTensorDerivative (metricDifferenceTensor g h) j x v| ≤

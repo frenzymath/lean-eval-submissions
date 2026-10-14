@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Conjugate.NoConjugate
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Transverse.Transport
 import Submission.PoincareLib.Geometry.Riemannian.Distance.ExponentialRays
@@ -114,7 +115,7 @@ theorem mfderiv_comp_affine_apply_one {q : ℝ → M} {a b t : ℝ}
       (mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun s => a * s + b) t 1) at hd
   have hp' : fderiv ℝ (fun s : ℝ => a * s + b) t 1 = a := by
     rw [fderiv_eq_smul_deriv, one_smul, hp.deriv]
-  erw [mfderiv_eq_fderiv, hp'] at hd
+  erw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hp'] at hd
   exact hd.trans (by simpa only [smul_eq_mul, mul_one] using
     (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) q (a * t + b)).map_smul a (1 : ℝ))
 

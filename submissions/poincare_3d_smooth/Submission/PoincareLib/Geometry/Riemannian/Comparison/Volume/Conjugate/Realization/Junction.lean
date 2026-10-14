@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.SmoothExtension
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.InitialData
 import Submission.PoincareLib.Geometry.Riemannian.Connection.AlongCurve.Manifold
@@ -92,7 +93,7 @@ theorem hasDerivAt_junction_chart
   have hc := (contMDiffAt_extChartAt' (I := 𝓡 n) (n := ∞)
     (mem_chart_source _ (η 0))).mdifferentiableAt (by simp)
   have heq := congrArg (fun L => L 1) (mfderiv_comp 0 hc hd)
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change deriv (fun u => extChartAt (𝓡 n) (η 0) (η u)) 0 = _ at heq
   rw [hv.deriv] at heq
   change v = (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) (η 0)) (η 0))
@@ -104,7 +105,7 @@ theorem hasDerivAt_junction_chart
     (show η 0 ∈ (chartAt (EuclideanSpace ℝ (Fin n)) β).source by
       simpa only [extChartAt_source] using hβ)).mdifferentiableAt (by simp)
   have hdβ := congrArg (fun L => L 1) (mfderiv_comp 0 hcβ hd)
-  rw [mfderiv_eq_fderiv] at hdβ
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hdβ
   change deriv (fun u => extChartAt (𝓡 n) β (η u)) 0 = _ at hdβ
   change deriv (fun u => extChartAt (𝓡 n) β (η u)) 0 =
     (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) β) (η 0))

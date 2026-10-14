@@ -29,6 +29,8 @@ theorem mvfderiv_eq_of_eventuallyEq {f g : M → ℝ} {q : M}
     (h : f =ᶠ[𝓝 q] g) : mvfderiv (𝓡 n) f q = mvfderiv (𝓡 n) g q := by
   unfold mvfderiv
   rw [h.eq_of_nhds, h.mfderiv_eq (I := 𝓡 n) (I' := 𝓘(ℝ, ℝ))]
+  ext v
+  rfl
 
 /-- Locality of the selected connection's Hessian on fixed vector fields. -/
 theorem hessianOnFields_eq_of_eventuallyEq {g : RiemannianMetric n M}

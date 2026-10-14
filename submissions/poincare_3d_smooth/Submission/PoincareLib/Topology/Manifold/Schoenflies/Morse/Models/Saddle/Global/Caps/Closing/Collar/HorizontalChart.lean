@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.TerminalHorizontalProjection
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.Collar.RadialChart
 
@@ -115,7 +116,7 @@ theorem exists_horizontal_fiber_chart
       rw [hAgerm.fderiv_eq]
       have hh : Injective (mfderiv (𝓡 2) (𝓡 2) T q) :=
         (hTlocal.mfderivToContinuousLinearEquiv (by simp)).injective
-      simpa only [mfderiv_eq_fderiv, TangentSpace] using hh
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using hh
     exact injective_fderiv_preserving_second
       ((hA.contDiffAt (hU.mem_nhds hqU)).differentiableAt (by simp)) hTi
   have hK : IsCompact (sphere (0 : E2) 1 ×ˢ ({0} : Set Real)) :=

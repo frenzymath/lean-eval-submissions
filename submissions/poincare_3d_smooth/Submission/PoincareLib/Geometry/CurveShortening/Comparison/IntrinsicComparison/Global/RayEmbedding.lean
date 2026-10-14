@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Normal.RayEmbedding
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Global.CollisionFocusing
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Local.CurvatureArc
@@ -106,7 +107,7 @@ theorem m64Intrinsic_good_normal_ray_injOn
     have hi := m64Intrinsic_normal_map_injective_of_metric_lower N hc
       (x := !₂[a, t]) (by
         simpa only [Matrix.cons_val_zero] using hmetric a ha t ht)
-    simpa only [TangentSpace, mfderiv_eq_fderiv] using hi
+    simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] using hi
   apply m64Intrinsic_normal_ray_injOn_of_local_prefix_separation he hbase (hAnn a).1 (hcap a)
     (by rw [(hderiv a).deriv]; exact hinward0 a) (hinterior a) hreg isOpen_Ioo ⟨hla, hau⟩
   intro p hp w hw hpw A hA B hB hiA hiB hinsideA hinsideB

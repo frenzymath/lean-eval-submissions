@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Minimum.Variation.Geometry.ChartFrame
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
 import Mathlib.Geometry.Manifold.VectorField.LieBracket
@@ -99,7 +100,7 @@ theorem mvfderiv_chartVectorField (p : M) (f : M → ℝ) (y v : E)
   rw [chartVectorField_at_inverse p v y hy]
   have h := mfderiv_comp y hf
     ((mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt_symm hy)
-  rw [mfderiv_eq_fderiv] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   exact (congrArg (fun L ↦ L v) h).symm
 
 theorem chartVectorField_differential (p x : M) (v : TangentSpace (𝓡 n) x)

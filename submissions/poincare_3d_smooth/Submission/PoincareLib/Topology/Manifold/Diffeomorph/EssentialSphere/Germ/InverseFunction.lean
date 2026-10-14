@@ -37,6 +37,7 @@ theorem isLocalDiffeomorphAt_of_contMDiffOn_bijective_mfderiv_modelSpace
   have hderiv : mfderiv 𝓘(ℝ, E) 𝓘(ℝ, E) f x = fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hfx.mdifferentiableAt (by simp))]
     simp [F, c]
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ F (c x)) := by
     rwa [hderiv] at hbij
   let L := ContinuousLinearEquiv.ofBijective (fderiv ℝ F (c x))

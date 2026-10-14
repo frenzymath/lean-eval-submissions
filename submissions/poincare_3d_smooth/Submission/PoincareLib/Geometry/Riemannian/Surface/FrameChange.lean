@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.ConnectionForm
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Angle
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
@@ -94,7 +95,7 @@ theorem surfaceConnectionForm_rotate_angle
     (by simp)]
   rw [mvfderiv_comp x Real.differentiableAt_sin.mdifferentiableAt hθ,
     mvfderiv_comp x Real.differentiableAt_cos.mdifferentiableAt hθ]
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
   rw [(Real.hasDerivAt_sin (θ x)).hasFDerivAt.fderiv,
     (Real.hasDerivAt_cos (θ x)).hasFDerivAt.fderiv]
   change D.surfaceConnectionForm e₁ e₂ Z x +
@@ -153,7 +154,7 @@ theorem integral_connectionForm_rotate_angle
       (mvfderiv_comp t hθt ((hγ t ht).mdifferentiableAt (by simp)))
     simp only [ContinuousLinearMap.comp_apply] at hchain
     have hderiv : mvfderiv 𝓘(ℝ, ℝ) (θ ∘ γ) t 1 = deriv (θ ∘ γ) t := by
-      simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+      simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
       rfl
     rw [hderiv] at hchain
     linarith
@@ -204,7 +205,7 @@ theorem exists_angle_integral_connectionForm_rotate
     have h := congrArg (fun L => L 1) (mvfderiv_comp x hf hγx)
     simp only [ContinuousLinearMap.comp_apply] at h
     have hd : mvfderiv 𝓘(ℝ, ℝ) (f ∘ γ) x 1 = deriv (f ∘ γ) x := by
-      simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+      simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
       rfl
     rw [hd] at h
     exact h.symm

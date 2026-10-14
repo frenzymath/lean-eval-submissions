@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.C2.SecondDerivComposition
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Coordinate.GaugeEquation
@@ -73,7 +74,7 @@ theorem secondDeriv_embedding_eq_hessian_add_acceleration
         fderiv ℝ f (z x) v := by
     have hchain := mfderiv_comp (z x) (he.mdifferentiable (by simp)).mdifferentiableAt
       ((mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt_symm htarget)
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
     have hv := congrArg (fun L : E →L[ℝ] W => L v) hchain
     change fderiv ℝ f (z x) v =
       mfderiv (𝓡 n) 𝓘(ℝ, W) e (c.symm (z x))
@@ -128,7 +129,7 @@ theorem embedded_curvature_eq_acceleration_sub_tangent
     have hchain : fderiv ℝ (fun y => e (q y t)) x =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e (q x t)).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun y => q y t) x) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hspace x).mdifferentiableAt (by norm_num))
     exact (congrArg (fun L : ℝ →L[ℝ] W => L 1) hchain).symm

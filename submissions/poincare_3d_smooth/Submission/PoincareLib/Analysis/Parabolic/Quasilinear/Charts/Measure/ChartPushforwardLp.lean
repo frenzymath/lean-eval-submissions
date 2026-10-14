@@ -65,7 +65,8 @@ theorem map_restrict_le_smul_volume (e : OpenPartialHomeomorph M E)
     {μ : Measure M} {C : ℝ≥0∞} (hdom : μ.restrict K ≤ C • coordinatePushforward e K) :
     (μ.restrict K).map (measurableChart e) ≤ C • (volume : Measure E) := by
   have hm := Measure.map_mono_of_aemeasurable hdom (measurable_measurableChart e).aemeasurable
-  rw [Measure.map_smul, map_coordinatePushforward e hK hKs] at hm
+  rw [Measure.map_smul C (measurable_measurableChart e).aemeasurable,
+    map_coordinatePushforward e hK hKs] at hm
   exact hm.trans (smul_le_smul_left C Measure.restrict_le_self)
 
 variable {V : Type v} [NormedAddCommGroup V] [NormedSpace ℝ V]

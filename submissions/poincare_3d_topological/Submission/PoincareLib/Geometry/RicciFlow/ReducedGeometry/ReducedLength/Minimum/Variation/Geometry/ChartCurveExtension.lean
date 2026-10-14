@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Minimum.Variation.Geometry.ChartVectorField
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
 import Mathlib.Analysis.Calculus.Deriv.Comp
@@ -89,7 +90,7 @@ theorem curveVelocityWithin_inverseChart (p : M) (a : ℝ → E) (I : Set ℝ)
       (ContinuousLinearMap.toSpanSingleton_apply_one ℝ v)
   have hAm : mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) a s 1 = v := by
     exact (congrArg (fun L : ℝ →L[ℝ] E ↦ L 1)
-      (mfderiv_eq_fderiv (f := a) (x := s))).trans hA
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := a) (x := s))).trans hA
   exact h.trans (congrArg (mfderiv (𝓡 n) (𝓡 n) (chartAt E p).symm (a s)) hAm)
 
 noncomputable def chartCurveVelocityExtension (p : M) (a v : ℝ → E)

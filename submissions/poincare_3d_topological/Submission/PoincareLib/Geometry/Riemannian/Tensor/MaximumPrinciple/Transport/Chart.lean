@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Tensor.MaximumPrinciple.Transport.Coordinates
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
 
@@ -49,7 +50,7 @@ lemma mvfderiv_eq_chart_fderiv {F : Type*} [NormedAddCommGroup F] [NormedSpace â
     congr 2
   rw [hm] at hc
   rw [TangentBundle.continuousLinearMapAt_trivializationAt hxc]
-  simp only [mvfderiv, mfderiv_eq_fderiv, e] at hc
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, e] at hc
   convert hc using 1 <;> rfl
 
 /-- Coordinate differentiation of a local section uses the same chart as the

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Neck.Jets.SelectedNeckJets
 
@@ -42,7 +43,7 @@ private theorem fixed_coordinate_metric_sum
   have hc := contMDiffAt_extChartAt' (I := 𝓡 3) (n := ∞) hsource
   have hd := mfderiv_comp p (hc.mdifferentiableAt (by simp))
     (hf.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hmetric := g.pullbackCoefficients_chart_cancel F q hp hF
     (mfderiv (𝓡 3) (𝓡 3) f p v) (mfderiv (𝓡 3) (𝓡 3) f p w)
   let A := g.pullbackCoefficients (F ∘ c.symm) (c (f p))

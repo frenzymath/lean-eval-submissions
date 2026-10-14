@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.RampTransport.Periodic.SmoothApproximation
 import Submission.PoincareLib.Geometry.RicciFlow.Product.Circle.Identities
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Data
@@ -89,7 +90,7 @@ theorem rampJetCurrent_actual
   have hleft := (M63.smooth_retraction_differentials he hU heU hrho hre).2.2
   have hd := mfderiv_comp_apply (f := gamma) (g := e) x
     (he.mdifferentiable (by simp) _) (hgamma x) 1
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change deriv (e ∘ gamma) x =
     mfderiv (𝓡 (n + 1)) 𝓘(ℝ, W) e (gamma x) (curveVelocity gamma x) at hd
   dsimp only [rampJetCurrent, Function.comp_apply]

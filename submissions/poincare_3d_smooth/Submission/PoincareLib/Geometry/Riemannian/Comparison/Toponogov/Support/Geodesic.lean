@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.SmoothExtension
 import Submission.PoincareLib.Geometry.Riemannian.Connection.AlongCurve.Manifold
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Laplacian.Branch.Inverse
@@ -96,7 +97,7 @@ theorem deriv2_lift_eq_neg_christoffel
   have hchain := mfderiv_comp (u t)
     (mdifferentiableAt_extChartAt (by simpa only [c, extChartAt_source] using hp))
     (he.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   have hfi : Function.Bijective (fderiv ℝ f (u t)) := by
     rw [hchain]
     exact (isInvertible_mfderiv_extChartAt hp).bijective.comp hi
@@ -113,7 +114,7 @@ theorem deriv2_lift_eq_neg_christoffel
     have hc := mfderiv_comp y
       (mdifferentiableAt_extChartAt (by simpa only [c, extChartAt_source] using hyp))
       (hey.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hc
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
     have hinner := chartField_inner g (q := fun _ : ℝ => e y)
       (fun _ => mfderiv (𝓡 n) (𝓡 n) e y a)
       (fun _ => mfderiv (𝓡 n) (𝓡 n) e y b) (t := 0) hyp
@@ -147,7 +148,7 @@ theorem pullback_velocity_inner_eq_of_lift
       g.inner (γ t) (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ t 1)
         (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ t 1) := by
   have hd := mfderiv_comp t he hu.mdifferentiableAt
-  rw [hproj.mfderiv_eq, mfderiv_eq_fderiv] at hd
+  rw [hproj.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hv := congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => L 1) hd
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ t 1 =
     mfderiv (𝓡 n) (𝓡 n) e (u t) (fderiv ℝ u t 1) at hv

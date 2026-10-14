@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.PuncturedMetric
 
 /-!
@@ -42,7 +43,7 @@ theorem sphere_uniformization (q : RiemannianMetric 2 UnitTwoSphere) :
     have hd := mfderiv_comp z ((hs _ hp).mdifferentiableAt (by simp))
       (m60SphereParameter_contMDiff.mdifferentiable (by simp) _)
     rw [hEq, mfderiv_comp z (m60SphereParameter_contMDiff.mdifferentiable (by simp) _)
-        (F.symm.contMDiff.mdifferentiable (by simp) _), mfderiv_eq_fderiv] at hd
+        (F.symm.contMDiff.mdifferentiable (by simp) _), Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hchain (v : Plane) := congrArg (fun L => L v) hd.symm
     have hFi := fderiv_comp z
       ((contMDiff_iff_contDiff.mp F.contMDiff).differentiable (by simp) _)

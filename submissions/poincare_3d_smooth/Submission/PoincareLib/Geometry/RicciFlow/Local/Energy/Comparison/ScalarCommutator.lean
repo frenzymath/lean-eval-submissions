@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/ScalarCommutator.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -93,7 +94,7 @@ theorem mvfderiv_mlieBracket_eq_commutator
         =ᶠ[𝓝 (e x)] (fun q => mvfderiv (𝓡 n) f (e.symm q) (Z (e.symm q))) := by
     filter_upwards [hU', extChartAt_target_mem_nhds (I := 𝓡 n) x] with q hqU hq
     have hfd := (hf.contMDiffAt (hU.mem_nhds hqU)).mdifferentiableAt (by simp)
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mvfderiv 𝓘(ℝ, EuclideanSpace ℝ (Fin n)) (f ∘ e.symm) q _ = _
     rw [mvfderiv_comp q hfd ((he q hq).mdifferentiableAt (by simp)),
       VectorField.mpullback_apply, ContinuousLinearMap.comp_apply,
@@ -105,7 +106,7 @@ theorem mvfderiv_mlieBracket_eq_commutator
       fderiv ℝ (fun q => fderiv ℝ h q
         (VectorField.mpullback 𝓘(ℝ, EuclideanSpace ℝ (Fin n)) (𝓡 n) e.symm Z q))
         (e x) a = mvfderiv (𝓡 n) (fun y => mvfderiv (𝓡 n) f y (Z y)) x a := by
-    rw [(htransport Z).fderiv_eq, ← mfderiv_eq_fderiv]
+    rw [(htransport Z).fderiv_eq, ← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mvfderiv 𝓘(ℝ, EuclideanSpace ℝ (Fin n))
       ((fun y => mvfderiv (𝓡 n) f y (Z y)) ∘ e.symm) (e x) a = _
     rw [mvfderiv_comp_apply_of_eq (e x) ((hdir Z hZ).mdifferentiableAt (by simp))
@@ -123,7 +124,7 @@ theorem mvfderiv_mlieBracket_eq_commutator
       congrArg (fun y => (Z y : EuclideanSpace ℝ (Fin n))) hex
     exact hinv.trans hvalue
   have hdf : fderiv ℝ h (e x) = mvfderiv (𝓡 n) f x := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mvfderiv 𝓘(ℝ, EuclideanSpace ℝ (Fin n)) (f ∘ e.symm) (e x) = _
     rw [mvfderiv_comp (e x) (hfex.mdifferentiableAt (by simp))
       ((he _ he0).mdifferentiableAt (by simp)), heid]

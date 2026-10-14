@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Conformal.HarmonicEstimate
 import Submission.PoincareLib.Geometry.RicciFlow.Area.MinimalSphere.PlaneCurvature
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Conjugate.Variation.Intrinsic
@@ -69,7 +70,7 @@ theorem m60ConformalHarmonicChart_estimate (D : LeviCivitaData g)
         (mfderiv (𝓡 2) (𝓡 n) φ q v) := by
     have h := mfderiv_comp q ((hc q hq).mdifferentiableAt (by simp))
       ((hφq q hq).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     exact congrArg (fun L => L v) h
   have hpair (q : LoopPlane) (hq : q ∈ O) (v w : LoopPlane) :
       B (u q) (fderiv ℝ u q v) (fderiv ℝ u q w) =

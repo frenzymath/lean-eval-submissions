@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Canonical.Neck.CanonicalNeckMapJets
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Lifetime.Coordinates.CapPersistenceProductJets
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Lifetime.Curvature.CapPersistenceTensorReadout
@@ -95,7 +96,7 @@ theorem exists_cap_neck_bilinear_error_jet_bound {g : RiemannianMetric 3 E}
     filter_upwards [hc.preimage_mem_nhds (isOpen_Ioo.mem_nhds (by simpa using hz))]
       with x hx
     have h := N.capPersistence_tensor_coefficient (fun y v w => T y v w) q z hx i l
-    simp only [mfderiv_eq_fderiv] at h
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     convert h using 1
     simp [capNeckEvaluation, P, f, ContinuousLinearMap.bilinearComp_apply]
     rfl

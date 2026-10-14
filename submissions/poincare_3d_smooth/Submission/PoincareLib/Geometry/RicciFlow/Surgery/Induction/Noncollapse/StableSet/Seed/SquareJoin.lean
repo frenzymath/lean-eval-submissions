@@ -31,6 +31,7 @@ theorem squareCurveDensity_germ_eq {gamma beta : ℝ → G.Point} {A B : Set ℝ
   unfold M14.squareCurveDensity M14.projectedCurveVelocityWithin
   rw [mfderivWithin_of_mem_nhds hA, mfderivWithin_of_mem_nhds hB,
     h.mfderiv_eq, h.eq_of_nhds]
+  rfl
 
 /-- Gluing at the actual meeting point and clamping outside the
 closed interval gives the globally continuous curve used in recovery. -/

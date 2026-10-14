@@ -93,7 +93,7 @@ theorem exists_component_normalized_endpoint_constant
   have hball : x ∈ (F.metric 0).ball x (1 / 2) := by
     change (F.metric 0).edist x x < ENNReal.ofReal (1 / 2)
     rw [← RiemannianMetric.toEMetricSpace_edist]
-    have hz := @edist_self M (F.metric 0).toEMetricSpace.toPseudoEMetricSpace x
+    have hz := @edist_self M _ (F.metric 0).toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace x
     rw [hz]
     exact ENNReal.ofReal_pos.mpr (by norm_num)
   have h1 : (F.connection T).curvatureDerivativeNorm 1 x ≤ A1 := by

@@ -57,7 +57,7 @@ theorem m64LogRadius_ae {rho : ℝ} (hrho : 0 < rho) {q : ℝ → Prop}
   by_contra hnot
   change ¬ q (f s) at hnot
   have hd : 0 < |d s| := abs_pos.mpr (neg_ne_zero.mpr (mul_ne_zero hrho.ne' (Real.exp_ne_zero _)))
-  simp only [F, if_neg hnot, mul_one, Pi.zero_apply] at hs
+  simp only [F, ite_eq_right hnot, mul_one, Pi.zero_apply] at hs
   exact hd.ne' hs
 
 end PoincareMT

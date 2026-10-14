@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Simplex.SimplexCompression
 import Submission.PoincareLib.Topology.Homotopy.Hurewicz.HurewiczMap
 import Submission.PoincareLib.Topology.Homotopy.SingularComplex.SingularHomologyDetection
@@ -33,7 +34,7 @@ theorem homotopyGroupSingularHomologyMap_injective
       SSet.yonedaEquiv (SSet.const x0 :
         (SSet.stdSimplex.{u}.obj (SimplexCategory.mk d)) ⟶ Y) =
         singularConstantSimplex X d x := by
-    apply (X.toSSetObjEquiv _).injective
+    apply (X.toLegacySSetObjEquiv _).injective
     ext z
     rw [singular_const_apply]
     simpa only [singularConstantSimplex, Equiv.apply_symm_apply,
@@ -102,18 +103,18 @@ theorem homotopyGroupSingularHomologyMap_injective
   have Hsimplex := (stdSimplex_cube_coordinates_homotopicRel_iff (n + 2)
     (stdSimplexCubeMap (n + 2)) (stdSimplexCubeMap_spec (n + 2)).1
     (stdSimplexCubeMap_spec (n + 2)).2
-    (X.toSSetObjEquiv _ (SSet.yonedaEquiv a.map))
-    (X.toSSetObjEquiv _ (SSet.yonedaEquiv b.map))).mp Hcube
+    (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv a.map))
+    (X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv b.map))).mp Hcube
   rw [ha, hb] at Hsimplex
   obtain ⟨J⟩ := Hsimplex
   let e := Classical.choose (exists_stdSimplex_cube_pair_homeomorph (n + 2))
   let eC : C((Fin (n + 2) -> unitInterval), stdSimplex Real (Fin (n + 3))) :=
     ⟨e.symm, e.symm.continuous⟩
-  have hpval : (X.toSSetObjEquiv _ (genLoopSingularSimplex X p)).comp eC = p.val := by
+  have hpval : (X.toLegacySSetObjEquiv _ (genLoopSingularSimplex X p)).comp eC = p.val := by
     simp only [genLoopSingularSimplex, Equiv.apply_symm_apply]
     ext t
     exact congrArg p (e.apply_symm_apply t)
-  have hqval : (X.toSSetObjEquiv _ (genLoopSingularSimplex X q)).comp eC = q.val := by
+  have hqval : (X.toLegacySSetObjEquiv _ (genLoopSingularSimplex X q)).comp eC = q.val := by
     simp only [genLoopSingularSimplex, Equiv.apply_symm_apply]
     ext t
     exact congrArg q (e.apply_symm_apply t)

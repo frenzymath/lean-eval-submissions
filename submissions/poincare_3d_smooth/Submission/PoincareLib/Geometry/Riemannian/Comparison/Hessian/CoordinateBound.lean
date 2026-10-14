@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Hessian.Chart
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient
 
@@ -62,7 +63,7 @@ theorem fderiv2_chart_le_of_hessian_le (D : LeviCivitaData g) (a : M)
       |fderiv ℝ (f ∘ c.symm) z w| ≤ A * ‖w‖ := by
     have heq := congrArg (fun L => L w)
       (mfderiv_comp z (hf.mdifferentiableAt (by simp)) (hc.mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change fderiv ℝ (f ∘ c.symm) z w = mvfderiv (𝓡 n) f (c.symm z) (T w) at heq
     rw [heq]
     have h := D.abs_mvfderiv_le_gradient_norm f (c.symm z) (T w)

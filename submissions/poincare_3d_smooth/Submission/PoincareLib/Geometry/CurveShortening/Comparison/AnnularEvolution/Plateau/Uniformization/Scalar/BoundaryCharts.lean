@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.Regularity
 import Submission.PoincareLib.Geometry.Manifold.SmoothDomain.HalfSpaceChart
 
@@ -67,7 +68,7 @@ boundary and energy details are recorded in
 theorem scalarAnnulusDefining_regular {a : Plane} (ha : ‖a‖ = 1 ∨ ‖a‖ = 2) :
     Surjective (mfderiv (𝓡 2) 𝓘(ℝ, ℝ) scalarAnnulusDefining a) := by
   suffices hs : Surjective (fderiv ℝ scalarAnnulusDefining a) by
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using hs
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using hs
   have hd := ((hasStrictFDerivAt_norm_sq a).hasFDerivAt.sub_const 1).mul
     ((hasFDerivAt_const (4 : ℝ) a).sub (hasStrictFDerivAt_norm_sq a).hasFDerivAt)
   have heq : fderiv ℝ scalarAnnulusDefining a a =

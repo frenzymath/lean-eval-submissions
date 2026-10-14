@@ -47,7 +47,13 @@ theorem axial_mvfderiv_coordinate_tangent {z : RoundCylinderSpace}
   dsimp only [Function.comp_def] at hcomp
   rw [heq.mfderiv_eq (I := (𝓡 2).prod 𝓘(ℝ, ℝ))
     (I' := 𝓘(ℝ, ℝ)), mfderiv_snd] at hcomp
-  exact (congrArg (fun L => L v) hcomp).symm
+  have h := congrArg (fun (L : TangentSpace ((𝓡 2).prod 𝓘(ℝ, ℝ)) z →L[ℝ]
+      TangentSpace 𝓘(ℝ, ℝ) ((N.coordinate_inverse (N.coordinate_map z)).2)) =>
+    NormedSpace.fromTangentSpace ((N.coordinate_inverse (N.coordinate_map z)).2)
+      (L.toFun (show TangentSpace ((𝓡 2).prod 𝓘(ℝ, ℝ)) z from v))) hcomp
+  change v.2 = mvfderiv (𝓡 3) (fun y => (N.coordinate_inverse y).2)
+    (N.coordinate_map z) (mfderiv ((𝓡 2).prod 𝓘(ℝ, ℝ)) (𝓡 3) N.coordinate_map z v) at h
+  exact h.symm
 
 /-- Gradient direction errors control signed axial flux without a differentiability
 assumption on the scalar function. -/

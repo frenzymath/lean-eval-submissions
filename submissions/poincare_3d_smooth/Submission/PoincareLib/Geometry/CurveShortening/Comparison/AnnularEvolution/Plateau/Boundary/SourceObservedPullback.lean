@@ -7,7 +7,6 @@ Morgan--Tian context: Lemma 19.15 and its annular area-to-energy construction, p
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -42,7 +41,7 @@ theorem m64HorizontalSource_column_memLp_two
   have htop : MemLp a ∞ mu := memLp_top_of_bound ha.aestronglyMeasurable C (by
     filter_upwards [ae_restrict_mem isOpen_interior.measurableSet] with p hp
     exact hC p (interior_subset hp))
-  exact (m64HorizontalSource_memLp_two ht hi hpos hmono h0 hP hV).smul htop
+  exact htop.smul (m64HorizontalSource_memLp_two ht hi hpos hmono h0 hP hV)
 
 namespace M64ObservedWeakAnnulus
 

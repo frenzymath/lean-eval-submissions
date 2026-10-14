@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Conjugate.Variation.Piece
 import Submission.PoincareLib.Geometry.Riemannian.Connection.AlongCurve.Manifold
 
@@ -89,7 +90,7 @@ theorem energyDensity_eq_half_tangentNorm_sq
   have hpoint : u (0, t) = extChartAt (𝓡 n) a (q t) := hbase.self_of_nhds
   have hd := mfderiv_comp t (mdifferentiableAt_extChartAt
     (by simpa only [extChartAt_source] using ha)) hq
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hdu := hu.hasFDerivAt.comp_hasDerivAt t
     ((hasDerivAt_const t (0 : ℝ)).prodMk (hasDerivAt_id t))
   have hvel : fderiv ℝ u (0, t) (0, 1) =
@@ -135,7 +136,7 @@ theorem chartIndexIntegrand_eq_intrinsic
     have hdu := (hu.differentiableAt (by norm_num)).hasFDerivAt.comp_hasDerivAt t hline
     have hdc := mfderiv_comp t (mdifferentiableAt_extChartAt
       (by simpa only [extChartAt_source] using ha)) (hq.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hdc
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hdc
     have hdc1 : deriv (c ∘ q) t = L T := congrArg (fun f => f 1) hdc
     rw [← hdc1, ← hbase.deriv_eq]
     exact hdu.deriv.symm

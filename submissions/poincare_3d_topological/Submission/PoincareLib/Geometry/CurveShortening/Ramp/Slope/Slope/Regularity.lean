@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Slope.Laws
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Integral.Continuity
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Integral.Periodicity
@@ -38,7 +39,7 @@ theorem m63CurveVelocity_periodic {gamma : ℝ → M} {p : ℝ}
   intro x
   have hshift : HasDerivAt (fun y : ℝ => y + p) 1 x := (hasDerivAt_id x).add_const p
   have hvalue : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun y : ℝ => y + p) x 1 = 1 := by
-    rw [mfderiv_eq_fderiv, hshift.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hshift.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ 1
   have hcomp := congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => L 1)
     (mfderiv_comp (f := fun y : ℝ => y + p) (g := gamma) x (hgamma (x + p))

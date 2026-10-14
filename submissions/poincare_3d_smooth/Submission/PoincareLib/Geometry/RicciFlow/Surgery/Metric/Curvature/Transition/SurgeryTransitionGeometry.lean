@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Curvature.Transition.SurgeryTransitionMetric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Cylinder.CylinderBlend
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Cylinder.Jets.CylinderJetEstimates
@@ -124,7 +125,7 @@ theorem cylinderPointBounds_transport
     have he := congrArg (fun D => D a)
       (heq.mfderiv_eq (I := 𝓡 3) (I' := 𝓘(ℝ, ℝ)))
     rw [mfderiv_comp 0 (hheight.mdifferentiableAt (by simp))
-      (hf0.mdifferentiableAt (by simp)), mfderiv_eq_fderiv,
+      (hf0.mdifferentiableAt (by simp)), Poincare.Compatibility.mfderiv_eq_fderiv_model,
       (cylinderHeightCovector.hasFDerivAt.add_const s).fderiv] at he
     exact he
   have hpair (a b : TangentSpace (𝓡 3) (f 0))

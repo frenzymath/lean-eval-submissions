@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Plane.CirclePair.AttachmentGerm.Restriction
 import Mathlib.Analysis.Calculus.Deriv.Slope
 
@@ -32,7 +33,7 @@ theorem normal_derivative_ne_zero_of_boundary_germ
   have hP : IsLocalDiffeomorphAt (𝓡 2) (𝓡 2) ∞ P (p : E2) :=
     ⟨P, hp, eqOn_refl _ _⟩
   have hPi : Injective (fderiv Real P p) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (hP.mfderivToContinuousLinearEquiv (by simp)).injective
   have hBs : Surjective B := (hf.mfderivToContinuousLinearEquiv (by simp)).surjective
   have hchainf := mfderiv_comp p
@@ -41,7 +42,7 @@ theorem normal_derivative_ne_zero_of_boundary_germ
   have hchainP := mfderiv_comp p (hP.mdifferentiableAt (by simp))
     ((contMDiff_coe_sphere (n := 1) (m := ∞) p).mdifferentiableAt (by simp))
   have hsame := heq.mfderiv_eq (I := 𝓡 1) (I' := 𝓡 2)
-  rw [hchainf, hchainP, mfderiv_eq_fderiv] at hsame
+  rw [hchainf, hchainP, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hsame
   intro hz
   have hJrange : J.range = (Real ∙ (f p : E2))ᗮ := by
     convert! range_mvfderiv_subtypeVal (f p)

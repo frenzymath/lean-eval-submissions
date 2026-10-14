@@ -72,7 +72,7 @@ theorem c2_annulus_motion_current_flux_le (F : RicciFlow n M (Icc a b))
     simpa only [heq u] using hbound.1 u
   · have hupper := heq true
     have hlower := heq false
-    simp only [Bool.false_eq_true, if_false, if_true] at hupper hlower hbound
+    simp only [Bool.false_eq_true, ite_false, ite_true] at hupper hlower hbound
     simpa only [hupper, hlower] using hbound.2
 
 end PoincareMT.M64

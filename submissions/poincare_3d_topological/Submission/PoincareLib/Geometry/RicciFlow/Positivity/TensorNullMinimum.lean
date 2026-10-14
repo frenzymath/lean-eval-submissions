@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.FixedExtension
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Tensors.TensorDerivativeClosure
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.ScalarTrace
@@ -80,7 +81,7 @@ theorem exists_local_field_connection_zero (D : LeviCivitaData g)
     rw [he, mvfderiv_sub hd mdifferentiableAt_const, mvfderiv_const, sub_zero]
     change mvfderiv (𝓡 n) ((C i) ∘ c) x a = _
     rw [mvfderiv_comp_apply x (C i).differentiableAt.mdifferentiableAt hcD a]
-    simpa only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply, L] using!
+    simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply, L] using!
       congrArg (fun K : E →L[ℝ] ℝ ↦ K (L a)) ((C i).fderiv (x := c x))
   have hterm (i : Fin n) : ContMDiffOn (𝓡 n) ((𝓡 n).prod 𝓘(ℝ, E)) ∞
       (T% (fun y ↦ φ i y • S i y)) U := (hφ i).smul_section (hS i)

@@ -72,7 +72,7 @@ theorem integrable_frequencyMoment (j : ℕ) {s : ℝ}
     (hs : (n : ℝ) < 2 * (s - j)) (u : FrequencyL2 n) :
     Integrable (fun x : E => ‖x‖ ^ j * ‖(decayWeight s x : ℂ) * u x‖) volume := by
   have hm : MemLp (fun x : E => momentWeight j s x * ‖u x‖) 1 volume :=
-    (Lp.memLp u).norm.mul' (memLp_momentWeight j hs)
+    (memLp_momentWeight j hs).fun_mul (Lp.memLp u).norm
   apply (memLp_one_iff_integrable.mp hm).congr
   filter_upwards with x
   simp only [momentWeight, norm_mul, Complex.norm_real, Real.norm_eq_abs,

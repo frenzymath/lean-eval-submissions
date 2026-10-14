@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Identities.ScalarHessian
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.ScalarBracket
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.CurvaturePointwise
@@ -113,7 +114,7 @@ theorem shiChartCoordinate_derivative {c : OpenPartialHomeomorph M E}
   have hd := (hc.contMDiffAt (c.open_source.mem_nhds hy)).mdifferentiableAt (by simp)
   change mvfderiv (𝓡 n) (p ∘ c) y a = _
   rw [mvfderiv_comp_apply y p.differentiableAt.mdifferentiableAt hd a]
-  simpa only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] using!
+  simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] using!
     congrArg (fun K : E →L[ℝ] ℝ => K (mvfderiv (𝓡 n) c y a))
       (p.fderiv (x := c y))
 
@@ -334,7 +335,7 @@ theorem shiChart_scalar_derivative {c : OpenPartialHomeomorph M E}
       mvfderiv (𝓡 n) q (c.symm z) (mfderiv 𝓘(ℝ, E) (𝓡 n) c.symm z u) := by
   have he := mfderiv_comp z hq
     ((hi.contMDiffAt (c.open_target.mem_nhds hz)).mdifferentiableAt (by simp))
-  simpa only [mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] using!
+  simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] using!
     congrArg (fun A => A u) he
 
 set_option backward.isDefEq.respectTransparency false in

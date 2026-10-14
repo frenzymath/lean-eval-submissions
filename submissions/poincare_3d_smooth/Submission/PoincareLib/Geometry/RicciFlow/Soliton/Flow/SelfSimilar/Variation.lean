@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.FlowIsometry
 import Submission.PoincareLib.Geometry.Riemannian.Hessian.Symmetry
 
@@ -158,7 +159,7 @@ private theorem metric_pullback_in_charts
     simpa only [d, extChartAt_to_inv] using hc
   have hderiv := mfderiv_comp (d x) hcd (hFd.comp (d x) hd)
   rw [mfderiv_comp (d x) hFd hd, hdid, ContinuousLinearMap.comp_id] at hderiv
-  rw [mfderiv_eq_fderiv] at hderiv
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hderiv
   change fderiv ℝ (c ∘ F ∘ d.symm) (d x) =
     (mfderiv (𝓡 n) (𝓡 n) c (F (d.symm (d x)))).comp
       (mfderiv (𝓡 n) (𝓡 n) F (d.symm (d x))) at hderiv
@@ -256,7 +257,7 @@ theorem hasDerivAt_gradientFlow_metric_pairing
       (n := ∞) (Φ t x) hct).contMDiffAt (extChartAt_target_mem_nhds' hct)
     have heq := hcancel.mfderiv_eq (I := 𝓡 n) (I' := 𝓡 n)
     rw [mfderiv_comp (d x) (hcs.mdifferentiableAt (by simp))
-      hqx.mdifferentiableAt, mfderiv_eq_fderiv] at heq
+      hqx.mdifferentiableAt, Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     rw [mfderiv_comp (d x) ((hF t).mdifferentiable (by simp) _)
       (hd.mdifferentiableAt (by simp))] at heq
     have hdi : mfderiv (𝓡 n) (𝓡 n) d.symm (d x) = ContinuousLinearMap.id ℝ _ := by

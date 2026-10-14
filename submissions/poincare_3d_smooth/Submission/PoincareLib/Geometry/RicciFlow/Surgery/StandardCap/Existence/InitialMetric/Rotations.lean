@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.InitialMetric.Metric
 
 /-!
@@ -43,7 +44,7 @@ theorem standardRotation_mfderiv (A : Matrix.specialOrthogonalGroup (Fin 3) ℝ)
     (x : StandardCapSpace) :
     mfderiv (𝓡 3) (𝓡 3) (standardRotation A) x =
       (capRotationIsometry A).toContinuousLinearMap := by
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   exact (capRotationIsometry A).toContinuousLinearMap.fderiv
 
 /-- Invariance of the constructed cap metric under the contract's exact

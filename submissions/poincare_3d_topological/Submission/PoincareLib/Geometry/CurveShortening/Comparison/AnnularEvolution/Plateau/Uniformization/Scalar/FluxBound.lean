@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.PeriodicBand
 
@@ -48,7 +49,7 @@ theorem scalarConjugateForm_norm_bound (H : Plane → ℝ) (x : Plane) :
     intro v
     simpa only [one_mul, EuclideanSpace.coe_proj] using PiLp.norm_apply_le v i
   have hdf : mvfderiv (𝓡 2) H x = fderiv ℝ H x := by
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   have hgrad : ‖V‖ ≤
       ‖(g.euclideanCoefficients x).inverse‖ * ‖fderiv ℝ H x‖ := by

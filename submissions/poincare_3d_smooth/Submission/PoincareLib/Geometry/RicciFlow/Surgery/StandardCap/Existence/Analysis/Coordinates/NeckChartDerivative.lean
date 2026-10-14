@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
 import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 
@@ -41,5 +42,5 @@ theorem mfderiv_inverse_chart_comp_fderiv_coordinates
       ((isOpen_extChartAt_source q).mem_nhds hq)] with y hy
     exact c.left_inv hy
   have hd := mfderiv_comp x hci (hc.comp x hφ)
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   exact hd.symm.trans hlocal.mfderiv_eq

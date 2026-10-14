@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.PolygonApproximation.Interpolator.LocalLipschitz
 
 /-!
@@ -28,7 +29,7 @@ step for MT Definition 19.18 and Claims 19.19/19.22, pp. 450-453; project constr
 theorem m64_loopPlane_vertical_basis_zero (x : LoopPlane) :
     mfderiv (𝓡 2) 𝓘(ℝ, ℝ) (fun p : LoopPlane => p 0) x
       (EuclideanSpace.basisFun (Fin 2) ℝ 1) = 0 := by
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   have hderiv : fderiv ℝ (fun y : LoopPlane => y 0) x =
       (EuclideanSpace.proj 0 : LoopPlane →L[ℝ] ℝ) :=
     (show LoopPlane →L[ℝ] ℝ from EuclideanSpace.proj 0).fderiv
@@ -42,7 +43,7 @@ construction in `proof-work/tasks/M64/reports/2026-09-23-static-polygon.md`. -/
 theorem m64_loopPlane_horizontal_basis_one (x : LoopPlane) :
     mfderiv (𝓡 2) 𝓘(ℝ, ℝ) (fun p : LoopPlane => p 1) x
       (EuclideanSpace.basisFun (Fin 2) ℝ 1) = 1 := by
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   have hderiv : fderiv ℝ (fun y : LoopPlane => y 1) x =
       (EuclideanSpace.proj 1 : LoopPlane →L[ℝ] ℝ) :=
     (show LoopPlane →L[ℝ] ℝ from EuclideanSpace.proj 1).fderiv
@@ -135,7 +136,6 @@ theorem m64_interpolator_vertical_column_of_speed
     have hcmd : ContMDiffAt (𝓡 2) 𝓘(ℝ, ℝ) 1
         (fun p : LoopPlane => p 0 + -(m63CellLeft N j)) x := by
       convert hc1 using 1
-      rfl
     simpa only [phi, sub_eq_add_neg] using hcmd.mdifferentiableAt (by simp)
   have hgammaAt : MDifferentiableAt 𝓘(ℝ, ℝ) (𝓡 3) gamma (x 0) :=
     (hgamma.contMDiffAt (isOpen_univ.mem_nhds (mem_univ _))).mdifferentiableAt
@@ -178,7 +178,7 @@ theorem m64_interpolator_vertical_column_of_speed
     have hc := mfderiv_comp_apply x hsideAt hphi b
     rw [show mfderiv (𝓡 2) 𝓘(ℝ, ℝ) phi x b = 0 by
       dsimp only [phi]
-      rw [mfderiv_eq_fderiv, fderiv_sub_const]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_sub_const]
       have hproj : fderiv ℝ (fun p : LoopPlane => p 0) x =
           (EuclideanSpace.proj 0 : LoopPlane →L[ℝ] ℝ) :=
         (show LoopPlane →L[ℝ] ℝ from EuclideanSpace.proj 0).fderiv

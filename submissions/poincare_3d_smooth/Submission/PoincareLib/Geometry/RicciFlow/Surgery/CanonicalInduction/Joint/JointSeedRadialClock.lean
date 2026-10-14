@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Joint.JointSeedSquarePath
 
 /-!
@@ -60,7 +61,7 @@ theorem jointSeed_radial_square_velocity (gamma : ℝ → M)
     dsimp only [id]
     ring
   have hinput : mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ)) phi s 1 = 4 * s / v := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact hphi.deriv
   have hchain := mfderiv_comp_apply s (f := phi) (g := gamma)
     ((hgamma (phi s)).mdifferentiableAt (by simp))

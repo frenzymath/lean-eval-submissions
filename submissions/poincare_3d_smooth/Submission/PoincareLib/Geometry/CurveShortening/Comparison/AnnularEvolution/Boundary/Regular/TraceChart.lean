@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Boundary.Finite.TargetChart
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
 
@@ -41,7 +42,7 @@ theorem regular_trace_in_chart {c : ℝ → M}
   have hchain := congrArg (fun T : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => T 1)
     (mfderiv_comp s hqd hcd)
   have hder : deriv (q ∘ c) s = mfderiv (𝓡 n) (𝓡 n) q (c s) (curveVelocity c s) := by
-    simpa +instances only [mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
       fderiv_apply_one_eq_deriv, curveVelocity, q] using! hchain
   intro hz
   apply hv

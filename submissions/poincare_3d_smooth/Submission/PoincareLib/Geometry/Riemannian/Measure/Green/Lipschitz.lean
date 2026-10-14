@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Analysis.Calculus.WeakDerivative.LipschitzGreen
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Green.CompactSupport
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Green.Local
@@ -200,7 +201,7 @@ private theorem fderiv_comp_mpullback
   have h := congrArg (fun L => L (mpullback (𝓡 n) (𝓡 n) e V x))
     (mvfderiv_comp x hfM (hD.mdifferentiableAt hx))
   simp only [ContinuousLinearMap.comp_apply, mpullback, hinv.self_apply_inverse] at h
-  simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
     ContinuousLinearMap.comp_apply] at h
   convert! h using 1
 

@@ -140,9 +140,9 @@ theorem lower_reflected_phase_weak
       ((∫ p in S, dphi p * A.phase p) + ∫ p in S, dphi (p - v) * A.phase (T p)) = 0
     dsimp only [dphi] at hbelow ⊢
     by_cases hi : i = 1
-    · rw [if_pos hi] at habove hbelow
+    · rw [ite_eq_left hi] at habove hbelow
       linarith
-    · rw [if_neg hi] at habove hbelow
+    · rw [ite_eq_right hi] at habove hbelow
       linarith
   change (∫ p in O, A.lowerReflectedPhase p * dphi p) =
     -(∫ p in O, A.lowerReflectedPhaseColumn i p * phi p)

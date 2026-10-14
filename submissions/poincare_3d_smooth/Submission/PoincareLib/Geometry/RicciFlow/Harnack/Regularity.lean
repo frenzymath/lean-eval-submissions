@@ -121,7 +121,7 @@ theorem scalarCurvature_mvfderiv_continuousOn_time
         (chartAt ℝ ((F.connection t).scalarCurvature x)).source from mem_univ _)]
     simp only [tangentBundleCore_coordChange_model_space, ContinuousLinearMap.id_comp,
       ContinuousLinearMap.comp_apply]
-    rw [(tangentBundleCore (𝓡 n) M).coordChange_self _ _ (mem_achart_source _ _)]
+    erw [(tangentBundleCore (𝓡 n) M).coordChange_self _ _ (mem_achart_source _ _)]
     rw [mfderivWithin_univ]
     rfl
   exact heval.continuousWithinAt.congr (fun s _ ↦ heq s) (heq t)

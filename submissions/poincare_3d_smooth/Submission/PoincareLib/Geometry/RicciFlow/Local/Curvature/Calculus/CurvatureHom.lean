@@ -766,7 +766,7 @@ theorem abs_curvature_two_factor_contraction_le_orthonormal_energy
     change |low r Z x| ≤ ell r * (∏ j : Fin (r + 3),
       g.tangentNorm x (Z j.castSucc x)) * g.tangentNorm x (Z (Fin.last (r + 3)) x) at hh
     have hp : (∏ j : Fin (r + 3), g.tangentNorm x (Z j.castSucc x)) ≤ 1 :=
-      Finset.prod_le_one (fun j _ => hnonneg _) (fun j _ => hZunit j.castSucc)
+      Finset.prod_le_one₀ (fun j _ => hnonneg _) (fun j _ => hZunit j.castSucc)
     have hall : (∏ j : Fin (r + 3), g.tangentNorm x (Z j.castSucc x)) *
         g.tangentNorm x (Z (Fin.last (r + 3)) x) ≤ 1 := by
       simpa only [one_mul] using

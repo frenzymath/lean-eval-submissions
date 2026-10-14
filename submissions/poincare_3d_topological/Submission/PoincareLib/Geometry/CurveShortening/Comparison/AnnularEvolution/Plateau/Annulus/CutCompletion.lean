@@ -28,7 +28,7 @@ pp. 447-449; M64 derivation `2026-09-26-two-cut-c1-assembly.md`. -/
 theorem m64AnnulusCutCompletion_interior {M : Type*} (f g : LoopPlane → M)
     {p : LoopPlane} (hp : p 0 ∈ Ioo (0 : ℝ) curvePeriod) :
     m64AnnulusCutCompletion f g p = f p := by
-  simp only [m64AnnulusCutCompletion, if_neg hp.1.ne', if_neg hp.2.ne]
+  simp only [m64AnnulusCutCompletion, ite_eq_right hp.1.ne', ite_eq_right hp.2.ne]
 
 /-- Both angular edges read the same point in the second chart. Source: MT Lemma 19.15, pp.
 447-449; M64 derivation `2026-09-26-two-cut-c1-assembly.md`. -/
@@ -42,7 +42,7 @@ theorem m64AnnulusCutCompletion_edges {M : Type*} (f g : LoopPlane → M) (y : �
     ext i; fin_cases i <;> simp [annulusPoint]
   have hright : annulusPoint curvePeriod y - v = annulusPoint (curvePeriod / 2) y := by
     ext i; fin_cases i <;> simp [annulusPoint]; ring
-  simp only [m64AnnulusCutCompletion, annulusPoint, Matrix.cons_val_zero, if_neg hP]
+  simp only [m64AnnulusCutCompletion, annulusPoint, Matrix.cons_val_zero, ite_eq_right hP]
   exact ⟨congrArg g hleft, congrArg g hright⟩
 
 end PoincareMT

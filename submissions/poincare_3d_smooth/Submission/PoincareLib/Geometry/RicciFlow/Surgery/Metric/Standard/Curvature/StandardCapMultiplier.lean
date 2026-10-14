@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Curvature.StandardCapPlanes
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialWeights
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Profile.ProfileDerivatives
@@ -352,7 +353,7 @@ theorem standardCap_sectional_multiplier_pos (g₀ : StandardInitialMetric)
 private theorem cap_mvfderiv_constant_germ {f : StandardCapSpace → ℝ}
     {x : StandardCapSpace} {c : ℝ} (hf : f =ᶠ[𝓝 x] fun _ => c)
     (v : StandardCapSpace) : mvfderiv (𝓡 3) f x v = 0 := by
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
     NormedSpace.fromTangentSpace]
   change fderiv ℝ f x v = 0
   rw [hf.fderiv_eq]

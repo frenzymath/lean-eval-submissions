@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Metric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Induction.Schedules.Gluing.Construction.CenteredInverse
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Induction.Schedules.Gluing.Construction.RecentNeck
@@ -117,7 +118,7 @@ theorem exists_joining_centered_transition
   refine ⟨K ∘ F, U, hU, h0U, inter_subset_left, hphi, ?_, hK0.1, ?_, ?_⟩
   · intro p hp
     exact centeredNeckInverse_mem O w.1 w.2 hp.2.1
-  · rw [← mfderiv_eq_fderiv, mfderiv_comp 0
+  · rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp 0
       (hK0.2.1.mdifferentiableAt (by simp))
       ((hF.contMDiffAt (hU0.mem_nhds hzero)).mdifferentiableAt (by simp))]
     exact hK0.2.2.comp hFi

@@ -38,7 +38,9 @@ def unitRicciKernelCoordinate (D : LeviCivitaData g) (f : M → ℝ)
     (f : M → ℝ) (p : UnitRicciKernel D) :
     unitRicciKernelCoordinate D f (unitRicciKernelReverse D p) =
       -unitRicciKernelCoordinate D f p := by
-  simp [unitRicciKernelCoordinate, unitRicciKernelReverse]
+  simp only [unitRicciKernelCoordinate, unitRicciKernelReverse]
+  rw [(g.inner p.1.proj (D.gradient f p.1.proj)).map_neg]
+  ring
 
 /-- A local unit null section through a chosen lift selects its sheet near that lift. -/
 theorem unitRicciKernel_eventually_eq_section (D : LeviCivitaData g)

@@ -65,9 +65,9 @@ private theorem odd_energy_decay {N : ℕ} {R beta Lambda : ℝ} (hR : 0 < R)
       (∑ i : Fin 2, ‖Y.derivative i z‖ ^ 2) ≤ f z + f (boundaryPlaneReflection z) := by
     have hf0 (w : LoopPlane) : 0 ≤ f w := Finset.sum_nonneg fun _ _ => sq_nonneg _
     by_cases hz : 0 ≤ z 1
-    · simpa only [hY, if_pos hz] using le_add_of_nonneg_right (hf0 (boundaryPlaneReflection z))
+    · simpa only [hY, ite_eq_left hz] using le_add_of_nonneg_right (hf0 (boundaryPlaneReflection z))
     · have he : (∑ i : Fin 2, ‖Y.derivative i z‖ ^ 2) = f (boundaryPlaneReflection z) := by
-        simp only [hY, if_neg hz, Fin.sum_univ_two, f]
+        simp only [hY, ite_eq_right hz, Fin.sum_univ_two, f]
         norm_num
       rw [he]
       exact le_add_of_nonneg_left (hf0 z)
@@ -183,7 +183,7 @@ theorem m64C2_zero_trace_quadratic_contDiffOn {N : ℕ} {R C H beta Lambda : ℝ
     · simpa only [Z, show 2 * (R / 32) = R / 16 by ring] using hYdecay
   apply hregular.congr_mono
   · intro z hz
-    exact (hYv z).trans (if_pos hz.2) |>.symm
+    exact (hYv z).trans (ite_eq_left hz.2) |>.symm
   · intro z hz
     exact closedBall_subset_ball (by linarith) hz.1
 

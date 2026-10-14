@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.Boundary.MotionTrace
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.SourceNames.ReducedLength
@@ -94,7 +95,7 @@ theorem m65BoundaryCurve_velocity_of_trace
   simp only [mfderivWithin_univ] at hchain
   have hvelocity : mfderiv (𝓘(ℝ, ℝ)) (𝓡 2) Proofs.M58.angularPoint θ 1 =
       Proofs.M58.angularVector θ := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
       (Proofs.M58.hasDerivAt_angularPoint θ).deriv
   change mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) (f ∘ Proofs.M58.angularPoint) θ 1 = _
   rw [hchain]

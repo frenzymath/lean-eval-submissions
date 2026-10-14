@@ -80,7 +80,7 @@ theorem m64AnnulusHalfTurn_left_overlap {M : Type*} [TopologicalSpace M] [T2Spac
     filter_upwards [ae_restrict_of_ae_restrict_of_subset hOS
       (m64AnnulusHalfTurn_ae_reverse hae),
       ae_restrict_mem m64AnnulusHalfLeft_isOpen.measurableSet] with p hp hpO
-    simpa only [Function.comp_apply, m64AnnulusHalfTurn, if_pos hpO.2.1] using hp
+    simpa only [Function.comp_apply, m64AnnulusHalfTurn, ite_eq_left hpO.2.1] using hp
   have heq : EqOn f (fun p => g (p + v)) O :=
     (Measure.eqOn_open_of_ae_eq hga m64AnnulusHalfLeft_isOpen
       (hgc.mono hOC) (hf.mono (hOC.trans hCD))).symm
@@ -116,7 +116,7 @@ theorem m64AnnulusHalfTurn_right_overlap {M : Type*} [TopologicalSpace M] [T2Spa
       (m64AnnulusHalfTurn_ae_reverse hae),
       ae_restrict_mem m64AnnulusHalfRight_isOpen.measurableSet] with p hp hpO
     simpa only [Function.comp_apply, m64AnnulusHalfTurn,
-      if_neg (not_lt.mpr hpO.1.le)] using hp
+      ite_eq_right (not_lt.mpr hpO.1.le)] using hp
   have heq : EqOn f (fun p => g (p - v)) O :=
     (Measure.eqOn_open_of_ae_eq hga m64AnnulusHalfRight_isOpen
       (hgc.mono hOC) (hf.mono (hOC.trans hCD))).symm

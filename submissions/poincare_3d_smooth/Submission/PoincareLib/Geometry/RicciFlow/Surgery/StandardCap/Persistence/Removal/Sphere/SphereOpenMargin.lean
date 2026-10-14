@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.SourceNames.Metric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.Removal.Sphere.SphereJetMargin
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Persistence.Removal.Sphere.AxialJetMargin
@@ -135,7 +136,7 @@ theorem sphereCoordinateDifferential_eq {sigma : UnitTwoSphere → E}
     sphereCoordinateDifferential sigma z x =
       (mfderiv (𝓡 2) (𝓡 3) sigma x).comp
         (mfderiv (𝓡 2) (𝓡 2) (chartAt E2 z).symm ((chartAt E2 z) x)) := by
-  rw [sphereCoordinateDifferential, ← mfderiv_eq_fderiv,
+  rw [sphereCoordinateDifferential, ← Poincare.Compatibility.mfderiv_eq_fderiv_model,
     mfderiv_comp _ ((hsigma _).mdifferentiableAt (by simp))
       (((M36.sphere_chart_inverse_contMDiff z) _).mdifferentiableAt (by simp))]
   rw [(chartAt E2 z).left_inv hx]

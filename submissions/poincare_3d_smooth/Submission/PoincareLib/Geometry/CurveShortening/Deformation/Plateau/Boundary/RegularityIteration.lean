@@ -394,7 +394,8 @@ private theorem singular_weight_limit (x : E) {α C : ℝ} {F : E → ℝ}
     exact Real.norm_of_nonneg hz
   have hC : 0 ≤ C := (integral_nonneg_of_ae (hf0 0)).trans (hbound (ε 0) (hε 0)).2
   have hnorm (n : ℕ) : eLpNorm (f n) 1 volume ≤ ENNReal.ofReal C := by
-    rw [eLpNorm_one_eq_lintegral_enorm, ← ofReal_integral_norm_eq_lintegral_enorm (hfi n), hnormInt]
+    rw [eLpNorm_one_eq_lintegral_enorm (hfi n).aestronglyMeasurable,
+      ← ofReal_integral_norm_eq_lintegral_enorm (hfi n), hnormInt]
     exact ENNReal.ofReal_le_ofReal (hbound (ε n) (hε n)).2
   have hεlim : Tendsto ε atTop (𝓝 0) := tendsto_one_div_add_atTop_nhds_zero_nat
   have hne : ∀ᵐ z : E ∂volume, z ≠ x := ae_iff.mpr (by simp)
@@ -411,12 +412,13 @@ private theorem singular_weight_limit (x : E) {α C : ℝ} {F : E → ℝ}
       ring
     simpa only [f, g, heq] using hp
   have hnormG : eLpNorm g 1 volume ≤ ENNReal.ofReal C :=
-    Lp.eLpNorm_le_of_ae_tendsto (Eventually.of_forall hnorm) (fun n => (hfi n).1) hlim
-  have hgi : Integrable g := memLp_one_iff_integrable.mp ⟨hg,
-    hnormG.trans_lt ENNReal.ofReal_lt_top⟩
+    Lp.eLpNorm_le_of_ae_tendsto (Eventually.of_forall hnorm) (fun n => (hfi n).aestronglyMeasurable) hg hlim
+  have hgi : Integrable g := memLp_one_iff_integrable.mp
+    (hnormG.trans_lt ENNReal.ofReal_lt_top)
   refine ⟨hgi, ?_⟩
   have hnormGreal : ENNReal.ofReal (∫ z, g z) ≤ ENNReal.ofReal C := by
-    rwa [eLpNorm_one_eq_lintegral_enorm, ← ofReal_integral_norm_eq_lintegral_enorm hgi,
+    rwa [eLpNorm_one_eq_lintegral_enorm hgi.aestronglyMeasurable,
+      ← ofReal_integral_norm_eq_lintegral_enorm hgi,
       hgnormInt] at hnormG
   exact (ENNReal.ofReal_le_ofReal_iff hC).mp hnormGreal
 

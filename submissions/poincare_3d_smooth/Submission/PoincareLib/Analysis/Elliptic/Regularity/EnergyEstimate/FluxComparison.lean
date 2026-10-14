@@ -84,10 +84,10 @@ theorem weak_flux_comparison_energy_le
   let boundary := fun x => ∑ i, (w x * F i x + z x * G i x) * dφ i x
   have hproduct {a b : E → ℝ} (ha : MemLp a ∞ (volume.restrict O))
       (hb : MemLp b 2 (volume.restrict O)) :
-      MemLp (fun x => b x * a x) 2 (volume.restrict O) := ha.mul' hb
+      MemLp (fun x => b x * a x) 2 (volume.restrict O) := hb.fun_mul ha
   have hproduct' {a b : E → ℝ} (ha : MemLp a ∞ (volume.restrict O))
       (hb : MemLp b 2 (volume.restrict O)) :
-      MemLp (fun x => a x * b x) 2 (volume.restrict O) := hb.mul' ha
+      MemLp (fun x => a x * b x) 2 (volume.restrict O) := ha.fun_mul hb
   have hL₁ : IntegrableOn L₁ O := by
     apply integrable_finsetSum
     intro i _

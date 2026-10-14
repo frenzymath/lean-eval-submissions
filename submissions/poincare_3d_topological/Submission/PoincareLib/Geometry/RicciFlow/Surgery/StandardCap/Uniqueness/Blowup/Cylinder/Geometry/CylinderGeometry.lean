@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.RoundCylinder
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
@@ -80,7 +81,7 @@ theorem sphere_chart_pullback_inner (q : UnitTwoSphere)
         (ℝ ∙ (-q : EuclideanSpace ℝ (Fin 3)))ᗮ.subtypeL.comp
           U.symm.toContinuousLinearEquiv.toContinuousLinearMap := by
     rw [← hmf]
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change fderiv ℝ (fun p : EuclideanSpace ℝ (Fin 2) => (c.symm p).1) 0 = _
     rw [hfun]
     exact hcomp

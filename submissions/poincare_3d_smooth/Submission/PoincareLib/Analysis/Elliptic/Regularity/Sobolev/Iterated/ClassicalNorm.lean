@@ -93,7 +93,7 @@ private lemma continuousMultilinearMap_norm_le_sum_basis
     rw [abs_mul]
     have h_prod_le : |∏ i : Fin n, m i (β i)| ≤ ∏ i : Fin n, ‖m i‖ := by
       rw [Finset.abs_prod]
-      refine Finset.prod_le_prod ?_ ?_
+      refine Finset.prod_le_prod₀ ?_ ?_
       · intro i _; exact abs_nonneg _
       · intro i _; exact euclidean_coord_le_norm (d := d) (m i) (β i)
     exact mul_le_mul_of_nonneg_right h_prod_le (abs_nonneg _)
@@ -238,7 +238,8 @@ private lemma eLpNorm_iteratedFDeriv_le_sum_iterClassicalPartial
       eLpNorm (fun y => ‖iteratedFDeriv ℝ n f y‖) p (volume.restrict Ω) ≤
       eLpNorm (fun y => ∑ β : Fin n → Fin d,
         |iterClassicalPartial (d := d) n β f y|) p (volume.restrict Ω) := by
-    refine eLpNorm_mono_ae ?_
+    refine eLpNorm_mono_ae
+      (hf_smooth.continuous_iteratedFDeriv (by exact_mod_cast le_top)).norm.aestronglyMeasurable ?_
     refine Filter.Eventually.of_forall ?_
     intro y
     rw [Real.norm_eq_abs, abs_of_nonneg (norm_nonneg _),
@@ -269,7 +270,7 @@ private lemma eLpNorm_iteratedFDeriv_le_sum_iterClassicalPartial
       (μ := volume.restrict Ω) (p := p)
       (s := (Finset.univ : Finset (Fin n → Fin d)))
       (f := fun β y => |iterClassicalPartial (d := d) n β f y|)
-      (fun β _ => h_strong_meas β) hp
+      hp
     have h_eq : (fun y => ∑ β : Fin n → Fin d,
         |iterClassicalPartial (d := d) n β f y|) =
         ((Finset.univ : Finset (Fin n → Fin d)).sum
@@ -279,7 +280,7 @@ private lemma eLpNorm_iteratedFDeriv_le_sum_iterClassicalPartial
     exact hsum
   refine h_triangle.trans ?_
   refine Finset.sum_le_sum (fun β _ => ?_)
-  refine eLpNorm_mono_ae ?_
+  refine eLpNorm_mono_ae (h_strong_meas β) ?_
   refine Filter.Eventually.of_forall ?_
   intro y
   rw [Real.norm_eq_abs, abs_abs]

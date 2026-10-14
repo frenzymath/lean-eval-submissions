@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.RoundCylinder
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
@@ -64,7 +65,7 @@ theorem sphere_chart_inverse_inner (q : UnitTwoSphere)
         (mfderiv (𝓡 2) (𝓡 2) c.symm (c q)) =
       (ℝ ∙ (↑(-q) : EuclideanSpace ℝ (Fin 3)))ᗮ.subtypeL.comp
         U.symm.toContinuousLinearEquiv.toContinuousLinearMap := by
-    rw [← mfderiv_comp (c q) hcoe hsymm, mfderiv_eq_fderiv, hc]
+    rw [← mfderiv_comp (c q) hcoe hsymm, Poincare.Compatibility.mfderiv_eq_fderiv_model, hc]
     exact hderiv.fderiv
   change inner ℝ
     (((mfderiv (𝓡 2) (𝓡 3) (fun x : UnitTwoSphere => x.1) (c.symm (c q))).comp

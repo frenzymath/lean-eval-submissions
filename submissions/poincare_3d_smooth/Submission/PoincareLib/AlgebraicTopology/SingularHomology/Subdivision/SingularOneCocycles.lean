@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
+import Mathlib.Analysis.Convex.StdSimplex
 import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.SimplyConnected
 import Mathlib.Algebra.BigOperators.Fin
@@ -39,9 +41,9 @@ theorem singular_one_cocycle_is_coboundary
   classical
   let Y := TopCat.toSSet.obj X
   let edge (F : C(stdSimplex Real (Fin 2), X)) : Y.obj (Opposite.op ⦋1⦌) :=
-    (X.toSSetObjEquiv _).symm F
+    (X.toLegacySSetObjEquiv _).symm F
   let triangle (F : C(stdSimplex Real (Fin 3), X)) : Y.obj (Opposite.op ⦋2⦌) :=
-    (X.toSSetObjEquiv _).symm F
+    (X.toLegacySSetObjEquiv _).symm F
   let e := stdSimplexHomeomorphUnitInterval
   have cocycle (s : Y.obj (Opposite.op ⦋2⦌)) :
       f (Y.δ 0 s) - f (Y.δ 1 s) + f (Y.δ 2 s) = 0 := by
@@ -50,9 +52,9 @@ theorem singular_one_cocycle_is_coboundary
       (G : C(stdSimplex Real (Fin 2), X))
       (h : forall z, F (stdSimplex.map j.succAbove z) = G z) :
       Y.δ j (triangle F) = edge G := by
-    apply (X.toSSetObjEquiv _).injective
+    apply (X.toLegacySSetObjEquiv _).injective
     ext z
-    rw [TopCat.toSSetObjEquiv_δ_apply]
+    rw [TopCat.toLegacySSetObjEquiv_δ_apply]
     simpa only [triangle, edge, Equiv.apply_symm_apply] using h z
   have constant_zero (a : X) : f (edge (ContinuousMap.const _ a)) = 0 := by
     have h (j : Fin 3) :
@@ -224,11 +226,11 @@ theorem singular_one_cocycle_is_coboundary
     exact hp.trans hq.symm
   have face_vertex (r : Y.obj (Opposite.op ⦋1⦌)) (j : Fin 2) :
       TopCat.toSSetObj₀Equiv (Y.δ j r) =
-        X.toSSetObjEquiv _ r (e.symm (if j = 0 then 1 else 0)) := by
-    change (X.toSSetObjEquiv _ (Y.δ j r)) default = _
-    rw [TopCat.toSSetObjEquiv_δ_apply]
+        X.toLegacySSetObjEquiv _ r (e.symm (if j = 0 then 1 else 0)) := by
+    rw [TopCat.toSSetObj₀Equiv_eq_legacy _ (stdSimplex.vertex 0)]
+    rw [TopCat.toLegacySSetObjEquiv_δ_apply]
     congr 1
-    rw [show (default : stdSimplex Real (Fin 1)) = stdSimplex.vertex 0 from
+    rw [show (stdSimplex.vertex 0 : stdSimplex Real (Fin 1)) = stdSimplex.vertex 0 from
       Subsingleton.elim _ _, stdSimplex.map_vertex]
     have hj : j = 0 ∨ j = 1 := by omega
     rcases hj with rfl | rfl <;> apply e.injective <;>
@@ -238,7 +240,7 @@ theorem singular_one_cocycle_is_coboundary
   let g (x : Y.obj (Opposite.op ⦋0⦌)) : A := I (paths (TopCat.toSSetObj₀Equiv x))
   refine ⟨g, ?_⟩
   intro r
-  let F := X.toSSetObjEquiv _ r
+  let F := X.toLegacySSetObjEquiv _ r
   let p : Path (TopCat.toSSetObj₀Equiv (Y.δ 1 r))
       (TopCat.toSSetObj₀Equiv (Y.δ 0 r)) :=
     { toFun := fun t => F (e.symm t)
@@ -246,7 +248,7 @@ theorem singular_one_cocycle_is_coboundary
       source' := by simpa using (face_vertex r 1).symm
       target' := by simpa using (face_vertex r 0).symm }
   have hp : E p = r := by
-    apply (X.toSSetObjEquiv _).injective
+    apply (X.toLegacySSetObjEquiv _).injective
     ext z
     simp only [E, edge, Equiv.apply_symm_apply, ContinuousMap.comp_apply]
     change F (e.symm (e z)) = F z

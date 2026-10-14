@@ -30,7 +30,7 @@ private theorem half_window_tensor_weight {u : ℝ}
     simpa only [one_div] using
       one_div_le_one_div_of_le (cylinderGramDiagonal_pos hu1 j) hdiag
   have hprod : (1 / 3 : ℝ) ^ (2 + k) ≤ cylinderTensorWeight u a := by
-    have h := Finset.prod_le_prod
+    have h := Finset.prod_le_prod₀
       (fun _ (_ : _ ∈ (Finset.univ : Finset (Fin (2 + k)))) =>
         (by norm_num : (0 : ℝ) ≤ 1 / 3))
       (fun i (_ : i ∈ (Finset.univ : Finset (Fin (2 + k)))) => hinv (a i))

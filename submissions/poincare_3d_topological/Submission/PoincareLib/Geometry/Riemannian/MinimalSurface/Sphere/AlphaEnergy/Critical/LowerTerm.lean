@@ -12,7 +12,6 @@ also at a zero gradient.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory ContinuousLinearMap
 open scoped Topology Manifold ContDiff ENNReal
@@ -40,6 +39,19 @@ local instance suLowerTermTrilinearSpace {n : ℕ} :
     NormedSpace ℝ (EuclideanSpace ℝ (Fin n) →L[ℝ]
       EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n) →L[ℝ] ℝ) :=
   ContinuousLinearMap.toNormedSpace
+
+private theorem suLowerTerm_bilinear_memLp {E F : Type*}
+    [NormedAddCommGroup E] [NormedSpace ℝ E]
+    [NormedAddCommGroup F] [NormedSpace ℝ F]
+    {mu : Measure LoopPlane} {B : LoopPlane → E →L[ℝ] E →L[ℝ] F}
+    {v : LoopPlane → E} {p q : ℝ≥0∞} [ENNReal.HolderTriple p p q]
+    (hB : MemLp B ⊤ mu) (hv : MemLp v p mu) :
+    MemLp (fun x => B x (v x) (v x)) q mu := by
+  have hb : MemLp (fun x => B x (v x)) p mu :=
+    (ContinuousLinearMap.apply ℝ (E →L[ℝ] F) (E := E)).memLp_of_bilin
+      (p := p) (q := ⊤) p hv hB
+  exact (ContinuousLinearMap.apply ℝ F (E := E)).memLp_of_bilin
+    (p := p) (q := p) q hv hb
 
 /-- The exact lower source of the weak normalized equation. -/
 def suWeakAlphaLowerTerm
@@ -96,12 +108,8 @@ theorem SUInitialGain.alpha_lowerTerm_memLp
     ⟨by norm_num, by norm_num, by norm_num⟩
   let : ENNReal.HolderTriple 8 8 4 := ENNReal.HolderTriple.of_toReal
     ⟨by norm_num, by norm_num, by norm_num⟩
-  have hquad (i : Fin 2) : MemLp (fun x => B (u x) (V i x) (V i x)) 8 mu := by
-    have hb : MemLp (fun x => B (u x) (V i x)) 16 mu :=
-      (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
-        (p := 16) (q := ⊤) 16 (hcol 16 (by norm_num) i) hBtop
-    simpa only using! (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
-      (p := 16) (q := 16) 8 (hcol 16 (by norm_num) i) hb
+  have hquad (i : Fin 2) : MemLp (fun x => B (u x) (V i x) (V i x)) 8 mu :=
+    suLowerTerm_bilinear_memLp hBtop (hcol 16 (by norm_num) i)
   have hQ : MemLp Q 8 mu := memLp_finsetSum _ (fun i _ => hquad i)
   have hInvCont : Continuous (fun x => (suAlphaRoundFactor x)⁻¹) :=
     suRoundFactor_smooth_pos.1.continuous.inv₀ (fun x => (suRoundFactor_smooth_pos.2 x).ne')
@@ -127,10 +135,7 @@ theorem SUInitialGain.alpha_lowerTerm_memLp
     (((suRoundFactor_smooth_pos.1.continuous_fderiv (by simp)).clm_apply
       continuous_const).continuousOn)
   have hconn (i : Fin 2) : MemLp (fun x => Gamma (u x) (V i x) (V i x)) 4 mu :=
-    (ContinuousLinearMap.apply ℝ E (E := E)).memLp_of_bilin (p := 8) (q := 8) 4
-      (hcol 8 (by norm_num) i)
-      ((ContinuousLinearMap.apply ℝ (E →L[ℝ] E) (E := E)).memLp_of_bilin
-        (p := 8) (q := ⊤) 8 (hcol 8 (by norm_num) i) hGammatop)
+    suLowerTerm_bilinear_memLp hGammatop (hcol 8 (by norm_num) i)
   have hcubic (i j : Fin 2) :
       MemLp (fun x => fderiv ℝ B (u x) (V i x) (V j x) (V j x)) 8 mu := by
     have h1 : MemLp (fun x => fderiv ℝ B (u x) (V i x)) 32 mu := by
@@ -147,11 +152,11 @@ theorem SUInitialGain.alpha_lowerTerm_memLp
     have hs : MemLp (fun x => ∑ j : Fin 2, fderiv ℝ B (u x) (V i x) (V j x) (V j x)) 8 mu :=
       memLp_finsetSum _ (fun j _ => hcubic i j)
     have hq : MemLp (fun x => Q x * dl i x / suAlphaRoundFactor x) 8 mu := by
-      simpa only [div_eq_mul_inv] using hInv.mul' (r := 8) ((hdl i).mul' (r := 8) hQ)
-    exact (hcol 8 (by norm_num) i).smul (hs.sub hq)
+      simpa only [div_eq_mul_inv] using (hQ.fun_mul (r := 8) (hdl i)).fun_mul (r := 8) hInv
+    exact (hs.sub hq).smul (hcol 8 (by norm_num) i)
   have h1 := memLp_finsetSum Finset.univ (fun i _ => hconn i)
   have h2 := memLp_finsetSum Finset.univ (fun i _ => hlower i)
-  have h := h1.neg.sub (h2.smul (hdInv.const_mul (alpha - 1)))
+  have h := h1.neg.sub ((hdInv.const_mul (alpha - 1)).smul h2)
   simpa only [suWeakAlphaLowerTerm, suAlphaLowerTerm, Pi.sub_apply, Pi.neg_apply,
     Pi.smul_apply, div_eq_mul_inv, B, Gamma, Q, d, dl] using! h
 

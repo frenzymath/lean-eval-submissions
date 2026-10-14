@@ -13,6 +13,7 @@ induced metric.
 noncomputable section
 set_option autoImplicit false
 set_option maxSynthPendingDepth 5
+set_option synthInstance.maxHeartbeats 100000
 set_option backward.isDefEq.respectTransparency false
 open PoincareMT
 open scoped ContDiff InnerProductSpace Topology
@@ -67,7 +68,9 @@ def shapeOperator (D : LeviCivitaData g) (D' : LeviCivitaData h)
     EuclideanSpace ℝ (Fin m) →ₗ[ℝ] EuclideanSpace ℝ (Fin m) :=
   (show EuclideanSpace ℝ (Fin m) →L[ℝ] EuclideanSpace ℝ (Fin m) →L[ℝ] ℝ
     from h.inner x).inverse.toLinearMap.comp
-    (LinearMap.toContinuousLinearMap.toLinearMap.comp
+    ((LinearMap.toContinuousLinearMap :
+      (EuclideanSpace ℝ (Fin m) →ₗ[ℝ] ℝ) ≃ₗ[ℝ]
+        (EuclideanSpace ℝ (Fin m) →L[ℝ] ℝ)).toLinearMap.comp
       (scalarSecondFundamentalForm D D' F x N))
 
 theorem inner_shapeOperator (D : LeviCivitaData g) (D' : LeviCivitaData h)

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.RoundSphere
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Sectional
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Charts
@@ -136,7 +137,7 @@ theorem roundSphereMetric_curvatureTensor {n : ℕ}
     have hder : fderiv ℝ F a =
         (mfderiv (𝓡 n) (𝓡 (n + 1)) f (c.symm a)).comp
           (mfderiv (𝓡 n) (𝓡 n) c.symm a) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp a (hf.contMDiffAt.mdifferentiableAt (by simp))
         (hca.mdifferentiableAt (by simp))
     rw [hma, roundSphereMetric_inner, RiemannianMetric.euclideanMetric_inner, hder]

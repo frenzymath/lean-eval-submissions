@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Calculus.Differential.RectanglePartialTangent
 
 /-!
@@ -31,7 +32,7 @@ theorem ContDiffOn.contDiffOn_derivWithin_fst_prod (hq : ContDiffOn 𝕜 m q (S 
   rw [← modelWithCornersSelf_prod, chartedSpaceSelf_prod] at h
   convert h.contDiffOn using 1
   funext z
-  simp only [Function.comp_def, mfderivWithin_eq_fderivWithin, derivWithin]
+  simp only [Function.comp_def, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model, derivWithin]
   rfl
 
 /-- The unrestricted parameter partial remains smooth on the closed
@@ -48,5 +49,5 @@ theorem ContDiffOn.contDiffOn_deriv_snd_prod (hq : ContDiffOn 𝕜 m q (S ×ˢ P
   rw [← modelWithCornersSelf_prod, chartedSpaceSelf_prod] at h
   convert h.contDiffOn using 1
   funext z
-  simp only [Function.comp_def, mfderiv_eq_fderiv, deriv]
+  simp only [Function.comp_def, Poincare.Compatibility.mfderiv_eq_fderiv_model, deriv]
   rfl

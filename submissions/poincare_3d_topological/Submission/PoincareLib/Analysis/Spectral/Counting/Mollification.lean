@@ -45,6 +45,8 @@ theorem eLpNorm_mollifierEps_convolution_sub_le
     eLpNorm (fun x => u (x - s) - u x) p volume
         = eLpNorm (fun x => u x - u (x - s)) p volume := by
           apply eLpNorm_congr_norm_ae
+            ((hu.continuous.comp (continuous_id.sub continuous_const)).sub hu.continuous).aestronglyMeasurable
+            (hu.continuous.sub (hu.continuous.comp (continuous_id.sub continuous_const))).aestronglyMeasurable
           filter_upwards with x
           exact norm_sub_rev _ _
     _ ≤ ENNReal.ofReal ‖s‖ * eLpNorm (fun x => ‖fderiv ℝ u x‖) p volume :=

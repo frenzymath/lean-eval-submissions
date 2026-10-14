@@ -55,15 +55,8 @@ private theorem commensurable_maps_of_finiteIndex
     {G H : Type*} [Group G] [Group H] (f : G →* H)
     (A B : Subgroup G) [A.FiniteIndex] [B.FiniteIndex] :
     (A.map f).Commensurable (B.map f) := by
-  have : (A ⊔ f.ker).FiniteIndex := Subgroup.finiteIndex_of_le le_sup_left
-  have : (B ⊔ f.ker).FiniteIndex := Subgroup.finiteIndex_of_le le_sup_left
-  constructor
-  · rw [Subgroup.relIndex_map_map]
-    exact (Subgroup.isFiniteRelIndex_of_finiteIndex (H := A ⊔ f.ker)
-      (K := B ⊔ f.ker)).relIndex_ne_zero
-  · rw [Subgroup.relIndex_map_map]
-    exact (Subgroup.isFiniteRelIndex_of_finiteIndex (H := B ⊔ f.ker)
-      (K := A ⊔ f.ker)).relIndex_ne_zero
+  exact ⟨(Subgroup.isFiniteRelIndex_of_finiteIndex (H := A) (K := B)).map f,
+    (Subgroup.isFiniteRelIndex_of_finiteIndex (H := B) (K := A)).map f⟩
 
 private theorem transport_back_apply
     {X : Type*} [TopologicalSpace X] {x y : X} (k : Path x y)
@@ -209,10 +202,12 @@ theorem boundary_groups_commensurable_of_contracted_arc
   rw [← hmap₀, ← hmap₁] at hcomm
   change b₀.range.Commensurable b₁.range
   constructor
-  · rw [← Subgroup.relIndex_map_map_of_injective b₀.range b₁.range hinj]
-    exact hcomm.1
-  · rw [← Subgroup.relIndex_map_map_of_injective b₁.range b₀.range hinj]
-    exact hcomm.2
+  · rw [Subgroup.isFiniteRelIndex_iff_relIndex_ne_zero,
+      ← Subgroup.relIndex_map_map_of_injective b₀.range b₁.range hinj]
+    exact hcomm.1.relIndex_ne_zero
+  · rw [Subgroup.isFiniteRelIndex_iff_relIndex_ne_zero,
+      ← Subgroup.relIndex_map_map_of_injective b₁.range b₀.range hinj]
+    exact hcomm.2.relIndex_ne_zero
 
 local notation "L0" => hamiltonZeroPeriodLattice
 local notation "X0" => LatticeHandleAmbient (Fin 0) (Fin 3) L0

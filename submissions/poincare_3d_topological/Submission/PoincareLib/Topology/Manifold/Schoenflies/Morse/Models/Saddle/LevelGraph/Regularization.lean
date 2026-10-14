@@ -91,6 +91,7 @@ theorem exists_regularization_of_morse_level
         rintro ⟨x, hx, rfl⟩
         exact hqt (e.map_source (hRs hx))
       rw [(hout q hqo).mfderiv_eq]
+      rfl
   have hpchange : H p ≠ h p := by
     rw [← hep, hHe 0 he0]
     simpa only [mem_singleton_iff, hep] using hg0

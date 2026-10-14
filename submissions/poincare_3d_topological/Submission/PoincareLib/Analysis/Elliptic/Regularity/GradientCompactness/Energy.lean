@@ -57,15 +57,15 @@ theorem integral_partial_sq_le_flux_energy
         ∞ (volume.restrict O) := by
       apply memLp_finsetSum
       intro i _
-      simpa only [pow_two] using (hd i).mul' (r := ∞) (hd i)
-    exact hsum.mul' hp
+      simpa only [pow_two] using (hd i).fun_mul (r := ∞) (hd i)
+    exact hp.fun_mul hsum
   have he : MemLp energy 2 (volume.restrict O) := by
     have hsum : MemLp (fun x => ∑ i, (G i x - F i x) * (du i x - dv i x))
         2 (volume.restrict O) := by
       apply memLp_finsetSum
       intro i _
-      exact (hd i).mul' ((hG i).sub (hF i))
-    exact hsum.mul' hp
+      exact ((hG i).sub (hF i)).fun_mul (hd i)
+    exact hp.fun_mul hsum
   have herror : 0 ≤ error := by dsimp only [error]; positivity
   have hpoint (x) (hx : x ∈ O) : c * q x ≤ energy x + error := by
     have h := matrix_flux_coercivity L.coe_nonneg hδ (hell x hx)

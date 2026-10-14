@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Transverse.Transport
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Continuation.Speed
 
@@ -30,7 +31,7 @@ theorem radial_velocity_eq_differential
   have hline : HasDerivAt (fun s : ℝ => s • v) v t := by
     simpa using (hasDerivAt_id t).smul_const v
   have hd := mfderiv_comp t he hline.differentiableAt.mdifferentiableAt
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hv := congrArg (fun A => A 1) hd
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun s : ℝ => e (s • v)) t 1 =
     mfderiv (𝓡 n) (𝓡 n) e (t • v) (fderiv ℝ (fun s : ℝ => s • v) t 1) at hv
@@ -46,7 +47,7 @@ theorem chartField_velocity_eq_deriv
       deriv ((extChartAt (𝓡 n) a) ∘ q) t := by
   have hd := mfderiv_comp t (mdifferentiableAt_extChartAt
     (by simpa only [extChartAt_source] using ha)) hq
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   exact (congrArg (fun A => A 1) hd).symm
 
 theorem contDiffAt_chartField_velocity

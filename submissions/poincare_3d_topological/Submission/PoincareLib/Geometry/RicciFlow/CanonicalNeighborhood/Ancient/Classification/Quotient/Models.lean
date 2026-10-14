@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.Classification.Quotient.Certificate
 
 /-!
@@ -30,7 +31,7 @@ theorem cylinderCenterShift_mfderiv (a : ℝ) (p : UnitTwoSphere × ℝ)
   have hl := hs.mdifferentiable (by simp) p.2
   rw [mfderiv_prodMap mdifferentiableAt_id
     hl,
-    mfderiv_id, mfderiv_eq_fderiv]
+    mfderiv_id, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rw [fderiv_sub_const]
   simp
   rfl

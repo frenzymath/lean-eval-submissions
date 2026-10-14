@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Counting.CocycleHomologyEvaluation
 
 /-!
@@ -96,7 +97,7 @@ open CutGraph
 
 noncomputable def singularValue
     (s : (TopCat.toSSet.obj (TopCat.of X)) _⦋1⦌) : ZMod 2 :=
-  pathValue q hq hs (simplexEdgePath ((TopCat.of X).toSSetObjEquiv _ s))
+  pathValue q hq hs (simplexEdgePath ((TopCat.of X).toLegacySSetObjEquiv _ s))
 
 include hτ hne hf in
 theorem singularValue_pathSimplex {x y : X} (p : Path x y) :
@@ -106,7 +107,7 @@ theorem singularValue_pathSimplex {x y : X} (p : Path x y) :
     (p.source.trans (representative_proj q hs x).symm)
   let LP : Path (representative q hs x) (L 1) :=
     ⟨L, hq.liftPath_zero _ _ _, rfl⟩
-  let f := (TopCat.of X).toSSetObjEquiv _ (pathSimplex (X := TopCat.of X) p)
+  let f := (TopCat.of X).toLegacySSetObjEquiv _ (pathSimplex (X := TopCat.of X) p)
   have hL (t) : q (LP t) = simplexEdgePath f t := by
     change q (L t) = p (stdSimplexHomeomorphUnitInterval
       (stdSimplexHomeomorphUnitInterval.symm t))
@@ -119,7 +120,7 @@ include hτ hne hf in
 theorem singularValue_cocycle (s : (TopCat.toSSet.obj (TopCat.of X)) _⦋2⦌) :
     (∑ j : Fin 3, ((-1 : ℤ) ^ j.val) •
       singularValue q hq hs ((TopCat.toSSet.obj (TopCat.of X)).δ j s)) = 0 := by
-  let f : C(stdSimplex ℝ (Fin 3), X) := (TopCat.of X).toSSetObjEquiv _ s
+  let f : C(stdSimplex ℝ (Fin 3), X) := (TopCat.of X).toLegacySSetObjEquiv _ s
   let v : Fin 3 → stdSimplex ℝ (Fin 3) := stdSimplex.vertex
   let : ContractibleSpace (stdSimplex ℝ (Fin 3)) :=
     (convex_stdSimplex ℝ (Fin 3)).contractibleSpace ⟨v 0, (v 0).property⟩
@@ -132,10 +133,10 @@ theorem singularValue_cocycle (s : (TopCat.toSSet.obj (TopCat.of X)) _⦋2⦌) :
   have hedge (j : Fin 3) :
       singularValue q hq hs ((TopCat.toSSet.obj (TopCat.of X)).δ j s) =
         sheet q hs (F (v (j.succAbove 1))) - sheet q hs (F (v (j.succAbove 0))) := by
-    have he : (TopCat.of X).toSSetObjEquiv _
+    have he : (TopCat.of X).toLegacySSetObjEquiv _
         ((TopCat.toSSet.obj (TopCat.of X)).δ j s) = f.comp (face j) := by
       ext z
-      rw [TopCat.toSSetObjEquiv_δ_apply]
+      rw [TopCat.toLegacySSetObjEquiv_δ_apply]
       rfl
     unfold singularValue
     rw [he]

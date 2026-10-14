@@ -285,7 +285,9 @@ theorem exists_first_attachment_core_sector (p : T.decomposition.IncidentEdgeInd
     rw [hc0]
     filter_upwards [T.coordinate_collar_first_upper_attachment_reflex_germ p hr] with z hz
     apply propext
-    change (chartAt Plane (T.chart p.1.1 : S)).symm z ∈ _ ↔
+    change (chartAt Plane (T.chart p.1.1 : S)).symm z ∈
+      T.decomposition.fittedRegionCollar T.chart T.cut T.graphs T.chains T.bands
+        T.caps T.region p.1.1 ↔
       c.coord 1 z ≤ 0 ∨ c.coord 2 z ≤ 0
     rw [hc1, hc2]
     change _ ↔ -(B.ambientEndpointCut false z) ≤ 0 ∨ B.ambientEndpointTop false z ≤ 0
@@ -300,6 +302,7 @@ theorem exists_first_attachment_core_sector (p : T.decomposition.IncidentEdgeInd
         (interior {z | c.coord 1 z ≤ 0 ∨ c.coord 2 z ≤ 0})ᶜ := by
       filter_upwards [hg, hi] with z hz hiz
       change ((T.refined.mesh p.1.1).toPlaneComplex.support z) = ¬interior _ z at hz ⊢
+      change interior _ z = _ at hiz
       rwa [hiz] at hz
     rwa [compl_interior_reflexSector] at hh
   refine ⟨c, hc0, hc1, hc2, ?_, hlocal⟩
@@ -413,7 +416,9 @@ theorem exists_last_attachment_core_sector (p : T.decomposition.IncidentEdgeInde
     rw [hc0]
     filter_upwards [T.coordinate_collar_last_upper_attachment_reflex_germ p hr] with z hz
     apply propext
-    change (chartAt Plane (T.chart p.1.1 : S)).symm z ∈ _ ↔
+    change (chartAt Plane (T.chart p.1.1 : S)).symm z ∈
+      T.decomposition.fittedRegionCollar T.chart T.cut T.graphs T.chains T.bands
+        T.caps T.region p.1.1 ↔
       c.coord 1 z ≤ 0 ∨ c.coord 2 z ≤ 0
     rw [hc1, hc2]
     change _ ↔ -(B.ambientEndpointCut true z) ≤ 0 ∨ B.ambientEndpointTop true z ≤ 0
@@ -428,6 +433,7 @@ theorem exists_last_attachment_core_sector (p : T.decomposition.IncidentEdgeInde
         (interior {z | c.coord 1 z ≤ 0 ∨ c.coord 2 z ≤ 0})ᶜ := by
       filter_upwards [hg, hi] with z hz hiz
       change ((T.refined.mesh p.1.1).toPlaneComplex.support z) = ¬interior _ z at hz ⊢
+      change interior _ z = _ at hiz
       rwa [hiz] at hz
     rwa [compl_interior_reflexSector] at hh
   refine ⟨c, hc0, hc1, hc2, ?_, hlocal⟩

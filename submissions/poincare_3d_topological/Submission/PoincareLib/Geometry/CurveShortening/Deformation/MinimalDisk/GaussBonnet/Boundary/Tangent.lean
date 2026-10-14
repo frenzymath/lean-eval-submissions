@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.Boundary.Frame
 
@@ -269,7 +270,7 @@ theorem boundary_normalized_tangent_contDiffAt (S : M65MinimalDisk g connection 
     (mfderiv_comp (f 0) hqd hcd)
   have hvelocity : deriv c (f 0) = mfderiv (𝓡 3) (𝓡 3) q
       (periodicFreeLoop gamma (f 0)) (curveVelocity (periodicFreeLoop gamma) (f 0)) := by
-    simpa +instances only [mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
       fderiv_apply_one_eq_deriv, curveVelocity, c] using! hchain
   have hc0 : deriv c (f 0) ≠ 0 := by
     intro hz

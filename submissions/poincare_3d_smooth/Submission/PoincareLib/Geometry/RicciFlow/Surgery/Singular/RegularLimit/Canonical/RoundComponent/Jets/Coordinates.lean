@@ -66,7 +66,7 @@ theorem exists_tensor_coordinate_jet_bound
           have hp : (∏ i : Fin (k + m), g.tangentNorm x (e (a i))) ≤ c ^ (k + m) := by
             calc
               _ ≤ ∏ _i : Fin (k + m), c :=
-                Finset.prod_le_prod (fun _ _ => Real.sqrt_nonneg _) (fun i _ => hframe (a i))
+                Finset.prod_le_prod₀ (fun _ _ => Real.sqrt_nonneg _) (fun i _ => hframe (a i))
               _ = _ := by simp
           exact h.trans ((mul_le_mul (hbound m (by omega)) hp
             (Finset.prod_nonneg fun _ _ => Real.sqrt_nonneg _) hρ).trans_eq (mul_comm _ _))

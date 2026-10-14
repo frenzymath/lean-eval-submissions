@@ -69,6 +69,7 @@ theorem exists_unitSlice_local_ambient_realization
       have hgerm : q ∘ e =ᶠ[𝓝 y] id :=
         Filter.eventuallyEq_of_mem (e.open_source.mem_nhds hy) hright
       rw [hgerm.mfderiv_eq, mfderiv_id]
+      rfl
     have hm := unitSliceMetric_inner hcover d (e y)
       (mfderiv (𝓡 n) (𝓡 n) e y v) (mfderiv (𝓡 n) (𝓡 n) e y w)
     have hv : mfderiv (𝓡 n) (𝓡 n) q (e y) (mfderiv (𝓡 n) (𝓡 n) e y v) = v :=

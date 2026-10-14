@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Regional.CollisionFocusing
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Local.ArcRetainedProducer
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Regional.NormalCalculus
@@ -177,7 +178,7 @@ theorem m64Intrinsic_exists_regional_retained_endpoints
         have hxeta : !₂[x 0, x 1] = x := by ext i; fin_cases i <;> rfl
         have hm := hmetric (x 0) hx hk (x 1) ht v
         erw [hxeta] at hm
-        simpa only [mfderiv_eq_fderiv] using! hm)
+        simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using! hm)
       (by
         intro x hx _ ht
         have hxeta : !₂[x 0, x 1] = x := by ext i; fin_cases i <;> rfl
@@ -205,7 +206,7 @@ theorem m64Intrinsic_exists_regional_retained_endpoints
       (x := !₂[p, height p]) (by
         simpa only [Matrix.cons_val_zero] using
           hmetric p hd.1 hd.2.1 (height p) ⟨hd.2.2.1.le, le_rfl⟩)
-    simpa only [TangentSpace, mfderiv_eq_fderiv] using hi
+    simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] using hi
   · intro p hp
     have hd := hZdata p hp
     exact hcontact p hd.1 hd.2.2.1 hd.2.2.2

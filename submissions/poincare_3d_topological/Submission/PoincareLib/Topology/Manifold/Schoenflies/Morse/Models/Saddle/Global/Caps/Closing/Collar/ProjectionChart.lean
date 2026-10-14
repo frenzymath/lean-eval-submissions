@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.Collar.SphereProjection
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Isotopy.LocalInverse
 import Submission.PoincareLib.Geometry.Manifold.LocalDiffeomorph
@@ -70,7 +71,7 @@ theorem localDiffeomorphAt_projection_chart_on_rim
       exact (hmloc.mfderivToContinuousLinearEquiv (by simp)).injective.comp
         (injective_mfderiv_sphereProjection_comp hr houter hq
           ((hF q (hcircle hq)).contDiffAt (hV.mem_nhds (hcircle hq))) (hinj q hq))
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using hder
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using hder
   obtain ⟨k₀, hk₀, _, hk₀eq⟩ := Poincare.Parabolic.Interior.exists_compact_smooth_extension
     (isCompact_sphere (0 : E2) 1) hW hcircleW hk
   intro q hq

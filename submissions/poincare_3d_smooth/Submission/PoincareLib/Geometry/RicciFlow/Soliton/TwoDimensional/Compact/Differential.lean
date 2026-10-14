@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.TwoDimensional.Compact.Regularity.Smooth
 import Submission.PoincareLib.Geometry.Riemannian.Hessian.Commutation
 
@@ -184,7 +185,7 @@ theorem mvfderiv_weighted_scalar_of_surface_soliton (D : LeviCivitaData g)
     change mvfderiv (𝓡 2) (Real.exp ∘ fun y => -f y) x v = _
     rw [mvfderiv_comp x Real.differentiableAt_exp.mdifferentiableAt
       ((hfs.neg x).mdifferentiableAt (by simp))]
-    simp only [ContinuousLinearMap.comp_apply, mvfderiv, mfderiv_eq_fderiv]
+    simp only [ContinuousLinearMap.comp_apply, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rw [(Real.hasDerivAt_exp (-f x)).hasFDerivAt.fderiv]
     change mvfderiv (𝓡 2) (-f) x v * Real.exp (-f x) =
       -Real.exp (-f x) * mvfderiv (𝓡 2) f x v

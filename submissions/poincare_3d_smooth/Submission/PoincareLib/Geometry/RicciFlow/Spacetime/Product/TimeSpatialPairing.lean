@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Spacetime.Product.RicciPairing
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Connection.MetricVariation
 
@@ -69,7 +70,7 @@ theorem mvfderiv_time_slice (C : SpacetimeCharts n M a b)
     (contMDiff_subtype_val.mdifferentiableAt (n := ∞) (by simp)) (1 : ℝ)
   rw [Poincare.Spacetime.Realization.mfderiv_openSubtype_val] at hg'
   have hval : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) g (q.2 : ℝ) (1 : ℝ) = d := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change fderiv ℝ g (q.2 : ℝ) (1 : ℝ) = d
     rw [hg.hasFDerivAt.fderiv]
     simp

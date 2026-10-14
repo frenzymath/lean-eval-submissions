@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Coordinates.SphereChartMetric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Asymptotics.EndCylinderPullback
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Asymptotics.StereographicMetric
@@ -78,13 +79,13 @@ theorem sphereCylinderChart_mfderiv (q : UnitTwoSphere) (x u : E3) :
     (EuclideanSpace.proj 2 : E3 →L[ℝ] ℝ).contDiff.contMDiff
   have ha := ha0.mdifferentiable (by simp)
   have hc := mfderiv_comp x (hs (cylinderHorizontal x)) (hh x)
-  rw [mfderiv_eq_fderiv, cylinderHorizontal.fderiv] at hc
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, cylinderHorizontal.fderiv] at hc
   change mfderiv (𝓡 3) ((𝓡 2).prod 𝓘(ℝ, ℝ))
     (fun y => (((chartAt E2 q).symm ∘ cylinderHorizontal) y, EuclideanSpace.proj 2 y)) x u = _
   rw [mfderiv_prodMk ((hs _).comp x (hh x)) (ha x)]
   change (mfderiv (𝓡 3) (𝓡 2) ((chartAt E2 q).symm ∘ cylinderHorizontal) x u,
     mfderiv (𝓡 3) 𝓘(ℝ, ℝ) (EuclideanSpace.proj 2 : E3 →L[ℝ] ℝ) x u) = _
-  rw [hc, mfderiv_eq_fderiv, ContinuousLinearMap.fderiv]
+  rw [hc, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.fderiv]
   rfl
 
 /-- The frozen induced cylinder metric has precisely the stereographic

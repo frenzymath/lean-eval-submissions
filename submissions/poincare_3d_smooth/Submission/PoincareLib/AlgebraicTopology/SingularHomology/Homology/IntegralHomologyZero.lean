@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Chains.IntegralChainCoordinates
 import Mathlib.AlgebraicTopology.SingularHomology.HomologyZero
 import Mathlib.LinearAlgebra.Finsupp.Pi
@@ -45,7 +46,11 @@ theorem integralHomologyZero_hom_ext {M : ModuleCat.{u} Int}
   apply (cancel_epi e.inv).mp
   apply SSet.chainComplex_hom_ext
   intro z
-  obtain ⟨s, rfl⟩ := ((TopCat.of X).toSSetObjEquiv (Opposite.op ⦋0⦌)).symm.surjective z
+  obtain ⟨s, rfl⟩ := ((TopCat.of X).toLegacySSetObjEquiv (Opposite.op ⦋0⦌)).symm.surjective z
+  letI : Inhabited (stdSimplex ℝ (Fin ((Opposite.unop (Opposite.op ⦋0⦌)).len + 1))) :=
+    coordinateSimplexZeroInhabited
+  letI : Subsingleton (stdSimplex ℝ (Fin ((Opposite.unop (Opposite.op ⦋0⦌)).len + 1))) :=
+    coordinateSimplexZeroSubsingleton
   have hs : s = ContinuousMap.const (integralSimplex 0) (s default) := by
     ext t
     exact congrArg s (Subsingleton.elim t default)

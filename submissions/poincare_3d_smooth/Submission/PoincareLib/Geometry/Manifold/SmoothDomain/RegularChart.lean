@@ -36,7 +36,9 @@ theorem exists_manifold_superlevel_chart {f : M → ℝ}
     (hf.comp_contMDiffOn (contMDiffOn_chart_symm (I := 𝓘(ℝ, E)))).contDiffOn
   have hder : mfderiv 𝓘(ℝ, E) 𝓘(ℝ, ℝ) f a = fderiv ℝ g (φ a) := by
     rw [(hf.mdifferentiable (by simp) a).mfderiv]
-    simp [writtenInExtChartAt, extChartAt, g, φ, fderivWithin_univ, chartAt_self_eq]
+    simp [writtenInExtChartAt, extChartAt, g, φ, fderivWithin_univ, chartAt_self_eq, tangentSpaceCastModel, TangentSpace]
+    ext v
+    rfl
   rw [hder] at hreg ⊢
   obtain ⟨e0, ha0, heV, he0a, he0, he0inv, he0f, he0level⟩ :=
     exists_smooth_superlevel_chart φ.open_target hg

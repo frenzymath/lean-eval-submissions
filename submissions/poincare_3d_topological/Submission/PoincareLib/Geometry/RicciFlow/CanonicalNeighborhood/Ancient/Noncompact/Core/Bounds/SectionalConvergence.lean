@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.Compact.Stability.Scalar.Jets
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.Convergence.Curvature.MovingJets
 import Submission.PoincareLib.Geometry.Riemannian.Soul.Point.Terminal.StrictCurvature.Uniform
@@ -14,7 +15,6 @@ pp. 237--239.
 
 noncomputable section
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 set_option maxHeartbeats 800000
 
 open Set Filter
@@ -132,7 +132,7 @@ private theorem exists_shifted_sectional_metric_germ
     change mfderiv (𝓡 n) (𝓡 n) (φ ∘ (fun z => z + x)) y = _
     rw [hh]
     ext v
-    simp +instances [mfderiv_eq_fderiv, fderiv_add_const]
+    simp +instances [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_add_const]
     rfl
   have hpos : ∀ y ∈ U, ∀ v, v ≠ 0 → 0 < g.pullbackCoefficients φ (y + x) v v := by
     intro y hy v hv
@@ -140,8 +140,11 @@ private theorem exists_shifted_sectional_metric_germ
     intro hz
     apply hv
     apply (hVφ hy).2
+    change (mfderiv (𝓡 n) (𝓡 n) φ (y + x))
+      (show TangentSpace (𝓡 n) (y + x) from v) =
+      (mfderiv (𝓡 n) (𝓡 n) φ (y + x)) 0
     rw [map_zero]
-    convert! hz using 1
+    exact hz
   obtain ⟨h, Dh, W, hWo, h0W, hWU, heq⟩ := RiemannianMetric.exists_local_realization hU h0
     (fun y => g.pullbackCoefficients φ (y + x))
     (fun y hy => ((g.contDiffAt_pullbackCoefficients (hVφ hy).1).comp y
@@ -327,7 +330,9 @@ theorem tendsto_sectionalCurvature_of_moving_scalar_pullback_jets
   have ht := tendsto_sectionalCurvature_of_scalar_metric_jets
     (fun k => (gd k).2) hd.2 0 hu hv hab hj
   have htarget : hd.2.sectionalCurvature 0 a b = Dh.sectionalCurvature y a b := by
-    simpa only [id_eq, mfderiv_id, ContinuousLinearMap.id_apply] using hsection a b
+    have hs := hsection a b
+    simp only [id_eq, mfderiv_id] at hs
+    exact hs
   rw [htarget] at ht
   exact ht.congr' (hgd.mono fun k hk => hk.2 (u k) (v k))
 

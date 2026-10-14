@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Continuous.SpectralInitialJetEncoder
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Common.AmbientSpectralFamily
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Compact.SmoothInitialPool
@@ -145,7 +146,7 @@ theorem exists_local_compact_spectral_pool
       erw [mfderiv_comp x
         ((hρ.contMDiffAt (hU.mem_nhds (heU (mem_range_self _)))).mdifferentiableAt (by simp))
         (((hf z).contMDiff x).mdifferentiableAt (by norm_num)),
-        ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+        ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
       rfl
     have hid : (fun y => ρ (f z y)) = gamma z := funext fun y => hρe (gamma z y)
     rw [hid] at hv

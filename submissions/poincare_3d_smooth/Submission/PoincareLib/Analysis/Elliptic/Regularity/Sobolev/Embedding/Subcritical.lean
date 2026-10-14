@@ -161,12 +161,12 @@ private lemma eLpNorm_fderiv_le_sum_eLpNorm_partials
       ‖fderiv ℝ f x‖ ≤ ∑ i : Fin d, ‖(fderiv ℝ f x) (EuclideanSpace.single i 1)‖ :=
     fun x => norm_fderiv_le_sum_norm_partials (d := d) f x
   have h_step1 : eLpNorm (fderiv ℝ f) p μ
-      = eLpNorm (fun x => ‖fderiv ℝ f x‖) p μ := (eLpNorm_norm _).symm
+      = eLpNorm (fun x => ‖fderiv ℝ f x‖) p μ := (eLpNorm_norm _ (hf_smooth.continuous_fderiv (by simp)).aestronglyMeasurable).symm
   rw [h_step1]
   have h_step2 : eLpNorm (fun x : EuN => ‖fderiv ℝ f x‖) p μ ≤
       eLpNorm
         (fun x : EuN => ∑ i : Fin d, ‖(fderiv ℝ f x) (EuclideanSpace.single i 1)‖) p μ := by
-    apply eLpNorm_mono_real
+    apply eLpNorm_mono_real (hf_smooth.continuous_fderiv (by simp)).norm.aestronglyMeasurable
     intro x
     have h := h_pt x
     have h_norm : ‖‖fderiv ℝ f x‖‖ = ‖fderiv ℝ f x‖ :=
@@ -177,7 +177,7 @@ private lemma eLpNorm_fderiv_le_sum_eLpNorm_partials
   have h_sum_le := eLpNorm_sum_le (μ := μ) (p := p)
     (s := (Finset.univ : Finset (Fin d)))
     (f := fun i => fun x : EuN => ‖(fderiv ℝ f x) (EuclideanSpace.single i 1)‖)
-    (fun i _ => (h_aesm_comp i).norm) hp_one
+    hp_one
   have h_lhs_eq :
       (fun x : EuN => ∑ i : Fin d, ‖(fderiv ℝ f x) (EuclideanSpace.single i 1)‖) =
         ∑ i : Fin d, fun x : EuN => ‖(fderiv ℝ f x) (EuclideanSpace.single i 1)‖ := by
@@ -187,7 +187,7 @@ private lemma eLpNorm_fderiv_le_sum_eLpNorm_partials
   refine h_sum_le.trans ?_
   apply Finset.sum_le_sum
   intro i _
-  rw [eLpNorm_norm]
+  rw [eLpNorm_norm _ (h_aesm_comp i)]
 
 omit [NeZero d] in
 private lemma eLpNorm_classical_partial_eq_chosen
@@ -461,7 +461,7 @@ theorem eLpNorm_p_star_le_const_mul_wkpNorm_of_memWkp
   have hφ_aesm : ∀ n, AEStronglyMeasurable (φ n) (volume.restrict Ω) :=
     fun n => (hφ_smooth n).continuous.aestronglyMeasurable
   have h_tim : TendstoInMeasure (volume.restrict Ω) φ atTop f := by
-    refine tendstoInMeasure_of_tendsto_eLpNorm hp_enn_ne_zero hφ_aesm hf_aesm ?_
+    refine tendstoInMeasure_of_tendsto_eLpNorm hp_enn_ne_zero ?_
     have h_neg_eq : ∀ n,
         eLpNorm (fun x => φ n x - f x) p_enn (volume.restrict Ω) =
           eLpNorm (fun x => f x - φ n x) p_enn (volume.restrict Ω) := by
@@ -478,7 +478,7 @@ theorem eLpNorm_p_star_le_const_mul_wkpNorm_of_memWkp
     fun n => hφ_aesm (σ n)
   have h_fatou : eLpNorm f p_star (volume.restrict Ω) ≤
       atTop.liminf (fun n => eLpNorm (φ (σ n)) p_star (volume.restrict Ω)) :=
-    MeasureTheory.Lp.eLpNorm_lim_le_liminf_eLpNorm h_aesm_subseq f hσ_ae
+    MeasureTheory.Lp.eLpNorm_lim_le_liminf_eLpNorm h_aesm_subseq f hf_aesm hσ_ae
   set C : ℝ≥0∞ := ENNReal.ofReal (Poincare.Analysis.Sobolev.Weak.CGns d p) * (d : ℝ≥0∞) with hC_def
   set N : ℝ≥0∞ := Poincare.Analysis.Sobolev.Euclidean.iteratedWeakSobolevNorm
     (d := d) 1 p_enn f Ω with hN_def

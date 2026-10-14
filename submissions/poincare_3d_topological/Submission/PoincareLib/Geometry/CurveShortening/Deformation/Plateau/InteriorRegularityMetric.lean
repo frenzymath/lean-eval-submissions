@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityCoordinates
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 
@@ -56,7 +57,7 @@ theorem m65EmbeddingMetric_coordinate (g : RiemannianMetric 3 M)
   let J : EuclideanSpace ℝ (Fin 3) ≃L[ℝ] TangentSpace (𝓡 3) (psi x) :=
     (LinearEquiv.ofBijective D.toLinearMap hbij).toContinuousLinearEquiv
   have hdf : fderiv ℝ (e ∘ psi) x = A.comp (J : EuclideanSpace ℝ (Fin 3) →L[ℝ] _) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp x he hpsi
   have hmetric : g.pullbackCoefficients psi x =
       ContinuousLinearMap.bilinearComp (innerSL ℝ)
@@ -87,7 +88,7 @@ theorem m65EmbeddingMetric_contDiffOn_chart (g : RiemannianMetric 3 M)
   have hA : ContDiffAt ℝ ∞ (fderiv ℝ (e ∘ psi)) x := hcomp.fderiv_right (by simp)
   have hG := g.contDiffAt_pullbackCoefficients (hpsi x hx)
   have hAi : Function.Injective (fderiv ℝ (e ∘ psi) x) := by
-    rw [← mfderiv_eq_fderiv, mfderiv_comp x (he.contMDiffAt.mdifferentiableAt (by simp))
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp x (he.contMDiffAt.mdifferentiableAt (by simp))
       ((hpsi x hx).mdifferentiableAt (by simp))]
     exact (hinj _).comp (inverseChart_bijective p hx).injective
   have hcoordinate := M65Interior.contDiffAt_coordinateMetric hA hG hAi

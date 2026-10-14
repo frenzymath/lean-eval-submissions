@@ -234,7 +234,8 @@ private theorem sphereChart_L1_restrict (p : UnitTwoSphere) (r : ℝ)
   have hci : Integrable (fun z => H (cs.symm z) * suAlphaRoundFactor z)
       (volume.restrict O) := MemLp.integrable le_rfl
         (suAlpha_continuous_memLp_ball hHchart (cs p) r 1)
-  rw [eLpNorm_one_eq_lintegral_enorm, eLpNorm_one_eq_lintegral_enorm,
+  rw [eLpNorm_one_eq_lintegral_enorm hHi.integrableOn.aestronglyMeasurable,
+    eLpNorm_one_eq_lintegral_enorm hci.aestronglyMeasurable,
     ← ofReal_integral_norm_eq_lintegral_enorm hHi.integrableOn,
     ← ofReal_integral_norm_eq_lintegral_enorm hci, hh]
 
@@ -306,14 +307,14 @@ theorem suAlpha_minimizing_energy_attained [CompactSpace M] [T2Space M]
     have hh := lintegral_iUnion_le (μ := mu) (fun p : T => U p)
       (fun x => ‖(A (f j) - A f0) x‖ₑ)
     simpa only [hTcover, setLIntegral_univ, tsum_fintype,
-      eLpNorm_one_eq_lintegral_enorm] using hh
+      eLpNorm_one_eq_lintegral_enorm (((hA _ (hf j)).sub (hA _ hf0)).aestronglyMeasurable),
+      eLpNorm_one_eq_lintegral_enorm (((hA _ (hf j)).sub (hA _ hf0)).aestronglyMeasurable.restrict)] using hh
   have hsum : Tendsto (fun j => ∑ p : T, eLpNorm (A (f j) - A f0) 1
       (mu.restrict (U p))) atTop (𝓝 0) := by
     simpa only [Finset.sum_const_zero] using tendsto_finsetSum Finset.univ (fun p _ => hloc p)
   have hL1 : Tendsto (fun j => eLpNorm (A (f j) - A f0) 1 mu) atTop (𝓝 0) :=
     tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds hsum (fun _ => bot_le) hboundL1
   have henergy0 := tendsto_integral_of_L1' (A f0)
-    (hA _ hf0).aestronglyMeasurable
     (Eventually.of_forall fun j => m60SphereAlphaEnergy_integrable g alpha (f j) (hf j)) hL1
   exact tendsto_nhds_unique henergy0 henergy
 

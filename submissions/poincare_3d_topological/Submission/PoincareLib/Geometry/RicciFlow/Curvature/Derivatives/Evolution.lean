@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Evolution.Connection.TensorTimeCommutator
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Identities.TensorLaplacianCommutator
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Evolution.Tensor.FlowRiemannRegularity
@@ -54,7 +55,9 @@ private theorem mdifferentiableAt_timeDeriv {U : Set M} {f : ℝ × M → ℝ}
       contMDiffAt_const)
   have hs : ContMDiffAt (𝓡 n) 𝓘(ℝ, ℝ) 1
       (fun y ↦ deriv (fun s ↦ f (s, y)) t) x := by
-    simpa only [inTangentCoordinates_model_space, mfderiv_eq_fderiv, deriv] using he
+    convert he using 1
+    funext y
+    simp only [inTangentCoordinates_model_space, Poincare.Compatibility.mfderiv_eq_fderiv_model, deriv]
   exact hs.mdifferentiableAt (by simp)
 
 set_option backward.isDefEq.respectTransparency false in

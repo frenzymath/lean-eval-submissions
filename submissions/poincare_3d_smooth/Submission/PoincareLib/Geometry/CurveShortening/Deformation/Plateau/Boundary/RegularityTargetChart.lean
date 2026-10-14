@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.RegularityStraightening
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityEulerReconstruction
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.InteriorRegularityLinearChart
@@ -64,7 +65,7 @@ theorem exists_bounded_boundary_target_chart {M : Type u} [TopologicalSpace M]
       (mfderiv_comp s (hPcs.mdifferentiableAt (by simp))
         (hc.contMDiff.contMDiffAt.mdifferentiableAt (by simp)))
     rw [hPC.mfderiv_eq] at hh
-    rw [mfderiv_eq_fderiv] at hh
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hh
     change curveVelocity C s =
       mfderiv (𝓡 3) (𝓡 3) P (c s) ((fderiv ℝ c s) 1) at hh
     rwa [fderiv_apply_one_eq_deriv, hz, map_zero] at hh

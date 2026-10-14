@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.Splitting.SelectedEndpoints
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.Splitting.SmallSelectedLine
@@ -42,7 +43,7 @@ private theorem initial_velocity_eq_of_chart_deriv
     rw [hp]
     exact mdifferentiableAt_extChartAt (mem_chart_source _ p)
   have hchain := mfderiv_comp 0 hc ((hγ.contMDiffAt h0).mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   have hv := congrArg (fun L => L (1 : ℝ)) hchain
   change (fderiv ℝ (fun t => extChartAt (𝓡 n) p (γ t)) 0) 1 =
     mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p) (γ 0)

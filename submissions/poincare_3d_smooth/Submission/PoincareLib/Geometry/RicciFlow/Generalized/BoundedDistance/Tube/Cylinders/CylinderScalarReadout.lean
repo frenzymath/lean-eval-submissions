@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.SourceNames
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Tube.Cylinders.CylinderCoordinates
@@ -126,7 +127,7 @@ theorem cylinderMap_mfderiv_apply {epsilon : ℝ} {f : RoundCylinderSpace → M}
         univ ×ˢ Ioo (-epsilon⁻¹) epsilon⁻¹ from ⟨mem_univ _, hx.2⟩))
   have hcoordsDer : mfderiv (𝓡 3) 𝓘(ℝ, RoundCylinderCoordinates)
       (cylinderScalarCoordinates s) x = cylinderScalarCoordinateEquiv.toContinuousLinearMap := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (cylinderScalarCoordinates_hasFDerivAt s x).fderiv
   rw [mfderiv_comp x (hmap.mdifferentiableAt (by simp))
       ((hsphere.comp x hcoords).mdifferentiableAt (by simp)),
@@ -327,7 +328,7 @@ theorem cylinderNeckChart_mfderiv_apply (N : EpsilonNeck g)
         univ ×ˢ Ioo (-N.epsilon⁻¹) N.epsilon⁻¹ from ⟨mem_univ _, hp.2⟩))
   have hcoordsDer : mfderiv (𝓡 3) 𝓘(ℝ, RoundCylinderCoordinates)
       (cylinderScalarCoordinates s) x = cylinderScalarCoordinateEquiv.toContinuousLinearMap := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (cylinderScalarCoordinates_hasFDerivAt s x).fderiv
   change mfderiv (𝓡 3) (𝓡 3)
     (N.coordinate_map ∘ (cylinderSphereParametrization q ∘ cylinderScalarCoordinates s)) x v = _

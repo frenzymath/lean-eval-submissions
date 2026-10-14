@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.NearEuclidean
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.FirstJet
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.RadialConvexity
@@ -89,7 +90,7 @@ theorem euclideanCoefficients_eq_innerSL_of_flat_gauss
     exact (mul_le_mul_of_nonneg_right ht.2 (norm_nonneg x)).trans_lt
       (by simpa only [Metric.mem_ball, dist_zero_right, one_mul] using hx)
   · intro t ht
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change g.tangentNorm (t • x)
       (fderiv ℝ (fun s : ℝ => s • x) t (1 : ℝ)) = ‖x‖
     rw [fderiv_eq_smul_deriv, one_smul]

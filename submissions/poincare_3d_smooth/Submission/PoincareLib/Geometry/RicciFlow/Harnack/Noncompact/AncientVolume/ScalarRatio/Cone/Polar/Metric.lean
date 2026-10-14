@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.Polar.SmoothAction
 
 /-!
@@ -97,7 +98,7 @@ theorem inner_radiusCoordinate_of_level_tangent
   have horth (u : UnitSliceAmbient n) (hu : fderiv ℝ d.potential x u = 0) :
       d.metric.inner x (d.connection.gradient d.potential x) u = 0 := by
     rw [d.connection.inner_gradient]
-    simp only [mvfderiv, mfderiv_eq_fderiv]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact hu
   rw [d.dilate_inner, d.fderiv_radiusCoordinate hc' hx, d.fderiv_radiusCoordinate hc' hx]
   simp only [map_add, add_apply, map_smul, smul_apply, smul_eq_mul]
@@ -128,7 +129,7 @@ theorem inner_radiusCoordinate_regularLevel
     change mfderiv (𝓡 (n + 1)) 𝓘(ℝ, ℝ) d.potential
       (openLevelIncl d.potential d.source (1 / 2) z)
         (mfderiv (𝓡 n) (𝓡 (n + 1)) (openLevelIncl d.potential d.source (1 / 2)) z u) = 0 at hmem
-    rw [mfderiv_eq_fderiv] at hmem
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hmem
     exact hmem
   exact d.inner_radiusCoordinate_of_level_tangent c hc z.1.2 z.2 a b _ _ (hker v) (hker w)
 
@@ -179,7 +180,7 @@ theorem mfderiv_polarMap (d : UnitSliceRadialChartData hcomparison n)
       (a, mfderiv (𝓡 n) (𝓡 (n + 1)) ι z v) at hh
   have hradialD : mfderiv (𝓘(ℝ, ℝ).prod (𝓡 (n + 1))) (𝓡 (n + 1))
       (d.radiusCoordinate c) (c, ι z) = fderiv ℝ (d.radiusCoordinate c) (c, ι z) := by
-    rw [← modelWithCornersSelf_prod, chartedSpaceSelf_prod, mfderiv_eq_fderiv]
+    rw [← modelWithCornersSelf_prod, chartedSpaceSelf_prod, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   erw [hradialD] at hh
   exact hh
 

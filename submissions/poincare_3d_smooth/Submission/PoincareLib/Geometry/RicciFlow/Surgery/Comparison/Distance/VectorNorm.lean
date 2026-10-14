@@ -39,7 +39,7 @@ theorem mfderiv_enorm_le_vector_target {f : M → F} {y : M} {C : ℝ≥0}
     ‖mfderiv I 𝓘(ℝ, F) f y‖ₑ ≤ C := by
   have hp (v : TangentSpace I y) :
       ‖(show F from mfderiv I 𝓘(ℝ, F) f y v)‖ ≤ (C : ℝ) * ‖v‖ := by
-    rw [← norm_tangentSpace_vectorSpace
+    erw [← norm_tangentSpace_vectorSpace
       (x := f y) (v := mfderiv I 𝓘(ℝ, F) f y v)]
     exact ((mfderiv I 𝓘(ℝ, F) f y).le_opNorm v).trans
       (mul_le_mul_of_nonneg_right h (norm_nonneg v))

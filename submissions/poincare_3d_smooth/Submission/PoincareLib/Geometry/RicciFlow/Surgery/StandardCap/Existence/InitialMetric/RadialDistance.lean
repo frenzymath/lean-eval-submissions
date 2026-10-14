@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.InitialMetric.RadialBounds
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Basic.RegularizedNorm
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Basic.GradientDistance
@@ -69,7 +70,7 @@ theorem capRiemannianMetric_regularizedRadius_edist {a e : ℝ} (ha : 0 < a)
   change |L v| ≤
     Real.sqrt (capMetricInner a z v v)
   have hL : L = (regularizedNorm e z)⁻¹ • innerSL ℝ z := by
-    simpa only [L, mfderiv_eq_fderiv] using (regularizedNorm_hasFDerivAt he z).fderiv
+    simpa only [L, Poincare.Compatibility.mfderiv_eq_fderiv_model] using (regularizedNorm_hasFDerivAt he z).fderiv
   rw [hL]
   exact capRiemannianMetric_regularizedRadius_speed ha hapi he z v
 
@@ -98,7 +99,7 @@ theorem capRiemannianMetric_edist_le {a : ℝ} (ha : 0 < a)
       rw [one_mul]
       change g.tangentNorm z
         (mfderiv (𝓡 3) (𝓡 3) (fun z : StandardCapSpace => z) z v) ≤ ‖v‖
-      rw [mfderiv_eq_fderiv, fderiv_fun_id]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_fun_id]
       exact capRiemannianMetric_tangentNorm_le ha hapi z v
     _ = _ := one_mul _
 

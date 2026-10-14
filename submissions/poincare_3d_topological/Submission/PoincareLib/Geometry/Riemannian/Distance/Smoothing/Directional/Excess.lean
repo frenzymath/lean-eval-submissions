@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Alexandrov.Riemannian.MinimizingSegments
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.Geodesic
 import Submission.PoincareLib.Geometry.Riemannian.Metric.Gradient
@@ -107,7 +108,7 @@ theorem exists_opposite_witness_of_distance_approx
     have heq := congrArg (fun L => L (1 : ℝ))
       (mfderiv_comp 0 ((hu (γ 0)).mdifferentiableAt (by simp))
         ((hγ.contMDiffAt (hsub h0)).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change deriv F 0 = mvfderiv (𝓡 n) u (γ 0) v at heq
     rw [hγ0] at heq
     exact heq

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.UnitLink.Distance
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.Metric.AngularPaths
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.Polar.Tensor
@@ -207,13 +208,13 @@ theorem radial_angular_energy_of_metric_arc
     change mfderiv 𝓘(ℝ, ℝ) (𝓡 (n + 1)) (Q ∘ ψ) t 1 =
       mfderiv 𝓘(ℝ, ℝ) (𝓡 (n + 1)) β t 1 at hh
     rw [mfderiv_comp t hQdiff hψdiff] at hh
-    rw [mfderiv_eq_fderiv] at hh
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hh
     convert! hh using 1
   have hdr : v.1 = deriv r t := by
     have hh := congrArg (fun A : ℝ →L[ℝ] ℝ => A 1)
       (hrnear.mfderiv_eq (I := 𝓘(ℝ, ℝ)) (I' := 𝓘(ℝ, ℝ)))
     erw [mfderiv_comp t mdifferentiableAt_fst hψdiff, mfderiv_fst] at hh
-    rw [mfderiv_eq_fderiv] at hh
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hh
     convert! hh using 1
   have hdθ : mfderiv (𝓡 n) (𝓡 n) q (ψ t).2 v.2 = mfderiv 𝓘(ℝ, ℝ) (𝓡 n) θ t 1 := by
     have hh := congrArg (fun A : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => A 1)

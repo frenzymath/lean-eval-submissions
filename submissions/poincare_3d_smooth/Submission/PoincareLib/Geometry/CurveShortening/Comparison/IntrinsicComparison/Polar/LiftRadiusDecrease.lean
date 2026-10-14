@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Local.PolarCurveLift
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Unit.TangentIndependence
 import Mathlib.Analysis.InnerProductSpace.Calculus
@@ -53,7 +54,7 @@ theorem m64Intrinsic_polar_lift_norm_sq_derivative
     rw [← hd]
     simpa only [RiemannianMetric.euclideanCoefficients,
       RiemannianMetric.pullbackCoefficients, ContinuousLinearMap.bilinearComp_apply,
-      mfderiv_eq_fderiv] using! hgauss du
+      Poincare.Compatibility.mfderiv_eq_fderiv_model] using! hgauss du
   change HasDerivAt (fun a => ‖u a‖ ^ 2)
     (2 * N.metric.euclideanCoefficients (e (u s)) (fderiv ℝ e (u s) (u s)) db) s
   rw [hpair]

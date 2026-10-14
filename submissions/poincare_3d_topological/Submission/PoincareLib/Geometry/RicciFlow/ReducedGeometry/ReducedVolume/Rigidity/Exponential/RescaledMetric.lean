@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Rigidity.Exponential.ExponentialDiffeomorph
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Rigidity.Exponential.RescaledExponential
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Rigidity.Exponential.PullbackMetric
@@ -73,7 +74,7 @@ theorem rescaledExponential_pairing
   have hE := (E.contMDiffAt (x := L x)).mdifferentiableAt (by simp)
   rw [mfderiv_comp_apply x hE L.differentiableAt.mdifferentiableAt,
     mfderiv_comp_apply x hE L.differentiableAt.mdifferentiableAt,
-    mfderiv_eq_fderiv, L.fderiv]
+    Poincare.Compatibility.mfderiv_eq_fderiv_model, L.fderiv]
   change pullbackMetricForm (F.metric (T - τ)) (exponentialSliceChart G τ)
     (a • x) (a • u) (a • v) = _
   rw [hgram]

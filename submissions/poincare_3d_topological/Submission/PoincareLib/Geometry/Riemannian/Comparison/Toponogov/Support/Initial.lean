@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Toponogov.Support.Selected
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Toponogov.Support.Geodesic
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.RadialGauss
@@ -32,7 +33,7 @@ theorem curve_velocity_comp {γ : ℝ → M} {f : ℝ → ℝ} {t c : ℝ}
     mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (γ ∘ f) t 1 =
       c • mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (f t) 1 := by
   have hd := mfderiv_comp t hγ hf.differentiableAt.mdifferentiableAt
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hv := congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => L 1) hd
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (γ ∘ f) t 1 =
     mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (f t) (fderiv ℝ f t 1) at hv
@@ -75,7 +76,7 @@ theorem exists_squared_distance_endpoint_support
   have hvel : mfderiv (𝓡 n) (𝓡 n) e v (deriv u 0) =
       mfderiv 𝓘(ℝ, ℝ) (𝓡 n) σ 0 1 := by
     have hd := mfderiv_comp 0 (hu0 ▸ hev) (hu.differentiableAt (by simp)).mdifferentiableAt
-    rw [hproj.mfderiv_eq, mfderiv_eq_fderiv] at hd
+    rw [hproj.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hd1 := congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => L 1) hd
     change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) σ 0 1 =
       mfderiv (𝓡 n) (𝓡 n) e (u 0) (fderiv ℝ u 0 1) at hd1
@@ -87,7 +88,7 @@ theorem exists_squared_distance_endpoint_support
       simpa using (hasDerivAt_id (1 : ℝ)).smul_const v
     have hd := mfderiv_comp 1 (by simpa only [one_smul] using hev)
       hline.differentiableAt.mdifferentiableAt
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hd1 := congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => L 1) hd
     change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun r : ℝ => e (r • v)) 1 1 =
       mfderiv (𝓡 n) (𝓡 n) e (1 • v) (fderiv ℝ (fun r : ℝ => r • v) 1 1) at hd1

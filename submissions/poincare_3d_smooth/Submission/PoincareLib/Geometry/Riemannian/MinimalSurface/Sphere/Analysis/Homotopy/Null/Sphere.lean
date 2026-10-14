@@ -24,7 +24,7 @@ theorem haar_ball_ae_eq_closedBall {E : Type*} [NormedAddCommGroup E]
     (x : E) (r : ℝ) : ball x r =ᵐ[μ] closedBall x r := by
   filter_upwards [compl_mem_ae_iff.mpr (Measure.addHaar_sphere μ x r)] with y hy
   have hne : dist y x ≠ r := hy
-  exact propext ⟨le_of_lt, fun h => lt_of_le_of_ne h hne⟩
+  exact propext ⟨(fun h => Metric.ball_subset_closedBall h), fun h => lt_of_le_of_ne h hne⟩
 
 /-- The volume of a unit annulus follows directly from Haar scaling.
 This formula also covers dimension zero. Source: MT Definition 18.17,

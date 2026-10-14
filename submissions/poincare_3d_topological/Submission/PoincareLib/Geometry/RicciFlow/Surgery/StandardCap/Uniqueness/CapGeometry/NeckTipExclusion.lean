@@ -113,8 +113,6 @@ theorem exists_cylinder_tip_exclusion :
     have h := cylinderEuclideanMetric_inner_basis 0 (by norm_num) 0
       (EuclideanSpace.basisFun (Fin 3) ℝ 2) 2
     norm_num [EuclideanSpace.basisFun_apply, EuclideanSpace.single] at h
-    have htwo : ![(2 : ℝ), 2, 1] (2 : Fin 3) = 1 := rfl
-    rw [htwo] at h
     simpa only [model, b, OrthonormalBasis.coe_toBasis,
       EuclideanSpace.basisFun_apply, EuclideanSpace.single] using h
   have heq := tendsto_nhds_unique

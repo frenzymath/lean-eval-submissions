@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Groups.HomotopyMap
 import Submission.PoincareLib.Topology.Homotopy.Simplex.SimplexCube
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Subdivision.SingularHomologyClass
@@ -23,15 +24,15 @@ namespace Poincare.Topology
 noncomputable def genLoopSingularSimplex (X : TopCat.{w}) {n : ℕ} {x : X}
     (p : GenLoop (Fin n) X x) : (TopCat.toSSet.obj X) _⦋n⦌ :=
   let coordinates := Classical.choose (exists_stdSimplex_cube_pair_homeomorph n)
-  (X.toSSetObjEquiv _).symm (p.val.comp ⟨coordinates, coordinates.continuous⟩)
+  (X.toLegacySSetObjEquiv _).symm (p.val.comp ⟨coordinates, coordinates.continuous⟩)
 
 /-- Every face maps to the based cube's constant boundary value. -/
 theorem genLoopSingularSimplex_face (X : TopCat.{w}) {n : ℕ} {x : X}
     (p : GenLoop (Fin (n + 1)) X x) (i : Fin (n + 2)) :
     (TopCat.toSSet.obj X).δ i (genLoopSingularSimplex X p) =
       singularConstantSimplex X n x := by
-  refine (X.toSSetObjEquiv _).injective (ContinuousMap.ext (fun z => ?_))
-  rw [TopCat.toSSetObjEquiv_δ_apply]
+  refine (X.toLegacySSetObjEquiv _).injective (ContinuousMap.ext (fun z => ?_))
+  rw [TopCat.toLegacySSetObjEquiv_δ_apply]
   simp only [genLoopSingularSimplex, singularConstantSimplex, Equiv.apply_symm_apply,
     ContinuousMap.comp_apply, ContinuousMap.coe_mk, ContinuousMap.const_apply]
   apply GenLoop.boundary p
@@ -44,14 +45,14 @@ theorem genLoopSingularSimplex_face (X : TopCat.{w}) {n : ℕ} {x : X}
 theorem genLoopSingularSimplex_const (X : TopCat.{w}) (n : ℕ) (x : X) :
     genLoopSingularSimplex X (GenLoop.const : GenLoop (Fin n) X x) =
       singularConstantSimplex X n x := by
-  exact (X.toSSetObjEquiv _).injective (ContinuousMap.ext (fun _ => rfl))
+  exact (X.toLegacySSetObjEquiv _).injective (ContinuousMap.ext (fun _ => rfl))
 
 /-- The fixed coordinate choice commutes with continuous postcomposition. -/
 theorem genLoopSingularSimplex_map {X Y : TopCat.{w}} (f : X ⟶ Y)
     {n : ℕ} {x : X} (p : GenLoop (Fin n) X x) :
     (TopCat.toSSet.map f).app _ (genLoopSingularSimplex X p) =
       genLoopSingularSimplex Y (mapGenLoop f.hom rfl p) := by
-  exact (Y.toSSetObjEquiv _).injective (ContinuousMap.ext (fun _ => rfl))
+  exact (Y.toLegacySSetObjEquiv _).injective (ContinuousMap.ext (fun _ => rfl))
 
 variable {C : Type u} [Category.{v} C] [Preadditive C] [HasCoproducts.{w} C]
   [CategoryWithHomology C]
@@ -72,10 +73,10 @@ theorem genLoopSingularHomologyClass_eq_of_homotopic (R : C) (X : TopCat.{w})
   let e := Classical.choose (exists_stdSimplex_cube_pair_homeomorph (n + 1))
   let eC : C(stdSimplex ℝ (Fin (n + 2)), I^(Fin (n + 1))) := ⟨e, e.continuous⟩
   have hp : p.val.comp eC =
-      X.toSSetObjEquiv _ (genLoopSingularSimplex X p) := by
+      X.toLegacySSetObjEquiv _ (genLoopSingularSimplex X p) := by
     simp only [genLoopSingularSimplex, Equiv.apply_symm_apply, eC, e]
   have hq : q.val.comp eC =
-      X.toSSetObjEquiv _ (genLoopSingularSimplex X q) := by
+      X.toLegacySSetObjEquiv _ (genLoopSingularSimplex X q) := by
     simp only [genLoopSingularSimplex, Equiv.apply_symm_apply, eC, e]
   apply singularSimplexHomologyClass_eq_of_simplex_homotopy R X _ _ x
     (genLoopSingularSimplex_face X p) (genLoopSingularSimplex_face X q)

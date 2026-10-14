@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.MeasureTheory.Function.Jacobian
 import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
@@ -49,7 +50,8 @@ theorem exists_regular_value_equal_dimension
       (((he (f x) hx.1).contMDiffAt (e.open_source.mem_nhds hx.1)).mdifferentiableAt
         (by simp)) ((hf x).mdifferentiableAt (by simp))
     change mfderiv (𝓡 n) (𝓡 n) g x = _ at hchain
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
+    dsimp only [TangentSpace] at *
     have hfi : Function.Injective (mfderiv (𝓡 n) (𝓡 n) f x) := by
       intro v w hvw
       apply hinj

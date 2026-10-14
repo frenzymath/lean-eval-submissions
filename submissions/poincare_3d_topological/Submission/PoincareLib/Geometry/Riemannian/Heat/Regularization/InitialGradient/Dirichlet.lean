@@ -11,7 +11,6 @@ The right side is independent of the containing exhaustion domain.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -89,7 +88,8 @@ theorem eLpNorm_iterate_laplacian_heat_test_sub_le
   refine ⟨(memLp_congr_ae hae).mpr ((Lp.memLp v).const_mul _), ?_⟩
   have heq : eLpNorm (fun x => (-1 : ℝ)^j * v x) 2 (g.volumeMeasure.restrict Ω) =
       eLpNorm (v : M → ℝ) 2 (g.volumeMeasure.restrict Ω) := by
-    apply eLpNorm_congr_norm_ae
+    apply eLpNorm_congr_norm_ae ((Lp.memLp v).const_mul _).aestronglyMeasurable
+      (Lp.memLp v).aestronglyMeasurable
     filter_upwards [] with x
     simp only [norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul]
   rw [eLpNorm_congr_ae hae, heq, ← Lp.norm_def]

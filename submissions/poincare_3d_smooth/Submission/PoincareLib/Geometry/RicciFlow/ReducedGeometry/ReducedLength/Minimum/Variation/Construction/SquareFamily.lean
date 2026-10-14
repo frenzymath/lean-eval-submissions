@@ -140,6 +140,7 @@ theorem exists_lVariation_of_smoothSquareFamily (K : AncientKappaSolution 2 M)
   have hvalue : family t u = f (Real.sqrt t, u) := heq u (Ioo_subset_Icc_self ht)
   simp only [backwardLIntegrand, curveVelocity, hd]
   rw [hvalue]
+  rfl
 
 /-- Fixing the initial square-time row gives an actual initial-fixed variation. -/
 theorem exists_initialFixedLVariation_of_smoothSquareFamily (K : AncientKappaSolution 2 M)

@@ -48,7 +48,7 @@ theorem exists_normalCoordinateRealization (hepsilon : epsilon ≤ 1 / 200)
       (∀ y ∈ U, ∀ v w : TangentSpace (𝓡 3) y,
         h.inner y v w = N.normalizedMetric.inner (e y)
           (mfderiv (𝓡 3) (𝓡 3) e y v) (mfderiv (𝓡 3) (𝓡 3) e y w)) ∧
-      g₀.euclideanCoefficients 0 = innerSL ℝ ∧
+      g₀.euclideanCoefficients 0 = innerSL ℝ (E := EuclideanSpace ℝ (Fin 3)) ∧
       CoordinateExponential.christoffelBilinear g₀.euclideanCoefficients 0 = 0 ∧
       (∀ j : ℕ, j ≤ 2 → ∀ v : Fin (2 + j) → EuclideanSpace ℝ (Fin 3),
         |D₀.iteratedCovariantTensorDerivative (metricDifferenceTensor g₀ h) j 0 v| ≤

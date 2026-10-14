@@ -94,9 +94,8 @@ theorem trace_lower_le_of_polynomial_index_nonneg {n : ℕ}
     apply intervalIntegral.integral_mono_on zero_le_one
       (by
         convert (IntervalIntegrable.sum Finset.univ fun i _ => hint i) using 1
-        · rfl
-        · ext t
-          simp)
+        ext t
+        simp)
       (by apply Continuous.intervalIntegrable; fun_prop)
     intro t ht
     rw [hsum]

@@ -55,7 +55,7 @@ private theorem memLp_continuousOn_mul {K : Set LoopPlane} (hK : IsCompact K)
     (hf : MemLp f 2 (volume.restrict K)) :
     MemLp (fun z => a z * f z) 2 (volume.restrict K) := by
   obtain ⟨C, hC⟩ := hK.exists_bound_of_continuousOn ha
-  apply hf.of_le_mul (c := C) ((ha.aestronglyMeasurable hK.measurableSet).mul hf.1)
+  apply hf.of_le_mul (c := C) ((ha.aestronglyMeasurable hK.measurableSet).mul hf.aestronglyMeasurable)
   filter_upwards [ae_restrict_mem hK.measurableSet] with z hz
   simpa only [Pi.mul_apply, norm_mul] using
     mul_le_mul_of_nonneg_right (hC z hz) (norm_nonneg (f z))

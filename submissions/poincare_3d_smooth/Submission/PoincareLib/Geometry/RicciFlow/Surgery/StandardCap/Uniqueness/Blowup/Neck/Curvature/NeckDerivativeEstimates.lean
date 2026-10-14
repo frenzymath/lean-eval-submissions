@@ -56,8 +56,8 @@ theorem exists_short_neck_derivative_bounds (P : RicciFlowCurvatureTheory.{0}) :
   have hx : x ∈ (F.metric 0).ball x ((1 / 2) / 2) := by
     change (F.metric 0).edist x x < ENNReal.ofReal ((1 / 2) / 2)
     rw [← RiemannianMetric.toEMetricSpace_edist]
-    have hz := @edist_self StandardCapSpace
-      (F.metric 0).toEMetricSpace.toPseudoEMetricSpace x
+    have hz := @edist_self StandardCapSpace _
+      (F.metric 0).toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace x
     rw [hz]
     exact ENNReal.ofReal_pos.mpr (by norm_num)
   have h := hShi StandardCapSpace T hT (by norm_num; exact hTupper) F x

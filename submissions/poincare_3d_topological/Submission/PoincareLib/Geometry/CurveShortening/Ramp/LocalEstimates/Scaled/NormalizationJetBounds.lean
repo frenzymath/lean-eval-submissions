@@ -293,7 +293,7 @@ theorem m63Normalization_arc_iterate_scaled_bounds [T2Space M]
         ∏ i ∈ s, VN (f i) ≤ L ^ (m + 3) := by
       have hsmall (i : Fin k) (hi : i ∈ s) : f i ≤ m :=
         (Finset.single_le_sum (fun j _ => Nat.zero_le (f j)) hi).trans hweight
-      have hp := Finset.prod_le_prod (fun i _ => hVN (f i))
+      have hp := Finset.prod_le_prod₀ (fun i _ => hVN (f i))
         (fun i hi => hVNlower (f i) (hsmall i hi))
       exact (hp.trans_eq (Finset.prod_const L)).trans (pow_le_pow_right₀ hL hcard)
     have hprodTop {k : ℕ} (s : Finset (Fin k)) (f : Fin k → ℕ)
@@ -316,7 +316,7 @@ theorem m63Normalization_arc_iterate_scaled_bounds [T2Space M]
           have hle := Finset.single_le_sum (fun z _ => Nat.zero_le (f z)) hi
           have hne : f i ≠ m + 1 := fun h => hex ⟨i, hi, h⟩
           omega
-        have hp := Finset.prod_le_prod (fun i _ => hVN (f i))
+        have hp := Finset.prod_le_prod₀ (fun i _ => hVN (f i))
           (fun i hi => hVNlower (f i) (hsmall i hi))
         have hp' := (hp.trans_eq (Finset.prod_const L)).trans (pow_le_pow_right₀ hL hcard)
         nlinarith only [hp', hpow, hw]

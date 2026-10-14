@@ -66,6 +66,8 @@ theorem sectionExtension_spec
       mvfderiv (𝓡 n) (sectionExtension U f) x = mvfderiv (𝓡 n) k x := by
         unfold mvfderiv
         rw [heq.mfderiv_eq, heq.eq_of_nhds]
+        ext v
+        rfl
       _ = α x := hd
 
 omit [IsManifold (𝓡 n) ∞ M] in

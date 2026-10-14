@@ -18,7 +18,6 @@ completion, proving that the actual value projection is compact.
 
 set_option autoImplicit false
 set_option maxHeartbeats 1400000
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -64,6 +63,7 @@ theorem coordinate_derivativeToLp_eq (h : SmoothTensor (n := n) (M := M)) (i j k
   filter_upwards [coordinateLp_coe μ (i, j, k) (derivativeToLp F μ h),
     derivativeToLp_coe F μ h, hf.coeFn_toLp] with x hc ht hfval
   simp only [hc, ht, hfval, derivativeProbes_apply, scalarDirectional]
+  rfl
 
 /-- Each scalar pairing uses a subfamily of the actual tensor graph energy. -/
 theorem pairing_firstOrderEnergy_le (h : SmoothTensor (n := n) (M := M)) (j k : iota)
@@ -156,8 +156,11 @@ omit L in
 theorem isCompactOperator_graphValue (d : FiniteChartData (n := n) (M := M)) :
     IsCompactOperator (graphValue F d.measure) := by
   obtain ⟨L⟩ := exists_finiteChartLocalizationData d
-  exact (isCompactOperator_iff_isCompact_closure_image_closedBall
-    (graphValue F d.measure).toLinearMap zero_lt_one).mpr
-      (isCompact_closure_graphValue_closedBall F g hF L zero_le_one)
+  refine ⟨closure (graphValue F d.measure '' Metric.closedBall 0 (1 : ℝ)),
+    isCompact_closure_graphValue_closedBall F g hF L zero_le_one, ?_⟩
+  apply Filter.mem_of_superset (Metric.closedBall_mem_nhds (0 : firstOrderGraph F d.measure)
+    (by norm_num : (0 : ℝ) < 1))
+  intro x hx
+  exact subset_closure (Set.mem_image_of_mem (graphValue F d.measure) hx)
 
 end PoincareMT.TensorProbeNative

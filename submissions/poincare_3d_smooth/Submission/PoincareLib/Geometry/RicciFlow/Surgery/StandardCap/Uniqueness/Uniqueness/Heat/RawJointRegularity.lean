@@ -45,7 +45,7 @@ theorem raw_family_spatial_fderiv_contDiffOn
       (contDiffWithinAt_fst.fst.prodMk contDiffWithinAt_snd)
       hmap
   simpa only [fderivWithin_univ] using
-    hf'.fderivWithin contDiffWithinAt_snd uniqueDiffOn_univ
+    hf'.fderivWithin (t := (Set.univ : Set V)) contDiffWithinAt_snd uniqueDiffOn_univ
       (show (∞ : ℕ∞ω) + 1 ≤ ∞ by simp) hp (fun _ _ => mem_univ _)
 
 theorem raw_metric_pair_family_contDiffOn {J : Set ℝ} (F : RicciFlow n V J)

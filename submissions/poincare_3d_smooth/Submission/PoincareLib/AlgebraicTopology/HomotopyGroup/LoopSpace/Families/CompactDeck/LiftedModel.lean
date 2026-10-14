@@ -24,6 +24,8 @@ open scoped Manifold ContDiff Topology
 
 universe u
 
+local instance : Limits.HasCoproducts.{u} (ModuleCat.{u} ℤ) := fun _ => inferInstance
+
 namespace PoincareMT.Proofs.M59
 
 open M02.Topology
@@ -40,7 +42,6 @@ variable (P02 : RepairedClosedTopologyProvider.{u})
 
 include P02 hp
 
-set_option backward.isDefEq.respectTransparency false in
 /-- The actual lifted finite model proves every deck map acts identically
 on integral H3, conditional only on its characteristic projection's
 quasi-isomorphism. Source: Hatcher, Theorems 2.27 and 2C.3. -/

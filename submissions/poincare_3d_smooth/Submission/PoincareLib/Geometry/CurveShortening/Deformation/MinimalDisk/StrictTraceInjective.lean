@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceCircleArc
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceDifferential
 
@@ -51,6 +52,7 @@ theorem parameter_injective_of_finite_branches
       exact (htrace (puncturedArc p s)).trans (congrArg gamma (hconst s ⟨hs.1.le, hs.2.le⟩))
     have hzero : mfderiv (𝓘(ℝ, ℝ)) (𝓡 3) (f ∘ c) t = 0 := by
       rw [heq.mfderiv_eq, mfderiv_const]
+      rfl
     have hdc : MDifferentiableAt (𝓘(ℝ, ℝ)) (𝓡 2) c t :=
       hd.differentiableAt.mdifferentiableAt
     have hchain := mfderivWithin_comp (I := 𝓘(ℝ, ℝ)) (I' := 𝓡 2) (I'' := 𝓡 3) t
@@ -59,7 +61,7 @@ theorem parameter_injective_of_finite_branches
       (uniqueMDiffWithinAt_univ (𝓘(ℝ, ℝ)))
     simp only [mfderivWithin_univ] at hchain
     have hvelocity : mfderiv (𝓘(ℝ, ℝ)) (𝓡 2) c t 1 = v := by
-      simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hd.deriv
+      simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hd.deriv
     have hap := congrArg (fun L : ℝ →L[ℝ] TangentSpace (𝓡 3) (f (c t)) => L 1) hchain
     rw [hzero] at hap
     change 0 = mfderivWithin (𝓡 2) (𝓡 3) f loopDiskSet (c t)

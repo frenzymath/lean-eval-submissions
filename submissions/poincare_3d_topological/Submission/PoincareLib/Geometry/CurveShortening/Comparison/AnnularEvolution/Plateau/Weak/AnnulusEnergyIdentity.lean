@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Weak.AnnulusLipschitzSeed
 
 /-!
@@ -41,7 +42,7 @@ theorem m64ObservedMetric_diagonal_of_mDifferentiableAt
   have hh := mfderiv_comp (I := 𝓡 2) (I' := 𝓡 n) (I'' := 𝓡 m)
     (f := f) (g := e) p (he.mdifferentiable (by simp) _) hf
   have hc := congrArg (fun L => L (EuclideanSpace.single i 1)) hh
-  rw [mfderiv_eq_fderiv] at hc
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
   change fderiv ℝ (e ∘ f) p (EuclideanSpace.single i 1) =
     mfderiv (𝓡 n) (𝓡 m) e (f p)
       (mfderiv (𝓡 2) (𝓡 n) f p (EuclideanSpace.single i 1)) at hc

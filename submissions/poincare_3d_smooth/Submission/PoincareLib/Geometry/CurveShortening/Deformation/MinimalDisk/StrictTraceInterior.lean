@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceChart
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.Branch.HarmonicEquation
@@ -57,7 +58,7 @@ theorem complex_chart_gradient_zero_iff (p : M) {f : LoopPlane → M} {z : ℂ}
       zero_apply, e, LinearIsometryEquiv.coe_toContinuousLinearEquiv] using! hv.symm
   · intro hzero
     have hc := mfderiv_comp (e z) hq hf
-    rw [mfderiv_eq_fderiv, hzero, ContinuousLinearMap.comp_zero] at hc
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hzero, ContinuousLinearMap.comp_zero] at hc
     change fderiv ℝ G (e z) = 0 at hc
     rw [hd.fderiv, hc, ContinuousLinearMap.zero_comp]
 

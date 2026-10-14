@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.TerminalBlowup.ScalarReciprocalGradient
 import Submission.PoincareLib.Geometry.Riemannian.Measure.HausdorffDensity.LocalDistance
@@ -64,7 +65,7 @@ private theorem scalar_radius_edist_le_pathELength
     _ = ∫⁻ u in Icc a b,
         ‖mvfderivWithin 𝓘(ℝ, ℝ) eta (Icc a b) u 1‖ₑ := by
       simp_rw [← fderivWithin_derivWithin, mvfderivWithin,
-        mfderivWithin_eq_fderivWithin]
+        Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
       rfl
     _ ≤ ∫⁻ u in Icc a b, ENNReal.ofReal (A / 2) *
         ‖mfderivWithin 𝓘(ℝ, ℝ) (𝓡 3) gamma (Icc a b) u 1‖ₑ := by

@@ -127,18 +127,18 @@ theorem hasDerivAt_integral_quadratic {N : ℕ} {μ : Measure LoopPlane}
       g.euclideanCoefficients (X z + t • W z) (Z z) (A z + t • Z z)
   have hm (t : ℝ) : AEStronglyMeasurable (F t) μ := by
     have hY := hX.add (hW.const_smul t)
-    have hP := hA.1.add (hZ.1.const_smul t)
+    have hP := hA.aestronglyMeasurable.add (hZ.aestronglyMeasurable.const_smul t)
     exact (ae_clm_apply (ae_clm_apply
       (hG.continuous.comp_aestronglyMeasurable hY) hP) hP).const_mul (1 / 2 : ℝ)
   have hm' : AEStronglyMeasurable (F' 0) μ := by
     have hfirst := ae_clm_apply (ae_clm_apply (ae_clm_apply
-      ((hG.continuous_fderiv (by simp)).comp_aestronglyMeasurable hX) hW) hA.1) hA.1
+      ((hG.continuous_fderiv (by simp)).comp_aestronglyMeasurable hX) hW) hA.aestronglyMeasurable) hA.aestronglyMeasurable
     have hsecond := ae_clm_apply (ae_clm_apply
-      (hG.continuous.comp_aestronglyMeasurable hX) hZ.1) hA.1
+      (hG.continuous.comp_aestronglyMeasurable hX) hZ.aestronglyMeasurable) hA.aestronglyMeasurable
     simpa +instances only [F', zero_smul, add_zero, Pi.add_apply] using!
       (hfirst.const_mul (1 / 2 : ℝ)).add hsecond
-  have hAsq := (memLp_two_iff_integrable_sq_norm hA.1).mp hA
-  have hZsq := (memLp_two_iff_integrable_sq_norm hZ.1).mp hZ
+  have hAsq := (memLp_two_iff_integrable_sq_norm hA.aestronglyMeasurable).mp hA
+  have hZsq := (memLp_two_iff_integrable_sq_norm hZ.aestronglyMeasurable).mp hZ
   have hF0 : Integrable (F 0) μ := by
     apply (hAsq.const_mul ((1 / 2 : ℝ) * C)).mono' (hm 0)
     filter_upwards [hcap] with z hz

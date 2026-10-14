@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Boundary
 import Submission.PoincareLib.Geometry.Riemannian.Surface.FrameAngle
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Stokes.Chart
@@ -80,7 +81,7 @@ theorem mfderiv_chart_line
   have h := congrArg (fun L => L 1) (mfderiv_comp t
     (hi.mdifferentiableAt (by simp)) hd.differentiableAt.mdifferentiableAt)
   dsimp only [TangentSpace] at h
-  simp only [ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv, hd.hasFDerivAt.fderiv,
+  simp only [ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model, hd.hasFDerivAt.fderiv,
     ContinuousLinearMap.toSpanSingleton_apply, one_smul] at h
   exact h
 

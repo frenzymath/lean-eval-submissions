@@ -40,6 +40,8 @@ theorem exists_smooth_inverse_branch {f : EuclideanSpace ℝ (Fin n) → M}
   have hderiv : mfderiv (𝓡 n) (𝓡 n) f x = fderiv ℝ F x := by
     rw [mfderiv, if_pos (hfx.mdifferentiableAt (by simp))]
     simp [F]
+    ext v
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ F x) := by
     rw [← hderiv]
     exact hbij x hx

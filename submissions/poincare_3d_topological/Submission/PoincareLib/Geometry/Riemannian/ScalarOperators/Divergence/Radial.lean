@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Divergence.Coordinates
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Locality
 import Mathlib.Analysis.Calculus.FDeriv.Norm
@@ -115,7 +116,7 @@ theorem gradient_radial_coordinate (D : LeviCivitaData g)
   simp only [ContinuousLinearMap.comp_apply, hw] at hd
   have hnorm : mvfderiv (𝓡 n) (fun y : EuclideanSpace ℝ (Fin n) => ‖y‖) x w =
       fderiv ℝ (fun y : EuclideanSpace ℝ (Fin n) => ‖y‖) x w := by
-    simp +instances only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp +instances only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   rw [hnorm] at hd
   rw [D.inner_gradient, ← hw, map_smul, map_smul, smul_apply, smul_eq_mul, hgauss]

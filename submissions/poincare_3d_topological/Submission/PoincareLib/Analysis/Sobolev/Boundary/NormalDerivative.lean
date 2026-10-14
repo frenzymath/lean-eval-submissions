@@ -32,9 +32,7 @@ private theorem partial_test_symmetric {φ : E → ℝ} (hφ : ContDiff ℝ ∞ 
   have hd := (hφ.fderiv_right (m := ∞) (by simp)).differentiable (by simp)
   rw [fderiv_clm_apply (hd x) (differentiableAt_const _),
     fderiv_clm_apply (hd x) (differentiableAt_const _)]
-  simpa using (hφ.contDiffAt.isSymmSndFDerivAt (by
-    simp
-    exact ENat.natCast_le_of_coe_top_le_withTop le_rfl 2)).eq
+  simpa using (hφ.contDiffAt.isSymmSndFDerivAt (by simp)).eq
     (EuclideanSpace.single j 1) (EuclideanSpace.single i 1)
 
 private theorem weakPartial_commute {O : Set E} {u pi pj q : E → ℝ}

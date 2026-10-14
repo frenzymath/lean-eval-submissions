@@ -1,4 +1,5 @@
 import Submission.PoincareLib.Geometry.Riemannian.Heat.Energy.TimeIntegral
+import Submission.PoincareLib.Geometry.Riemannian.Measure.Exhaustion
 
 /-!
 # Space-time integrability of localized heat energy
@@ -39,7 +40,8 @@ omit [PreconnectedSpace M] in
 /-- Gradient energy is measurable on every measurable positive-time region.
 The heat equation supplies continuity in time; spatial smoothness supplies
 measurability in space. -/
-theorem aestronglyMeasurable_heat_gradient_normSq (D : LeviCivitaData g)
+theorem aestronglyMeasurable_heat_gradient_normSq [SFinite g.volumeMeasure]
+    (D : LeviCivitaData g)
     {F : ℝ × M → ℝ}
     (hF : ContMDiffOn (𝓘(ℝ, ℝ).prod (𝓡 n)) 𝓘(ℝ, ℝ) ∞ F (Ioi 0 ×ˢ univ))
     (hheat : ∀ t, 0 < t → ∀ x, HasDerivAt (fun s ↦ F (s, x))

@@ -80,7 +80,8 @@ theorem wkpNorm_le_derivativeProfile {Ω : Set E} (hΩ : IsOpen Ω)
       calc
         eLpNorm (iterClassicalPartial j α u) p (volume.restrict Ω) ≤
             eLpNorm (fun x => ‖iteratedFDeriv ℝ j u x‖) p (volume.restrict Ω) := by
-          apply eLpNorm_mono_ae (Filter.Eventually.of_forall fun x => ?_)
+          apply eLpNorm_mono_ae (contDiff_iterClassicalPartial j α hu).continuous.aestronglyMeasurable
+            (Filter.Eventually.of_forall fun x => ?_)
           have h := norm_iteratedFDeriv_iterClassicalPartial_le j 0 α hu x
           rw [norm_iteratedFDeriv_zero] at h
           rw [norm_norm]
@@ -142,6 +143,7 @@ theorem derivativeProfile_mul_le {Ω : Set E} (hΩ : IsOpen Ω)
           ((j.choose i : ℝ) * A) * ‖iteratedFDeriv ℝ (j - i) u x‖)
           p (volume.restrict Ω) := by
       apply eLpNorm_mono_ae
+        ((hχ.mul hu).continuous_iteratedFDeriv (by exact_mod_cast le_top)).norm.aestronglyMeasurable
       filter_upwards [ae_restrict_mem hΩ.measurableSet] with x hx
       rw [norm_norm, Real.norm_eq_abs, abs_of_nonneg
         (Finset.sum_nonneg fun i hi => mul_nonneg (hcoeff j i) (norm_nonneg _))]
@@ -169,7 +171,7 @@ theorem derivativeProfile_mul_le {Ω : Set E} (hΩ : IsOpen Ω)
         funext x
         rw [Finset.sum_apply]
       rw [heq]
-      exact eLpNorm_sum_le (fun i hi => hmeas i) hp
+      exact eLpNorm_sum_le hp
     _ ≤ ∑ i ∈ Finset.range (j + 1), ENNReal.ofReal ((j.choose i : ℝ) * A) *
         ∑ n ∈ Finset.range (k + 1),
           eLpNorm (fun x => ‖iteratedFDeriv ℝ n u x‖) p (volume.restrict Ω) := by

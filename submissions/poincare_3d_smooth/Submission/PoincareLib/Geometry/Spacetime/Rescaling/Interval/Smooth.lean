@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Spacetime.Interval
 import Submission.PoincareLib.Geometry.Riemannian.Homothety.Connection.InverseWithin
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
@@ -66,7 +67,7 @@ theorem intervalChartExtension_contDiffOn {I : SpacetimeInterval}
     have he := (mdifferentiableWithinAt_extChartAt_symm hy).mono
       (extChartAt_target_subset_range p)
     have hcomp := mfderiv_comp_mfderivWithin (e x) hi he hu
-    rw [mfderivWithin_eq_fderivWithin] at hcomp
+    rw [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model] at hcomp
     change fderivWithin ℝ f e.target (e x) = _ at hcomp
     change (fderivWithin ℝ f e.target (e x)).IsInvertible
     rw [hcomp, ← D.inclusionDerivative_eq]

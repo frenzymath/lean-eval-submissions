@@ -117,6 +117,7 @@ theorem m64PolarAnnulusMap_density_le
     have hareaEq : m60AreaDensity g (F ∘ m64PolarForwardMap) p = m60AreaDensity g f p := by
       unfold m60AreaDensity m60AreaGram
       rw [heq.mfderiv_eq, heq.self_of_nhds]
+      rfl
     have h := harea (F ∘ m64PolarForwardMap) p
     rw [hcol0, hcol1, hframe, hareaEq] at h
     nlinarith only [h]

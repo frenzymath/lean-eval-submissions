@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Polar.Inverse
 import Submission.PoincareLib.Analysis.Calculus.Sard.OneDimensional
 
@@ -79,7 +80,7 @@ theorem m64Intrinsic_curve_tangent_chart_bases_null
     rw [← hqs]
     exact (hchain.congr_of_eventuallyEq hlift.symm).deriv.symm
   have hinj : Function.Injective (fderiv ℝ e !₂[a, t]) := by
-    simpa only [TangentSpace, mfderiv_eq_fderiv] using hregular
+    simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] using hregular
   have hvertical : (!₂[0, 1] : AnnulusCoordinates) ≠ 0 := by
     intro hz
     have h := congrArg (fun v : AnnulusCoordinates => v 1) hz

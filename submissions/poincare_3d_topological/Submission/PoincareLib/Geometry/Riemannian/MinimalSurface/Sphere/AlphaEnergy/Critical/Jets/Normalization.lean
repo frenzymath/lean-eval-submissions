@@ -9,7 +9,6 @@ norms sum exactly, preserving the same residual constant at every order.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory Metric
 open scoped ContDiff Topology ENNReal Manifold

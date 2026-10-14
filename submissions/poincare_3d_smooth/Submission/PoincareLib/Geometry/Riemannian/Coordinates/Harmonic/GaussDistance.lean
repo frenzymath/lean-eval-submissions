@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.GaussNormalization
 import Submission.PoincareLib.Geometry.Riemannian.Distance.DerivativeLipschitz
 import Submission.PoincareLib.Geometry.Riemannian.Distance.NormalRadial
@@ -41,7 +42,8 @@ theorem edist_zero_eq_of_gauss
       g.inner (e v) (mfderiv (𝓡 n) (𝓡 n) e v v)
         (mfderiv (𝓡 n) (𝓡 n) e v w) = g.inner 0 v w := by
     intro v hv w
-    simpa [e, euclideanCoefficients, OpenPartialHomeomorph.refl_apply] using!
+    simpa [e, euclideanCoefficients, OpenPartialHomeomorph.refl_apply,
+      Poincare.Compatibility.mfderiv_eq_fderiv_model] using!
       (hgauss v w).trans (g.euclideanCoefficients_zero_eq_of_gauss hgauss v w).symm
   have hn : g.tangentNorm 0 x = ‖x‖ := by
     change Real.sqrt (g.euclideanCoefficients 0 x x) = ‖x‖

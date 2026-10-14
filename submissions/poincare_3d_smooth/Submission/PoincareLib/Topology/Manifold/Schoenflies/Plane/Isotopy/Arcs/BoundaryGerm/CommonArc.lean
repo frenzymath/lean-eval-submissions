@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Plane.Isotopy.Arcs.BoundaryGerm.MarkedMatching
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Plane.Isotopy.Arcs.BoundaryGerm.Extension
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.RadialBody
@@ -100,7 +101,7 @@ theorem exists_disk_matching_fixing_common_arc_neighborhood
   have hinj (x : E2) (_ : x ∈ P) : Injective (fderiv Real D x) := by
     have h := (D.mfderivToContinuousLinearEquiv (by simp) x).injective
     change Injective (mfderiv (𝓡 2) (𝓡 2) D x) at h
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using h
   have hinside : ∀ x ∈ P, ∀ᶠ s in 𝓝[<] (0 : Real), ‖D ((1 + s) • x)‖ ≤ 1 := by
     rintro _ ⟨y, hy, rfl⟩
     have hyr : y ∈ closedBall (0 : E1) r := closedBall_subset_closedBall hρr.le hy

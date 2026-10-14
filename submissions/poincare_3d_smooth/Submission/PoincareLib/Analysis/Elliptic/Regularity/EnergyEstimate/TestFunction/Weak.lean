@@ -197,6 +197,7 @@ private lemma lintegral_translate_diffQuot_sq
 omit [NeZero d] in
 theorem eLpNorm_nirenbergTestFunction_le
     (k : Fin d) (h : ℝ) {η u : EuclN → ℝ}
+    (hηm : AEStronglyMeasurable η volume) (hum : AEStronglyMeasurable u volume)
     {M_η : ℝ} (hM_η : ∀ x, |η x| ≤ M_η) :
     eLpNorm (nirenbergTestFunction k h η u) 2 (volume : Measure EuclN) ≤
       ENNReal.ofReal (M_η^2) *
@@ -236,8 +237,10 @@ theorem eLpNorm_nirenbergTestFunction_le
         (diffQuot k h u (x + (-h) • EuclideanSpace.single k 1))^2) from
         (ENNReal.ofReal_mul hM4_nn).symm]
     exact ENNReal.ofReal_le_ofReal h_real
-  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal h2_ne_zero h2_ne_top,
-    eLpNorm_eq_lintegral_rpow_enorm_toReal h2_ne_zero h2_ne_top]
+  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal h2_ne_zero h2_ne_top
+      (aestronglyMeasurable_nirenbergTestFunction k h hηm hum),
+    eLpNorm_eq_lintegral_rpow_enorm_toReal h2_ne_zero h2_ne_top
+      (aestronglyMeasurable_diffQuot k h hum)]
   rw [h2_toReal]
   have h_lhs_pow_eq :
       (∫⁻ x : EuclN,
@@ -314,12 +317,13 @@ private lemma volume_compact_lt_top {K : Set EuclN} (hK : IsCompact K) :
 omit [NeZero d] in
 theorem eLpNorm_nirenbergTestFunction_restrict_le
     (k : Fin d) (h : ℝ) {η u : EuclN → ℝ}
+    (hηm : AEStronglyMeasurable η volume) (hum : AEStronglyMeasurable u volume)
     {M_η : ℝ} (hM_η : ∀ x, |η x| ≤ M_η)
     (Ω' : Set EuclN) :
     eLpNorm (nirenbergTestFunction k h η u) 2 ((volume : Measure EuclN).restrict Ω') ≤
       ENNReal.ofReal (M_η^2) *
         eLpNorm (diffQuot k h u) 2 (volume : Measure EuclN) := by
-  refine le_trans ?_ (eLpNorm_nirenbergTestFunction_le (d := d) k h hM_η)
+  refine le_trans ?_ (eLpNorm_nirenbergTestFunction_le (d := d) k h hηm hum hM_η)
   exact eLpNorm_mono_measure _ Measure.restrict_le_self
 
 omit [NeZero d] in

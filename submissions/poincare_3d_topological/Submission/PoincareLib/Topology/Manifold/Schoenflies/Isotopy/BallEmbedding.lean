@@ -134,7 +134,8 @@ theorem exists_global_extension_of_local_ball_embedding
     rw [heq.fderiv_eq]
     have h := ((hloc x hx).mfderivToContinuousLinearEquiv (by simp)).bijective
     change Function.Bijective (mfderiv 𝓘(Real, E) 𝓘(Real, E) f x) at h
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+    rw [mfderiv_eq_fderiv] at h
+    exact h
   obtain ⟨F, hF⟩ := exists_global_extension_of_ball_embedding hr g hg
     (fun x hx y hy hxy => hinj hx hy
       ((hgf (hball hx)).symm.trans (hxy.trans (hgf (hball hy))))) hder

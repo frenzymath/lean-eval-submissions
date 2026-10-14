@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.Boundary.Integrability
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.LogIntegrability
 
@@ -153,7 +154,7 @@ theorem halfDisk_logarithmicDensity_integrable {n : ℕ} [Nonempty (Fin n)]
         rw [hF1, hlamEq z hz]
         exact hc.1.symm
     ext a d
-    simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+    simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
       Matrix.one_apply, smul_eq_mul, mul_ite, mul_one, mul_zero, b] using! hpair a d
   have hN (i j : Fin 2) : IntegrableOn (fun z =>
       let B := normalHessian D F z (b i) (b j)

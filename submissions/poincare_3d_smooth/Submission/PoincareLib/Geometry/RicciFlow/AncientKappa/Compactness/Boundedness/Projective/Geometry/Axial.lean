@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Compactness.Boundedness.Projective.Geometry.Hessian
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Compactness.Boundedness.Projective.Geometry.Pairing
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Compactness.Boundedness.Projective.Intrinsic
@@ -51,7 +52,7 @@ theorem hasDerivAt_comp_geodesic {g : RiemannianMetric 3 M}
   have heq := congrArg (fun L => L (1 : ℝ))
     (mfderiv_comp t (haa.mdifferentiableAt (by simp))
       ((hγ.contMDiffAt ht).mdifferentiableAt (by simp)))
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change deriv (a ∘ γ) t =
     mvfderiv (𝓡 3) a (γ t) (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) γ t 1) at heq
   rwa [heq] at hfirst

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceBoundaryMap
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceDifferential
 
@@ -58,7 +59,7 @@ theorem complex_parameter_within_chart
     hK.uniqueMDiffWithinAt
   have hchainq := mfderiv_comp_mfderivWithin z hq hfp hK.uniqueMDiffWithinAt
   rw [hchainp] at hchainq
-  simp only [mfderivWithin_eq_fderivWithin] at hchainq
+  simp only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model] at hchainq
   have hPd : fderivWithin ℝ P K z v = e (v * d) := by
     rw [hP.hasFDerivWithinAt.fderivWithin hK]
     rfl

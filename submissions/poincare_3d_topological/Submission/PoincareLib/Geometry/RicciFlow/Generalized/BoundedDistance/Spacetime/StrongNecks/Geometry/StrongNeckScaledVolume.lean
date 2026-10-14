@@ -82,7 +82,7 @@ theorem GeneralizedStrongNeck.scaled_ambient_ball_volume_lower
   have hp : p ∈ gN.ball N.center 1 := by
     change gN.edist p p < ENNReal.ofReal 1
     have hself : gN.edist p p = 0 := by
-      exact @edist_self W (inferInstance : PseudoEMetricSpace W) p
+      exact edist_self p
     rw [hself]
     exact ENNReal.ofReal_pos.mpr (by norm_num : (0 : ℝ) < 1)
   have hvolume := normalized_neck_ball_volume_lower N rfl rfl hsmall

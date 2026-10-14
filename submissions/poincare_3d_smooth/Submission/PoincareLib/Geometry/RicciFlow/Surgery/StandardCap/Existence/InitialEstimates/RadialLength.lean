@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.InitialEstimates.RadialForm
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Calculus.RiemannianProper
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Imports.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Calculus.RiemannianProper
@@ -76,7 +77,7 @@ theorem initialAxis_edist_le_radialLength (g₀ : StandardInitialMetric)
   have hγ : ContMDiff (𝓘(ℝ, ℝ)) (𝓡 3) 1 γ :=
     contMDiff_iff_contDiff.mpr (contDiff_id.smul contDiff_const)
   have hd (t : ℝ) : mfderiv (𝓘(ℝ, ℝ)) (𝓡 3) γ t 1 = v := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     have h : HasDerivAt γ v t := by
       simpa [γ] using (hasDerivAt_id t).smul_const v
     rw [h.hasFDerivAt.fderiv]

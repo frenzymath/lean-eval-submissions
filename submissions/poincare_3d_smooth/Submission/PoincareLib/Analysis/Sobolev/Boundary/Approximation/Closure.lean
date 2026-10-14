@@ -36,8 +36,7 @@ private theorem tendsto_eLpNorm_sub_of_diagonal
         ring
       _ ≤ eLpNorm (fun x => a n x - b n x) 2 μ +
           eLpNorm (fun x => b n x - u x) 2 μ :=
-        eLpNorm_add_le ((ha n).sub (hb n)).aestronglyMeasurable
-          ((hb n).sub hu).aestronglyMeasurable (by norm_num)
+        eLpNorm_add_le (by norm_num)
       _ ≤ _ := add_le_add (herr n) le_rfl
   exact tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds
     (by simpa using hε.add hlim) (fun _ => bot_le) hbound

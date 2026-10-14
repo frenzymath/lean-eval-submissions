@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
 import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
@@ -35,7 +36,7 @@ theorem hasDerivAt_comp_curve {f : M → ℝ}
     HasDerivAt (f ∘ γ) (mvfderiv (𝓡 n) f (γ s) (curveVelocity γ s)) s := by
   apply (hf.comp s hγ).differentiableAt.hasDerivAt.congr_deriv
   change (fderiv ℝ (f ∘ γ) s) 1 = _
-  rw [← mfderiv_eq_fderiv, mfderiv_comp s hf hγ]
+  rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp s hf hγ]
   rfl
 
 set_option backward.isDefEq.respectTransparency false in

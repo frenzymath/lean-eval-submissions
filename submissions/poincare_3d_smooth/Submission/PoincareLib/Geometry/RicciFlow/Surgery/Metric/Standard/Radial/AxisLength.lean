@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialArclength
 
 /-!
@@ -22,7 +23,7 @@ theorem axisPoint_hasDerivAt (r : ℝ) : HasDerivAt axisPoint (axisBasis 0) r :=
 
 theorem axisPoint_mfderiv_one (r : ℝ) :
     mfderiv 𝓘(ℝ, ℝ) (𝓡 3) axisPoint r 1 = axisBasis 0 := by
-  rw [mfderiv_eq_fderiv, (axisPoint_hasDerivAt r).hasFDerivAt.fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (axisPoint_hasDerivAt r).hasFDerivAt.fderiv]
   change (1 : ℝ) • axisBasis 0 = axisBasis 0
   exact one_smul ℝ (axisBasis 0)
 

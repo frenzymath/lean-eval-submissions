@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Modulus.MinimalLogCurvature
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Annulus.LogBoundaryLimit
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Free.UniformizationEnergy
@@ -53,7 +54,7 @@ private theorem modulus_energy_periodic (A : M64Annulus g c0 c1) (r : ℝ)
   have hd := mfderiv_comp (I := 𝓡 2) (I' := 𝓡 2) (I'' := 𝓡 n) p hp hmd
   have hT : mfderiv (𝓡 2) (𝓡 2) (fun q : LoopPlane => T + q) p =
       ContinuousLinearMap.id ℝ LoopPlane := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact hshift.fderiv
   rw [hfun, hT] at hd
   have hd' : mfderiv (𝓡 2) (𝓡 n) A.map p =

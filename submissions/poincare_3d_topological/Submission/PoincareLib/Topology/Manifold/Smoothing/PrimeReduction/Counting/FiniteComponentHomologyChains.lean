@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Counting.ModTwoMayerVietoris
 import Mathlib.Topology.ContinuousMap.Sigma
 import Mathlib.CategoryTheory.Limits.Types.Coproducts
@@ -41,17 +42,17 @@ def singularSigmaCofan_isColimit : IsColimit (singularSigmaCofan Y) := by
   apply (Cofan.nonempty_isColimit_iff_bijective_fromSigma _).mpr
   constructor
   · intro x y h
-    have hh := congrArg ((TopCat.of (Σ i, Y i)).toSSetObjEquiv _) h
-    have hxy : (⟨x.1, (TopCat.of (Y x.1)).toSSetObjEquiv _ x.2⟩ :
+    have hh := congrArg ((TopCat.of (Σ i, Y i)).toLegacySSetObjEquiv _) h
+    have hxy : (⟨x.1, (TopCat.of (Y x.1)).toLegacySSetObjEquiv _ x.2⟩ :
         Σ i, C(Poincare.Topology.integralSimplex n, Y i)) =
-        ⟨y.1, (TopCat.of (Y y.1)).toSSetObjEquiv _ y.2⟩ :=
+        ⟨y.1, (TopCat.of (Y y.1)).toLegacySSetObjEquiv _ y.2⟩ :=
       ContinuousMap.isEmbedding_sigmaMk_comp.injective hh
     exact (Equiv.sigmaCongrRight (fun i =>
-      (TopCat.of (Y i)).toSSetObjEquiv (Opposite.op ⦋n⦌))).injective hxy
+      (TopCat.of (Y i)).toLegacySSetObjEquiv (Opposite.op ⦋n⦌))).injective hxy
   · intro s
-    obtain ⟨i, t, ht⟩ := ((TopCat.of (Σ i, Y i)).toSSetObjEquiv _ s).exists_lift_sigma
-    refine ⟨⟨i, ((TopCat.of (Y i)).toSSetObjEquiv _).symm t⟩, ?_⟩
-    apply ((TopCat.of (Σ i, Y i)).toSSetObjEquiv _).injective
+    obtain ⟨i, t, ht⟩ := ((TopCat.of (Σ i, Y i)).toLegacySSetObjEquiv _ s).exists_lift_sigma
+    refine ⟨⟨i, ((TopCat.of (Y i)).toLegacySSetObjEquiv _).symm t⟩, ?_⟩
+    apply ((TopCat.of (Σ i, Y i)).toLegacySSetObjEquiv _).injective
     exact ht.symm
 
 theorem chains_preservesCoproducts :

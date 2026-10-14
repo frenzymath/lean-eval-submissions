@@ -19,7 +19,6 @@ its coefficient producer from depending on the induction itself.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set MeasureTheory Filter Metric
 open scoped ContDiff Topology ENNReal Manifold
@@ -63,8 +62,8 @@ theorem suWeakDivergence_prolong
       (psi : LoopPlane → ℝ) (hpsi : ContDiff ℝ ∞ psi) (hpsic : HasCompactSupport psi) :
       IntegrableOn (fun x => A x * psi x) O volume :=
     memLp_one_iff_integrable.mp
-      (((hpsi.continuous.memLp_of_hasCompactSupport hpsic : MemLp psi ⊤ volume).restrict O).mul'
-        (memLp_one_iff_integrable.mpr hA))
+      ((memLp_one_iff_integrable.mpr hA).fun_mul
+        ((hpsi.continuous.memLp_of_hasCompactSupport hpsic : MemLp psi ⊤ volume).restrict O))
   have hI1 (i : Fin 2) := hI (DF i) (hDF i) (dphi i) (hd i) (hdc i)
   have hI2 (i : Fin 2) := hI (F i) (hF i)
     (fun x => fderiv ℝ (dphi k) x (EuclideanSpace.single i 1))
@@ -438,6 +437,13 @@ theorem flux_fderiv (C : SUAffineJetCoefficients m)
     (w : EuclideanSpace ℝ (Fin m) × EuclideanSpace ℝ (Fin m)) :
     fderiv ℝ (fun p => C.flux p.1 p.2) (z, q) (v, w) =
       C.principal z w + fderiv ℝ C.principal z v q + fderiv ℝ C.fluxOffset z v := by
+  letI : ContinuousSMul ℝ (LoopPlane × EuclideanSpace ℝ (Fin m)) :=
+    Prod.continuousSMul
+  letI : ContinuousSMul ℝ (EuclideanSpace ℝ (Fin m) × EuclideanSpace ℝ (Fin m)) :=
+    Prod.continuousSMul
+  letI : ContinuousSMul ℝ ((LoopPlane × EuclideanSpace ℝ (Fin m)) ×
+      (EuclideanSpace ℝ (Fin m) × EuclideanSpace ℝ (Fin m))) :=
+    Prod.continuousSMul
   have h1 : HasFDerivAt (fun p => C.principal p.1)
       ((fderiv ℝ C.principal z).comp (ContinuousLinearMap.fst ℝ
         (LoopPlane × EuclideanSpace ℝ (Fin m))
@@ -462,6 +468,13 @@ theorem source_fderiv (C : SUAffineJetCoefficients m)
     (w : EuclideanSpace ℝ (Fin m) × EuclideanSpace ℝ (Fin m)) :
     fderiv ℝ (fun p => C.source p.1 p.2) (z, q) (v, w) =
       C.sourceLinear z w + fderiv ℝ C.sourceLinear z v q + fderiv ℝ C.sourceOffset z v := by
+  letI : ContinuousSMul ℝ (LoopPlane × EuclideanSpace ℝ (Fin m)) :=
+    Prod.continuousSMul
+  letI : ContinuousSMul ℝ (EuclideanSpace ℝ (Fin m) × EuclideanSpace ℝ (Fin m)) :=
+    Prod.continuousSMul
+  letI : ContinuousSMul ℝ ((LoopPlane × EuclideanSpace ℝ (Fin m)) ×
+      (EuclideanSpace ℝ (Fin m) × EuclideanSpace ℝ (Fin m))) :=
+    Prod.continuousSMul
   have h1 : HasFDerivAt (fun p => C.sourceLinear p.1)
       ((fderiv ℝ C.sourceLinear z).comp (ContinuousLinearMap.fst ℝ
         (LoopPlane × EuclideanSpace ℝ (Fin m))

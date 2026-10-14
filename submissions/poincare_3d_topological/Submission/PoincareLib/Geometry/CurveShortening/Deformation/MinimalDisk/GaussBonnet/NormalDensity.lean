@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.Hessian
 import Submission.PoincareLib.Geometry.RicciFlow.Local.Metric.MetricCompactBounds
@@ -54,7 +55,7 @@ theorem normalHessian_eq_projection_derivative (D : LeviCivitaData g)
   have h00 : g.inner (F x) (fderiv ℝ F x (EuclideanSpace.basisFun (Fin 2) ℝ 0))
       (fderiv ℝ F x (EuclideanSpace.basisFun (Fin 2) ℝ 0)) = c := by
     have hh := congrArg (fun G : Matrix (Fin 2) (Fin 2) ℝ => G 0 0) hx
-    simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+    simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
       Matrix.one_apply_eq, smul_eq_mul, mul_one] using! hh
   have hP := differentiableAt_conformalTangentProjection hF (h00.trans_ne hc.ne')
   have hfix : ∀ᶠ y in 𝓝 x,
@@ -126,7 +127,7 @@ theorem normalHessian_density_le (D : LeviCivitaData g)
   have hcol (l : Fin 2) : g.inner (F x) (fderiv ℝ F x (e l))
       (fderiv ℝ F x (e l)) = lam := by
     have hh := congrArg (fun G : Matrix (Fin 2) (Fin 2) ℝ => G l l) hx
-    simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+    simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
       Matrix.one_apply_eq, smul_eq_mul, mul_one, e] using! hh
   have ha : a ^ 2 ≤ lam / c := (le_div_iff₀ hc).mpr (by
     simpa only [mul_comm c, ← hcol i] using (hmetric (fderiv ℝ F x (e i))).1)
@@ -197,7 +198,7 @@ theorem normalHessian_density_integrableOn (D : LeviCivitaData g)
     have hdd := hd.fderiv_right (show (∞ : ℕ∞ω) + 1 ≤ ∞ by simp)
     have h00 : g.inner (F x) (fderiv ℝ F x (e 0)) (fderiv ℝ F x (e 0)) = lam x := by
       have hh := congrArg (fun G : Matrix (Fin 2) (Fin 2) ℝ => G 0 0) (hconf x hx).2
-      simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+      simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
         Matrix.one_apply_eq, smul_eq_mul, mul_one, e] using! hh
     have hp := (differentiableAt_conformalTangentProjection hs
       (h00.trans_ne (hconf x hx).1.ne')).continuousAt

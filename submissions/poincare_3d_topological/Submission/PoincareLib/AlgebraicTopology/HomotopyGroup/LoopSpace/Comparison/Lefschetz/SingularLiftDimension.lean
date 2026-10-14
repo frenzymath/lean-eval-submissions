@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.SingularLift
 
 /-!
@@ -34,13 +35,15 @@ theorem singular_simplex_eq_of_projection_and_face
       (TopCat.toSSet.map (TopCat.ofHom p)).app _ t)
     (hface : (TopCat.toSSet.obj (TopCat.of E)).δ i s =
       (TopCat.toSSet.obj (TopCat.of E)).δ i t) : s = t := by
-  apply ((TopCat.of E).toSSetObjEquiv _).injective
+  apply ((TopCat.of E).toLegacySSetObjEquiv _).injective
   apply ContinuousMap.coe_injective
   have hpoint := congrArg
-    (fun z => (TopCat.of E).toSSetObjEquiv _ z (stdSimplex.vertex 0)) hface
-  apply hp.eq_of_comp_eq ((TopCat.of E).toSSetObjEquiv _ s).continuous
-    ((TopCat.of E).toSSetObjEquiv _ t).continuous _ _ hpoint
-  exact congrArg (fun z => ((TopCat.of X).toSSetObjEquiv _ z).toFun) hproj
+    (fun z => (TopCat.of E).toLegacySSetObjEquiv _ z (stdSimplex.vertex 0)) hface
+  have hpoint' := (TopCat.toLegacySSetObjEquiv_δ_apply s i (stdSimplex.vertex 0)).symm.trans
+    (hpoint.trans (TopCat.toLegacySSetObjEquiv_δ_apply t i (stdSimplex.vertex 0)))
+  apply hp.eq_of_comp_eq ((TopCat.of E).toLegacySSetObjEquiv _ s).continuous
+    ((TopCat.of E).toLegacySSetObjEquiv _ t).continuous _ _ hpoint'
+  exact congrArg (fun z => ((TopCat.of X).toLegacySSetObjEquiv _ z).toFun) hproj
 
 variable (A : SSet.{u}) (χ : A ⟶ TopCat.toSSet.obj (TopCat.of X))
 

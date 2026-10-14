@@ -183,6 +183,7 @@ theorem exists_saturatedAxialHeight (N : EpsilonNeck g)
       have hd : mvfderiv (𝓡 3) G x = mvfderiv (𝓡 3) (N.axialCutoff χ) x := by
         unfold mvfderiv
         rw [he.mfderiv_eq, he.eq_of_nhds]
+        rfl
       rw [hd, ← N.connection.inner_gradient,
         N.gradient_axialCutoff N.connection hχ hx]
       simp only [map_smul, smul_apply, smul_eq_mul, N.connection.inner_gradient, abs_mul]

@@ -62,10 +62,10 @@ theorem exists_curvature_radius_near_central_sphere
       scalarCurvatureSupOn g D (g.ball y r) = r⁻¹ ^ 2 ∧
       closure (g.ball y r) ⊆ N.carrier ∧ IsCompact (closure (g.ball y r)) := by
   have hcomm (a b : StandardCapSpace) : g.edist a b = g.edist b a :=
-    @edist_comm StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace a b
+    @edist_comm StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace a b
   have htriangle (a b c : StandardCapSpace) :
       g.edist a c ≤ g.edist a b + g.edist b c :=
-    @edist_triangle StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace a b c
+    @edist_triangle StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace a b c
   have hcontinuous : Continuous (fun z : StandardCapSpace => g.edist y z) :=
     (@continuous_edist StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace).comp
       (continuous_const.prodMk continuous_id)

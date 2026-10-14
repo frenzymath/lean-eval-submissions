@@ -11,6 +11,7 @@ of the phase disk, including physical boundary times.
 -/
 
 set_option autoImplicit false
+set_option synthInstance.maxHeartbeats 100000
 -- The metric-induced norms retain the actual generalized horizontal fibers.
 set_option backward.isDefEq.respectTransparency false
 
@@ -32,9 +33,14 @@ theorem isCompact_horizontalDisk {K : Set G.Point} (hK : IsCompact K) (R : ℝ) 
     IsCompact {z : Bundle.TotalSpace (EuclideanSpace ℝ (Fin n)) G.Horizontal |
       z.proj ∈ K ∧ G.spacetime.horizontalMetric.inner z.proj z.2 z.2 ≤ R} := by
   classical
+  letI : VectorBundle ℝ (EuclideanSpace ℝ (Fin n)) G.Horizontal :=
+    G.spacetime.horizontalVectorBundle
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
   let : ∀ x, NormedAddCommGroup (G.Horizontal x) := fun x =>
     (metric.toCore x).toNormedAddCommGroupOfTopology
+      (metric.continuousAt x) (metric.isVonNBounded x)
+  let : ∀ x, NormedSpace ℝ (G.Horizontal x) := fun x =>
+    (metric.toCore x).toNormedSpaceOfTopology
       (metric.continuousAt x) (metric.isVonNBounded x)
   let : ∀ x, InnerProductSpace ℝ (G.Horizontal x) := fun x =>
     .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)

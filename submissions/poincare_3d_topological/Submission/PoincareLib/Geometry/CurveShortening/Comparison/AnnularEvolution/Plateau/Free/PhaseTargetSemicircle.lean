@@ -114,7 +114,7 @@ theorem lower_halfDisk_target_semicircle
   let gamma := fun theta => if h : W theta ∈ range e then Classical.choose h else A.annulus.map 0
   have hgamma (theta : ℝ) (htheta : theta ∈ Icc (0 : ℝ) Real.pi) :
       e (gamma theta) = W theta := by
-    simp only [gamma, dif_pos (hWr htheta)]
+    simp only [gamma, dite_eq_left (hWr htheta)]
     exact Classical.choose_spec (hWr htheta)
   have hgammaAE : gamma =ᵐ[nu] fun theta => A.annulus.map (T (r • angularPoint theta)) := by
     filter_upwards [hWu, ae_restrict_mem measurableSet_Icc] with theta htheta hI

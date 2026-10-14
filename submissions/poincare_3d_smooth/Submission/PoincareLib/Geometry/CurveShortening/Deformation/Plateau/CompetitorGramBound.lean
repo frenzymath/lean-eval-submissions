@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.CompetitorGram
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Comparison.Smoothing.Charts.Distance
@@ -74,7 +75,7 @@ theorem m65TangentNorm_mfderiv_le_lipschitz
     calc
       _ = NormedSpace.fromTangentSpace (chi (f z))
           (mfderiv (𝓡 2) 𝓘(ℝ, TangentSpace (𝓡 n) (f z)) (chi ∘ f) z v) := by
-        rw [mfderiv_eq_fderiv]
+        rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
         rfl
       _ = NormedSpace.fromTangentSpace (chi (f z))
           (mfderiv (𝓡 n) 𝓘(ℝ, TangentSpace (𝓡 n) (f z)) chi (f z)

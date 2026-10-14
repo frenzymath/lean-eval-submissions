@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Collision
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.ReturnDirection
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.Manifold
@@ -62,7 +63,7 @@ theorem hasFDerivAt_half_squared_inverse_radius
       (mfderiv (𝓡 n) (𝓡 n) e.symm (c.symm (c q)))
         ((mfderiv (𝓡 n) (𝓡 n) c.symm (c q)) u) at h
     rw [hcder] at h
-    rw [mfderiv_eq_fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     change (fderiv ℝ (e.symm ∘ c.symm) (c q)) u =
       (mfderiv (𝓡 n) (𝓡 n) e.symm (c.symm (c q))) u at h
     exact h.trans (congrArg (fun z : M => (mfderiv (𝓡 n) (𝓡 n) e.symm z) u) hcq)

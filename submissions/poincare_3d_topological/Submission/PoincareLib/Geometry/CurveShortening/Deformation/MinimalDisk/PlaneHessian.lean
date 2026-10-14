@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.PlaneFirstVariation
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.ChartHessianConnection
@@ -50,7 +51,7 @@ theorem m65PlaneDerivative_chart (p : M) {f : LoopPlane → M} {x : LoopPlane}
   have hi : (mfderiv (𝓡 n) (𝓡 n) c (f x)).IsInvertible :=
     ⟨(mdifferentiable_chart (I := 𝓡 n) p).mfderiv hx, rfl⟩
   have hc := mfderiv_comp x ((mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt hx) hf
-  rw [mfderiv_eq_fderiv] at hc
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
   change (mfderiv (𝓡 n) (𝓡 n) c (f x)).inverse
     (fderiv ℝ (c ∘ f) x v) = mfderiv (𝓡 2) (𝓡 n) f x v
   rw [hc]

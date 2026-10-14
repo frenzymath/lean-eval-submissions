@@ -302,7 +302,8 @@ private theorem smooth_pointwise_holder_bound
         rw [hIint_def]
         rw [eLpNorm_eq_lintegral_rpow_enorm_toReal
           (by rw [Ne, ENNReal.ofReal_eq_zero]; exact not_le.mpr hp_pos)
-          ENNReal.ofReal_ne_top]
+          ENNReal.ofReal_ne_top
+          (hu.continuous_fderiv (by simp)).norm.aestronglyMeasurable]
         rw [ENNReal.toReal_ofReal hp_pos.le]
         have h_eq :
             ∫⁻ y in Metric.ball x₀ R, ‖‖fderiv ℝ u y‖‖ₑ ^ p ∂volume =
@@ -661,7 +662,8 @@ theorem smooth_pointwise_holder_bound_explicit
         rw [hIint_def]
         rw [eLpNorm_eq_lintegral_rpow_enorm_toReal
           (by rw [Ne, ENNReal.ofReal_eq_zero]; exact not_le.mpr hp_pos)
-          ENNReal.ofReal_ne_top]
+          ENNReal.ofReal_ne_top
+          (hu.continuous_fderiv (by simp)).norm.aestronglyMeasurable]
         rw [ENNReal.toReal_ofReal hp_pos.le]
         have h_eq :
             ∫⁻ y in Metric.ball z r, ‖‖fderiv ℝ u y‖‖ₑ ^ p ∂volume =
@@ -761,7 +763,7 @@ private theorem smooth_holder_bound_unit_ball_components
         eLpNorm (fun y => ∑ i : Fin d,
           ‖(fderiv ℝ ψ y) (EuclideanSpace.single i 1)‖) (ENNReal.ofReal p)
           (volume.restrict (Metric.ball (0 : E) 1)) := by
-    refine eLpNorm_mono ?_
+    refine eLpNorm_mono (hψ.continuous_fderiv (by simp)).norm.aestronglyMeasurable ?_
     intro y
     rw [Real.norm_of_nonneg (norm_nonneg _),
       Real.norm_of_nonneg (Finset.sum_nonneg fun i _ => norm_nonneg _)]
@@ -787,12 +789,13 @@ private theorem smooth_holder_bound_unit_ball_components
         (((hψ.continuous_fderiv (by simp : ((⊤ : ℕ∞) : WithTop ℕ∞) ≠ 0)).clm_apply
           continuous_const).norm)
       exact hcont.aestronglyMeasurable.restrict
-    exact eLpNorm_sum_le (fun i _ => h_aesm i) hpp_one
+    exact eLpNorm_sum_le hpp_one
   have h_comp_eq : ∀ i : Fin d,
       eLpNorm (fun y => ‖(fderiv ℝ ψ y) (EuclideanSpace.single i 1)‖) (ENNReal.ofReal p)
         (volume.restrict (Metric.ball (0 : E) 1)) =
       eLpNorm (fun y => (fderiv ℝ ψ y) (EuclideanSpace.single i 1)) (ENNReal.ofReal p)
         (volume.restrict (Metric.ball (0 : E) 1)) := fun i => eLpNorm_norm _
+          (((hψ.continuous_fderiv (by simp)).clm_apply continuous_const).aestronglyMeasurable)
   have h_eLpNorm_total :
       eLpNorm (fun y => ‖fderiv ℝ ψ y‖) (ENNReal.ofReal p)
         (volume.restrict (Metric.ball (0 : E) 1)) ≤
@@ -815,7 +818,8 @@ private theorem smooth_holder_bound_unit_ball_components
     intro i _
     refine lt_of_le_of_lt (b := eLpNorm (fun y => ‖fderiv ℝ ψ y‖) (ENNReal.ofReal p)
         (volume.restrict (Metric.ball (0 : E) 1))) ?_ (lt_of_le_of_ne le_top h_eLpNorm_lt)
-    refine eLpNorm_mono ?_
+    refine eLpNorm_mono
+      ((hψ.continuous_fderiv (by simp)).clm_apply continuous_const).aestronglyMeasurable ?_
     intro y
     have hbound_pt : ‖(fderiv ℝ ψ y) (EuclideanSpace.single i 1)‖ ≤
         ‖fderiv ℝ ψ y‖ * ‖EuclideanSpace.single i (1 : ℝ)‖ :=
@@ -1027,7 +1031,7 @@ private lemma smooth_setIntegral_norm_le_eLpNorm
     exact h_int_compact.mono_set ball_subset_closedBall
   have h_eLp_one_eq :
       (eLpNorm u 1 μ).toReal = ∫ y in Metric.ball x₀ R, ‖u y‖ ∂volume := by
-    rw [eLpNorm_one_eq_lintegral_enorm]
+    rw [eLpNorm_one_eq_lintegral_enorm hu_int.aestronglyMeasurable]
     have h_lint :
         ∫⁻ y, ‖u y‖ₑ ∂μ = ENNReal.ofReal (∫ y in Metric.ball x₀ R, ‖u y‖ ∂volume) := by
       have h_eq :

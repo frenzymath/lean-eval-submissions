@@ -114,7 +114,7 @@ theorem annulus_strip_boundary_coordinate_data (A : M64Annulus g c0 c1)
     rw [he1, heI]
     have hdiag := congrArg (fun t : ℝ => r * t) hc.1
     simp only [← mul_assoc, mul_inv_cancel₀ hr.ne', one_mul] at hdiag
-    cases upper <;> simp only [Bool.false_eq_true, if_false, if_true, map_smul,
+    cases upper <;> simp only [Bool.false_eq_true, ite_false, ite_true, map_smul,
       map_neg, smul_apply, neg_apply, smul_eq_mul, neg_neg]
     · exact ⟨by nlinarith [hdiag], by rw [hc.2, mul_zero]⟩
     · exact ⟨by nlinarith [hdiag], by rw [hc.2, mul_zero, neg_zero]⟩

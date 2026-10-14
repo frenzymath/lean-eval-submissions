@@ -24,7 +24,7 @@ cutoff admissibility step in Morrey ICM pp. 183-185; M65 derivation 27. -/
 theorem MemLp.smul_cutoff {u : X → E} (hu : MemLp u 2 mu)
     {theta : X → ℝ} (htheta : AEStronglyMeasurable theta mu)
     (hbound : ∀ᵐ x ∂mu, |theta x| ≤ 1) : MemLp (fun x => theta x • u x) 2 mu := by
-  refine hu.of_le (htheta.smul hu.1) ?_
+  refine hu.of_le (htheta.smul hu.aestronglyMeasurable) ?_
   filter_upwards [hbound] with x hx
   rw [norm_smul, Real.norm_eq_abs]
   exact mul_le_of_le_one_left (norm_nonneg _) hx

@@ -10,7 +10,6 @@ MT Proposition 17.1; limit-finite-endpoint-extraction.md, AG2.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter
 open scoped ENNReal Manifold ContDiff Topology
@@ -123,6 +122,7 @@ theorem limitFinite_endpoint_row_extraction
       Tendsto (fun k => f i (σ k) p) atTop (𝓝 (B i p)) := by
     intro i p hp
     have hzero := (ContinuousMultilinearMap.uniformContinuous_eval_const
+      (𝕜 := ℝ) («E» := fun _ : Fin 0 => ℝ × E) (F := V)
       (0 : Fin 0 → ℝ × E)).comp_tendstoUniformlyOn
         (hconv i 0 {p} isCompact_singleton (singleton_subset_iff.mpr hp))
     have h := hzero.tendsto_at (mem_singleton p)

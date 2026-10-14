@@ -38,6 +38,8 @@ private theorem exists_smooth_local_right_inverse {e : E → M} {x : E}
   have hderiv : mfderiv (𝓡 n) (𝓡 n) e x = fderiv ℝ q (c x) := by
     rw [mfderiv, if_pos (he.mdifferentiableAt (by simp))]
     simp [q, c]
+    ext v
+    rfl
   have hbij : Function.Bijective (fderiv ℝ q (c x)) := by
     rw [← hderiv]
     exact hinv.bijective

@@ -50,6 +50,8 @@ theorem sliceMetricForm_smooth (A : AdaptedMetricAtlas n X) (t : ℝ) :
   let := adaptedHorizontalFiberBundle A
   let := adaptedHorizontalVectorBundle A
   let := adaptedHorizontalSmoothBundle A
+  let : ∀ p : X, NormedAddCommGroup (adaptedHorizontal A p) := fun _p => inferInstance
+  let : ∀ p : X, NormedSpace ℝ (adaptedHorizontal A p) := fun _p => inferInstance
   intro p
   rw [← contMDiffWithinAt_univ]
   apply contMDiffWithinAt_bilinear_of_eval (IB := 𝓡 n) (J := 𝓡 n)

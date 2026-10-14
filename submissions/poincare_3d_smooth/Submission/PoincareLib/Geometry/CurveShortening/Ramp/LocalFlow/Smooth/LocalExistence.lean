@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Ambient.NormalFlow
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Ambient.ClassicalExistence
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Ambient.ClosedSmoothness
@@ -80,7 +81,7 @@ theorem exists_smooth_local_curve_of_retraction (F : RicciFlow n M (Icc a b))
       erw [mfderiv_comp x
         ((hρ.contMDiffAt (hU.mem_nhds (heU (mem_range_self _)))).mdifferentiableAt (by simp))
         ((hf.contMDiff x).mdifferentiableAt (by simp)),
-        ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+        ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
       rfl
     rw [hρf] at hv
     exact hv.symm

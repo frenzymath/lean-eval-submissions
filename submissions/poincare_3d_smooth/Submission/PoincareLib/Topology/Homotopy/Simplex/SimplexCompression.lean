@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Simplex.SimplexCoherence
 import Submission.PoincareLib.Topology.Homotopy.Cube.CubePrescribedNullhomotopy
 import Submission.PoincareLib.AlgebraicTopology.SingularHomology.Subdivision.SingularCycles
@@ -30,7 +31,7 @@ boundary nullhomotopy of each simplex in the next dimension. -/
 theorem exists_coherent_singularSimplex_boundary_nullhomotopy
     (X : TopCat.{w}) (x : X) (N : ℕ)
     (H : ∀ (k : ℕ) (_hk : k ≤ N) (s : (TopCat.toSSet.obj X) _⦋k⦌),
-      (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x))
+      (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x))
     (hcoh : ∀ (k : ℕ) (hk : k + 1 ≤ N)
       (s : (TopCat.toSSet.obj X) _⦋k + 1⦌) (i : Fin (k + 2))
       (t : unitInterval) (z : stdSimplex ℝ (Fin (k + 1))),
@@ -38,7 +39,7 @@ theorem exists_coherent_singularSimplex_boundary_nullhomotopy
         H k (Nat.le_trans (Nat.le_succ k) hk) ((TopCat.toSSet.obj X).δ i s) (t, z))
     (s : (TopCat.toSSet.obj X) _⦋N + 1⦌) :
     ∃ hb : C(unitInterval × {y : stdSimplex ℝ (Fin (N + 2)) // ∃ i, y i = 0}, X),
-      (∀ y, hb (0, y) = X.toSSetObjEquiv _ s y.val) ∧
+      (∀ y, hb (0, y) = X.toLegacySSetObjEquiv _ s y.val) ∧
       (∀ y, hb (1, y) = x) ∧
       ∀ (i : Fin (N + 2)) (t : unitInterval) (z : stdSimplex ℝ (Fin (N + 1)))
         (y : {y : stdSimplex ℝ (Fin (N + 2)) // ∃ i, y i = 0}),
@@ -67,8 +68,8 @@ theorem exists_coherent_singularSimplex_boundary_nullhomotopy
     obtain ⟨⟨i, z⟩, rfl⟩ := hq.surjective y
     rw [htrace]
     change H N _ ((TopCat.toSSet.obj X).δ i s) (0, z) =
-      X.toSSetObjEquiv _ s (q ⟨i, z⟩).val
-    rw [ContinuousMap.Homotopy.apply_zero, TopCat.toSSetObjEquiv_δ_apply, hqface]
+      X.toLegacySSetObjEquiv _ s (q ⟨i, z⟩).val
+    rw [ContinuousMap.Homotopy.apply_zero, TopCat.toLegacySSetObjEquiv_δ_apply, hqface]
   · intro y
     obtain ⟨⟨i, z⟩, rfl⟩ := hq.surjective y
     exact (htrace 1 i z).trans ((H N _ ((TopCat.toSSet.obj X).δ i s)).apply_one z)
@@ -83,7 +84,7 @@ theorem exists_coherent_singularSimplex_nullhomotopies
     (X : TopCat.{w}) [PathConnectedSpace X] (x : X) (N : ℕ)
     (hpi : ∀ (k : ℕ), 1 ≤ k → k ≤ N → Subsingleton (HomotopyGroup.Pi k X x)) :
     ∃ H : ∀ (k : ℕ) (_hk : k ≤ N) (s : (TopCat.toSSet.obj X) _⦋k⦌),
-      (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
+      (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
       ∀ (k : ℕ) (hk : k + 1 ≤ N)
         (s : (TopCat.toSSet.obj X) _⦋k + 1⦌) (i : Fin (k + 2))
         (t : unitInterval) (z : stdSimplex ℝ (Fin (k + 1))),
@@ -93,14 +94,14 @@ theorem exists_coherent_singularSimplex_nullhomotopies
   induction N with
   | zero =>
     have H0 (s : (TopCat.toSSet.obj X) _⦋0⦌) :
-        (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x) := by
+        (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x) := by
       let z0 : stdSimplex ℝ (Fin 1) := default
-      let p := PathConnectedSpace.somePath (X.toSSetObjEquiv _ s z0) x
+      let p := PathConnectedSpace.somePath (X.toLegacySSetObjEquiv _ s z0) x
       exact {
         toFun := fun u => p u.1
         continuous_toFun := p.continuous.comp continuous_fst
         map_zero_left := fun z => p.source.trans
-          (congrArg (X.toSSetObjEquiv _ s) (Subsingleton.elim z0 z))
+          (congrArg (X.toLegacySSetObjEquiv _ s) (Subsingleton.elim z0 z))
         map_one_left := fun _ => p.target
       }
     refine ⟨?_, ?_⟩
@@ -113,7 +114,7 @@ theorem exists_coherent_singularSimplex_nullhomotopies
   | succ N ih =>
     obtain ⟨H, hcoh⟩ := ih (fun k hk hkN => hpi k hk (Nat.le_trans hkN (Nat.le_succ N)))
     have hext (s : (TopCat.toSSet.obj X) _⦋N + 1⦌) :
-        ∃ G : (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
+        ∃ G : (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
           ∀ (i : Fin (N + 2)) (t : unitInterval) (z : stdSimplex ℝ (Fin (N + 1))),
             G (t, stdSimplex.map i.succAbove z) =
               H N (Nat.le_refl N) ((TopCat.toSSet.obj X).δ i s) (t, z) := by
@@ -121,7 +122,7 @@ theorem exists_coherent_singularSimplex_nullhomotopies
         exists_coherent_singularSimplex_boundary_nullhomotopy X x N H hcoh s
       obtain ⟨G, hG⟩ := exists_stdSimplex_nullhomotopy_with_prescribed_boundary N x
         (hpi (N + 1) (Nat.succ_le_succ (Nat.zero_le N)) (Nat.le_refl _))
-        (X.toSSetObjEquiv _ s) hb hb0 hb1
+        (X.toLegacySSetObjEquiv _ s) hb hb0 hb1
       refine ⟨G, fun i t z => ?_⟩
       have hz : stdSimplex.map i.succAbove z i = 0 := by
         have hz' : stdSimplex.map i.succAbove z ∈
@@ -133,7 +134,7 @@ theorem exists_coherent_singularSimplex_nullhomotopies
       exact (hG t y).trans (hbf i t z y rfl)
     choose G hG using hext
     let K (k : ℕ) (hk : k ≤ N + 1) (s : (TopCat.toSSet.obj X) _⦋k⦌) :
-        (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x) :=
+        (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x) :=
       if hkN : k ≤ N then H k hkN s else by
         have heq : k = N + 1 := by omega
         subst k
@@ -153,9 +154,9 @@ theorem exists_singularSimplex_straightening
     (X : TopCat.{w}) [PathConnectedSpace X] (x : X) (n : ℕ)
     (hpi : ∀ (k : ℕ), 1 ≤ k → k ≤ n → Subsingleton (HomotopyGroup.Pi k X x)) :
     ∃ (K : ∀ (k : ℕ) (_hk : k ≤ n) (s : (TopCat.toSSet.obj X) _⦋k⦌),
-        (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x))
+        (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x))
       (r : (TopCat.toSSet.obj X) _⦋n + 1⦌ → (TopCat.toSSet.obj X) _⦋n + 1⦌)
-      (H : ∀ s, (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ (r s))),
+      (H : ∀ s, (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ (r s))),
       (∀ (k : ℕ) (hk : k + 1 ≤ n)
         (s : (TopCat.toSSet.obj X) _⦋k + 1⦌) (i : Fin (k + 2))
         (t : unitInterval) (z : stdSimplex ℝ (Fin (k + 1))),
@@ -170,7 +171,7 @@ theorem exists_singularSimplex_straightening
   obtain ⟨K, hcoh⟩ := exists_coherent_singularSimplex_nullhomotopies X x n hpi
   have hext (s : (TopCat.toSSet.obj X) _⦋n + 1⦌) :
       ∃ (r : (TopCat.toSSet.obj X) _⦋n + 1⦌)
-        (H : (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ r)),
+        (H : (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ r)),
         (∀ i : Fin (n + 2), (TopCat.toSSet.obj X).δ i r = singularConstantSimplex X n x) ∧
         ∀ (i : Fin (n + 2)) (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 1))),
           H (t, stdSimplex.map i.succAbove z) =
@@ -178,14 +179,14 @@ theorem exists_singularSimplex_straightening
     obtain ⟨hb, hb0, _hb1, hbf⟩ :=
       exists_coherent_singularSimplex_boundary_nullhomotopy X x n K hcoh s
     obtain ⟨F, hF0, hFB⟩ :=
-      exists_stdSimplex_boundary_homotopy_extension (n + 1) (X.toSSetObjEquiv _ s) hb hb0
+      exists_stdSimplex_boundary_homotopy_extension (n + 1) (X.toLegacySSetObjEquiv _ s) hb hb0
     let f1 : C(stdSimplex ℝ (Fin (n + 2)), X) :=
       ⟨fun z => F (1, z), F.continuous.comp (continuous_const.prodMk continuous_id)⟩
     let r : (TopCat.toSSet.obj X) _⦋n + 1⦌ :=
-      (X.toSSetObjEquiv (Opposite.op ⦋n + 1⦌)).symm f1
-    have hr : X.toSSetObjEquiv (Opposite.op ⦋n + 1⦌) r = f1 :=
-      (X.toSSetObjEquiv (Opposite.op ⦋n + 1⦌)).apply_symm_apply f1
-    let H : (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ r) := {
+      (X.toLegacySSetObjEquiv (Opposite.op ⦋n + 1⦌)).symm f1
+    have hr : X.toLegacySSetObjEquiv (Opposite.op ⦋n + 1⦌) r = f1 :=
+      (X.toLegacySSetObjEquiv (Opposite.op ⦋n + 1⦌)).apply_symm_apply f1
+    let H : (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ r) := {
       toContinuousMap := F
       map_zero_left := hF0
       map_one_left := fun z => (DFunLike.congr_fun hr z).symm
@@ -203,9 +204,9 @@ theorem exists_singularSimplex_straightening
       exact (hFB t y).trans (hbf i t z y rfl)
     refine ⟨r, H, ?_, htrace⟩
     intro i
-    apply (X.toSSetObjEquiv _).injective
+    apply (X.toLegacySSetObjEquiv _).injective
     ext z
-    simp only [TopCat.toSSetObjEquiv_δ_apply, singularConstantSimplex,
+    simp only [TopCat.toLegacySSetObjEquiv_δ_apply, singularConstantSimplex,
       Equiv.apply_symm_apply, ContinuousMap.const_apply]
     exact (H.apply_one (stdSimplex.map i.succAbove z)).symm.trans
       ((htrace i 1 z).trans ((K n _ ((TopCat.toSSet.obj X).δ i s)).apply_one z))
@@ -218,7 +219,7 @@ theorem exists_normalized_coherent_singularSimplex_nullhomotopies
     (X : TopCat.{w}) [PathConnectedSpace X] (x : X) (N : ℕ)
     (hpi : ∀ (k : ℕ), 1 ≤ k → k ≤ N → Subsingleton (HomotopyGroup.Pi k X x)) :
     ∃ H : ∀ (k : ℕ) (_hk : k ≤ N) (s : (TopCat.toSSet.obj X) _⦋k⦌),
-      (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
+      (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
       (∀ (k : ℕ) (hk : k + 1 ≤ N)
         (s : (TopCat.toSSet.obj X) _⦋k + 1⦌) (i : Fin (k + 2))
         (t : unitInterval) (z : stdSimplex ℝ (Fin (k + 1))),
@@ -231,12 +232,12 @@ theorem exists_normalized_coherent_singularSimplex_nullhomotopies
   | zero =>
     obtain ⟨H, _hcoh⟩ := exists_coherent_singularSimplex_nullhomotopies X x 0 hpi
     have hzero (s : (TopCat.toSSet.obj X) _⦋0⦌) :
-        ∃ G : (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
+        ∃ G : (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
           s = singularConstantSimplex X 0 x →
             ∀ (t : unitInterval) (z : stdSimplex ℝ (Fin 1)), G (t, z) = x := by
       by_cases hs : s = singularConstantSimplex X 0 x
       · subst s
-        let G : (X.toSSetObjEquiv _ (singularConstantSimplex X 0 x)).Homotopy
+        let G : (X.toLegacySSetObjEquiv _ (singularConstantSimplex X 0 x)).Homotopy
             (ContinuousMap.const _ x) :=
           (ContinuousMap.Homotopy.refl (ContinuousMap.const _ x)).cast
             (by simp only [singularConstantSimplex, Equiv.apply_symm_apply]) rfl
@@ -244,7 +245,7 @@ theorem exists_normalized_coherent_singularSimplex_nullhomotopies
       · exact ⟨H 0 (Nat.le_refl 0) s, fun hs' => (hs hs').elim⟩
     choose H0 hH0 using hzero
     let K (k : ℕ) (hk : k ≤ 0) (s : (TopCat.toSSet.obj X) _⦋k⦌) :
-        (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x) := by
+        (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x) := by
       have hk0 : k = 0 := Nat.eq_zero_of_le_zero hk
       subst k
       exact H0 s
@@ -259,7 +260,7 @@ theorem exists_normalized_coherent_singularSimplex_nullhomotopies
     obtain ⟨H, hcoh, hconst⟩ :=
       ih (fun k hk hkN => hpi k hk (Nat.le_trans hkN (Nat.le_succ N)))
     have hext (s : (TopCat.toSSet.obj X) _⦋N + 1⦌) :
-        ∃ G : (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
+        ∃ G : (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x),
           (∀ (i : Fin (N + 2)) (t : unitInterval) (z : stdSimplex ℝ (Fin (N + 1))),
             G (t, stdSimplex.map i.succAbove z) =
               H N (Nat.le_refl N) ((TopCat.toSSet.obj X).δ i s) (t, z)) ∧
@@ -267,7 +268,7 @@ theorem exists_normalized_coherent_singularSimplex_nullhomotopies
             ∀ (t : unitInterval) (z : stdSimplex ℝ (Fin (N + 2))), G (t, z) = x) := by
       by_cases hs : s = singularConstantSimplex X (N + 1) x
       · subst s
-        let G : (X.toSSetObjEquiv _ (singularConstantSimplex X (N + 1) x)).Homotopy
+        let G : (X.toLegacySSetObjEquiv _ (singularConstantSimplex X (N + 1) x)).Homotopy
             (ContinuousMap.const _ x) :=
           (ContinuousMap.Homotopy.refl (ContinuousMap.const _ x)).cast
             (by simp only [singularConstantSimplex, Equiv.apply_symm_apply]) rfl
@@ -280,7 +281,7 @@ theorem exists_normalized_coherent_singularSimplex_nullhomotopies
           exists_coherent_singularSimplex_boundary_nullhomotopy X x N H hcoh s
         obtain ⟨G, hG⟩ := exists_stdSimplex_nullhomotopy_with_prescribed_boundary N x
           (hpi (N + 1) (Nat.succ_le_succ (Nat.zero_le N)) (Nat.le_refl _))
-          (X.toSSetObjEquiv _ s) hb hb0 hb1
+          (X.toLegacySSetObjEquiv _ s) hb hb0 hb1
         refine ⟨G, ?_, fun hs' => (hs hs').elim⟩
         intro i t z
         have hz : stdSimplex.map i.succAbove z i = 0 := by
@@ -293,7 +294,7 @@ theorem exists_normalized_coherent_singularSimplex_nullhomotopies
         exact (hG t y).trans (hbf i t z y rfl)
     choose G hG hGconst using hext
     let K (k : ℕ) (hk : k ≤ N + 1) (s : (TopCat.toSSet.obj X) _⦋k⦌) :
-        (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x) :=
+        (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x) :=
       if hkN : k ≤ N then H k hkN s else by
         have heq : k = N + 1 := by omega
         subst k
@@ -321,9 +322,9 @@ theorem exists_normalized_singularSimplex_straightening
     (X : TopCat.{w}) [PathConnectedSpace X] (x : X) (n : ℕ)
     (hpi : ∀ (k : ℕ), 1 ≤ k → k ≤ n → Subsingleton (HomotopyGroup.Pi k X x)) :
     ∃ (K : ∀ (k : ℕ) (_hk : k ≤ n) (s : (TopCat.toSSet.obj X) _⦋k⦌),
-        (X.toSSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x))
+        (X.toLegacySSetObjEquiv _ s).Homotopy (ContinuousMap.const _ x))
       (r : (TopCat.toSSet.obj X) _⦋n + 1⦌ → (TopCat.toSSet.obj X) _⦋n + 1⦌)
-      (H : ∀ s, (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ (r s))),
+      (H : ∀ s, (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ (r s))),
       (∀ (k : ℕ) (hk : k + 1 ≤ n)
         (s : (TopCat.toSSet.obj X) _⦋k + 1⦌) (i : Fin (k + 2))
         (t : unitInterval) (z : stdSimplex ℝ (Fin (k + 1))),
@@ -339,42 +340,42 @@ theorem exists_normalized_singularSimplex_straightening
       ∀ s, (∀ i : Fin (n + 2),
         (TopCat.toSSet.obj X).δ i s = singularConstantSimplex X n x) →
           r s = s ∧ ∀ (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 2))),
-            H s (t, z) = X.toSSetObjEquiv _ s z := by
+            H s (t, z) = X.toLegacySSetObjEquiv _ s z := by
   classical
   obtain ⟨K, hcoh, hconst⟩ :=
     exists_normalized_coherent_singularSimplex_nullhomotopies X x n hpi
   have hext (s : (TopCat.toSSet.obj X) _⦋n + 1⦌) :
       ∃ (r : (TopCat.toSSet.obj X) _⦋n + 1⦌)
-        (H : (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ r)),
+        (H : (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ r)),
         (∀ i : Fin (n + 2), (TopCat.toSSet.obj X).δ i r = singularConstantSimplex X n x) ∧
         (∀ (i : Fin (n + 2)) (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 1))),
           H (t, stdSimplex.map i.succAbove z) =
             K n (Nat.le_refl n) ((TopCat.toSSet.obj X).δ i s) (t, z)) ∧
         ((∀ i : Fin (n + 2), (TopCat.toSSet.obj X).δ i s = singularConstantSimplex X n x) →
           r = s ∧ ∀ (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 2))),
-            H (t, z) = X.toSSetObjEquiv _ s z) := by
+            H (t, z) = X.toLegacySSetObjEquiv _ s z) := by
     by_cases hs : ∀ i : Fin (n + 2),
         (TopCat.toSSet.obj X).δ i s = singularConstantSimplex X n x
-    · refine ⟨s, ContinuousMap.Homotopy.refl (X.toSSetObjEquiv _ s), hs, ?_,
+    · refine ⟨s, ContinuousMap.Homotopy.refl (X.toLegacySSetObjEquiv _ s), hs, ?_,
         fun _ => ⟨rfl, fun _ _ => rfl⟩⟩
       intro i t z
-      change X.toSSetObjEquiv _ s (stdSimplex.map i.succAbove z) =
+      change X.toLegacySSetObjEquiv _ s (stdSimplex.map i.succAbove z) =
         K n _ ((TopCat.toSSet.obj X).δ i s) (t, z)
       rw [hs, hconst]
-      have h := congrArg (fun u => X.toSSetObjEquiv (Opposite.op ⦋n⦌) u z) (hs i)
-      simpa only [TopCat.toSSetObjEquiv_δ_apply, singularConstantSimplex,
+      have h := congrArg (fun u => X.toLegacySSetObjEquiv (Opposite.op ⦋n⦌) u z) (hs i)
+      simpa only [TopCat.toLegacySSetObjEquiv_δ_apply, singularConstantSimplex,
         Equiv.apply_symm_apply, ContinuousMap.const_apply] using h
     · obtain ⟨hb, hb0, _hb1, hbf⟩ :=
         exists_coherent_singularSimplex_boundary_nullhomotopy X x n K hcoh s
       obtain ⟨F, hF0, hFB⟩ :=
-        exists_stdSimplex_boundary_homotopy_extension (n + 1) (X.toSSetObjEquiv _ s) hb hb0
+        exists_stdSimplex_boundary_homotopy_extension (n + 1) (X.toLegacySSetObjEquiv _ s) hb hb0
       let f1 : C(stdSimplex ℝ (Fin (n + 2)), X) :=
         ⟨fun z => F (1, z), F.continuous.comp (continuous_const.prodMk continuous_id)⟩
       let r : (TopCat.toSSet.obj X) _⦋n + 1⦌ :=
-        (X.toSSetObjEquiv (Opposite.op ⦋n + 1⦌)).symm f1
-      have hr : X.toSSetObjEquiv (Opposite.op ⦋n + 1⦌) r = f1 :=
-        (X.toSSetObjEquiv (Opposite.op ⦋n + 1⦌)).apply_symm_apply f1
-      let H : (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ r) := {
+        (X.toLegacySSetObjEquiv (Opposite.op ⦋n + 1⦌)).symm f1
+      have hr : X.toLegacySSetObjEquiv (Opposite.op ⦋n + 1⦌) r = f1 :=
+        (X.toLegacySSetObjEquiv (Opposite.op ⦋n + 1⦌)).apply_symm_apply f1
+      let H : (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ r) := {
         toContinuousMap := F
         map_zero_left := hF0
         map_one_left := fun z => (DFunLike.congr_fun hr z).symm
@@ -392,9 +393,9 @@ theorem exists_normalized_singularSimplex_straightening
         exact (hFB t y).trans (hbf i t z y rfl)
       refine ⟨r, H, ?_, htrace, fun hs' => (hs hs').elim⟩
       intro i
-      apply (X.toSSetObjEquiv _).injective
+      apply (X.toLegacySSetObjEquiv _).injective
       ext z
-      simp only [TopCat.toSSetObjEquiv_δ_apply, singularConstantSimplex,
+      simp only [TopCat.toLegacySSetObjEquiv_δ_apply, singularConstantSimplex,
         Equiv.apply_symm_apply, ContinuousMap.const_apply]
       exact (H.apply_one (stdSimplex.map i.succAbove z)).symm.trans
         ((htrace i 1 z).trans ((K n _ ((TopCat.toSSet.obj X).δ i s)).apply_one z))
@@ -406,13 +407,13 @@ the next degree, preserving both its exact endpoints and time parameter. -/
 theorem exists_singularSimplex_straightening_extension
     (X : TopCat.{w}) (n : ℕ)
     (r : (TopCat.toSSet.obj X) _⦋n + 1⦌ → (TopCat.toSSet.obj X) _⦋n + 1⦌)
-    (H : ∀ s, (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ (r s)))
+    (H : ∀ s, (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ (r s)))
     (K : (TopCat.toSSet.obj X) _⦋n⦌ → C(unitInterval × stdSimplex ℝ (Fin (n + 1)), X))
     (htrace : ∀ s (i : Fin (n + 2)) (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 1))),
       H s (t, stdSimplex.map i.succAbove z) = K ((TopCat.toSSet.obj X).δ i s) (t, z))
     (s : (TopCat.toSSet.obj X) _⦋n + 2⦌) :
     ∃ (r' : (TopCat.toSSet.obj X) _⦋n + 2⦌)
-      (F : (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ r')),
+      (F : (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ r')),
       (∀ i : Fin (n + 3), (TopCat.toSSet.obj X).δ i r' = r ((TopCat.toSSet.obj X).δ i s)) ∧
       ∀ (i : Fin (n + 3)) (t : unitInterval) (z : stdSimplex ℝ (Fin (n + 2))),
         F (t, stdSimplex.map i.succAbove z) = H ((TopCat.toSSet.obj X).δ i s) (t, z) := by
@@ -431,21 +432,21 @@ theorem exists_singularSimplex_straightening_extension
   obtain ⟨hb, hbf, _hunique⟩ :=
     existsUnique_stdSimplex_boundary_face_homotopy (n + 1) q hq hqface h hcompat
   have hb0 (y : {y : stdSimplex ℝ (Fin (n + 3)) // ∃ i, y i = 0}) :
-      hb (0, y) = X.toSSetObjEquiv _ s y.val := by
+      hb (0, y) = X.toLegacySSetObjEquiv _ s y.val := by
     obtain ⟨⟨i, z⟩, rfl⟩ := hq.surjective y
     rw [hbf]
     change H ((TopCat.toSSet.obj X).δ i s) (0, z) =
-      X.toSSetObjEquiv _ s (q ⟨i, z⟩).val
-    rw [ContinuousMap.Homotopy.apply_zero, TopCat.toSSetObjEquiv_δ_apply, hqface]
+      X.toLegacySSetObjEquiv _ s (q ⟨i, z⟩).val
+    rw [ContinuousMap.Homotopy.apply_zero, TopCat.toLegacySSetObjEquiv_δ_apply, hqface]
   obtain ⟨G, hG0, hGB⟩ :=
-    exists_stdSimplex_boundary_homotopy_extension (n + 2) (X.toSSetObjEquiv _ s) hb hb0
+    exists_stdSimplex_boundary_homotopy_extension (n + 2) (X.toLegacySSetObjEquiv _ s) hb hb0
   let f1 : C(stdSimplex ℝ (Fin (n + 3)), X) :=
     ⟨fun z => G (1, z), G.continuous.comp (continuous_const.prodMk continuous_id)⟩
   let r' : (TopCat.toSSet.obj X) _⦋n + 2⦌ :=
-    (X.toSSetObjEquiv (Opposite.op ⦋n + 2⦌)).symm f1
-  have hr' : X.toSSetObjEquiv (Opposite.op ⦋n + 2⦌) r' = f1 :=
-    (X.toSSetObjEquiv (Opposite.op ⦋n + 2⦌)).apply_symm_apply f1
-  let F : (X.toSSetObjEquiv _ s).Homotopy (X.toSSetObjEquiv _ r') := {
+    (X.toLegacySSetObjEquiv (Opposite.op ⦋n + 2⦌)).symm f1
+  have hr' : X.toLegacySSetObjEquiv (Opposite.op ⦋n + 2⦌) r' = f1 :=
+    (X.toLegacySSetObjEquiv (Opposite.op ⦋n + 2⦌)).apply_symm_apply f1
+  let F : (X.toLegacySSetObjEquiv _ s).Homotopy (X.toLegacySSetObjEquiv _ r') := {
     toContinuousMap := G
     map_zero_left := hG0
     map_one_left := fun z => (DFunLike.congr_fun hr' z).symm
@@ -457,9 +458,9 @@ theorem exists_singularSimplex_straightening_extension
     simpa only [hqface] using heq
   refine ⟨r', F, ?_, hF⟩
   intro i
-  apply (X.toSSetObjEquiv _).injective
+  apply (X.toLegacySSetObjEquiv _).injective
   ext z
-  rw [TopCat.toSSetObjEquiv_δ_apply]
+  rw [TopCat.toLegacySSetObjEquiv_δ_apply]
   exact (F.apply_one (stdSimplex.map i.succAbove z)).symm.trans
     ((hF i 1 z).trans ((H ((TopCat.toSSet.obj X).δ i s)).apply_one z))
 

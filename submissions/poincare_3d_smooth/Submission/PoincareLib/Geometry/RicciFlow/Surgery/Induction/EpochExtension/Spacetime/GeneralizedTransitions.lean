@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Induction.EpochExtension.Spacetime.GeneralizedBoxes
 
 /-!
@@ -107,7 +108,7 @@ theorem coordinateTransition_derivative (b c : refinedBoxIndex F) (t : ℝ)
     filter_upwards [e.open_source.mem_nhds hx] with y hy
     exact (coordinateTransition_worldline F b c t hb hc s hsb hsc y hy).symm
   have h := mfderiv_comp_apply x hC he v
-  rw [heq.mfderiv_eq, mfderiv_eq_fderiv] at h
+  rw [heq.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   exact h.symm
 
 theorem coordinateTransition_metric (b c : refinedBoxIndex F) (t : ℝ)

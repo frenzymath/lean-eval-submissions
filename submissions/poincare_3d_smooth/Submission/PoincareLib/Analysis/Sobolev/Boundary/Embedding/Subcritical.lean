@@ -44,7 +44,7 @@ private theorem memLp_subcritical {p : ℝ} (hp : 1 ≤ p) (hpd : p < (d : ℝ))
       (ENNReal.ofReal ((d : ℝ) * p / ((d : ℝ) - p))) volume := by
     simpa only [Measure.restrict_univ] using
       (show MemLp (evenReflect u) _ (volume.restrict univ) from
-        ⟨hv.memLp.aestronglyMeasurable, hnorm⟩)
+        hnorm)
   apply (hvq.restrict (halfSpace d)).ae_eq
   filter_upwards [ae_restrict_mem isOpen_halfSpace.measurableSet] with x hx
   exact evenReflect_eq_on_halfSpace u hx

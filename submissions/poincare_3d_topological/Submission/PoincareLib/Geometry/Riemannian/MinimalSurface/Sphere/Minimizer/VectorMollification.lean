@@ -9,7 +9,6 @@ coordinates. Source: SU 2.3, the distributional coefficient chain rule.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set MeasureTheory Filter ContinuousLinearMap
 open scoped Topology ContDiff ENNReal Convolution
@@ -47,11 +46,14 @@ theorem suEuclidean_Lp_tendsto_componentwise {X : Type*} [MeasurableSpace X]
     simp [t, PiLp.single_apply]
   have hn (j : ℕ) (a : Fin m) : eLpNorm (t j a) p μ =
       eLpNorm (fun x => v j x a - v0 x a) p μ :=
-    eLpNorm_congr_norm_ae (Eventually.of_forall fun x => by simp [t, norm_smul])
+    eLpNorm_congr_norm_ae (ht j a)
+      ((((EuclideanSpace.proj (𝕜 := ℝ) a).continuous.comp_aestronglyMeasurable (hv j)).sub
+        ((EuclideanSpace.proj (𝕜 := ℝ) a).continuous.comp_aestronglyMeasurable hv0)))
+      (Eventually.of_forall fun x => by simp [t, norm_smul])
   have hb (j : ℕ) : eLpNorm (v j - v0) p μ ≤
       ∑ a : Fin m, eLpNorm (fun x => v j x a - v0 x a) p μ := by
     rw [hsum]
-    exact (eLpNorm_sum_le (fun a _ => ht j a) hp).trans_eq (by simp only [hn])
+    exact (eLpNorm_sum_le hp).trans_eq (by simp only [hn])
   have hz : Tendsto (fun j => ∑ a : Fin m,
       eLpNorm (fun x => v j x a - v0 x a) p μ) atTop (𝓝 0) := by
     simpa using tendsto_finsetSum Finset.univ (fun a _ => hlim a)
@@ -70,7 +72,7 @@ theorem suVectorMollifier_Lp_tendsto {m : ℕ} {p : ℝ≥0∞} (hp : 1 ≤ p) (
   have hloc := hg.locallyIntegrable hp
   have hc (j) := (mollifierEps_compactSupport (hr j)).continuous_convolution_left
     (lsmul ℝ ℝ) (mollifierEps_continuous (hr j)) hloc
-  apply suEuclidean_Lp_tendsto_componentwise hp (fun j => (hc j).aestronglyMeasurable) hg.1
+  apply suEuclidean_Lp_tendsto_componentwise hp (fun j => (hc j).aestronglyMeasurable) hg.aestronglyMeasurable
   intro a
   have he (j : ℕ) (x : Plane) :
       (mollifierEps (hr j) ⋆[lsmul ℝ ℝ, volume] g) x a =

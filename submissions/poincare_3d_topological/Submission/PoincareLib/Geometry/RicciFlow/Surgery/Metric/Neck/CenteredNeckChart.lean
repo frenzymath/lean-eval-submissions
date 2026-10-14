@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Cylinder.CylinderModelField
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Collapse.RetainedDifferential
 
@@ -65,10 +66,10 @@ theorem centeredCylinderLift_mfderiv (theta : UnitTwoSphere) (s : ℝ) (p v : E�
     (contMDiff_const (c := s))).mdifferentiable (by simp)
   have hPd : mfderiv (𝓡 3) (𝓡 2) cylinderHorizontalProjection p =
       cylinderHorizontalProjection := by
-    rw [mfderiv_eq_fderiv, cylinderHorizontalProjection.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, cylinderHorizontalProjection.fderiv]
   have hdd : mfderiv (𝓡 3) 𝓘(ℝ, ℝ) (fun q => cylinderHeightCovector q + s) p =
       cylinderHeightCovector := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (cylinderHeightCovector.hasFDerivAt.add_const s).fderiv
   have hderiv := mfderiv_prodMk ((hc _).comp p (hP p)) (hd p)
   rw [mfderiv_comp p (hc _) (hP p), hPd] at hderiv

@@ -91,7 +91,7 @@ theorem continuousAt_abs_le_of_shrinking_eLpNorm {n : ℕ}
         (volume.restrict (Metric.ball z (ρ / (2 : ℝ) ^ k))) ≤
       eLpNorm f (ENNReal.ofReal (2 * χ ^ k))
         (volume.restrict (Metric.ball z (ρ / (2 : ℝ) ^ k))) := by
-      apply eLpNorm_mono_ae
+      apply eLpNorm_mono_ae aestronglyMeasurable_const
       filter_upwards [ae_restrict_mem measurableSet_ball] with x hx
       rw [Real.norm_eq_abs, abs_of_pos hc, Real.norm_eq_abs]
       exact (hball (y := x) ((Metric.mem_ball.mp hx).trans hk)).le

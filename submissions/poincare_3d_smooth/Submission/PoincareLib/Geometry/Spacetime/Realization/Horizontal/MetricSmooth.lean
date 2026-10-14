@@ -5,6 +5,8 @@ import Submission.PoincareLib.Geometry.Spacetime.Realization.Horizontal.Inclusio
 # Smoothness of the descended horizontal metric
 -/
 
+noncomputable section
+
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false
 
@@ -37,6 +39,12 @@ theorem horizontalTrivialization_symmL (A : AdaptedMetricAtlas n X) (b : A.box_i
   rw [Trivialization.symmL_apply _ hp]
   exact linearPretrivialization_symm (boxTarget A b)
     (fun p hp ↦ (boxHorizontalEquiv A b p hp).symm) p hp v
+
+-- Materialize the fiber norm instances for the iterated Hom bundle.
+local instance (A : AdaptedMetricAtlas n X) :
+    ∀ p : X, NormedAddCommGroup (adaptedHorizontal A p) := fun _p => inferInstance
+local instance (A : AdaptedMetricAtlas n X) :
+    ∀ p : X, NormedSpace ℝ (adaptedHorizontal A p) := fun _p => inferInstance
 
 theorem adaptedHorizontalMetric_smooth (A : AdaptedMetricAtlas n X) :
     letI := adaptedChartedSpace A

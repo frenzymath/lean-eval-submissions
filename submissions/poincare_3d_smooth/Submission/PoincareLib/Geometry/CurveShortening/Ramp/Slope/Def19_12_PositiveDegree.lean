@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Circle.Lift
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Local.DiffeomorphLift
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Slope.Slope.Regularity
@@ -59,7 +60,7 @@ theorem m63Slope_eq_lift_deriv_div_speed
   have hpr := mfderiv_comp_apply (f := gamma)
     (g := (Prod.snd : P.charts.Point → P.circle.Point)) x (hsnd (gamma x)) (hgamma x) 1
   have hval : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) L x 1 = deriv L x := by
-    rw [mfderiv_eq_fderiv, (hL x).hasDerivAt.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (hL x).hasDerivAt.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ _
   have hl := mfderiv_comp_apply (f := L) (g := P.circle.quotient) x
     (P.circle.quotient_smooth.mdifferentiableAt (by simp))

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.Noncompact.Quotient.End
 import Submission.PoincareLib.Geometry.Riemannian.Distance.DerivativeLipschitz
 import Submission.PoincareLib.Geometry.Riemannian.Distance.PathDisplacement
@@ -104,7 +105,7 @@ private theorem regularized_height_mvfderiv_cover
   rw [← hh, mvfderiv_comp p
     ((contMDiff_iff_contDiff.mpr (regularized_abs_smooth hδ)).mdifferentiable (by simp) p.2)
     ((contMDiff_snd (n := ∞)).mdifferentiable (by simp) p)]
-  simp only [mvfderiv, mfderiv_snd, mfderiv_eq_fderiv,
+  simp only [mvfderiv, mfderiv_snd, Poincare.Compatibility.mfderiv_eq_fderiv_model,
     ContinuousLinearMap.comp_apply]
   rw [(regularized_abs_derivative hδ p.2).hasFDerivAt.fderiv]
   change v.2 * (p.2 / Real.sqrt (p.2 ^ 2 + δ)) = _

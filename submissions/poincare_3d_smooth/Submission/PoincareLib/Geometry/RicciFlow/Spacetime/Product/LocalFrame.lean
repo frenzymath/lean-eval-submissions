@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Spacetime.Product.Frame
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Variation.Fields.ChartVectorField
 
@@ -74,7 +75,7 @@ theorem productChartField_eq_mpullback (C : SpacetimeCharts n M a b)
         (C.contMDiff_space.mdifferentiableAt (by simp)) V
       have hfst' : (mfderiv (𝓡 (n + 1)) 𝓘(ℝ, E × ℝ) psi q V).1 =
           mfderiv (𝓡 (n + 1)) (𝓡 n) (fun z : C.Point => (chartAt E p) z.1) q V := by
-        simpa +instances only [mfderiv_eq_fderiv, fderiv_fst,
+        simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_fst,
           ContinuousLinearMap.coe_fst', Function.comp_def, psi] using! h.symm
       rw [hfst']
       change _ = mfderiv (𝓡 n) (𝓡 n) (chartAt E p) q.1 (C.split q V).1
@@ -87,7 +88,7 @@ theorem productChartField_eq_mpullback (C : SpacetimeCharts n M a b)
         q hsnd (hpsi.mdifferentiableAt (by simp)) V
       change (mfderiv (𝓡 (n + 1)) 𝓘(ℝ, E × ℝ) psi q V).2 = (C.split q V).2
       rw [C.split_time]
-      simpa +instances only [mfderiv_eq_fderiv, fderiv_snd,
+      simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_snd,
         ContinuousLinearMap.coe_snd', Function.comp_def, psi] using! h.symm
   change C.productChartField p v r q =
     (mfderiv (𝓡 (n + 1)) 𝓘(ℝ, E × ℝ) psi q).inverse (v, r)

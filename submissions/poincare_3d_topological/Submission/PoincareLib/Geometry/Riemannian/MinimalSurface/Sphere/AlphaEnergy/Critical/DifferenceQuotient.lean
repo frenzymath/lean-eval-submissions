@@ -168,19 +168,18 @@ theorem suWeakPartial_two_dim_memLp
   have huP : MemLp u (ENNReal.ofReal p) mu := hu.mono_exponent hpE
   have hVLp : ∀ i, MemLp (V i) (ENNReal.ofReal p) mu :=
     fun i => (hV i).mono_exponent hpE
-  have hv : MemLp v (ENNReal.ofReal p) mu := huP.mul' hchiLp
+  have hv : MemLp v (ENNReal.ofReal p) mu := hchiLp.fun_mul huP
   have hdv (i : Fin 2) : MemLp (dv i) (ENNReal.ofReal p) mu := by
     have hdchi : MemLp (fun x => fderiv ℝ chi x (EuclideanSpace.single i 1)) ⊤ mu :=
       (((hchi.continuous_fderiv (by simp)).clm_apply continuous_const
         ).memLp_of_hasCompactSupport (hchic.fderiv_apply (𝕜 := ℝ) _)).restrict O
-    exact ((hVLp i).mul' hchiLp).add (huP.mul' hdchi)
+    exact (hchiLp.fun_mul (hVLp i)).add (hdchi.fun_mul huP)
   have hwv (i : Fin 2) : HasWeakPartialDeriv i (dv i) v O :=
     (hw i).mul_smooth isOpen_ball hchi
       (hu.locallyIntegrable (by norm_num)) ((hV i).locallyIntegrable (by norm_num))
   have hvW : Euclidean.MemWkp 1 (ENNReal.ofReal p) v O :=
     Euclidean.MemWkp.one_iff_memW1p.mpr ⟨hv, fun i => ⟨dv i, hdv i, hwv i⟩⟩
   have hvq : MemLp v (ENNReal.ofReal q) mu := by
-    refine ⟨hv.1, ?_⟩
     have hs := eLpNorm_p_star_le_const_mul_wkpNorm_of_memWkp hp1 hp2 isOpen_ball hvW
         hchic.mul_right (tsupport_mul_subset_left.trans hchiO)
     simp only [Nat.cast_ofNat, hstar] at hs
@@ -287,8 +286,8 @@ theorem suNaturalGrowth_translated_potential
     have hsqc : HasCompactSupport (fun x => phi x ^ 2) := hc.of_isClosed_subset
       (isClosed_tsupport _) (tsupport_comp_subset (g := fun t : ℝ => t ^ 2) (by simp) phi)
     exact memLp_one_iff_integrable.mp
-      (((hphi.continuous.pow 2).memLp_of_hasCompactSupport hsqc : MemLp _ ⊤ volume
-        ).mul' (memLp_one_iff_integrable.mpr hA))
+      ((memLp_one_iff_integrable.mpr hA).fun_mul
+        ((hphi.continuous.pow 2).memLp_of_hasCompactSupport hsqc : MemLp _ ⊤ volume))
   have hgrad {A : LoopPlane → ℝ} (hA : Integrable A) : Integrable (fun x => A x *
       ∑ i : Fin 2, (fderiv ℝ phi x (EuclideanSpace.single i 1)) ^ 2) := by
     simp_rw [Finset.mul_sum]
@@ -298,8 +297,8 @@ theorem suNaturalGrowth_translated_potential
       ((hphi.continuous_fderiv (by simp)).clm_apply continuous_const
         ).memLp_of_hasCompactSupport (hc.fderiv_apply (𝕜 := ℝ) _)
     have hs2 : MemLp (fun x => (fderiv ℝ phi x (EuclideanSpace.single i 1)) ^ 2) ⊤ volume :=
-      by simpa only [pow_two] using hd.mul' hd
-    exact memLp_one_iff_integrable.mp (hs2.mul' (memLp_one_iff_integrable.mpr hA))
+      by simpa only [pow_two] using hd.fun_mul hd
+    exact memLp_one_iff_integrable.mp ((memLp_one_iff_integrable.mpr hA).fun_mul hs2)
   have hHt : Integrable (fun x => H (x + a)) :=
     (measurePreserving_add_right volume a).integrable_comp_of_integrable hH
   have hWt : Integrable (fun x => W (x + a)) :=
@@ -410,7 +409,7 @@ theorem suNaturalGrowth_cutoff_remainder_bounded
     (show Continuous (fun x => xi x ^ 2) from hxi.continuous.pow 2
       ).memLp_of_hasCompactSupport hsqc
   have hKI : Integrable (fun x => (H x + translate k h H x) * xi x ^ 2) :=
-    memLp_one_iff_integrable.mp (hsq.mul' (memLp_one_iff_integrable.mpr hsum))
+    memLp_one_iff_integrable.mp ((memLp_one_iff_integrable.mpr hsum).fun_mul hsq)
   have hK : (∫ x, (H x + translate k h H x) * xi x ^ 2) ≤ 2 * ∫ x, H x := by
     have hmono := integral_mono hKI hsum (fun x =>
       mul_le_of_le_one_right (add_nonneg (hH0 x) (hH0 _))

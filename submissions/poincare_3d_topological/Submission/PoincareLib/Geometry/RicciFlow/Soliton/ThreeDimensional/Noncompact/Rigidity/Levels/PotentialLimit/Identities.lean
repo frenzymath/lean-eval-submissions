@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.ThreeDimensional.Noncompact.Rigidity.Levels.PotentialLimit.Estimates
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.Basic
 import Submission.PoincareLib.Geometry.Manifold.ContDiff.Constancy
@@ -37,7 +38,7 @@ theorem gradient_normSq_in_parametrization (D : LeviCivitaData g)
   have hB : B.IsInvertible := g.isInvertible_pullbackCoefficients hi.injective
   have hd : d = (mvfderiv (𝓡 n) f (e x)).comp A := by
     have h := mfderiv_comp x hf he
-    rw [mfderiv_eq_fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     exact h
   have hBA : B (A.inverse (D.gradient f (e x))) = d := by
     ext v

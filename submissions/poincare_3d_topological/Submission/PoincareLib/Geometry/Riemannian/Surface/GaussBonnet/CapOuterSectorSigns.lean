@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.CapOuterSectorAngles
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.Refinement.ClosedConeDerivatives
 
@@ -134,7 +135,7 @@ theorem hasFDerivAt_chart_coordinates
   have hc := ((mdifferentiable_chart (I := 𝓡 2) v).1 _ hv).mdifferentiableAt
     ((chartAt Plane v).open_source.mem_nhds hv)
   have hG := (hc.comp z hf).differentiableAt.hasFDerivAt
-  rw [← mfderiv_eq_fderiv, mfderiv_comp z hc hf] at hG
+  rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp z hc hf] at hG
   exact hG
 
 namespace ChartCircleArrangementVertexPatch.VertexCapFaces

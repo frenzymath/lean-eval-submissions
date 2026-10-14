@@ -138,7 +138,9 @@ theorem bijective_fderiv_homotopy_of_ball_preserving_sphere_patch
   have hinj : Function.Injective (fderiv Real D p) := by
     have h := (D.mfderivToContinuousLinearEquiv (by simp) p).injective
     change Function.Injective (mfderiv (𝓡 3) (𝓡 3) D p) at h
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+    rw [mfderiv_eq_fderiv] at h
+    change Function.Injective (fderiv Real D p) at h
+    exact h
   have hd := ((hasFDerivAt_id (p : E3)).const_smul (1 - t)).add
     ((hD.differentiable (by simp) p).hasFDerivAt.const_smul t)
   change Function.Bijective

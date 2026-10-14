@@ -127,6 +127,7 @@ theorem terminalCommonInterval_pullback_eq
     exact terminalCommonInterval_generalized_eq H e f hIc hJc hU hV ha hI hJ
       y hy.1 y hy.2 (hterminal y hy)
   unfold GeneralizedFlowCylinder.pullbackInner
-  rw [heq.self_of_nhds, heq.mfderiv_eq]
+  rw [heq.mfderiv_eq, heq.self_of_nhds]
+  rfl
 
 end PoincareMT.M47

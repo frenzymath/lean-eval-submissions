@@ -44,11 +44,20 @@ p. 113. -/
 theorem initialValueCurve_initialVectorDerivative_zero (Z : G.Horizontal x) :
     M14InitialVectorDerivative G (initialValueCurve G T x) 0 Z = 0 := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   unfold M14InitialVectorDerivative
   have hcurve : (fun V => initialValueCurve G T x V 0) = fun _ => x :=
@@ -67,11 +76,20 @@ theorem initialValueCurve_initialVectorDerivative_clock
       (initialValueCurve G T x Z s)
       (M14InitialVectorDerivative G (initialValueCurve G T x) s Z W)) = 0 := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   rcases eq_or_lt_of_le (initialValueDomain_nonneg hs) with hs0 | hs0
   · subst s
@@ -86,6 +104,7 @@ theorem initialValueCurve_initialVectorDerivative_clock
       (fun _ hV => ⟨hV, hs0.le, le_rfl⟩)
   have hdiff := ((hslice Z hZU).contMDiffAt (hU.mem_nhds hZU)).mdifferentiableAt
     (by simp)
+  letI : T2Space ℝ := inferInstance
   have htime : ContMDiff (spacetimeModel n) 𝓘(ℝ) ∞ G.spacetime.timeFunction :=
     G.spacetime.time_smooth
   have ht := (htime.mdifferentiable (by simp)
@@ -96,7 +115,8 @@ theorem initialValueCurve_initialVectorDerivative_clock
     filter_upwards [hU.mem_nhds hZU] with V hV
     exact initialValueCurve_clock hbase (htube ⟨hV, hs0.le, le_rfl⟩)
   set_option backward.isDefEq.respectTransparency false in
-    exact DFunLike.congr_fun (ht.hasFDerivAt.unique hc) W
+    convert! congrArg (fun L : G.Horizontal x →L[ℝ] ℝ => L W)
+      (ht.hasFDerivAt.unique hc) using 1
 
 -- The scalar tangent fiber of the time function is definitionally the reals.
 set_option backward.isDefEq.respectTransparency false in

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.CoordinateGreen
 import Submission.PoincareLib.Geometry.Riemannian.Measure.HausdorffDensity
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Divergence
@@ -68,7 +69,7 @@ theorem integral_mul_laplacian_density
       (∑ i, fderiv ℝ u x (EuclideanSpace.basisFun (Fin n) ℝ i) * V i x) =
         g.inner x (D.gradient u x) (D.gradient v x) * g.pullbackVolumeDensity id x := by
     rw [D.inner_gradient]
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     change _ = fderiv ℝ u x (D.gradient v x) * g.pullbackVolumeDensity id x
     rw [fderiv_eq_sum_coordinates, Finset.sum_mul]
     apply Finset.sum_congr rfl

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Fixed.PeriodSpectralApproximants
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Common.AmbientSpectralFamily
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Prescribed.NormalApproximationSlab
@@ -107,7 +108,7 @@ theorem exists_common_normal_approximants
       erw [mfderiv_comp x
         ((hρ.contMDiffAt (hU.mem_nhds (heU (mem_range_self _)))).mdifferentiableAt (by simp))
         ((hc0.contMDiff x).mdifferentiableAt (by norm_num)),
-        ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+        ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
       rfl
     have hid : (fun y => ρ (c0 y)) = γ := funext fun y => hρe (γ y)
     rw [hid] at hv

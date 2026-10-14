@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.Bounds.Operator
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.SectionalBounds
 import Submission.PoincareLib.Geometry.Riemannian.Connection.AlongCurve.Manifold
@@ -143,7 +144,7 @@ private theorem chartCoefficient_apply (D : LeviCivitaData g)
       L (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) q t 1) := by
     have hd := mfderiv_comp t (mdifferentiableAt_extChartAt
       (by simpa only [extChartAt_source] using ha)) (hq.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact congrArg (fun f => f 1) hd
   have hB := (g.contDiffOn_chartCoefficients a).contDiffAt
     ((isOpen_extChartAt_target a).mem_nhds ((extChartAt (𝓡 n) a).map_source ha))

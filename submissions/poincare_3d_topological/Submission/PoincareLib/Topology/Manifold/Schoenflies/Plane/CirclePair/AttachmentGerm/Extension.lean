@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Plane.CirclePair.AttachmentGerm.Restriction
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Plane.CirclePair.AttachmentGerm.Side
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Isotopy.Circle.Reparametrization
@@ -51,7 +52,7 @@ theorem exists_disk_diffeomorph_of_boundary_germ
     IsLocalDiffeomorphAt.comp (I := 𝓡 2) (J := 𝓡 2) (K := 𝓡 2) (P := E2) (n := ∞)
       hP (H.symm.isLocalDiffeomorph (P p))
   have hkinj : Injective (fderiv Real k p) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (hkloc.mfderivToContinuousLinearEquiv (by simp)).injective
   have hkinside : ∀ᶠ t in 𝓝[<] (0 : Real), ‖k ((1 + t) • (p : E2))‖ < 1 := by
     filter_upwards [hinside] with t ht

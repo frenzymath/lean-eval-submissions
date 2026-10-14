@@ -386,7 +386,7 @@ theorem suStrongLp_of_subseq_weak_and_power_cauchy
     obtain ⟨hmem, hbound⟩ := suWeakLp_memLp_of_power_bound hp hr0 hweak
       (fun l => hN j hj (k (l + N)) ((Nat.le_add_left _ _).trans (hk.id_le _)))
     have hint : Integrable (fun x => ‖(u j - v) x‖ ^ p) mu := by
-      have h := (integrable_norm_rpow_iff hmem.1 (ENNReal.ofReal_pos.mpr hp0).ne'
+      have h := (integrable_norm_rpow_iff (Lp.aestronglyMeasurable (u j - v)) (ENNReal.ofReal_pos.mpr hp0).ne'
         ENNReal.ofReal_ne_top).mpr hmem
       simpa only [ENNReal.toReal_ofReal hp0.le] using h
     change (∫⁻ x, ENNReal.ofReal (‖(u j - v) x‖ ^ p) ∂mu) ≤ ε
@@ -396,7 +396,7 @@ theorem suStrongLp_of_subseq_weak_and_power_cauchy
   have hpow := hI.ennrpow_const (1 / p)
   have heq (j : ℕ) : eLpNorm (fun x => (u j - v) x) (ENNReal.ofReal p) mu = I j ^ (1 / p) := by
     rw [eLpNorm_eq_lintegral_rpow_enorm_toReal (ENNReal.ofReal_pos.mpr hp0).ne'
-      ENNReal.ofReal_ne_top, ENNReal.toReal_ofReal hp0.le]
+      ENNReal.ofReal_ne_top (Lp.aestronglyMeasurable (u j - v)), ENNReal.toReal_ofReal hp0.le]
     congr 1
     apply lintegral_congr
     intro x

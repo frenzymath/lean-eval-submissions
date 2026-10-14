@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.Band.AmbientSectorCoordinates
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.Band.RefinedFans
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.EndpointRays
@@ -137,7 +138,7 @@ theorem coordinateTriangleVelocity_pos_smul_of_chart_segment
   have h := congrArg (fun L => L 1) (mfderiv_comp (0 : ℝ)
     (by simpa using hCp) hd.differentiableAt.mdifferentiableAt)
   dsimp only [TangentSpace] at h hvelocity ⊢
-  simp only [ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv, hd.hasFDerivAt.fderiv,
+  simp only [ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model, hd.hasFDerivAt.fderiv,
     ContinuousLinearMap.toSpanSingleton_apply, one_smul] at h
   rw [AffineMap.lineMap_apply_zero] at h
   exact hvelocity.trans (congrArg (fun v => deriv φ 0 • v) h)
@@ -392,11 +393,15 @@ theorem topOutwardRay_eq_chart_differential
   have hd := congrArg (fun L => L 1) (mfderiv_comp (1 : ℝ) hCp'
     hβ'.differentiableAt.mdifferentiableAt)
   dsimp only [TangentSpace] at hd ⊢
-  simp only [ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv, hβ'.hasFDerivAt.fderiv,
+  simp only [ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model, hβ'.hasFDerivAt.fderiv,
     ContinuousLinearMap.toSpanSingleton_apply, one_smul, map_smul] at hd
   have hd' : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (C ∘ β) 1 1 =
       h • mfderiv (𝓡 2) (𝓡 2) C (B.chartTopVertex i.succ)
         (B.ambientOutwardDirection i.succ) := by
+    change mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (C ∘ β) 1 1 =
+      mfderiv (𝓡 2) (𝓡 2) C (β 1)
+        (h • (show TangentSpace (𝓡 2) (β 1) from B.ambientOutwardDirection i.succ)) at hd
+    rw [map_smul] at hd
     exact hd.trans (congrArg (fun z : Plane => h •
       (mfderiv (𝓡 2) (𝓡 2) C z (B.ambientOutwardDirection i.succ) : Plane)) hpoint)
   rw [B.faces.topOutwardRay_eq_cut_velocity

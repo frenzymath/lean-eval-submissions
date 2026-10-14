@@ -124,7 +124,8 @@ theorem injOn_fderiv_extension_tangent_circle {f : S1 → E2}
     have heq : f = G ∘ (Subtype.val : S1 → E2) := funext fun y => (hrestrict y).symm
     rw [heq, mfderiv_comp _ (hG.contMDiff.contMDiffAt.mdifferentiableAt (by simp))
       ((contMDiff_coe_sphere (n := 1) p).mdifferentiableAt
-        (show (∞ : ℕ∞ω) ≠ 0 by simp)), mfderiv_eq_fderiv]
+        (show (∞ : ℕ∞ω) ≠ 0 by simp)), mfderiv_eq_fderiv, NormedSpace.fromTangentSpace, tangentSpaceCastModel]
+    rfl
   intro u hu v hv huv
   have hu' : u ∈ L.range := by
     rw [hrange, Submodule.mem_orthogonal_singleton_iff_inner_right]

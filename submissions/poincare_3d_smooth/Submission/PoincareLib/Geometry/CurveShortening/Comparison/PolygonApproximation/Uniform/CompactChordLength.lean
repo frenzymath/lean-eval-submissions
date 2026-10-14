@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Approximation.Raw.LoopLength
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Approximation.Sampled.PolygonLength
@@ -117,7 +118,7 @@ theorem m64_exists_uniform_sampled_chord_length
     have heq : deriv ((chartAt LoopAmbient p) ∘ gamma z) t =
         mfderiv (𝓡 3) (𝓡 3) (chartAt LoopAmbient p) (gamma z t)
           (curveVelocity (gamma z) t) := by
-      simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv, curveVelocity]
+      simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv, curveVelocity]
         using! mfderiv_comp_apply t hc hg (1 : ℝ)
     have hh := hdiff.hasDerivAt
     rw [heq] at hh

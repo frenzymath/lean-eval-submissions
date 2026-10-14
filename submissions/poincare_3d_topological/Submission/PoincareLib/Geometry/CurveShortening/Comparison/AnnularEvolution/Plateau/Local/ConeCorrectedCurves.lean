@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Local.ConeChartCorrection
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Local.ConeCircleEnergy
 import Mathlib.Topology.UniformSpace.UniformConvergenceTopology
@@ -36,7 +37,7 @@ theorem m64_corrected_curve_speed_le
       (mfderiv (𝓡 m) (𝓡 n) T (w x) v) ≤ B * ‖v‖) :
     g.tangentNorm (T (w x)) (curveVelocity (T ∘ w) x) ≤ B * ‖deriv w x‖ := by
   have hd : mfderiv 𝓘(ℝ, ℝ) (𝓡 m) w x 1 = deriv w x := by
-    simpa +instances only [mfderiv_eq_fderiv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using!
       (fderiv_apply_one_eq_deriv : fderiv ℝ w x 1 = deriv w x)
   unfold curveVelocity
   erw [mfderiv_comp_apply x hT hw.mdifferentiableAt (1 : ℝ), hd]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Measurable.NormalStrip
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Polar.Inverse
 
@@ -106,7 +107,7 @@ theorem m64Intrinsic_exists_normal_endpoint_lift
       fderiv ℝ e !₂[a, t] v = fderiv ℝ u (a, t) (v 0, v 1) :=
     m64Intrinsic_normal_coordinate_differential hdu v
   have hei : Function.Injective (mfderiv (𝓡 2) (𝓡 2) e !₂[a, t]) := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change Function.Injective (fderiv ℝ e !₂[a, t])
     intro v w hvw
     have hcoords := hi (by simpa only [hde] using hvw)

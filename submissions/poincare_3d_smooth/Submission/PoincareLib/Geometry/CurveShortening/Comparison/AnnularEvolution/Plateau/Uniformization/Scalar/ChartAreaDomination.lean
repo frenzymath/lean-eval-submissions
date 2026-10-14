@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.ChartAreaLimit
 
 /-!
@@ -72,7 +73,7 @@ theorem scalarC1_composed_area_bound
     have hle := (le_abs_self (B (u x, fderiv ℝ u x (EuclideanSpace.single i 1),
       fderiv ℝ u x (EuclideanSpace.single i 1)))).trans (hb'.trans (le_max_left C 0))
     simpa only [m60AreaGram, mfderiv_comp x hfd
-      (mdifferentiableAt_iff_differentiableAt.mpr hdx), mfderiv_eq_fderiv,
+      (mdifferentiableAt_iff_differentiableAt.mpr hdx), Poincare.Compatibility.mfderiv_eq_fderiv_model,
       EuclideanSpace.basisFun_apply, ContinuousLinearMap.comp_apply, B,
       Function.comp_apply] using! hle
   apply (m60AreaDensity_le_energyDensity g (f ∘ u) x).trans

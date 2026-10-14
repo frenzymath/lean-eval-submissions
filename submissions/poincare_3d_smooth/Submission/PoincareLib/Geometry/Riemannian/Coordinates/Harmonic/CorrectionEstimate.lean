@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.CoordinateEnergy
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Perturbation
 import Mathlib.Analysis.Calculus.LineDeriv.IntegrationByParts
@@ -87,7 +88,7 @@ theorem integral_inner_gradient_linear_eq_residual (D : LeviCivitaData g)
         (by simp [e])
   have hmf (F : E → ℝ) (x : E) : mvfderiv (𝓡 n) F x = fderiv ℝ F x := by
     ext u
-    simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   have hgrad (x : E) : D.gradient (innerSL ℝ v) x =
       (g.euclideanCoefficients x).inverse (innerSL ℝ v) := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Analysis.Geometry.RadiusSquareLipschitz
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Tube.IntrinsicGeometry.IntrinsicLocalPaths
@@ -123,7 +124,7 @@ private theorem speed_affine {g : RiemannianMetric n M} {γ : ℝ → M}
       (mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun t : ℝ => a * t + b) 0 1) at hd
   have hp' : fderiv ℝ (fun t : ℝ => a * t + b) 0 1 = a := by
     rw [fderiv_eq_smul_deriv, one_smul, hp.deriv]
-  erw [mfderiv_eq_fderiv, hp'] at hd
+  erw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hp'] at hd
   have hvel := hd.trans (by simpa only [smul_eq_mul, mul_one] using
     (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (a * 0 + b)).map_smul a (1 : ℝ))
   rw [hvel]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.ConnectionScalar
 
 /-! Adapted from Mapher06/Poincare-MorganTian, `PoincareMT/Proofs/M04/ScalarBracket.lean`,
@@ -70,7 +71,7 @@ theorem mvfderiv_mlieBracket {U : Set M} (hU : IsOpen U) {f : M → ℝ}
       fderiv ℝ (a ∘ e.symm) p = mvfderiv (𝓡 n) a x := by
     have ha' : MDifferentiableAt (𝓡 n) 𝓘(ℝ, ℝ) a (e.symm p) := by
       simpa +instances only [he] using ha
-    erw [← mfderiv_eq_fderiv, mfderiv_comp p ha' ((hec hp).mdifferentiableAt (by simp)),
+    erw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp p ha' ((hec hp).mdifferentiableAt (by simp)),
       hid, ContinuousLinearMap.comp_id]
     change mfderiv (𝓡 n) 𝓘(ℝ, ℝ) a (e.symm p) = mfderiv (𝓡 n) 𝓘(ℝ, ℝ) a x
     erw [he]
@@ -90,7 +91,7 @@ theorem mvfderiv_mlieBracket {U : Set M} (hU : IsOpen U) {f : M → ℝ}
     have hInv : (mfderiv 𝓘(ℝ, E) (𝓡 n) e.symm q).IsInvertible := by
       simpa +instances only [ModelWithCorners.range_eq_univ, mfderivWithin_univ] using
         (isInvertible_mfderivWithin_extChartAt_symm (I := 𝓡 n) hqT)
-    erw [← mfderiv_eq_fderiv, mfderiv_comp q hfq hiq]
+    erw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp q hfq hiq]
     simp +instances only [VectorField.mpullbackWithin_apply,
       ModelWithCorners.range_eq_univ, mfderivWithin_univ]
     change mvfderiv (𝓡 n) f (e.symm q)

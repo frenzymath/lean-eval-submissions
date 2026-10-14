@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Annular.Cap
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Conformal.Trace
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Conformal.PlaneLaplacian
@@ -95,7 +96,7 @@ theorem suBubbleInversion_energy (g : RiemannianMetric n M) (f : LoopPlane → M
   simp only [m60EnergyDensity, Matrix.trace_fin_two, m60AreaGram]
   rw [mfderiv_comp z hf
     (hgeom.1.differentiableAt (by simp)).hasFDerivAt.hasMFDerivAt.mdifferentiableAt,
-    mfderiv_eq_fderiv]
+    Poincare.Compatibility.mfderiv_eq_fderiv_model]
   simp only [ContinuousLinearMap.comp_apply, Function.comp_def]
   simp only [B, A, ContinuousLinearMap.toBilinForm_apply,
     LinearMap.compl₁₂_apply, Fin.sum_univ_two, ContinuousLinearMap.coe_coe] at hh

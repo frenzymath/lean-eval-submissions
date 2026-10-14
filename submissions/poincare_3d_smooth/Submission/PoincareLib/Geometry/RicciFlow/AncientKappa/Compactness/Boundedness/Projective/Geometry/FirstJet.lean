@@ -128,7 +128,7 @@ theorem roundCylinderClose_coefficient_derivative_center_le
   have hprod : (∏ r : Fin 3, ‖roundCylinderChartBasis q
       (chartAt (EuclideanSpace ℝ (Fin 2)) q q, s) (a r)‖) ≤ 8 := by
     calc
-      _ ≤ ∏ _r : Fin 3, (2 : ℝ) := Finset.prod_le_prod
+      _ ≤ ∏ _r : Fin 3, (2 : ℝ) := Finset.prod_le_prod₀
         (fun r _ => norm_nonneg _)
         (fun r _ => EpsilonNeck.norm_roundCylinderChartBasis_center_le_two q s (a r))
       _ = 8 := by norm_num

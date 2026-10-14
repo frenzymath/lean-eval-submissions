@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Metric
 import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
 import Mathlib.Topology.Order.Compact
@@ -62,7 +63,7 @@ theorem eventually_derivative_bound (g : RiemannianMetric n M) {f : M → ℝ}
     (contMDiffAt_extChartAt' (n := ∞) hys).mdifferentiableAt (by simp)
   rw [Poincare.mvfderiv_eq_of_eventuallyEq heq,
     mvfderiv_comp y ((hF y hys).differentiableAt (by simp)).mdifferentiableAt hmd]
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
   change |fderiv ℝ F (e y) (mfderiv (𝓡 n) (𝓘(ℝ, EuclideanSpace ℝ (Fin n))) e y v)| ≤ _
   rw [← Real.norm_eq_abs]
   have hv := (mfderiv (𝓡 n) (𝓘(ℝ, EuclideanSpace ℝ (Fin n))) e y).le_opNorm v

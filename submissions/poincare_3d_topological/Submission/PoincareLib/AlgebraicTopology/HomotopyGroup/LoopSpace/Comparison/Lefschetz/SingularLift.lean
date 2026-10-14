@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.FiniteNerveChains
 import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
 import Mathlib.Topology.Homotopy.Lifting
@@ -79,9 +80,9 @@ uniqueness will make these coordinates injective.
 Source: Hatcher, Proposition 1.33, pp. 61-62. -/
 def singularLiftVertex (n : ℕ) : (singularLiftSSet p A χ) _⦋n⦌ →
     Σ s : A _⦋n⦌,
-      p ⁻¹' {(TopCat.of X).toSSetObjEquiv _ (χ.app _ s) (stdSimplex.vertex 0)} :=
-  fun z => ⟨z.val.1, ⟨(TopCat.of E).toSSetObjEquiv _ z.val.2 (stdSimplex.vertex 0), by
-    have h := congrArg (fun s => (TopCat.of X).toSSetObjEquiv _ s (stdSimplex.vertex 0))
+      p ⁻¹' {(TopCat.of X).toLegacySSetObjEquiv _ (χ.app _ s) (stdSimplex.vertex 0)} :=
+  fun z => ⟨z.val.1, ⟨(TopCat.of E).toLegacySSetObjEquiv _ z.val.2 (stdSimplex.vertex 0), by
+    have h := congrArg (fun s => (TopCat.of X).toLegacySSetObjEquiv _ s (stdSimplex.vertex 0))
       z.property
     exact h⟩⟩
 
@@ -91,20 +92,20 @@ theorem singularLiftVertex_injective (hp : IsCoveringMap p) (n : ℕ) :
     Function.Injective (singularLiftVertex p A χ n) := by
   intro z w h
   have hbase : z.val.1 = w.val.1 := congrArg Sigma.fst h
-  have hpoint : (TopCat.of E).toSSetObjEquiv _ z.val.2 (stdSimplex.vertex 0) =
-      (TopCat.of E).toSSetObjEquiv _ w.val.2 (stdSimplex.vertex 0) :=
+  have hpoint : (TopCat.of E).toLegacySSetObjEquiv _ z.val.2 (stdSimplex.vertex 0) =
+      (TopCat.of E).toLegacySSetObjEquiv _ w.val.2 (stdSimplex.vertex 0) :=
     congrArg (fun z => z.2.val) h
   apply Subtype.ext
   apply Prod.ext hbase
-  apply ((TopCat.of E).toSSetObjEquiv _).injective
+  apply ((TopCat.of E).toLegacySSetObjEquiv _).injective
   apply ContinuousMap.coe_injective
-  apply hp.eq_of_comp_eq ((TopCat.of E).toSSetObjEquiv _ z.val.2).continuous
-    ((TopCat.of E).toSSetObjEquiv _ w.val.2).continuous _ (stdSimplex.vertex 0) hpoint
+  apply hp.eq_of_comp_eq ((TopCat.of E).toLegacySSetObjEquiv _ z.val.2).continuous
+    ((TopCat.of E).toLegacySSetObjEquiv _ w.val.2).continuous _ (stdSimplex.vertex 0) hpoint
   have hz := z.property
   have hw := w.property
   rw [hbase] at hz
   have heq := hz.trans hw.symm
-  exact congrArg (fun s => ((TopCat.of X).toSSetObjEquiv _ s).toFun) heq
+  exact congrArg (fun s => ((TopCat.of X).toLegacySSetObjEquiv _ s).toFun) heq
 
 /-- A finite model lifted through a compact covering remains finite in
 every simplicial degree. Source: Hatcher, Theorem 2.27, pp. 128-130. -/
@@ -112,7 +113,7 @@ theorem singularLift_finite [CompactSpace E] [T2Space X]
     (hp : IsCoveringMap p) (n : ℕ) [Finite (A _⦋n⦌)] :
     Finite ((singularLiftSSet p A χ) _⦋n⦌) := by
   let hfinite (s : A _⦋n⦌) := compact_covering_fiber_finite p hp
-    ((TopCat.of X).toSSetObjEquiv _ (χ.app _ s) (stdSimplex.vertex 0))
+    ((TopCat.of X).toLegacySSetObjEquiv _ (χ.app _ s) (stdSimplex.vertex 0))
   exact Finite.of_injective _ (singularLiftVertex_injective p A χ hp n)
 
 end PoincareMT.Proofs.M59

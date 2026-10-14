@@ -215,7 +215,6 @@ theorem exists_uniform_actual_curvature_integral_energy_bound
       linarith
     have hsum := add_le_add hw hq'
     convert hsum using 1
-    · rfl
     · simp only [f, w, mul_add, Finset.sum_add_distrib]
     · simp only [rho, f, gradS, CR, Fintype.sum_prod_type]
       ring

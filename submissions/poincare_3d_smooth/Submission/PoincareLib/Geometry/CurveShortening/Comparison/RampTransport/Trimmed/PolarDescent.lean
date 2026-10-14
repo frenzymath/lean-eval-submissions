@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.StandardCylinder
 
 /-!
@@ -155,7 +156,7 @@ private theorem trimmedDescent_smooth_immersedAt
   have hD := hcover.mfderiv_eq (I := 𝓘(ℝ, Cover)) (I' := 𝓡 n)
   rw [mfderiv_comp z (hF.mdifferentiableAt (by simp)) hpolar,
     mfderiv_comp z (hfo.mdifferentiableAt (by simp)) (hT.mdifferentiableAt (by simp)),
-    mfderiv_eq_fderiv, mfderiv_eq_fderiv] at hD
+    Poincare.Compatibility.mfderiv_eq_fderiv_model, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hD
   have hinj : Function.Injective
       ((mfderiv (𝓡 2) (𝓡 n) F (scalarCoverMap z)).comp (fderiv ℝ scalarCoverMap z)) := by
     rw [hD]

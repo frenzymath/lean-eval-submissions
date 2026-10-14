@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.AlongCurve.Manifold
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.RadialDifferential
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Jacobi.Manifold
@@ -154,7 +155,7 @@ theorem contDiffAt_chartField_radialDifferential
     have hd := mfderiv_comp (s • v)
       (mdifferentiableAt_extChartAt (by simpa only [c, extChartAt_source] using hs.2))
       ((he.contMDiffAt (hU.mem_nhds hs.1)).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact (congrArg (fun A => A (s • w)) hd).symm
   exact (((hf.fderiv_right (by simp)).comp t hline.contDiffAt).clm_apply
     (by fun_prop)).congr_of_eventuallyEq hrep

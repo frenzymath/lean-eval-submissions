@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Spacetime.Realization.Box.InverseDifferential
 
 /-!
@@ -51,7 +52,7 @@ theorem boxSpatialTransition_eq (A : AdaptedMetricAtlas n X) (b c : A.box_index)
   rw [box_space_mfderiv] at hchain
   have hψchain := mfderiv_comp_apply q (hψ.contMDiffAt.mdifferentiableAt (by simp))
     ((box_space_smooth (A.box b) q).mdifferentiableAt (by simp)) (0, v)
-  rw [box_space_mfderiv, mfderiv_eq_fderiv] at hψchain
+  rw [box_space_mfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hψchain
   have hvalues := congrArg
     (fun L : SpacetimeModelVector n →L[ℝ] EuclideanSpace ℝ (Fin n) ↦ L (0, v))
     (heq.mfderiv_eq (I := spacetimeModel n) (I' := 𝓡 n))

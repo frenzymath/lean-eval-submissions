@@ -191,7 +191,7 @@ theorem suWeightedChartVariation_tendsto
       (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b).symm y v)
     by_cases hv : mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b).symm y v = 0
     · rw [hv]
-      simp
+      simp only [map_zero, le_refl]
     · exact (g.pos _ _ hv).le
   have hQ0 : 0 ≤ Q0 := Finset.sum_nonneg fun i _ => hGpos _ _
   have hapos (j : ℕ) : 0 < (rho j) ^ 2 + Q j / lambda j z := by

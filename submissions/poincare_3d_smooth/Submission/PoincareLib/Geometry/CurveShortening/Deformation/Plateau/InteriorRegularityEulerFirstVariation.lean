@@ -46,9 +46,9 @@ private theorem metric_quadratic_integrable {N : ℕ} {μ : Measure LoopPlane}
       g.euclideanCoefficients p.1 p.2 p.2) :=
     ((hG.comp continuous_fst).clm_apply continuous_snd).clm_apply continuous_snd
   obtain ⟨C, hC⟩ := hK.exists_bound_of_continuousOn (f := g.euclideanCoefficients) hG.continuousOn
-  have hAsq := (memLp_two_iff_integrable_sq_norm hA.1).mp hA
+  have hAsq := (memLp_two_iff_integrable_sq_norm hA.aestronglyMeasurable).mp hA
   apply (hAsq.const_mul ((1 / 2 : ℝ) * max C 0)).mono'
-    ((hpair.comp_aestronglyMeasurable (hX.prodMk hA.1)).const_mul (1 / 2 : ℝ))
+    ((hpair.comp_aestronglyMeasurable (hX.prodMk hA.aestronglyMeasurable)).const_mul (1 / 2 : ℝ))
   filter_upwards [hcap] with z hz
   have hb := (g.euclideanCoefficients (X z)).le_opNorm₂ (A z) (A z)
   have hCz : ‖g.euclideanCoefficients (X z)‖ ≤ max C 0 := (hC _ hz).trans (le_max_left _ _)
@@ -123,10 +123,10 @@ theorem variation_energy_hasDerivAt {N : ℕ}
       (X.derivative i z + t • B i z) (X.derivative i z + t • B i z)
   have hi (i : Fin 2) : Integrable (P i) μ ∧
       HasDerivAt (fun t : ℝ => ∫ z, E i t z ∂μ) (∫ z, P i z ∂μ) 0 :=
-    hasDerivAt_integral_quadratic g X.value W (X.derivative i) (B i) hXm.1 hWm.1
+    hasDerivAt_integral_quadratic g X.value W (X.derivative i) (B i) hXm.aestronglyMeasurable hWm.aestronglyMeasurable
       (hAm i) (hBm i) hL hδ hWbound (closedBall a ε) (isCompact_closedBall a ε) hcapture
   have hEi (i : Fin 2) (t : ℝ) (ht : |t| < δ) : Integrable (E i t) μ :=
-    metric_quadratic_integrable g _ _ (hXm.1.add (hWm.1.const_smul t))
+    metric_quadratic_integrable g _ _ (hXm.aestronglyMeasurable.add (hWm.aestronglyMeasurable.const_smul t))
       ((hAm i).add ((hBm i).const_smul t)) (isCompact_closedBall a ε)
       (hcapture.mono (fun _ hz => hz t ht))
   have hsumI : Integrable (fun z => ∑ i, P i z) μ :=

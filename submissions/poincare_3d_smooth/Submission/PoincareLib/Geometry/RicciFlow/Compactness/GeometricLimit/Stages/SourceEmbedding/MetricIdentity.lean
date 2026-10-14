@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.GeometricLimit.Overlap.SourceMetric
 
 /-!
@@ -70,7 +71,7 @@ theorem source_readout_pullbackCoefficients
     rw [chartParametrization_apply, Function.invFun_eq hy]
   have hd := mfderiv_comp x (hq.mdifferentiableAt (by simp))
     (ha.differentiableAt (by simp)).mdifferentiableAt
-  rw [heq.mfderiv_eq, mfderiv_eq_fderiv] at hd
+  rw [heq.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   ext v w
   change g.inner (q (a x))
       (mfderiv (𝓡 n) (𝓡 n) q (a x) (fderiv ℝ a x v))

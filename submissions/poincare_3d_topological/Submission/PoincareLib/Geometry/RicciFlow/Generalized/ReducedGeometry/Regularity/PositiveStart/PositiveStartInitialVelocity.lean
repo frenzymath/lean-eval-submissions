@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Paths.SquareRoot.Action.SquareRootVelocityExtension
 
 /-!
@@ -66,7 +67,7 @@ theorem positiveStart_initial_velocity_heq (R : M14SquareRootPath G p)
   have hdsq : mfderivWithin (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ)) (fun r : ℝ => r ^ 2)
       C (Real.sqrt a) 1 = 2 * Real.sqrt a := by
     have h := congrArg (fun L : ℝ →L[ℝ] ℝ => L 1)
-      (mfderivWithin_eq_fderivWithin (𝕜 := ℝ) (f := fun r : ℝ => r ^ 2)
+      (Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model (𝕜 := ℝ) (f := fun r : ℝ => r ^ 2)
         (s := C) (x := Real.sqrt a))
     exact h.trans (hsq.hasDerivWithinAt.derivWithin hC)
   have hcomp := mfderivWithin_comp_of_eq (I := 𝓘(ℝ, ℝ)) (I' := 𝓘(ℝ, ℝ))

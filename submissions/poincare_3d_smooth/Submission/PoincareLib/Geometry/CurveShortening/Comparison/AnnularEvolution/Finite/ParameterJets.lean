@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Modulus.EnergyDensity
 
 /-! Literal weighted energy under a differentiable parameter map
@@ -31,7 +32,7 @@ theorem m64ParameterAnnulus_spatial_differential
   have harg := (hasFDerivAt_const s p).prodMk hh.hasFDerivAt
   have hd : mfderiv (𝓡 2) 𝓘(ℝ, ℝ × E) (fun q => (s, h q)) p w =
       (0, fderiv ℝ h p w) := by
-    rw [mfderiv_eq_fderiv, harg.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, harg.fderiv]
     rfl
   have hc := mfderiv_comp_apply p hPhi harg.differentiableAt.mdifferentiableAt w
   rw [hd] at hc

@@ -108,5 +108,5 @@ theorem AddCircle.exists_flatChartedSpace
     refine ⟨(AddCircle.continuous_mk' p).continuousAt, ?_⟩
     have hs : (s : AddCircle p) ≠ (cut (s : AddCircle p) : AddCircle p) := by
       simpa [f, O] using hsource (s : AddCircle p)
-    simpa [writtenInExtChartAt, extChartAt, hchart, f, O, Function.comp_def] using
-      (hmod (cut (s : AddCircle p)) s hs).2.hasFDerivWithinAt (s := Set.univ)
+    convert! (hmod (cut (s : AddCircle p)) s hs).2.hasFDerivWithinAt (s := Set.univ)
+      using 1 <;> simp [writtenInExtChartAt, extChartAt, hchart, f, O, Function.comp_def]

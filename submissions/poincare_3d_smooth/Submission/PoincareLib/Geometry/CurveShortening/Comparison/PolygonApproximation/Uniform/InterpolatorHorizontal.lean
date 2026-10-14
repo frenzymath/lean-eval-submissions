@@ -123,6 +123,10 @@ theorem m64_sampled_interpolator_horizontal_column_bound
     H (z 1, periodicFreeLoop gamma (z 0), beta (z 0)) at hvalue
   have hderiv := hevent.mfderiv_eq (I := 𝓡 2) (I' := 𝓡 3)
   rw [hvalue, hderiv]
+  change g.tangentNorm (H (z 1, periodicFreeLoop gamma (z 0), beta (z 0)))
+    (mfderiv (𝓡 2) (𝓡 3)
+      (fun p : LoopPlane => H (p 1, periodicFreeLoop gamma (p 0), beta (p 0)))
+      z (EuclideanSpace.basisFun (Fin 2) ℝ 0)) ≤ B
   rw [m64_interpolator_horizontal_column_eq z hgammaAt hbetaAt hHat]
   exact hB (z 1) htime (periodicFreeLoop gamma (z 0)) (beta (z 0))
     hshortSide.le (curveVelocity (periodicFreeLoop gamma) (z 0))

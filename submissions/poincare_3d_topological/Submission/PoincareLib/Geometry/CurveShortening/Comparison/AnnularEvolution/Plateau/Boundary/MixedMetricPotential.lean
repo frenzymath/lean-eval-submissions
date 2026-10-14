@@ -150,8 +150,8 @@ theorem m64WeightedMixedMetric_potential
     hc.of_isClosed_subset (isClosed_tsupport _)
       (tsupport_comp_subset (g := fun t : ℝ => t ^ 2) (by simp) xi)
   have hHxi : Integrable (fun p => H p * xi p ^ 2) := memLp_one_iff_integrable.mp
-    (((hxi.continuous.pow 2).memLp_of_hasCompactSupport hxic : MemLp _ ⊤ volume).mul'
-      (memLp_one_iff_integrable.mpr hHI))
+    ((memLp_one_iff_integrable.mpr hHI).fun_mul
+      ((hxi.continuous.pow 2).memLp_of_hasCompactSupport hxic : MemLp _ ⊤ volume))
   have hgrad : Integrable (fun p =>
       ∑ i : Fin 2, (fderiv ℝ xi p (EuclideanSpace.single i 1)) ^ 2) := by
     apply integrable_finsetSum _ fun i _ => ?_

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Common.NormalFieldExistence
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Normal.FieldC2Reconstruction
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Closed.SpeedGradientPath
@@ -182,7 +183,7 @@ theorem exists_spectral_sequence_c2_threeJet_limit
     erw [mfderiv_comp x
       ((hρ.contMDiffAt (hU.mem_nhds (hguard j ⟨t, ht⟩ x).1)).mdifferentiableAt (by simp))
       ((hqslice j t ht).contMDiff.mdifferentiable (by simp) x),
-      ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have hcn0 (j : ℕ) (x : ℝ) : cn j x a = ρ (qn j 0 (κ * x)) := by
     change ρ (qn j (a - a) (psi j (a - a) (κ * x))) = _

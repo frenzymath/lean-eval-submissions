@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialMetric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialArclength
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Distance.MetricPathLength
@@ -63,7 +64,7 @@ theorem radial_path_deriv_bound (g₀ : StandardInitialMetric)
       metricPathSpeed g₀.metric gamma t := by
   rw [(radial_path_hasDerivAt g₀ hgamma.hasDerivAt hne).deriv, Real.norm_eq_abs]
   change _ ≤ g₀.metric.tangentNorm (gamma t) (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) gamma t 1)
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   exact radial_differential_le_tangentNorm g₀ (gamma t) hne (deriv gamma t)
 
 end PoincareMT.MetricSurgery

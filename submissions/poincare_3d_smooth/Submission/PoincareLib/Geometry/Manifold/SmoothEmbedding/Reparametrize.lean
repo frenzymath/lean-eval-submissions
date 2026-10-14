@@ -30,7 +30,7 @@ variable {𝕜 : Type*} [NontriviallyNormedField 𝕜]
 
 /-- A change of source coordinates preserves an immersion with its given
 normal complement. -/
-theorem IsImmersionOfComplement.comp_diffeomorph
+theorem IsImmersionOfComplement.precomp_diffeomorph
     (hf : IsImmersionOfComplement F 𝓘(𝕜, E) 𝓘(𝕜, G) n f)
     (e : Diffeomorph 𝓘(𝕜, E) 𝓘(𝕜, E) M M n) :
     IsImmersionOfComplement F 𝓘(𝕜, E) 𝓘(𝕜, G) n (f ∘ e) := by
@@ -63,7 +63,7 @@ theorem IsSmoothEmbedding.comp_diffeomorph
     (hf : IsSmoothEmbedding 𝓘(𝕜, E) 𝓘(𝕜, G) n f)
     (e : Diffeomorph 𝓘(𝕜, E) 𝓘(𝕜, E) M M n) :
     IsSmoothEmbedding 𝓘(𝕜, E) 𝓘(𝕜, G) n (f ∘ e) :=
-  ⟨(hf.isImmersion.isImmersionOfComplement_complement.comp_diffeomorph e).isImmersion,
+  ⟨(hf.isImmersion.isImmersionOfComplement_complement.precomp_diffeomorph e).isImmersion,
     hf.isEmbedding.comp e.toHomeomorph.isEmbedding⟩
 
 omit [IsManifold 𝓘(𝕜, E) n M] in

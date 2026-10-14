@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.RoundCylinder
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
 import Mathlib.Tactic.FinCases
@@ -85,7 +86,7 @@ theorem sphere_chart_differential_inner (theta : UnitTwoSphere) (v w : E₂) :
       sphereChartEmbedding theta z := by
     have hcomp := mfderiv_comp (0 : E₂) hi hc
     have hval := congrArg (fun L => L z) hcomp
-    rw [mfderiv_eq_fderiv] at hval
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hval
     change fderiv ℝ (fun p : E₂ => ((chartAt E₂ theta).symm p : E₃)) 0 z = _ at hval
     rw [(sphere_chart_inverse_hasFDerivAt theta).fderiv] at hval
     exact hval.symm

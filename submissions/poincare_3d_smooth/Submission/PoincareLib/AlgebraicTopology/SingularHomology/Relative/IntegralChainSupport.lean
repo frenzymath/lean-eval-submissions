@@ -146,14 +146,14 @@ theorem integralSubspaceChains_range_preimage (A B : Set X) (n : Nat)
   constructor
   · intro h s hs x hx
     have hmem : g s ∈ (Finsupp.mapDomain g (integralChainCoordinates B n c)).support := by
-      rw [Finsupp.mem_support_iff, Finsupp.mapDomain_apply hg]
+      rw [Finsupp.mem_support_iff, Finsupp.mapDomain_apply_of_injective hg]
       exact Finsupp.mem_support_iff.mp hs
     obtain ⟨z, rfl⟩ := hx
     exact h (g s) hmem ⟨z, rfl⟩
   · intro h s hs x hx
     obtain ⟨t, rfl⟩ := Finsupp.mem_range_of_mapDomain_ne_zero (Finsupp.mem_support_iff.mp hs)
     have ht : t ∈ (integralChainCoordinates B n c).support := by
-      rw [Finsupp.mem_support_iff, Finsupp.mapDomain_apply hg] at hs
+      rw [Finsupp.mem_support_iff, Finsupp.mapDomain_apply_of_injective hg] at hs
       exact Finsupp.mem_support_iff.mpr hs
     obtain ⟨z, rfl⟩ := hx
     exact h t ht ⟨z, rfl⟩

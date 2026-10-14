@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.RadialFrameComparison
 import Mathlib.Analysis.Calculus.ContDiff.WithLp
 import Mathlib.Analysis.Calculus.FDeriv.WithLp
@@ -152,7 +153,7 @@ theorem norm_fderiv_coordinateMap_sub_id_le_of_frame (D : LeviCivitaData g)
       hiso (EuclideanSpace.basisFun (Fin n) ℝ i) (T.inverse v)
   have hgrad : g.inner x (D.gradient (U i) x) v = fderiv ℝ (U i) x v := by
     rw [D.inner_gradient]
-    simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   have heq : fderiv ℝ (U i) x v - v i = g.inner x z v + (T.inverse v - v) i := by
     change fderiv ℝ (U i) x v - v i =

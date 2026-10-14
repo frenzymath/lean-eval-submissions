@@ -165,7 +165,7 @@ theorem tendsto_roundCylinderJetErrorSquared_zero {ι : Type*} {l : Filter ι}
     intro a _
     rw [he]
     apply mul_le_of_le_one_left (sq_nonneg _)
-    apply Finset.prod_le_one
+    apply Finset.prod_le_one₀
     · intro j _
       linarith [evolvingCylinderInverseWeight_lower (ht i) (a j)]
     · intro j _

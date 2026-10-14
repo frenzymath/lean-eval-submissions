@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.RampTransport.Minimal.GaussBound
 import Submission.PoincareLib.Geometry.Curvature.Hypersurface.Charts
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Variation.Manifold
@@ -66,7 +67,7 @@ theorem m64_harmonic_chart_gaussian_le_sectional
       fderiv ℝ F q w = mfderiv (𝓡 n) (𝓡 n) c (f q) (mfderiv (𝓡 2) (𝓡 n) f q w) := by
     have hd := mfderiv_comp q ((hc q hqc).mdifferentiableAt (by simp))
       (hq.mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact congrArg (fun L => L w) hd
   obtain ⟨gE, DE, hgE⟩ := LeviCivitaData.exists_chart_metric g (f p)
   have hB : gE.euclideanCoefficients =ᶠ[𝓝 (F p)] B := by

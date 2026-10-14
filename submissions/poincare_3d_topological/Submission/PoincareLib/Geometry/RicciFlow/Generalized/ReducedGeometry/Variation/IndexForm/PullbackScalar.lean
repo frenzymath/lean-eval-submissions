@@ -38,12 +38,20 @@ theorem horizontalCovariantDerivative_smul (E : M14PullbackExtension G γ J P)
         (smulPullbackExtension E c hc) s =
       deriv c s • P s + c s • M14HorizontalCovariantDerivative G γ J P E s := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal (γ s)) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal (γ s)) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal (γ s)) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal (γ s)) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal (γ s)) := inferInstance
+  let horizontalCore := metric.toCore (γ s)
+  let horizontalContinuous := metric.continuousAt (γ s)
+  let horizontalBounded := metric.isVonNBounded (γ s)
   let : NormedAddCommGroup (G.Horizontal (γ s)) :=
-    (metric.toCore (γ s)).toNormedAddCommGroupOfTopology
-      (metric.continuousAt (γ s)) (metric.isVonNBounded (γ s))
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal (γ s)) :=
-    .ofCoreOfTopology (metric.toCore (γ s))
-      (metric.continuousAt (γ s)) (metric.isVonNBounded (γ s))
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal (γ s)) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   obtain ⟨d, hd⟩ := E.parameter_derivative s hs
   have hc' := (hc.differentiable (by simp) s).hasDerivAt
   have hparam : deriv (fun r => c r • E.extension r (γ s)) s =

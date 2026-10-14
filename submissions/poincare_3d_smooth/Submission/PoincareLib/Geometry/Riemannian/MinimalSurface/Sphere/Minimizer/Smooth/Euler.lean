@@ -160,7 +160,9 @@ theorem suWeakAlphaCoordinate_weightedEuler_of_smooth
         (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p).symm (u z) (W i z))
         (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p).symm (u z) (W i z))
       by_cases hv : mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p).symm (u z) (W i z) = 0
-      · rw [hv]; simp
+      · rw [hv]
+        change 0 ≤ g.inner _ 0 0
+        exact le_of_eq (map_zero _).symm
       · exact (g.pos _ _ hv).le
     have hlD : ContDiffAt ℝ 1 suAlphaRoundFactor z := by
       exact suRoundFactor_smooth_pos.1.contDiffAt.of_le (by simp)

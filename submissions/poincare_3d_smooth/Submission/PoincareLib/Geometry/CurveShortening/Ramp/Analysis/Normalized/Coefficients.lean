@@ -29,11 +29,9 @@ theorem HasDerivAt.div_sqrt_sq_mul_sq_add_sq {f : ℝ → ℝ} {f' x A B : ℝ}
       (A ^ 2 * f x * f' / Real.sqrt (A ^ 2 * f x ^ 2 + B ^ 2)) x := by
     convert HasDerivAt.sqrt (((hf.pow 2).const_mul (A ^ 2)).add_const (B ^ 2))
       hD.ne' using 1
-    · ext s
-      simp only [Pi.pow_apply]
-    · simp only [Pi.pow_apply]
-      field_simp
-      ring
+    simp only [Pi.pow_apply]
+    field_simp
+    ring
   apply (hf.div hroot hr.ne').congr_deriv
   field_simp
   rw [hs]
@@ -53,11 +51,9 @@ theorem HasDerivAt.const_div_sqrt_sq_mul_sq_add_sq {f : ℝ → ℝ} {f' x A B :
       (A ^ 2 * f x * f' / Real.sqrt (A ^ 2 * f x ^ 2 + B ^ 2)) x := by
     convert HasDerivAt.sqrt (((hf.pow 2).const_mul (A ^ 2)).add_const (B ^ 2))
       hD.ne' using 1
-    · ext s
-      simp only [Pi.pow_apply]
-    · simp only [Pi.pow_apply]
-      field_simp
-      ring
+    simp only [Pi.pow_apply]
+    field_simp
+    ring
   apply ((hasDerivAt_const x B).div hroot hr.ne').congr_deriv
   field_simp
   ring

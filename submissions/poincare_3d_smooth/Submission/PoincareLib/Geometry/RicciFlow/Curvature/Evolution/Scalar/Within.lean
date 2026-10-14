@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Basic
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Tensors.RicciRegularity
@@ -117,7 +118,7 @@ theorem contMDiffOn_scalarCurvature :
       hc contMDiffWithinAt_fst hp (fun q hq ↦ hq.1) (m := ∞) (by simp)
       hJ.uniqueMDiffOn
     have ha := hd.clm_apply (contMDiffWithinAt_const (c := (1 : ℝ)))
-    simpa only [inTangentCoordinates_model_space, mfderivWithin_eq_fderivWithin,
+    simpa only [inTangentCoordinates_model_space, Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model,
       derivWithin] using! ha
   choose R hR using fun p : ℝ × M ↦
     (RicciFlowAnalysis.isSmoothCovariantTensor_ricciEvaluation (F.connection p.1)).1 p.2

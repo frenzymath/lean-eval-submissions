@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.ReducedLength.IntrinsicBounds.PathValues
 
 /-!
@@ -56,7 +57,7 @@ theorem regular_path_reducedLength_differential
   have hchain := congrArg (fun A => A W)
     (mvfderiv_comp Z (hl.mdifferentiableAt (by simp))
       (hγ.mdifferentiableAt (by simp)))
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
     NormedSpace.fromTangentSpace] at hchain
   change fderiv ℝ (fun V => reducedLength K.flow 0 p (G.gamma V τ) τ) Z W =
     mvfderiv (𝓡 n) (fun x => reducedLength K.flow 0 p x τ) (G.gamma Z τ)

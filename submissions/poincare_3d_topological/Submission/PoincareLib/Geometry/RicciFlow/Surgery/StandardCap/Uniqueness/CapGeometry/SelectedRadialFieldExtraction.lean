@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.SelectedRadialFieldBounds
 import Submission.PoincareLib.Analysis.Calculus.SmoothCompactness
@@ -83,7 +84,7 @@ theorem blowupSequence_coordinate_radial_smooth_subsequence
     let f : V → StandardCapSpace := fun y => ((L.embedding (mu k)).forward 0
       ⟨neg_nonpos.mpr (L.exhaustion.time_pos (mu k)).le, le_rfl⟩ (coordinate y)).val
     have hif : (fderiv ℝ f z).IsInvertible := by
-      simpa only [mfderiv_eq_fderiv] using h.2.1
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using h.2.1
     exact (euclidean_radial_pullback_contDiffAt _ hf hif h.2.2).contDiffWithinAt
   have hb : LocallyEventuallyBoundedDerivatives Ω (fun k => Zseq (mu k)) := by
     intro K hK _hKΩ m

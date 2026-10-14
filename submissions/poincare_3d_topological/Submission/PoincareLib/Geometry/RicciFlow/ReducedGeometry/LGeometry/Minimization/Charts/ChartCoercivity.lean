@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Analysis.Normed.Operator.BoundedLinearMaps
 import Mathlib.Analysis.Normed.Module.FiniteDimension
 import Mathlib.Topology.Order.Compact
@@ -185,7 +186,7 @@ theorem chart_deriv_eq_velocity {α : ℝ → M} {x : M} {s : ℝ}
         ℝ (α s) (curveVelocity (n := n) α s) := by
   rw [TangentBundle.continuousLinearMapAt_trivializationAt hs]
   have h := mfderiv_comp_apply s (mdifferentiableAt_extChartAt hs) hα 1
-  rw [mfderiv_eq_fderiv] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   change (fderiv ℝ ((extChartAt (𝓡 n) x) ∘ α) s) 1 = _ at h
   exact h
 

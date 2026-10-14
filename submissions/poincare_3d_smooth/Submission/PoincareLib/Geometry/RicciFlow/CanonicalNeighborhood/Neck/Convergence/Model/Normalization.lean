@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.RoundCylinder
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.RoundSphere
 import Mathlib.Geometry.Manifold.Diffeomorph
@@ -38,7 +39,7 @@ theorem mfderiv_scalarNormalizedCylinderLine (R r₀ : ℝ) (hR : 0 < R)
     (r v : ℝ) :
     mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (scalarNormalizedCylinderLine R r₀ hR) r v =
       v / Real.sqrt R := by
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change fderiv ℝ (fun t : ℝ => r₀ + t / Real.sqrt R) r v = _
   have hd : HasDerivAt (fun t : ℝ => r₀ + t / Real.sqrt R) (1 / Real.sqrt R) r :=
     ((hasDerivAt_id r).div_const (Real.sqrt R)).const_add r₀

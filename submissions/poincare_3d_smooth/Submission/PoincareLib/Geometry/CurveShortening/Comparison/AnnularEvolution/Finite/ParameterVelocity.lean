@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Moving.CurveEnergy
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Pullback.ParameterFirstJet
 
@@ -44,7 +45,7 @@ theorem m64ParameterMotion_timeVelocity_contMDiffAt
   have hchain := mfderiv_comp_apply w.1
     ((hPhi.contMDiffAt (hO.mem_nhds hw)).mdifferentiableAt (by simp))
     hline.differentiableAt.mdifferentiableAt (1 : ℝ)
-  rw [mfderiv_eq_fderiv, hline.fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.fderiv] at hchain
   exact congrArg (fun v : TangentSpace (𝓡 n) (Phi w) =>
     (⟨Phi w, v⟩ : TangentBundle (𝓡 n) M)) hchain
 
@@ -62,7 +63,7 @@ theorem m64ParameterMotion_spatial_velocity
   have harg := (hasDerivAt_const x t).prodMk hh.hasDerivAt
   have hd : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ × E) (fun y => (t, h y)) x 1 =
       (0, deriv h x) := by
-    rw [mfderiv_eq_fderiv, harg.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, harg.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ _
   have hc := mfderiv_comp_apply x hPhi harg.differentiableAt.mdifferentiableAt (1 : ℝ)
   rw [hd] at hc

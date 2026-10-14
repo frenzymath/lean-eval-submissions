@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Neck.Geometry.MetricJets.Realization
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.LocalIsometryInvariants
 import Submission.PoincareLib.Geometry.Riemannian.Normalization.Scaling.Curvature
@@ -65,7 +66,7 @@ theorem centeredEuclideanParametrization_mfderiv (N : EpsilonNeck g)
     simpa only [Pi.add_def, zero_add] using (hasFDerivAt_const (0, s) x).add T.hasFDerivAt
   have hm : mfderiv (𝓡 3) 𝓘(ℝ, RoundCylinderCoordinates)
       (fun y => (0, s) + T y) x = T := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact h.fderiv
   change mfderiv (𝓡 3) (𝓡 3)
     (N.centeredParametrization q ∘ (fun y => (0, s) + T y)) x v = _

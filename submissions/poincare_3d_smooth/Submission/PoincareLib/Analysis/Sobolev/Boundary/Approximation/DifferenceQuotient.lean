@@ -98,7 +98,9 @@ private theorem smooth_local_convergence {v : E → ℝ} (hv : ContDiff ℝ 1 v)
   have hr := (ENNReal.continuous_rpow_const (y := (1 / 2 : ℝ))).tendsto 0 |>.comp hint
   convert! hr using 1
   · funext h
-    rw [eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num) (by norm_num)]
+    rw [eLpNorm_eq_lintegral_rpow_enorm_toReal (by norm_num) (by norm_num)
+      (show AEStronglyMeasurable (fun x => diffQuot k h v x - fderiv ℝ v x (EuclideanSpace.single k 1)) (volume.restrict V) from
+        ((continuous_diffQuot_of_continuous k h hv.continuous).sub hdcont).aestronglyMeasurable)]
     norm_num [dv, ENNReal.rpow_natCast]
   · norm_num
 
@@ -168,9 +170,9 @@ theorem tendsto_eLpNorm_diffQuot_sub_weakPartial
   have hvs : ContDiff ℝ (⊤ : ℕ∞) v := mollifyEps_contDiff hδ huLoc
   have hqs : ContDiff ℝ (⊤ : ℕ∞) q := mollifyEps_contDiff hδ hgLoc
   have hv : MemLp v 2 volume :=
-    ⟨hvs.continuous.aestronglyMeasurable, (eLpNorm_mollifyEps_le hδ hu).trans_lt hu.2⟩
+    (eLpNorm_mollifyEps_le hδ hu).trans_lt hu.eLpNorm_lt_top
   have hq : MemLp q 2 volume :=
-    ⟨hqs.continuous.aestronglyMeasurable, (eLpNorm_mollifyEps_le hδ hg).trans_lt hg.2⟩
+    (eLpNorm_mollifyEps_le hδ hg).trans_lt hg.eLpNorm_lt_top
   have hderiv (x : E) : fderiv ℝ v x (EuclideanSpace.single k 1) = q x :=
     mollifyEps_partial_eq_mollifyEps_weakPartial hδ huLoc hweak x
   have hqweak : Weak.HasWeakPartialDeriv k q v univ := by
@@ -211,8 +213,8 @@ theorem tendsto_eLpNorm_diffQuot_sub_weakPartial
     _ ≤ (eLpNorm (diffQuot k h (u - v)) 2 (volume.restrict V) +
           eLpNorm (fun x => diffQuot k h v x - q x) 2 (volume.restrict V)) +
         eLpNorm (q - g) 2 (volume.restrict V) :=
-      (eLpNorm_add_le (hA.add hB).1 hC.1 (by norm_num)).trans
-        (add_le_add (eLpNorm_add_le hA.1 hB.1 (by norm_num)) le_rfl)
+      (eLpNorm_add_le (by norm_num)).trans
+        (add_le_add (eLpNorm_add_le (by norm_num)) le_rfl)
     _ ≤ a + a + a := add_le_add (add_le_add hfirst hmid) hthird
     _ = ε := hsum
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.ClosedCover
 
 /-!
@@ -116,7 +117,7 @@ theorem scalarConjugateFormOfDifferential_eq
   have hgrad : D.gradient H x = (g.euclideanCoefficients x).inverse (J x) := by
     change (g.euclideanCoefficients x).inverse (mvfderiv (𝓡 2) H x) = _
     rw [hJ]
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   simp only [scalarConjugateFormOfDifferential, scalarConjugateForm, M60.rotatedFlux,
     scalarMetricFlux, hgrad]

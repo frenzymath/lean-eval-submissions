@@ -65,11 +65,15 @@ theorem exists_derivativeProfile_two_le_source
   let T : ℝ≥0∞ := ENNReal.ofReal (Real.sqrt H) *
     (derivativeProfile 2 V 0 u + derivativeProfile 2 V 0 f)
   have huBound : derivativeProfile 2 W 0 u ≤ T := by
-    simp only [T, derivativeProfile_zero]
+    simp only [T, derivativeProfile_zero _ _ _ huW.aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hum.aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hf.aestronglyMeasurable]
     apply eLpNorm_two_le_of_integral_sq_le_source hum hf huW hH
     linarith
   have hpBound (i : Fin d) : derivativeProfile 2 W 0 (partialDeriv i u) ≤ T := by
-    simp only [T, derivativeProfile_zero]
+    simp only [T, derivativeProfile_zero _ _ _ (hpW i).aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hum.aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hf.aestronglyMeasurable]
     apply eLpNorm_two_le_of_integral_sq_le_source hum hf (hpW i) hH
     have hterm : (∫ x in W, (partialDeriv i u x) ^ 2) ≤
         ∫ x in W, ∑ j : Fin d, (partialDeriv j u x) ^ 2 := by
@@ -81,7 +85,9 @@ theorem exists_derivativeProfile_two_le_source
     linarith
   have hppBound (i k : Fin d) :
       derivativeProfile 2 W 0 (partialDeriv k (partialDeriv i u)) ≤ T := by
-    simp only [T, derivativeProfile_zero]
+    simp only [T, derivativeProfile_zero _ _ _ (hppW i k).aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hum.aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hf.aestronglyMeasurable]
     apply eLpNorm_two_le_of_integral_sq_le_source hum hf (hppW i k) hH
     have hterm : (∫ x in W, (partialDeriv k (partialDeriv i u) x) ^ 2) ≤
         ∫ x in W, ∑ l : Fin d, ∑ j : Fin d, (partialDeriv l (partialDeriv j u) x) ^ 2 := by

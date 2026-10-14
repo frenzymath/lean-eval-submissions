@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.TransitionCompactness
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients.Distance
@@ -58,7 +59,7 @@ theorem pullbackCoefficients_inverse_chart_transition
         (mfderiv (𝓡 n) (𝓡 n) Φ (f x) (fderiv ℝ f x v)) = _
       unfold RiemannianMetric.pullbackCoefficients
       rw [mfderiv_comp x (hΦ.mdifferentiableAt (by simp))
-        (hf.mdifferentiableAt (by simp)), mfderiv_eq_fderiv]
+        (hf.mdifferentiableAt (by simp)), Poincare.Compatibility.mfderiv_eq_fderiv_model]
       rfl
     _ = _ := by
       change g.inner ((Φ ∘ f) x)
@@ -248,7 +249,9 @@ theorem exists_smooth_isometric_immersion_of_compatible_charts
         (mfderiv (𝓡 n) (𝓡 n) (e i) z) = fderiv ℝ (f i) z := by
       rw [← mfderiv_comp z ((hF (e i z)).mdifferentiableAt (by simp))
         (((e i).contMDiffOn.contMDiffAt ((e i).open_source.mem_nhds hz)).mdifferentiableAt
-          (by simp)), heq.mfderiv_eq, mfderiv_eq_fderiv]
+          (by simp)), heq.mfderiv_eq, Poincare.Compatibility.mfderiv_eq_fderiv_model]
+      ext v
+      rfl
     have hsurj := ((e i).isLocalDiffeomorphAt (𝓡 n) (𝓡 n) ∞ hz).mfderivToContinuousLinearEquiv
       (by simp) |>.surjective
     intro u v

@@ -4,7 +4,7 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Products.Al
 /-! A projected rectangle supporting a spanning arc, including its old-rim endpoints. -/
 
 set_option autoImplicit false
-set_option maxHeartbeats 800000
+set_option maxHeartbeats 4000000
 open Set Geometry PLAnnularStrip
 
 namespace PoincareMT.M76.Dehn

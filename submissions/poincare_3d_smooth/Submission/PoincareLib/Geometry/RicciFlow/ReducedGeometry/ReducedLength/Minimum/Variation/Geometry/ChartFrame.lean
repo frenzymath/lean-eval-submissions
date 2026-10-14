@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Minimum.Variational.Regularity.Coefficients
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
 import Mathlib.Geometry.Manifold.VectorField.LieBracket
@@ -169,7 +170,7 @@ theorem chart_scalar_fderiv_apply {x y : M}
     (e.left_inv hy') v
   change mfderiv (𝓡 n) (𝓘(ℝ, ℝ)) (f ∘ e.symm) (e y) v =
     mvfderiv (𝓡 n) f y (mfderiv (𝓡 n) (𝓡 n) e.symm (e y) v) at h
-  rw [mfderiv_eq_fderiv, ← chartFrame_inverse_derivative hy v] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, ← chartFrame_inverse_derivative hy v] at h
   exact h
 
 theorem chartActionMetric_time_derivative {J : Set ℝ} (F : RicciFlow n M J)

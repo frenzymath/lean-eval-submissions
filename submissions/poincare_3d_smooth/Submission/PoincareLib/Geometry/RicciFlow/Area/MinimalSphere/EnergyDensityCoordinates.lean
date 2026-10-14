@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Conjugate.Variation.Intrinsic
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.StereographicConformal
 
@@ -48,7 +49,7 @@ theorem m60EnergyDensity_eq_chart (g : RiemannianMetric n M) (b : M)
     (contMDiffAt_extChartAt' (n := ∞)
       (by simpa only [extChartAt_source] using hz)).mdifferentiableAt (by simp)
   have hd := mfderiv_comp z hc hφ
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   unfold m60EnergyDensity Matrix.trace m60AreaGram
   congr 1
   apply Finset.sum_congr rfl

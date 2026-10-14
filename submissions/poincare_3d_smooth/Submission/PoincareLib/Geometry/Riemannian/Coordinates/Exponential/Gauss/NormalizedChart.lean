@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.FirstJet
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.Manifold
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Orthonormal
@@ -57,7 +58,7 @@ theorem exists_normalized_exponential_chart_firstJet (g : RiemannianMetric n M) 
       mdifferentiableAt_iff_differentiableAt.mpr L.differentiableAt
     have hd := mfderiv_comp y hfd hLd
     have hLm : mfderiv (𝓡 n) (𝓡 n) L y = L.toContinuousLinearMap := by
-      simpa only [mfderiv_eq_fderiv] using L.hasFDerivAt.fderiv
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using L.hasFDerivAt.fderiv
     rw [hLm] at hd
     have hpull : g.pullbackCoefficients e y y w =
         g.pullbackCoefficients f (L y) (L y) (L w) := by

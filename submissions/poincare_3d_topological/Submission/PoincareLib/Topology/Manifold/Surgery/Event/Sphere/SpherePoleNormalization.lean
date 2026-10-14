@@ -58,7 +58,7 @@ noncomputable def spherePoleReferenceBall (p : sphereCarrier.{u}.carrier) :
     intro heq
     exact spherePunctureInverse_ne
       (ULift.up (-p.down) : sphereCarrier.{u}.carrier)
-      (ULift.up x : euclideanCarrier.{u}.carrier) (ULift.ext _ _ heq)
+      (ULift.up x : euclideanCarrier.{u}.carrier) (ULift.ext heq)
   have hleft : Set.LeftInvOn g f (Metric.ball (0 : StandardCapSpace) 2) := by
     intro x _
     exact (stereographic' 3 (-p.down)).right_inv (by simp)

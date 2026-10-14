@@ -228,7 +228,7 @@ theorem uniform_difference_quotients (S : SUWeakAlphaCoordinate g b alpha u V ce
     (hPotential.mono_measure (Measure.restrict_mono (ball_subset_ball hsigmaR.le) le_rfl))
   have hWLp : MemLp W rr volume := (memLp_indicator_iff_restrict measurableSet_ball).mpr
     (hWeight.mono_measure (Measure.restrict_mono (ball_subset_ball hsigmaR.le) le_rfl))
-  have hWI : Integrable W := hHI.mono' hWLp.1 (Eventually.of_forall fun x => by
+  have hWI : Integrable W := hHI.mono' hWLp.aestronglyMeasurable (Eventually.of_forall fun x => by
     by_cases hx : x ∈ ball center sigma
     · simp only [W, H, indicator_of_mem hx, Real.norm_eq_abs,
         abs_of_nonneg (Real.rpow_nonneg (by positivity : 0 ≤ 1 + ‖(V 0 x, V 1 x)‖ ^ 2) _)]
@@ -336,18 +336,18 @@ theorem uniform_difference_quotients (S : SUWeakAlphaCoordinate g b alpha u V ce
       apply integrable_finsetSum
       intro i _
       have hp : MemLp (fun x => xi x * diffQuot k h (DU a i) x) pp volume :=
-        (suWeakMap_diffQuot_memLp (((hcut a).2.2.2 i).1) k h).mul'
-          (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume)
+        (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume).fun_mul
+          (suWeakMap_diffQuot_memLp (((hcut a).2.2.2 i).1) k h)
       have hs : MemLp (fun x => (xi x * diffQuot k h (DU a i) x) ^ 2) aa volume := by
-        simpa only [pow_two] using hp.mul' hp
-      exact memLp_one_iff_integrable.mp (hs.mul' hWh)
+        simpa only [pow_two] using hp.fun_mul hp
+      exact memLp_one_iff_integrable.mp (hWh.fun_mul hs)
     have hIa : Integrable (fun x => ∑ i : Fin 2, (xi x * diffQuot k h (DU a i) x) ^ 2) := by
       apply integrable_finsetSum
       intro i _
       have hp : MemLp (fun x => xi x * diffQuot k h (DU a i) x) 2 volume :=
-        (suWeakMap_diffQuot_memLp (hDU2 a i) k h).mul'
-          (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume)
-      simpa only [pow_two] using memLp_one_iff_integrable.mp (hp.mul' hp)
+        (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume).fun_mul
+          (suWeakMap_diffQuot_memLp (hDU2 a i) k h)
+      simpa only [pow_two] using memLp_one_iff_integrable.mp (hp.fun_mul hp)
     calc
       _ = ∫ x in ball center (rho / 8), ∑ i : Fin 2, (xi x * diffQuot k h (DU a i) x) ^ 2 := by
         apply setIntegral_congr_fun measurableSet_ball

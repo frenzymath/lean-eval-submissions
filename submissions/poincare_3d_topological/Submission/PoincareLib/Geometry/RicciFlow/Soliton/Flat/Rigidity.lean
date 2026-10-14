@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.Geodesic
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Laplacian.Branch.Complete
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Radius.TwoGeodesics
@@ -124,7 +125,7 @@ private theorem deriv_comp_globalGeodesic_at_zero
     (mfderiv_comp (I := 𝓘(ℝ, ℝ)) (I' := 𝓡 n) (I'' := 𝓘(ℝ, ℝ)) 0
       ((S.potential_smooth (γ 0)).mdifferentiableAt (by simp))
       (hγ.mdifferentiableAt (by simp)))
-  rw [mfderiv_eq_fderiv] at hcomp
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
   change deriv (S.potential ∘ γ) 0 =
     mvfderiv (𝓡 n) S.potential (γ 0)
       (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ 0 1) at hcomp
@@ -257,7 +258,7 @@ theorem globalGeodesic_terminal_velocity
     (mfderiv_comp (I := 𝓘(ℝ, ℝ)) (I' := 𝓡 n) (I'' := 𝓘(ℝ, ℝ)) 1
       ((S.potential_smooth q).mdifferentiableAt (by simp))
       ((hγ.contMDiffAt (mem_univ 1)).mdifferentiableAt (by simp)))
-  rw [mfderiv_eq_fderiv] at hc
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
   change deriv (S.potential ∘ γ) 1 = mvfderiv (𝓡 n) S.potential q u at hc
   rw [hd.deriv, ← S.connection.inner_gradient] at hc
   have hpair : (2 * S.tau) * S.metric.inner q G u = a := by
@@ -299,7 +300,7 @@ private theorem hasDerivAt_globalGeodesic_endpoint_chart
     (by simp)
   have hd := (hc.comp t hγ).differentiableAt.hasDerivAt
   have hchain := congrArg (fun A => A (1 : ℝ)) (mfderiv_comp t hc hγ)
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   simp only [mfderiv_extChartAt_self] at hchain
   exact hd.congr_deriv hchain
 

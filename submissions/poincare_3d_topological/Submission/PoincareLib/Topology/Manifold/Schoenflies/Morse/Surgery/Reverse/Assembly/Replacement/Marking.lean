@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Surgery.Reverse.Models.ClosedMarking
 
 /-! # Marking a disk from its ambient parametrization -/
@@ -38,7 +39,7 @@ theorem exists_ambient_disk_marking
     have hBd : Injective (fderiv Real B.symm (g x)) := by
       have h := (B.symm.mfderivToContinuousLinearEquiv (by simp) (g x)).injective
       change Injective (mfderiv (𝓡 3) (𝓡 3) B.symm (g x)) at h
-      simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using h
     rw [show G = B.symm ∘ g from rfl, fderiv_comp x
       (B.symm.contDiff.differentiable (by simp) _) (hg.differentiable (by simp) x)]
     exact hBd.comp (hgd x hx)

@@ -49,7 +49,7 @@ theorem intrinsic_axis_segment_edist_le (a b : ℝ) :
     rw [OrderIso.apply_symm_apply, OrderIso.apply_symm_apply] at h
     have hc : g.edist (R.symm a • e2) (R.symm b • e2) =
         g.edist (R.symm b • e2) (R.symm a • e2) :=
-      @edist_comm StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace _ _
+      @edist_comm StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace _ _
     rw [hc, abs_of_nonpos (sub_nonpos.mpr hba), neg_sub]
     exact h
 

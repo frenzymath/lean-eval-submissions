@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Radius.TotalExponential
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Polar.NoBranching
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.Geodesic
@@ -115,7 +116,7 @@ theorem gradient_norm_le_of_lower_oscillation_hessian
       (mfderiv_comp 0
         ((hf.contMDiffAt (hU.mem_nhds (hγU 0 h0))).mdifferentiableAt (by simp))
         ((hγ.contMDiffAt h0).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
     change deriv (f ∘ γ) 0 = mvfderiv (𝓡 n) f (γ 0)
       (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ 0 1) at hchain
     rw [g.mfderiv_globalGeodesic_zero hc x v, hx, ← D.inner_gradient] at hchain

@@ -50,7 +50,8 @@ theorem weightedChartMeasure_lower (e : OpenPartialHomeomorph M ModelE) (φ : C(
     c • (volume.restrict A).map e.symm ≤ weightedChartMeasure e φ := by
   have h := Measure.map_mono_of_aemeasurable
     (weightedSourceMeasure_lower e φ hA hAt hbound) (chartInverse_aemeasurable e φ)
-  simpa only [Measure.map_smul, weightedChartMeasure] using h
+  rw [Measure.map_smul c ((e.symm.continuousOn.mono hAt).aemeasurable hA)] at h
+  simpa only [weightedChartMeasure] using h
 
 /-- Positivity of one chart weight supplies a positive local Lebesgue lower bound. -/
 theorem exists_local_weightedChartMeasure_lower (e : OpenPartialHomeomorph M ModelE)

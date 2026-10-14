@@ -219,8 +219,6 @@ theorem contMDiffOn_family_koszulExpression
   have hsum := (((((hXdir.add hYdir).sub hZdir).add hpairbrXY).sub
     hpairbrXZ).sub hpairbrYZ)
   convert hsum using 1
-  funext p
-  rfl
 
 theorem contMDiffOn_connection_family
     {g : ℝ → RiemannianMetric n M} {J : Set ℝ}

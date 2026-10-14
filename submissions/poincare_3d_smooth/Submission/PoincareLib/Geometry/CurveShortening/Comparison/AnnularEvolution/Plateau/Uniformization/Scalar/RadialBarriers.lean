@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.Maximum
 
 /-!
@@ -53,7 +54,7 @@ theorem scalarRadial_gradient_pos {x : Plane} (hx : x ≠ 0) :
       two_smul, two_mul] using heq
   have hdf : mvfderiv (𝓡 2) (fun y : Plane => ‖y‖ ^ 2) x x =
       fderiv ℝ (fun y : Plane => ‖y‖ ^ 2) x x := by
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   rw [hdf, hd] at h
   have hn : 0 < ‖x‖ := norm_pos_iff.mpr hx

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Analysis.Calculus.Primitive
 import Submission.PoincareLib.Geometry.Riemannian.Connection.LocalRegularity
 import Submission.PoincareLib.Geometry.Riemannian.Metric.Gradient
@@ -124,7 +125,7 @@ private theorem fderiv_chart_composition
   rw [hfield]
   have h := congrArg (fun L => L v) (mvfderiv_comp z hf
     ((hei.contMDiffAt (e.open_target.mem_nhds hz)).mdifferentiableAt (by simp)))
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] at h
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] at h
   exact h
 
 /-- Parallelness and zero torsion give the ordinary closedness equation for
@@ -211,7 +212,7 @@ theorem exists_local_potential_of_parallel (D : LeviCivitaData g)
       (hD.1 x hx.1 |>.mdifferentiableAt (e.open_source.mem_nhds hx.1)) u
     rw [hcomp]
     have hreal (z v : E) : mvfderiv (𝓡 n) φ z v = fderiv ℝ φ z v := by
-      simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+      simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
         NormedSpace.fromTangentSpace]
       rfl
     rw [hreal]

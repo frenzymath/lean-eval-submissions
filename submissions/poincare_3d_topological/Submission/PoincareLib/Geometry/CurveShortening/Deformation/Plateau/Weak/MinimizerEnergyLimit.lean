@@ -76,7 +76,7 @@ theorem m65WeakDisk_energy_le_of_limit (g : RiemannianMetric 3 M)
   have hAC (p : M) : ‖A p‖ ≤ C := (hC0 p (mem_univ p)).trans (le_max_left _ _)
   have hmeas (Q : M65WeakDisk e γ) : AEStronglyMeasurable (fun z => A (Q.value z)) mu :=
     hA.comp_aestronglyMeasurable (hemb.aestronglyMeasurable_comp_iff.mp
-      ((Lp.memLp Q.embeddedValue).1.congr Q.embeddedValue_ae))
+      ((Lp.aestronglyMeasurable Q.embeddedValue).congr Q.embeddedValue_ae))
   let T (Q : M65WeakDisk e γ) : L →L[ℝ] L :=
     Lp.coefficientL2 (fun z => A (Q.value z)) (hmeas Q) C (ae_of_all _ fun z => hAC _)
   have hT (Q : M65WeakDisk e γ) (v : L) :

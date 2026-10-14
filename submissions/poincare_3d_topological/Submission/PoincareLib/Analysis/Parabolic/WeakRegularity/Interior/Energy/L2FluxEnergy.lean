@@ -86,10 +86,10 @@ theorem exists_uniform_l2_flux_commutator_bound
   have hdqtop : MemLp (fun y => fderiv ℝ q y v) ⊤ volume :=
     ((hq.continuous_fderiv (by simp)).clm_apply continuous_const).memLp_top_of_hasCompactSupport
       (hqc.fderiv_apply ℝ v) volume
-  have hqu : MemLp (fun y => q y * u y) 2 volume := hu.mul' hqtop
-  have hdqu : MemLp (fun y => fderiv ℝ q y v * u y) 2 volume := hu.mul' hdqtop
+  have hqu : MemLp (fun y => q y * u y) 2 volume := hqtop.fun_mul hu
+  have hdqu : MemLp (fun y => fderiv ℝ q y v * u y) 2 volume := hdqtop.fun_mul hu
   have hFm : MemLp F 2 volume :=
-    (((memLp_lebesgueConvolution hu hD hDc).mul' hqtop).sub
+    ((hqtop.fun_mul (memLp_lebesgueConvolution hu hD hDc)).sub
       (memLp_lebesgueConvolution hqu hD hDc)).add
       (memLp_lebesgueConvolution hdqu hη.continuous hηc)
   have hua : MemLp (fun y => |u y|) 2 volume := by

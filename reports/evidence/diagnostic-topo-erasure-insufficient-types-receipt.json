@@ -1,0 +1,12 @@
+{
+  "Challenge": {
+    "exit": 0,
+    "log": "/gpfs/share/home/2301110044/.horizon/development-tmp/poincare-leaneval-port/diagnostic-topo-fixed-type-Challenge.log",
+    "source_sha256": "e139f6f39d8fc16f5e2ec36a5b3b1483d5b4494695190812decab5cc999cb894"
+  },
+  "Solution": {
+    "exit": 0,
+    "log": "/gpfs/share/home/2301110044/.horizon/development-tmp/poincare-leaneval-port/diagnostic-topo-fixed-type-Solution.log",
+    "source_sha256": "833a6f38d9526980e671a2cfa6587e228398f49d8460a993880569f74155d881"
+  }
+}

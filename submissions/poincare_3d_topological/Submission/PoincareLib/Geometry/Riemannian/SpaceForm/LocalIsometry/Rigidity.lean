@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.LocalIsometry.Geodesic
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.ExponentialMetric
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Euclidean
@@ -44,7 +45,7 @@ private theorem coordDeriv_comp_eq_of_firstOrder
       mfderiv_comp 0 hf hγ, mfderiv_comp 0 hk hγ, hder]
     simp only [Function.comp_apply]
     erw [hpos]
-  rw [mfderiv_eq_fderiv, mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   exact congrArg (fun L => L 1) hd
 
 /-- On a compact source, the value and differential of a local isometry
@@ -136,9 +137,13 @@ private theorem mfderiv_eq_of_frequently_equal_germs
   have hdf : mfderiv (𝓡 n) (𝓡 n) f p = fderiv ℝ F (c p) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [F, c, d, writtenInExtChartAt]
+    ext v
+    rfl
   have hdk : mfderiv (𝓡 n) (𝓡 n) k p = fderiv ℝ K (c p) := by
     rw [mfderiv, if_pos (hk.mdifferentiableAt (by simp))]
     simp [K, c, d, hpos, writtenInExtChartAt]
+    ext v
+    rfl
   exact hdf.trans (hd.trans hdk.symm)
 
 /-- A local isometry on a connected open set is determined by one value and

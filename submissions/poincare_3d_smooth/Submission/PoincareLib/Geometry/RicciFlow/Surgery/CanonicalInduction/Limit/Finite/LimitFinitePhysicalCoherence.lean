@@ -38,6 +38,7 @@ theorem limitFinite_physical_pullback_eq
     exact terminalCommonInterval_physical_eq e f ha hI hJ
       y hy.1 y hy.2 (hzero y hy)
   unfold SurgeryFlowCylinder.pullbackInner
-  rw [heq.self_of_nhds, heq.mfderiv_eq]
+  rw [heq.mfderiv_eq, heq.self_of_nhds]
+  rfl
 
 end PoincareMT.M47

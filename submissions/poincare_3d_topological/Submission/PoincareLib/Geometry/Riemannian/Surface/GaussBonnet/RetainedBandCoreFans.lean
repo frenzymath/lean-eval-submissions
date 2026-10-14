@@ -144,6 +144,7 @@ theorem core_halfspace_at_open_band_top
       ¬ interior ((chartAt Plane (T.chart p.1.1 : S)).symm ⁻¹'
         T.decomposition.fittedRegionCollar T.chart T.cut T.graphs T.chains T.bands
           T.caps T.region p.1.1) z := propext_iff.mp hcz
+  change interior _ z = _ at hiz
   rw [hiz] at he
   exact he.trans not_lt
 

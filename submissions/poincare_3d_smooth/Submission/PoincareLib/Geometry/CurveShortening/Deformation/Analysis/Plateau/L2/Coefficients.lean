@@ -32,7 +32,7 @@ theorem MemLp.clm_apply_of_ae_bound {p : ℝ≥0∞} {u : X → E}
     (hA : AEStronglyMeasurable A mu) {C : ℝ}
     (hbound : ∀ᵐ x ∂mu, ‖A x‖ ≤ C) : MemLp (fun x => A x (u x)) p mu := by
   refine hu.of_le_mul (c := C)
-    ((ContinuousLinearMap.id ℝ (E →L[ℝ] F)).aestronglyMeasurable_comp₂ hA hu.1) ?_
+    ((ContinuousLinearMap.id ℝ (E →L[ℝ] F)).aestronglyMeasurable_comp₂ hA hu.aestronglyMeasurable) ?_
   filter_upwards [hbound] with x hx
   exact (A x).le_opNorm (u x) |>.trans
     (mul_le_mul_of_nonneg_right hx (norm_nonneg _))
@@ -99,8 +99,8 @@ theorem Lp.tendsto_coefficientL2_apply
       (𝓝 (Lp.coefficientL2 A0 hA0 C hbound0 u)) := by
   let error (n : ℕ) (x : X) : ℝ := ‖A n x (u x) - A0 x (u x)‖ ^ 2
   have hmeas (n : ℕ) : AEStronglyMeasurable (error n) mu :=
-    (((Lp.memLp u).clm_apply_of_ae_bound (hA n) (hbound n)).1.sub
-      ((Lp.memLp u).clm_apply_of_ae_bound hA0 hbound0).1).norm.pow 2
+    (((Lp.memLp u).clm_apply_of_ae_bound (hA n) (hbound n)).aestronglyMeasurable.sub
+      ((Lp.memLp u).clm_apply_of_ae_bound hA0 hbound0).aestronglyMeasurable).norm.pow 2
   have hmajorant : Integrable (fun x => (2 * C) ^ 2 * ‖u x‖ ^ 2) mu :=
     ((Lp.memLp u).norm.integrable_sq).const_mul _
   have herr_bound (n : ℕ) :

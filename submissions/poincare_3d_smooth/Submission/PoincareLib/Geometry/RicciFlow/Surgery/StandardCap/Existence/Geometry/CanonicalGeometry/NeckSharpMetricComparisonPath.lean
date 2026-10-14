@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Geometry.CanonicalGeometry.NeckSharpMetricComparison
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Geometry.CanonicalGeometry.NeckHeightControlPath
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Lifetime.CanonicalGeometry.CapPersistenceNeckSets
@@ -107,7 +108,7 @@ theorem axialPath_pathELength_le_sharp (he : N.epsilon ≤ 1 / 8)
       change mfderiv 𝓘(ℝ, ℝ) ((𝓡 2).prod 𝓘(ℝ, ℝ))
         (fun t : ℝ => (q, t * z)) t 1 = _
       rw [mfderiv_prodMk hc hd.differentiableAt.mdifferentiableAt, mfderiv_const,
-        mfderiv_eq_fderiv]
+        Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change (0, fderiv ℝ (fun u : ℝ => u * z) t 1) = (0, z)
       rw [hd.hasFDerivAt.fderiv]
       simp

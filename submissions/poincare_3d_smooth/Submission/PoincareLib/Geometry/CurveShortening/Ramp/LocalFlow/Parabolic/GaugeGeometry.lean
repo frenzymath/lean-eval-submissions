@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.CurveEstimates.Relabeling.Geometry
 
 /-!
@@ -37,7 +38,7 @@ theorem curveVelocity_moving_labels (q : ℝ → ℝ → M) {psi : ℝ → ℝ} 
   have hid : MDifferentiableAt 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun r : ℝ => r) t :=
     mdifferentiableAt_id
   have hvalue : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) psi t 1 = w := by
-    rw [mfderiv_eq_fderiv, hpsi.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hpsi.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ w
   have hpair : mfderiv 𝓘(ℝ, ℝ) ((𝓘(ℝ, ℝ)).prod 𝓘(ℝ, ℝ))
       (fun r => (psi r, r)) t 1 = (w, 1) := by

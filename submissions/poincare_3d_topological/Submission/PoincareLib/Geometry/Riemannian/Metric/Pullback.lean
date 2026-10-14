@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Metric
 import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
 import Mathlib.Geometry.Manifold.VectorBundle.Hom
@@ -49,7 +50,7 @@ theorem mfderiv_slice_apply
       ((0 : E →L[ℝ] ℝ).prod (ContinuousLinearMap.id ℝ E)) x :=
     (hasFDerivAt_const t x).prodMk (hasFDerivAt_id x)
   have h := mfderiv_comp x hf hi.differentiableAt.mdifferentiableAt
-  rw [mfderiv_eq_fderiv, hi.fderiv] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hi.fderiv] at h
   exact congrArg (fun A => A v) h
 
 /-- A metric pulled back by a locally smooth map has smooth coordinate

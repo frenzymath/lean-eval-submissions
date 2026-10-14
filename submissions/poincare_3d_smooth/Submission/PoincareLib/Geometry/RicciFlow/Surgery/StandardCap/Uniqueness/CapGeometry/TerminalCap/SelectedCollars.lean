@@ -123,7 +123,7 @@ theorem blowupSequence_bounded_tip_radial_collars
     exact ENNReal.ofReal_le_ofReal hh
   have hdistance : G.edist 0 y' ≤ ENNReal.ofReal (D + B) := calc
     _ ≤ G.edist 0 z + G.edist z y' :=
-      @edist_triangle V G.toEMetricSpace.toPseudoEMetricSpace 0 z y'
+      @edist_triangle V _ G.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0 z y'
     _ ≤ ENNReal.ofReal D + ENNReal.ofReal B := add_le_add htip hk.2.2.2.le
     _ = _ := (ENNReal.ofReal_add hD hB.le).symm
   have hNaQ : N.a * Real.sqrt Q ≤ D + B := by

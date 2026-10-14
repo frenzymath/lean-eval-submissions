@@ -141,7 +141,7 @@ theorem spherePuncture_left_inverse (p : sphereCarrier.{u}.carrier) :
     Set.LeftInvOn (spherePunctureInverse p) (spherePunctureMap p)
       ({p}ᶜ : Set sphereCarrier.{u}.carrier) := by
   intro x hx
-  have hn : x.down ≠ p.down := fun heq => hx (ULift.ext _ _ heq)
+  have hn : x.down ≠ p.down := fun heq => hx (ULift.ext heq)
   apply ULift.ext
   change threeSphereStereoInverse p.down (stereographic' 3 p.down x.down) = x.down
   exact (stereographic' 3 p.down).left_inv (by
@@ -180,7 +180,7 @@ theorem spherePunctureMap_smooth (p : sphereCarrier.{u}.carrier) :
   have hs := (threeSphereStereo_smooth p.down).comp
     (threeManifold_down_contMDiff UnitThreeSphere).contMDiffOn
     (show Set.MapsTo (ULift.down : sphereCarrier.{u}.carrier → UnitThreeSphere)
-      {p}ᶜ {p.down}ᶜ from fun x hx heq => hx (ULift.ext _ _ heq))
+      {p}ᶜ {p.down}ᶜ from fun x hx heq => hx (ULift.ext heq))
   exact (threeManifold_up_contMDiff StandardCapSpace).comp_contMDiffOn hs
 
 /-- The lifted inverse is smooth on the whole Euclidean carrier, using the existing inverse chart. -/

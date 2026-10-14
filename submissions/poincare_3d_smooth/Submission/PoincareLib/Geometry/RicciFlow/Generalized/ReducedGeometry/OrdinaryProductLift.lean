@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.OrdinaryProductPaths
 
 /-!
@@ -76,7 +77,7 @@ theorem liftCurve_derivative {s : ℝ} (hs : s ∈ Ioo τ₁ τ₂) :
   have hc1 := congrArg (fun L => L (1 : ℝ)) hc
   have hclock : mfderiv 𝓘(ℝ) 𝓘(ℝ)
       (P.product.spacetime.timeFunction ∘ P.liftCurve F q) s (1 : ℝ) = -1 := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact ht.deriv
   have htime : mfderiv (spacetimeModel n) 𝓘(ℝ)
       P.product.spacetime.timeFunction (P.liftCurve F q s)
@@ -85,7 +86,7 @@ theorem liftCurve_derivative {s : ℝ} (hs : s ∈ Ioo τ₁ τ₂) :
   have hsplit := P.product.spacetime.tangent_decomposition (P.liftCurve F q s)
     (mfderiv 𝓘(ℝ) (spacetimeModel n) (P.liftCurve F q) s (1 : ℝ))
   change mfderiv 𝓘(ℝ) (spacetimeModel n) (P.liftCurve F q) s (1 : ℝ) =
-    (mfderiv (spacetimeModel n) 𝓘(ℝ) P.product.spacetime.timeFunction
+    (show ℝ from mfderiv (spacetimeModel n) 𝓘(ℝ) P.product.spacetime.timeFunction
       (P.liftCurve F q s)
       (mfderiv 𝓘(ℝ) (spacetimeModel n) (P.liftCurve F q) s (1 : ℝ))) •
       P.product.spacetime.timeVector (P.liftCurve F q s) +

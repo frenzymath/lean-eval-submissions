@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Normalization.Definitions
 
 /-!
@@ -90,7 +91,7 @@ theorem normalization_riemannianEDist_symm_extChartAt_le (x : M)
   apply (ContinuousLinearMap.le_opENorm _ _).trans
   gcongr
   · exact hC _ (hη ht)
-  · simp only [mfderivWithin_eq_fderivWithin]
+  · simp only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
     exact le_rfl
 
 end

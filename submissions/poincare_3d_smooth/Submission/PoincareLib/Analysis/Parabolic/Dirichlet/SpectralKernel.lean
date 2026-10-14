@@ -22,7 +22,7 @@ variable {α ι : Type*} [MeasurableSpace α] {μ : Measure α}
 
 /-- The spectral tensor series, with convergence proved below whenever the
 positive heat coefficients are summable. -/
-def kernelL2 (b : HilbertBasis ι ℝ (Lp ℝ 2 μ)) (lam : ι → ℝ≥0) (t : ℝ≥0) :
+def kernelL2 [SFinite μ] (b : HilbertBasis ι ℝ (Lp ℝ 2 μ)) (lam : ι → ℝ≥0) (t : ℝ≥0) :
     Lp ℝ 2 (μ.prod μ) :=
   ∑' i, Real.exp (-(lam i : ℝ) * (t : ℝ)) • tensorL2 (b i) (b i)
 
@@ -67,7 +67,7 @@ theorem inner_kernelL2_tensor [SFinite μ]
   simpa only [real_inner_comm (kernelL2 b lam t), real_inner_comm (heat b lam t f)]
     using heq.unique heq'
 
-theorem integrable_kernelL2_pair
+theorem integrable_kernelL2_pair [SFinite μ]
     (b : HilbertBasis ι ℝ (Lp ℝ 2 μ)) (lam : ι → ℝ≥0) (t : ℝ≥0)
     (f h : Lp ℝ 2 μ) :
     Integrable (fun z : α × α => kernelL2 b lam t z * h z.1 * f z.2)

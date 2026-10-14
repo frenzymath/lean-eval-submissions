@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Spacetime.Realization.OrdinaryProduct.Chart.Metric
 
 /-!
@@ -59,7 +60,7 @@ theorem spatialChartTransition_inverse_derivative (p q : M)
     exact spatialChartTransition_inverse_eq p q y hy
   have h := mfderiv_comp_apply x hq hT v
   rw [heq.mfderiv_eq] at h
-  rw [mfderiv_eq_fderiv] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   convert! h.symm using 1
 
 theorem ordinaryChartMetric_transition (g : ℝ → RiemannianMetric n M) (p q : M)

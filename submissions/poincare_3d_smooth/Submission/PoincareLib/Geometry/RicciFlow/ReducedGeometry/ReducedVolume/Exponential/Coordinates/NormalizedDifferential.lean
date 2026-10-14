@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Metric
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
 
@@ -33,7 +34,7 @@ theorem normalized_forward_differential_bound (g : RiemannianMetric n M)
     g.tangentNorm ((f ∘ L.symm) y)
       (mfderiv 𝓘(ℝ, Y) (𝓡 n) (f ∘ L.symm) y v) ≤ r * ‖v‖ := by
   rw [mfderiv_comp y hf L.symm.differentiableAt.mdifferentiableAt,
-    mfderiv_eq_fderiv, L.symm.fderiv]
+    Poincare.Compatibility.mfderiv_eq_fderiv_model, L.symm.fderiv]
   change g.tangentNorm (f (L.symm y))
     (mfderiv (𝓡 n) (𝓡 n) f (L.symm y) (L.symm v)) ≤ r * ‖v‖
   simpa only [L.apply_symm_apply] using hbound (L.symm v)
@@ -58,7 +59,7 @@ theorem normalized_inverse_differential_bound (g : RiemannianMetric n M)
       L (mfderiv (𝓡 n) (𝓡 n) e.symm q v) := by
     change mfderiv (𝓡 n) 𝓘(ℝ, Y) (L ∘ e.symm) q v = _
     rw [mfderiv_comp q L.differentiableAt.mdifferentiableAt
-      (he.mdifferentiableAt_symm hq), mfderiv_eq_fderiv, L.fderiv]
+      (he.mdifferentiableAt_symm hq), Poincare.Compatibility.mfderiv_eq_fderiv_model, L.fderiv]
     rfl
   rw [hchain]
   change ‖L (mfderiv (𝓡 n) (𝓡 n) e.symm q v)‖ ≤ r * g.tangentNorm q v

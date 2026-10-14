@@ -74,12 +74,12 @@ theorem exists_shiJoinedAtlas_uniform_bound [T2Space M]
   let B : ℝ := 1 + ∑ j, Bj j
   have hρ : 0 < ρ := Finset.prod_pos (fun j _ => hρj j)
   have hρ1 : ρ ≤ 1 :=
-    Finset.prod_le_one (fun j _ => (hρj j).le) (fun j _ => hρj1 j)
+    Finset.prod_le_one₀ (fun j _ => (hρj j).le) (fun j _ => hρj1 j)
   have hρle (j : ι × κ × κ × κ) : ρ ≤ ρj j := by
     have hsubset : ({j} : Finset (ι × κ × κ × κ)) ⊆ Finset.univ :=
       Finset.subset_univ _
     simpa only [Finset.prod_singleton] using
-      Finset.prod_le_prod_of_subset_of_le_one hsubset
+      Finset.prod_le_prod_of_subset_of_le_one₀ hsubset
         (fun k _ => (hρj k).le) (fun k _ _ => hρj1 k)
   have hsum : 0 ≤ ∑ j, Bj j :=
     Finset.sum_nonneg (fun j _ => zero_le_one.trans (hBj j))

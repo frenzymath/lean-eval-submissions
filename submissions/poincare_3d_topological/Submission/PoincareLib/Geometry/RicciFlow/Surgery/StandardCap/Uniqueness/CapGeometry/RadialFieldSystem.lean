@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialFieldJetSystem
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialRicciCoefficients
@@ -115,7 +116,7 @@ theorem radial_field_shape_hasFDerivAt
   let a := fun y => axisWarpingSlope G ‖f y‖ / axisWarpingRadius G ‖f y‖
   have hfE := contMDiffAt_iff_contDiffAt.mp hf
   have hi : (fderiv ℝ f x).IsInvertible := by
-    simpa only [mfderiv_eq_fderiv] using hinv.self_of_nhds
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using hinv.self_of_nhds
   have hZ := euclidean_radial_pullback_contDiffAt G hfE hi hzero
   have hZa := hZ.differentiableAt (by simp)
   have ha := radial_shape_pullback_hasFDerivAt hrotation

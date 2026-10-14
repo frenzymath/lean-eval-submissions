@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Annulus.ClosedConformality
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Connection.Torsion
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Connection.Pullback
@@ -55,7 +56,7 @@ theorem m64Annulus_horizontal_velocity
       (fun y => annulusPoint y s) x := hline.differentiableAt.mdifferentiableAt
   have hd : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (fun y => annulusPoint y s) x 1 =
       EuclideanSpace.single (0 : Fin 2) 1 := by
-    rw [mfderiv_eq_fderiv, hline.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ _
   have hchain := mfderiv_comp_apply x hf hmd (1 : ℝ)
   rw [hd] at hchain
@@ -76,7 +77,7 @@ theorem m64Annulus_vertical_velocity
     hline.differentiableAt.mdifferentiableAt
   have hd : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) (annulusPoint x) s 1 =
       EuclideanSpace.single (1 : Fin 2) 1 := by
-    rw [mfderiv_eq_fderiv, hline.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ _
   have hchain := mfderiv_comp_apply s hf hmd (1 : ℝ)
   rw [hd] at hchain

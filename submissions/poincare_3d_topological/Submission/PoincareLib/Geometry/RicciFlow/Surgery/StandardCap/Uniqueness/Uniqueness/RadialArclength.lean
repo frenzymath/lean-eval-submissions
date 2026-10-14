@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Uniqueness.RadialAxisMetric
 import Submission.PoincareLib.Geometry.Riemannian.MetricComparison
@@ -82,7 +83,7 @@ theorem pathELength_axis_eq_radialArclength
   rw [g.pathELength_eq_lintegral_tangentNorm]
   have hd (s : ℝ) :
       mfderiv (𝓘(ℝ, ℝ)) (𝓡 3) (fun t : ℝ => t • e2) s 1 = e2 := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     have hh : HasDerivAt (fun t : ℝ => t • e2) e2 s := by
       simpa using (hasDerivAt_id s).smul_const e2
     rw [hh.hasFDerivAt.fderiv]

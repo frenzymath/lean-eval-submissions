@@ -59,7 +59,7 @@ theorem weakDisk_boundary_memLp_uniform {M : Type u} {N : ℕ}
       2 (volume.restrict S) := by
     obtain ⟨B, hB⟩ := hS.exists_bound_of_continuousOn (ha k).continuousOn
     have hd := hpull (Lp.memLp (F.derivative k))
-    apply hd.of_le_mul (c := B) ((ha k).aestronglyMeasurable.smul hd.1)
+    apply hd.of_le_mul (c := B) ((ha k).aestronglyMeasurable.smul hd.aestronglyMeasurable)
     filter_upwards [ae_restrict_mem hS.measurableSet] with z hz
     change ‖a k z • F.derivative k (P z)‖ ≤ B * ‖F.derivative k (P z)‖
     rw [norm_smul]
@@ -271,7 +271,7 @@ theorem boundaryMinimum_radial_energy_inequality_uniform {M : Type u} [Topologic
   have hFi := hvalue.mono_measure (Measure.restrict_mono (hSS hRR1) le_rfl)
   have hDi (i : Fin 2) := (hfield i).mono_measure (Measure.restrict_mono (hSS hRR1) le_rfl)
   have hei : IntegrableOn en (S R) :=
-    m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact hFi.1 hDi
+    m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact hFi.aestronglyMeasurable hDi
   have hen (z : LoopPlane) : 0 ≤ en z :=
     embeddedEnergyDensity_nonneg g e (fun z => F.value (P z)) D z
   obtain ⟨hac, hrad⟩ := local_halfDisk_radial hR hei

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.DeepHorn.Construction.AncientLimits.Evolving.CovariantJets
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.DeepHorn.Construction.Neck.Spatial
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Neck.Geometry.MetricJets.Realization
@@ -113,7 +114,7 @@ private theorem parametrizedCoefficients_affine
       (g.parametrizedCoefficients f (p + L x)).bilinearComp L L := by
   have ha : HasFDerivAt (fun y : E3 => p + L y) L x := L.hasFDerivAt.const_add p
   have hd := mfderiv_comp x hf ha.differentiableAt.mdifferentiableAt
-  rw [mfderiv_eq_fderiv, ha.fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, ha.fderiv] at hd
   ext v w
   simp only [RiemannianMetric.parametrizedCoefficients_apply,
     ContinuousLinearMap.bilinearComp_apply]

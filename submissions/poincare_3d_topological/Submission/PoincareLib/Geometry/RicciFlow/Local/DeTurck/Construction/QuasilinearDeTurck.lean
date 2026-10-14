@@ -34,7 +34,7 @@ variable {iota : Type*} [Countable iota] {T : ℝ}
 
 private theorem norm_l2_norm (F : ForcingSpace iota T) :
     ‖(Lp.memLp F).norm.toLp (fun t => ‖F t‖)‖ = ‖F‖ := by
-  rw [Lp.norm_toLp, eLpNorm_norm, ← Lp.norm_def]
+  rw [Lp.norm_toLp, eLpNorm_norm (f := fun t => F t) (Lp.memLp F).aestronglyMeasurable, ← Lp.norm_def]
 
 /-- Pointwise mixed estimates pass to the actual L2 quotient. -/
 theorem norm_le_mixed (F G H K : ForcingSpace iota T) {a b c : ℝ}

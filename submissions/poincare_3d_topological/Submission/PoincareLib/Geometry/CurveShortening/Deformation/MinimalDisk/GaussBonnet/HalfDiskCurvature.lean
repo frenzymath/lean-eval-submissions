@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.HalfDiskProjection
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.GaussBonnet.NormalDensity
 
@@ -146,7 +147,7 @@ theorem halfDisk_normalHessian_integrable {n : ℕ} [Nonempty (Fin n)]
         rw [hF1, hlamEq z hz]
         exact hc.1.symm
     ext a d
-    simpa +instances only [m60AreaGram, mfderiv_eq_fderiv, Matrix.smul_apply,
+    simpa +instances only [m60AreaGram, Poincare.Compatibility.mfderiv_eq_fderiv_model, Matrix.smul_apply,
       Matrix.one_apply, smul_eq_mul, mul_ite, mul_one, mul_zero, b] using! hpair a d
   have hP : ContinuousOn P Kp :=
     hPC.comp e.symm.continuous.continuousOn (fun _ hz => hz)

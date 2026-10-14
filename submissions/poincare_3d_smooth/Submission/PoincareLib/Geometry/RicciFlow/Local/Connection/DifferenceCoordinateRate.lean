@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/ConnectionDifferenceCoordinateRate.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -142,7 +143,7 @@ private theorem fixed_scalar_derivative
     change e.symmL ℝ x = mfderiv 𝓘(ℝ, V) (𝓡 n) c.symm (c x) at h
     rw [hcx] at h
     exact h
-  rw [← mfderiv_eq_fderiv]
+  rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change mvfderiv 𝓘(ℝ, V) (f ∘ c.symm) z v = mvfderiv (𝓡 n) f x (e.symmL ℝ x v)
   rw [mvfderiv_comp_apply z hf hc v, ← he]
   rfl
@@ -167,7 +168,7 @@ private theorem centered_scalar_derivative
     simpa only [(𝓡 n).range_eq_univ, mfderivWithin_univ] using
       (mfderivWithin_range_extChartAt_symm (I := 𝓡 n) (x := x))
   have hdf : fderiv ℝ (fun z => f (c.symm z)) (c x) = mvfderiv (𝓡 n) f x := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mvfderiv 𝓘(ℝ, EuclideanSpace ℝ (Fin n)) (f ∘ c.symm) (c x) = _
     have hf' : MDifferentiableAt (𝓡 n) 𝓘(ℝ, ℝ) f (c.symm (c x)) := by
       simpa only [hc] using hf

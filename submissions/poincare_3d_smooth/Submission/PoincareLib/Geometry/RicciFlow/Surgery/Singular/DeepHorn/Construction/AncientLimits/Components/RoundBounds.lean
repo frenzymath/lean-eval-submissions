@@ -157,7 +157,7 @@ private def round_referencePoint : UnitSphere 3 :=
 
 private def round_referenceCoefficients (x : EuclideanSpace ℝ (Fin 3)) :
     EuclideanSpace ℝ (Fin 3) →L[ℝ] EuclideanSpace ℝ (Fin 3) →L[ℝ] ℝ :=
-  (16 / (‖x‖ ^ 2 + 4) ^ 2) • innerSL ℝ
+  (16 / (‖x‖ ^ 2 + 4) ^ 2) • innerSL ℝ (E := EuclideanSpace ℝ (Fin 3))
 
 private theorem round_referenceCoefficients_smooth : ContDiff ℝ ∞ round_referenceCoefficients := by
   let : IsBoundedSMul ℝ (EuclideanSpace ℝ (Fin 3) →L[ℝ]

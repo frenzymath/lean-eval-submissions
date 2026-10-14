@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.GlobalSchedule.Event.EventTransportMetricJets
 
 /-!
@@ -37,7 +38,8 @@ theorem pullbackCoefficients_congr
       (mfderiv (𝓡 3) (𝓡 3) f x w) =
     g.inner (h x) (mfderiv (𝓡 3) (𝓡 3) h x v)
       (mfderiv (𝓡 3) (𝓡 3) h x w)
-  rw [heq.eq_of_nhds, heq.mfderiv_eq]
+  rw [heq.mfderiv_eq, heq.eq_of_nhds]
+  rfl
 
 /-- Smooth coordinate composition gives the tensor pullback formula;
 this supports Definition 15.8, pp. 361-362. -/
@@ -51,7 +53,7 @@ theorem pullbackCoefficients_comp
         (fderiv ℝ a x) (fderiv ℝ a x) := by
   have hderiv := mfderiv_comp x (hf.mdifferentiableAt (by simp))
     ((contMDiffAt_iff_contDiffAt.mpr ha).mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hderiv
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hderiv
   ext v w
   change g.inner (f (a x)) (mfderiv (𝓡 3) (𝓡 3) (f ∘ a) x v)
       (mfderiv (𝓡 3) (𝓡 3) (f ∘ a) x w) =

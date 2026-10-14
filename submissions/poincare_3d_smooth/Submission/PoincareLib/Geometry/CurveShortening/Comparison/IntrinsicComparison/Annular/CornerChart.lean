@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Exact.TwoArcCorner
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Corner.AnnularSide
 
@@ -51,7 +52,7 @@ theorem m64Intrinsic_exists_annular_corner_chart
   let J : (ℝ × ℝ) ≃L[ℝ] AnnulusCoordinates := hD.mfderiv h0
   have hd : HasFDerivAt H J.toContinuousLinearMap 0 := by
     change HasFDerivAt H (mfderiv 𝓘(ℝ, ℝ × ℝ) (𝓡 2) H 0) 0
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact ((hH 0 h0).contDiffAt (H.open_source.mem_nhds h0)).differentiableAt
       (by simp) |>.hasFDerivAt
   have htarget : alpha 0 ∈ H.target := hHbase ▸ H.map_source h0

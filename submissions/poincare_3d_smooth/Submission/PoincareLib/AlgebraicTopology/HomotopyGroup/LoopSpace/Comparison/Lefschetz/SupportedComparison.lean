@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.SupportedNerve
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.OrderComplexSimplex
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.OrderComplexNeighborhoods
@@ -55,16 +56,16 @@ covering neighborhood. Source: Hatcher, Theorem 2.27, pp. 128-130. -/
 def supportedLiftSimplex (s : Finset J) {n : ℕ}
     (z : (supportedSingularLift p (orderComplexSingular J) s).toSSet _⦋n⦌) :
     C(stdSimplex ℝ (Fin (n + 1)), liftedCoordinateNeighborhood p s) := by
-  refine ⟨fun t => ⟨(TopCat.of E).toSSetObjEquiv _ z.val.val.2 t, ?_⟩, ?_⟩
-  · change p ((TopCat.of E).toSSetObjEquiv _ z.val.val.2 t) ∈
+  refine ⟨fun t => ⟨(TopCat.of E).toLegacySSetObjEquiv _ z.val.val.2 t, ?_⟩, ?_⟩
+  · change p ((TopCat.of E).toLegacySSetObjEquiv _ z.val.val.2 t) ∈
       orderComplexNeighborhood s
-    have h := congrArg (fun a => (TopCat.of (finiteOrderComplex J).space).toSSetObjEquiv _ a t)
+    have h := congrArg (fun a => (TopCat.of (finiteOrderComplex J).space).toLegacySSetObjEquiv _ a t)
       z.val.property
-    change p ((TopCat.of E).toSSetObjEquiv _ z.val.val.2 t) =
+    change p ((TopCat.of E).toLegacySSetObjEquiv _ z.val.val.2 t) =
       orderComplexSimplex z.val.val.1 t at h
     rw [h]
     exact orderComplexSimplex_mem_neighborhood s ⟨z.val.val.1, z.property⟩ t
-  · exact ((TopCat.of E).toSSetObjEquiv _ z.val.val.2).continuous.subtype_mk _
+  · exact ((TopCat.of E).toLegacySSetObjEquiv _ z.val.val.2).continuous.subtype_mk _
 
 /-- The actual characteristic-simplex comparison on a supported lifted
 subcomplex, valued in its open covering neighborhood.
@@ -76,7 +77,10 @@ def supportedSingularComparison (s : Finset J) :
     intro n m f z
     ext t : 1
     apply Subtype.ext
-    rfl)
+    change (TopCat.of E).toLegacySSetObjEquiv _ z.val.val.2 (stdSimplex.map f t) =
+      (TopCat.of E).toLegacySSetObjEquiv _
+        ((TopCat.toSSet.obj (TopCat.of E)).map f.op z.val.val.2) t
+    exact (TopCat.toLegacySSetObjEquiv_naturality_apply f z.val.val.2 t).symm)
 
 /-- Projection of the supported comparison gives the original literal
 singular projection of the lifted model. Source: Hatcher, Theorem 2.27. -/
@@ -89,7 +93,7 @@ theorem supportedSingularComparison_projection (s : Finset J) :
   ext n : 1
   apply ConcreteCategory.hom_ext
   intro z
-  apply ((TopCat.of E).toSSetObjEquiv n).injective
+  apply ((TopCat.of E).toLegacySSetObjEquiv n).injective
   rfl
 
 /-- The actual inclusion between lifted coordinate neighborhoods.
@@ -111,7 +115,7 @@ theorem supportedSingularComparison_naturality {s t : Finset J} (h : s ⊆ t) :
   ext n : 1
   apply ConcreteCategory.hom_ext
   intro z
-  apply ((TopCat.of (liftedCoordinateNeighborhood p t)).toSSetObjEquiv n).injective
+  apply ((TopCat.of (liftedCoordinateNeighborhood p t)).toLegacySSetObjEquiv n).injective
   rfl
 
 end PoincareMT.Proofs.M59

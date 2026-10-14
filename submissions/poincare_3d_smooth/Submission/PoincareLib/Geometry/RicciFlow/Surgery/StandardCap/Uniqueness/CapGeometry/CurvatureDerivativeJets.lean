@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialSectionalDerivative
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.JetBounds.CurvatureNaturality
@@ -51,7 +52,7 @@ private theorem curvature_derivative_const
     funext (extend_const x v)
   rw [D.covariantTensorDerivative_riemannEvaluation_eq]
   dsimp only
-  rw [he, he, he, he, mvfderiv, mfderiv_eq_fderiv]
+  rw [he, he, he, he, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rfl
 
 private theorem linear_eval_tendsto

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Basic
 import Submission.PoincareLib.Geometry.Riemannian.Distance.ChartSegment
 import Submission.PoincareLib.Analysis.Approximation.Convolution
@@ -144,7 +145,7 @@ theorem exists_local_distance_approx (g : RiemannianMetric n M) (O p : M) :
       simpa only [modelWithCornersSelf_coe, Set.range_id, mdifferentiableWithinAt_univ] using
         mdifferentiableWithinAt_extChartAt_symm (I := 𝓡 n) hz
     rw [show Φ = e.symm ∘ A from rfl, mfderiv_comp z hi A.differentiableAt.mdifferentiableAt,
-      mfderiv_eq_fderiv, A.fderiv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, A.fderiv]
   have hboundΦ (z : TangentSpace (𝓡 n) p) (hz : z ∈ Metric.ball (ψ p) r) :
       ‖mfderiv (𝓘(ℝ, TangentSpace (𝓡 n) p)) (𝓡 n) Φ z‖ₑ ≤ (6 / 5 : ℝ≥0) := by
     have hh := (hball hz).2.2
@@ -192,12 +193,12 @@ theorem exists_local_distance_approx (g : RiemannianMetric n M) (O p : M) :
         A.symm.toContinuousLinearMap ∘L mfderiv (𝓡 n) (𝓡 n) e x := by
       rw [show ψ = A.symm ∘ e from rfl,
         mfderiv_comp x A.symm.differentiableAt.mdifferentiableAt hdx,
-        mfderiv_eq_fderiv, A.symm.fderiv]
+        Poincare.Compatibility.mfderiv_eq_fderiv_model, A.symm.fderiv]
     have hψbound := (hball hx.2).2.1
     rw [hleft x hx.1] at hψbound
     rw [mvfderiv_comp x (hu.differentiable (by simp) (ψ x)).mdifferentiableAt
       ((hψ x hx.1).mdifferentiableAt (by simp))]
-    simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
     change |fderiv ℝ u (ψ x) (mfderiv (𝓡 n) (𝓘(ℝ, TangentSpace (𝓡 n) p)) ψ x v)| ≤ _
     rw [hdψ, ← Real.norm_eq_abs]
     have hv := (A.symm.toContinuousLinearMap ∘L mfderiv (𝓡 n) (𝓡 n) e x).le_opNorm v

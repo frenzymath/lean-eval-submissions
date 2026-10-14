@@ -128,7 +128,7 @@ theorem roundCylinderTensorNormSquared_time_mono {u v : ℝ} (huv : u ≤ v) (hv
   apply Finset.sum_le_sum
   intro a _
   apply mul_le_mul_of_nonneg_right _ (sq_nonneg _)
-  apply Finset.prod_le_prod
+  apply Finset.prod_le_prod₀
   · exact fun i _ => hw (a i)
   · exact fun i _ => hmono (a i)
 

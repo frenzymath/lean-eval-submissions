@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceInterior
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.MinimalDisk.StrictTraceArcCapture
@@ -75,7 +76,7 @@ theorem not_local_zero_of_Jordan_trace [T2Space M] (D : LeviCivitaData g)
       fderiv ℝ (e ∘ f) z = 0 := by
     have hd := mfderiv_comp z ((he (f z)).mdifferentiableAt (by simp))
       ((hf.contMDiffAt (Metric.isOpen_ball.mem_nhds hz)).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv, hD z hz, ContinuousLinearMap.comp_zero] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hD z hz, ContinuousLinearMap.comp_zero] at hd
     exact hd
   have h0 : (0 : LoopPlane) ∈ Metric.ball (0 : LoopPlane) 1 := Metric.mem_ball_self zero_lt_one
   have hconst : EqOn f (fun _ => f 0) (Metric.ball (0 : LoopPlane) 1) := by

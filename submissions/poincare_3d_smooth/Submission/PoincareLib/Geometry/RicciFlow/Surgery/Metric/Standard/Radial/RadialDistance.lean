@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialDifferential
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.DistLEIntegral
 import Mathlib.Topology.Order.Compact
@@ -92,7 +93,7 @@ theorem metricPathSpeed_unit_ray (g₀ : StandardInitialMetric)
     convert! (hasDerivAt_id t).smul_const u using 1
     simp
   have hm : mfderiv 𝓘(ℝ, ℝ) (𝓡 3) (fun s : ℝ => s • u) t 1 = u := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact hd.deriv
   unfold metricPathSpeed RiemannianMetric.tangentNorm
   rw [hm, unit_ray_metric g₀ u hu]

@@ -188,9 +188,8 @@ theorem hasCompactSupport_stationaryEllipticResidual {ι : Type*} [Fintype ι]
           simp
       | @insert i s hi ih =>
           convert (hdQ i).add ih using 1
-          · rfl
-          · funext x
-            simp [Finset.sum_insert hi]
+          funext x
+          simp [Finset.sum_insert hi]
   apply HasCompactSupport.sub _ hsum
   exact hdu.comp_left (g := Kernel.lapEval (V := V) (F := F)) (map_zero _)
 

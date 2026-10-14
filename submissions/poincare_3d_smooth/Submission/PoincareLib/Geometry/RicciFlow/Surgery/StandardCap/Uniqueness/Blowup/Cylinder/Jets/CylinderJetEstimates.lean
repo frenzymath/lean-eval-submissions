@@ -81,7 +81,7 @@ theorem component_abs_lt {epsilon u : ℝ} {B : RoundCylinderTwoTensor}
       ∏ i, ![(2 * (1 - u))⁻¹, (2 * (1 - u))⁻¹, 1] (a i) := by
     calc
       _ = ∏ _ : Fin (2 + k), (1 / 4 : ℝ) := by simp
-      _ ≤ _ := Finset.prod_le_prod (fun _ _ => by norm_num)
+      _ ≤ _ := Finset.prod_le_prod₀ (fun _ _ => by norm_num)
         (fun i _ => M35.roundCylinderInverseWeight_lower hlo hu (a i))
   have hb : (1 / 4 : ℝ) ^ (2 + k) * T ^ 2 < epsilon ^ 2 :=
     (mul_le_mul_of_nonneg_right hw (sq_nonneg _)).trans_lt (h.component_sq_lt hu hz hk a)

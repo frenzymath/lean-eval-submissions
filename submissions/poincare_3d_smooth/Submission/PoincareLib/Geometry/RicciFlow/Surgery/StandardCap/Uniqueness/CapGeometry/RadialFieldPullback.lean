@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialUnitFieldBound
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialShapeDerivative
@@ -139,10 +140,10 @@ theorem radial_shape_pullback_hasFDerivAt
         g.euclideanCoefficients x ((fderiv ℝ f x).inverse (radialUnitField G (f x))) w
   have hm (u v : StandardCapSpace) : g.euclideanCoefficients x u v =
       G.euclideanCoefficients (f x) (fderiv ℝ f x u) (fderiv ℝ f x v) := by
-    simpa only [mfderiv_eq_fderiv, RiemannianMetric.euclideanCoefficients] using! hmetric u v
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, RiemannianMetric.euclideanCoefficients] using! hmetric u v
   rw [hm]
   have hi : (fderiv ℝ f x).IsInvertible := by
-    simpa only [mfderiv_eq_fderiv] using hinv
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using hinv
   rw [hi.self_apply_inverse]
 
 end PoincareMT.M35.Uniqueness

@@ -8,6 +8,7 @@ level, including the seam. These coordinates identify actual boundary maps.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 2000000
 open Set Geometry PLAnnularStrip
 
 namespace PoincareMT.M76.Dehn

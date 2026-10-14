@@ -114,7 +114,9 @@ theorem closed_regular_support_germ_of_two_rays
       z ∈ frontier K ↔ z ∉ A ∪ B := by
     intro z hz
     change frontier K z ↔ _
-    rw [propext_iff.mp (hbox hz)]
+    have hh := hbox hz
+    change frontier K z = _ at hh
+    rw [hh]
     simp only [A, B, mem_ofPred_eq, mem_union, mem_inter_iff, hz, true_and,
       not_or, not_and_or, not_lt]
     constructor
@@ -159,7 +161,9 @@ theorem closed_regular_support_germ_of_line
       z ∈ frontier K ↔ z ∉ A ∪ B := by
     intro z hz
     change frontier K z ↔ _
-    rw [propext_iff.mp (hbox hz)]
+    have hh := hbox hz
+    change frontier K z = _ at hh
+    rw [hh]
     simp only [A, B, mem_ofPred_eq, mem_union, mem_inter_iff, hz, true_and,
       not_or, not_lt]
     exact ⟨fun h => ⟨h.le, h.ge⟩, fun h => le_antisymm h.1 h.2⟩

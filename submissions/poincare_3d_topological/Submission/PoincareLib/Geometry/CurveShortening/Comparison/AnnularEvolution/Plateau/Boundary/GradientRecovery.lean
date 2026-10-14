@@ -322,7 +322,7 @@ theorem exists_continuous_full_differential {R : ℝ} (hR : 0 < R)
     by_cases haj : a = j
     · subst a
       simp only [W, ite_true, hbareq hz, root, add_sub_cancel_right]
-    · exact (if_neg haj).trans (hTeq z (hVU hz) a haj)
+    · exact (ite_eq_right haj).trans (hTeq z (hVU hz) a haj)
   let vBar := fun z => (WithLp.toLp 2 fun a : Fin N => (W z a).re : E)
   let wBar := fun z => (WithLp.toLp 2 fun a : Fin N => -(W z a).im : E)
   have hvBar : ContinuousOn vBar K :=

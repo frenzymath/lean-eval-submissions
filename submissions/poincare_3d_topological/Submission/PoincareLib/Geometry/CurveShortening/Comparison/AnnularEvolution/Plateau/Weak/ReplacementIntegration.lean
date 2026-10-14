@@ -59,7 +59,7 @@ theorem m64L2_test_integrable
     {mu : Measure X} {u : X → E} {phi : X → ℝ}
     (hu : MemLp u 2 mu) (hp : MemLp phi 2 mu) :
     Integrable (fun x => phi x • u x) mu :=
-  memLp_one_iff_integrable.mp (show MemLp (fun x => phi x • u x) 1 mu from MemLp.smul hu hp)
+  memLp_one_iff_integrable.mp (show MemLp (fun x => phi x • u x) 1 mu from MemLp.smul hp hu)
 
 /-- A continuous field is L2 on the bounded annular interior. Source: Morgan-Tian Lemma
 19.15, pp. 447-449; M64 derivation `2026-09-26-free-boundary-replacement.md`. -/

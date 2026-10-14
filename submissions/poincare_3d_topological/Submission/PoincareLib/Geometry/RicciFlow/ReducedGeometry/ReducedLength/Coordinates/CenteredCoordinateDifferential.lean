@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Coordinates.CenteredChartOperators
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Theory
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
@@ -38,7 +39,7 @@ theorem mvfderiv_centeredChart_of_eventuallyEq (p : M) (f : M → ℝ) (φ : E �
     mvfderiv (𝓡 n) f p U = fderiv ℝ φ ((chartAt E p) p) U := by
   have hc := (mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt (mem_chart_source E p)
   have h := (hφ.mdifferentiableAt.hasMFDerivAt.comp p hc.hasMFDerivAt).mfderiv
-  rw [mfderiv_eq_fderiv] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   change mfderiv (𝓡 n) (𝓘(ℝ, ℝ)) (fun q ↦ φ ((chartAt E p) q)) p =
     (fderiv ℝ φ ((chartAt E p) p)).comp (mfderiv (𝓡 n) (𝓡 n) (chartAt E p) p) at h
   rw [mvfderiv, heq.mfderiv_eq, h, mfderiv_chartAt_self]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Variation.Manifold
 
 /-!
@@ -40,7 +41,7 @@ theorem radialVariation_field_eq
   have he' : MDifferentiableAt (𝓡 n) (𝓡 n) e (t • (v + (0 : ℝ) • w)) := by
     simpa using he
   have hd := mfderiv_comp 0 he' hline.differentiableAt.mdifferentiableAt
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hd1 := congrArg (fun L => L 1) hd
   rw [zero_smul, add_zero] at hd1
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun s : ℝ => e (t • (v + s • w))) 0 1 =
@@ -107,7 +108,7 @@ theorem radialVariation_initial_covariantDerivative
     filter_upwards [hnear] with t ht
     have hd := mfderiv_comp (t • v)
       (mdifferentiableAt_extChartAt (by simpa only [c, extChartAt_source] using ht.2)) ht.1
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     change mfderiv (𝓡 n) (𝓡 n) c (e (t • v))
       (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun s : ℝ => e (t • (v + s • w))) 0 1) = _
     rw [radialVariation_field_eq v w t ht.1]
@@ -143,7 +144,7 @@ theorem radialVariation_initial_covariantDerivative
   rw [hV0, map_zero, add_zero, fderiv_eq_smul_deriv, one_smul, hV.deriv]
   have hd := mfderiv_comp 0 (mdifferentiableAt_extChartAt (mem_chart_source _ _))
     (he.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hdw := congrArg (fun L => L w) hd
   change fderiv ℝ q 0 w = mfderiv (𝓡 n) (𝓡 n) c (e 0)
     (mfderiv (𝓡 n) (𝓡 n) e 0 w) at hdw

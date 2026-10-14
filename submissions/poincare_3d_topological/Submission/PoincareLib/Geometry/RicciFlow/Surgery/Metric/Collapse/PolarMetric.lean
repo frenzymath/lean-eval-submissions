@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Collapse.AdaptedPolar
 
 /-!
@@ -77,7 +78,7 @@ theorem adaptedPolarPoint_mvfderiv (g₀ : StandardInitialMetric)
       (((radialEuclideanRadius_contDiff g₀).contMDiff z.2).mdifferentiableAt (by simp))
       mdifferentiableAt_snd, mfderiv_snd]
     change mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (radialEuclideanRadius g₀) z.2 v.2 = _
-    rw [mfderiv_eq_fderiv, (radialEuclideanRadius_hasDerivAt g₀ z.2).hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (radialEuclideanRadius_hasDerivAt g₀ z.2).hasFDerivAt.fderiv]
     change v.2 * (radialSpeed g₀ (radialEuclideanRadius g₀ z.2))⁻¹ = _
     ring
   have hA : mvfderiv I (fun w : StandardCylinderSpace => adaptedAngularEmbedding g₀ w.1) z v =

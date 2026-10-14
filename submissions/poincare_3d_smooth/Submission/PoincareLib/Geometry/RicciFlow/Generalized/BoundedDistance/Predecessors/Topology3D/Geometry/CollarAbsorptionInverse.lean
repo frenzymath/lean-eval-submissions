@@ -42,6 +42,7 @@ private theorem collar_map_nhds_eq {f : M → N} {x : M}
   have hderiv : mfderiv I I f x = fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [F, c, I.range_eq_univ]
+    rfl
   have hFbij : Bijective (fderiv ℝ F (c x)) := by
     rwa [hderiv] at hbij
   let e := ContinuousLinearEquiv.ofBijective (fderiv ℝ F (c x))
@@ -83,6 +84,7 @@ private theorem collar_contMDiffAt_left_inverse
   have hderiv : mfderiv I I f x = fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [F, c, I.range_eq_univ]
+    rfl
   have hFbij : Bijective (fderiv ℝ F (c x)) := by
     rwa [hderiv] at hbij
   let e := ContinuousLinearEquiv.ofBijective (fderiv ℝ F (c x))

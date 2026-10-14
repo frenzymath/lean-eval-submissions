@@ -19,7 +19,7 @@ theorem cylinder_tensor_weight_lower {r : ℕ} (a : Fin r → Fin 3) :
     (1 / 2 : ℝ) ^ r ≤ ∏ i, cylinderInverseWeight (a i) := by
   calc
     (1 / 2 : ℝ) ^ r = ∏ _i : Fin r, (1 / 2 : ℝ) := by simp
-    _ ≤ _ := Finset.prod_le_prod (fun _ _ => by norm_num)
+    _ ≤ _ := Finset.prod_le_prod₀ (fun _ _ => by norm_num)
       (fun i _ => (cylinderInverseWeight_bounds (a i)).1)
 
 theorem roundCylinderTensorNormSquared_controls_rank_component {r : ℕ}

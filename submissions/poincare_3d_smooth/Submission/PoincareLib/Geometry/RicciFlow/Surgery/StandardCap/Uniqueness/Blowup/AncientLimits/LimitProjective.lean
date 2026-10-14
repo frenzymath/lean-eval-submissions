@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Sequences.BlowupSequence
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.OrdinaryRealization.EvenImmersion
@@ -70,7 +71,7 @@ theorem cylinder_excludes_antipodal_product {J : Set ℝ}
   have ho := (hf₀.contMDiffAt (hU.mem_nhds (hvalid x hx))).mdifferentiableAt (by simp)
   have hp := (spherePolarMap_contMDiffAt q₀ hx0).mdifferentiableAt (by simp)
   have hc' := hc.mdifferentiable (by simp) (spherePolarMap q₀ x)
-  rw [← mfderiv_eq_fderiv]
+  rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rw [mfderiv_comp x (ho.comp _ hc') hp,
     mfderiv_comp (spherePolarMap q₀ x) ho hc']
   exact ((hinj₀ _ (hvalid x hx)).comp

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Neck.Geodesic.Acceleration.NeckChart
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.Geodesic
 
@@ -65,7 +66,7 @@ theorem hasDerivAt_axialCoordinate_comp_geodesic
           (N.carrier_open.mem_nhds (hγN t ht))).mdifferentiableAt
           (by simp))
         ((hγ.contMDiffAt ht).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change deriv F t =
       mvfderiv (𝓡 3) (axialCoordinate N) (γ t)
         (mfderiv 𝓘(ℝ, ℝ) (𝓡 3) γ t 1) at heq

@@ -51,11 +51,11 @@ theorem coneDisk_metricEnergy_le {M : Type u} [TopologicalSpace M]
   let D := coneDiskField (e ∘ P) r v0 v d x
   have hL := coneDisk_memLp hr hρ hK hv hg h0 hvb hd hD x
   have hE : IntegrableOn (m65EmbeddedEnergyDensity g e q D) (closedBall x r) :=
-    m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact hL.1.1 hL.2
+    m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact hL.1.aestronglyMeasurable hL.2
   have hS : IntegrableOn (fun z => ∑ i : Fin 2, ‖D i z‖ ^ 2) (closedBall x r) := by
     apply integrable_finsetSum
     intro i _
-    exact (memLp_two_iff_integrable_sq_norm (hL.2 i).1).mp (hL.2 i)
+    exact (memLp_two_iff_integrable_sq_norm (hL.2 i).aestronglyMeasurable).mp (hL.2 i)
   have hpoint (z : LoopPlane) :
       m65EmbeddedEnergyDensity g e q D z ≤ (C / 2) * ∑ i : Fin 2, ‖D i z‖ ^ 2 := by
     have h := Finset.sum_le_sum (s := Finset.univ) (fun i _ => hbound (q z) (D i z))

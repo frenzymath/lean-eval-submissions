@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Regularity.Lipschitz.ChartLipschitz
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Measure.Calibration.NullTransport
 import Mathlib.MeasureTheory.Function.Jacobian
@@ -56,7 +57,7 @@ theorem calibratedMetricVolume_criticalValues_eq_zero
       mdifferentiableAt_extChartAt (by
         simpa only [← extChartAt_source (𝓡 n)] using hx.2.1)
     have hchain := mfderiv_comp x he (hf x)
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
     have hdf : Function.Injective (mfderiv (𝓡 n) (𝓡 n) f x) := by
       intro v w hvw
       apply hinj

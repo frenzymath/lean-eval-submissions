@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Noncollapse.Universal.FlowControl
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Noncollapse.Universal.ReducedLength.TerminalBound
 import Submission.PoincareLib.Geometry.Riemannian.Distance.ShortSegment
@@ -67,7 +68,7 @@ theorem exists_short_terminal_path (p y : M)
       have had : HasDerivAt a 1 s := (hasDerivAt_id s).sub_const 1
       change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (γ ∘ a) s 1 = _
       rw [mfderiv_comp_apply s (hγat.mdifferentiableAt (by simp))
-        (ha.mdifferentiable (by simp) s), mfderiv_eq_fderiv, had.hasFDerivAt.fderiv]
+        (ha.mdifferentiable (by simp) s), Poincare.Compatibility.mfderiv_eq_fderiv_model, had.hasFDerivAt.fderiv]
       change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (a s) ((1 : ℝ) • 1) = _
       rw [one_smul]
       rfl

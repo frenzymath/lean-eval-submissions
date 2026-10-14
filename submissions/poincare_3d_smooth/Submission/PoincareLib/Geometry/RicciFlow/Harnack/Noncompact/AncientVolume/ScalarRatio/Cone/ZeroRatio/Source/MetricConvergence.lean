@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.ZeroRatio.Source.Embeddings
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.GeometricLimit.Stages.SourceEmbedding.MetricConvergence
 
@@ -84,7 +85,11 @@ theorem pullbackCoefficients_tendsto_jets_of_corrected_charts
     have hd := mfderiv_comp y
       (((hφ k).contMDiffAt (hU.mem_nhds (hTU (hkm (interior_subset hy))))).mdifferentiableAt
         (by simp)) (hka.differentiable (by simp) y).mdifferentiableAt
-    rw [← hnear.mfderiv_eq, mfderiv_eq_fderiv] at hd
+    have heqd : (mfderiv (𝓡 n) (𝓡 n) (ψ k) y :
+        EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) =
+        mfderiv (𝓡 n) (𝓡 n) (φ k ∘ a k) y :=
+      hnear.mfderiv_eq.trans (by ext v; rfl)
+    rw [← heqd, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     ext v w
     change (g k).inner (ψ k y) (mfderiv (𝓡 n) (𝓡 n) (ψ k) y v)
       (mfderiv (𝓡 n) (𝓡 n) (ψ k) y w) =

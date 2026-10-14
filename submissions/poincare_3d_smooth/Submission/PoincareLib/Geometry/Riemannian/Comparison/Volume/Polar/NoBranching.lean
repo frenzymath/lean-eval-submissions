@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Minimizing.ExponentialChord
 import Submission.PoincareLib.Geometry.Riemannian.Distance.SegmentSpeed
 
@@ -37,7 +38,7 @@ theorem tangentNorm_coordDeriv_eq
     exact mdifferentiableAt_extChartAt (mem_chart_source _ p)
   have hchain := mfderiv_comp t hc
     ((hγ.contMDiffAt ht).mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   have hv := congrArg (fun L => L (1 : ℝ)) hchain
   change (fderiv ℝ (fun u => extChartAt (𝓡 n) p (γ u)) t) 1 =
     mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p) (γ t)

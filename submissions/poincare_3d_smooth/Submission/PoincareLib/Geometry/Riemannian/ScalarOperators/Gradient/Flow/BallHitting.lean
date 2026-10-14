@@ -28,7 +28,9 @@ private theorem scalar_derivative_along_curve
   have hd' := (hasMFDerivAt_iff_hasFDerivAt.mp hd).hasDerivAt
   change HasDerivAt (fun t => f (γ t))
     (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) f (γ s) ((1 : ℝ) • W (γ s))) s at hd'
-  simpa [mvfderiv, NormedSpace.fromTangentSpace] using hd'
+  convert! hd' using 1
+  simp [mvfderiv, NormedSpace.fromTangentSpace]
+  rfl
 end PoincareMT.LeviCivitaData
 
 /-- Uniform negative crossing constructs a smooth level retraction near the

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Uniformization.Conjugate
 
 /-!
@@ -42,7 +43,7 @@ theorem inner_firstCoordinateGradient (g : RiemannianMetric 2 Plane)
   rw [firstCoordinateGradient, D.inner_gradient]
   have hderiv : fderiv ℝ (fun y : Plane => y 0) x = EuclideanSpace.proj 0 :=
     (show Plane →L[ℝ] ℝ from EuclideanSpace.proj 0).fderiv
-  simp only [mvfderiv, mfderiv_eq_fderiv, hderiv, NormedSpace.fromTangentSpace]
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, hderiv, NormedSpace.fromTangentSpace]
   rfl
 
 /-- The first coordinate's gradient has a strictly positive first component.

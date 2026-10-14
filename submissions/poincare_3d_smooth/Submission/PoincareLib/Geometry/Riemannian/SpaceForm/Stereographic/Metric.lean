@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.RoundSphere
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
@@ -89,7 +90,7 @@ theorem roundSphereMetric_chart_symm_inner {n : ℕ} (q : UnitSphere n)
   have hder : fderiv ℝ (f ∘ c.symm) x =
       (mfderiv (𝓡 n) (𝓡 (n + 1)) f (c.symm x)).comp
         (mfderiv (𝓡 n) (𝓡 n) c.symm x) := by
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact mfderiv_comp x (hf (c.symm x) |>.mdifferentiableAt (by simp))
       (hc x |>.mdifferentiableAt (by simp))
   have hderA : fderiv ℝ (f ∘ c.symm) x =

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Noncollapse.Universal.ModelVolume
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.LocalIsometry.SphereMotions
 import Submission.PoincareLib.Geometry.Riemannian.Metric.Diffeomorph
@@ -36,7 +37,7 @@ private def lineTranslation (a : ℝ) : Diffeomorph 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ
 private theorem lineTranslation_mfderiv (a z v : ℝ) :
     mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (lineTranslation a) z v = v := by
   change mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun x : ℝ => x + a) z v = v
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   simp
   rfl
 

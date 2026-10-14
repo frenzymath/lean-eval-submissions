@@ -59,6 +59,5 @@ theorem terminalGerms_metric_pair_compatibility
   simp only [hgi, hgj, hd]
   rw [coordinateRepresentative_apply] at hm
   convert hm.symm using 1
-  rfl
 
 end PoincareMT.M47

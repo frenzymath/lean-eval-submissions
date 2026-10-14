@@ -205,7 +205,8 @@ private lemma lintegral_enorm_sq_diffQuot_le_lintegral_enorm_sq_partialDeriv_loc
 omit [NeZero d] in
 private lemma eLpNorm_two_restrict_le_of_sup_bound
     {K : Set EuclN} (hK_meas : MeasurableSet K)
-    {f : EuclN → ℝ} {C : ℝ} (hf : ∀ x ∈ K, ‖f x‖ ≤ C) :
+    {f : EuclN → ℝ} {C : ℝ} (hfm : AEStronglyMeasurable f (volume.restrict K))
+    (hf : ∀ x ∈ K, ‖f x‖ ≤ C) :
     eLpNorm f 2 ((volume : Measure EuclN).restrict K) ≤
       ((volume : Measure EuclN) K) ^ (1 / 2 : ℝ) * ENNReal.ofReal C := by
   classical
@@ -215,7 +216,7 @@ private lemma eLpNorm_two_restrict_le_of_sup_bound
   have h_bound : eLpNorm f 2 ((volume : Measure EuclN).restrict K) ≤
       (((volume : Measure EuclN).restrict K) Set.univ) ^ (2 : ℝ≥0∞).toReal⁻¹ *
         ENNReal.ofReal C :=
-    eLpNorm_le_of_ae_bound (μ := (volume : Measure EuclN).restrict K) (p := 2) hae
+    eLpNorm_le_of_ae_bound (μ := (volume : Measure EuclN).restrict K) (p := 2) hfm hae
   have h_meas_univ : ((volume : Measure EuclN).restrict K) Set.univ =
       (volume : Measure EuclN) K := by
     rw [Measure.restrict_apply MeasurableSet.univ]
@@ -234,6 +235,8 @@ private lemma tendsto_eLpNorm_restrict_of_tendstoUniformlyOn
     {K : Set EuclN} (hK_meas : MeasurableSet K)
     (hK_volume_finite : (volume : Measure EuclN) K < ∞)
     {fSeq : ι → EuclN → ℝ} {f : EuclN → ℝ}
+    (hseqm : ∀ i, AEStronglyMeasurable (fSeq i) (volume.restrict K))
+    (hfm : AEStronglyMeasurable f (volume.restrict K))
     (h_unif : TendstoUniformlyOn fSeq f l K) :
     Tendsto (fun i => eLpNorm (fun x => fSeq i x - f x) 2
       ((volume : Measure EuclN).restrict K)) l (𝓝 0) := by
@@ -263,7 +266,7 @@ private lemma tendsto_eLpNorm_restrict_of_tendstoUniformlyOn
         ((volume : Measure EuclN).restrict K) ≤ V * ENNReal.ofReal ε := by
     intro ε hε
     filter_upwards [h_unif_real ε hε] with i hi
-    exact eLpNorm_two_restrict_le_of_sup_bound hK_meas hi
+    exact eLpNorm_two_restrict_le_of_sup_bound hK_meas ((hseqm i).sub hfm) hi
   rw [ENNReal.tendsto_nhds_zero]
   intro δ hδ_pos
   by_cases hδ_top : δ = ∞
@@ -361,7 +364,9 @@ private lemma tendsto_eLpNorm_restrict_sub_mollifyEps_of_continuous_compactSuppo
       (fun i => mollifyEps (d := d) (hε_pos i) φ) φ l K :=
     tendstoUniformlyOn_mollifyEps_of_uniformContinuous hε_pos hε_tendsto
       hφ_cont hφ_uc
-  exact tendsto_eLpNorm_restrict_of_tendstoUniformlyOn hK_meas hK_volume_finite h_unif
+  exact tendsto_eLpNorm_restrict_of_tendstoUniformlyOn hK_meas hK_volume_finite
+    (fun i => (mollifyEps_continuous (hε_pos i)
+      (hφ_cont.locallyIntegrable)).aestronglyMeasurable) hφ_cont.aestronglyMeasurable h_unif
 
 omit [NeZero d] in
 private lemma mollifyEps_sub_eq_mollifyEps_sub
@@ -494,13 +499,13 @@ private lemma tendsto_eLpNorm_restrict_sub_mollifyEps_of_memLp
         ((volume : Measure EuclN).restrict K) ≤
         eLpNorm (f1 + f2) 2 ((volume : Measure EuclN).restrict K) +
         eLpNorm f3 2 ((volume : Measure EuclN).restrict K) := by
-      exact eLpNorm_add_le (hf1_aestron.add hf2_aestron) hf3_aestron
+      exact eLpNorm_add_le
         (by norm_num : (1 : ℝ≥0∞) ≤ 2)
     have h_step2 : eLpNorm (f1 + f2) 2
         ((volume : Measure EuclN).restrict K) ≤
         eLpNorm f1 2 ((volume : Measure EuclN).restrict K) +
         eLpNorm f2 2 ((volume : Measure EuclN).restrict K) :=
-      eLpNorm_add_le hf1_aestron hf2_aestron (by norm_num : (1 : ℝ≥0∞) ≤ 2)
+      eLpNorm_add_le (by norm_num : (1 : ℝ≥0∞) ≤ 2)
     refine h_step1.trans ?_
     exact add_le_add h_step2 le_rfl
   refine h_tri.trans ?_
@@ -535,7 +540,7 @@ private lemma eLpNorm_le_of_eLpNorm_sub_le
     eLpNorm f 2 μ ≤ eLpNorm g 2 μ + δ := by
   have h_eq : f = (fun x => f x - g x) + g := by funext x; rw [Pi.add_apply]; ring
   rw [h_eq]
-  refine (eLpNorm_add_le (hf_aestron.sub hg_aestron) hg_aestron
+  refine (eLpNorm_add_le
     (by norm_num : (1 : ℝ≥0∞) ≤ 2)).trans ?_
   rw [add_comm]
   exact add_le_add le_rfl h_le
@@ -552,11 +557,11 @@ private lemma eLpNorm_sq_le_of_eLpNorm_sub_le
 
 omit [NeZero d] in
 private lemma lintegral_enorm_sq_eq_eLpNorm_sq
-    {μ : Measure EuclN} (f : EuclN → ℝ) :
+    {μ : Measure EuclN} (f : EuclN → ℝ) (hf : AEStronglyMeasurable f μ) :
     ∫⁻ x, (‖f x‖ₑ : ℝ≥0∞) ^ 2 ∂μ = (eLpNorm f 2 μ) ^ 2 := by
   classical
   rw [eLpNorm_eq_lintegral_rpow_enorm_toReal (μ := μ)
-    (by norm_num : (2 : ℝ≥0∞) ≠ 0) (by norm_num : (2 : ℝ≥0∞) ≠ ∞)]
+    (by norm_num : (2 : ℝ≥0∞) ≠ 0) (by norm_num : (2 : ℝ≥0∞) ≠ ∞) hf]
   have h2 : (2 : ℝ≥0∞).toReal = 2 := by show ENNReal.toReal 2 = 2; rfl
   rw [h2]
   have h_inner_eq : ∫⁻ x, (‖f x‖ₑ : ℝ≥0∞) ^ (2 : ℝ) ∂μ =
@@ -753,12 +758,13 @@ private theorem lintegral_enorm_sq_diffQuot_le_lintegral_enorm_sq_weakPartial
         ((volume : Measure EuclN).restrict K)) ^ 2 := by
     intro n
     rw [← lintegral_enorm_sq_eq_eLpNorm_sq (mollifyEps (d := d) (hε_pos n) g_k)
-      (μ := (volume : Measure EuclN).restrict K)]
+      (μ := (volume : Measure EuclN).restrict K)
+      (mollifyEps_continuous (hε_pos n) hg_k_loc).aestronglyMeasurable]
   have h_lint_eq_eLpNorm_sq_g : ∫⁻ y in K, (‖g_k y‖ₑ : ℝ≥0∞) ^ 2
         ∂(volume : Measure EuclN) =
       (eLpNorm g_k 2 ((volume : Measure EuclN).restrict K)) ^ 2 := by
     rw [← lintegral_enorm_sq_eq_eLpNorm_sq g_k
-      (μ := (volume : Measure EuclN).restrict K)]
+      (μ := (volume : Measure EuclN).restrict K) hg_k_l2.aestronglyMeasurable.restrict]
   have h_eventual_sq_bound : ∀ δ : ℝ≥0∞, 0 < δ →
       ∀ᶠ n in Filter.atTop,
         (eLpNorm (mollifyEps (d := d) (hε_pos n) g_k) 2
@@ -874,13 +880,14 @@ theorem eLpNorm_diffQuot_le_eLpNorm_weakPartial
         ∫⁻ x in Ω'', (‖diffQuot k h u x‖ₑ : ℝ≥0∞) ^ 2
           ∂(volume : Measure EuclN) := by
     rw [lintegral_enorm_sq_eq_eLpNorm_sq (diffQuot k h u)
-      (μ := (volume : Measure EuclN).restrict Ω'')]
+      (μ := (volume : Measure EuclN).restrict Ω'')
+      (aestronglyMeasurable_diffQuot k h hu_l2.aestronglyMeasurable).restrict]
   have h_RHS_sq : (eLpNorm g_k 2
       ((volume : Measure EuclN).restrict Ω'))^2 =
         ∫⁻ y in Ω', (‖g_k y‖ₑ : ℝ≥0∞) ^ 2
           ∂(volume : Measure EuclN) := by
     rw [lintegral_enorm_sq_eq_eLpNorm_sq g_k
-      (μ := (volume : Measure EuclN).restrict Ω')]
+      (μ := (volume : Measure EuclN).restrict Ω') hg_k_l2.aestronglyMeasurable.restrict]
   have h_sq_le : (eLpNorm (diffQuot k h u) 2
       ((volume : Measure EuclN).restrict Ω''))^2 ≤
         (eLpNorm g_k 2 ((volume : Measure EuclN).restrict Ω'))^2 := by
@@ -909,7 +916,7 @@ theorem integral_sq_diffQuot_le_integral_sq_weakPartial_meas
   have h_RHS_lint_lt_top :
       ∫⁻ y in Ω', (‖g_k y‖ₑ : ℝ≥0∞) ^ 2 ∂(volume : Measure EuclN) < ∞ := by
     rw [lintegral_enorm_sq_eq_eLpNorm_sq g_k
-      (μ := (volume : Measure EuclN).restrict Ω')]
+      (μ := (volume : Measure EuclN).restrict Ω') hg_k_l2.aestronglyMeasurable.restrict]
     have h_lt_top : eLpNorm g_k 2 ((volume : Measure EuclN).restrict Ω') < ∞ :=
       lt_of_le_of_lt (eLpNorm_mono_measure g_k Measure.restrict_le_self)
         hg_k_l2.eLpNorm_lt_top

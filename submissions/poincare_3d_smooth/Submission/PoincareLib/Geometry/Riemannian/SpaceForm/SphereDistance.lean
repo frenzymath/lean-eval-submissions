@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.RoundSphere
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Basic
 import Mathlib.Geometry.Euclidean.Angle.Unoriented.TriangleInequality
@@ -60,7 +61,7 @@ private theorem roundSphere_pathELength_eq
   have hd : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, EuclideanSpace ℝ (Fin (n + 1)))
       (fun s => (γ s : EuclideanSpace ℝ (Fin (n + 1)))) t 1 =
       deriv (fun s => (γ s : EuclideanSpace ℝ (Fin (n + 1)))) t := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   rw [← hd]
   rw [show (fun s => (γ s : EuclideanSpace ℝ (Fin (n + 1)))) =

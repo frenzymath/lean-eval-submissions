@@ -41,13 +41,17 @@ theorem exists_derivativeProfile_one_le_with_drift
   let A : ℝ≥0∞ := derivativeProfile 2 V 0 u + derivativeProfile 2 V 0 f
   have huBound : derivativeProfile 2 W 0 u ≤ A := by
     dsimp only [A]
-    rw [derivativeProfile_zero, derivativeProfile_zero, derivativeProfile_zero]
+    rw [derivativeProfile_zero _ _ _ hu.continuous.aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hum.aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hf.aestronglyMeasurable]
     exact (eLpNorm_mono_measure u
       (Measure.restrict_mono (subset_closure.trans hWV) le_rfl)).trans le_self_add
   have hpartial (i : Fin d) : derivativeProfile 2 W 0 (partialDeriv i u) ≤
       ENNReal.ofReal (Real.sqrt G) * A := by
     dsimp only [A]
-    rw [derivativeProfile_zero, derivativeProfile_zero, derivativeProfile_zero]
+    rw [derivativeProfile_zero _ _ _ (hpW i).aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hum.aestronglyMeasurable,
+      derivativeProfile_zero _ _ _ hf.aestronglyMeasurable]
     apply eLpNorm_two_le_of_integral_sq_le_source hum hf (hpW i) hG
     have h := hGbound hu hum hf heq
     have hterm : (∫ x in W, (partialDeriv i u x) ^ 2) ≤

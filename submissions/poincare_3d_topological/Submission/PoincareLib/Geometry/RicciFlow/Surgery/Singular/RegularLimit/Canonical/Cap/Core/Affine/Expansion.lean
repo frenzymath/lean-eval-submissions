@@ -20,7 +20,7 @@ theorem tensorWeight_le_pow {a : ℝ} (ha : 1 ≤ a)
     {r : ℕ} (i : Fin r → Fin 3) : tensorWeight a i ≤ a ^ r := by
   calc
     tensorWeight a i ≤ ∏ _ : Fin r, a := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod₀
       · intro k _
         simp only [axisWeight]
         split <;> linarith

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Hessian.Geodesic
 import Submission.PoincareLib.Analysis.Convex.Semiconcavity.Derivative
 
@@ -67,7 +68,7 @@ theorem endpoint_value_sub_le_of_geodesic_hessian_le
     (mfderiv_comp 0
       ((hrho.contMDiffAt (hU.mem_nhds (hgammaU 0 hzero))).mdifferentiableAt (by simp))
       ((hgamma.contMDiffAt hzero).mdifferentiableAt (by simp)))
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   change deriv F 0 = mvfderiv (𝓡 n) rho (gamma 0)
     (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) gamma 0 1) at hchain
   dsimp only [F, Function.comp_apply] at hquad hchain ⊢

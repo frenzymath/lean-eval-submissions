@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.Manifold
 import Submission.PoincareLib.Geometry.Riemannian.MetricComparison
 
@@ -66,7 +67,7 @@ theorem pathELength_radial_eq_of_gauss
       ((he.contMDiffAt (e.open_source.mem_nhds (hv t (Ioo_subset_Icc_self ht)))).mdifferentiableAt
         (by simp)) (hsmooth.mdifferentiable (by simp) t)
     have hd : mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) (fun t : ℝ => t • v) t 1 = v := by
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       have hh : HasDerivAt (fun t : ℝ => t • v) v t := by
         simpa using (hasDerivAt_id t).smul_const v
       rw [hh.hasFDerivAt.fderiv]

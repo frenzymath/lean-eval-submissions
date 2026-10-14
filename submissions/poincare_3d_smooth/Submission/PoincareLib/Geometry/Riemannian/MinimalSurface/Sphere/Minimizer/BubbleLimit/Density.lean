@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Compactness.Target
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Compactness.WeakLimit
 
@@ -41,7 +42,7 @@ private theorem gram_eq_reader
     (contMDiffAt_extChartAt' (n := ∞)
       (by simpa only [extChartAt_source] using hz)).mdifferentiableAt (by simp)
   have hd := mfderiv_comp z hc (hf.mdifferentiable (by simp) z)
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hcol (v : LoopPlane) : fderiv ℝ (c ∘ f) z v =
       mfderiv (𝓡 n) (𝓡 n) c (f z) (mfderiv (𝓡 2) (𝓡 n) f z v) :=
     congrArg (fun A => A v) hd

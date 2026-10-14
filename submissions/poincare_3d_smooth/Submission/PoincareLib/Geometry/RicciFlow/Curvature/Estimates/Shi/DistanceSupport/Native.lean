@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.Shi.Paths.PiecewiseEnergy
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.Shi.Paths.Energy
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.Shi.DistanceSupport.Energy
@@ -219,7 +220,7 @@ theorem shi_segmentPathEnergy_eq_chartMetric_integral
     have hcomp' := congrArg (fun L => L (1 : ℝ)) hcomp
     change _ = mfderiv 𝓘(ℝ, V) (𝓡 n) c.symm (F t z)
       (mfderivWithin 𝓘(ℝ, ℝ) 𝓘(ℝ, V) (fun s => F s z) (Icc a b) t 1) at hcomp'
-    simpa +instances only [mfderivWithin_eq_fderivWithin, derivWithin, Function.comp_def]
+    simpa +instances only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model, derivWithin, Function.comp_def]
       using! hcomp'
   change g.inner (c.symm (F t z))
       (mfderivWithin 𝓘(ℝ, ℝ) (𝓡 n)

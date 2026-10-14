@@ -66,7 +66,13 @@ theorem exists_morse_disk_and_physical_annulus_cover
   obtain ⟨R, hR, hRb, hRs, hfamily⟩ := exists_morse_disk_and_annulus_cover hk d hds hp
     (by rwa [hkp])
     (fun x hx => (heq _ (mem_image_of_mem d (sphere_subset_closedBall hx))).trans (hboundary x hx))
-    (fun x hx hc => hunique x hx (by rw [← (hgerm x hx).mfderiv_eq]; exact hc))
+    (fun x hx hc => hunique x hx (by
+      have hd : mfderiv (𝓡 2) 𝓘(Real, Real) k x =
+          mfderiv (𝓡 2) 𝓘(Real, Real) h x :=
+        ((hgerm x hx).mfderiv_eq (I := 𝓡 2) (I' := 𝓘(Real, Real))).trans
+          (by ext v; rfl)
+      rw [← hd]
+      exact hc))
     (fun x hx => habove x (by rwa [← hcomponent])) e' he'0 hep he'form
   rw [hkp] at hRb hfamily
   refine ⟨R, hR, hRb, fun x hx => (hRs hx).1, ?_⟩

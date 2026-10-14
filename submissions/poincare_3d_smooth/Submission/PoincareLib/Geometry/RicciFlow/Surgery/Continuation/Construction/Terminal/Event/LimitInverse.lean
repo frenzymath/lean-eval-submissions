@@ -27,6 +27,7 @@ theorem RiemannianMetric.pullbackCoefficients_congr_of_eventuallyEq
   change g.inner (p x) (mfderiv (𝓡 n) (𝓡 n) p x v) (mfderiv (𝓡 n) (𝓡 n) p x w) =
     g.inner (q x) (mfderiv (𝓡 n) (𝓡 n) q x v) (mfderiv (𝓡 n) (𝓡 n) q x w)
   rw [h.mfderiv_eq, h.self_of_nhds]
+  rfl
 
 theorem RiemannianMetric.pullbackCoefficients_eventuallyEq
     {n : ℕ} {Y : Type*} [TopologicalSpace Y]

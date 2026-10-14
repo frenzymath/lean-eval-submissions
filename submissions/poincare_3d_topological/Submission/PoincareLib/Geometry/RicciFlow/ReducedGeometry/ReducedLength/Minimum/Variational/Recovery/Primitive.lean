@@ -74,6 +74,7 @@ theorem intervalL2_smooth_support_approx {a b : ℝ} (w : IntervalL2 E a b)
   have hsmooth : eLpNorm (H - q) 2 μ ≤ ε / 2 := by
     apply le_trans (eLpNorm_sub_le_of_dist_bdd μ (by norm_num) MeasurableSet.univ
       (show (0 : ℝ) ≤ δ from δ.coe_nonneg)
+      (hHcont.aestronglyMeasurable.sub hq.continuous.aestronglyMeasurable)
       (fun x ↦ by simpa only [dist_comm] using (hqclose x).le)
       (subset_univ _) (subset_univ _))
     simpa only [ENNReal.ofReal_coe_nnreal] using hδbound.le
@@ -81,9 +82,7 @@ theorem intervalL2_smooth_support_approx {a b : ℝ} (w : IntervalL2 E a b)
   have hsum : (w : ℝ → E) - q = ((w : ℝ → E) - H) + (H - q) := by
     abel
   rw [hsum]
-  apply (eLpNorm_add_le ((Lp.memLp w).aestronglyMeasurable.sub
-      hHcont.aestronglyMeasurable) (hHcont.aestronglyMeasurable.sub
-      hq.continuous.aestronglyMeasurable) (by norm_num)).trans
+  apply (eLpNorm_add_le (by norm_num)).trans
   simpa only [ENNReal.add_halves] using add_le_add hHerror hsmooth
 
 omit [CompleteSpace E] in

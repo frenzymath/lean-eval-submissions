@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.HausdorffDensity.LocalDistance
 
 /-!
@@ -59,13 +60,13 @@ theorem exists_open_distortion_of_tangentNorm_comparison
         (mfderiv (𝓡 n) (𝓡 n) e (A.symm z)) ∘L A.symm.toContinuousLinearMap := by
     rw [show Φ = e ∘ A.symm from rfl,
       mfderiv_comp z (heDiff.mdifferentiableAt hz) A.symm.differentiableAt.mdifferentiableAt,
-      mfderiv_eq_fderiv, A.symm.fderiv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, A.symm.fderiv]
   have hdΨ (q : M) (hq : q ∈ e.target) :
       mfderiv (𝓡 n) (𝓡 n) Ψ q =
         A.toContinuousLinearMap ∘L mfderiv (𝓡 n) (𝓡 n) e.symm q := by
     rw [show Ψ = A ∘ e.symm from rfl,
       mfderiv_comp q A.differentiableAt.mdifferentiableAt (heDiff.mdifferentiableAt_symm hq),
-      mfderiv_eq_fderiv, A.fderiv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, A.fderiv]
   let S : Set (EuclideanSpace ℝ (Fin n)) := e.source ∩ {z | ∀ v,
     ‖A v‖ ≤ (K : ℝ) * g.tangentNorm (e z) (mfderiv (𝓡 n) (𝓡 n) e z v) ∧
     g.tangentNorm (e z) (mfderiv (𝓡 n) (𝓡 n) e z v) ≤ (K : ℝ) * ‖A v‖}

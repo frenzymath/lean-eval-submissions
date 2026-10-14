@@ -46,7 +46,8 @@ private theorem critical_iff_tangent (p : S2) :
     have heq : height = (fun p : E3 => p 2 - (p 0)^2) ∘ Subtype.val := funext height_apply
     rw [heq, mfderiv_comp p (hasFDerivAt_height p).differentiableAt.mdifferentiableAt
       ((contMDiff_coe_sphere (n := 2) (m := ∞) p).mdifferentiableAt (by simp)),
-      mfderiv_eq_fderiv, (hasFDerivAt_height p).fderiv]
+      mfderiv_eq_fderiv, NormedSpace.fromTangentSpace, tangentSpaceCastModel, (hasFDerivAt_height p).fderiv]
+    rfl
   rw [hcomp]
   constructor
   · intro hz w hw

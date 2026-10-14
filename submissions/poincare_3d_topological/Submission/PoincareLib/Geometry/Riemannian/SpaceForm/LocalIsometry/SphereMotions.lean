@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.RoundSphere
 import Mathlib.Geometry.Manifold.Diffeomorph
 import Mathlib.Analysis.InnerProductSpace.Projection.Basic
@@ -182,7 +183,7 @@ private theorem sphereMotion_deriv {n : ℕ} (L : E n ≃ₗᵢ[ℝ] E n) (x : U
     ((sphereMotion L).contMDiff.contMDiffAt.mdifferentiableAt (by simp))
   have heq : ι ∘ sphereMotion L = L ∘ ι := rfl
   rw [heq, mfderiv_comp x (hL.contMDiffAt.mdifferentiableAt (by simp))
-    (hι.contMDiffAt.mdifferentiableAt (by simp)), mfderiv_eq_fderiv] at hcomp
+    (hι.contMDiffAt.mdifferentiableAt (by simp)), Poincare.Compatibility.mfderiv_eq_fderiv_model] at hcomp
   have hder : fderiv ℝ L (x : E n) = L.toContinuousLinearEquiv.toContinuousLinearMap :=
     L.toContinuousLinearEquiv.fderiv
   rw [hder] at hcomp

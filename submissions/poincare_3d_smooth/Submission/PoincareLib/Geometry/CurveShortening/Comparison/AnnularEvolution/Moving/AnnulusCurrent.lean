@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Annulus.SliceDifferential
 
 /-!
@@ -71,7 +72,7 @@ theorem m64MovingAnnulus_time_velocity
       (fun r : ℝ => (r, p)) t := hline.differentiableAt.mdifferentiableAt
   have hd : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ × LoopPlane) (fun r : ℝ => (r, p)) t 1 =
       (1, 0) := by
-    rw [mfderiv_eq_fderiv, hline.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.fderiv]
     rfl
   have hchain := mfderiv_comp_apply t hv hmd (1 : ℝ)
   rw [hd] at hchain
@@ -92,7 +93,7 @@ theorem m64MovingAnnulus_spatial_differential
       (fun z : LoopPlane => (t, z)) p := hline.differentiableAt.mdifferentiableAt
   have hd : mfderiv (𝓡 2) 𝓘(ℝ, ℝ × LoopPlane) (fun z : LoopPlane => (t, z)) p d =
       (0, d) := by
-    rw [mfderiv_eq_fderiv, hline.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.fderiv]
     rfl
   have hchain := mfderiv_comp_apply p hv hmd d
   rw [hd] at hchain

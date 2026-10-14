@@ -29,7 +29,7 @@ lemma quadratic_input_action_zero {A : Matrix I I ℝ} (hA : A.PosSemidef)
     (z : I → ℝ) (hz : z ⬝ᵥ (A *ᵥ z) = 0) (L : Matrix I I ℝ) :
     z ⬝ᵥ ((L * A + A * L.transpose) *ᵥ z) = 0 := by
   have hzero : A *ᵥ z = 0 :=
-    (hA.dotProduct_mulVec_zero_iff z).mp (by simpa only [star_trivial] using hz)
+    (hA.dotProduct_mulVec_zero_iff).mp (by simpa only [star_trivial] using hz)
   have hleft : z ᵥ* A = 0 := by
     ext i
     have hs (j) : A j i = A i j := by simpa only [star_trivial] using hA.1.apply i j

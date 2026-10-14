@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Regularity.Coefficients.Derivative
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Divergence
 import Submission.PoincareLib.Analysis.Parabolic.Interior.Kernel.FrozenPositiveDefinite
@@ -73,7 +74,7 @@ theorem divergenceOperator_gradient (D : LeviCivitaData g)
     unfold LeviCivitaData.gradient
     have hm : mvfderiv (𝓡 n) f x = fderiv ℝ f x := by
       ext v
-      simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+      simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
       rfl
     rw [hm]
     rfl

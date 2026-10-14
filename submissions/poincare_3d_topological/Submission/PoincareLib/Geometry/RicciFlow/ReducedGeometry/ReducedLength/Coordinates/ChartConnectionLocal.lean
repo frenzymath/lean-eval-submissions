@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Coordinates.CenteredConnection
 
 /-!
@@ -100,7 +101,7 @@ theorem mvfderiv_vector_chartVectorField (p : M) (f : M → E) (y v : E)
   rw [chartVectorField_at_inverse p v y hy]
   have h := mfderiv_comp y hf
     ((mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt_symm hy)
-  rw [mfderiv_eq_fderiv] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   exact (congrArg (fun L ↦ L v) h).symm
 
 end PoincareMT.ReducedLength

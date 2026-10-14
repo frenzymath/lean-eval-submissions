@@ -113,7 +113,7 @@ theorem joinedCoordinateVariation_endpoint_jets
         DifferentiableAt ℝ right z :=
       (hright.contDiffAt (Metric.isOpen_ball.mem_nhds hz)).differentiableAt (by simp)
     have horder : (1 : ℕ∞ω) + 1 ≤ ∞ := by
-      norm_num; exact ENat.natCast_le_of_coe_top_le_withTop le_rfl 2
+      norm_num
     have hlD2 : HasFDerivAt (fderiv ℝ left) (B a) (0 : V) := by
       have h := ((hleft.contDiffAt (Metric.ball_mem_nhds 0 hρ)).fderiv_right
         (m := 1) horder).differentiableAt (by norm_num)

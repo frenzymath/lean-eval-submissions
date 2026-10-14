@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Predecessors.Necks.Geometry.ModelScalar
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.ThreeDimensional.Splitting.Global.FlowExtension
@@ -82,7 +83,7 @@ theorem roundCylinderEuclideanModelConnection_ricci
         (mfderiv (𝓡 3) (𝓡 3) (m25_roundCylinderEuclideanParametrization q) x a) = (T a).2 := by
     have hc := mfderiv_comp_apply x (hr.mdifferentiable (by simp) _)
       ((roundCylinderEuclideanParametrization_contMDiff q).mdifferentiable (by simp) _) a
-    rw [hcomp, mfderiv_eq_fderiv, T.hasFDerivAt.snd.fderiv] at hc
+    rw [hcomp, Poincare.Compatibility.mfderiv_eq_fderiv_model, T.hasFDerivAt.snd.fderiv] at hc
     exact hc.symm
   have h := roundCylinderEuclideanModelConnection.ricci_eq_of_local_isometry
     roundCylinderMetric.leviCivitaData isOpen_univ

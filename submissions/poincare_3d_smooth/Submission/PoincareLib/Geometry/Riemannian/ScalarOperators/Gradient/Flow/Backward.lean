@@ -134,6 +134,8 @@ private theorem smooth_integralCurve_piecewise
     have hd := ho.hasMFDerivAt.congr_of_eventuallyEq heq
     convert! (hd.hasMFDerivWithinAt (s := J)) using 1
     rw [heq.self_of_nhds]
+    ext v
+    rfl
 end PoincareMT.LeviCivitaData
 
 /-- A compact intrinsic buffer supplies an actual trajectory ending at the

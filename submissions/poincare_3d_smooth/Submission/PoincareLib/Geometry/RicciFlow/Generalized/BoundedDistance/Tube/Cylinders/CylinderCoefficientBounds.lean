@@ -19,7 +19,7 @@ namespace PoincareMT.Proofs.M28.NeckAnalysis
 private theorem low_order_cylinderTensorWeight {k : ℕ} (hk : k ≤ 2)
     (a : Fin (2 + k) → Fin 3) : (1 / 16 : ℝ) ≤ cylinderTensorWeight 0 a := by
   have hprod : (1 / 2 : ℝ) ^ (2 + k) ≤ cylinderTensorWeight 0 a := by
-    have h := Finset.prod_le_prod
+    have h := Finset.prod_le_prod₀
       (fun _ (_ : _ ∈ (Finset.univ : Finset (Fin (2 + k)))) =>
         (by norm_num : (0 : ℝ) ≤ 1 / 2))
       (fun i (_ : i ∈ (Finset.univ : Finset (Fin (2 + k)))) =>

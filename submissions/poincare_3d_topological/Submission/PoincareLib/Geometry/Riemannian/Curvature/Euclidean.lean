@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Convergence
 
 /-!
@@ -39,7 +40,7 @@ private theorem flat_isCovariantDerivativeOn (n : ℕ) :
     have hh := congrArg (fun L => L v) h
     simp only [add_apply, smul_apply,
       ContinuousLinearMap.smulRight_apply] at hh
-    simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     convert! hh using 1
 
 private theorem extend_eq_const {n : ℕ} (x v y : EuclideanSpace ℝ (Fin n)) :

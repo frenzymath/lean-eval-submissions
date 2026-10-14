@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.Flow
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.Geodesic
 
@@ -38,7 +39,7 @@ theorem exists_global_gradientIntegralCurve
     have heq := congrArg (fun L => L 1) (mfderiv_comp 0
       ((contMDiffAt_extChartAt' (I := 𝓡 n) (n := ∞) hx).mdifferentiableAt (by simp))
       ((hs 0).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change deriv (fun t => extChartAt (𝓡 n) x (γ t)) 0 =
       mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) x) (γ 0)
         (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ 0 1) at heq

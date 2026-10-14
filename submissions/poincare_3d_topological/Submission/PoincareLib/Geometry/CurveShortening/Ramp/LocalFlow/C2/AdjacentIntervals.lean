@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.C2.Locality
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.EmbeddedCurve
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Smooth.RetractionDifferentials
@@ -176,7 +177,7 @@ theorem c2_of_adjacent_closed_intervals
       ((hρ.contMDiffAt (hO.mem_nhds (heO (mem_range_self (c x t))))).mdifferentiableAt
         (by simp)) hd.differentiableAt.mdifferentiableAt
     have hv := congrArg (fun A : ℝ →L[ℝ] TangentSpace (𝓡 n) (ρ (q x t)) => A 1) hchain
-    rw [mfderiv_eq_fderiv, hd.hasFDerivAt.fderiv] at hv
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hd.hasFDerivAt.fderiv] at hv
     have heq : (fun r => ρ (q x r)) = (fun r => c x r) :=
       funext (fun r => hρe (c x r))
     change curveVelocity (fun r => ρ (q x r)) t =

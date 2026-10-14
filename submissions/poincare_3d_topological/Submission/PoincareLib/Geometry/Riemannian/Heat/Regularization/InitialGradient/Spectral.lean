@@ -61,7 +61,16 @@ theorem EnergyTest.norm_toDomainL2_iterate_negLaplacianTest
     (((EnergyTest.negLaplacianTest)^[j]) φ)‖ = _
   rw [Lp.norm_def, eLpNorm_congr_ae (((EnergyTest.negLaplacianTest)^[j]) φ).memLp.coeFn_toLp]
   congr 1
+  have hsmooth (k : ℕ) : ContMDiff (𝓡 n) 𝓘(ℝ, ℝ) ∞
+      ((D.laplacian)^[k] (φ : M → ℝ)) := by
+    induction k with
+    | zero => exact φ.smooth
+    | succ k ih =>
+      rw [Function.iterate_succ_apply']
+      exact D.contMDiff_laplacian ih
   apply eLpNorm_congr_norm_ae
+    (((EnergyTest.negLaplacianTest)^[j]) φ).memLp.aestronglyMeasurable
+    (hsmooth j).continuous.aestronglyMeasurable
   filter_upwards [] with x
   rw [EnergyTest.iterate_negLaplacianTest_apply]
   simp only [norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.RawFlow.IntrinsicSpatialMetric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialEndSlope
@@ -90,7 +91,7 @@ theorem intrinsicSpatialInverse_tangentNorm_le (x v : StandardCapSpace) :
         ‖v‖ := by
   calc
     _ = Real.sqrt ((intrinsicSpatialMetric g hrotation hcomplete).inner x v v) := by
-      rw [RiemannianMetric.tangentNorm, mfderiv_eq_fderiv]
+      rw [RiemannianMetric.tangentNorm, Poincare.Compatibility.mfderiv_eq_fderiv_model]
       convert! congrArg Real.sqrt (intrinsicSpatialMetric_pullback
         g hrotation hcomplete x v v).symm using 1
     _ ≤ Real.sqrt (inner ℝ v v) := Real.sqrt_le_sqrt

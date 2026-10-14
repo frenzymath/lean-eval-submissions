@@ -180,7 +180,7 @@ theorem weak_chain {N : ℕ}
   let U0 := hLip.compLp hzero u
   let A0 (z : LoopPlane) := fderiv ℝ h (u z)
   have hA0 : AEStronglyMeasurable A0 volume :=
-    hDh.comp_aestronglyMeasurable (Lp.memLp u).1
+    hDh.comp_aestronglyMeasurable (Lp.memLp u).aestronglyMeasurable
   have hb0 : ∀ᵐ z ∂volume, ‖A0 z‖ ≤ C := ae_of_all _ fun z => hbound _
   let D0 := Lp.coefficientL2 A0 hA0 C hb0 d
   have hU0 : U0 =ᵐ[volume] fun z => h (u z) := hLip.coeFn_compLp hzero u

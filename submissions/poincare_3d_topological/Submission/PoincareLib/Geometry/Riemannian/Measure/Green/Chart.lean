@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Green
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Divergence.Regularity
 
@@ -85,7 +86,7 @@ theorem integral_mul_laplacian_chart_density
       have hh := mvfderiv_comp x ((hu (e x)).mdifferentiableAt (by simp))
         (hD.mdifferentiableAt hx)
       have hh' := congrArg (fun L => L w) hh
-      simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] at hh'
+      simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] at hh'
       exact hh'
     calc
       _ = fderiv ℝ U x (mpullback (𝓡 n) (𝓡 n) e (D.gradient v) x) *

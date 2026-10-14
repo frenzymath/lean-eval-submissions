@@ -93,6 +93,7 @@ theorem injective_mfderiv_sphereProjection_comp
       fderiv Real F q := fderiv_sphereProjection_comp_eq hr houter hq
         (hF.differentiableAt (by simp))
   rw [hder] at hchain
+  change fderiv Real F q = _ at hchain
   intro v w hvw
   apply hinj
   rw [hchain]

@@ -173,14 +173,14 @@ theorem HasSpatialL2Jet.mul_smooth
     HasSpatialL2Jet U k (fun y => q y * u y) := by
   induction k generalizing u q with
   | zero =>
-    exact hu.mul' (hq.continuous.memLp_top_of_hasCompactSupport hqc (volume.restrict U))
+    exact (hq.continuous.memLp_top_of_hasCompactSupport hqc (volume.restrict U)).fun_mul hu
   | succ k ih =>
     have hulower := hu.lower
     obtain ⟨hum, g, hg, hweak⟩ := hu
     have hDq (i : Fin n) : ContDiff ℝ ∞ (spatialDeriv i q) :=
       (hq.fderiv_right (by simp)).clm_apply contDiff_const
     have hDqc (i : Fin n) : HasCompactSupport (spatialDeriv i q) := hqc.fderiv_apply ℝ _
-    refine ⟨hum.mul' (hq.continuous.memLp_top_of_hasCompactSupport hqc (volume.restrict U)),
+    refine ⟨(hq.continuous.memLp_top_of_hasCompactSupport hqc (volume.restrict U)).fun_mul hum,
       fun i y => spatialDeriv i q y * u y + q y * g i y,
       fun i => (ih hulower (hDq i) (hDqc i)).add (ih (hg i) hq hqc), ?_⟩
     intro i φ hφ hφc hφU

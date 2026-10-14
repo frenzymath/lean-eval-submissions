@@ -37,7 +37,7 @@ private theorem memLp_mul_compact {μ : Measure E} {a f : E → ℝ}
     (ha : Continuous a) (hc : HasCompactSupport a) (hf : MemLp f 2 μ) :
     MemLp (fun x => a x * f x) 2 μ := by
   obtain ⟨C, _, hC⟩ := uniform_bound ha hc
-  apply hf.of_le_mul (c := C) (ha.aestronglyMeasurable.mul hf.1)
+  apply hf.of_le_mul (c := C) (ha.aestronglyMeasurable.mul hf.aestronglyMeasurable)
   exact Eventually.of_forall fun x => by
     simpa only [Pi.mul_apply, norm_mul] using
       mul_le_mul_of_nonneg_right (hC x) (norm_nonneg (f x))
@@ -46,6 +46,7 @@ omit [NeZero d] in
 private theorem localized_convergence {a : E → ℝ} (ha : Continuous a)
     (hc : HasCompactSupport a) {V O : Set E} (hV : MeasurableSet V)
     (hs : tsupport a ⊆ V) {f : ℕ → E → ℝ}
+    (hfm : ∀ n, AEStronglyMeasurable (f n) (volume.restrict V))
     (hf : Tendsto (fun n => eLpNorm (f n) 2 (volume.restrict V)) atTop (𝓝 0)) :
     Tendsto (fun n => eLpNorm (fun x => a x * f n x) 2 (volume.restrict O))
       atTop (𝓝 0) := by
@@ -66,7 +67,9 @@ private theorem localized_convergence {a : E → ℝ} (ha : Continuous a)
       _ = eLpNorm (fun x => a x * f n x) 2 (volume.restrict V) :=
         eLpNorm_indicator_eq_eLpNorm_restrict hV
       _ ≤ _ := by
-        apply eLpNorm_le_mul_eLpNorm_of_ae_le_mul _ 2
+        apply eLpNorm_le_mul_eLpNorm_of_ae_le_mul
+          (show AEStronglyMeasurable (fun x => a x * f n x) (volume.restrict V) from
+            ha.aestronglyMeasurable.mul (hfm n))
         exact Eventually.of_forall fun x => by
           rw [norm_mul]
           exact mul_le_mul_of_nonneg_right (hC x) (norm_nonneg _)
@@ -204,7 +207,8 @@ theorem memW01p_mul_chosenWeakPartial_tangential
   have hv : Tendsto (fun n => eLpNorm
       (fun x => χ x * diffQuot k (step n) u x - target x) 2 (volume.restrict H))
       atTop (𝓝 0) := by
-    have hl := localized_convergence (O := H) hχ.continuous hc hV.measurableSet hsV hlimU
+    have hl := localized_convergence (O := H) hχ.continuous hc hV.measurableSet hsV
+      (fun n => ((memLp_diffQuot_global hU k (step n)).sub (hP k)).aestronglyMeasurable.restrict) hlimU
     apply hl.congr'
     refine Eventually.of_forall fun n => eLpNorm_congr_ae ?_
     filter_upwards [ae_restrict_mem isOpen_halfSpace.measurableSet] with x hx
@@ -215,8 +219,10 @@ theorem memW01p_mul_chosenWeakPartial_tangential
     ring
   have hd (i : Fin d) : Tendsto (fun n => eLpNorm
       (fun x => (wseq n).weakGrad x i - G i x) 2 (volume.restrict H)) atTop (𝓝 0) := by
-    have hl1 := localized_convergence (O := H) hχ.continuous hc hV.measurableSet hsV (hlimP i)
-    have hl2 := localized_convergence (O := H) (hD i) (hDc i) hV.measurableSet (hDs i) hlimU
+    have hl1 := localized_convergence (O := H) hχ.continuous hc hV.measurableSet hsV
+      (fun n => ((memLp_diffQuot_global (hP i) k (step n)).sub (hQ i)).aestronglyMeasurable.restrict) (hlimP i)
+    have hl2 := localized_convergence (O := H) (hD i) (hDc i) hV.measurableSet (hDs i)
+      (fun n => ((memLp_diffQuot_global hU k (step n)).sub (hP k)).aestronglyMeasurable.restrict) hlimU
     have hb (n : ℕ) : eLpNorm (fun x => (wseq n).weakGrad x i - G i x) 2
         (volume.restrict H) ≤
         eLpNorm (fun x => χ x * (diffQuot k (step n) (P i) x - Q i x)) 2 (volume.restrict H) +
@@ -230,11 +236,7 @@ theorem memW01p_mul_chosenWeakPartial_tangential
         rw [diffQuot_indicator_eq u k hk (step n) hx]
         ring
       rw [eLpNorm_congr_ae heq]
-      apply eLpNorm_add_le _ _ (by norm_num)
-      · exact (memLp_mul_compact hχ.continuous hc
-          ((memLp_diffQuot_global (hP i) k (step n)).sub (hQ i))).1.restrict
-      · exact (memLp_mul_compact (hD i) (hDc i)
-          ((memLp_diffQuot_global hU k (step n)).sub (hP k))).1.restrict
+      exact eLpNorm_add_le (by norm_num)
     exact tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds
       (by simpa using hl1.add hl2) (fun _ => bot_le) hb
   have hwG (i : Fin d) : HasWeakPartialDeriv i (G i) target H := by

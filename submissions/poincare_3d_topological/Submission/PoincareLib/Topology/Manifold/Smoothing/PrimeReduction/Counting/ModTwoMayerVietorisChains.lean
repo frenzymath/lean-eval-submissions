@@ -21,6 +21,9 @@ open scoped Simplicial
 
 universe u v
 
+local instance : HasCoproducts.{u} (ModuleCat.{u} ℤ) := fun _ => inferInstance
+local instance : HasCoproducts.{u} (ModuleCat.{u} (ZMod 2)) := fun _ => inferInstance
+
 namespace PoincareMT.M76.ModTwoMayerVietoris
 
 variable {X : Type u} [TopologicalSpace X]

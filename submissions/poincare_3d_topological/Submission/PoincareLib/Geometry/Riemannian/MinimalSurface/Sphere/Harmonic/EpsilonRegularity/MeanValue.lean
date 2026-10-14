@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Harmonic.EpsilonRegularity.Flux
 
 /-! # Scalar mean-value and small-mass estimates
@@ -200,7 +201,7 @@ private theorem euclideanGradient_translate
     (D : LeviCivitaData (RiemannianMetric.euclideanMetric 2)) (f : LoopPlane → ℝ)
     (p x : LoopPlane) : D.gradient (fun y => f (p + y)) x = D.gradient f (p + x) := by
   unfold LeviCivitaData.gradient
-  simp +instances only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+  simp +instances only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
   change (innerSL ℝ).inverse (fderiv ℝ (fun y => f (p + y)) x) =
     (innerSL ℝ).inverse (fderiv ℝ f (p + x))
   rw [fderiv_comp_add_left]

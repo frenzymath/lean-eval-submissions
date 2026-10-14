@@ -90,5 +90,6 @@ theorem rawLIntegrand_projectedVelocity_congr {s : ℝ} (h : γ =ᶠ[𝓝 s] β)
   have hd := h.mfderiv_eq (I := 𝓘(ℝ, ℝ)) (I' := spacetimeModel n)
   unfold M14RawLIntegrand projectedCurveVelocity
   rw [hd, h.eq_of_nhds]
+  rfl
 
 end PoincareMT.M14

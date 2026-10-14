@@ -12,7 +12,6 @@ convergence without assuming the recovered points stay in an inverse branch.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory
 open scoped Manifold ContDiff Bundle Topology intervalIntegral
@@ -83,6 +82,7 @@ theorem gaugeCylinderAction_eq (e : AttainmentGauge G) {a b : ℝ}
       ((G.gaugeCover.cylinder e.index).toSpacetime (e.lift (gamma s))) = _
     rw [e.right_inv (gamma s) (hsrc hs)]
 
+set_option maxHeartbeats 800000 in
 set_option synthInstance.maxHeartbeats 200000 in
 -- Integrated coefficient forms use nested operators on the actual L2 spaces.
 /-- Uniform spatial recovery on a common compact buffer and strong L2

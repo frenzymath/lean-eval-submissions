@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.CurveLength
 import Submission.PoincareLib.Geometry.Riemannian.Distance.CompleteBalls
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Basic
@@ -104,7 +105,7 @@ theorem toReal_edist_le_exp_of_linear_speed
     have hlin : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) l r 1 = t - s := by
       have he : fderiv ℝ l r 1 = t - s := by
         rw [fderiv_eq_smul_deriv, one_smul, hd.deriv]
-      simpa only [mfderiv_eq_fderiv] using! he
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using! he
     change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) δ r 1 =
       mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ (l r)
         (mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) l r 1) at hderiv

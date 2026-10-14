@@ -362,7 +362,7 @@ private lemma eLpNorm_diffQuot_neg_le
       (volume : Measure EuclN) ≤
         eLpNorm (translate k (-h) F) 2 (volume : Measure EuclN) +
           eLpNorm F 2 (volume : Measure EuclN) :=
-    eLpNorm_sub_le hτF_aesm hF_aesm (by norm_num : (1 : ℝ≥0∞) ≤ 2)
+    eLpNorm_sub_le (by norm_num : (1 : ℝ≥0∞) ≤ 2)
   have h_τF_eq : eLpNorm (translate k (-h) F) 2 (volume : Measure EuclN) =
       eLpNorm F 2 (volume : Measure EuclN) :=
     eLpNorm_translate_eq (d := d) k (-h) F
@@ -390,6 +390,7 @@ private lemma eLpNorm_diffQuot_neg_le
 omit [NeZero d] in
 private lemma eLpNorm_eta_sq_diffQuot_le
     (k : Fin d) (h : ℝ) {η u : EuclN → ℝ}
+    (hηm : AEStronglyMeasurable η volume) (hum : AEStronglyMeasurable u volume)
     {M_η : ℝ} (_hM_η_nn : 0 ≤ M_η) (hM_η : ∀ x, |η x| ≤ M_η) :
     eLpNorm (fun y => (η y)^2 * diffQuot k h u y) 2
         (volume : Measure EuclN) ≤
@@ -457,8 +458,11 @@ private lemma eLpNorm_eta_sq_diffQuot_le
             ∫⁻ y : EuclN, (‖diffQuot k h u y‖ₑ : ℝ≥0∞)^(2 : ℕ) := by
           rw [lintegral_const_mul']
           exact ENNReal.ofReal_ne_top
-  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal h2_ne_zero h2_ne_top,
-    eLpNorm_eq_lintegral_rpow_enorm_toReal h2_ne_zero h2_ne_top]
+  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal h2_ne_zero h2_ne_top
+      (show AEStronglyMeasurable (fun y => η y ^ 2 * diffQuot k h u y) volume from
+        (hηm.pow 2).mul (aestronglyMeasurable_diffQuot k h hum)),
+    eLpNorm_eq_lintegral_rpow_enorm_toReal h2_ne_zero h2_ne_top
+      (aestronglyMeasurable_diffQuot k h hum)]
   rw [h2_toReal]
   have h_lhs_pow_eq :
       (∫⁻ y : EuclN, (‖(η y)^2 * diffQuot k h u y‖ₑ : ℝ≥0∞)^(2 : ℝ)
@@ -523,7 +527,7 @@ theorem eLpNorm_standardNirenbergTest_le
       ENNReal.ofReal (M_η^2) *
         eLpNorm (diffQuot k h u) 2 (volume : Measure EuclN) := by
     rw [hF_def]
-    exact eLpNorm_eta_sq_diffQuot_le (d := d) k h hM_η_nn hM_η
+    exact eLpNorm_eta_sq_diffQuot_le (d := d) k h hη_cont.aestronglyMeasurable hu_aesm hM_η_nn hM_η
   have h_lhs_unfold : standardNirenbergTest k h η u = diffQuot k (-h) F := rfl
   rw [h_lhs_unfold]
   calc eLpNorm (diffQuot k (-h) F) 2 (volume : Measure EuclN)

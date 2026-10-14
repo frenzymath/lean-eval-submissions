@@ -63,9 +63,9 @@ theorem cauchySeq_periodic_comp_of_cauchySeq_L2
       ‖T u‖ ^ 2 = ∫ z : AddCircle L, ‖u z‖ ^ 2 ∂haarAddCircle := by
     rw [Lp.norm_def, eLpNorm_congr_ae
       (ContinuousMap.coeFn_toLp (p := 2) haarAddCircle (𝕜 := ℝ) u),
-      toReal_eLpNorm (u.memLp (p := 2) (μ := haarAddCircle) ℝ).1,
+      toReal_eLpNorm,
       lpNorm_eq_integral_norm_rpow_toReal (by norm_num) (by norm_num)
-        (u.memLp (p := 2) (μ := haarAddCircle) ℝ).1]
+        (u.memLp (p := 2) (μ := haarAddCircle) ℝ).aestronglyMeasurable]
     simp only [ENNReal.toReal_ofNat, Real.rpow_two, inv_eq_one_div, ← Real.sqrt_eq_rpow]
     exact Real.sq_sqrt (integral_nonneg fun _ => sq_nonneg _)
   have hperiod (u : C(AddCircle L, E)) :

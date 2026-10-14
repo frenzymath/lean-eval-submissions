@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Regularity
 import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
@@ -39,7 +40,7 @@ theorem hasDerivAt_comp_manifold_spacetimePath
     (mfderiv ((𝓘(ℝ, ℝ)).prod (𝓡 n)) (𝓘(ℝ, ℝ)) f (t, γ t)
       (1, mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) γ t 1)) t at h
   rw [mfderiv_prod_eq_add_apply hf] at h
-  simpa only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv, mvfderiv,
+  simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv, mvfderiv,
     ContinuousLinearMap.comp_apply] using! h
 
 theorem scalarCurvature_hasDerivAt_path

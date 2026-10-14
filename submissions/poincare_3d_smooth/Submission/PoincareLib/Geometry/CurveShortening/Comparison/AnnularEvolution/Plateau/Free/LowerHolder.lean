@@ -57,7 +57,7 @@ theorem lower_representative_trace
     have hn : ¬p 1 < 0 := not_lt.mpr
       (((m64AnnulusInterior_coordinates p).mp hpOS.2).2.2.1.le)
     simpa only [M64ObservedWeakAnnulus.lowerReflectedValue, m64AnnulusLowerExtend,
-      if_neg hn] using hp
+      ite_eq_right hn] using hp
   have h0 : Continuous (e ∘ (c0 ∘ A.label0)) :=
     hc0.comp (A.labels_continuous hH0 hH1).1
   have h1 : Continuous (e ∘ (c1 ∘ A.label1)) :=

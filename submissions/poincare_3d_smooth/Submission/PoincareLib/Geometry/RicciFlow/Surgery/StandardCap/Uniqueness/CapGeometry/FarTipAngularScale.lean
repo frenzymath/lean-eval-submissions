@@ -57,8 +57,7 @@ theorem blowupSequence_far_tip_normalized_orbit_sq_tendsto_two
     intro hx
     have hz : (E.flow.metric (t (L.subsequence k))).edist 0 (x (L.subsequence k)) = 0 := by
       rw [hx]
-      exact @edist_self StandardCapSpace
-        (E.flow.metric (t (L.subsequence k))).toEMetricSpace.toPseudoEMetricSpace 0
+      exact @edist_self StandardCapSpace _ (E.flow.metric (t (L.subsequence k))).toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0
     simp only [Function.comp_apply, hz, ENNReal.toReal_zero, zero_mul,
       lt_self_iff_false] at hk
   have hu : Tendsto u atTop (𝓝 0) := by

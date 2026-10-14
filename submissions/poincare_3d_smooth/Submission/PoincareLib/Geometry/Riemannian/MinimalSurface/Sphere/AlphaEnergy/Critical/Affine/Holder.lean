@@ -15,7 +15,6 @@ coefficient or pointwise bound on the weak Hessian is assumed.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set MeasureTheory Filter Metric
 open scoped ContDiff Topology

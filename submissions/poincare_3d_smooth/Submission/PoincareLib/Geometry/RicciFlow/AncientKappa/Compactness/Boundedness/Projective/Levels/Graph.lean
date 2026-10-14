@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Compactness.Boundedness.Geometry.NeckLevels.ScalarGraph
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Models
 import Submission.PoincareLib.Geometry.Manifold.InverseFunction.ModelSpaces
@@ -42,7 +43,7 @@ private theorem vertical_mfderiv_bijective_at (h : RoundCylinderSpace → ℝ)
       D v = Q v.1 + a * v.2 := by
     dsimp only [D, Q]
     erw [mfderiv_prod_eq_add_apply (hh.mdifferentiableAt (by simp)),
-      mfderiv_eq_fderiv, fderiv_eq_deriv_mul (𝕜 := ℝ), hderiv.deriv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_eq_deriv_mul (𝕜 := ℝ), hderiv.deriv]
     rfl
   have htotal : mfderiv ((𝓡 2).prod 𝓘(ℝ, ℝ)) ((𝓡 2).prod 𝓘(ℝ, ℝ))
       (fun z => (z.1, h z)) p =

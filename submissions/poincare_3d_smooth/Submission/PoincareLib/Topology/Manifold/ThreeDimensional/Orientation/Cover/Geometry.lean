@@ -57,8 +57,8 @@ theorem mfderiv_proj_eq_id : letI := chartedSpace M
       (isCoveringMap M).isLocalHomeomorph p hy]
     exact (chartAt (EuclideanSpace ℝ (Fin 3)) (proj M p)).right_inv hy.1
   rw [MDifferentiableAt.mfderiv (((isLocalDiffeomorph M) p).mdifferentiableAt (by simp))]
-  simpa only [writtenInExtChartAt, Function.comp_def, mfld_simps, fderivWithin_univ] using
-    heq.fderiv_eq.trans (fderiv_id (𝕜 := ℝ))
+  convert! heq.fderiv_eq.trans (fderiv_id (𝕜 := ℝ)) using 1 <;>
+    simp only [writtenInExtChartAt, Function.comp_def, mfld_simps, fderivWithin_univ] <;> rfl
 
 theorem extChartAt_eq_comp_proj : letI := chartedSpace M
     ∀ p : TotalSpace M,

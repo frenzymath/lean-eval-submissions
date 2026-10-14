@@ -1,3 +1,4 @@
+import Mathlib.LinearAlgebra.Basis.VectorSpace
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.General.Mathlib.ComponentCochainExactness
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Annuli.Boundary.IncidenceRanks
 
@@ -163,8 +164,12 @@ theorem disjoint_closed_subcomplex_rank_bound
     right_inv := fun _ ↦ rfl
     map_add' := fun _ _ ↦ rfl
     map_smul' := fun _ _ ↦ rfl }
+  letI : Module.Free (ZMod 2) CA := Module.Free.of_divisionRing (ZMod 2) CA
+  letI : Module.Free (ZMod 2) CB := Module.Free.of_divisionRing (ZMod 2) CB
   have hprod := pe.finrank_eq
-  simp only [Module.finrank_prod] at hprod hle
+  have hfinA : Module.Finite (ZMod 2) CA := inferInstance
+  have hfinB : Module.Finite (ZMod 2) CB := inferInstance
+  rw [Module.finrank_prod] at hprod hle
   change Module.finrank (ZMod 2) CK = _ at hCK
   change Module.finrank (ZMod 2) CA = _ at hCA
   change Module.finrank (ZMod 2) CB = _ at hCB

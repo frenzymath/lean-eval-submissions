@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Radial.Scalar
 import Mathlib.Analysis.Calculus.Deriv.Slope
 
@@ -155,7 +156,7 @@ theorem m64Intrinsic_mfderiv_injective_of_pullbackDensity_pos
     intro hzero
     simp only [Function.id_comp, hzero, abs_zero, zero_mul] at hdensity
     exact hp.ne' hdensity
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   apply LinearMap.ker_eq_bot.mp
   by_contra hker
   exact hdet (LinearMap.det_eq_zero_iff_ker_ne_bot.mpr hker)

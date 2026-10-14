@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Annulus
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.AreaEnergy
 
@@ -44,7 +45,7 @@ theorem m60AreaDensity_eq_zero_of_factor (g : RiemannianMetric n M)
         mfderiv (𝓡 2) 𝓘(ℝ, ℝ) psi z
             (EuclideanSpace.basisFun (Fin 2) ℝ i) =
           (fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ i) : ℝ) := by
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       rfl
     have hcomp := mfderiv_comp_apply (f := psi) (g := c) z hc hpsi
       (EuclideanSpace.basisFun (Fin 2) ℝ i)
@@ -71,7 +72,18 @@ theorem m60AreaDensity_eq_zero_of_factor (g : RiemannianMetric n M)
     rw [Matrix.det_fin_two, m60AreaGram_symm g (c ∘ psi) z 1 0]
     simp only [m60AreaGram]
     rw [hcol 0, hcol 1]
-    simp only [Function.comp_apply]
+    change g.inner (c (psi z))
+        ((fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ 0)) • w)
+        ((fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ 0)) • w) *
+      g.inner (c (psi z))
+        ((fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ 1)) • w)
+        ((fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ 1)) • w) -
+      (g.inner (c (psi z))
+        ((fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ 0)) • w)
+        ((fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ 1)) • w)) *
+      (g.inner (c (psi z))
+        ((fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ 0)) • w)
+        ((fderiv ℝ psi z (EuclideanSpace.basisFun (Fin 2) ℝ 1)) • w)) = 0
     simp only [map_smul, smul_apply, smul_eq_mul]
     ring
   simp only [m60AreaDensity, hdet, max_self, Real.sqrt_zero]

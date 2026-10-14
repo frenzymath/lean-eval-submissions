@@ -108,12 +108,11 @@ theorem m64Intrinsic_digon_angle_sum_le_curvature
       coordinateVertexAngleContribution N.metric R.coordinates R.basis v.1)
   have htotal' : 4 * Real.pi * 1 ≤ curvature + 2 * turning + 2 * defects := by
     convert htotal using 1
-    · rfl
-    · congr 2
-      congr 1
-      apply Finset.sum_congr rfl
-      intro p _
-      split_ifs <;> rfl
+    congr 2
+    congr 1
+    apply Finset.sum_congr rfl
+    intro p _
+    split_ifs <;> rfl
   change defects = 2 * Real.pi -
     coordinateVertexAngleContribution N.metric R.coordinates R.basis v0.1 -
     coordinateVertexAngleContribution N.metric R.coordinates R.basis v1.1 at hdefect

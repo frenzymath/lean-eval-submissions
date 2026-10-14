@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Regional.TangentSectors
 import Mathlib.Analysis.Calculus.FDeriv.Affine
 import Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar
@@ -42,7 +43,7 @@ theorem m64Intrinsic_inverse_coordinate_derivative_ne_zero
     ⟨hF.mdifferentiableOn (by simp), hFi.mdifferentiableOn (by simp)⟩
   have hsurj : Function.Surjective (fderiv ℝ F.symm q) := by
     have h := hD.symm.mfderiv_surjective hq
-    simp only [mfderiv_eq_fderiv, TangentSpace] at h
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] at h
     exact h
   have hdi : DifferentiableAt ℝ F.symm q :=
     (((contMDiffOn_iff_contDiffOn.mp hFi) q hq).contDiffAt

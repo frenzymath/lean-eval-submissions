@@ -32,9 +32,9 @@ theorem m64DiffQuot_integral_pairing
     {f v : LoopPlane → ℝ} (hf : MemLp f q volume) (hv : MemLp v p volume)
     (k : Fin 2) {h : ℝ} (hh : h ≠ 0) :
     (∫ x, diffQuot k h f x * v x) = -(∫ x, f x * diffQuot k (-h) v x) := by
-  have hfv := memLp_one_iff_integrable.mp (hv.mul' hf)
-  have htv := memLp_one_iff_integrable.mp (hv.mul' (memLp_translate k h hf))
-  have hft := memLp_one_iff_integrable.mp ((memLp_translate k (-h) hv).mul' hf)
+  have hfv := memLp_one_iff_integrable.mp (hf.mul' hv)
+  have htv := memLp_one_iff_integrable.mp ((memLp_translate k h hf).mul' hv)
+  have hft := memLp_one_iff_integrable.mp (hf.mul' (memLp_translate k (-h) hv))
   have ht : (∫ x, translate k h f x * v x) = ∫ x, f x * translate k (-h) v x := by
     have he := integral_add_right_eq_self (μ := (volume : Measure LoopPlane))
       (fun x : LoopPlane => f (x + h • EuclideanSpace.single k 1) * v x)
@@ -101,8 +101,8 @@ theorem m64NaturalGrowth_boundary_nirenberg_identity
   have hwc : HasCompactSupport w := hxi2c.mul_right
   have hwcont : Continuous w := (hxi.continuous.pow 2).mul huc
   have hdw (i : Fin 2) : MemLp (dw i) 2 volume := by
-    apply ((M60.suWeakMap_diffQuot_memLp (hdu i) 0 h).mul'
-      ((hxi.continuous.pow 2).memLp_of_hasCompactSupport hxi2c : MemLp _ ⊤ volume)).add
+    apply (((hxi.continuous.pow 2).memLp_of_hasCompactSupport hxi2c : MemLp _ ⊤ volume).mul'
+      (M60.suWeakMap_diffQuot_memLp (hdu i) 0 h)).add
     have hc : Continuous (fun p => 2 * xi p *
         fderiv ℝ xi p (EuclideanSpace.single i 1) * diffQuot 0 h u p) :=
       ((continuous_const.mul hxi.continuous).mul

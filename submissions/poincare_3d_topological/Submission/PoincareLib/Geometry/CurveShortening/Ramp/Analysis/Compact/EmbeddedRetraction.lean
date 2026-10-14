@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Compatibility.Tangent
+import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Local.CriticalProjection
 import Mathlib.Analysis.Calculus.LocalExtr.Basic
 import Mathlib.Analysis.InnerProductSpace.Calculus
@@ -69,7 +71,7 @@ theorem exists_smooth_compact_embedded_retraction [T2Space M] (e : M → F)
     have hderiv (u : E) (hu : u ∈ c.target) :
         fderiv ℝ f u = (mfderiv (𝓘(ℝ, E)) (𝓘(ℝ, F)) e (c.symm u)).comp
           (mfderiv (𝓘(ℝ, E)) (𝓘(ℝ, E)) c.symm u) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp u (hs.mdifferentiable (by simp)).mdifferentiableAt
         (hc.symm.mdifferentiableAt hu)
     have hfi : Function.Injective (fderiv ℝ f (c p)) := by

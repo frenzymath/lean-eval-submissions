@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Ambient.LabelVelocity
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.AmbientAcceleration
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Retraction.TangentContinuity
@@ -56,7 +57,7 @@ theorem ambientCurve_embeddedCurvature_eq (F : RicciFlow n M (Icc a b))
     erw [mfderiv_comp x
       ((hρ.contMDiffAt (hU.mem_nhds (hguard x).1)).mdifferentiableAt (by simp))
       ((hf.contMDiff x).mdifferentiableAt (by norm_num)),
-      ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have himm (x : ℝ) : curveVelocity (n := n) (fun y => c y t) x ≠ 0 := by
     rw [hvel]
@@ -135,7 +136,7 @@ theorem ambientCurve_closed_fields (F : RicciFlow n M (Icc a b))
     erw [mfderiv_comp x
       ((hρ.contMDiffAt (hU.mem_nhds (hguard t ht x).1)).mdifferentiableAt (by simp))
       (((hspace t ht).contMDiff x).mdifferentiableAt (by simp)),
-      ContinuousLinearMap.comp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.comp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have himm (t : ℝ) (ht : t ∈ Icc a T) (x : ℝ) :
       curveVelocity (n := n) (fun y => c y t) x ≠ 0 := by
@@ -175,7 +176,7 @@ theorem ambientCurve_closed_fields (F : RicciFlow n M (Icc a b))
     have hd : fderiv ℝ (fun y => e (c y z.1)) z.2 =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e (c z.2 z.1)).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun y => c y z.1) z.2) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp z.2 (he.mdifferentiable (by simp)).mdifferentiableAt
         (((hcspace z.1 hz.1) z.2).mdifferentiableAt (by simp))
     rw [heq] at hd

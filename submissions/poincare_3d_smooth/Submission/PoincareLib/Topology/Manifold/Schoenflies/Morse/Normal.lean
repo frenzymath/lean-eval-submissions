@@ -49,6 +49,7 @@ theorem exists_smooth_unit_normal
     rw [heq, mfderiv_comp _ (hG.contMDiff.contMDiffAt.mdifferentiableAt (by simp))
       ((contMDiff_coe_sphere (n := 2) p).mdifferentiableAt
         (show (∞ : ℕ∞ω) ≠ 0 by simp)), mfderiv_eq_fderiv]
+    rfl
   have hchain_apply (u) : mfderiv (𝓡 2) (𝓡 3) f p u = fderiv Real G p (L u) :=
     congrArg (fun A : TangentSpace (𝓡 2) p →L[Real] E3 => A u) hchain
   have hL (u) : inner Real (p : E3) (L u) = 0 := by

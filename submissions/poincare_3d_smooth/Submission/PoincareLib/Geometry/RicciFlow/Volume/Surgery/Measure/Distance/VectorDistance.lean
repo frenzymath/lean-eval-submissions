@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Volume.Surgery.Measure.Distance.IntrinsicLipschitz
 import Mathlib.Analysis.Normed.Module.HahnBanach
 
@@ -50,7 +51,7 @@ theorem edist_le_mul_riemannianEDist_of_vector_differential
   intro v
   have hchain : mvfderiv (𝓡 n) (ℓ ∘ f) q v = ℓ (mvfderiv (𝓡 n) f q v) := by
     rw [mvfderiv_comp q ℓ.differentiableAt.mdifferentiableAt (hfd q hq)]
-    simp only [mvfderiv, mfderiv_eq_fderiv, ℓ.fderiv,
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ℓ.fderiv,
       ContinuousLinearMap.comp_apply]
     rfl
   rw [hchain, ← Real.norm_eq_abs]

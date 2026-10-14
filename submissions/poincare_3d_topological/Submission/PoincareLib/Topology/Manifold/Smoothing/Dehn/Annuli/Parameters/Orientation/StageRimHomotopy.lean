@@ -12,6 +12,7 @@ have equal signs, without assuming a compatibility of orientations.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 2000000
 open Set Metric Geometry Topology unitInterval PLAnnularStrip
 
 namespace PoincareMT.M76.Dehn

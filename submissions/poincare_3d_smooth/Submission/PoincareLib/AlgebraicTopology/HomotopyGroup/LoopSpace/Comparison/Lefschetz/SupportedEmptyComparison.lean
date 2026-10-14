@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.SupportedComparison
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Compatibility.ThreeManifoldTopology
 import Mathlib.Algebra.Homology.QuasiIso
@@ -48,7 +49,7 @@ theorem supportedSingularComparison_empty_isIso :
       exact (Finset.notMem_empty _ (a.property 0)).elim
     · intro y
       exact isEmptyElim
-        ((TopCat.of (liftedCoordinateNeighborhood p (∅ : Finset J))).toSSetObjEquiv n y
+        ((TopCat.of (liftedCoordinateNeighborhood p (∅ : Finset J))).toLegacySSetObjEquiv n y
           (stdSimplex.vertex 0))
   exact NatIso.isIso_of_isIso_app _
 

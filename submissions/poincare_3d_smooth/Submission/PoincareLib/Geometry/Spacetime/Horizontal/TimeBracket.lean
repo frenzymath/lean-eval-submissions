@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Spacetime.Horizontal.Basic
 
 /-!
@@ -57,7 +58,7 @@ private theorem bracket_annihilates_of_constant_derivatives
       ((hf (e.symm z)).mdifferentiableAt (by simp))
       (mdifferentiableWithinAt_extChartAt_symm hz)
       ((J.uniqueDiffOn z (extChartAt_target_subset_range p hz)).uniqueMDiffWithinAt)
-    simpa only [mfderivWithin_eq_fderivWithin] using hd
+    simpa only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model] using hd
   have hact (Z : (q : M) → TangentSpace J q) (c : ℝ)
       (hZ : ∀ q, mfderiv J 𝓘(ℝ) f q (Z q) = c) :
       (fun z ↦ fderivWithin ℝ g (range J) z

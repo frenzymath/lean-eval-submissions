@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Cylinder.Geometry.CylinderMetricComparison
 
@@ -55,7 +56,7 @@ theorem axial_mfderiv_chart (N : StandardCylinderPatch length center)
   have hderiv : mfderiv (𝓡 3) 𝓘(ℝ, ℝ) ((fun y => (N.inverse y).2) ∘ f) p =
       mfderiv (𝓡 3) 𝓘(ℝ, ℝ) L p := heq.mfderiv_eq
   have hL : mfderiv (𝓡 3) 𝓘(ℝ, ℝ) L p = L := by
-    rw [mfderiv_eq_fderiv, L.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, L.hasFDerivAt.fderiv]
   rw [mfderiv_comp p ((N.axial_contMDiffAt hmem).mdifferentiableAt (by simp))
     ((N.euclideanChart_contMDiffAt q hp).mdifferentiableAt (by simp)),
     hL] at hderiv

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Flow.Basic
 import Submission.PoincareLib.Geometry.Riemannian.Metric.LocalExtension
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.LocalIsometry
@@ -41,7 +42,7 @@ theorem mfderiv_translatedChart (q : M) (z y : EuclideanSpace ℝ (Fin 3))
     (extChartAt (𝓡 3) q).symm ∘ (fun w => w + z) from rfl,
     mfderiv_comp y (hc.mdifferentiableAt (by simp))
       (ht.contMDiff.mdifferentiable (by simp) y)]
-  simp only [mfderiv_eq_fderiv, fderiv_add_const, fderiv_fun_id]
+  simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_add_const, fderiv_fun_id]
   ext v
   rfl
 

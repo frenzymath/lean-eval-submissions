@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.RotationInvariance.EndTranslationCalculus
 
 /-!
@@ -37,7 +38,7 @@ theorem exists_endTransition_derivative_bound
     obtain ⟨C, hC⟩ := hK.exists_bound_of_continuousOn (hc.mono hKU)
     refine ⟨C, ?_⟩
     intro x hx
-    simpa only [mfderiv_eq_fderiv] using hC x hx
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using hC x hx
   obtain ⟨Cn, hCn⟩ := hb (-1) (by norm_num)
   obtain ⟨Cz, hCz⟩ := hb 0 (by norm_num)
   obtain ⟨Cp, hCp⟩ := hb 1 (by norm_num)

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.ConformalInverseRemoval
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.ConjugateLocalInjective
 
@@ -95,7 +96,7 @@ theorem scalarPotential_gradient_ne_zero_of_local_conjugate_injective
       ext v
       have h := D.inner_gradient H (q y) v
       rw [hzero, map_zero, zero_apply] at h
-      simpa only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+      simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
         ContinuousLinearMap.comp_apply, zero_apply] using! h.symm
     refine ⟨hFS y hy, ?_⟩
     have hHS := (contMDiffOn_iff_contDiffOn.mp hHs).contDiffAt
@@ -118,7 +119,7 @@ theorem scalarPotential_gradient_ne_zero_of_local_conjugate_injective
       LinearIsometryEquiv.coe_coe, LinearIsometryEquiv.inner_map_map]
     rw [scalarConjugateLinear_inner]
     have hm := hmetric (C y) hy.1.2 (C v) (C w)
-    simp only [RiemannianMetric.pullbackCoefficients, mfderiv_eq_fderiv,
+    simp only [RiemannianMetric.pullbackCoefficients, Poincare.Compatibility.mfderiv_eq_fderiv_model,
       ContinuousLinearMap.bilinearComp_apply] at hm
     erw [hm, C.inner_map_map]
     ring

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Harmonic.Regularity.Coefficients.Divergence
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Product
 
@@ -132,7 +133,7 @@ theorem density_mul_inner_gradient_eq_fderiv_divergenceOperator (D : LeviCivitaD
       fderiv ℝ f x (g.euclideanDivergenceOperator x (_root_.gradient u x)) := by
   have hm : mvfderiv (𝓡 n) f x = fderiv ℝ f x := by
     ext v
-    simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   rw [D.divergenceOperator_gradient, map_smul, smul_eq_mul, D.inner_gradient, hm]
   rfl

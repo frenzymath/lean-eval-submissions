@@ -70,8 +70,8 @@ theorem boundaryPolarColumn_memLp (x : ℝ) {rho : ℝ} (hrho : 0 < rho)
     (-rho * Real.exp (-p 1) * Real.sin (p 0 / 2)) • V 0 (boundaryPolarStrip x rho p) +
       (rho * Real.exp (-p 1) * Real.cos (p 0 / 2)) • V 1 (boundaryPolarStrip x rho p)) from
     funext (boundaryPolarColumn_eq x rho V)]
-  exact (MemLp.smul (boundaryPolarStrip_memLp_two x hrho (hV 0)) h0).add
-      (MemLp.smul (boundaryPolarStrip_memLp_two x hrho (hV 1)) h1)
+  exact (MemLp.smul h0 (boundaryPolarStrip_memLp_two x hrho (hV 0))).add
+      (MemLp.smul h1 (boundaryPolarStrip_memLp_two x hrho (hV 1)))
 
 /-- Squared angular energy is controlled by the two original columns. Proof expansion for
 Morgan-Tian (2007), Lemma 19.15, pp. 447-449; M64 derivation

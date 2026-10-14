@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Analysis.Arclength.PeriodicArclength
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Limit.SpeedBounds
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Integral.Periodicity
@@ -33,7 +34,7 @@ theorem m65CurveSpeed_fixed_relabeling (c : ℝ → ℝ → M)
     ((hc.spatial_regular t ht (phi x)).mdifferentiableAt (by norm_num))
     hphi.differentiableAt.mdifferentiableAt (1 : ℝ)
   have hparam : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) phi x (1 : ℝ) = d := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hphi.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hphi.deriv
   have hvelocity : curveVelocity (n := n) (fun y => c (phi y) t) x =
       d • curveVelocity (n := n) (fun y => c y t) (phi x) := by
     change curveVelocity (n := n) (fun y => c (phi y) t) x = _ at hchain

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Exponential.Coordinates.EndpointCoordinates
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Exponential.InitialTime.InitialDifferentialCalculus
 
@@ -81,7 +82,7 @@ theorem squareCoordinates_time_at_zero (G : LExponentialGeometry F T τmax p)
   have ht : MDifferentiableAt (𝓘(ℝ, ℝ)) (𝓡 n) (G.squareFamily Z) 0 :=
     (hQ.comp (0 : ℝ) (contMDiffAt_const.prodMk contMDiffAt_id)).mdifferentiableAt (by simp)
   have hc := mfderiv_comp (0 : ℝ) (mdifferentiableAt_extChartAt hq) ht
-  rw [mfderiv_eq_fderiv] at hc
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
   have hd := hasDerivAt_time_slice
     ((squareCoordinates_contDiffAt G (Z, 0) hz hq).differentiableAt (by simp))
   rw [← hd.deriv]

@@ -80,7 +80,7 @@ private theorem m65Schwartz_mul_disk_memLp (θ : 𝓢(LoopPlane, ℝ))
     (u : Lp ℝ 2 (volume.restrict loopDiskSet)) :
     MemLp (fun z => θ z * u z) 2 (volume.restrict loopDiskSet) := by
   apply (Lp.memLp u).of_le_mul (c := SchwartzMap.seminorm ℝ 0 0 θ)
-    (θ.continuous.aestronglyMeasurable.mul (Lp.memLp u).1)
+    (θ.continuous.aestronglyMeasurable.mul (Lp.memLp u).aestronglyMeasurable)
   exact ae_of_all _ (fun z => by
     simp only [Pi.mul_apply, norm_mul]
     exact mul_le_mul_of_nonneg_right (θ.norm_le_seminorm ℝ z) (norm_nonneg _))

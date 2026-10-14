@@ -55,6 +55,7 @@ theorem core_germ_of_collar_germ (R : T.decomposition.regions) {q : Plane}
   filter_upwards [hc, hi] with z hz hi
   change ((T.refined.mesh R).toPlaneComplex.support z) = ¬interior A z
   change ((T.refined.mesh R).toPlaneComplex.support z) = ¬interior _ z at hz
+  change interior _ z = interior _ z at hi
   rw [hi] at hz
   exact hz
 

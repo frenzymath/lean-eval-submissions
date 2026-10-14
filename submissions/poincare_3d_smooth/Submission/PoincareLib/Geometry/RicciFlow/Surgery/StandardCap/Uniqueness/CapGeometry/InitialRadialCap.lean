@@ -130,7 +130,7 @@ theorem exists_initial_radial_caps
   have hbound (y : V) (hy : y ∈ g.ball 0 R) := hbounds t ht y (hinside y hy)
   have hzero : (0 : V) ∈ g.ball 0 R := by
     change g.edist 0 0 < ENNReal.ofReal R
-    rw [show g.edist 0 0 = 0 from @edist_self V g.toEMetricSpace.toPseudoEMetricSpace 0]
+    rw [show g.edist 0 0 = 0 from @edist_self V _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0]
     exact ENNReal.ofReal_pos.mpr hR
   let S := scalarCurvatureSupOn g D (g.ball 0 R)
   have hbounded : BddAbove (range fun z : g.ball 0 R => D.scalarCurvature z.1) := by

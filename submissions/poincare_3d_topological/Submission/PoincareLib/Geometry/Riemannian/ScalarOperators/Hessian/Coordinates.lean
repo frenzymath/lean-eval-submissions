@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Euclidean
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Hessian.Pullback
@@ -45,7 +46,7 @@ lemma hessian_eq_fderiv_sub_christoffel (D : LeviCivitaData g)
   rw [← h, hessianOnFields, D.connection_const_eq_inverse]
   have hd := ((hf.fderiv_right (m := ∞) (by simp)).differentiableAt (by simp)).hasFDerivAt
   have heval := hd.clm_apply (hasFDerivAt_const w x)
-  simp +instances only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+  simp +instances only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
   change fderiv ℝ (fun y ↦ fderiv ℝ f y w) x v - _ = _
   rw [heval.fderiv]
   simp only [add_apply, ContinuousLinearMap.comp_apply, zero_apply, map_zero, zero_add]

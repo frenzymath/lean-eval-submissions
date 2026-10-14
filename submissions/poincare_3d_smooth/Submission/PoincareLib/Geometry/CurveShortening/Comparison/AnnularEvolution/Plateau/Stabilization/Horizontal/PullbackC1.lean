@@ -53,7 +53,7 @@ theorem auxiliaryCircle_horizontal_pullback_c1
     fun s => mfderiv (𝓡 n) (𝓡 n) e (gamma s).1 (Y s)
   have he : ContMDiffOn (𝓡 n) (𝓡 n) ∞ e e.source := contMDiffOn_chart
   have ht := he.contMDiffOn_tangentMapWithin (m := 1)
-    (by norm_num; exact WithTop.coe_le_coe.mpr (show (2 : ℕ∞) ≤ ⊤ from le_top))
+    (by norm_num)
     e.open_source.uniqueMDiffOn
   have hcoord := ht.comp (hY.contMDiffOn (s := U)) (fun s (hs : s ∈ U) => hs)
   have hv : ContDiffOn ℝ 1 v U := by

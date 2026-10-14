@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Basic
 
 /-!
@@ -13,6 +14,9 @@ open Set MeasureTheory Manifold
 open scoped Manifold ContDiff Bundle ENNReal NNReal
 
 namespace Poincare
+
+attribute [local instance] normedAddCommGroupTangentSpaceVectorSpace
+  normedSpaceTangentSpaceVectorSpace
 
 variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
   {F : Type*} [NormedAddCommGroup F] [NormedSpace ℝ F]
@@ -63,7 +67,7 @@ theorem riemannianEDist_le_mul_edist_of_convex
   apply (ContinuousLinearMap.le_opENorm _ _).trans
   gcongr
   · exact hK _ (hη ht)
-  · simp only [mfderivWithin_eq_fderivWithin]
+  · simp only [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
     exact le_of_eq rfl
 
 end Poincare

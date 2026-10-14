@@ -6,7 +6,6 @@ import Mathlib.Analysis.Calculus.LocalExtr.Basic
 /-! The first variation of the attained local Sacks-Uhlenbeck minimum. -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory
 open scoped Manifold ContDiff Topology ENNReal
@@ -55,7 +54,7 @@ private theorem coefficient_nonneg (g : RiemannianMetric n M) (b : M)
     (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b).symm y v)
   by_cases h : mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) b).symm y v = 0
   · rw [h]
-    simp
+    simp only [map_zero, zero_apply, le_refl]
   · exact (g.pos _ _ h).le
 
 private theorem localDensity_eq (g : RiemannianMetric n M) (b : M) (alpha : ℝ)
@@ -308,7 +307,7 @@ theorem suAlpha_integral_firstVariation (g : RiemannianMetric n M) (b : M)
   have hboundInt : Integrable bound mu := hpower.const_mul _
   have hU (t) : Continuous (U t) := hu.add (hphi.continuous.const_smul t)
   have hW (t i) : AEStronglyMeasurable (W t i) mu :=
-    (hV i).1.add (((hdcont.clm_apply continuous_const).const_smul t).aestronglyMeasurable)
+    (hV i).aestronglyMeasurable.add (((hdcont.clm_apply continuous_const).const_smul t).aestronglyMeasurable)
   have hGmeas (t) (ht : |t| < delta) :
       AEStronglyMeasurable (fun z => G (U t z)) mu ∧
         AEStronglyMeasurable (fun z => fderiv ℝ G (U t z)) mu := by

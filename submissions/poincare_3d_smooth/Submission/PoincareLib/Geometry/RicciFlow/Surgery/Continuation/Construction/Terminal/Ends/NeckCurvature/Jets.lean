@@ -75,7 +75,7 @@ theorem normalized_pullback_covariant_component_sq_le
     rw [← Finset.prod_pow]
     calc
       _ ≤ ∏ _i : Fin (2 + k), (2 : ℝ) :=
-        Finset.prod_le_prod (fun _ _ => sq_nonneg _) (fun i _ => hb (a i))
+        Finset.prod_le_prod₀ (fun _ _ => sq_nonneg _) (fun i _ => hb (a i))
       _ = _ := by simp
   have hsq := mul_self_le_mul_self (abs_nonneg (T a)) h
   have hfinal : T a ^ 2 ≤ (2 : ℝ) ^ (2 + k) * N.epsilon ^ 2 := by

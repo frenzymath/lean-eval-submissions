@@ -89,7 +89,7 @@ theorem tendsto_toLp_two_of_bound_support
     (hfb : ∀ n z, ‖f n z‖ ≤ B) (hgb : ∀ z, ‖g z‖ ≤ B)
     (hconv : ∀ᵐ z ∂volume, Tendsto (fun n => f n z) atTop (𝓝 (g z))) :
     Tendsto (fun n => (hf n).toLp (f n)) atTop (𝓝 (hg.toLp g)) := by
-  have hint := integral_norm_sub_pow_tendsto_of_ae (fun n => (hf n).1) hg.1
+  have hint := integral_norm_sub_pow_tendsto_of_ae (fun n => (hf n).aestronglyMeasurable) hg.aestronglyMeasurable
     hfs hgs hfb hgb hconv 2 (by norm_num)
   have heq (n : ℕ) : ‖(hf n).toLp (f n) - hg.toLp g‖ ^ 2 =
       ∫ z : ℂ, ‖f n z - g z‖ ^ 2 := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Simplex.Singular.SimplexHornFilling
 import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
 import Mathlib.AlgebraicTopology.SimplicialSet.KanComplex
@@ -75,8 +76,8 @@ theorem singular_horn_faces_agree (X : TopCat.{u}) (n : Nat) (i : Fin (n + 2))
     (j k : Fin (n + 2)) (hj : j ≠ i) (hk : k ≠ i)
     (z w : stdSimplex Real (Fin (n + 1)))
     (hzw : stdSimplex.map j.succAbove z = stdSimplex.map k.succAbove w) :
-    X.toSSetObjEquiv _ (SSet.yonedaEquiv (f j hj)) z =
-      X.toSSetObjEquiv _ (SSet.yonedaEquiv (f k hk)) w := by
+    X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv (f j hj)) z =
+      X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv (f k hk)) w := by
   cases n with
   | zero =>
     have hjk : j = k := by
@@ -89,16 +90,16 @@ theorem singular_horn_faces_agree (X : TopCat.{u}) (n : Nat) (i : Fin (n + 2))
     rfl
   | succ n =>
     let g (j : Fin (n + 3)) (hj : j ≠ i) :=
-      X.toSSetObjEquiv _ (SSet.yonedaEquiv (f j hj))
+      X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv (f j hj))
     have hlt (j k : Fin (n + 3)) (hj : j ≠ i) (hk : k ≠ i) (hjk : j < k)
         (z w : stdSimplex Real (Fin (n + 2)))
         (hzw : stdSimplex.map j.succAbove z = stdSimplex.map k.succAbove w) :
         g j hj z = g k hk w := by
       obtain ⟨t, htj, htk⟩ := exists_stdSimplex_two_face_preimage n j k hjk z w hzw
       have h := congrArg (fun a : (Δ[n] : SSet.{u}) ⟶ TopCat.toSSet.obj X =>
-        X.toSSetObjEquiv _ (SSet.yonedaEquiv a) t) (hf j k hj hk hjk)
+        X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv a) t) (hf j k hj hk hjk)
       rw [SSet.stdSimplex.yonedaEquiv_δ_comp, SSet.stdSimplex.yonedaEquiv_δ_comp,
-        TopCat.toSSetObjEquiv_δ_apply, TopCat.toSSetObjEquiv_δ_apply, htj, htk] at h
+        TopCat.toLegacySSetObjEquiv_δ_apply, TopCat.toLegacySSetObjEquiv_δ_apply, htj, htk] at h
       exact h
     rcases lt_trichotomy j k with hjk | hjk | hjk
     · exact hlt j k hj hk hjk z w hzw
@@ -114,15 +115,15 @@ theorem singular_kanComplex (X : TopCat.{u}) :
   apply SSet.KanComplex.iff.mpr
   intro n i f hf
   obtain ⟨F, hF⟩ := exists_stdSimplex_compatible_face_extension n i
-    (fun j hj => X.toSSetObjEquiv _ (SSet.yonedaEquiv (f j hj)))
+    (fun j hj => X.toLegacySSetObjEquiv _ (SSet.yonedaEquiv (f j hj)))
     (fun j k hj hk z w hzw => singular_horn_faces_agree X n i f hf j k hj hk z w hzw)
-  refine ⟨SSet.yonedaEquiv.symm ((X.toSSetObjEquiv _).symm F), ?_⟩
+  refine ⟨SSet.yonedaEquiv.symm ((X.toLegacySSetObjEquiv _).symm F), ?_⟩
   intro j hj
   apply SSet.yonedaEquiv.injective
-  apply (X.toSSetObjEquiv _).injective
+  apply (X.toLegacySSetObjEquiv _).injective
   ext z
   rw [SSet.stdSimplex.yonedaEquiv_δ_comp, Equiv.apply_symm_apply,
-    TopCat.toSSetObjEquiv_δ_apply, Equiv.apply_symm_apply]
+    TopCat.toLegacySSetObjEquiv_δ_apply, Equiv.apply_symm_apply]
   exact hF j hj z
 
 end Poincare.Topology

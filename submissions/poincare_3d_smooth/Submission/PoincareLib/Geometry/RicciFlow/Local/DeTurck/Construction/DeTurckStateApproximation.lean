@@ -15,7 +15,6 @@ The fixed even output then identifies the limit in the native scale.
 
 set_option autoImplicit false
 set_option maxHeartbeats 1800000
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -39,6 +38,19 @@ variable {n : ℕ} {M : Type*} [TopologicalSpace M] [T2Space M]
   (L : FiniteChartLocalizationData d.charts)
 
 local notation "E" => EuclideanSpace ℝ (Fin n)
+
+local instance dual_continuousAdd (x : M) :
+    ContinuousAdd (TangentSpace (𝓡 n) x →L[ℝ] ℝ) := by infer_instance
+
+local instance bilin_isTopologicalAddGroup (x : M) :
+    IsTopologicalAddGroup (TangentSpace (𝓡 n) x →L[ℝ] TangentSpace (𝓡 n) x →L[ℝ] ℝ) :=
+  ContinuousLinearMap.isTopologicalAddGroup
+
+local instance tensor_add : Add (SmoothTensor (n := n) (M := M)) :=
+  ContMDiffSection.instAdd
+
+local instance tensor_smul : SMul ℝ (SmoothTensor (n := n) (M := M)) :=
+  ContMDiffSection.instSMul
 
 def patchCore (a : L.patches) : Set E :=
   (L.chart a).target ∩ (L.chart a).symm ⁻¹'

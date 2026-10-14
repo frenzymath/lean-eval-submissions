@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Attachment.DiskComplement
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.SphereCircle.ParallelDisks.Charts
 
@@ -171,7 +172,7 @@ theorem exists_complementary_boundary_parametrization
     let E : PartialDiffeomorph (𝓡 2) (𝓡 2) E2 S2 ∞ :=
       { e with contMDiffOn_toFun := he.contMDiffOn, contMDiffOn_invFun := hei }
     have hel := E.isLocalDiffeomorphAt (𝓡 2) (𝓡 2) ∞ (hes ▸ mem_univ x)
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change Injective (mfderiv (𝓡 2) (𝓡 3) (k ∘ e) x)
     rw [mfderiv_comp x (hkg.mdifferentiable (by simp) _) (he.mdifferentiable (by simp) x)]
     apply Injective.comp _ (hel.mfderivToContinuousLinearEquiv (by simp)).injective

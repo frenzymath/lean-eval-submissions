@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.C2.TraceNormalLimit
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Mixed.EmbeddingHessian
@@ -222,7 +223,7 @@ theorem closed_c2_tail_of_terminal_fields
       ((hρ.contMDiffAt (hU.mem_nhds (hRU t _))).mdifferentiableAt (by simp))
       (hfirst0 t ht x).differentiableAt.mdifferentiableAt
     have hv := congrArg (fun L : ℝ →L[ℝ] TangentSpace (𝓡 n) (d x t) => L 1) hchain
-    rw [mfderiv_eq_fderiv, (hfirst0 t ht x).hasFDerivAt.fderiv] at hv
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, (hfirst0 t ht x).hasFDerivAt.fderiv] at hv
     change curveVelocity (fun y => d y t) x =
       mfderiv 𝓘(ℝ, W) (𝓡 n) ρ (R t (x : AddCircle curvePeriod))
         ((1 : ℝ) • p t (x : AddCircle curvePeriod)) at hv
@@ -257,7 +258,7 @@ theorem closed_c2_tail_of_terminal_fields
       (by norm_num) x).hasDerivAt
     have hchain := mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
       ((hdc x).mdifferentiableAt (by norm_num))
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
     have hde := hd.congr_deriv (congrArg (fun L : ℝ →L[ℝ] W => L 1) hchain)
     exact (hde.congr_of_eventuallyEq
       (Eventually.of_forall (fun y => (hfix t y).symm))).unique (hfirst0 t ht x)

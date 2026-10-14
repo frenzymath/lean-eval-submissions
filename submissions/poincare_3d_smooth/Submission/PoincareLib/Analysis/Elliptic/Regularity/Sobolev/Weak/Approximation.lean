@@ -654,7 +654,12 @@ private theorem tendsto_eLpNorm_normedConvolution_sub_of_continuous
             g x)
         (ENNReal.ofReal p) volume ≤ ENNReal.ofReal ε0 * M := by
     refine eLpNorm_sub_le_of_dist_bdd
-      (μ := volume) (p := ENNReal.ofReal p) (s := S) (hp := by simp) hS_meas hε0_pos.le hdist ?_ ?_
+      (μ := volume) (p := ENNReal.ofReal p) (s := S) (hp := by simp) hS_meas.nullMeasurableSet hε0_pos.le
+      (show AEStronglyMeasurable
+        (((shrinkingBump (d := d) n).normed volume ⋆[ContinuousLinearMap.lsmul ℝ ℝ, volume] g) - g) volume from
+        ((shrinkingBump (d := d) n).hasCompactSupport_normed.continuous_convolution_left
+          (L := ContinuousLinearMap.lsmul ℝ ℝ) (shrinkingBump (d := d) n).continuous_normed hg_cont.locallyIntegrable).aestronglyMeasurable.sub
+            hg_cont.aestronglyMeasurable) hdist ?_ ?_
     · intro x hx
       exact hconv_support_sub hx
     · exact hg_support_sub
@@ -842,7 +847,7 @@ private theorem tendsto_eLpNorm_normedConvolution_sub
                 g x))
             (ENNReal.ofReal p) volume +
           eLpNorm (fun x => g x - f x) (ENNReal.ofReal p) volume := by
-            exact eLpNorm_add_le (hFG_sm.add hB_sm) hC_sm hp_enn
+            exact eLpNorm_add_le hp_enn
       _ ≤
         eLpNorm
           (fun x =>
@@ -859,7 +864,7 @@ private theorem tendsto_eLpNorm_normedConvolution_sub
           (ENNReal.ofReal p) volume +
         eLpNorm (fun x => g x - f x) (ENNReal.ofReal p) volume := by
           gcongr
-          exact eLpNorm_add_le hFG_sm hB_sm hp_enn
+          exact eLpNorm_add_le hp_enn
   have houter :
       eLpNorm
           (fun x =>
@@ -1594,8 +1599,7 @@ theorem sobolev_of_memW01p_univ
       atTop (nhds 0) := by
     intro i
     simpa using hφ_grad i
-  simpa [eLpNorm_norm] using
-    sobolev_of_approx hp hpd hu_aesm hG_comp_aesm φ
+  exact sobolev_of_approx hp hpd hu_aesm hG_comp_aesm φ
       hφ_smooth hφ_cpt hφ_fun_univ hφ_grad_univ
 
 

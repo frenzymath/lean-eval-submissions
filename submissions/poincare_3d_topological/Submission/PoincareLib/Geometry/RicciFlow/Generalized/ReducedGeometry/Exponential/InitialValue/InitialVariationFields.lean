@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Exponential.Construction.ExponentialSlices
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Exponential.InitialValue.InitialVector
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Variation.IndexForm.FixedEndpointBoundary
@@ -65,11 +66,20 @@ theorem initialVectorVariation_field_terminal (E : M14ExponentialFamily G T x)
       V.squareFamily r u = E.gamma (Z + u • W) r) :
     HEq (M14VariationField V s) (E.differential Z s hs W) := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal x) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal x) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal x) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal x) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal x) := inferInstance
+  let horizontalCore := metric.toCore x
+  let horizontalContinuous := metric.continuousAt x
+  let horizontalBounded := metric.isVonNBounded x
   let : NormedAddCommGroup (G.Horizontal x) :=
-    (metric.toCore x).toNormedAddCommGroupOfTopology
-      (metric.continuousAt x) (metric.isVonNBounded x)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal x) :=
-    .ofCoreOfTopology (metric.toCore x) (metric.continuousAt x) (metric.isVonNBounded x)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal x) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   have hsC : s ∈ M14SqrtParameterInterval 0 (s ^ 2) := by
     simp only [M14SqrtParameterInterval, Real.sqrt_zero, Real.sqrt_sq hpos.le, mem_Icc]
@@ -85,7 +95,7 @@ theorem initialVectorVariation_field_terminal (E : M14ExponentialFamily G T x)
     simpa only [id_eq, one_smul] using ((hasDerivAt_id (0 : ℝ)).smul_const W).const_add Z
   have hlineM : mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, G.Horizontal x))
       (fun u : ℝ => Z + u • W) 0 (1 : ℝ) = W := by
-    rw [mfderiv_eq_fderiv, hline.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.hasFDerivAt.fderiv]
     change (1 : ℝ) • W = W
     exact one_smul ℝ W
   have hchain := mfderiv_comp_apply_of_eq (x := (0 : ℝ))

@@ -107,6 +107,7 @@ theorem exists_ambient_shift_of_morse_critical_point
         (hmoved s) e he hei hx hlocal, hPhicrit s z.1,
         mfderiv_eq_zero_iff_fderiv_of_sphere_coordinates_eqOn hsmooth e he hei hx hform]
     · rw [(houtside s (fun hqK => hq (hKt hqK))).mfderiv_eq]
+      rfl
   · intro s
     have hpt : p ∈ e.target := hep ▸ e.map_source he0
     have heip : e.symm p = 0 := by rw [← hep, e.left_inv he0]

@@ -91,7 +91,7 @@ theorem energy_integrable (F : M65LocalWeakMap e U) (g : RiemannianMetric 3 M)
     (K : Set LoopPlane) (hc : IsCompact K) (hs : K ⊆ U) :
     IntegrableOn (m65EmbeddedEnergyDensity g e F.value F.derivative) K :=
   m65EmbeddedEnergyDensity_integrable g e he hinj hemb compact
-    (F.value_memLp K hc hs).1 (fun i => F.derivative_memLp i K hc hs)
+    (F.value_memLp K hc hs).aestronglyMeasurable (fun i => F.derivative_memLp i K hc hs)
 
 end M65LocalWeakMap
 

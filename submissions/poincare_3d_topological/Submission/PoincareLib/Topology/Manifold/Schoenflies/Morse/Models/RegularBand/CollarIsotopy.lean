@@ -139,7 +139,8 @@ theorem exists_circle_fixing_collar_isotopy_of_diffeomorph
   · intro p
     have h := (P.mfderivToContinuousLinearEquiv (by simp) (p : E2)).injective
     change Injective (mfderiv (𝓡 2) (𝓡 2) P (p : E2)) at h
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+    rw [mfderiv_eq_fderiv] at h
+    exact h
   · intro p
     filter_upwards [Ioo_mem_nhdsLT (show (-1 : Real) < 0 by norm_num)] with t ht
     have hx : (1 + t) • (p : E2) ∈ ball (0 : E2) 1 := by

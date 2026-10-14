@@ -41,6 +41,8 @@ theorem isLocalDiffeomorphOn_of_contMDiffOn_bijective_mfderiv
   have hderiv : mfderiv (𝓡 n) (𝓡 n) f x = fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hfx.mdifferentiableAt (by simp))]
     simp [F, c]
+    ext v
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ F (c x)) := by
     rw [← hderiv]
     exact hbij x x.property

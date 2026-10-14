@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/MetricInverse.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -372,7 +373,7 @@ theorem metric_inverse_covariant_derivative_coordinates
     have hfd : fderiv ℝ (fun w => a (c.symm w) j k) z (EuclideanSpace.single i 1) =
         mvfderiv (𝓡 n) (fun y => a y j k) x
           (e.symmL ℝ x (EuclideanSpace.single i 1)) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change mvfderiv 𝓘(ℝ, V) ((fun y => a y j k) ∘ c.symm) z
         (EuclideanSpace.single i 1) = _
       have hfa : MDifferentiableAt (𝓡 n) 𝓘(ℝ, ℝ) (fun y => a y j k) (c.symm z) :=

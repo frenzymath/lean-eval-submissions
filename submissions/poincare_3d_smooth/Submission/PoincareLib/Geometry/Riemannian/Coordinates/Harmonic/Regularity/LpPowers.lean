@@ -58,14 +58,27 @@ theorem eLpNorm_rpow_toReal_sq {α : Type*} [MeasurableSpace α]
     (q : ℝ≥0∞) {p : ℝ} (hp : 0 < p) :
     (eLpNorm (fun x => f x ^ p) q μ).toReal ^ 2 =
       (eLpNorm f (q * ENNReal.ofReal p) μ).toReal ^ (2 * p) := by
-  have heq := eLpNorm_norm_rpow (p := q) (μ := μ) f hp
-  simp only [Real.norm_of_nonneg (hfn _)] at heq
-  have hreal := congrArg ENNReal.toReal heq
-  rw [← ENNReal.toReal_rpow] at hreal
-  rw [hreal, ← Real.rpow_mul_natCast ENNReal.toReal_nonneg]
-  congr 1
-  norm_num
-  ring
+  by_cases hf : AEStronglyMeasurable f μ
+  · have heq := eLpNorm_norm_rpow (p := q) (μ := μ) f hf hp
+    simp only [Real.norm_of_nonneg (hfn _)] at heq
+    have hreal := congrArg ENNReal.toReal heq
+    rw [← ENNReal.toReal_rpow] at hreal
+    rw [hreal, ← Real.rpow_mul_natCast ENNReal.toReal_nonneg]
+    congr 1
+    norm_num
+    ring
+  · have hfp : ¬AEStronglyMeasurable (fun x => f x ^ p) μ := by
+      intro hfp
+      apply hf
+      have hback : AEStronglyMeasurable (fun x => (f x ^ p) ^ p⁻¹) μ :=
+        (hfp.aemeasurable.pow_const p⁻¹).aestronglyMeasurable
+      convert hback using 1
+      ext x
+      rw [← Real.rpow_mul (hfn x), mul_inv_cancel₀ hp.ne', Real.rpow_one]
+    simp only [eLpNorm_of_not_aestronglyMeasurable hf,
+      eLpNorm_of_not_aestronglyMeasurable hfp, ENNReal.toReal_top,
+      Real.zero_rpow (by positivity : 2 * p ≠ 0)]
+    norm_num
 
 /-- The squared integral of a real power is the `2*p` power of its Lp norm. -/
 theorem setIntegral_rpow_sq_eq_eLpNorm_rpow {n : ℕ}

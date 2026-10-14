@@ -113,7 +113,7 @@ private theorem scalar_derivative_along_curve
   have hd' := (hasMFDerivAt_iff_hasFDerivAt.mp hd).hasDerivAt
   change HasDerivAt (fun t => f (γ t))
     (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) f (γ s) ((1 : ℝ) • W (γ s))) s at hd'
-  simpa [mvfderiv, NormedSpace.fromTangentSpace] using hd'
+  simpa [mvfderiv, NormedSpace.fromTangentSpace, tangentSpaceCastModel] using hd'
 
 end PoincareMT.LeviCivitaData
 

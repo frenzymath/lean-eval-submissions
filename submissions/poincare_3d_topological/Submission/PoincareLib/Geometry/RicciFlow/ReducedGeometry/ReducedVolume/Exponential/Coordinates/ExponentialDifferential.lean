@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Exponential.Coordinates.ExponentialSlice
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Exponential.Coordinates.EndpointCoordinates
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Metric.Comparison.SmoothMetric
@@ -47,7 +48,7 @@ theorem exponentialSliceChart_differential (G : LExponentialGeometry F T τmax p
     exact exponentialSliceChart_apply G τ y
   rw [heq]
   have hc := mfderiv_comp_apply x hs β.differentiableAt.mdifferentiableAt v
-  rw [mfderiv_eq_fderiv, β.fderiv] at hc
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, β.fderiv] at hc
   exact hc
 
 set_option backward.isDefEq.respectTransparency false in

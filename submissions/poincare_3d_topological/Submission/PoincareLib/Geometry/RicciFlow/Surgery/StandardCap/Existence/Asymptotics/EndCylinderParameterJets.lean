@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Asymptotics.EndCylinderParameterBounds
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Asymptotics.EndCylinderJets
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Coordinates.BilinearPullbackJetBound
@@ -77,7 +78,7 @@ theorem endCylinderParameterDifference_eq_pullback (e : StandardCylindricalEnd g
   apply ContinuousLinearMap.ext
   intro w
   have h := heq v w
-  simp only [mfderiv_eq_fderiv] at h
+  simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   convert! h using 1
 
 /-- The pointwise identity holds as a smooth germ, hence transfers all

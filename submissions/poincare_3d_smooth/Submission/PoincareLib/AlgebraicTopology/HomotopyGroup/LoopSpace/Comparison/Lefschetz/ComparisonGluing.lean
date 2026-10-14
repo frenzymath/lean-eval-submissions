@@ -21,6 +21,8 @@ open CategoryTheory Limits HomologicalComplex
 
 universe u v w
 
+local instance : HasCoproducts.{u} (ModuleCat.{u} ℤ) := fun _ => inferInstance
+
 namespace PoincareMT.Proofs.M59
 
 open M02.Topology

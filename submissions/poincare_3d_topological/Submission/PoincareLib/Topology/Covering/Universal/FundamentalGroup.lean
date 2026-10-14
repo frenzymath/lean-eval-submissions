@@ -58,7 +58,7 @@ end FundamentalGroupoid
 namespace Poincare.Topology
 
 variable {E X : Type*} [TopologicalSpace E] [TopologicalSpace X]
-variable {A : Type*} [TopologicalSpace A]
+variable {A : Type*} [TopologicalSpace A] {a₀ : A}
 
 /-- Mapping a loop class represented by a path is represented by mapping that path. -/
 theorem FundamentalGroup.map_fromPath {Y : Type*} [TopologicalSpace Y] (f : C(X, Y)) (base : X)

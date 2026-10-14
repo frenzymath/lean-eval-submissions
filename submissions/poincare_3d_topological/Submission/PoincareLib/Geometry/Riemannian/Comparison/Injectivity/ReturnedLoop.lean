@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.InverseRadius
 import Submission.PoincareLib.Geometry.Riemannian.Distance.ExponentialRays
 
@@ -36,7 +37,7 @@ theorem hasFDerivAt_endpoint_chart
   have hd := (hc.comp v he).differentiableAt.hasFDerivAt
   apply hd.congr_fderiv
   have hchain := mfderiv_comp v hc he
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   apply ContinuousLinearMap.ext
   intro a
   have h := congrArg (fun A => A a) hchain

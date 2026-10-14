@@ -69,12 +69,21 @@ theorem horizontalCovariantDerivative_coordinates
           (horizontalConnectionDifference e (γ s) (Y s)
             (mfderivWithin (𝓘(ℝ, ℝ)) (spacetimeModel n) γ J s (1 : ℝ))) := by
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  -- Freeze the original topological module before installing the metric norm.
+  let horizontalAdd : AddCommGroup (G.Horizontal (γ s)) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal (γ s)) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal (γ s)) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal (γ s)) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal (γ s)) := inferInstance
+  let metricCore := metric.toCore (γ s)
+  have metricContinuous := metric.continuousAt (γ s)
+  have metricBounded := metric.isVonNBounded (γ s)
   let : NormedAddCommGroup (G.Horizontal (γ s)) :=
-    (metric.toCore (γ s)).toNormedAddCommGroupOfTopology
-      (metric.continuousAt (γ s)) (metric.isVonNBounded (γ s))
-  let : InnerProductSpace ℝ (G.Horizontal (γ s)) :=
-    .ofCoreOfTopology (metric.toCore (γ s))
-      (metric.continuousAt (γ s)) (metric.isVonNBounded (γ s))
+    metricCore.toNormedAddCommGroupOfTopology metricContinuous metricBounded
+  let : NormedSpace ℝ (G.Horizontal (γ s)) :=
+    @InnerProductSpace.Core.toNormedSpaceOfTopology ℝ (G.Horizontal (γ s)) _
+      horizontalAdd horizontalModule metricCore horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul metricContinuous metricBounded
   obtain ⟨d, hd⟩ := E.parameter_derivative s hs
   have hparam := (e.continuousLinearMapAt ℝ (γ s)).hasFDerivAt.comp_hasDerivAt s
     hd.differentiableAt.hasDerivAt

@@ -209,8 +209,6 @@ private theorem raised_corrections {ι : Type*} [Fintype ι]
     fin_cases k <;> fin_cases j <;> simp [Function.update]
   simp only [Fin.sum_univ_succ, hv]
   norm_num [Fin.ext_iff, Matrix.cons_val]
-  rw [show (![a, c, d, f] : Fin 4 → E) 2 = d from rfl,
-    show (![c, d, f] : Fin 3 → E) 2 = f from rfl]
   ring
 
 private noncomputable def reactionFour {ι : Type*} [Fintype ι]

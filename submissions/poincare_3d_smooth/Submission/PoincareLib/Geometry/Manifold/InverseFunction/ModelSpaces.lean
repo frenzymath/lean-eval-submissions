@@ -38,6 +38,8 @@ theorem map_nhds_eq_of_contMDiffAt_bijective_mfderiv_modelSpaces
   have hderiv : mfderiv 𝓘(ℝ, E) 𝓘(ℝ, F) f x = fderiv ℝ A (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [A, c]
+    ext v
+    rfl
   have hAbij : Function.Bijective (fderiv ℝ A (c x)) := by rwa [hderiv] at hbij
   let L := ContinuousLinearEquiv.ofBijective (fderiv ℝ A (c x))
     (LinearMap.ker_eq_bot.mpr hAbij.1) (LinearMap.range_eq_top.mpr hAbij.2)
@@ -80,6 +82,8 @@ theorem contMDiffAt_of_local_left_inverse_modelSpaces
   have hderiv : mfderiv 𝓘(ℝ, E) 𝓘(ℝ, F) f x = fderiv ℝ A (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [A, c]
+    ext v
+    rfl
   have hAbij : Function.Bijective (fderiv ℝ A (c x)) := by rwa [hderiv] at hbij
   let L := ContinuousLinearEquiv.ofBijective (fderiv ℝ A (c x))
     (LinearMap.ker_eq_bot.mpr hAbij.1) (LinearMap.range_eq_top.mpr hAbij.2)

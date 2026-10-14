@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.Ends.ModelDomain
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.Collar.ProjectionChart
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Isotopy.Circle.CollarDifferential
@@ -182,7 +183,7 @@ theorem exists_terminal_model_height_projection
       (hmx.mdifferentiableAt (by simp))
     change mfderiv (𝓡 2) 𝓘(Real, Real) (h ∘ (m : E2 → S2)) x = _ at hchain
     have hz' : mfderiv (𝓡 2) 𝓘(Real, Real) (h ∘ (m : E2 → S2)) x = 0 := by
-      simpa only [mfderiv_eq_fderiv, TangentSpace, m,
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace, m,
         OpenPartialHomeomorph.coe_toPartialEquiv] using hz
     rw [hz'] at hchain
     apply hreg

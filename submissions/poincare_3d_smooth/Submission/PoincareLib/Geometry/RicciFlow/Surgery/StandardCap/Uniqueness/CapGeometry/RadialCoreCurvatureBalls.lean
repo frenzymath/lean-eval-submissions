@@ -51,7 +51,7 @@ theorem closure_ball_subset_tip_ball (y : StandardCapSpace) {b R : ℝ}
   change g.edist 0 z < ENNReal.ofReal R
   calc
     g.edist 0 z ≤ g.edist 0 y + g.edist y z :=
-      @edist_triangle StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace 0 y z
+      @edist_triangle StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0 y z
     _ ≤ g.edist 0 y + ENNReal.ofReal b := add_le_add_right (hclosed hz) _
     _ = ENNReal.ofReal (radialArclength g ‖y‖ + b) := by
       rw [edist_zero_eq_radialArclength g hrotation hcomplete P,
@@ -86,7 +86,7 @@ theorem radial_core_curvature_balls {a length : ℝ} (ha : 0 < a) (hlength : 0 <
       refine ⟨f, hf, by linarith only [hf], by linarith only [hy, hwidth], y, ?_, hscalar⟩
       change g.edist y y < ENNReal.ofReal f
       have hself : g.edist y y = 0 :=
-        @edist_self StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace y
+        @edist_self StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace y
       rw [hself]
       exact ENNReal.ofReal_pos.mpr hf
     · have hsy' : radialArclength g ‖y‖ < 2 * f := lt_of_not_ge houter

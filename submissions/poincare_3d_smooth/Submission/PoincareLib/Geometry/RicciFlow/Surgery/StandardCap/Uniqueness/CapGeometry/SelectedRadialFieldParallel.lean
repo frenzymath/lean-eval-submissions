@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.SelectedRadialFieldExtraction
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialFieldLimit
@@ -124,7 +125,7 @@ theorem blowupSequence_coordinate_radial_limit_parallel
   have hs (k : ℕ) : ContDiffAt ℝ ∞ (Zseq k) p := by
     have hf := contMDiffAt_iff_contDiffAt.mp (hgood k).self_of_nhds.1
     have hi' : (fderiv ℝ (f k) p).IsInvertible := by
-      simpa only [mfderiv_eq_fderiv] using (hgood k).self_of_nhds.2.1
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using (hgood k).self_of_nhds.2.1
     exact euclidean_radial_pullback_contDiffAt _ hf hi' (hgood k).self_of_nhds.2.2
   have hretain (k : ℕ) (ε : ℝ)
       (hb : ∀ w : V, (G k).inner (f k p)

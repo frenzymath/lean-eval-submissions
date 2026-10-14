@@ -14,6 +14,7 @@ See Hatcher p. 7, Hamilton 1976, p. 66 and M76 derivation 270.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 2000000
 
 open Set Topology Geometry
 

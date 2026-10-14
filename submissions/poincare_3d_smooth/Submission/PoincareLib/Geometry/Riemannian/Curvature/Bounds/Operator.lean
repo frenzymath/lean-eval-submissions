@@ -176,7 +176,7 @@ variable {n : ℕ} (g : RiemannianMetric n (EuclideanSpace ℝ (Fin n)))
 
 /-- A coordinate linear endomorphism, carrying the metric norm at `p` on both
 its domain and codomain. -/
-noncomputable def endomorphismInMetric (p : EuclideanSpace ℝ (Fin n))
+noncomputable def endomorphismInMetric (g : RiemannianMetric n (EuclideanSpace ℝ (Fin n))) (p : EuclideanSpace ℝ (Fin n))
     (A : EuclideanSpace ℝ (Fin n) →ₗ[ℝ] EuclideanSpace ℝ (Fin n)) :
     letI : Bundle.RiemannianBundle
         (TangentSpace (𝓡 n) : EuclideanSpace ℝ (Fin n) → Type _) :=

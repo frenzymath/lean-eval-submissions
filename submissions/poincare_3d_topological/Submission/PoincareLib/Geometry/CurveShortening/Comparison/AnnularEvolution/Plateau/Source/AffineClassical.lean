@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Source.AffineGeometry
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Source.ScaleStress
 
@@ -91,7 +92,7 @@ theorem m64AreaGram_sourceAffine {n : ℕ} {M : Type*}
   have hPhi : HasFDerivAt Phi D.toContinuousLinearMap p := D.hasFDerivAt.const_add a
   have hd := mfderiv_comp p hf
     (mdifferentiableAt_iff_differentiableAt.mpr hPhi.differentiableAt)
-  rw [mfderiv_eq_fderiv, hPhi.fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hPhi.fderiv] at hd
   have hv (i : Fin 2) : mfderiv (𝓡 2) (𝓡 n) (f ∘ Phi) p
       (EuclideanSpace.basisFun (Fin 2) ℝ i) =
       m64SourceScaleFactor s i • mfderiv (𝓡 2) (𝓡 n) f (Phi p)
@@ -129,8 +130,8 @@ theorem m64AreaGram_sourceAffine_conformal {n : ℕ} {M : Type*}
   have hpair := m64AreaGram_sourceAffine g a (Real.sqrt r) (Real.sqrt_pos.mpr hr).ne' hf
   constructor
   · rw [hpair 0 0, hpair 1 1]
-    simpa only [m64SourceScaleFactor, if_pos rfl, show (1 : Fin 2) ≠ 0 from by decide,
-      if_true, if_false, hss, his] using hconf.1
+    simpa only [m64SourceScaleFactor, ite_eq_left rfl, show (1 : Fin 2) ≠ 0 from by decide,
+      ite_true, ite_false, hss, his] using hconf.1
   · rw [hpair 0 1, hconf.2, mul_zero]
 
 end PoincareMT

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.TransportedCap
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Isotopy.Circle.BoundaryReparametrization
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Isotopy.Circle.RadialGerm
@@ -94,7 +95,7 @@ theorem exists_parametrized_cylindrical_cap_with_range
     have hDder : Injective (fderiv Real D x) := by
       have h := (D.mfderivToContinuousLinearEquiv (by simp) x).injective
       change Injective (mfderiv (𝓡 2) 𝓘(Real, Hemisphere.Plane v) D x) at h
-      simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using h
     rw [show g = k ∘ D from rfl, fderiv_comp x
       (hk.differentiable (by simp) (D x))
       (D.contDiff.differentiable (by simp) x)]

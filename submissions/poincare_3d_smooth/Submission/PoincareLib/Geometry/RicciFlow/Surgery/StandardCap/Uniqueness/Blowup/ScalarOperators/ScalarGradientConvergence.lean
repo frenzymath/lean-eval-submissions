@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.ScalarOperators.ScalarDerivativeJets
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Caps.CapScalarEstimates
@@ -110,7 +111,7 @@ theorem scalarGradientNorm_tendsto_of_metric_jets
   have heq (g' : RiemannianMetric 3 (E 3)) (D' : LeviCivitaData g') (x : E 3) :
       D'.gradient D'.scalarCurvature x =
         (g'.euclideanCoefficients x).inverse (fderiv ℝ D'.scalarCurvature x) := by
-    simp only [LeviCivitaData.gradient, mvfderiv, mfderiv_eq_fderiv]
+    simp only [LeviCivitaData.gradient, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   simp_rw [scalarGradientNorm_eq_gradient_norm, heq]
   exact hnorm

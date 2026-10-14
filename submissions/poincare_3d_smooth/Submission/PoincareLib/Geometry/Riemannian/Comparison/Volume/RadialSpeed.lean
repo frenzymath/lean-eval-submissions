@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Density
 
 /-!
@@ -37,7 +38,7 @@ theorem tangentNorm_mfderiv_radial_eq
   have he' : MDifferentiableAt (𝓡 n) (𝓡 n) e ((1 : ℝ) • v) := by
     simpa only [one_smul] using he
   have hd := mfderiv_comp (1 : ℝ) he' hline.differentiableAt.mdifferentiableAt
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hd1 := congrArg (fun A => A (1 : ℝ)) hd
   change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun t : ℝ => e (t • v)) 1 1 =
     mfderiv (𝓡 n) (𝓡 n) e ((1 : ℝ) • v)

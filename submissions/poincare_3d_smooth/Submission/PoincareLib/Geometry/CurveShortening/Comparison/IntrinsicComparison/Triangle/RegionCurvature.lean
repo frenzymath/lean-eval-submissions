@@ -128,12 +128,11 @@ theorem m64Intrinsic_triangle_region_angle_le_curvature_turning
       coordinateVertexAngleContribution N.metric R.coordinates R.basis v.1)
   have htotal' : 4 * Real.pi * 1 ≤ curvature + 2 * turning + 2 * defects := by
     convert htotal using 1
-    · rfl
-    · congr 2
-      congr 1
-      apply Finset.sum_congr rfl
-      intro p _
-      split_ifs <;> rfl
+    congr 2
+    congr 1
+    apply Finset.sum_congr rfl
+    intro p _
+    split_ifs <;> rfl
   change defects = 2 * Real.pi -
     coordinateVertexAngleContribution N.metric R.coordinates R.basis vT.1 at hdefect
   rw [integral_div]

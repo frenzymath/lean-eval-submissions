@@ -15,7 +15,6 @@ with a diffeomorphism is used only in the strong operator topology.
 
 set_option autoImplicit false
 set_option maxHeartbeats 1800000
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -244,14 +243,21 @@ theorem continuousOn_termsAtL2 {U : Set P} (hU : IsOpen U)
   induction ts with
   | nil => exact continuousOn_const
   | cons t ts ih =>
-    change ContinuousOn (fun p =>
+    have htail := ih (fun s hs => horder s (List.mem_cons_of_mem t hs))
+    let Q : (WordIndex (Fin d.fieldCount) k → Lp ℝ 2 d.charts.measure) →L[ℝ]
+        Lp ℝ 2 d.charts.measure :=
+      ContinuousLinearMap.proj (wordIndex t.word (horder t List.mem_cons_self))
+    have hhead : ContinuousOn (fun p =>
       (coefficientL2 d.charts.measure (fun x => t.coefficient.toFun (p, x))
-        (t.coefficient.slice_smooth p)).comp
-          (ContinuousLinearMap.proj (wordIndex t.word (horder t List.mem_cons_self))) +
-      termsL2 d.charts.measure (termsAt d p ts)
-        (termsAt_order d p ts (fun s hs => horder s (List.mem_cons_of_mem t hs)))) U
-    exact ((continuousOn_coefficientL2 d hU t.coefficient).clm_comp continuousOn_const).add
-      (ih (fun s hs => horder s (List.mem_cons_of_mem t hs)))
+        (t.coefficient.slice_smooth p)).comp Q) U :=
+      (ContinuousLinearMap.compL ℝ
+        (WordIndex (Fin d.fieldCount) k → Lp ℝ 2 d.charts.measure)
+        (Lp ℝ 2 d.charts.measure) (Lp ℝ 2 d.charts.measure)).continuous₂.comp_continuousOn
+          ((continuousOn_coefficientL2 d hU t.coefficient).prodMk
+            (continuousOn_const (c := Q)))
+    apply (hhead.add htail).congr
+    intro p hp
+    simp only [termsAt, List.map_cons, termsL2, termAt, Q, Pi.add_apply]
 
 theorem continuousOn_pullbackTermsL2 {U : Set P} (hU : IsOpen U)
     (Phi : P → Diffeomorph I I M M ∞)
@@ -400,8 +406,7 @@ theorem exists_locally_uniform_coefficient_bound {U : Set P} (hU : IsOpen U) (hz
       (by simpa only [List.length_ofFn] using Nat.le_of_lt_succ w.1.isLt)‖ + 1
   let B : ℝ := ∑ ab : d.ProbeIndex, ∑ w : WordIndex (Fin d.fieldCount) k, b ab w
   have hb (ab : d.ProbeIndex) (w : WordIndex (Fin d.fieldCount) k) : 0 ≤ b ab w := by
-    dsimp [b]
-    positivity
+    exact add_nonneg (norm_nonneg _) zero_le_one
   have hbB (ab : d.ProbeIndex) (w : WordIndex (Fin d.fieldCount) k) : b ab w ≤ B :=
     (Finset.single_le_sum (fun v _ => hb ab v) (Finset.mem_univ w)).trans
       (Finset.single_le_sum (fun cd _ => Finset.sum_nonneg (fun v _ => hb cd v))

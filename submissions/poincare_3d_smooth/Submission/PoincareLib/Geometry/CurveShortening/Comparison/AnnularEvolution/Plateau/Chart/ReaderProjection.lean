@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Chart.ReaderMetric
 
 /-!
@@ -53,7 +54,7 @@ theorem m64ChartReadable_local_projection
       (mfderiv (𝓡 n) (𝓡 m) e q).comp (mfderiv (𝓡 n) (𝓡 n) c.symm (c q)) := by
     have hh := mfderiv_comp (c q) ((he _).mdifferentiableAt (by simp))
       (hc.mdifferentiableAt_symm (c.map_source (hUsub hq).1))
-    rw [mfderiv_eq_fderiv, c.left_inv (hUsub hq).1] at hh
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, c.left_inv (hUsub hq).1] at hh
     exact hh
   have hLe (q : M) (hq : q ∈ U) : L.comp (mfderiv (𝓡 n) (𝓡 m) e q) =
       mfderiv (𝓡 n) (𝓡 n) c q := by
@@ -62,7 +63,7 @@ theorem m64ChartReadable_local_projection
       exact (hUsub hy).2
     have hh := hlocal.mfderiv_eq (I := 𝓡 n) (I' := 𝓡 n)
     rw [mfderiv_comp q L.differentiableAt.mdifferentiableAt
-      ((he q).mdifferentiableAt (by simp)), mfderiv_eq_fderiv, L.fderiv] at hh
+      ((he q).mdifferentiableAt (by simp)), Poincare.Compatibility.mfderiv_eq_fderiv_model, L.fderiv] at hh
     exact hh
   refine ⟨U, P, hUopen, hpU, ?_, ?_, ?_⟩
   · apply continuousOn_clm_apply.mpr

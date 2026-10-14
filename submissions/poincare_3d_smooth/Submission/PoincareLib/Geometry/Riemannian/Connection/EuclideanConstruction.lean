@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Euclidean
 
 /-!
@@ -161,7 +162,7 @@ private noncomputable def euclideanConnection :
       have hY' := differentiableAt_of_field hY
       have hf' := mdifferentiableAt_iff_differentiableAt.mp hf
       let S : E n → E n := Y
-      simp only [mvfderiv, mfderiv_eq_fderiv]
+      simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change fderiv ℝ (f • S) x + (christoffel g x).flip (f x • S x) =
         f x • (fderiv ℝ S x + (christoffel g x).flip (S x)) +
           (fderiv ℝ f x).smulRight (S x)
@@ -209,7 +210,7 @@ private theorem euclideanConnection_metricCompatible :
     g.inner x (euclideanConnection g (fun _ => v) x u) w -
     g.inner x v (euclideanConnection g (fun _ => w) x u) = 0
   rw [euclideanConnection_const, euclideanConnection_const]
-  simp only [mvfderiv, mfderiv_eq_fderiv]
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   simp +instances only [NormedSpace.fromTangentSpace, ContinuousLinearMap.comp_apply,
     ContinuousLinearEquiv.coe_coe]
   change fderiv ℝ (fun y => g.inner y v w) x u -

@@ -38,7 +38,7 @@ theorem m64LocalConeDiskMap_energy_zero_of_inner (g : RiemannianMetric n M)
     exact m64LocalConeDiskMap_inner H center gamma h0 hw.le
   have hd := heq.mfderiv_eq (I := 𝓡 2) (I' := 𝓡 n)
   simp only [m60EnergyDensity, Matrix.trace_fin_two, m60AreaGram, hd,
-    mfderiv_const, zero_apply, map_zero, add_zero, mul_zero]
+    mfderiv_const, ContinuousLinearMap.comp_zero, zero_apply, map_zero, add_zero, mul_zero]
 
 /-- The cutoff profile and actual interpolator bounds control the radial Jacobian-weighted
 cone density. Proof expansion for Morgan-Tian (2007), Lemma 19.15, pp. 447-449. -/

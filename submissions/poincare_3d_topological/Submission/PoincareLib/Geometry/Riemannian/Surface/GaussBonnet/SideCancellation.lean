@@ -28,7 +28,6 @@ def triangleSidePermutation (i : Fin 3) : Equiv.Perm (Fin 3) :=
 @[simp] theorem triangleSidePermutation_symm_two (i : Fin 3) :
     (triangleSidePermutation i).symm 2 = i := by
   fin_cases i <;> norm_num [triangleSidePermutation, Equiv.addRight, Fin.add_def, Fin.neg_def]
-  rfl
 
 theorem triangleSidePermutation_orientation (i : Fin 3) :
     trianglePermutationOrientation (triangleSidePermutation i) = 1 :=

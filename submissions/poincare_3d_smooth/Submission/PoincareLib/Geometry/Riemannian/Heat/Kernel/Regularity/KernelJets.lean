@@ -108,7 +108,9 @@ theorem iteratedDeriv_heatSpectralPower_operator
       have hd := ((hasDerivAt_heatSpectralPower_operator D S (k + j) ht).const_smul
         ((-1 : ℝ) ^ j)).deriv
       convert! hd using 1
-      simp only [P, pow_succ, Nat.add_assoc, mul_smul, neg_smul, one_smul, smul_neg]
+      simp only [P, pow_succ, Nat.add_assoc, mul_smul, neg_smul, one_smul, smul_neg, neg_one_smul]
+      ext v
+      simp
 
 /-- The operator time-jet bound is independent of the containing smooth domain. -/
 theorem norm_iteratedFDeriv_heatSpectralPower_operator_le
@@ -264,7 +266,7 @@ theorem iteratedDeriv_evaluationRow_heatPowerContinuousTime
       have hd := ((hasDerivAt_evaluationRow_heatPowerContinuousTime D S (k + j) ht x).const_smul
         ((-1 : ℝ) ^ j)).deriv
       convert! hd using 1
-      simp only [pow_succ, Nat.add_assoc, mul_smul, neg_smul, one_smul, smul_neg]
+      simp only [pow_succ, Nat.add_assoc, mul_smul, neg_smul, one_smul, smul_neg, neg_one_smul]
 
 theorem hasDerivAt_heatPowerContinuousTime_fixed_row
     (D : LeviCivitaData g) (S : Poincare.Manifold.SmoothDomain n Ω)

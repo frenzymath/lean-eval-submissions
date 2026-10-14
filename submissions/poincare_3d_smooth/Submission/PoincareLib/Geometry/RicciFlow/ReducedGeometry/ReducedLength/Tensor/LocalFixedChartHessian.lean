@@ -31,6 +31,8 @@ theorem hessian_eq_of_eventuallyEq {g : RiemannianMetric n M}
       mvfderiv (𝓡 n) f x = mvfderiv (𝓡 n) h x := by
     unfold mvfderiv
     rw [hh.eq_of_nhds, hh.mfderiv_eq]
+    ext v
+    rfl
   have hfirst : (fun x ↦ mvfderiv (𝓡 n) f x (FiberBundle.extend E v x)) =ᶠ[𝓝 q]
       (fun x ↦ mvfderiv (𝓡 n) h x (FiberBundle.extend E v x)) := by
     filter_upwards [heq.eventuallyEq_nhds] with x hx

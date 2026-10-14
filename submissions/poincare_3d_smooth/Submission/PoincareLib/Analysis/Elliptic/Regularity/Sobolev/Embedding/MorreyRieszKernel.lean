@@ -403,11 +403,11 @@ theorem riesz_kernel_memLp
     rw [← ofReal_integral_eq_lintegral_ofReal hα_int (ae_of_all _ fun y =>
       Real.rpow_nonneg (norm_nonneg _) _)]
     exact ENNReal.ofReal_ne_top
-  refine ⟨h_aesm, ?_⟩
+  rw [memLp_iff]
   have hq_enn_ne_zero : ENNReal.ofReal q ≠ 0 := by
     rw [Ne, ENNReal.ofReal_eq_zero]
     exact not_le.mpr hq_pos
-  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal hq_enn_ne_zero ENNReal.ofReal_ne_top]
+  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal hq_enn_ne_zero ENNReal.ofReal_ne_top h_aesm]
   rw [ENNReal.toReal_ofReal hq_pos.le]
   refine ENNReal.rpow_lt_top_of_nonneg ?_ ?_
   · positivity

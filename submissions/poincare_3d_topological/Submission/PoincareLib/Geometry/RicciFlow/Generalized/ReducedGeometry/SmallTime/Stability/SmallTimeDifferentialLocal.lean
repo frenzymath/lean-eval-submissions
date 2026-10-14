@@ -45,11 +45,20 @@ theorem exists_open_smallTime_differential_bijective
   obtain ⟨b, ⟨t₀, x₀⟩, rfl⟩ := G.gaugeCover.covers x
   let base := (G.gaugeCover.cylinder b).toSpacetime (t₀, x₀)
   let metric := G.spacetime.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (G.Horizontal base) := inferInstance
+  let horizontalModule : Module ℝ (G.Horizontal base) := inferInstance
+  let horizontalTopology : TopologicalSpace (G.Horizontal base) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (G.Horizontal base) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (G.Horizontal base) := inferInstance
+  let horizontalCore := metric.toCore base
+  let horizontalContinuous := metric.continuousAt base
+  let horizontalBounded := metric.isVonNBounded base
   let : NormedAddCommGroup (G.Horizontal base) :=
-    (metric.toCore base).toNormedAddCommGroupOfTopology
-      (metric.continuousAt base) (metric.isVonNBounded base)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : InnerProductSpace ℝ (G.Horizontal base) :=
-    .ofCoreOfTopology (metric.toCore base) (metric.continuousAt base) (metric.isVonNBounded base)
+    @InnerProductSpace.ofCoreOfTopology ℝ (G.Horizontal base) _
+      horizontalAdd horizontalModule horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalCore horizontalContinuous horizontalBounded
   let : Bundle.RiemannianBundle (G.Horizontal : G.Point → Type _) := ⟨metric⟩
   let : FiniteDimensional ℝ (G.Horizontal base) :=
     VectorBundle.finiteDimensional ℝ (EuclideanSpace ℝ (Fin n)) G.Horizontal base

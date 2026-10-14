@@ -1,3 +1,4 @@
+import Mathlib.Topology.MetricSpace.Lipschitz
 import Mathlib.Analysis.ConstantSpeed
 import Mathlib.Topology.Order.IntermediateValue
 import Mathlib.Topology.EMetricSpace.VariationOnFromTo

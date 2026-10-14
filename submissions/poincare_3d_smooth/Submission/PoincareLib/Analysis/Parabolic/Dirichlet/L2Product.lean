@@ -6,7 +6,8 @@ import Mathlib.MeasureTheory.Integral.Prod
 
 The product of two square-integrable functions on separate measure spaces
 defines an L2 function on the product measure. Fubini gives the exact norm
-and inner-product identities. The construction is linear in each factor.
+and inner-product identities. The construction is linear in each factor. The second measure is s-finite,
+as required for product-measure transport in the pinned Mathlib version.
 -/
 
 set_option autoImplicit false
@@ -19,7 +20,7 @@ open MeasureTheory Filter
 open scoped ENNReal InnerProductSpace
 
 variable {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
-  {μ : Measure α} {ν : Measure β}
+  {μ : Measure α} {ν : Measure β} [SFinite ν]
 
 theorem memLp_tensor (f : Lp ℝ 2 μ) (g : Lp ℝ 2 ν) :
     MemLp (fun z : α × β => f z.1 * g z.2) 2 (μ.prod ν) := by
@@ -36,7 +37,7 @@ theorem tensorL2_ae (f : Lp ℝ 2 μ) (g : Lp ℝ 2 ν) :
     (tensorL2 f g : α × β → ℝ) =ᵐ[μ.prod ν] fun z => f z.1 * g z.2 :=
   (memLp_tensor f g).coeFn_toLp
 
-theorem inner_tensorL2 [SFinite μ] [SFinite ν]
+theorem inner_tensorL2 [SFinite μ]
     (f u : Lp ℝ 2 μ) (g v : Lp ℝ 2 ν) :
     ⟪tensorL2 f g, tensorL2 u v⟫_ℝ = ⟪f, u⟫_ℝ * ⟪g, v⟫_ℝ := by
   rw [L2.inner_def, L2.inner_def, L2.inner_def, ← integral_prod_mul]
@@ -45,7 +46,7 @@ theorem inner_tensorL2 [SFinite μ] [SFinite ν]
   simp only [hfg, huv, RCLike.inner_apply, conj_trivial]
   ring
 
-@[simp] theorem norm_tensorL2 [SFinite μ] [SFinite ν]
+@[simp] theorem norm_tensorL2 [SFinite μ]
     (f : Lp ℝ 2 μ) (g : Lp ℝ 2 ν) :
     ‖tensorL2 f g‖ = ‖f‖ * ‖g‖ := by
   have hs : ‖tensorL2 f g‖ ^ 2 = (‖f‖ * ‖g‖) ^ 2 := by
@@ -94,7 +95,7 @@ theorem tensorL2_smul_right (c : ℝ) (f : Lp ℝ 2 μ) (g : Lp ℝ 2 ν) :
   ring
 
 /-- The continuous linear product map with fixed first factor. -/
-def tensorL2CLM [SFinite μ] [SFinite ν]
+def tensorL2CLM [SFinite μ]
     (f : Lp ℝ 2 μ) : Lp ℝ 2 ν →L[ℝ] Lp ℝ 2 (μ.prod ν) :=
   LinearMap.mkContinuous
     { toFun := tensorL2 f
@@ -102,11 +103,11 @@ def tensorL2CLM [SFinite μ] [SFinite ν]
       map_smul' := fun c g => tensorL2_smul_right c f g }
     ‖f‖ (fun g => (norm_tensorL2 f g).le)
 
-@[simp] theorem tensorL2CLM_apply [SFinite μ] [SFinite ν]
+@[simp] theorem tensorL2CLM_apply [SFinite μ]
     (f : Lp ℝ 2 μ) (g : Lp ℝ 2 ν) :
     tensorL2CLM f g = tensorL2 f g := rfl
 
-theorem norm_tensorL2CLM_le [SFinite μ] [SFinite ν]
+theorem norm_tensorL2CLM_le [SFinite μ]
     (f : Lp ℝ 2 μ) : ‖tensorL2CLM (ν := ν) f‖ ≤ ‖f‖ :=
   (tensorL2CLM f).opNorm_le_bound (norm_nonneg f)
     (fun g => (norm_tensorL2 f g).le)

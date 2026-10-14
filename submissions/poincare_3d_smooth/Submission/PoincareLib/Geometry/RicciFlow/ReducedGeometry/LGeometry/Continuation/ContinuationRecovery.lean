@@ -37,6 +37,7 @@ private theorem recovery_referenceSpeedSq_congr (g : RiemannianMetric n M)
     referenceSpeedSq g β s = referenceSpeedSq g α s := by
   unfold referenceSpeedSq curveVelocity
   rw [h.mfderiv_eq, h.self_of_nhds]
+  rfl
 
 set_option maxHeartbeats 2000000 in
 /-- Completeness and bounded speed recover the actual smooth closed endpoint phase. -/

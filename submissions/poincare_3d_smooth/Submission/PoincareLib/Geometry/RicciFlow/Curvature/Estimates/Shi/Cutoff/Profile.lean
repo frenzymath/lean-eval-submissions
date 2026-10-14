@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Fields.ScalarChainRule
 import Mathlib.Analysis.SpecialFunctions.SmoothTransition
 import Mathlib.Analysis.Calculus.Deriv.Slope
@@ -179,7 +180,7 @@ theorem shiCutoffProfile_gradient_comp
         change mvfderiv (𝓡 n) (φ ∘ u) x v = _
         rw [mvfderiv_comp_apply x
           ((hφ.differentiable (by simp)) (u x)).mdifferentiableAt hud v]
-        simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply]
+        simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply]
         exact fderiv_eq_deriv_mul (𝕜 := ℝ)
       _ = _ := by rw [profile_scaled_deriv]
   unfold scalarGradientSq

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/RicciPairRegularity.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -207,7 +208,7 @@ theorem connection_frame_coordinates_eq_inverse_koszul
         _ = e.symmL ℝ x (EuclideanSpace.single p 1) := (e.symmL_apply hx _).symm
     have hfd : fderiv ℝ (fun w => f (c.symm w)) z (EuclideanSpace.single p 1) =
         mvfderiv (𝓡 n) f x (e.symmL ℝ x (EuclideanSpace.single p 1)) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change mvfderiv 𝓘(ℝ, V) (f ∘ c.symm) z (EuclideanSpace.single p 1) = _
       have hfm := (hf.contMDiffAt (e.open_baseSet.mem_nhds hx)).mdifferentiableAt
         (by simp : (∞ : ℕ∞ω) ≠ 0)
@@ -369,7 +370,7 @@ theorem curvature_and_ricci_frame_coordinates_eq_connection_coefficients
         _ = e.symmL ℝ x (EuclideanSpace.single i 1) := (e.symmL_apply hx _).symm
     have hfd : fderiv ℝ (fun w => f (c.symm w)) z (EuclideanSpace.single i 1) =
         mvfderiv (𝓡 n) f x (e.symmL ℝ x (EuclideanSpace.single i 1)) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change mvfderiv 𝓘(ℝ, V) (f ∘ c.symm) z (EuclideanSpace.single i 1) = _
       have hfm := (hf.contMDiffAt (e.open_baseSet.mem_nhds hx)).mdifferentiableAt
         (by simp : (∞ : ℕ∞ω) ≠ 0)

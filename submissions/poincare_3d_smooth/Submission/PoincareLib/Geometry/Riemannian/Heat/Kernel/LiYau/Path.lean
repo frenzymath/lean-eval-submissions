@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Heat.Kernel.LiYau.LocalBound
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
 
@@ -40,7 +41,7 @@ lemma hasDerivAt_comp_affine_spacetimePath
     (mfderiv (𝓘(ℝ, ℝ).prod (𝓡 n)) 𝓘(ℝ, ℝ) f (a + δ * s, γ s)
       ((1 : ℝ) • δ, mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ s 1)) s at h
   rw [one_smul, mfderiv_prod_eq_add_apply hf] at h
-  rw [mfderiv_eq_fderiv] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   change HasDerivAt (fun r => f (a + δ * r, γ r))
     ((fderiv ℝ (fun t => f (t, γ s)) (a + δ * s)) δ +
       mvfderiv (𝓡 n) (fun x => f (a + δ * s, x)) (γ s)

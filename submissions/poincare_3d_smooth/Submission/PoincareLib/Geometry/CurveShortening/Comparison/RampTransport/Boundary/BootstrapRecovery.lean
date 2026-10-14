@@ -173,7 +173,7 @@ theorem local_neumann_memWkp_three
     (a := flatBoundaryForm.a) (q := fun j => chosenWeakPartial' 2 j u (W ∩ halfSpace 2))
     (fun _ _ => rfl) (fun _ _ _ => rfl) heqB phi hphi hc hs
   simp only [flatBoundaryForm, Matrix.one_apply, ite_mul, one_mul, zero_mul,
-    Finset.sum_ite_eq, Finset.mem_univ, if_true] at hraw
+    Finset.sum_ite_eq, Finset.mem_univ, ite_true] at hraw
   rw [← hraw]
   apply integral_congr_ae
   have hp (i : Fin 2) := chosenWeakPartial'_mono_set_ae

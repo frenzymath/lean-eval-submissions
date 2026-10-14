@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Annulus.WeakClassicalColumns
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Boundary.CrossEnergy
 
@@ -50,7 +51,7 @@ theorem m64ObservedMetric_symmetric_pair_of_mDifferentiableAt
   let L := mfderiv (𝓡 n) (𝓡 m) e (f p)
   have hd := mfderiv_comp (I := 𝓡 2) (I' := 𝓡 n) (I'' := 𝓡 m)
     p (he.mdifferentiable (by simp) _) hf
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hcol (i : Fin 2) : fderiv ℝ (e ∘ f) p (EuclideanSpace.single i 1) = L (v i) :=
     congrArg (fun T => T (EuclideanSpace.single i 1)) hd
   rw [hcol i, hcol j]

@@ -81,7 +81,8 @@ theorem finite_fiber_le_tsum_image_indicator
       simp only [hm, tsum_fintype, Finset.sum_const, Finset.card_univ, Fintype.card_fin,
         nsmul_eq_mul, mul_one]
     _ ≤ ∑' i, (f '' P i).indicator (fun _ => (1 : ℝ≥0∞)) q :=
-      ENNReal.tsum_comp_le_tsum_of_injective hji _
+      ENNReal.tsum_comp_le_tsum_of_injective hji
+        (fun i => (f '' P i).indicator (fun _ => (1 : ℝ≥0∞)) q)
 
 /-- Integrating the finite fiber count gives a multiplicity lower bound for
 the sum of the volumes of injectivity-piece images. -/

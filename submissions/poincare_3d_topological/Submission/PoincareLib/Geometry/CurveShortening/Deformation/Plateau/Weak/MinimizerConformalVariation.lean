@@ -117,7 +117,7 @@ private theorem m65Hopf_pair_integrable (g : RiemannianMetric 3 M)
   obtain ⟨C, hC⟩ := compact.exists_bound_of_continuousOn hA.continuousOn
   have hmeas : AEStronglyMeasurable (fun z => A (F.value z)) mu :=
     hA.comp_aestronglyMeasurable (hemb.aestronglyMeasurable_comp_iff.mp
-      ((Lp.memLp F.embeddedValue).1.congr F.embeddedValue_ae))
+      ((Lp.aestronglyMeasurable F.embeddedValue).congr F.embeddedValue_ae))
   let T := Lp.coefficientL2 (fun z => A (F.value z)) hmeas C
     (ae_of_all _ fun z => hC _ (mem_univ _))
   apply (L2.integrable_inner (𝕜 := ℝ) (T (F.derivative i)) (F.derivative j)).congr

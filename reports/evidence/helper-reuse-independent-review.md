@@ -1,0 +1,11 @@
+# Independent review: helper cache reuse
+
+Result: PASS for controlled reuse of the existing successful-build cache. No production source or cache edits were made by this reviewer. Script/receipt hashes are in the JSON record.
+
+Independently reconstructed the exact successful smooth source fingerprint, including the retained unimported probe: `6aa920b5dfea059b85e26ff62f7deb0f1aa0de1c334fc5319df2c5c97891b821` over 23,566 source/config files. The successful log ends with 32,522 jobs completed. Independently compared all 23,558 helper modules in both variants: byte-identical, identical module sets, and equal to the per-source manifest. No helper imports Challenge, Submission root, or Solution. Lake options and dependencies are identical except package name; toolchain files are identical.
+
+`check.py --verified-incremental` rehashes staged helper sources before altering existing `.olean` mtimes. It does not write artifact payloads and does not manufacture missing artifacts. Before a build it deletes Challenge, Submission and Solution artifact families in both Lean-library and IR output trees. The official `lake --old` then reuses previously compiled unchanged helpers while rebuilding the changed endpoint roots; the external source audit establishes what the package-name trace mismatch cannot establish automatically. The checker holds the existing exclusive workspace lock.
+
+This is cache reuse, with provenance supplied by the preceding successful controlled build. The script is not a general untrusted-cache verifier: it does not hash every olean payload or independently freeze dependencies/compiler artifacts, and the whole-tree source fingerprint excludes lake-manifest.json. It is valid with the same pinned compiler, retained unchanged dependency cache, and equal compilation options; changed inputs need invalidation/rebuild. Additive rsync can retain scratch files, so new imported/staged sources must be audited. The --test path skips endpoint deletion and must follow validation of the requested variant roots.
+
+The isolated scratch negative control imports Mathlib.Data.Nat.Basic and attempts `example : False := by decide`. Baseline and scoped-shim runs both returned 1 with identical diagnostics that False is false. No production Lean source was changed.

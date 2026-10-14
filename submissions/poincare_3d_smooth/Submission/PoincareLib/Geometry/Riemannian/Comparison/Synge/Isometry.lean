@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Synge.Displacement
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Synge.ParallelField
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Synge.Variation.PositiveCurvature
@@ -41,7 +42,7 @@ private theorem deriv_chart_eq_velocity {q : ℝ → M} {t : ℝ} {p : M}
     rw [hp]
     exact mdifferentiableAt_extChartAt (mem_chart_source _ p)
   have hchain := mfderiv_comp t hc hq
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   have hv := congrArg (fun L => L (1 : ℝ)) hchain
   change (fderiv ℝ (fun s => extChartAt (𝓡 3) p (q s)) t) 1 =
     mfderiv (𝓡 3) (𝓡 3) (extChartAt (𝓡 3) p) (q t)

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Volume.Conjugate.Radial.Regularity
 
 /-!
@@ -46,7 +47,7 @@ theorem isInvertible_mfderiv_zero_of_chart_derivative
   apply L.injective
   have hd := mfderiv_comp 0
     (mdifferentiableAt_extChartAt (by rw [he0]; exact mem_chart_source _ _)) he
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hd' : L.toContinuousLinearMap =
       (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p) (e 0)).comp
         (mfderiv (𝓡 n) (𝓡 n) e 0) := hed.fderiv.symm.trans hd

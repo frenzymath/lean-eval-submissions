@@ -222,6 +222,8 @@ theorem limitFinite_endpoint_chart_operator
         (ChartDistance.chartParametrization W hW e) p.2
     unfold RiemannianMetric.pullbackCoefficients
     rw [hn.self_of_nhds, hn.mfderiv_eq]
+    ext v w
+    rfl
   have hjetActual : ∀ m K, IsCompact K → K ⊆ J ×ˢ W () → TendstoUniformlyOn
       (fun k => iteratedFDeriv ℝ m (fun p : ℝ × E =>
         ((A' k).metric p.1).pullbackCoefficients

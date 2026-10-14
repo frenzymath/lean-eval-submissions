@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Angles.Geometry.AffineParallelField
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Angles.Geometry.MovingEndpointEnergy
@@ -62,7 +63,7 @@ private theorem hasDerivAt_center_chart_of_geodesic
     mdifferentiableAt_extChartAt (mem_chart_source _ _)
   have hchain := mfderiv_comp t hc
     ((hγ.contMDiffAt ht).mdifferentiableAt one_ne_zero)
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   have hv := congrArg (fun A => A (1 : ℝ)) hchain
   change deriv (fun u => extChartAt (𝓡 n) (γ t) (γ u)) t =
     (mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) (γ t)) (γ t))

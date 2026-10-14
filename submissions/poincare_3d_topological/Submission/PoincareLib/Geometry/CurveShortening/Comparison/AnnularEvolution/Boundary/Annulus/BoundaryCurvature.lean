@@ -76,7 +76,7 @@ theorem annulus_boundary_curvature_le (D : LeviCivitaData g) (A : M64Annulus g c
     change IntervalIntegrable (fun theta => (if u then -1 else 1) * C u theta)
       volume 0 curvePeriod at hu
     cases u
-    · simpa only [Bool.false_eq_true, if_false, one_mul] using hu
+    · simpa only [Bool.false_eq_true, ite_false, one_mul] using hu
     · apply hu.neg.congr
       intro theta _
       change -((-1 : ℝ) * C true theta) = C true theta
@@ -89,7 +89,7 @@ theorem annulus_boundary_curvature_le (D : LeviCivitaData g) (A : M64Annulus g c
       (𝓝 (∫ theta in (0 : ℝ)..curvePeriod, (if u then -1 else 1) * C u theta)) at hu
     simpa only [intervalIntegral.integral_const_mul] using hu
   have hlimit := ((hcl false).add (hcl true)).const_mul (-r⁻¹)
-  simp only [Bool.false_eq_true, if_false, if_true, one_mul, neg_one_mul] at hlimit
+  simp only [Bool.false_eq_true, ite_false, ite_true, one_mul, neg_one_mul] at hlimit
   have hbound : -r⁻¹ *
       ((∫ theta in (0 : ℝ)..curvePeriod, C false theta) +
         -(∫ theta in (0 : ℝ)..curvePeriod, C true theta)) ≤ K * A.area := by
@@ -99,7 +99,7 @@ theorem annulus_boundary_curvature_le (D : LeviCivitaData g) (A : M64Annulus g c
     have hraw := annulus_truncated_gram_curvature_le D A hr hminimum hconformal hAc hAi
       hinj (lo := h k) (hi := 1 - h k) (hh k).1
         (by linarith [(hh k).2]) (by linarith [(hh k).1]) hK hsec
-    simp only [L, Bool.false_eq_true, if_false, if_true, one_mul, neg_one_mul,
+    simp only [L, Bool.false_eq_true, ite_false, ite_true, one_mul, neg_one_mul,
       intervalIntegral.integral_div, intervalIntegral.integral_neg,
       EuclideanSpace.basisFun_apply]
     nlinarith only [hraw]

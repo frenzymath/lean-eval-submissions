@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
 
@@ -41,7 +42,7 @@ theorem curveVelocity_comp_initial_line {E : Type v}
     exact hsmul.const_add Z
   have hvalue : (mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, E)) (fun r : ℝ ↦ Z + r • W) 0) 1 = W := by
     exact (congrArg (fun L : ℝ →L[ℝ] E ↦ L 1)
-      (mfderiv_eq_fderiv (f := fun r : ℝ ↦ Z + r • W) (x := 0))).trans
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := fun r : ℝ ↦ Z + r • W) (x := 0))).trans
       ((congrArg (fun L : ℝ →L[ℝ] E ↦ L 1) hline.hasFDerivAt.fderiv).trans
         (ContinuousLinearMap.toSpanSingleton_apply_one ℝ W))
   have hf' : MDifferentiableAt (𝓘(ℝ, E)) (𝓡 n) f (Z + (0 : ℝ) • W) := by
@@ -65,7 +66,7 @@ theorem curveVelocity_comp_square (α : ℝ → M) (s : ℝ)
     simpa using hasDerivAt_pow 2 s
   have hvalue : (mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, ℝ)) (fun r : ℝ ↦ r ^ 2) s) 1 = 2 * s := by
     exact (congrArg (fun L : ℝ →L[ℝ] ℝ ↦ L 1)
-      (mfderiv_eq_fderiv (f := fun r : ℝ ↦ r ^ 2) (x := s))).trans
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := fun r : ℝ ↦ r ^ 2) (x := s))).trans
       ((congrArg (fun L : ℝ →L[ℝ] ℝ ↦ L 1) hsq.hasFDerivAt.fderiv).trans
         (ContinuousLinearMap.toSpanSingleton_apply_one ℝ (2 * s)))
   let L : ℝ →L[ℝ] TangentSpace (𝓡 n) (α (s ^ 2)) :=

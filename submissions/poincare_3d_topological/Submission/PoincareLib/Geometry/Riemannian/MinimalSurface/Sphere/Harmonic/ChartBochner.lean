@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Area.MinimalSphere.TargetChartEstimate
 
 /-!
@@ -62,7 +63,7 @@ theorem m60HarmonicChart_laplacian_lower (D : LeviCivitaData g)
         (mfderiv (𝓡 2) (𝓡 n) φ q w) := by
     have h := mfderiv_comp q ((hc q hq).mdifferentiableAt (by simp))
       ((hφq q hq).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     exact congrArg (fun L => L w) h
   have hpair (q : LoopPlane) (hq : q ∈ O) (w z : LoopPlane) :
       B (v q) (fderiv ℝ v q w) (fderiv ℝ v q z) =

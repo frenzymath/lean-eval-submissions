@@ -57,15 +57,20 @@ theorem hessian_inverse_radius_le_sub_endpoint_ball_curvature [T2Space M]
     ⟨hB.mdifferentiableOn (by simp), hBi.mdifferentiableOn (by simp)⟩
   have heq : e =ᶠ[𝓝 v] B :=
     Filter.eventuallyEq_of_mem (B.open_source.mem_nhds hvB) heB
+  have hdmodel : (mfderiv (𝓡 n) (𝓡 n) e v :
+      EuclideanSpace ℝ (Fin n) →L[ℝ] EuclideanSpace ℝ (Fin n)) =
+      mfderiv (𝓡 n) (𝓡 n) B v := by
+    exact heq.mfderiv_eq
   have hiB : (mfderiv (𝓡 n) (𝓡 n) B v).IsInvertible := ⟨hD.mfderiv hvB, rfl⟩
   have hi : (mfderiv (𝓡 n) (𝓡 n) e v).IsInvertible := by
-    rw [heq.mfderiv_eq]
+    rw [hdmodel]
     exact hiB
   have hcoeff : g.pullbackCoefficients e =ᶠ[𝓝 v] g.pullbackCoefficients B := by
     filter_upwards [eventually_eventually_nhds.mpr heq] with y hy
     change e =ᶠ[𝓝 y] B at hy
     unfold pullbackCoefficients
     rw [hy.mfderiv_eq, hy.self_of_nhds]
+    rfl
   have hΓ : coordinateChristoffel (g.pullbackCoefficients e) v =
       coordinateChristoffel (g.pullbackCoefficients B) v := by
     funext a b
@@ -79,7 +84,7 @@ theorem hessian_inverse_radius_le_sub_endpoint_ball_curvature [T2Space M]
   have hbound := Hessian.radial_pairing_le_sub_endpoint_ball_curvature
     g D hsec he hnorm hradial hv hv0 hi.bijective hmin hρ hρv hball z
   have hsq := g.hessian_inverse_radius_sq D B hB hBi hvB hv0 hgauss z
-  rw [← heq.mfderiv_eq, ← heq.self_of_nhds, hi.self_apply_inverse] at hsq
+  rw [← hdmodel, ← heq.self_of_nhds, hi.self_apply_inverse] at hsq
   rw [hcoeff.self_of_nhds, hΓ] at hbound
   have hquad : g.pullbackCoefficients B v z z = g.inner (e v) w w := by
     rw [← hcoeff.self_of_nhds]
@@ -96,7 +101,7 @@ theorem hessian_inverse_radius_le_sub_endpoint_ball_curvature [T2Space M]
   have hgrad := D.gradient_radial_coordinate B hB hBi hvB hv0
     (hgauss.self_of_nhds)
   have hwB : mfderiv (𝓡 n) (𝓡 n) B v z = w := by
-    rw [← heq.mfderiv_eq]
+    rw [← hdmodel]
     exact hi.self_apply_inverse w
   have hd : mvfderiv (𝓡 n) (fun y => ‖B.symm y‖) (e v) w =
       ‖v‖⁻¹ * inner ℝ v z := by

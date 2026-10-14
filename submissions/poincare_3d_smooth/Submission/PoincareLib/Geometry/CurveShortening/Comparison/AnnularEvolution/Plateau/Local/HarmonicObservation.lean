@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Harmonic.EpsilonRegularity.Decay
 
 /-! The actual observed Laplacian from a local harmonic chart.
@@ -55,7 +56,7 @@ theorem m64LocalHarmonic_scalar_observation_laplacian {g : RiemannianMetric n M}
       (mfderiv (𝓡 n) (𝓡 n) c.symm (u p)).comp (fderiv ℝ u p) := by
     have hd := mfderiv_comp p (hcs.mdifferentiableAt (by simp))
       (hu.contMDiffAt.mdifferentiableAt (by norm_num))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     exact hmap.mfderiv_eq.symm.trans hd
   have hvalue : c.symm (u p) = f p := hmap.self_of_nhds
   have hH (i : Fin 2) : D.hessian s (f p)

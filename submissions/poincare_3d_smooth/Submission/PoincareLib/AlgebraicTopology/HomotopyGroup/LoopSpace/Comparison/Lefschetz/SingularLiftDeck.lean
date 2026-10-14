@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.SingularLift
 import Submission.PoincareLib.AlgebraicTopology.HomotopyGroup.LoopSpace.Comparison.Lefschetz.NormalizedMapTrace
 
@@ -19,6 +20,8 @@ open CategoryTheory
 open scoped Simplicial
 
 universe u
+
+local instance : Limits.HasCoproducts.{u} (ModuleCat.{u} ℤ) := fun _ => inferInstance
 
 namespace PoincareMT.Proofs.M59
 
@@ -63,7 +66,7 @@ theorem singularLiftDeck_ne (hfree : ∀ x, d x ≠ x) (n : ℕ)
     (z : (singularLiftSSet p A χ) _⦋n⦌) :
     (singularLiftDeck p A χ d hd).app _ z ≠ z := by
   intro h
-  have hs := congrArg (fun z => (TopCat.of E).toSSetObjEquiv _ z.val.2
+  have hs := congrArg (fun z => (TopCat.of E).toLegacySSetObjEquiv _ z.val.2
     (stdSimplex.vertex 0)) h
   exact hfree _ hs
 

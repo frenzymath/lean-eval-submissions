@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.GradientTime
 import Mathlib.Analysis.Calculus.ContDiff.Deriv
 
@@ -28,7 +29,7 @@ private lemma mvfderiv_scalar_comp {f : M → ℝ} {F : ℝ → ℝ} {x : M}
     (hF : DifferentiableAt ℝ F (f x)) (v : TangentSpace (𝓡 n) x) :
     mvfderiv (𝓡 n) (F ∘ f) x v = deriv F (f x) * mvfderiv (𝓡 n) f x v := by
   rw [mvfderiv_comp x hF.mdifferentiableAt hf]
-  simp only [ContinuousLinearMap.comp_apply, mvfderiv, mfderiv_eq_fderiv]
+  simp only [ContinuousLinearMap.comp_apply, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   rw [hF.hasDerivAt.hasFDerivAt.fderiv]
   change mvfderiv (𝓡 n) f x v * deriv F (f x) =
     deriv F (f x) * mvfderiv (𝓡 n) f x v

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/CurvatureDiffusionContraction.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -132,6 +133,7 @@ theorem curvatureOnFields_hessian_bianchi_pairing
     have hg : f =ᶠ[𝓝 y] f' := Filter.eventuallyEq_of_mem (hU.mem_nhds hy) heq
     dsimp only [d, mvfderiv]
     rw [hg.mfderiv_eq (I := 𝓡 n) (I' := 𝓘(ℝ, ℝ)), hg.eq_of_nhds]
+    rfl
   have hTswap₁ (A B C E : (y : M) → TangentSpace (𝓡 n) y) (y : M) :
       T A B C E y = -T B A C E y := by
     simpa only [T, R, map_neg, neg_apply] using
@@ -364,7 +366,7 @@ theorem curvatureOnFields_iteratedCovariantDerivative_trace_derivative
         _ = e.symmL ℝ x (EuclideanSpace.single i 1) := (e.symmL_apply hx _).symm
     have hfd : fderiv ℝ (fun w => f (c.symm w)) z (EuclideanSpace.single i 1) =
         mvfderiv (𝓡 n) f x (e.symmL ℝ x (EuclideanSpace.single i 1)) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       change mvfderiv 𝓘(ℝ, V) (f ∘ c.symm) z (EuclideanSpace.single i 1) = _
       erw [mvfderiv_comp_apply z (hcmd f hf hx) hcs (EuclideanSpace.single i 1), ← he]
       rfl

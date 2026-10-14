@@ -1,0 +1,10 @@
+@[instance_reducible] def Poincare.Gluing.pieceTopologicalSpace.{u, v} : {I : Type u} →
+  {E : Type v} →
+    [TopologicalSpace.{v} E] →
+      (U : I → Set.{v} E) → (i : I) → TopologicalSpace.{v} (@Set.Elem.{v} E (@Poincare.Gluing.Piece.{u, v} I E U i)) :=
+fun {I : Type u} {E : Type v} [inst : TopologicalSpace.{v} E] (U : I → Set.{v} E) (i : I) =>
+  @inferInstance.{v + 1} (TopologicalSpace.{v} (@Set.Elem.{v} E (@Poincare.Gluing.Piece.{u, v} I E U i)))
+    (@instTopologicalSpaceSubtype.{v} E
+      (fun (x : E) =>
+        @Membership.mem.{v, v} E (Set.{v} E) (@Set.instMembership.{v} E) (@Poincare.Gluing.Piece.{u, v} I E U i) x)
+      inst)

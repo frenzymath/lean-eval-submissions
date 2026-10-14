@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Annular.Topology
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Integrability
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.AlphaEnergy.Variation.CoordinateCompactness
@@ -176,7 +177,7 @@ theorem suAreaDensity_comp_plane (g : RiemannianMetric n M)
       OrthonormalBasis.coe_toBasis, e, EuclideanSpace.basisFun_repr, ContinuousLinearMap.coe_coe]
     ring
   rw [harea, harea, mfderiv_comp z hf hk.hasFDerivAt.hasMFDerivAt.mdifferentiableAt,
-    mfderiv_eq_fderiv]
+    Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change Proofs.M58.twoVectorArea (D (A (e 0))) (D (A (e 1))) = _
   rw [hrep, hrep, Proofs.M58.twoVectorArea_change, hd]
 

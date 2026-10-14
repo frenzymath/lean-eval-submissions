@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.RicciFlow.CurveShortening.Connection.Algebra
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.SourceNames.ReducedLength
@@ -35,7 +36,7 @@ theorem curveVelocity_comp {gamma : ℝ → M} {phi : ℝ → ℝ} {x v : ℝ}
     curveVelocity (n := n) (fun y => gamma (phi y)) x =
       v • curveVelocity (n := n) gamma (phi x) := by
   have hvalue : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) phi x 1 = v := by
-    rw [mfderiv_eq_fderiv, hphi.hasFDerivAt.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hphi.hasFDerivAt.fderiv]
     exact ContinuousLinearMap.toSpanSingleton_apply_one ℝ v
   have hcomp := mfderiv_comp_apply (f := phi) (g := gamma) x hgamma
     hphi.hasFDerivAt.hasMFDerivAt.mdifferentiableAt (1 : ℝ)

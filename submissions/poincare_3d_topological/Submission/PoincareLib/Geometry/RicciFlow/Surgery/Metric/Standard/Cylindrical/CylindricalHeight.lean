@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Cylindrical.CylindricalBoundary
 
 /-!
@@ -155,7 +156,7 @@ theorem cylindrical_inverse_height_differential_bound (g₀ : StandardInitialMet
       (g₀.cylindrical_end.inverse y).2) x v = w.2 := by
     have hcomp := mfderiv_comp_apply x mdifferentiableAt_snd
       ((cylindrical_inverse_contMDiffAt g₀ hx).mdifferentiableAt (by simp)) v
-    simpa only [mfderiv_eq_fderiv, mfderiv_snd, ContinuousLinearMap.coe_snd',
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_snd, ContinuousLinearMap.coe_snd',
       TangentSpace, Function.comp_def, w] using hcomp
   rw [hderiv]
   apply (sq_le_sq₀ (abs_nonneg _) (Real.sqrt_nonneg _)).mp

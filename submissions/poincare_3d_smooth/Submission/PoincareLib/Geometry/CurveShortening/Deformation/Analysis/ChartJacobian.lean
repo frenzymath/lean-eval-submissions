@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.SweptArea.PlaneMapRegularity
 import Mathlib.Geometry.Manifold.MFDeriv.Tangent
 
@@ -9,6 +10,7 @@ disks in Claim 19.23, Morgan--Tian pp. 453-454. See M65 derivation 15.
 -/
 
 set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
 
 open Set Bundle Filter
 open scoped Manifold ContDiff Topology
@@ -83,8 +85,11 @@ theorem m65AreaDensity_eq_chartJacobian (g : RiemannianMetric n M) (p : M)
     exact chi.left_inv hx
   have hd : mfderiv (𝓡 2) (𝓡 n) f z =
       (mfderiv (𝓡 n) (𝓡 n) chi.symm (chi (f z))).comp (fderiv ℝ (chi ∘ f) z) := by
-    rw [← heq.mfderiv_eq, mfderiv_comp z hi hc, mfderiv_eq_fderiv]
-    rfl
+    have hchain := mfderiv_comp z hi hc
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
+    have he := heq.mfderiv_eq (I := 𝓡 2) (I' := 𝓡 n)
+    rw [hchain] at he
+    convert! he.symm using 1
   unfold m60AreaDensity m60AreaGram m65ChartJacobian
   dsimp only
   rw [chi.left_inv hz]

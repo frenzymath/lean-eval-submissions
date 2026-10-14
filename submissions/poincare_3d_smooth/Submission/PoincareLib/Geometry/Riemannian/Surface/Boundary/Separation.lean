@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Boundary.Chart
 import Mathlib.Analysis.Calculus.Deriv.Slope
 
@@ -115,7 +116,8 @@ theorem chartTriangle_transverse_deriv_neg
   have hsurj : Function.Surjective L := by
     have h := hCD.mfderiv_surjective hsrc
     dsimp only [TangentSpace] at h
-    simpa only [mfderiv_eq_fderiv] using h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
+    exact h
   have hnormal : HasDerivAt (fun u : ℝ => (e (f.symm (u, b))).1) (L (1, 0)).1 0 := by
     have h := hL.comp_hasDerivAt 0 ((hasDerivAt_id (0 : ℝ)).prodMk (hasDerivAt_const 0 b))
     exact (ContinuousLinearMap.fst ℝ ℝ ℝ).hasFDerivAt.comp_hasDerivAt 0 h

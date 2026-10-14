@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient.Flow.Expansion
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Hessian.Chart
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Divergence.Pullback
@@ -199,9 +200,10 @@ theorem PoincareMT.LeviCivitaData.exists_local_normalizedGradient_manifoldFlow_w
     apply hd.congr_mfderiv
     apply ContinuousLinearMap.ext
     intro a
+    let r : ℝ := NormedSpace.fromTangentSpace t a
     change (mfderiv (𝓡 n) (𝓡 n) c.symm (q (t, c y)))
-        (a • DE.normalizedGradient fE (q (t, c y))) =
-      a • D.normalizedGradient f (c.symm (q (t, c y)))
+        (r • DE.normalizedGradient fE (q (t, c y))) =
+      r • D.normalizedGradient f (c.symm (q (t, c y)))
     rw [map_smul, (hnatural _ (hqpoint t y hy ht)).2]
   · intro y hy t ht
     have ht' : t ∈ Ioo (-δ) δ := ⟨by linarith [ht.1], ht.2⟩
@@ -251,7 +253,7 @@ theorem PoincareMT.LeviCivitaData.exists_local_normalizedGradient_manifoldFlow_w
         change mfderiv (𝓡 n) (𝓡 n) (fun z => Φ (t, z)) y v =
           mfderiv (𝓡 n) (𝓡 n) c.symm (q (t, c y))
             (mfderiv (𝓡 n) (𝓡 n) (fun z => q (t, z)) (c y) w) at hvalue
-        rw [mfderiv_eq_fderiv] at hvalue
+        rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hvalue
         exact hvalue
       have he := (hqbound (c y) hy.2 t ht).2 w hw
       rw [hmetric0, hmetric _ (hqpoint t y hy ht')] at he

@@ -326,7 +326,7 @@ theorem m63CurvatureJetSquared_scaled_dissipation_of_lower_bounds [T2Space M]
           have hle := Finset.single_le_sum (fun r _ => Nat.zero_le (f r)) hi
           have hne : f i ≠ m + 1 := fun h => hex ⟨i, hi, h⟩
           omega
-        have hp := Finset.prod_le_prod (fun i _ => hVN (f i))
+        have hp := Finset.prod_le_prod₀ (fun i _ => hVN (f i))
           (fun i hi => hVNlower (f i) (hsmall i hi))
         have hp' := (hp.trans_eq (Finset.prod_const L)).trans (pow_le_pow_right₀ hL hcard)
         nlinarith only [hp', hpow, hw]

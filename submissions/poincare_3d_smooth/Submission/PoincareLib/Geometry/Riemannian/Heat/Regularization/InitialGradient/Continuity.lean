@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Gradient.SpaceTime
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 
@@ -42,7 +43,7 @@ private lemma gradient_normSq_eq_chart (D : LeviCivitaData g)
     have hi := (mdifferentiableWithinAt_extChartAt_symm (I := 𝓡 n) hz)
     simp only [ModelWithCorners.range_eq_univ, mdifferentiableWithinAt_univ] at hi
     have hh := mfderiv_comp z hf hi
-    rw [mfderiv_eq_fderiv] at hh
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hh
     exact hh
   have hBA : B (A.inverse (D.gradient f y)) = d := by
     ext v

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.SourceNames.Realization
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Variation.Coordinates.GaugeVelocity
 
@@ -47,7 +48,7 @@ theorem gaugeMap_projectedDifferential
       (Subtype.val : G.gaugeCover.spatial b → EuclideanSpace ℝ (Fin n)) (β z).2 :=
     contMDiff_subtype_val.mdifferentiableAt (n := ∞) (by simp)
   have hv := mfderiv_comp_apply z hi hβ.snd v
-  rw [Proofs.M11.mfderiv_openSubtype_val, mfderiv_eq_fderiv] at hv
+  rw [Proofs.M11.mfderiv_openSubtype_val, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hv
   change fderiv ℝ (fun y => (β y).2.val) z v =
     mfderiv (𝓘(ℝ, E)) (𝓡 n) (fun y => (β y).2) z v at hv
   dsimp only [Function.comp_def] at hd

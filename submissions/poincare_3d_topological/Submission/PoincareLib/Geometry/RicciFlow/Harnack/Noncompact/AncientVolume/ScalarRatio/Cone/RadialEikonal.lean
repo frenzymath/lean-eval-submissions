@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.RadialCalibration
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.Busemann.GradientBound
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Composition
@@ -44,7 +45,7 @@ theorem gradient_norm_le_of_local_distance_lipschitz (D : LeviCivitaData g)
   subst x
   have hchart := mdifferentiableAt_extChartAt (I := 𝓡 n) (mem_chart_source _ (γ 0))
   have heq := congrArg (fun L => L 1) (mfderiv_comp 0 hchart hγd)
-  rw [mfderiv_eq_fderiv] at heq
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
   change deriv (fun t => extChartAt (𝓡 n) (γ 0) (γ t)) 0 = _ at heq
   rw [hv.deriv, mfderiv_extChartAt_self] at heq
   change v = mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) γ 0 1 at heq

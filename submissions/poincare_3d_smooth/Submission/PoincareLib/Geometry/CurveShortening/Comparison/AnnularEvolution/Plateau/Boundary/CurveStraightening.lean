@@ -62,7 +62,7 @@ theorem m64_exists_C1_curve_straightening {n : ℕ}
   have hD : HasFDerivAt F (B : E →L[ℝ] E) 0 := by
     have hcD := ((hc.differentiable one_ne_zero) 0).hasDerivAt
     have hdc : HasFDerivAt (fun z : E => c (X z)) (X.smulRight (deriv c 0)) 0 := by
-      convert! hcD.hasFDerivAt.comp (0 : E) X.hasFDerivAt using 1
+      convert! (hcD.hasFDerivAt (𝕜 := ℝ)).comp (0 : E) X.hasFDerivAt using 1
     have hdF := hdc.add (B.toContinuousLinearMap.hasFDerivAt.comp (0 : E) J.hasFDerivAt)
     convert! hdF using 1
     apply ContinuousLinearMap.ext

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Basic.StereographicDifferential
 
 /-!
@@ -76,7 +77,7 @@ theorem inner_mfderiv_sphere_chart_symm (q : sphere (0 : E) 1)
       ((contMDiff_coe_sphere (n := n) (m := ∞)
         ((chartAt (EuclideanSpace ℝ (Fin n)) q).symm x)).mdifferentiableAt (by simp))
       ((contMDiff_sphere_chart_symm (m := ∞) q x).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hc
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
     exact (congrArg (fun A => A a) hc).symm
   rw [he, he]
   exact inner_fderiv_sphere_chart_symm q x a b

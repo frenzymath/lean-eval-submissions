@@ -74,7 +74,7 @@ theorem potential_bound (S : SUQuadraticWeakSystem u V center R)
   have hH : Integrable H := by
     have hq : MemLp q 2 mu := memLp_prod_iff.mpr ⟨S.column_memLp 0, S.column_memLp 1⟩
     have hsq : MemLp (fun x => ‖q x‖ ^ 2) 1 mu := by
-      simpa only [pow_two] using hq.norm.mul' hq.norm
+      simpa only [pow_two] using hq.norm.fun_mul hq.norm
     exact (integrable_indicator_iff measurableSet_ball).mpr
       ((memLp_one_iff_integrable.mp ((memLp_const (1 : ℝ)).add hsq)).mono_measure
         (Measure.restrict_mono (Metric.ball_subset_ball hrR.le) le_rfl))
@@ -177,8 +177,8 @@ theorem potential_bound (S : SUQuadraticWeakSystem u V center R)
     (fun a i => ((hcut a).2.2.2 i).2) hphi hc hs
     (fun a phi hp hpc hps => S.indicator_equation hrR.le a hp hpc hps)
     hcoercive hsource hcross
-    (memLp_one_iff_integrable.mp (hphi2.mul' (memLp_one_iff_integrable.mpr hH)))
-    (memLp_one_iff_integrable.mp ((memLp_one_iff_integrable.mpr hGI).mul' hWI))
+    (memLp_one_iff_integrable.mp ((memLp_one_iff_integrable.mpr hH).fun_mul hphi2))
+    (memLp_one_iff_integrable.mp (hWI.fun_mul (memLp_one_iff_integrable.mpr hGI)))
   have hHI : (∫ x, H x * phi x ^ 2) =
       ∫ x in O, (1 + ‖q x‖ ^ 2) * phi x ^ 2 := by
     rw [← integral_indicator measurableSet_ball]
@@ -393,7 +393,7 @@ theorem uniform_difference_quotients (S : SUQuadraticWeakSystem u V center R) :
     have hq : MemLp (fun x => (V 0 x, V 1 x)) 2 mu :=
       memLp_prod_iff.mpr ⟨S.column_memLp 0, S.column_memLp 1⟩
     have hs : MemLp (fun x => ‖(V 0 x, V 1 x)‖ ^ 2) 1 mu := by
-      simpa only [pow_two] using hq.norm.mul' hq.norm
+      simpa only [pow_two] using hq.norm.fun_mul hq.norm
     exact (integrable_indicator_iff measurableSet_ball).mpr
       ((memLp_one_iff_integrable.mp ((memLp_const (1 : ℝ)).add hs)).mono_measure
         (Measure.restrict_mono (Metric.ball_subset_ball hrhoR.le) le_rfl))
@@ -505,16 +505,16 @@ theorem uniform_difference_quotients (S : SUQuadraticWeakSystem u V center R) :
       apply integrable_finsetSum
       intro i _
       have hp : MemLp (fun x => xi x * diffQuot k h (DU a i) x) 2 volume :=
-        (suWeakMap_diffQuot_memLp (((hcut a).2.2.2 i).1) k h).mul'
-          (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume)
-      simpa only [pow_two] using memLp_one_iff_integrable.mp (hp.mul' hp)
+        (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume).fun_mul
+          (suWeakMap_diffQuot_memLp (((hcut a).2.2.2 i).1) k h)
+      simpa only [pow_two] using memLp_one_iff_integrable.mp (hp.fun_mul hp)
     have hIa : Integrable (fun x => ∑ i : Fin 2, (xi x * diffQuot k h (DU a i) x) ^ 2) := by
       apply integrable_finsetSum
       intro i _
       have hp : MemLp (fun x => xi x * diffQuot k h (DU a i) x) 2 volume :=
-        (suWeakMap_diffQuot_memLp (((hcut a).2.2.2 i).1) k h).mul'
-          (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume)
-      simpa only [pow_two] using memLp_one_iff_integrable.mp (hp.mul' hp)
+        (hxi.continuous.memLp_of_hasCompactSupport hxic : MemLp xi ⊤ volume).fun_mul
+          (suWeakMap_diffQuot_memLp (((hcut a).2.2.2 i).1) k h)
+      simpa only [pow_two] using memLp_one_iff_integrable.mp (hp.fun_mul hp)
     calc
       _ = ∫ x in Metric.ball center (rho / 8),
           ∑ i : Fin 2, (xi x * diffQuot k h (DU a i) x) ^ 2 := by

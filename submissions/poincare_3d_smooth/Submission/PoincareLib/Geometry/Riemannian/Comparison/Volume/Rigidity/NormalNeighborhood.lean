@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.BallDiffeomorphism
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Laplacian.Branch.Complete
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.JetBounds.PrecompactDifferential
@@ -15,6 +16,7 @@ Reference: Morgan--Tian, Theorems 1.34 and 1.36, pp. 19--20.
 
 noncomputable section
 set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
 set_option backward.isDefEq.respectTransparency false
 
 open Set Filter Function
@@ -86,11 +88,14 @@ theorem exists_normal_neighborhood_of_metricComplete
         (by simpa only [c, extChartAt_source] using (hRsub hx).2.2.1))
       ((he.contMDiffAt (Metric.isOpen_ball.mem_nhds (hsub hx))).mdifferentiableAt
         (by simp))
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hFi := (ContinuousLinearMap.isUnit_iff_bijective.mp (hRsub hx).2.2.2).1
     apply hFi
     change fderiv ℝ (c ∘ e) x u = fderiv ℝ (c ∘ e) x w
-    rw [hd]
+    have hd' : fderiv ℝ (c ∘ e) x =
+        (mfderiv (𝓡 n) (𝓡 n) c (e x)).comp (mfderiv (𝓡 n) (𝓡 n) e x) := by
+      convert! hd using 1
+    rw [hd']
     exact congrArg (mfderiv (𝓡 n) (𝓡 n) c (e x)) huw
   have hnorm := g.pullbackCoefficients_zero_of_normalized_chart hezero he0 hed hL
   refine ⟨min R 1, lt_min hR (by norm_num), e, he0,

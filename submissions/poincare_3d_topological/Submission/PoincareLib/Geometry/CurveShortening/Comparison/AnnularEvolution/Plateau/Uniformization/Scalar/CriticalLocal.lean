@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Uniformization.Scalar.ComplexHarmonic
 
 /-!
@@ -73,7 +74,7 @@ theorem scalarPotential_local_critical_alternative {H : Plane → ℝ}
       change Function.Surjective (fderiv ℝ ((e : Plane → Plane) ∘ L) y)
       rw [fderiv_comp y heD L.differentiableAt, L.hasFDerivAt.fderiv]
       have hes : Function.Surjective (fderiv ℝ e (L y)) := by
-        simpa only [mfderiv_eq_fderiv, TangentSpace] using hD.mfderiv_surjective hys
+        simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using hD.mfderiv_surjective hys
       exact hes.comp L.surjective
     rw [fderiv_comp y hH hqD]
     constructor

@@ -332,7 +332,11 @@ theorem eLpNorm_convolution_sub_le_of_ae_translation_bound
         p volume =
         (∫⁻ x, (‖(η ⋆[ContinuousLinearMap.lsmul ℝ ℝ, volume] u) x - u x‖ₑ : ℝ≥0∞)
             ^ pr ∂volume) ^ (1 / pr) := by
-    rw [hp_eq, eLpNorm_eq_lintegral_rpow_enorm_toReal hp0_pr hp_top_pr]
+    rw [hp_eq, eLpNorm_eq_lintegral_rpow_enorm_toReal hp0_pr hp_top_pr
+      (show AEStronglyMeasurable
+        (fun x => (η ⋆[ContinuousLinearMap.lsmul ℝ ℝ, volume] u) x - u x) volume from
+          (hη_compact.continuous_convolution_left (L := ContinuousLinearMap.lsmul ℝ ℝ)
+            hη_cont hu_loc).aestronglyMeasurable.sub hu_meas.aestronglyMeasurable)]
     simp [hpr_toReal]
   rw [hLHS_eq]
   have hcore := lintegral_rpow_convolution_sub_le_translationAverage hpr_ge_one
@@ -345,7 +349,9 @@ theorem eLpNorm_convolution_sub_le_of_ae_translation_bound
     have h_eq :
         eLpNorm (fun x => u (x - s) - u x) p volume =
           (∫⁻ x, (‖u (x - s) - u x‖ₑ : ℝ≥0∞) ^ pr ∂volume) ^ (1 / pr) := by
-      rw [hp_eq, eLpNorm_eq_lintegral_rpow_enorm_toReal hp0_pr hp_top_pr]
+      rw [hp_eq, eLpNorm_eq_lintegral_rpow_enorm_toReal hp0_pr hp_top_pr
+        (show AEStronglyMeasurable (fun x => u (x - s) - u x) volume from
+          ((hu_meas.comp (measurable_id.sub measurable_const)).sub hu_meas).aestronglyMeasurable)]
       simp [hpr_toReal]
     rw [h_eq] at h
     have hraise : ((∫⁻ x, (‖u (x - s) - u x‖ₑ : ℝ≥0∞) ^ pr ∂volume) ^ (1 / pr)) ^ pr ≤
@@ -460,7 +466,7 @@ theorem tendsto_lp_of_tendstoUniformlyOn_compact
     have hbnd_ae : ∀ᵐ x ∂(volume.restrict K), ‖g k x - g_lim x‖ ≤ ε :=
       Filter.Eventually.of_forall hbnd
     have h_le := eLpNorm_le_of_ae_bound (μ := volume.restrict K)
-      (p := p) hbnd_ae
+      (p := p) ((hg_cont k).sub hg_lim_cont).aestronglyMeasurable hbnd_ae
     have h_univ : (volume.restrict K) Set.univ = vK := by
       rw [hvK_def, Measure.restrict_apply MeasurableSet.univ, Set.univ_inter]
     rw [h_univ] at h_le
@@ -578,7 +584,7 @@ private lemma cauchy_lp_of_uniformly_cauchy_on_compact_supp
     {p : ℝ≥0∞} (hp_one : 1 ≤ p) (hp_top : p ≠ ∞)
     {K : Set E} (hK_compact : IsCompact K)
     {g : ℕ → E → ℝ}
-    (_hg_cont : ∀ n, Continuous (g n))
+    (hg_cont : ∀ n, Continuous (g n))
     (hg_supp : ∀ n, ∀ x, x ∉ K → g n x = 0)
     (hg_uCauchy : ∀ ε > 0, ∃ J : ℕ, ∀ j ≥ J, ∀ l ≥ J, ∀ x ∈ K,
       dist (g j x) (g l x) < ε) :
@@ -612,7 +618,7 @@ private lemma cauchy_lp_of_uniformly_cauchy_on_compact_supp
     rw [h_indicator, eLpNorm_indicator_eq_eLpNorm_restrict hK_meas]
     have hbnd_ae : ∀ᵐ x ∂(volume.restrict K), ‖g j x - g l x‖ ≤ η :=
       Filter.Eventually.of_forall hbnd
-    have h_le := eLpNorm_le_of_ae_bound (μ := volume.restrict K) (p := p) hbnd_ae
+    have h_le := eLpNorm_le_of_ae_bound (μ := volume.restrict K) (p := p) ((hg_cont j).sub (hg_cont l)).aestronglyMeasurable hbnd_ae
     have h_univ : (volume.restrict K) Set.univ = vK := by
       rw [hvK_def, Measure.restrict_apply MeasurableSet.univ, Set.univ_inter]
     rw [h_univ] at h_le
@@ -732,8 +738,7 @@ theorem tendsto_subseq_of_uniform_translation_in_Lp
   have hv_bdd : ∀ n, eLpNorm (vFn n) p volume ≤ ENNReal.ofReal R := fun n =>
     (hv_eLpNorm n).symm ▸ hu_bdd n
   have hv_memLp : ∀ n, MemLp (vFn n) p volume := fun n =>
-    ⟨(hv_meas n).aestronglyMeasurable, by
-      rw [hv_eLpNorm n]; exact (hu_mem n).2⟩
+    by rw [memLp_iff, hv_eLpNorm n]; exact (hu_mem n).eLpNorm_lt_top
   have hv_translate_aeEq : ∀ n h,
       (fun x => vFn n (x - h)) =ᵐ[volume] (fun x => u n (x - h)) := by
     intro n h
@@ -918,7 +923,7 @@ theorem tendsto_subseq_of_uniform_translation_in_Lp
       rw [h2, h4]
       exact mul_le_mul' h1 le_rfl
     have h_lp1_int : eLpNorm (vFn n) 1 volume = ∫⁻ t, ‖vFn n t‖ₑ ∂volume := by
-      have := eLpNorm_one_eq_lintegral_enorm (μ := volume) (f := vFn n)
+      have := eLpNorm_one_eq_lintegral_enorm (μ := volume) (f := vFn n) (hv_meas n).aestronglyMeasurable
       exact this
     rw [h_lp1_int] at h_combine
     have h_int_eq :
@@ -1138,8 +1143,11 @@ theorem tendsto_subseq_of_uniform_translation_in_Lp
           (fConv (K0 + 1) (φAux l) x - vFn (φAux l) x))
       ring
     rw [hSplit]
-    have h_step1 := eLpNorm_add_le hAesm1 (hAesm2.add hAesm3) hp_one
-    have h_step2 := eLpNorm_add_le hAesm2 hAesm3 hp_one
+    have h_step1 := eLpNorm_add_le (μ := volume) (f := fun x => vFn (φAux j) x - fConv (K0 + 1) (φAux j) x)
+      (g := (fun x => fConv (K0 + 1) (φAux j) x - fConv (K0 + 1) (φAux l) x) +
+        (fun x => fConv (K0 + 1) (φAux l) x - vFn (φAux l) x)) hp_one
+    have h_step2 := eLpNorm_add_le (μ := volume) (f := fun x => fConv (K0 + 1) (φAux j) x - fConv (K0 + 1) (φAux l) x)
+      (g := fun x => fConv (K0 + 1) (φAux l) x - vFn (φAux l) x) hp_one
     have hε_split : ENNReal.ofReal ε = ENNReal.ofReal ε' +
       (ENNReal.ofReal ε' + ENNReal.ofReal ε') := by
       rw [hε'_def]

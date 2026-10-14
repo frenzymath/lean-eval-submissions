@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 import Submission.PoincareLib.Geometry.Riemannian.MetricComparison
 
@@ -40,7 +41,7 @@ theorem tangentNorm_chart_curve
     change _ = mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) p).symm (q t)
       (mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) q t 1) at h
     have hq1 : mfderiv (𝓘(ℝ, ℝ)) (𝓡 n) q t 1 = v := by
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact hq.deriv
     rw [hq1] at h
     convert! h using 1

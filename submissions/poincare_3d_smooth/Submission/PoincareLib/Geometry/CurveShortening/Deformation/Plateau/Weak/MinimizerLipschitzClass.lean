@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Weak.MinimizerLipschitzEmbedding
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Weak.MinimizerLipschitzTrace
@@ -127,7 +128,7 @@ theorem m65SpanningDisk_weak_member
       (mfderiv (𝓡 2) (𝓡 3) D.map z (B i)) := by
     rw [hVz i]
     change fderiv ℝ (e ∘ D.map) z (B i) = _
-    rw [← mfderiv_eq_fderiv, mfderiv_comp z (he.mdifferentiableAt (by simp)) (hdf hzs)]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp z (he.mdifferentiableAt (by simp)) (hdf hzs)]
     rfl
   change (1 / 2 : ℝ) * ∑ i, m65EmbeddingMetric g e (D.map z) (V i z) (V i z) =
     (1 / 2 : ℝ) * ∑ i, g.inner (D.map z)

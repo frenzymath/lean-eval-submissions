@@ -1,0 +1,52 @@
+{
+  "exit_code": 0,
+  "outer_lake": "original official binary",
+  "smoke_workspace": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/runtime-smoke-original-outer",
+  "log": "/gpfs/share/home/2301110044/.horizon/development-tmp/poincare-leaneval-port/verifier-runtime-original-outer-smoke.log",
+  "files": {
+    "comparator_wrapper": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/runtime-bin/comparator",
+      "sha256": "8c7e6d81169201772517448c59d2628cf8b4e933b0329b26458f44cd05952b28"
+    },
+    "lake_wrapper": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/runtime-bin/lake",
+      "sha256": "9d364556b9881ce50fbba85bde08ca4b08acfb48713d90457ca43b0d04f5cfe4"
+    },
+    "exporter_wrapper": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/runtime-bin/lean4export",
+      "sha256": "f2b506cef5817d3b80004af03e89f1475b618920569e6694a17ed2993865137c"
+    },
+    "shim": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/mmap-fallback.so",
+      "sha256": "5f81f89ac243f700d580a09724c78973dc433dd76299c3e29e5de11404db743b"
+    },
+    "lean": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/compiler/bin/lean",
+      "sha256": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38"
+    },
+    "lake": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/compiler/bin/lake",
+      "sha256": "8ba83c98f76562d03b8dbc33f1057151ba6cbb121679dde76b2260ccc90495e1"
+    },
+    "exporter": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/lean4export/.lake/build/bin/lean4export",
+      "sha256": "810b949bd7e22df5317b6951f58660f01cc144ed4b7b8aaf5d759442e3f6addc"
+    },
+    "comparator": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/comparator/.lake/build/bin/comparator",
+      "sha256": "bdfbc7b2712801e99ca920eb1300c02740b26a4ece14e676032bd85e5256b540"
+    },
+    "nanoda": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/bin/nanoda_bin",
+      "sha256": "274679860a96e58b6712cd525d5fc7809cc4054b07ee57820dbdfe6094ee2e63"
+    },
+    "landrun": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/bin/landrun",
+      "sha256": "0f9630b55fa051b29325b892f880e0b67a9611bf94df05130ac43b8678dde6b2"
+    },
+    "official_workspace_test": {
+      "path": "/var/tmp/poincare-port-4108752-bhko13pv/verifiers/runtime-smoke-original-outer/WorkspaceTest.lean",
+      "sha256": "17bd1978ec5ec46b151a616ae626d14cef01fcb6ce90a2d104dffae9a95e40df"
+    }
+  }
+}

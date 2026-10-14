@@ -33,7 +33,7 @@ theorem m64StrongSquare_smul
   have hi (j : ℕ) : Integrable (fun x => ‖f j x‖ ^ 2) mu :=
     (memLp_two_iff_integrable_sq_norm (hf j).aestronglyMeasurable).mp (hf j)
   have hai (j : ℕ) : Integrable (fun x => ‖a x • f j x‖ ^ 2) mu := by
-    have hh : MemLp (fun x => a x • f j x) 2 mu := MemLp.smul (hf j) hat
+    have hh : MemLp (fun x => a x • f j x) 2 mu := MemLp.smul hat (hf j)
     exact (memLp_two_iff_integrable_sq_norm hh.aestronglyMeasurable).mp hh
   have bound (j : ℕ) : (∫ x, ‖a x • f j x‖ ^ 2 ∂mu) ≤
       C ^ 2 * ∫ x, ‖f j x‖ ^ 2 ∂mu := by

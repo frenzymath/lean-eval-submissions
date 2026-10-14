@@ -50,13 +50,13 @@ theorem isCompact_univ_of_separated_product_line
   have hhorizontal (t : ℝ) (ht : A < |t|) (p q' : X) :
       JoinedIn Jᶜ (p, t) (q', t) := by
     have hpath := (isPathConnected_univ.joinedIn p (mem_univ _) q' (mem_univ _)).map
-      (continuous_id.prodMk (continuous_const : Continuous (fun _ : X => t)))
+      (continuous_id.prodMk (continuous_const : Continuous (fun _ : X => t))).continuousOn
     apply hpath.mono
     rintro _ ⟨x, _, rfl⟩ hx
     exact not_le_of_gt ht (hA (x, t) hx)
   have hvertical : JoinedIn Jᶜ (q, -T) (q, T) := by
     have hpath := (isPathConnected_univ.joinedIn (-T) (mem_univ _) T (mem_univ _)).map
-      ((continuous_const : Continuous (fun _ : ℝ => q)).prodMk continuous_id)
+      ((continuous_const : Continuous (fun _ : ℝ => q)).prodMk continuous_id).continuousOn
     apply hpath.mono
     rintro _ ⟨t, _, rfl⟩ ht
     exact hq (mem_image_of_mem Prod.fst ht)
@@ -70,7 +70,7 @@ theorem isCompact_univ_of_separated_product_line
     q (e.symm (gamma T)).1
   have hjoined := (hleft.trans hvertical).trans hright
   rw [hpair, hpair] at hjoined
-  have hmap := hjoined.map e.continuous
+  have hmap := hjoined.map e.continuous.continuousOn
   have houtside : e '' Jᶜ ⊆ Kᶜ := by
     rintro _ ⟨z, hz, rfl⟩ hmem
     exact hz ⟨e z, hmem, e.symm_apply_apply z⟩

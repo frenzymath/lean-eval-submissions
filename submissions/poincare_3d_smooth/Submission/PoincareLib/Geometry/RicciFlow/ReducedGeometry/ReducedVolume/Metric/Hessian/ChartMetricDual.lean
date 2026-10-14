@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Metric.Coordinates.ChartMetricDerivative
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Metric.Coordinates.FixedChartKoszul
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Metric.Hessian.MetricDualDerivative
@@ -57,7 +58,7 @@ theorem chartMetricDual_pairing (g : RiemannianMetric n M) {f : M → ℝ} (q₀
   have hdv : fderiv ℝ (f ∘ e.symm) y (L.symm w) =
       mvfderiv (𝓡 n) f (e.symm y) w := by
     have hd := mfderiv_comp_apply y hf hc (L.symm w)
-    rw [mfderiv_eq_fderiv, hLv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hLv] at hd
     exact hd
   have h := congrArg (fun d : EuclideanSpace ℝ (Fin n) →L[ℝ] ℝ ↦ d (L.symm w))
     (hi.self_apply_inverse (fderiv ℝ (f ∘ e.symm) y))

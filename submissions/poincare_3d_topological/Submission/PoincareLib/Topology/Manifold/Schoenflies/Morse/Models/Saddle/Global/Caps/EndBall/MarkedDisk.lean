@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.EndBall.DiskBall
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.ClosingDisk
 import Submission.PoincareLib.Geometry.Manifold.Immersion.FiniteDimensional
@@ -58,14 +59,14 @@ theorem exists_ball_with_closing_disk_of_sphere_disk_with_boundary_intersection
       (by convert! injective_mvfderiv_subtypeVal_sphere p)
   have hdder (x : E2) : Injective (fderiv Real d x) := by
     suffices hh : Injective (mfderiv (𝓡 2) (𝓡 3) (b ∘ n) x) by
-      simpa only [mfderiv_eq_fderiv, TangentSpace, d] using hh
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace, d] using hh
     rw [mfderiv_comp x (hb.mdifferentiable (by simp) _) (hn.mdifferentiable (by simp) _)]
     exact (hbder (n x)).comp ((np.isLocalDiffeomorphAt (𝓡 2) (𝓡 2) ∞
       (hns ▸ mem_univ x)).mfderivToContinuousLinearEquiv (by simp)).injective
   have hde : _root_.Manifold.IsSmoothEmbedding (𝓡 2) (𝓡 3) ∞ d := by
     refine ⟨Poincare.Geometry.Manifold.isImmersion_of_injective_mfderiv (hb.comp hn) ?_, ?_⟩
     · intro x
-      simpa only [mfderiv_eq_fderiv, TangentSpace] using hdder x
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using hdder x
     · exact B.toHomeomorph.isEmbedding.comp
         (Topology.IsEmbedding.subtypeVal.comp (n.isOpenEmbedding hns).isEmbedding)
   have hbm : b '' (m '' closedBall 0 1) = g '' (m '' closedBall 0 1) := by

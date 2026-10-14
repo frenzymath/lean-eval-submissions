@@ -9,7 +9,6 @@ with the differentiated original alpha equation.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory Metric
 open scoped Manifold ContDiff Topology ENNReal
@@ -106,6 +105,10 @@ theorem suFirstJet_scalar_fderiv {n : ℕ} {P : Type*}
     (w : LoopPlane × Jet n) :
     fderiv ℝ (fun y => F (suAlphaFirstJetPoint y) v) z w =
       fderiv ℝ F (suAlphaFirstJetPoint z) (suAlphaFirstJetPoint w) v := by
+  letI : ContinuousSMul ℝ (Grad n) := Prod.continuousSMul
+  letI : ContinuousSMul ℝ (Base n) := Prod.continuousSMul
+  letI : ContinuousSMul ℝ (Point n) := Prod.continuousSMul
+  letI : ContinuousSMul ℝ (LoopPlane × Jet n) := Prod.continuousSMul
   have hp := (@suAlphaFirstJetPoint_contDiff n).differentiable (by simp) z
   have hd := (ContinuousLinearMap.apply ℝ ℝ v).hasFDerivAt.comp z
     (hF.hasFDerivAt.comp z hp.hasFDerivAt)

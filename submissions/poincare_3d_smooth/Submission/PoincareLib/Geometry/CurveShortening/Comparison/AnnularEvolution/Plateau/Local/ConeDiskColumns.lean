@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Local.ConeDiskMap
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Conformal.Trace
@@ -44,13 +45,13 @@ theorem m64LocalConeDiskMap_radial_column
   have hd : HasDerivAt delta (angularPoint t) r := by
     simpa +instances only [one_smul] using! (hasDerivAt_id r).smul_const (angularPoint t)
   have hdv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) delta r 1 = angularPoint t := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hd.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hd.deriv
   let chi : ℝ → ℝ := fun s => 1 - diskTimeProfile s
   have hc : HasDerivAt chi (-deriv diskTimeProfile r) r := by
     simpa +instances only [zero_sub] using! (hasDerivAt_const r (1 : ℝ)).sub
       (contDiff_diskTimeProfile.differentiable (by simp) r).hasDerivAt
   have hcv : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) chi r 1 = -deriv diskTimeProfile r := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hc.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hc.deriv
   have heq : (m64LocalConeDiskMap H center gamma ∘ delta) =ᶠ[𝓝 r]
       ((fun s => H (s, center, gamma t)) ∘ chi) := by
     filter_upwards [Ioi_mem_nhds hr] with s hs
@@ -82,7 +83,7 @@ theorem m64LocalConeDiskMap_angular_column
   have hd : HasDerivAt delta (r • angularVector t) t :=
     (hasDerivAt_angularPoint t).const_smul r
   have hdv : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) delta t 1 = r • angularVector t := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using! hd.deriv
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using! hd.deriv
   have hinput : MDifferentiableAt 𝓘(ℝ, ℝ)
       (𝓘(ℝ, ℝ).prod ((𝓡 n).prod (𝓡 n)))
       (fun s => (1 - diskTimeProfile r, center, gamma s)) t :=

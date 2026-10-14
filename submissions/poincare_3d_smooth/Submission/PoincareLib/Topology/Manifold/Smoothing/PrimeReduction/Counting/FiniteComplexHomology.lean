@@ -34,9 +34,9 @@ theorem finite_modTwo_homology_of_order_complex_cover
     (p : C(X, (finiteOrderComplex J).space)) (hp : IsCoveringMap p) (n : ℕ) :
     Module.Finite (ZMod 2)
       (SSet.homology (C := ModuleCat.{u} (ZMod 2)) (TopCat.toSSet.obj (TopCat.of X))
-        (ModuleCat.of (ZMod 2) (ULift.{u} (ZMod 2))) n) := by
+        (@ModuleCat.of (ZMod 2) inferInstance (ULift.{u} (ZMod 2)) inferInstance ULift.module') n) := by
   let A := singularLiftSSet p (nerve J) (orderComplexSingular J)
-  let coeff := ModuleCat.of (ZMod 2) (ULift.{u} (ZMod 2))
+  let coeff := @ModuleCat.of (ZMod 2) inferInstance (ULift.{u} (ZMod 2)) inferInstance ULift.module'
   let hdegree (k : ℕ) : Finite (A _⦋k⦌) := by
     let := finite_nerve_degree J k
     exact singularLift_finite p (nerve J) (orderComplexSingular J) hp k
@@ -55,7 +55,7 @@ theorem finite_modTwo_homology
     (K : Geometry.SimplicialComplex ℝ E) (hK : K.faces.Finite) (n : ℕ) :
     Module.Finite (ZMod 2)
       (SSet.homology (C := ModuleCat.{u} (ZMod 2)) (TopCat.toSSet.obj (TopCat.of K.space))
-        (ModuleCat.of (ZMod 2) (ULift.{u} (ZMod 2))) n) := by
+        (@ModuleCat.of (ZMod 2) inferInstance (ULift.{u} (ZMod 2)) inferInstance ULift.module') n) := by
   classical
   let := hK.fintype
   let c (s : K.faces) := ∑ v ∈ s.val, (s.val.card : ℝ)⁻¹ • v

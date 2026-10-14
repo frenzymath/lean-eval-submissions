@@ -59,7 +59,7 @@ theorem m64VariableModulus_boundary_replacement_energy
       r⁻¹ * Q (W.map p) (W.column 1 p) (W.column 1 p)) / 2) =ᵐ[mu] K.piecewise new old := by
     filter_upwards [hcol 0, hcol 1] with p h0 h1
     rw [h0, h1, hmap]
-    by_cases hp : p ∈ K <;> simp only [piecewise, hp, if_true, if_false, new, old]
+    by_cases hp : p ∈ K <;> simp only [piecewise, hp, ite_true, ite_false, new, old]
   have hi (i : Fin 2) := m64VariableModulus_column_integrable Q hQ hb f hf (V i) (hV i)
   unfold M64ObservedWeakAnnulus.weightedEnergy
   rw [integral_congr_ae heq]

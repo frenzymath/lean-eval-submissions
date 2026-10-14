@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
@@ -76,6 +77,7 @@ theorem preferredFields_mlieBracket_eq_zero (q : M) (v w : TangentSpace (𝓡 n)
     VectorField.lieBracketWithin_univ]
   rw [(hg v).lieBracket_vectorField_eq (hg w)]
   simp [VectorField.lieBracket]
+  rfl
 
 set_option backward.isDefEq.respectTransparency false in
 /-- A spatial scalar derivative on the preferred extension is the coordinate derivative. -/
@@ -94,7 +96,7 @@ theorem preferredField_scalar_derivative {f : M → ℝ} (q : M)
         ((extChartAt (𝓡 n) q).map_source hx'))
   have hc := mfderiv_comp_apply_of_eq (extChartAt (𝓡 n) q x) hf he
     ((extChartAt (𝓡 n) q).left_inv hx') v
-  rw [mfderiv_eq_fderiv] at hc
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
   rw [preferredField_eq_inverseChartDerivative q v hx]
   exact hc
 

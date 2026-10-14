@@ -5,6 +5,10 @@ import Lean
 import Submission.Helpers
 import Submission.PoincareLib.Topology.Manifold.Poincare
 
+-- Keep the benchmark's canonical subtype topology when this module is imported.
+-- The gluing alias is definitionally equal but changes the exported statement.
+attribute [instance 1100] instTopologicalSpaceSubtype
+
 open Metric (sphere)
 
 namespace Submission

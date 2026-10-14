@@ -29,6 +29,7 @@ theorem pullbackCoefficients_eq_of_eventuallyEq
   change g.inner (f x) (mfderiv (𝓡 n) (𝓡 n) f x v) (mfderiv (𝓡 n) (𝓡 n) f x w) =
     g.inner (h x) (mfderiv (𝓡 n) (𝓡 n) h x v) (mfderiv (𝓡 n) (𝓡 n) h x w)
   rw [heq.mfderiv_eq, heq.self_of_nhds]
+  rfl
 
 end PoincareMT.RiemannianMetric
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.SelectedRadialFieldDomain
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.SelectedCoordinateMetric
@@ -175,7 +176,7 @@ theorem blowupSequence_coordinate_radial_projected_jets_bounded
           axisWarpingRadius (G (idx (mu k))) ‖f (idx (mu k)) y‖)) (pseq (mu k)) := by
     have hf := contMDiffAt_iff_contDiffAt.mp (hfg k).self_of_nhds
     have hi' : (fderiv ℝ (f (idx (mu k))) (pseq (mu k))).IsInvertible := by
-      simpa only [mfderiv_eq_fderiv] using (hig k).self_of_nhds
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using (hig k).self_of_nhds
     exact (euclidean_radial_pullback_contDiffAt _ hf hi' (hzero k)).prodMk
       ((radial_shape_contDiffAt _ (hzero k)).comp _ hf)
   have hZ := hj.clm hs projection

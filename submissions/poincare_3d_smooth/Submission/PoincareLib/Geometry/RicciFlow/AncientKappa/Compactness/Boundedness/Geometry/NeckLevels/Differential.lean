@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Compactness.Boundedness.Geometry.NeckLevels.SignedSegments
 import Submission.PoincareLib.Geometry.Riemannian.Convexity.Gradient.LowerBound
 
@@ -68,7 +69,7 @@ theorem mvfderiv_initial_mul_length_le_of_hessian_ge
     have heq := congrArg (fun A => A (1 : ℝ))
       (mfderiv_comp 0 (hf.neg.contMDiffAt.mdifferentiableAt (by simp))
         ((hγ.contMDiffAt ⟨le_rfl, hL⟩).mdifferentiableAt (by simp)))
-    rw [mfderiv_eq_fderiv] at heq
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at heq
     change deriv F 0 = mvfderiv (𝓡 n) (fun x => -f x) (γ 0)
       (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) γ 0 1) at heq
     have hnegderiv : mvfderiv (𝓡 n) (fun x => -f x) (γ 0) =

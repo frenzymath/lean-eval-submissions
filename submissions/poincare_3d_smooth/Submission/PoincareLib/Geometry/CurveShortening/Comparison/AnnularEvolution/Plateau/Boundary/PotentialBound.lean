@@ -59,7 +59,7 @@ theorem m64NaturalGrowth_boundary_cutoff_test
     (heta.continuous.mul hu) hetac.mul_right
     (tsupport_mul_subset_left.trans (hetas.trans hs))
     ((heta.continuous.mul hu).memLp_of_hasCompactSupport hetac.mul_right)
-    (fun i => ((hdu i).mul' hetatop).add
+    (fun i => (hetatop.mul' (hdu i)).add
       ((((heta.continuous_fderiv (by simp)).clm_apply continuous_const).mul hu
         ).memLp_of_hasCompactSupport ((hetac.fderiv_apply (𝕜 := ℝ) _).mul_right)))
     (fun i => (hw i).mul_smooth isOpen_univ heta
@@ -113,7 +113,7 @@ theorem m64NaturalGrowth_boundary_potential_bound
   have hdxi (i : Fin 2) : Continuous (dxi i) :=
     (hxi.continuous_fderiv (by simp)).clm_apply continuous_const
   have hdv (k : Fin n) (i : Fin 2) : MemLp (dv k i) 2 volume := by
-    apply ((hdu k i).mul' hxi2top).add
+    apply (hxi2top.mul' (hdu k i)).add
     exact (((continuous_const.mul hxi.continuous).mul (hdxi i)).mul (hu k)
       ).memLp_of_hasCompactSupport ((hc.mul_left.mul_right).mul_right)
   have hv (k : Fin n) : MemLp (v k) ⊤ volume :=
@@ -121,7 +121,7 @@ theorem m64NaturalGrowth_boundary_potential_bound
   have hleft (k : Fin n) (i : Fin 2) : Integrable (fun p => F k i p * dv k i p) :=
     (hF k i).integrable_mul (hdv k i)
   have hright (k : Fin n) : Integrable (fun p => b k p * v k p) :=
-    memLp_one_iff_integrable.mp ((hv k).mul' (memLp_one_iff_integrable.mpr (hb k)))
+    memLp_one_iff_integrable.mp ((memLp_one_iff_integrable.mpr (hb k)).mul' (hv k))
   let L := fun p => ∑ k, ∑ i, F k i p * dv k i p
   let T := fun p => ∑ k, b k p * v k p
   have hLI : Integrable L := integrable_finsetSum _ fun k _ =>

@@ -37,6 +37,9 @@ private theorem stereoToFun_neg_stereoInvFun {v : E4} (hv : ‖v‖ = 1)
   simp only [smul_eq_mul, mul_one, zero_add, sub_neg_eq_add]
   field_simp [hn, hd, norm_ne_zero_iff.mpr hw]
   ring_nf
+  simp only [← mul_pow]
+  rw [mul_inv_cancel₀ (norm_ne_zero_iff.mpr hw)]
+  norm_num
 
 private theorem threeSphereStereographic_neg_symm (v : UnitThreeSphere)
     (x : E3) (hx : x ≠ 0) :

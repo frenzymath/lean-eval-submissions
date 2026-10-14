@@ -25,6 +25,7 @@ theorem backwardLIntegrand_eq_of_eventuallyEq {γ η : ℝ → M} {s : ℝ}
     (h : γ =ᶠ[𝓝 s] η) : backwardLIntegrand F T γ s = backwardLIntegrand F T η s := by
   unfold backwardLIntegrand curveVelocity
   rw [h.mfderiv_eq (I := 𝓘(ℝ, ℝ)) (I' := 𝓡 n), h.eq_of_nhds]
+  rfl
 
 /-- Endpoint values of totalized velocities do not affect the backward action. -/
 theorem backwardLLength_eq_of_eqOn {a b : ℝ} {γ η : ℝ → M} (hab : a ≤ b)

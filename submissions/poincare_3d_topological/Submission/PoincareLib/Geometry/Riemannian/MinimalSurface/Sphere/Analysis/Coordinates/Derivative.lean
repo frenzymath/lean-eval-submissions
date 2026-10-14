@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Compatibility.Tangent
+import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
 
@@ -41,7 +43,7 @@ theorem mfderiv_eq_inverse_chart_comp_fderiv
         hlocal.mfderiv_eq.symm
       _ = (mfderiv 𝓘(ℝ, F) I e.symm (e (f z))).comp
           (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, F) (e ∘ f) z) := mfderiv_comp z hi hc
-      _ = _ := by rw [mfderiv_eq_fderiv]
+      _ = _ := by rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   · have hc : ¬DifferentiableAt ℝ (e ∘ f) z := by
       intro hc
       exact hd ((hi.comp z hc.mdifferentiableAt).congr_of_eventuallyEq hlocal.symm)

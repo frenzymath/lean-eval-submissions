@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.JetBounds.TensorPullback
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalEstimates.Curvature.JetSpatialCalculus
@@ -100,7 +101,7 @@ theorem m63HasDerivAt_tensor_pullback {g : RiemannianMetric n M}
       apply ((hsmooth.differentiableAt (by simp)).hasDerivAt).congr_deriv
       have hcomp := mvfderiv_comp_apply x ((hfield w).mdifferentiableAt (by simp))
         (hgamma.mdifferentiableAt (by simp)) (1 : ℝ)
-      simpa only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+      simpa only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
         ContinuousLinearMap.comp_apply, Function.comp_def, curveVelocity, p,
         fderiv_apply_one_eq_deriv] using! hcomp
     have hchainA : HasDerivAt (fun s => A s w)

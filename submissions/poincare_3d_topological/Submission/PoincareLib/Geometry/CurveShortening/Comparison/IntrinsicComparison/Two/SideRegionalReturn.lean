@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Two.SideRegionalCapacity
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Regional.EmbeddedContact
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Transverse.RetainedBases
@@ -194,7 +195,7 @@ theorem m64Intrinsic_exists_two_side_regional_return
         (x := !₂[p, t]) (by
           simpa only [Matrix.cons_val_zero] using
             hmetric p hpP hk t ⟨ht.1.le, ht.2.trans (hHann p hpP)⟩)
-      simpa only [TangentSpace, mfderiv_eq_fderiv] using hi
+      simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] using hi
     have hind : LinearIndependent ℝ
         (![deriv (intrinsicAnnulusBoundary 1) w, deriv (fun s => e !₂[p, s]) t] :
           Fin 2 → AnnulusCoordinates) := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.PrecompactVariation
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.RadialDifferential
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.JetBounds.CovariantPullback
@@ -106,7 +107,7 @@ private theorem chart_velocity_eq_deriv {q : ℝ → M} {a : M} {t : ℝ}
   have hd := mfderiv_comp t
     (mdifferentiableAt_extChartAt (by simpa only [extChartAt_source] using ha))
     (hq.mdifferentiableAt (by simp))
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hd1 := (congrArg (fun L => L 1) hd).symm
   change mfderiv (𝓡 n) (𝓡 n) (extChartAt (𝓡 n) a) (q t)
       (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) q t 1) =
@@ -275,7 +276,7 @@ theorem gauss_identity_of_radial_family
     have hline : HasDerivAt (fun r : ℝ => r • v) v 1 := by
       simpa using (hasDerivAt_id (1 : ℝ)).smul_const v
     have hd := mfderiv_comp 1 (by simpa using hev) hline.differentiableAt.mdifferentiableAt
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hd1 := congrArg (fun L => L 1) hd
     change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun r : ℝ => e (r • v)) 1 1 =
       mfderiv (𝓡 n) (𝓡 n) e ((1 : ℝ) • v)

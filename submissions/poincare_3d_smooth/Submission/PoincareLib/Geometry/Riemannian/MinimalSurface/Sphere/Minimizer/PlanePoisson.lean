@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Poisson.Comparison
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Weak.Hessian
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Euclidean
@@ -64,9 +65,10 @@ theorem suPlane_divergenceCoefficients (x : Plane) (i j : Fin 2) :
     divergenceCoefficients gEucl (OpenPartialHomeomorph.refl Plane) x i j =
       (1 : Matrix (Fin 2) (Fin 2) ℝ) i j := by
   have hb : (gEucl).pullbackCoefficients (OpenPartialHomeomorph.refl Plane) x =
-      innerSL ℝ := by
+      (innerSL ℝ (E := Plane) : Plane →L[ℝ] Plane →L[ℝ] ℝ) := by
     ext v w
-    simp [RiemannianMetric.pullbackCoefficients]
+    simp [RiemannianMetric.pullbackCoefficients,
+      Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   have hp : EuclideanSpace.proj j = (innerSL ℝ) (EuclideanSpace.single j 1) := by
     ext v

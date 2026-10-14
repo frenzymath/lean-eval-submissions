@@ -198,7 +198,11 @@ theorem exists_auxiliary_height_preserving_core_critical_points
   refine ⟨h, hh, fun p hp => hcore hp, ?_, ?_⟩
   · intro p hp
     by_cases hpC : p ∈ C
-    · rw [(hcore hpC).mfderiv_eq]
+    · have hd : mfderiv (𝓡 2) 𝓘(Real, Real) h p =
+          mfderiv (𝓡 2) 𝓘(Real, Real) (fun q => inner Real v (g q)) p := by
+        exact ((hcore hpC).mfderiv_eq (I := 𝓡 2) (I' := 𝓘(Real, Real))).trans
+          (by ext w; rfl)
+      rw [hd]
       simp only [hpC, true_and]
     · have hpcap : p ∈ ⋃ D ∈ L, D.chart '' ball 0 1 := by
         simpa only [hC, mem_compl_iff, not_not] using hpC

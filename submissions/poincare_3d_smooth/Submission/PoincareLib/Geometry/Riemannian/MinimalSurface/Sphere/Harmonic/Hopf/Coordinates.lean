@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Harmonic.HopfCauchyRiemann
 import Submission.PoincareLib.Geometry.RicciFlow.Area.MinimalSphere.HarmonicSphereCharts
 
@@ -55,7 +56,7 @@ theorem m60AreaGram_entry_contDiff (g : RiemannianMetric n M)
       ((contMDiffAt_extChartAt' (x := φ p) (by simpa only [c, extChartAt_source] using hq)
         (n := ∞)).mdifferentiableAt (by simp))
       ((hφ q).mdifferentiableAt (by simp))
-    rw [mfderiv_eq_fderiv] at hh
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hh
     exact congrArg (fun L => L (e k)) hh
   dsimp only [m60AreaGram]
   rw [hd i, hd j]
@@ -123,7 +124,7 @@ theorem m60SphereHopf_cauchyRiemann (g : RiemannianMetric n M)
         ((contMDiffAt_extChartAt' (x := φ p) (by simpa only [c, extChartAt_source] using hq)
           (n := ∞)).mdifferentiableAt (by simp))
         ((hφ q).mdifferentiableAt (by simp))
-      rw [mfderiv_eq_fderiv] at hh
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hh
       exact congrArg (fun L => L (e k)) hh
     rw [hd i, hd j]
     exact chartCoefficients_apply g (φ p) hq _ _

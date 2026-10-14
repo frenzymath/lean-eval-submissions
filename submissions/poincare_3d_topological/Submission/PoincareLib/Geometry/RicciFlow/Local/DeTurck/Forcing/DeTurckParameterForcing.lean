@@ -14,7 +14,6 @@ change is a lower trace term; the fixed generator of the seed is subtracted.
 
 set_option autoImplicit false
 set_option maxHeartbeats 1800000
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -268,7 +267,30 @@ variable {n : ℕ} {M : Type u} [TopologicalSpace M] [T2Space M]
   [ChartedSpace (EuclideanSpace ℝ (Fin n)) M] [IsManifold (𝓡 n) ∞ M]
   [CompactSpace M] [SecondCountableTopology M] [MeasurableSpace M] [BorelSpace M]
   {g0 : RiemannianMetric n M} (d : Data g0)
-  (L : FiniteChartLocalizationData d.charts)
+
+local instance parameter_dualContinuousAdd (x : M) :
+    ContinuousAdd (TangentSpace (𝓡 n) x →L[ℝ] ℝ) := by infer_instance
+
+local instance parameter_bilinTopologicalAddGroup (x : M) :
+    IsTopologicalAddGroup (TangentSpace (𝓡 n) x →L[ℝ] TangentSpace (𝓡 n) x →L[ℝ] ℝ) :=
+  ContinuousLinearMap.isTopologicalAddGroup
+
+local instance parameter_smoothTensorSub : Sub (SmoothTensor (n := n) (M := M)) :=
+  ContMDiffSection.instSub
+
+local instance forcing_symmetricForm_normedAddCommGroup : NormedAddCommGroup d.SymmetricForm :=
+  d.symmetricForm.normedAddCommGroup
+
+local instance forcing_symmetricValue_normedAddCommGroup : NormedAddCommGroup d.SymmetricValue :=
+  d.symmetricValue.normedAddCommGroup
+
+local instance forcing_symmetricForm_normedSpace : NormedSpace ℝ d.SymmetricForm :=
+  d.symmetricForm.normedSpace
+
+local instance forcing_symmetricValue_normedSpace : NormedSpace ℝ d.SymmetricValue :=
+  d.symmetricValue.normedSpace
+
+variable (L : FiniteChartLocalizationData d.charts)
   (A : CompatibleChartCover (n := n) (M := M))
 
 local notation "StateD" => State d.SymmetricIndex
@@ -634,6 +656,22 @@ variable {n : ℕ} {M : Type u} [TopologicalSpace M] [T2Space M]
   [ChartedSpace (EuclideanSpace ℝ (Fin n)) M] [IsManifold (𝓡 n) ∞ M]
   [CompactSpace M] [SecondCountableTopology M] [MeasurableSpace M] [BorelSpace M]
   {g0 : RiemannianMetric n M} (d : Data g0)
+
+local instance combined_dualContinuousAdd (x : M) :
+    ContinuousAdd (TangentSpace (𝓡 n) x →L[ℝ] ℝ) := by infer_instance
+
+local instance combined_bilinTopologicalAddGroup (x : M) :
+    IsTopologicalAddGroup (TangentSpace (𝓡 n) x →L[ℝ] TangentSpace (𝓡 n) x →L[ℝ] ℝ) :=
+  ContinuousLinearMap.isTopologicalAddGroup
+
+local instance combined_smoothTensorSub : Sub (SmoothTensor (n := n) (M := M)) :=
+  ContMDiffSection.instSub
+
+local instance combined_symmetricValue_normedAddCommGroup : NormedAddCommGroup d.SymmetricValue :=
+  d.symmetricValue.normedAddCommGroup
+
+local instance combined_symmetricValue_normedSpace : NormedSpace ℝ d.SymmetricValue :=
+  d.symmetricValue.normedSpace
 
 theorem smoothTensorCoordinates_add_sub (k : ℕ)
     (h1 h2 h3 : SmoothTensor (n := n) (M := M))

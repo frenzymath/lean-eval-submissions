@@ -50,6 +50,7 @@ theorem pairCoeff_eq_affine [CompleteSpace F] (R : ℝ → F →L[ℝ] F) (t : �
     pairCoeff R t = pairCoeff (fun _ => (0 : F →L[ℝ] F)) 0 + pairVariationL (R t) := by
   ext z <;> simp [pairCoeff_apply]
 
+set_option synthInstance.maxHeartbeats 100000 in
 theorem norm_iteratedFDeriv_pairCoeff_le [CompleteSpace F]
     {R : P → F →L[ℝ] F} {p : P} (hR : ContDiffAt ℝ ∞ R p) (k : ℕ) :
     ‖iteratedFDeriv ℝ k (fun q => pairCoeff (fun _ => R q) 0) p‖ ≤

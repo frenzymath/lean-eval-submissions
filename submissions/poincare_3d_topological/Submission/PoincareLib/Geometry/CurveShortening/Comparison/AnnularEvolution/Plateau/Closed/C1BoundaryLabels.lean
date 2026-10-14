@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Analysis.Immersed.CurveWithinComposition
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Analysis.Monotone.PeriodicLipschitz
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Free.BoundaryModulus
@@ -37,7 +38,7 @@ theorem m64ObservedCurve_deriv_ne_zero
     deriv (e ∘ c) t ≠ 0 := by
   have hchain := mfderiv_comp_apply t ((he (c t)).mdifferentiableAt (by simp))
     ((hc t).mdifferentiableAt (by norm_num)) (1 : ℝ)
-  rw [mfderiv_eq_fderiv] at hchain
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   change fderiv ℝ (e ∘ c) t 1 =
     mfderiv (𝓡 n) (𝓡 m) e (c t) (curveVelocity c t) at hchain
   rw [fderiv_apply_one_eq_deriv] at hchain

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.Manifold
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Orthonormal
 
@@ -100,7 +101,7 @@ theorem exists_arclength_chart_one (g : RiemannianMetric 1 M) (p : M) :
       mdifferentiableAt_iff_differentiableAt.mpr L.differentiableAt
     have hd := mfderiv_comp x hfd hLd
     have hLm : mfderiv (𝓡 1) (𝓡 1) L x = L.toContinuousLinearMap := by
-      simpa only [mfderiv_eq_fderiv] using L.hasFDerivAt.fderiv
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model] using L.hasFDerivAt.fderiv
     rw [hLm] at hd
     have hpull : g.pullbackCoefficients e x v w =
         g.pullbackCoefficients f (L x) (L v) (L w) := by

@@ -19,7 +19,6 @@ native jet Lie correction.
 
 set_option autoImplicit false
 set_option maxHeartbeats 2400000
-set_option backward.isDefEq.respectTransparency false
 
 open scoped Manifold ContDiff Bundle BigOperators Topology
 
@@ -285,10 +284,24 @@ def smoothMetricLieDerivative {g : RiemannianMetric n M}
 /-- The actual native Ricci--DeTurck vector field on smooth metrics. -/
 def smoothRicciDeTurckTensor {g background : RiemannianMetric n M}
     (D : LeviCivitaData g) (B : LeviCivitaData background) :
-    TensorProbeNative.SmoothTensor (n := n) (M := M) :=
-  (-2 : ℝ) • smoothRicciTensor D +
-    smoothMetricLieDerivative D (intrinsicDeTurckField D B)
-      (intrinsicDeTurckField_contMDiffAt D B)
+    TensorProbeNative.SmoothTensor (n := n) (M := M) := by
+  let A : (x : M) → TangentSpace (𝓡 n) x →L[ℝ]
+      TangentSpace (𝓡 n) x →L[ℝ] ℝ := fun x =>
+    (-2 : ℝ) • intrinsicRicciBilin D x +
+      metricLieDerivative D (intrinsicDeTurckField D B) x
+  refine ⟨A, ?_⟩
+  apply contMDiff_bilin_of_local_pairings
+  intro U hU X Y hX hY
+  have hR := contMDiffOn_ricci_pair D hU X Y hX hY
+  have hW : ContMDiff (𝓡 n) ((𝓡 n).prod 𝓘(ℝ, E)) ∞
+      (T% (intrinsicDeTurckField D B)) := intrinsicDeTurckField_contMDiffAt D B
+  have hL := contMDiffOn_metricLieDerivative_pair D hU
+    (intrinsicDeTurckField D B) X Y
+    hW.contMDiffOn hX hY
+  apply ((((-2 : ℝ) • ContinuousLinearMap.id ℝ ℝ).contMDiff).comp_contMDiffOn hR).add hL |>.congr
+  intro x hx
+  simp [A, intrinsicRicciBilin_apply, smul_eq_mul]
+
 
 @[simp] theorem smoothRicciDeTurckTensor_apply
     {g background : RiemannianMetric n M}
@@ -296,9 +309,9 @@ def smoothRicciDeTurckTensor {g background : RiemannianMetric n M}
     (u v : TangentSpace (𝓡 n) x) :
     smoothRicciDeTurckTensor D B x u v = -2 * D.ricci x u v +
       metricLieDerivative D (intrinsicDeTurckField D B) x u v := by
-  change (-2 : ℝ) * smoothRicciTensor D x u v +
-    metricLieDerivative D (intrinsicDeTurckField D B) x u v = _
-  rw [smoothRicciTensor_apply]
+  change ((-2 : ℝ) • intrinsicRicciBilin D x +
+    metricLieDerivative D (intrinsicDeTurckField D B) x) u v = _
+  simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply, intrinsicRicciBilin_apply, smul_eq_mul]
 
 theorem smoothRicciDeTurckTensor_symm {g background : RiemannianMetric n M}
     (D : LeviCivitaData g) (B : LeviCivitaData background) (x : M)

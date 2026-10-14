@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators.Hessian.Coordinates
 import Submission.PoincareLib.Geometry.Curvature.Integral.RegularLevelScalar
 import Mathlib.Topology.UniformSpace.UniformConvergence
@@ -55,7 +56,7 @@ theorem tendsto_gradient_of_metric_coefficients
     unfold gradient
     congr 1
     ext v
-    simp +instances [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+    simp +instances [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
     rfl
   simpa only [heq, Function.comp_apply] using h
 
@@ -308,7 +309,7 @@ theorem inner_shapeOperator_neg_levelUnitNormal_of_level
     rw [LeviCivitaData.levelUnitNormal]
     simp only [map_smul, smul_apply, smul_eq_mul, D.inner_gradient]
     have hdf : mvfderiv (𝓡 (m + 1)) f (F z) (fderiv ℝ F z w) = 0 := by
-      simp +instances only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+      simp +instances only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
       exact hzero
     rw [hdf, mul_zero]
   have hnormal' : ∀ᶠ z in 𝓝 y, ∀ w,

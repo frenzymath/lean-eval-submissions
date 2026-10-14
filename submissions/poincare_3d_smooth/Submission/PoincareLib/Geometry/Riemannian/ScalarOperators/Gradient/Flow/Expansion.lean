@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Convexity.SmoothFlow
 
 /-!
@@ -87,7 +88,7 @@ private theorem comp_normalizedGradient_eq_add
       simp only [normalizedGradient, map_smul, smul_eq_mul, ← D.inner_gradient]
       exact inv_mul_cancel₀ (hregular t ht)
     have he' : fderiv ℝ f (γ t) (D.normalizedGradient f (γ t)) = 1 := by
-      simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] at he
+      simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] at he
       convert! he using 1
     exact hcomp.congr_deriv he'
   have hl (t : ℝ) : HasDerivAt (fun s => f (γ a) + (s - a)) 1 t := by
@@ -187,7 +188,7 @@ theorem exists_local_normalizedGradient_flow_with_expansion
     have hright := hfy.hasFDerivAt.add_const s
     have heq := congrArg (fun A => A v) (hleft.unique (hright.congr_of_eventuallyEq he))
     have heq' : mvfderiv (𝓡 n) f (Φ (s, y)) (w s) = mvfderiv (𝓡 n) f y v := by
-      simp [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+      simp [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
       convert! heq using 1
     exact heq'.trans hv
   let L := fun s => g.inner (Φ (s, y)) (w s) (w s)

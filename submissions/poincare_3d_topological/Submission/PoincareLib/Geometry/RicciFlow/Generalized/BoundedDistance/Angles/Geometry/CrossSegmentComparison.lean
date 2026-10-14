@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Angles.Geometry.SquaredDistanceSupport
 import Submission.PoincareLib.Geometry.Riemannian.Distance.Basic
@@ -68,7 +69,7 @@ theorem squared_distance_sub_sq_concave_of_cross_segments
         mfderiv 𝓘(ℝ, ℝ) (𝓡 n) β t 1 := by
     have hshift : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun s : ℝ => s + t) 0 =
         ContinuousLinearMap.id ℝ ℝ := by
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact ((hasFDerivAt_id (0 : ℝ)).add_const t).fderiv
     have hβd := (hβ.contMDiffAt htcc).mdifferentiableAt (by simp)
     have hshiftd : MDifferentiableAt 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ)

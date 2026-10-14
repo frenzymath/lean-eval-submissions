@@ -64,7 +64,7 @@ theorem metricRowFrame_injective (G : E →L[ℝ] E →L[ℝ] ℝ)
       · subst k
         exact (div_mul_cancel₀ (W j) hV).symm
       · have h := hrows k
-        rw [if_neg hk] at h
+        rw [ite_eq_right hk] at h
         linear_combination h
     have hV0 : V ≠ 0 := fun h => hV (by rw [h]; rfl)
     have hG : G V W = 0 := by simpa using hrows j
@@ -95,11 +95,11 @@ theorem metricRowFrame_contDiffOn
     apply contDiffOn_pi.mpr
     intro k
     by_cases hk : k = j
-    · simpa only [if_pos hk] using (hG.clm_apply hV).clm_apply contDiffOn_const
+    · simpa only [ite_eq_left hk] using (hG.clm_apply hV).clm_apply contDiffOn_const
     · convert! (contDiffOn_const (c := W k)).sub
         (((hv k).div (hv j) hj).mul (contDiffOn_const (c := W j))) using 1
       funext q
-      simp only [if_neg hk]
+      simp only [ite_eq_right hk]
       rfl
   have h := (EuclideanSpace.equiv (Fin n) ℝ).symm.contDiff.comp_contDiffOn hrows
   apply h.congr

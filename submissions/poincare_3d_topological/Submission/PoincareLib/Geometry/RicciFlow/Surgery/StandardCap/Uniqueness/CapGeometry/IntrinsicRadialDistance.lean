@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.RawFlow.IntrinsicSpatialMetric
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.RadialPointIdentification
@@ -41,8 +42,12 @@ private theorem unit_gauss_edist (g : RiemannianMetric 3 StandardCapSpace)
       g.inner (e v) (mfderiv (𝓡 3) (𝓡 3) e v v)
         (mfderiv (𝓡 3) (𝓡 3) e v w) = g.inner 0 v w := by
     intro v _hv w
-    simpa [e, OpenPartialHomeomorph.refl_apply] using!
-      (hgauss v w).trans (hzero v w).symm
+    have he : mfderiv (𝓡 3) (𝓡 3) e v = ContinuousLinearMap.id ℝ _ := by
+      change mfderiv (𝓡 3) (𝓡 3) (id : StandardCapSpace → StandardCapSpace) v = _
+      exact mfderiv_id
+    rw [he]
+    change g.inner v v w = g.inner 0 v w
+    exact (hgauss v w).trans (hzero v w).symm
   have hn : g.tangentNorm 0 x = ‖x‖ := by
     rw [RiemannianMetric.tangentNorm, hzero, real_inner_self_eq_norm_sq,
       Real.sqrt_sq (norm_nonneg x)]
@@ -58,8 +63,10 @@ private theorem unit_gauss_edist (g : RiemannianMetric 3 StandardCapSpace)
       change ‖x‖ < ‖x‖ + 1
       linarith))
   have hz : g.edist 0 0 < r := by
-    have hself : g.edist 0 0 = 0 :=
-      @edist_self StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace 0
+    have hself : g.edist 0 0 = 0 := by
+      rw [← RiemannianMetric.toEMetricSpace_edist]
+      exact @edist_self StandardCapSpace _
+        g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0
     rw [hself]
     exact_mod_cast hr
   have hregularized (epsilon : ℝ) (hepsilon : 0 < epsilon) :
@@ -123,7 +130,7 @@ theorem edist_zero_eq_radialArclength (P : M35StandardCapPredecessors)
   let G := intrinsicSpatialMetric g hrotation hcomplete
   have hmetric : MetricHomothety G g F.symm 1 := by
     intro y u v
-    rw [one_mul, mfderiv_eq_fderiv]
+    rw [one_mul, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (intrinsicSpatialMetric_pullback g hrotation hcomplete y u v).symm
   have H := P.metric_homothety StandardCapSpace StandardCapSpace G g F.symm
     1 zero_lt_one hmetric

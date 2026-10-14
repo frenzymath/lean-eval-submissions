@@ -36,6 +36,8 @@ theorem contMDiffAt_of_local_left_inverse {f : M → N} {g : N → M} {x : M}
   have hderiv : mfderiv (𝓡 n) (𝓡 n) f x = fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [F, c]
+    ext v
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ F (c x)) := by
     rwa [hderiv] at hbij
   let e := ContinuousLinearEquiv.ofBijective (fderiv ℝ F (c x))

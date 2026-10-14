@@ -43,8 +43,8 @@ theorem rescalingHorizontalConnection (V : HorizontalSection G.spacetime)
   change rawLeafwiseCovariantDerivative (M13.parabolicLeafwiseConnection G.leafwise Q hQ a)
       (rescalingHorizontalSection G.spacetime Q hQ a V) p
       ((M13.parabolicSpacetime G.spacetime Q hQ a).horizontalProjection p Z) +
-    mfderiv (spacetimeModel n) 𝓘(ℝ)
-      (fun q : G.Point => parabolicTime Q a (G.spacetime.timeFunction q)) p Z •
+    (show ℝ from mfderiv (spacetimeModel n) 𝓘(ℝ)
+      (fun q : G.Point => parabolicTime Q a (G.spacetime.timeFunction q)) p Z) •
       horizontalTimeBracket (M13.parabolicSpacetime G.spacetime Q hQ a)
         (rescalingHorizontalSection G.spacetime Q hQ a V) p = _
   have ht := M13.parabolicClock_derivative G.spacetime Q a p Z
@@ -72,14 +72,34 @@ private theorem horizontalMap_hasDerivAt {time' : X → ℝ} {I' : SpacetimeInte
     HasDerivAt (fun r => L (f r)) (L d) s := by
   let g := S.horizontalMetric.toRiemannianMetric
   let g' := S'.horizontalMetric.toRiemannianMetric
+  let sourceAdd : AddCommGroup (S.Horizontal p) := inferInstance
+  let sourceModule : Module ℝ (S.Horizontal p) := inferInstance
+  let sourceTopology : TopologicalSpace (S.Horizontal p) := inferInstance
+  let sourceTopologicalAdd : IsTopologicalAddGroup (S.Horizontal p) := inferInstance
+  let sourceContinuousSMul : ContinuousConstSMul ℝ (S.Horizontal p) := inferInstance
+  let sourceCore := g.toCore p
+  have sourceContinuous := g.continuousAt p
+  have sourceBounded := g.isVonNBounded p
+  let targetAdd : AddCommGroup (S'.Horizontal q) := inferInstance
+  let targetModule : Module ℝ (S'.Horizontal q) := inferInstance
+  let targetTopology : TopologicalSpace (S'.Horizontal q) := inferInstance
+  let targetTopologicalAdd : IsTopologicalAddGroup (S'.Horizontal q) := inferInstance
+  let targetContinuousSMul : ContinuousConstSMul ℝ (S'.Horizontal q) := inferInstance
+  let targetCore := g'.toCore q
+  have targetContinuous := g'.continuousAt q
+  have targetBounded := g'.isVonNBounded q
   let : NormedAddCommGroup (S.Horizontal p) :=
-    (g.toCore p).toNormedAddCommGroupOfTopology (g.continuousAt p) (g.isVonNBounded p)
+    sourceCore.toNormedAddCommGroupOfTopology sourceContinuous sourceBounded
   let : NormedSpace ℝ (S.Horizontal p) :=
-    (g.toCore p).toNormedSpaceOfTopology (g.continuousAt p) (g.isVonNBounded p)
+    @InnerProductSpace.Core.toNormedSpaceOfTopology ℝ (S.Horizontal p) _
+      sourceAdd sourceModule sourceCore sourceTopology
+      sourceTopologicalAdd sourceContinuousSMul sourceContinuous sourceBounded
   let : NormedAddCommGroup (S'.Horizontal q) :=
-    (g'.toCore q).toNormedAddCommGroupOfTopology (g'.continuousAt q) (g'.isVonNBounded q)
+    targetCore.toNormedAddCommGroupOfTopology targetContinuous targetBounded
   let : NormedSpace ℝ (S'.Horizontal q) :=
-    (g'.toCore q).toNormedSpaceOfTopology (g'.continuousAt q) (g'.isVonNBounded q)
+    @InnerProductSpace.Core.toNormedSpaceOfTopology ℝ (S'.Horizontal q) _
+      targetAdd targetModule targetCore targetTopology
+      targetTopologicalAdd targetContinuousSMul targetContinuous targetBounded
   exact L.hasFDerivAt.comp_hasDerivAt s hd
 
 private theorem horizontal_hasDerivAt_deriv
@@ -87,10 +107,20 @@ private theorem horizontal_hasDerivAt_deriv
     (f : ℝ → S.Horizontal p) (d : S.Horizontal p) (s : ℝ) (hd : HasDerivAt f d s) :
     deriv f s = d := by
   let g := S.horizontalMetric.toRiemannianMetric
+  let horizontalAdd : AddCommGroup (S.Horizontal p) := inferInstance
+  let horizontalModule : Module ℝ (S.Horizontal p) := inferInstance
+  let horizontalTopology : TopologicalSpace (S.Horizontal p) := inferInstance
+  let horizontalTopologicalAdd : IsTopologicalAddGroup (S.Horizontal p) := inferInstance
+  let horizontalContinuousSMul : ContinuousConstSMul ℝ (S.Horizontal p) := inferInstance
+  let horizontalCore := g.toCore p
+  have horizontalContinuous := g.continuousAt p
+  have horizontalBounded := g.isVonNBounded p
   let : NormedAddCommGroup (S.Horizontal p) :=
-    (g.toCore p).toNormedAddCommGroupOfTopology (g.continuousAt p) (g.isVonNBounded p)
+    horizontalCore.toNormedAddCommGroupOfTopology horizontalContinuous horizontalBounded
   let : NormedSpace ℝ (S.Horizontal p) :=
-    (g.toCore p).toNormedSpaceOfTopology (g.continuousAt p) (g.isVonNBounded p)
+    @InnerProductSpace.Core.toNormedSpaceOfTopology ℝ (S.Horizontal p) _
+      horizontalAdd horizontalModule horizontalCore horizontalTopology
+      horizontalTopologicalAdd horizontalContinuousSMul horizontalContinuous horizontalBounded
   exact hd.deriv
 
 /-- An actual pullback extension transports through the smooth

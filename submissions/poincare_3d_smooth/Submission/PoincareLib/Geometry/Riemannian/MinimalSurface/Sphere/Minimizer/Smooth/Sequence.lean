@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Minimizer.Smooth.Euler
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.AlphaEnergy.Critical.Smooth
 
@@ -10,7 +11,6 @@ The attained maps and their global infimum equalities are retained.
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 open Set Filter MeasureTheory
 open scoped Topology Manifold ContDiff
@@ -26,6 +26,7 @@ open CoordinateExponential ConnectionVariation
 local notation "Plane" => EuclideanSpace ℝ (Fin 2)
 local notation "e" => EuclideanSpace.basisFun (Fin 2) ℝ
 
+set_option maxHeartbeats 1000000 in
 private theorem weighted_source_change {n : ℕ}
     {u : Plane → EuclideanSpace ℝ (Fin n)} {phi : Plane → Plane} {z : Plane}
     (Gamma : EuclideanSpace ℝ (Fin n) → EuclideanSpace ℝ (Fin n) →L[ℝ]
@@ -104,7 +105,9 @@ private theorem weighted_source_change {n : ℕ}
       (fderiv ℝ (fderiv ℝ phi) z (e 1) (e 1))) =
       (B (Q (e 0)) (Q (e 0)) + B (Q (e 1)) (Q (e 1))) +
         w (phi z) • L (fderiv ℝ (fderiv ℝ phi) z (e 0) (e 0) +
-          fderiv ℝ (fderiv ℝ phi) z (e 1) (e 1)) := by rw [map_add, smul_add]; abel
+          fderiv ℝ (fderiv ℝ phi) z (e 1) (e 1)) := by
+    rw [map_add, smul_add]
+    module
   rw [hm, hBq, hlap, map_zero, smul_zero, add_zero]
 
 variable {n : ℕ} {M : Type u} [TopologicalSpace M]
@@ -209,7 +212,7 @@ private theorem sphere_transition (p q : UnitTwoSphere) (z : Plane)
         (contMDiffOn_chart_symm (n := ∞)).mdifferentiableOn (by simp)⟩
     refine ⟨hts, ?_, ?_⟩
     · change (fderiv ℝ (cq ∘ cp.symm) y).IsInvertible
-      rw [← mfderiv_eq_fderiv, mfderiv_comp y (hqs.mdifferentiableAt (by simp))
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, mfderiv_comp y (hqs.mdifferentiableAt (by simp))
         ((hcp y).mdifferentiableAt (by simp))]
       exact (show (mfderiv (𝓡 2) (𝓡 2) cq (cp.symm y)).IsInvertible from
         ⟨hqd.mfderiv hy, rfl⟩).comp ⟨hpd.mfderiv hpt, rfl⟩

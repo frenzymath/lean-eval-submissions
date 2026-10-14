@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.RegularityHarmonicChart
 
 /-!
@@ -78,7 +79,7 @@ theorem complex_parameter_chart_conformal_norm
   have hchainp := mfderiv_comp z hf hPmd
   have hchainq := mfderiv_comp z hcd (hf.comp z hPmd)
   rw [hchainp] at hchainq
-  simp only [mfderiv_eq_fderiv] at hchainq
+  simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchainq
   have hPv : fderiv ℝ P z v = e (v * d) := by
     rw [hP.fderiv]
     rfl

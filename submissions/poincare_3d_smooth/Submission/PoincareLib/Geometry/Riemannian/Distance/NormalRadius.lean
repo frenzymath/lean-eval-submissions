@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.Gauss.Manifold
 import Submission.PoincareLib.Geometry.Riemannian.Measure.HausdorffDensity.LocalDistance
 import Mathlib.Analysis.SpecialFunctions.Sqrt
@@ -109,7 +110,7 @@ theorem regularized_tangentNorm_mfderiv_le
     have hc := mfderiv_comp q
       (mdifferentiableAt_iff_differentiableAt.mpr hd.differentiableAt)
       (hediff.mdifferentiableAt_symm hq)
-    rw [mfderiv_eq_fderiv] at hc
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
     change _ = (fderiv ℝ (fun w : E => Real.sqrt (g.inner p w w + ε)) v).comp
       (mfderiv (𝓡 n) (𝓡 n) e.symm q) at hc
     rw [hd.fderiv] at hc

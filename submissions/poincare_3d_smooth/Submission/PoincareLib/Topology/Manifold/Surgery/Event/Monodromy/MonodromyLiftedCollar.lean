@@ -53,7 +53,7 @@ noncomputable def monodromyLiftedCollar (a : ℝ) (hwidth : 2 * a ≤ 1) :
   map_source' := fun _ hz => Set.mem_image_of_mem _ hz
   map_target' := fun {_} hq => monodromyStripInverse_mem phi (-a) a hq
   left_inv' := monodromyStripInverse_left phi (-a) a (by linarith)
-  right_inv' := fun _ hq => ULift.ext _ _ (monodromyStripInverse_right phi (-a) a hq)
+  right_inv' := fun _ hq => ULift.ext (monodromyStripInverse_right phi (-a) a hq)
   open_source := isOpen_univ.prod isOpen_Ioo
   open_target := ((monodromyStripChart phi (-a) a (by linarith)).open_target).preimage
     continuous_uliftDown
@@ -96,7 +96,7 @@ theorem monodromyLiftedCollar_central (a : ℝ) (hwidth : 2 * a ≤ 1) :
     change q.down ∈ monodromyZeroFiber phi at hq
     rw [← monodromyZeroFiber_range] at hq
     obtain ⟨z, hz⟩ := hq
-    exact ⟨(z, 0), ⟨Set.mem_univ _, rfl⟩, ULift.ext _ _ hz⟩
+    exact ⟨(z, 0), ⟨Set.mem_univ _, rfl⟩, ULift.ext hz⟩
 
 /-- The open unit strip covers exactly the complement of that same lifted central fiber. -/
 theorem monodromyLiftedCylinder_unit_image :
@@ -112,7 +112,7 @@ theorem monodromyLiftedCylinder_unit_image :
     change q.down ∈ (monodromyZeroFiber phi)ᶜ at hq
     rw [← monodromy_unit_strip_complement] at hq
     obtain ⟨z, hz, heq⟩ := hq
-    exact ⟨z, hz, ULift.ext _ _ heq⟩
+    exact ⟨z, hz, ULift.ext heq⟩
 
 /-- The original strip inverse of a lifted complement point lies in the same open unit strip. -/
 theorem monodromyLiftedStripInverse_mem (q : (monodromyCarrier.{u} phi).carrier)

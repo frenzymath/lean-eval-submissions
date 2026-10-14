@@ -69,8 +69,9 @@ theorem exists_smooth_short_curve
       (by linarith [ht.2] : t < 1 + ε / 2))
         (fun _ hu => heq (Ioo_subset_Icc_self hu))
   change g.tangentNorm (γ t) (mfderiv 𝓘(ℝ) (𝓡 n) γ t 1) ≤ R
-  rw [hnear.mfderiv_eq, hnear.self_of_nhds,
-    hC t ⟨by linarith [ht.1], by linarith [ht.2]⟩]
+  rw [hnear.mfderiv_eq, hnear.self_of_nhds]
+  change g.tangentNorm (η t) (mfderiv 𝓘(ℝ) (𝓡 n) η t 1) ≤ R
+  rw [hC t ⟨by linarith [ht.1], by linarith [ht.2]⟩]
   exact hCR.le
 
 end PoincareMT.RiemannianMetric

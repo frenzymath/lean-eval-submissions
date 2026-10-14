@@ -92,6 +92,7 @@ theorem openSubset_surgeryCoefficient {B : GeneralizedSliceCarrier.{u}}
     rw [S.openSubset_chart_inverse U q hw]
   simp only [surgeryMetricCoefficient, hnear.mfderiv_eq]
   rw [S.openSubset_chart_inverse U q hz]
+  rfl
 
 theorem openSubset_surgeryJets {B : GeneralizedSliceCarrier.{u}}
     (g : RiemannianMetric 3 B.carrier) (f : S.carrier → B.carrier)

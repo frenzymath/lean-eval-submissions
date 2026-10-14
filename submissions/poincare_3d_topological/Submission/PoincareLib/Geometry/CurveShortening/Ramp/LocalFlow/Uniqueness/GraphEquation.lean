@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Inner.ProductNormalConstraint
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.AmbientAcceleration
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.GraphComparison
@@ -79,7 +80,7 @@ theorem normalGraph_curvature_projection
     have hchain : fderiv ℝ f x =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e (q x t)).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun y => q y t) x) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hspace x).mdifferentiableAt (by norm_num))
     exact congrArg (fun L : ℝ →L[ℝ] W => L 1) hchain

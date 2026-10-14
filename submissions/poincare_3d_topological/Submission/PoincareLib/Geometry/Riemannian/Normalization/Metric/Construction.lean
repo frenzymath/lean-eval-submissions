@@ -21,6 +21,7 @@ The finite cutoff assembly is developed here from the frozen Mathlib APIs.
 -/
 
 set_option autoImplicit false
+set_option synthInstance.maxHeartbeats 100000
 
 open Bornology Bundle Manifold
 open scoped Manifold ContDiff Topology

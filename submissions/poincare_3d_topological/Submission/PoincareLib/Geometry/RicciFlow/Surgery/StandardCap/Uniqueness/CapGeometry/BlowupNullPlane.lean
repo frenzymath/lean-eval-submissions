@@ -98,8 +98,7 @@ theorem blowupSequence_far_tip_exists_null_plane
     intro heq
     have hzero : (E.flow.metric (t (L.subsequence k))).edist 0 (x (L.subsequence k)) = 0 := by
       rw [heq]
-      exact @edist_self StandardCapSpace
-        (E.flow.metric (t (L.subsequence k))).toEMetricSpace.toPseudoEMetricSpace 0
+      exact @edist_self StandardCapSpace _ (E.flow.metric (t (L.subsequence k))).toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0
     have hfalse := hk
     simp only [Function.comp_apply, hzero, ENNReal.toReal_zero, zero_mul,
       lt_self_iff_false] at hfalse

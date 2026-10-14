@@ -63,7 +63,7 @@ theorem radial_shape_le_inverse_tip_distance
     intro hx
     have hzero : g.edist 0 x = 0 := by
       rw [hx]
-      exact @edist_self StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace 0
+      exact @edist_self StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0
     simp only [hzero, ENNReal.toReal_zero, lt_self_iff_false] at hd
   have hr := norm_pos_iff.mpr hx
   have hs : 0 < radialArclength g ‖x‖ := by
@@ -99,7 +99,7 @@ theorem radial_shape_bound_on_ball
     intro hzero
     have hdistzero : g.edist 0 y = 0 := by
       rw [hzero]
-      exact @edist_self StandardCapSpace g.toEMetricSpace.toPseudoEMetricSpace 0
+      exact @edist_self StandardCapSpace _ g.toEMetricSpace.toPseudoEMetricSpace.toWeakPseudoEMetricSpace 0
     simp only [hdistzero, ENNReal.toReal_zero, lt_self_iff_false] at hypos
   obtain ⟨hnonneg, hbound⟩ :=
     radial_shape_le_inverse_tip_distance D hrotation P hsec hcomplete hypos

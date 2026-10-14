@@ -36,6 +36,20 @@ variable {n : ℕ} {M : Type u} [TopologicalSpace M] [T2Space M]
 
 local notation "E" => EuclideanSpace ℝ (Fin n)
 
+local instance localized_form_normedAddCommGroup (d : TensorHilbertNative.Data g) : NormedAddCommGroup d.Form :=
+  (firstOrderGraph d.fields d.charts.measure).normedAddCommGroup
+
+local instance localized_form_normedSpace (d : TensorHilbertNative.Data g) : NormedSpace ℝ d.Form :=
+  (firstOrderGraph d.fields d.charts.measure).normedSpace
+
+local instance localized_firstOrderAmbient_innerProductSpace (d : TensorHilbertNative.Data g) :
+    InnerProductSpace ℝ (FirstOrderAmbient d.fields d.charts.measure) :=
+  WithLp.instProdInnerProductSpace
+
+local instance localized_firstOrderGraph_innerProductSpace (d : TensorHilbertNative.Data g) :
+    InnerProductSpace ℝ (firstOrderGraph d.fields d.charts.measure) :=
+  Submodule.innerProductSpace (firstOrderGraph d.fields d.charts.measure)
+
 /-- The native scalar test cancels exactly the actual chart density. -/
 def densityTest (φ : 𝓢(E, ℝ)) (x : M) : ℝ :=
   L.weight a x * (φ (L.chart a x) / d.charts.chartDensity a.val.1.val (L.chart a x))

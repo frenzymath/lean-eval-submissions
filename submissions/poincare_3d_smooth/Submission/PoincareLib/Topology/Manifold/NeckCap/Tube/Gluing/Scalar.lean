@@ -45,9 +45,14 @@ theorem exists_scalar_collar_extension (h : RoundCylinderSpace → ℝ)
       hf.comp ((contMDiff_fst.comp contMDiff_fst).prodMk contMDiff_snd)
     have hd := ha.contMDiffAt.mfderiv a Prod.snd
       (contMDiff_snd.contMDiffAt (x := p)) (by simp : (∞ : ℕ∞ω) + 1 ≤ ∞)
+    have hm (z : RoundCylinderSpace) :
+        mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (a z) z.2 = fderiv ℝ (a z) z.2 := by
+      rw [mfderiv_eq_fderiv]
+      rfl
+    simp only [hm] at hd
     rw [inTangentCoordinates_model_space] at hd
     have hv := hd.clm_apply (contMDiffAt_const (c := (1 : ℝ)))
-    simpa only [mfderiv_eq_fderiv, fderiv_eq_deriv_mul, mul_one, a] using hv
+    simpa only [fderiv_eq_deriv_mul, mul_one, a] using hv
   let α : UnitTwoSphere → ℝ := fun q => deriv (fun t : ℝ => h (q, t)) 0
   let β : UnitTwoSphere → ℝ := fun q => h (q, 0)
   have hαpos (q : UnitTwoSphere) : 0 < α q := hpos q

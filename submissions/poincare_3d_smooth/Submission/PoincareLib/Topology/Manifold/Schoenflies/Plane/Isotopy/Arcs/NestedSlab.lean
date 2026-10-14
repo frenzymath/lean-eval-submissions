@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Nested.Matching
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Nested.UpperLevel.Circle
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Nested.Caps.Disks
@@ -1686,7 +1687,7 @@ private theorem planar_strip_geometry
         (ContinuousLinearMap.inl Real Real Real) s :=
       (hasFDerivAt_id s).prodMk (hasFDerivAt_const t s)
     have hpairder : Injective (mfderiv IR IR2 (fun y : Real => (y, t)) s) := by
-      rw [mfderiv_eq_fderiv, hpd.fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hpd.fderiv]
       intro x y hxy
       exact congrArg Prod.fst hxy
     have hk : ContMDiffAt IR (𝓡 2) ∞ k s :=
@@ -1698,7 +1699,7 @@ private theorem planar_strip_geometry
       rw [mfderiv_comp s (hFD.mdifferentiableAt hs) (hpair.mdifferentiable (by simp) s)]
       exact (hFD.mfderiv_bijective hs).1.comp hpairder
     have hfull : Injective (fderiv Real (g ∘ k) s) := by
-      rw [← mfderiv_eq_fderiv,
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model,
         mfderiv_comp s (hg.mdifferentiable (by simp) (k s)) (hk.mdifferentiableAt (by simp))]
       exact (hgd (k s)).comp hkd
     let q : Real → E2 := fun y => toE2 (G (F (y, t)))

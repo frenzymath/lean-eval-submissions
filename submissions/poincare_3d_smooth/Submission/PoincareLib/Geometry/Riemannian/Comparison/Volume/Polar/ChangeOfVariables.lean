@@ -72,6 +72,7 @@ private theorem volumeMeasure_image_eq_lintegral_in_chart
     exact e.right_inv hy
   simp only [pullbackVolumeDensity, hloc.mfderiv_eq]
   rw [hloc.eq_of_nhds]
+  rfl
 
 /-- An injective differentiable map on a measurable Euclidean set has
 intrinsic image volume equal to the integral of its pullback metric density. -/

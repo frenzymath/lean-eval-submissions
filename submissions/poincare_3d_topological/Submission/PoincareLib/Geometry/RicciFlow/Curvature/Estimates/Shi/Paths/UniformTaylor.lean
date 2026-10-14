@@ -65,7 +65,7 @@ private theorem iteratedFDeriv_slice_norm_le
   refine ((iteratedFDeriv ℝ k f (p, z)).norm_compContinuousLinearMap_le
     (fun _ => ContinuousLinearMap.inr ℝ P V)).trans ?_
   apply mul_le_of_le_one_right (norm_nonneg _)
-  exact Finset.prod_le_one (fun _ _ => norm_nonneg _)
+  exact Finset.prod_le_one₀ (fun _ _ => norm_nonneg _)
     (fun _ _ => ContinuousLinearMap.norm_inr_le_one ℝ P V)
 
 private theorem iteratedDeriv_line_eq

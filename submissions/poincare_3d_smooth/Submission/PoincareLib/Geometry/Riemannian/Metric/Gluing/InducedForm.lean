@@ -113,6 +113,8 @@ theorem mfderiv_localSection_rightInverse {q : M → N} {s : N → M} {y : N}
   have hEq : q ∘ s =ᶠ[𝓝 y] id := hsec
   have hd : mfderiv J J (q ∘ s) y = ContinuousLinearMap.id ℝ (TangentSpace J y) := by
     rw [hEq.mfderiv_eq, mfderiv_id]
+    ext v
+    rfl
   rw [mfderiv_comp y hq hs] at hd
   exact congrArg (fun L : TangentSpace J y →L[ℝ] TangentSpace J y => L u) hd
 

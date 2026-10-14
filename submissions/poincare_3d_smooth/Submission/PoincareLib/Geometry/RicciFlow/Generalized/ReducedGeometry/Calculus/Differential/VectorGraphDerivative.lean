@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Mathlib.Analysis.Calculus.Deriv.Basic
 
@@ -45,12 +46,12 @@ theorem vector_graph_hasDerivWithinAt (f : 𝕜 × M → F)
   have hderiv (g : 𝕜 → F) :
       mfderiv (𝓘(𝕜, 𝕜)) (𝓘(𝕜, F)) g s (1 : 𝕜) = deriv g s := by
     have hg := congrArg (fun L : 𝕜 →L[𝕜] F => L 1)
-      (mfderiv_eq_fderiv (𝕜 := 𝕜) (f := g) (x := s))
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (𝕜 := 𝕜) (f := g) (x := s))
     exact hg.trans fderiv_apply_one_eq_deriv
   have hwithin (g : 𝕜 → F) :
       mfderivWithin (𝓘(𝕜, 𝕜)) (𝓘(𝕜, F)) g J s (1 : 𝕜) = derivWithin g J s := by
     exact congrArg (fun L : 𝕜 →L[𝕜] F => L 1)
-      (mfderivWithin_eq_fderivWithin (𝕜 := 𝕜) (f := g) (s := J) (x := s))
+      (Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model (𝕜 := 𝕜) (f := g) (s := J) (x := s))
   dsimp only [Prod.fst, Prod.snd] at h
   rw [hwithin, hderiv] at h
   convert hcomp using 1 <;> first | rfl | exact h.symm

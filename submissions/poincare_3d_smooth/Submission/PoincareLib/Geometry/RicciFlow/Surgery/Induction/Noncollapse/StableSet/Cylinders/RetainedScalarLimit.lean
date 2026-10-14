@@ -46,12 +46,10 @@ theorem retained_scalar_eq_terminal
     let : FiniteDimensional ℝ (TangentSpace (𝓡 3) (f y)) := by
       unfold TangentSpace
       infer_instance
-    let : T2Space (TangentSpace (𝓡 3) y) := by
-      unfold TangentSpace
-      infer_instance
-    let : T2Space (TangentSpace (𝓡 3) (f y)) := by
-      unfold TangentSpace
-      infer_instance
+    let : T2Space (TangentSpace (𝓡 3) y) :=
+      (tangentSpaceCastModel (𝓡 3) y).toHomeomorph.isEmbedding.t2Space
+    let : T2Space (TangentSpace (𝓡 3) (f y)) :=
+      (tangentSpaceCastModel (𝓡 3) (f y)).toHomeomorph.isEmbedding.t2Space
     exact ⟨(LinearEquiv.ofBijective
       (mfderiv (𝓡 3) (𝓡 3) f y).toLinearMap hb).toContinuousLinearEquiv, rfl⟩
   have hleft := event.limit_identify.left_inverse

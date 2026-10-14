@@ -109,8 +109,11 @@ theorem hasMFDerivAt_inverse_chart_curve
   have hderiv := (hchange.comp_hasDerivAt t hu).congr_deriv hvelocity
   refine ⟨(continuousAt_extChartAt_symm'' htarget).comp hu.continuousAt, ?_⟩
   simp only [mfld_simps, hasFDerivWithinAt_univ]
-  simpa [q, extChartAt_coe, extChartAt_coe_symm, Function.comp_def,
-    smulRight_one_eq_toSpanSingleton] using hderiv.hasFDerivAt
+  convert hderiv.hasFDerivAt using 1
+  · simp [q, extChartAt_coe, extChartAt_coe_symm, Function.comp_def]
+  · simp only [smulRight_one_eq_toSpanSingleton]
+    ext v
+    rfl
 
 theorem exists_uniform_local_curves_at
     {V : (x : M) → TangentSpace I x} {p : M}

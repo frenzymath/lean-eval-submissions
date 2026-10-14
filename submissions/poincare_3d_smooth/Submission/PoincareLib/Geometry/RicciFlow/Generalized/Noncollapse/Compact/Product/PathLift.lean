@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.Noncollapse.Compact.Product.OrdinaryProduct
 import Submission.PoincareLib.Geometry.Spacetime.Interval.RealTime
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
@@ -83,7 +84,7 @@ theorem ordinaryProduct_backwardPath_lift
       hsub.differentiableAt.mdifferentiableAt.mdifferentiableWithinAt
     have hsubD : mfderivWithin 𝓘(ℝ) 𝓘(ℝ) (fun r : ℝ => T - r)
         (Ioo a b) s 1 = -1 := by
-      rw [mfderivWithin_eq_fderivWithin]
+      rw [Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
       simpa using! congrArg (fun A : ℝ →L[ℝ] ℝ => A 1)
         (hsub.hasFDerivAt.hasFDerivWithinAt.fderivWithin hu)
     have hαd : mfderiv 𝓘(ℝ) (𝓡∂ 1) α s 1 = -D.positiveTangent (α s) := by

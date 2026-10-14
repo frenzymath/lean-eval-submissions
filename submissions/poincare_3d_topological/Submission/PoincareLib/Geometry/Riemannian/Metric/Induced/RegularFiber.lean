@@ -90,7 +90,7 @@ theorem mfderiv_gradient_regularFiberMetric
   have h := mfderiv_gradient_comp_eq_starProjection (regularFiberMetric hf c hreg g) g
     ((contMDiff_fiber_val hf c hreg x).mdifferentiableAt (by simp))
     ((hφ (x : M)).mdifferentiableAt (by simp)) (regularFiberMetric_inner hf c hreg g x)
-  rw [range_mfderiv_fiber_val hf c hreg x,
+  simp only [range_mfderiv_fiber_val hf c hreg x,
     ker_mfderiv_pi_eq_orthogonal_span_gradients g (fun i y => f y i)
       (contMDiff_pi_space.mp hf) (x : M)] at h
   exact h

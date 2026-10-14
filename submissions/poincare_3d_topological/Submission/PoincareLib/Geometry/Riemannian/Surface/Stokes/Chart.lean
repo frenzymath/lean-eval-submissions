@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Surface.CurvatureDensity
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Area
 import Submission.PoincareLib.Geometry.Riemannian.Surface.Regularity
@@ -153,7 +154,7 @@ private theorem fderiv_chart_scalar
   rw [chartField_symm_apply e he hei hp]
   have h := congrArg (fun L => L v) (mvfderiv_comp p hf
     ((hei.contMDiffAt (e.open_target.mem_nhds hp)).mdifferentiableAt (by simp)))
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply] at h
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply] at h
   exact h
 
 /-- The scalar curvature times the signed coordinate frame determinant is

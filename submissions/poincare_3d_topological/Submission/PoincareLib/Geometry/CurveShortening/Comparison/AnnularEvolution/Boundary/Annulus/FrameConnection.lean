@@ -94,7 +94,7 @@ theorem annulus_chart_connection_log (A : M64Annulus g c0 c1)
   refine ⟨hrho, hconnection.trans ?_⟩
   change -fderiv ℝ (fun w => Real.log (lam w)) z I / 2 = _
   rw [hlog, annulusBoundaryLinear_I]
-  cases upper <;> simp only [P, rho, Bool.false_eq_true, if_false, if_true, map_neg,
+  cases upper <;> simp only [P, rho, Bool.false_eq_true, ite_false, ite_true, map_neg,
     neg_neg, one_mul, neg_one_mul]
 
 end PoincareMT.M64

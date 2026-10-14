@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection
 import Mathlib.Analysis.Calculus.ContDiff.Deriv
 import Mathlib.Analysis.Calculus.Deriv.Inverse
@@ -251,7 +252,7 @@ theorem exists_path_energy_reparam
       (div_pos hA (add_pos_of_nonneg_of_pos (pathSpeed_nonneg g γ _) hδ)).le
     have hθvalue : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (θ : ℝ → ℝ) t 1 =
         A / (pathSpeed g γ (θ t) + δ) := by
-      simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+      simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
         (hθder t).deriv
     have hvelocity : mfderiv 𝓘(ℝ, ℝ) (𝓡 n) η t 1 =
         (A / (pathSpeed g γ (θ t) + δ)) •

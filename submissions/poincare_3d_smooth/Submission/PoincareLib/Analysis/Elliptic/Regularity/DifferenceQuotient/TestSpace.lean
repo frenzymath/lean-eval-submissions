@@ -336,12 +336,13 @@ lemma denseRange_smoothCSSupportedInToLp
           (((volume : Measure E).restrict Ω'') (Ω'' \ K)) ^ ((1 : ℝ) / 2) := by
       have hp_ne_zero : (2 : ℝ≥0∞) ≠ 0 := by norm_num
       have hp_ne_top : (2 : ℝ≥0∞) ≠ ⊤ := by norm_num
-      rw [eLpNorm_indicator_const h_meas_diff hp_ne_zero hp_ne_top]
+      rw [eLpNorm_indicator_const h_meas_diff.nullMeasurableSet hp_ne_zero hp_ne_top]
       have h_two_toReal : ((2 : ℝ≥0∞) : ℝ≥0∞).toReal = 2 := by simp
       rw [h_two_toReal]
       rw [Real.enorm_eq_ofReal hBp_nn]
     refine le_trans ?_ (le_of_eq h_indicator_eLpNorm)
-    refine eLpNorm_mono_ae ?_
+    refine eLpNorm_mono_ae
+      (hg_smooth.continuous.aestronglyMeasurable.sub hg₀_smooth.continuous.aestronglyMeasurable) ?_
     refine h_pt_bd.mono ?_
     intro x hx
     have h_sub_apply : ((g : E → ℝ) - g₀) x = g x - g₀ x := rfl
@@ -399,7 +400,7 @@ lemma denseRange_smoothCSSupportedInToLp
           ((volume : Measure E).restrict Ω'') := by
         refine hg₀_smooth.continuous.aestronglyMeasurable.sub ?_
         exact (Lp.aestronglyMeasurable f)
-      exact eLpNorm_add_le h_aesm₁ h_aesm₂ (by norm_num : (1 : ℝ≥0∞) ≤ 2)
+      exact eLpNorm_add_le (by norm_num : (1 : ℝ≥0∞) ≤ 2)
     have h_meas_le :
         (((volume : Measure E).restrict Ω'') (Ω'' \ K)) ^ ((1 : ℝ) / 2) ≤
           (ENNReal.ofReal δ) ^ ((1 : ℝ) / 2) := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Poincare.Final.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Blowup.Controls.BlowupControlsCapNativeDerivative
 
@@ -52,7 +53,7 @@ theorem cap_covariantTensorDerivative_normal
     D.covariantTensorDerivative T x v at h
   rw [← h]
   unfold M04.covariantTensorDerivativeOnFields
-  simp only [X, mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace]
+  simp only [X, mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace]
   have hz (i : Fin r) : D.connection (fun _ : V => v i.succ) x (v 0) = 0 :=
     hzero (v 0) (v i.succ)
   simp only [hz]
@@ -83,7 +84,7 @@ theorem cap_metric_fderiv_normal
   have hpair := M04.metric_derivative_pairing D0 (fun _ : V => u) (x := x)
     (((normal_constant_field_smooth v).contMDiffAt (by simp)).mdifferentiableAt (by simp))
     (((normal_constant_field_smooth w).contMDiffAt (by simp)).mdifferentiableAt (by simp))
-  simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace] at hpair
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace] at hpair
   change fderiv ℝ (fun y => g0.inner y v w) x u =
     g0.inner x (D0.euclideanConnection u v x) w +
       g0.inner x v (D0.euclideanConnection u w x) at hpair

@@ -30,15 +30,15 @@ theorem m64_exists_join_with_variation
     constructor <;> linarith [ht.1, ht.2]
   have hleft : EqOn q (fun t => f (2 * t)) (Icc 0 (1 / 2)) := by
     intro t ht
-    exact if_pos ht.2
+    exact ite_eq_left ht.2
   have hright : EqOn q (fun t => g (2 * t - 1)) (Icc (1 / 2) 1) := by
     intro t ht
     rcases ht.1.eq_or_lt with heq | hlt
     · subst t
-      norm_num only [q, le_refl, if_true, mul_div_cancel₀, OfNat.ofNat_ne_zero,
+      norm_num only [q, le_refl, ite_true, mul_div_cancel₀, OfNat.ofNat_ne_zero,
         sub_self]
       exact hjoin
-    · exact if_neg (not_le_of_gt hlt)
+    · exact ite_eq_right (not_le_of_gt hlt)
   have hqc : ContinuousOn q (Icc 0 1) := by
     apply ContinuousOn.if
     · intro t ht
@@ -66,8 +66,8 @@ theorem m64_exists_join_with_variation
   refine ⟨q, hqc, by norm_num [q], by norm_num [q], ?_, ?_⟩
   · intro t ht
     by_cases h : t ≤ 1 / 2
-    · exact Or.inl ⟨2 * t, hl t ⟨ht.1, h⟩, (if_pos h).symm⟩
-    · exact Or.inr ⟨2 * t - 1, hr t ⟨(le_of_not_ge h), ht.2⟩, (if_neg h).symm⟩
+    · exact Or.inl ⟨2 * t, hl t ⟨ht.1, h⟩, (ite_eq_left h).symm⟩
+    · exact Or.inr ⟨2 * t - 1, hr t ⟨(le_of_not_ge h), ht.2⟩, (ite_eq_right h).symm⟩
   · have hsplit := eVariationOn.Icc_add_Icc q (s := univ)
       (by norm_num : (0 : ℝ) ≤ 1 / 2) (by norm_num : (1 / 2 : ℝ) ≤ 1) (mem_univ _)
     simp only [univ_inter] at hsplit

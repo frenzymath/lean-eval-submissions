@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Annular.NormalReturn
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Forward.BoundaryParameter
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Regional.NormalCalculus
@@ -72,7 +73,7 @@ theorem m64Intrinsic_no_transverse_inner_endpoint
       (x := !₂[a, height a]) (by
         simpa only [Matrix.cons_val_zero] using
           hmetric a hgood (height a) ⟨(hAnn a).1.le, le_rfl⟩)
-    simpa only [TangentSpace, mfderiv_eq_fderiv] using hi
+    simpa only [TangentSpace, Poincare.Compatibility.mfderiv_eq_fderiv_model] using hi
   have hterminal : LinearIndependent ℝ
       (![deriv (intrinsicAnnulusBoundary 1) b,
         deriv (fun t => e !₂[a, t]) (height a)] : Fin 2 → AnnulusCoordinates) := by

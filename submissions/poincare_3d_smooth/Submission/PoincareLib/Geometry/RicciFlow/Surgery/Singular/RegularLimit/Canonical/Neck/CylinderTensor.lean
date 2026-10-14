@@ -33,6 +33,7 @@ theorem GeneralizedRicciFlowData.roundCylinderPullback_of_point_eq
   simp only [roundCylinderPullback,
     hlocal.mfderiv_eq (I := (𝓡 2).prod 𝓘(ℝ, ℝ)) (I' := 𝓡 3)]
   erw [hlocal.self_of_nhds]
+  rfl
 
 namespace GeneralizedFlowCylinder
 

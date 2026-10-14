@@ -41,7 +41,7 @@ theorem exists_normalCoordinateMetrics (p : N.model.carrier) :
       (∀ y ∈ U, (mfderiv (𝓡 3) (𝓡 3) e y).IsInvertible) ∧
       (∀ y ∈ U, g₀.euclideanCoefficients y = N.model_metric.pullbackCoefficients e y) ∧
       (∀ y ∈ U, h.euclideanCoefficients y = N.normalizedMetric.pullbackCoefficients e y) ∧
-      g₀.euclideanCoefficients 0 = innerSL ℝ ∧
+      g₀.euclideanCoefficients 0 = innerSL ℝ (E := EuclideanSpace ℝ (Fin 3)) ∧
       CoordinateExponential.christoffelBilinear g₀.euclideanCoefficients 0 = 0 := by
   obtain ⟨e, he0, hep, he, hei, _hgauss, hzero, hΓ⟩ :=
     N.model_metric.exists_normalized_exponential_chart_firstJet p

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.Collar.HorizontalChart
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.Saddle.Global.Caps.Closing.Collar.TerminalProjection
 
@@ -163,14 +164,14 @@ theorem exists_actual_horizontal_projection_in_chart
         (hFloc.contMDiffAt.mdifferentiableAt (by simp))]
       apply (data.toTerminalSaddleGeometry.filledModel.mfderivToContinuousLinearEquiv
         (by simp) _).injective.comp
-      rw [mfderiv_eq_fderiv]
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact injective_fderiv_actualCapModelCoordinates data hg H i hqV.1
     have hi : Injective (mfderiv (𝓡 2) 𝓘(Real, E2 × Real) J q) := by
       rw [show J = D.symm ∘ A from rfl, mfderiv_comp q
         (hDloc.mdifferentiableAt (by simp))
         (hAloc.contMDiffAt.mdifferentiableAt (by simp))]
       exact (hDloc.mfderivToContinuousLinearEquiv (by simp)).injective.comp hAi
-    simpa only [mfderiv_eq_fderiv, TangentSpace] using hi
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using hi
   have hJnormal (x : E2) (hx : x ∈ V) : (J x).2 = ‖F x‖ - 1 := by
     have hh := hDn (D.symm (A x)) (D.map_target hx.2)
     have hi : D (D.symm (A x)) = A x := D.right_inv hx.2

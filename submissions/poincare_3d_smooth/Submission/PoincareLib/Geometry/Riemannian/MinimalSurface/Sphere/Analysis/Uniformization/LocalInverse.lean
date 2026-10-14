@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Analysis.Calculus.InverseFunctionTheorem.ContDiff
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
@@ -61,7 +62,7 @@ theorem exists_local_smooth_inverse_surface
       (by simpa only [c, extChartAt_source] using hcopen.mem_nhds (hUsub hy).2)).mdifferentiableAt
         (by simp)
     have hfy := (hf.contMDiffAt (hS.mem_nhds (hUsub hy).1)).mdifferentiableAt (by simp)
-    rw [← mfderiv_eq_fderiv]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change (mfderiv (𝓡 2) (𝓡 2) (c ∘ f) y).IsInvertible
     rw [mfderiv_comp y hcf hfy]
     exact (isInvertible_mfderiv_extChartAt (I := 𝓡 2) (hUsub hy).2).comp

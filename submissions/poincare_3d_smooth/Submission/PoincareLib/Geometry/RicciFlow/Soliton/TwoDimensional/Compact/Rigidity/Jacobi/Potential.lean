@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Soliton.TwoDimensional.Compact.Rigidity.Jacobi.NoInteriorZero
 
 /-!
@@ -29,7 +30,7 @@ theorem deriv_comp_eq_mvfderiv_velocity
     deriv (f ∘ γ) t = mvfderiv (𝓡 2) f (γ t)
       (mfderiv 𝓘(ℝ, ℝ) (𝓡 2) γ t 1) := by
   have hd := congrArg (fun L => L (1 : ℝ)) (mfderiv_comp t hf hγ)
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   change fderiv ℝ (f ∘ γ) t 1 = mvfderiv (𝓡 2) f (γ t)
     (mfderiv 𝓘(ℝ, ℝ) (𝓡 2) γ t 1) at hd
   simpa only [fderiv_eq_smul_deriv, one_smul] using hd

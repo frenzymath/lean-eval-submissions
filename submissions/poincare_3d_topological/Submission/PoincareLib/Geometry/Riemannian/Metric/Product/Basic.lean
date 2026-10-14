@@ -11,6 +11,7 @@ open Set
 open scoped Manifold ContDiff Bundle
 noncomputable section
 set_option autoImplicit false
+set_option synthInstance.maxHeartbeats 100000
 set_option backward.isDefEq.respectTransparency false
 
 namespace PoincareMT.RiemannianMetric

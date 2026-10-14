@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Harmonic.EpsilonRegularity.Basic
 import Mathlib.Analysis.Calculus.ParametricIntervalIntegral
 import Submission.PoincareLib.Analysis.Calculus.DividedDifferences
@@ -73,7 +74,7 @@ theorem m60HarmonicMap_stress_conservation (g : RiemannianMetric n M)
       have hh := mfderiv_comp x
         ((contMDiffAt_extChartAt' (x := φ p) (by simpa only [c, extChartAt_source] using hx)
           (n := ∞)).mdifferentiableAt (by simp)) ((hφ x).mdifferentiableAt (by simp))
-      rw [mfderiv_eq_fderiv] at hh
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hh
       exact congrArg (fun L => L (e k)) hh
     rw [hd i, hd j]
     exact ConjugateVariation.chartCoefficients_apply g (φ p) hx _ _

@@ -42,6 +42,8 @@ theorem map_nhds_eq_of_contMDiffAt_mfderiv_bijective {f : M → N} {x : M}
   have hderiv : mfderiv I J f x = fderiv ℝ f' (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [f', c, I.range_eq_univ]
+    ext v
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ f' (c x)) := by
     rwa [hderiv] at hbij
   let e := ContinuousLinearEquiv.ofBijective (fderiv ℝ f' (c x))

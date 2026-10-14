@@ -131,7 +131,7 @@ theorem roundCylinderTensorNormSquared_le {u : ℝ}
     rw [Finset.abs_prod]
     calc
       (∏ i, |(roundCylinderGram u c p)⁻¹ (a i) (b i)|) ≤ ∏ _i : Fin r, M :=
-        Finset.prod_le_prod (fun _ _ => abs_nonneg _) fun i _ => hinv _ _
+        Finset.prod_le_prod₀ (fun _ _ => abs_nonneg _) fun i _ => hinv _ _
       _ = M ^ r := by simp [Finset.prod_const, Finset.card_univ]
   have hterm (a b : Fin r → Fin 3) :
       |((∏ i, (roundCylinderGram u c p)⁻¹ (a i) (b i)) * T a * T b)| ≤

@@ -75,8 +75,8 @@ theorem exists_terminal_referenceChartBall_flow
     (fun z hz => by rcases mem_singleton_iff.mp hz with rfl; exact ht)
     (fun z hz => by rcases mem_singleton_iff.mp hz with rfl; exact hchart hx)).tendsto_at
       (mem_singleton _)
-  have hvalue := (continuous_eval_const
-    (0 : Fin 0 → ℝ × EuclideanSpace ℝ (Fin 3))).continuousAt.tendsto.comp hinterior
+  have hvalue := (ContinuousMultilinearMap.uniformContinuous_eval_const
+    (0 : Fin 0 → ℝ × EuclideanSpace ℝ (Fin 3))).continuous.continuousAt.tendsto.comp hinterior
   simp only [iteratedFDeriv_zero_apply] at hvalue
   have heq : B (t, (x : EuclideanSpace ℝ (Fin 3))) =
       (G.limitFlow.metric (t + 1)).pullbackCoefficients c.symm x :=

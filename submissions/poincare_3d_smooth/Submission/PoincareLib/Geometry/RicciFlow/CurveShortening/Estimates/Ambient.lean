@@ -65,7 +65,7 @@ theorem exists_uniform_tensor_bound
       hC (t, x) ⟨ht, mem_univ x⟩
   obtain ⟨A, hA⟩ := (hT t).1 x
   have hprod : (∏ i, (F.metric t).tangentNorm x (v i)) ≤ 1 :=
-    Finset.prod_le_one (fun i _ => Real.sqrt_nonneg _)
+    Finset.prod_le_one₀ (fun i _ => Real.sqrt_nonneg _)
       (fun i _ => hv i)
   calc
     |T t x v| ≤ (F.metric t).tensorNorm (T t) x *

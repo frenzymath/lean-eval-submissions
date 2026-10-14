@@ -96,7 +96,8 @@ theorem scalarDirectional_eq_zero_off_support (V : SmoothField (n := n) (M := M)
     {f : M → ℝ} {x : M} (hx : x ∉ tsupport f) : scalarDirectional V f x = 0 := by
   have hzero : f =ᶠ[𝓝 x] (fun _ => (0 : ℝ)) := notMem_tsupport_iff_eventuallyEq.mp hx
   unfold scalarDirectional
-  rw [hzero.mfderiv_eq, mfderiv_const, ContinuousLinearMap.zero_apply]
+  simp only [hzero.mfderiv_eq, mfderiv_const, ContinuousLinearMap.comp_zero,
+    ContinuousLinearMap.zero_apply]
 
 variable [CompactSpace M]
 

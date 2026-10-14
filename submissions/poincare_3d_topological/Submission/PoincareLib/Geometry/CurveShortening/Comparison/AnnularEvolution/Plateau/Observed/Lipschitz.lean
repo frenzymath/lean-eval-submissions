@@ -40,8 +40,10 @@ theorem m64_observation_edist_bound [CompactSpace M]
   have hnorm (q : M) (v : TangentSpace (𝓡 n) q) :
       (RiemannianMetric.euclideanMetric m).tangentNorm (e q)
         (mfderiv (𝓡 n) (𝓡 m) e q v) ≤ (B + 1) * g.tangentNorm q v := by
-    rw [RiemannianMetric.euclideanMetric_tangentNorm,
-      ← norm_tangentSpace_vectorSpace (x := e q)]
+    rw [RiemannianMetric.euclideanMetric_tangentNorm]
+    change ‖NormedSpace.fromTangentSpace (e q) (mfderiv (𝓡 n) (𝓡 m) e q v)‖ ≤
+      (B + 1) * g.tangentNorm q v
+    rw [← norm_tangentSpace_vectorSpace (x := e q)]
     change ‖mfderiv (𝓡 n) (𝓡 m) e q v‖ ≤ (B + 1) * ‖v‖
     exact ((mfderiv (𝓡 n) (𝓡 m) e q).le_opNorm v).trans
       (mul_le_mul_of_nonneg_right ((hbound q).trans (by linarith)) (norm_nonneg v))

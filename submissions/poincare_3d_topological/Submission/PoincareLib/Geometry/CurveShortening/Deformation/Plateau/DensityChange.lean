@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Width
 import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.Gram
@@ -72,7 +73,7 @@ theorem m65ParametrizedAreaDensity_comp (g : RiemannianMetric 3 M)
     change (A (B 0)) 0 * (A (B 1)) 1 - (A (B 1)) 0 * (A (B 0)) 1 = _
     ring
   rw [harea, harea]
-  simp only [mfderiv_comp z hf hφ.mdifferentiableAt, mfderiv_eq_fderiv]
+  simp only [mfderiv_comp z hf hφ.mdifferentiableAt, Poincare.Compatibility.mfderiv_eq_fderiv_model]
   change twoVectorArea (D (A (B 0))) (D (A (B 1))) =
     |A.det| * twoVectorArea (D (B 0)) (D (B 1))
   rw [hrep (A (B 0)), hrep (A (B 1)), twoVectorArea_change, hdet]

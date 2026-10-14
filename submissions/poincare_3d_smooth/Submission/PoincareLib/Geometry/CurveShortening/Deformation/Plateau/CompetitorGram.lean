@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Analysis.ChartJacobian
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Coefficients
 import Mathlib.Analysis.Calculus.FDeriv.Measurable
@@ -56,8 +57,10 @@ private theorem areaGram_eq_chart (g : RiemannianMetric n M) (p : M)
     exact chi.left_inv hx
   have hd : mfderiv (𝓡 2) (𝓡 n) f z =
       (mfderiv (𝓡 n) (𝓡 n) chi.symm (chi (f z))).comp (fderiv ℝ (chi ∘ f) z) := by
-    rw [← heq.mfderiv_eq, mfderiv_comp z hi hc, mfderiv_eq_fderiv]
-    rfl
+    have h := mfderiv_comp z hi hc
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
+    rw [heq.mfderiv_eq, heq.self_of_nhds] at h
+    exact h
   unfold m60AreaGram RiemannianMetric.pullbackCoefficients
   dsimp only
   rw [chi.left_inv hz]

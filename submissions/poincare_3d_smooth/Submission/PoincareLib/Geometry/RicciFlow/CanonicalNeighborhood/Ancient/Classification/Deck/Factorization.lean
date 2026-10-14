@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.Products
 import Submission.PoincareLib.Geometry.Riemannian.SpaceForm.RoundSphere
 import Submission.PoincareLib.Geometry.Manifold.MFDeriv.Zero
@@ -159,7 +160,7 @@ theorem factor_line_deriv_sq_of_calibrated_product
   let db : ℝ →L[ℝ] ℝ := mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) b z
   have hdb : db 1 = deriv b z := by
     dsimp only [db]
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
   change db 1 * db 1 = 1 * 1 at h
   rw [hdb] at h

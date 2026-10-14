@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Imports
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.CapGeometry.TipRicciIsotropy
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Uniqueness.Blowup.Neck.Jets.NeckMetricJets
@@ -64,7 +65,7 @@ theorem exists_tip_neck_metric_realization
     simpa only [U, mem_ofPred_eq, zero_add, p,
       ContinuousLinearEquiv.apply_symm_apply] using hs
   have hdshift (z : V) : mfderiv (𝓡 3) (𝓡 3) shift z = ContinuousLinearMap.id ℝ V := by
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact ((hasFDerivAt_id z).add_const p).fderiv
   have hshift : ContMDiff (𝓡 3) (𝓡 3) ∞ shift :=
     (contDiff_id.add contDiff_const).contMDiff

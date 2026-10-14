@@ -13,7 +13,6 @@ Morgan--Tian context: Lemma 19.15 and its annular area-to-energy construction, p
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -26,6 +25,11 @@ variable {n : ℕ} {M : Type*} [TopologicalSpace M]
   [ChartedSpace (EuclideanSpace ℝ (Fin n)) M] [IsManifold (𝓡 n) ∞ M]
 
 local notation "E" => EuclideanSpace ℝ (Fin n)
+
+local instance m64BoundaryCoefficients_dualGroup : NormedAddCommGroup (E →L[ℝ] ℝ) :=
+  ContinuousLinearMap.toNormedAddCommGroup
+local instance m64BoundaryCoefficients_dualSpace : NormedSpace ℝ (E →L[ℝ] ℝ) :=
+  ContinuousLinearMap.toNormedSpace
 
 local instance m64BoundaryCoefficients_bilinearGroup :
     NormedAddCommGroup (E →L[ℝ] E →L[ℝ] ℝ) :=
@@ -66,8 +70,41 @@ theorem m64ChartCoordinate_coefficient_bounds
   refine ⟨(hb _ hpK).trans (by have := le_max_right D 0; linarith), ?_, hpos _ hpK⟩
   exact (hD (mem_image_of_mem _ hpK)).trans (by have := le_max_left D 0; linarith)
 
-set_option maxHeartbeats 800000 in
--- The nested coefficient evaluations use both L-infinity and L2 Holder bounds.
+private theorem weighted_bilinear_flux_source_memLp
+    {mu : Measure LoopPlane} {G : LoopPlane → E →L[ℝ] E →L[ℝ] ℝ}
+    {D : LoopPlane → E →L[ℝ] E →L[ℝ] E →L[ℝ] ℝ}
+    {V : Fin 2 → LoopPlane → E} (modulus : ℝ)
+    (hGM : MemLp G ⊤ mu) (hDM : MemLp D ⊤ mu)
+    (hV : ∀ i, MemLp (V i) 2 mu) :
+    (∀ j : Fin n, ∀ i : Fin 2, MemLp
+      (fun p => (if i = 0 then modulus else modulus⁻¹) *
+        G p (V i p) (EuclideanSpace.single j 1)) 2 mu) ∧
+    ∀ j : Fin n, Integrable (fun p =>
+      -(modulus * D p (EuclideanSpace.single j 1) (V 0 p) (V 0 p) +
+        modulus⁻¹ * D p (EuclideanSpace.single j 1) (V 1 p) (V 1 p)) / 2) mu := by
+  have hGV (i : Fin 2) : MemLp (fun p => G p (V i p)) 2 mu :=
+    (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) («E» := E)).memLp_of_bilin
+      (p := 2) (q := ⊤) 2 (hV i) hGM
+  refine ⟨?_, ?_⟩
+  · intro j i
+    exact (((ContinuousLinearMap.apply ℝ ℝ («E» := E)) (EuclideanSpace.single j 1)
+      ).comp_memLp' (hGV i)).const_mul _
+  · intro j
+    have hDG : MemLp (fun p => D p (EuclideanSpace.single j 1)) ⊤ mu :=
+      (((ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) («E» := E))
+        (EuclideanSpace.single j 1)).comp_memLp' hDM)
+    have hquad (i : Fin 2) : Integrable (fun p =>
+        D p (EuclideanSpace.single j 1) (V i p) (V i p)) mu := by
+      have hfirst : MemLp (fun p =>
+          D p (EuclideanSpace.single j 1) (V i p)) 2 mu :=
+        (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) («E» := E)).memLp_of_bilin
+        (p := 2) (q := ⊤) 2 (hV i) hDG
+      exact memLp_one_iff_integrable.mp
+        ((ContinuousLinearMap.apply ℝ ℝ («E» := E)).memLp_of_bilin
+          (p := 2) (q := 2) 1 (hV i) hfirst)
+    exact (((hquad 0).const_mul modulus).add ((hquad 1).const_mul modulus⁻¹)).neg.div_const 2
+
+
 /-- The literal weighted chart flux is L2 and its metric-variation source is L1 for the
 original weak columns. Source: Morgan--Tian (2007), Lemma 19.15, pp. 447-449; local boundary
 analysis. Project derivation:
@@ -100,24 +137,6 @@ theorem m64WeightedChart_flux_source_memLp
     ((hD.mono ball_subset_closedBall).aestronglyMeasurable measurableSet_ball) C (by
       filter_upwards [ae_restrict_mem measurableSet_ball] with p hp
       exact (hbound p (ball_subset_closedBall hp)).2.1)
-  have hGV (i : Fin 2) : MemLp (fun p => G (u p) (V i p)) 2 mu :=
-    (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) («E» := E)).memLp_of_bilin
-      (p := 2) (q := ⊤) 2 (hV i) hGM
-  refine ⟨?_, ?_⟩
-  · intro j i
-    exact (((ContinuousLinearMap.apply ℝ ℝ («E» := E)) (EuclideanSpace.single j 1)
-      ).comp_memLp' (hGV i)).const_mul _
-  · intro j
-    have hDG : MemLp (fun p => fderiv ℝ G (u p) (EuclideanSpace.single j 1)) ⊤ mu :=
-      (((ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) («E» := E))
-        (EuclideanSpace.single j 1)).comp_memLp' hDM)
-    have hquad (i : Fin 2) : Integrable (fun p =>
-        fderiv ℝ G (u p) (EuclideanSpace.single j 1) (V i p) (V i p)) mu := by
-      have hfirst := (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) («E» := E)).memLp_of_bilin
-        (p := 2) (q := ⊤) 2 (hV i) hDG
-      exact memLp_one_iff_integrable.mp
-        ((ContinuousLinearMap.apply ℝ ℝ («E» := E)).memLp_of_bilin
-          (p := 2) (q := 2) 1 (hV i) hfirst)
-    exact (((hquad 0).const_mul modulus).add ((hquad 1).const_mul modulus⁻¹)).neg.div_const 2
+  exact weighted_bilinear_flux_source_memLp modulus hGM hDM hV
 
 end PoincareMT

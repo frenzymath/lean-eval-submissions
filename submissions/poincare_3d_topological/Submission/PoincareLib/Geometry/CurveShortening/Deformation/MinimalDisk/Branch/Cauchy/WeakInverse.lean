@@ -39,7 +39,7 @@ theorem cauchyOperator_weak_dbar_C1 {h : ℂ → ℂ} {R B : ℝ}
     hφL2.integrable_mul (Lp.memLp D0)
   have hi1 : Integrable (fun z => φ z * D1 z) :=
     hφL2.integrable_mul (Lp.memLp D1)
-  have hCi := continuous_cauchyOperator_of_bound hB hh.1 hs hb
+  have hCi := continuous_cauchyOperator_of_bound hB hh.aestronglyMeasurable hs hb
   have hit (v : ℂ) : Integrable (fun z => fderiv ℝ φ z v * cauchyOperator h z) := by
     have hD : Continuous (fun z => fderiv ℝ φ z v) :=
       (hφd.continuous_fderiv one_ne_zero).clm_apply continuous_const

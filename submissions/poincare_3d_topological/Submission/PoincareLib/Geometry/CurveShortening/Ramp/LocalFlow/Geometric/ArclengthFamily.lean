@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Continuous.ArclengthFamily
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Periodic.SmoothApproximation
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Analysis.Smooth.RetractionDifferentials
@@ -98,7 +99,7 @@ theorem exists_continuous_geometric_arclength_family
     have hchain : fderiv ℝ (f z) x =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e (gamma z x)).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (gamma z) x) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hC2 z x).mdifferentiableAt (by norm_num))
     exact congrArg (fun L : ℝ →L[ℝ] W => L 1) hchain

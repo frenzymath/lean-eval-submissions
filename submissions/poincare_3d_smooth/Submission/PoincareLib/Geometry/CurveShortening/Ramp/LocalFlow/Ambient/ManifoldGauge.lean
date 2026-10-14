@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Ambient.CurveCoefficients
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.LocalFlow.Uniqueness.AmbientAcceleration
 
@@ -59,7 +60,7 @@ theorem parabolic_gauge_of_ambient_equation (F : RicciFlow n M (Icc a b))
     have hc : fderiv ℝ (fun y => e (q y t)) x =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e p).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun y => q y t) x) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp x (he.mdifferentiable (by simp)).mdifferentiableAt
         ((hspace x).mdifferentiableAt (by norm_num))
     exact congrArg (fun D : ℝ →L[ℝ] W => D 1) hc
@@ -68,7 +69,7 @@ theorem parabolic_gauge_of_ambient_equation (F : RicciFlow n M (Icc a b))
     have hc : fderiv ℝ (fun s => e (q x s)) t =
         (mfderiv (𝓡 n) 𝓘(ℝ, W) e p).comp
           (mfderiv 𝓘(ℝ, ℝ) (𝓡 n) (fun s => q x s) t) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact mfderiv_comp t (he.mdifferentiable (by simp)).mdifferentiableAt htime
     exact congrArg (fun D : ℝ →L[ℝ] W => D 1) hc
   have hA : ambientCurvePrincipal F ρ t (e (q x t))

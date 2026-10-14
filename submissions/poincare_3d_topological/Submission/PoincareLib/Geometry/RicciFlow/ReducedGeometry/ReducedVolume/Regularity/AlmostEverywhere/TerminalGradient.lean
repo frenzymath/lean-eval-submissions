@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Regularity.Continuity.MinimizingLifts
 import Mathlib.Analysis.Calculus.LocalExtr.Basic
 
@@ -88,7 +89,7 @@ theorem reducedLength_differential_on_slice_range
       mvfderiv (𝓡 n) (fun q ↦ reducedLength F T p q τ) (G.gamma Z τ)
         (G.toLExponentialFamily.sliceDifferential Z τ W) := by
     have h := mfderiv_comp_apply Z hl hE W
-    rw [mfderiv_eq_fderiv] at h
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
     exact h
   rw [← hchain, heq]
   dsimp only [cost]

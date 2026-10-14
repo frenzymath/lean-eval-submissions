@@ -1,6 +1,8 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Manifold.Sard.RegularValue
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
+import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 
 open MeasureTheory Set
 open scoped ContDiff Manifold Topology
@@ -50,7 +52,7 @@ theorem manifold_criticalImage_null_of_euclidean
         obtain ⟨v, hv⟩ := hsurj z
         exact ⟨mfderiv 𝓘(ℝ, E) 𝓘(ℝ, E) e.symm (e x) v, hv⟩
       change ¬ Function.Surjective (fderiv ℝ g (e x))
-      rw [mfderiv_eq_fderiv] at hnot
+      rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hnot
       exact hnot
     · exact congrArg f (e.left_inv hxe)
   obtain ⟨S, hS, hcover⟩ := TopologicalSpace.countable_cover_nhds

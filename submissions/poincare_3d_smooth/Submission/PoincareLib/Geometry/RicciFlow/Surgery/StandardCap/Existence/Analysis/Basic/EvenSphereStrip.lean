@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Basic.EvenMapDeterminant
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Coordinates.SmoothRadialCoordinates
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
@@ -82,7 +83,7 @@ theorem not_even_sphere_strip_immersion
     have hcf := mfderiv_comp x ((hh x hx).mdifferentiableAt (by simp))
       ((hg x hx).mdifferentiableAt (by simp))
     change Function.Injective (fderiv ℝ (H ∘ g) x)
-    rw [← mfderiv_eq_fderiv, hcf]
+    rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model, hcf]
     apply (hinj (g x) (hstrip x hx)).comp
     change Function.Injective
       (mfderiv 𝓘(ℝ, E) ((𝓡 n).prod 𝓘(ℝ, ℝ))

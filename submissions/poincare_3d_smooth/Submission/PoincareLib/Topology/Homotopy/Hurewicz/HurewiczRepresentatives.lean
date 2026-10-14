@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Simplex.SimplexCompression
 import Submission.PoincareLib.Topology.Homotopy.Simplex.SimplexFamilyHomology
 import Submission.PoincareLib.Topology.Homotopy.Hurewicz.HurewiczAdditivity
@@ -136,7 +137,7 @@ theorem exists_quotient_integral_homology_representatives (X : TopCat.{w})
   refine ⟨f, hbase, ?_⟩
   have hs : (TopCat.toSSet.map f).app _ (genLoopSingularSimplex Q p0) =
       genLoopSingularSimplex X p := by
-    apply (X.toSSetObjEquiv _).injective
+    apply (X.toLegacySSetObjEquiv _).injective
     ext z
     change f0 (q ((Classical.choose (exists_stdSimplex_cube_pair_homeomorph (n + 1))) z)) =
       p ((Classical.choose (exists_stdSimplex_cube_pair_homeomorph (n + 1))) z)

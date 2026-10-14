@@ -113,6 +113,24 @@ variable [MeasurableSpace M] [BorelSpace M]
   {g : RiemannianMetric n M} (d : TensorHilbertNative.Data g)
   (L : FiniteChartLocalizationData d.charts) (a : L.patches)
 
+local instance form_normedAddCommGroup : NormedAddCommGroup d.Form :=
+  (firstOrderGraph d.fields d.charts.measure).normedAddCommGroup
+
+local instance form_normedSpace : NormedSpace ℝ d.Form :=
+  (firstOrderGraph d.fields d.charts.measure).normedSpace
+
+local instance symmetricForm_normedAddCommGroup : NormedAddCommGroup d.SymmetricForm :=
+  d.symmetricForm.normedAddCommGroup
+
+local instance symmetricValue_normedAddCommGroup : NormedAddCommGroup d.SymmetricValue :=
+  d.symmetricValue.normedAddCommGroup
+
+local instance symmetricForm_normedSpace : NormedSpace ℝ d.SymmetricForm :=
+  d.symmetricForm.normedSpace
+
+local instance symmetricValue_normedSpace : NormedSpace ℝ d.SymmetricValue :=
+  d.symmetricValue.normedSpace
+
 /-- A larger localization in the same chart is identically one on the smaller support. -/
 theorem exists_nested_localization :
     ∃ L' : FiniteChartLocalizationData d.charts, ∃ b : L'.patches,

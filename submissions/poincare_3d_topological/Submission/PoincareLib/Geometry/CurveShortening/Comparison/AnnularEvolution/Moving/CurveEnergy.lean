@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Annulus.SliceDifferential
 
 /-!
@@ -50,7 +51,7 @@ theorem m64TwoParameter_second_velocity_contMDiffAt
       (fun r : ℝ => (q.1, r)) q.2 := hline.differentiableAt.mdifferentiableAt
   have hder : mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ × ℝ)
       (fun r : ℝ => (q.1, r)) q.2 1 = (0, 1) := by
-    rw [mfderiv_eq_fderiv, hline.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.fderiv]
     rfl
   have hchain := mfderiv_comp_apply q.2
     ((hc.contMDiffAt (hO.mem_nhds hq)).mdifferentiableAt (by simp)) hlineM (1 : ℝ)

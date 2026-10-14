@@ -106,8 +106,6 @@ private theorem continuousOn_curvatureDerivative_heat_rhs
           (F.connection t).curvatureDerivativeNorm 0 x *
             ((F.connection t).curvatureDerivativeNorm 1 x) ^ 2) J := by
     convert (hcoef.mul hN0).mul hE1x using 1
-    ext t
-    simp only [Pi.mul_apply]
   exact (hLapx'.sub (continuousOn_const.mul hE2x)).add hprod
 
 theorem curvatureDerivative_heat_inequality

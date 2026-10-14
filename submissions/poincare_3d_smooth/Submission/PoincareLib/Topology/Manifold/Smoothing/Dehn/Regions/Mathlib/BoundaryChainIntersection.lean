@@ -52,8 +52,8 @@ theorem subcomplexTopCycles_inf_tetrahedron_boundaries (hAK : A ≤ K)
     (hconn : (tetrahedronGraph KA).Connected)
     (hboundaryCofaces : ∀ e : Edge AA, (triangleCofaces AA e).card = 2) :
     K.subcomplexTopCycles A hAK ⊓ LinearMap.range (triangleCoboundary KA).dualMap =
-      Submodule.span (ZMod 2) {markedTriangleChain KA
-        (fun t => t.val.map (Function.Embedding.subtype _) ∈ A.faces)} := by
+      Submodule.span (ZMod 2) ({(markedTriangleChain KA
+        (fun t => t.val.map (Function.Embedding.subtype _) ∈ A.faces))} : Set _) := by
   classical
   let B : Triangle KA → Prop := fun t =>
     t.val.map (Function.Embedding.subtype _) ∈ A.faces

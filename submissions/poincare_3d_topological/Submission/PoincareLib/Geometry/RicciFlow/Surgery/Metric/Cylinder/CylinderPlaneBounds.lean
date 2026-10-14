@@ -44,7 +44,7 @@ theorem euclideanThree_multilinear_apply_bound {r : ℕ}
       intro a _
       rw [Finset.abs_prod]
       apply mul_le_mul _ (hT a) (abs_nonneg _) (Finset.prod_nonneg fun _ _ => norm_nonneg _)
-      exact Finset.prod_le_prod (fun _ _ => abs_nonneg _) (fun j _ => hrepr a j)
+      exact Finset.prod_le_prod₀ (fun _ _ => abs_nonneg _) (fun j _ => hrepr a j)
     _ = _ := by
       simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fun,
         Fintype.card_fin, nsmul_eq_mul, Nat.cast_pow, Nat.cast_ofNat]

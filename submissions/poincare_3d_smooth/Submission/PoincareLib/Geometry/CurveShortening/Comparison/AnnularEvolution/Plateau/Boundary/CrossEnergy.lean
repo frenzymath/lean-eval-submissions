@@ -7,7 +7,6 @@ Morgan--Tian context: Lemma 19.15 and its annular area-to-energy construction, p
 -/
 
 set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
 
@@ -42,7 +41,7 @@ theorem column_pair_integrable
   have hprod : Integrable (fun p => ‖A.column i p‖ * ‖A.column j p‖) mu := by
     apply memLp_one_iff_integrable.mp
     convert! (show MemLp ((fun p => ‖A.column i p‖) * fun p => ‖A.column j p‖) 1 mu from
-      (Lp.memLp (A.column j)).norm.mul (Lp.memLp (A.column i)).norm) using 1
+      (Lp.memLp (A.column i)).norm.mul (Lp.memLp (A.column j)).norm) using 1
   apply (hprod.const_mul K).mono' hm
   filter_upwards [] with p
   calc

@@ -120,6 +120,8 @@ theorem tendsto_preterminal_scalar
   have hconv := tendsto_twoJet_of_surgeryMetricLimitOn event.metric_converges q hq
     hU hchart hregular hf hx
   have hscalar := (contDiffAt_jetScalarCurvature
+    (J := metricTwoJet
+      (event.limit_metric.pullbackCoefficients (event.limit_identify.map ∘ c.symm)) (c q))
     (event.limit_metric.isInvertible_pullbackCoefficients (hj (c q) hx).injective)).continuousAt
       |>.tendsto.comp hconv
   have hread (t : ℝ) := jetScalarCurvature_pullbackCoefficients

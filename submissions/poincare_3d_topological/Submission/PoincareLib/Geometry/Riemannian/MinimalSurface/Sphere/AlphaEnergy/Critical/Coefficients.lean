@@ -159,7 +159,7 @@ theorem flux_source_memLp (S : SUWeakAlphaCoordinate g b alpha f V center R) (ha
   have hcol (i : Fin 2) : MemLp (V i) pp mu := S.column_memLp i
   have hGcol (i : Fin 2) : MemLp (fun z => G (u z) (V i z)) pp mu :=
     (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
-      (p := pp) (q := ⊤) pp (hcol i) hG
+      (p := pp) (q := ⊤) (f := V i) (g := fun z => G (u z)) pp (hcol i) hG
   have hquad (i : Fin 2) :
       MemLp (fun z => G (u z) (V i z) (V i z)) aa mu := by
     have h := (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
@@ -183,7 +183,7 @@ theorem flux_source_memLp (S : SUWeakAlphaCoordinate g b alpha f V center R) (ha
   let A (z : LoopPlane) := 1 + Q z / suAlphaRoundFactor z
   have hA : MemLp A aa mu := by
     simpa only [A, div_eq_mul_inv, Pi.add_def] using
-      (memLp_const (1 : ℝ)).add (hInv.mul' hQ)
+      (memLp_const (1 : ℝ)).add (hQ.fun_mul hInv)
   obtain ⟨kappa, _, hk, _, hbounds⟩ := S.coefficient_bounds
   have hA0 : ∀ᵐ z ∂mu, 0 ≤ A z := by
     filter_upwards [ae_restrict_mem measurableSet_ball] with z hz
@@ -205,7 +205,7 @@ theorem flux_source_memLp (S : SUWeakAlphaCoordinate g b alpha f V center R) (ha
       (p := ⊤) (q := pp) pp he (hGcol i)
     have hprod : MemLp (fun z => 2 * alpha *
         (W z * G (u z) (V i z) (EuclideanSpace.single a 1))) qq mu :=
-      (hGi.mul' hW).const_mul (2 * alpha)
+      (hW.fun_mul hGi).const_mul (2 * alpha)
     simpa only [flux, W, A, Q, G, u, mul_assoc] using hprod
   · intro a
     change Integrable (fun z => S.sourceTerm a z) mu
@@ -222,7 +222,7 @@ theorem flux_source_memLp (S : SUWeakAlphaCoordinate g b alpha f V center R) (ha
       (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
         (p := pp) (q := pp) aa (hcol i) (hDGcol i)
     have hsum := memLp_finsetSum Finset.univ (fun i _ => hDQ i)
-    have hprod := memLp_one_iff_integrable.mp ((hsum.mul' hW).const_mul (-alpha))
+    have hprod := memLp_one_iff_integrable.mp ((hW.fun_mul hsum).const_mul (-alpha))
     simpa only [sourceTerm, W, A, Q, G, u, neg_mul, mul_assoc] using hprod
 
 set_option maxHeartbeats 800000 in
@@ -240,7 +240,7 @@ theorem flux_source_memLp_one (S : SUWeakAlphaCoordinate g b 1 f V center R) :
     simpa only [mul_one, ENNReal.ofReal_ofNat] using S.column_memLp i
   have hGcol (i : Fin 2) : MemLp (fun z => G (u z) (V i z)) 2 mu :=
     (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
-      (p := 2) (q := ⊤) 2 (hcol i) hG
+      (p := 2) (q := ⊤) (f := V i) (g := fun z => G (u z)) 2 (hcol i) hG
   constructor
   · intro a i
     change MemLp (fun z => S.flux a i z) 2 mu
@@ -547,7 +547,7 @@ theorem natural_integrability (S : SUWeakAlphaCoordinate g b alpha f V center R)
   have hcol (i : Fin 2) : MemLp (V i) pp mu := S.column_memLp i
   have hquad (i : Fin 2) : MemLp (fun z => G (u z) (V i z) (V i z)) aa mu := by
     have hGcol := (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
-      (p := pp) (q := ⊤) pp (hcol i) hG
+      (p := pp) (q := ⊤) (f := V i) (g := fun z => G (u z)) pp (hcol i) hG
     have hi := (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
       (p := pp) (q := pp) aa (hcol i) hGcol
     exact hi
@@ -569,7 +569,7 @@ theorem natural_integrability (S : SUWeakAlphaCoordinate g b alpha f V center R)
   let A (z : LoopPlane) := 1 + Q z / suAlphaRoundFactor z
   have hA : MemLp A aa mu := by
     simpa only [A, div_eq_mul_inv, Pi.add_def] using
-      (memLp_const (1 : ℝ)).add (hInv.mul' hQ)
+      (memLp_const (1 : ℝ)).add (hQ.fun_mul hInv)
   obtain ⟨kappa, _, hk, _, hbounds⟩ := S.coefficient_bounds
   have hA0 : ∀ᵐ z ∂mu, 0 ≤ A z := by
     filter_upwards [ae_restrict_mem measurableSet_ball] with z hz
@@ -585,8 +585,8 @@ theorem natural_integrability (S : SUWeakAlphaCoordinate g b alpha f V center R)
       ENNReal.toReal_ofReal (sub_nonneg.mpr ha)]
   refine ⟨hW, ?_⟩
   have hnormsq (i : Fin 2) : MemLp (fun z => ‖V i z‖ ^ 2) aa mu := by
-    simpa only [pow_two] using (hcol i).norm.mul' (hcol i).norm
-  exact memLp_one_iff_integrable.mp ((memLp_finsetSum _ (fun i _ => hnormsq i)).mul' hW)
+    simpa only [pow_two] using (hcol i).norm.fun_mul (hcol i).norm
+  exact memLp_one_iff_integrable.mp (hW.fun_mul (memLp_finsetSum _ (fun i _ => hnormsq i)))
 
 /-- One convex target neighborhood fixes all coefficient constants before
 the oscillation scale is chosen. Second metric derivatives control the
@@ -671,7 +671,7 @@ theorem canonical_integrability (S : SUWeakAlphaCoordinate g b alpha f V center 
     exact ⟨by field_simp; ring, hp0, hp0⟩)
   have hq : MemLp q pp mu := memLp_prod_iff.mpr ⟨S.column_memLp 0, S.column_memLp 1⟩
   have hsq : MemLp (fun z => ‖q z‖ ^ 2) aa mu := by
-    simpa only [pow_two] using hq.norm.mul' hq.norm
+    simpa only [pow_two] using hq.norm.fun_mul hq.norm
   have hQ : MemLp Q aa mu := (memLp_const (1 : ℝ)).add hsq
   have hW := (hQ.norm_rpow_div (ENNReal.ofReal (alpha - 1))).ae_eq
     (MeasureTheory.ae_of_all mu fun z => show ‖Q z‖ ^ (ENNReal.ofReal (alpha - 1)).toReal =

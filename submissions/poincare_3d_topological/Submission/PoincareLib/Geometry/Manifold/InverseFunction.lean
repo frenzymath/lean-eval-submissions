@@ -36,7 +36,9 @@ theorem map_nhds_eq_of_contMDiffAt_mfderiv_bijective {f : M → N} {x : M}
       (contMDiffAt_iff.mp (hf.of_le (by simp : (1 : ℕ∞ω) ≤ ∞))).2
   have hderiv : mfderiv (𝓡 n) (𝓡 n) f x = fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
-    simp [F, c]
+    simp [F, c, tangentSpaceCastModel, TangentSpace]
+    ext v
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ F (c x)) := by
     rwa [hderiv] at hbij
   let e := ContinuousLinearEquiv.ofBijective (fderiv ℝ F (c x))

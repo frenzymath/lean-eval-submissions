@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.IntrinsicComparison.Regional.TangentCoverage
 import Submission.PoincareLib.Geometry.Riemannian.Surface.GaussBonnet.Refinement.GeneralBoundaryFans
 
@@ -83,12 +84,12 @@ theorem m64Intrinsic_coordinate_corner_tangent_cone
   let J := fderiv ℝ F.symm (F (b 0))
   have hJL (v : AnnulusCoordinates) : J (L v) = v := by
     have h := hD.symm_comp_deriv hb0
-    simp only [mfderiv_eq_fderiv, TangentSpace] at h
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] at h
     exact congrArg (fun A : AnnulusCoordinates →L[ℝ] AnnulusCoordinates => A v) h
   have hLJ (v : AnnulusCoordinates) : L (J v) = v := by
     have h := hD.comp_symm_deriv hqt
     rw [F.left_inv hb0] at h
-    simp only [mfderiv_eq_fderiv, TangentSpace] at h
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] at h
     exact congrArg (fun A : AnnulusCoordinates →L[ℝ] AnnulusCoordinates => A v) h
   have hd (k : Fin 3) :
       fderiv ℝ (fun x => b.coord k (F.symm x)) (F (b 0)) w =

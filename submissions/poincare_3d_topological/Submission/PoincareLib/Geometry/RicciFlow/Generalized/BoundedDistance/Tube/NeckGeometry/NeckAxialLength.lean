@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Tube.IntrinsicGeometry.IntrinsicCompetitors
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Tube.NeckGeometry.NeckLengthComparison
@@ -52,7 +53,7 @@ theorem coordinate_path_axial_displacement_le_of_speed (N : EpsilonNeck g)
       derivWithin (fun u => (η u).2) (Icc (0 : ℝ) 1) t =
         (mfderivWithin 𝓘(ℝ, ℝ) ((𝓡 2).prod 𝓘(ℝ, ℝ))
           η (Icc (0 : ℝ) 1) t 1).2 := by
-    rw [← fderivWithin_derivWithin, ← mfderivWithin_eq_fderivWithin]
+    rw [← fderivWithin_derivWithin, ← Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model]
     change mfderivWithin 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (Prod.snd ∘ η)
       (Icc (0 : ℝ) 1) t 1 = _
     rw [mfderiv_comp_mfderivWithin t mdifferentiableAt_snd

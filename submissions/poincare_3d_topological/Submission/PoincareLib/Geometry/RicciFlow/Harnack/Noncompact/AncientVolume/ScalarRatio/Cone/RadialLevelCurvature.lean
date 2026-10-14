@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.RadialLevel
 import Submission.PoincareLib.Geometry.Riemannian.Connection.Construction
 import Submission.PoincareLib.Geometry.Manifold.ContDiff.Extension
@@ -59,7 +60,7 @@ theorem curvatureTensor_eq_one_of_radial_level_immersion
     have hchain := mvfderiv_comp_apply y
       ((hf (F y)).mdifferentiableAt (by simp)) hFmd a
     rw [Poincare.mvfderiv_eq_of_eventuallyEq heq, mvfderiv_const] at hchain
-    rw [mfderiv_eq_fderiv] at hchain
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
     rw [LeviCivitaData.levelUnitNormal]
     simp only [map_smul, smul_apply, smul_eq_mul]
     rw [D.inner_gradient]
@@ -158,7 +159,7 @@ theorem regularLevel_curvatureTensor_eq_one (c : ℝ) :
     have hderiv (v : E n) : fderiv ℝ F s v =
         mfderiv (𝓡 n) (𝓡 (n + 1)) ι (C.symm s)
           (mfderiv (𝓡 n) (𝓡 n) C.symm s v) := by
-      rw [← mfderiv_eq_fderiv]
+      rw [← Poincare.Compatibility.mfderiv_eq_fderiv_model]
       exact congrArg (fun A => A v) hchain
     rw [hs, hderiv, hderiv]
     rfl

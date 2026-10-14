@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Predecessors.Necks.Geometry.AmbientScalar
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Predecessors.Necks.Geometry.ModelMetric
@@ -111,7 +112,7 @@ theorem euclideanParametrization_mfderiv_axial (N : EpsilonNeck g)
     contMDiff_const.prodMk (contMDiff_const.add contMDiff_id)
   have hcder : mfderiv 𝓘(ℝ, ℝ) ((𝓡 2).prod 𝓘(ℝ, ℝ)) c 0 1 = (0, 1) := by
     rw [mfderiv_prodMk mdifferentiableAt_const hline.differentiableAt.mdifferentiableAt,
-      mfderiv_const, mfderiv_eq_fderiv, hline.fderiv]
+      mfderiv_const, Poincare.Compatibility.mfderiv_eq_fderiv_model, hline.fderiv]
     rfl
   have hcomp : N.euclideanParametrization q s ∘ L = N.coordinate_map ∘ c := by
     funext t

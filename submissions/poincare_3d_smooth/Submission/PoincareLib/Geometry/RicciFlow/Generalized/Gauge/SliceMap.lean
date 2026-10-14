@@ -61,6 +61,8 @@ private theorem exists_smooth_local_left_inverse
   have hderiv : mfderiv (𝓡 n) (𝓡 n) f x = fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [F, c]
+    ext v
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ F (c x)) := by
     rwa [hderiv] at hbij
   let e := ContinuousLinearEquiv.ofBijective (fderiv ℝ F (c x))
@@ -119,6 +121,8 @@ private theorem exists_smooth_local_left_inverse_model
       fderiv ℝ F (c x) := by
     rw [mfderiv, if_pos (hf.mdifferentiableAt (by simp))]
     simp [F, c]
+    ext v
+    rfl
   have hFbij : Function.Bijective (fderiv ℝ F (c x)) := by
     rwa [hderiv] at hbij
   let e := ContinuousLinearEquiv.ofBijective (fderiv ℝ F (c x))
@@ -302,6 +306,8 @@ private theorem movingGaugeSliceMap_contMDiffAt
         (extChartAt (spacetimeModel n) p q.val) = P := by
       rw [mfderiv, if_pos (hPcont.mdifferentiableAt (by simp))]
       simp [ContinuousLinearMap.fderiv]
+      ext v
+      rfl
     have hbase :
         (extChartAt (spacetimeModel n) p ∘
             (Subtype.val : (S t.val).Point → F.Point)) q =

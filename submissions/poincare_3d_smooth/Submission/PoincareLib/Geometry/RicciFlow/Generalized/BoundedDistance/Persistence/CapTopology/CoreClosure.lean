@@ -41,7 +41,11 @@ private lemma mfderiv_eq_zero_at_local_min {f : M → ℝ} {x : M}
         f ((extChartAt (𝓡 3) x).symm z)
     simpa only [extChartAt_to_inv] using htend.eventually hmin
   rw [hf.mfderiv]
-  simpa [writtenInExtChartAt, chartAt_self_eq] using hchart.fderiv_eq_zero
+  have hzero : fderiv ℝ (writtenInExtChartAt (𝓡 3) 𝓘(ℝ, ℝ) x f)
+      ((extChartAt (𝓡 3) x) x) = 0 := by
+    simpa [writtenInExtChartAt, chartAt_self_eq] using hchart.fderiv_eq_zero
+  simp only [writtenInExtChartAt, chartAt_self_eq] at hzero
+  simpa [hzero]
 
 /-- A frozen cap has no thin closed-core part: its actual closed core is
 the closure of its actual interior core (Definition 9.72, pp. 230-231;

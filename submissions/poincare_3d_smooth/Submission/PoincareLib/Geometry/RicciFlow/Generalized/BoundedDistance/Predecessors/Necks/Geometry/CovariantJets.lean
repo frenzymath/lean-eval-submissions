@@ -69,7 +69,7 @@ theorem m25_abs_normalized_pullback_covariant_component_center_le
   simp only [componentMultilinearMap_basis] at h
   have hprod : (∏ i : Fin (2 + k), ‖b (a i)‖) ≤ (2 : ℝ) ^ (2 + k) := by
     calc
-      _ ≤ ∏ _i : Fin (2 + k), (2 : ℝ) := Finset.prod_le_prod
+      _ ≤ ∏ _i : Fin (2 + k), (2 : ℝ) := Finset.prod_le_prod₀
         (fun _ _ => norm_nonneg _) (fun i _ =>
           norm_roundCylinderChartBasis_center_le_two q s (a i))
       _ = _ := by simp

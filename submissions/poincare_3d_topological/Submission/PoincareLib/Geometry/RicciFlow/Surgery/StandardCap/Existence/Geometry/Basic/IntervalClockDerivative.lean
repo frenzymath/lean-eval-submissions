@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Spacetime.Interval.RealTime
 
 /-!
@@ -29,7 +30,7 @@ theorem realParam_comp_mfderivWithin_one {I : SpacetimeInterval}
     (D.realParam_smoothOn.mdifferentiableOn (by simp) _ (hmap hs))
     hc.hasFDerivWithinAt.hasMFDerivWithinAt.mdifferentiableWithinAt
     hmap hA.uniqueMDiffWithinAt
-  rw [D.realParam_mfderivWithin (hmap hs), mfderivWithin_eq_fderivWithin,
+  rw [D.realParam_mfderivWithin (hmap hs), Poincare.Compatibility.mfderivWithin_eq_fderivWithin_model,
     hc.hasFDerivWithinAt.fderivWithin hA] at hd
   have hv := congrArg (fun L : ℝ →L[ℝ] EuclideanSpace ℝ (Fin 1) => L 1) hd
   change mfderivWithin (𝓘(ℝ, ℝ)) (𝓡∂ 1) (fun r => D.realParam (c r)) A s 1 =

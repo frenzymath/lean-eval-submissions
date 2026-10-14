@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 /- Adapted from Mapher `PoincareMT/Proofs/M03/FamilyTangentTimeDerivative.lean` at
 f927d9e1f0810042766d3b5f64d3f4da02ee93cc. See
 `references/ricci-flow/mapher/local-theory/port.json`. -/
@@ -93,7 +94,10 @@ theorem family_tangent_time_derivative
   have hcoordDeriv : ContMDiffAt (𝓡 n) 𝓘(ℝ, EuclideanSpace ℝ (Fin n)) ∞
       (fun y => deriv (fun s => C (s, y)) t) x := by
     have hh := hpartial.clm_apply (contMDiffAt_const (c := (1 : ℝ)))
-    simpa only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using hh
+    convert hh using 1
+    funext y
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv]
+    rfl
   have hcoordDot : ContMDiffAt (𝓡 n) 𝓘(ℝ, EuclideanSpace ℝ (Fin n)) ∞
       (fun y => (e (Bundle.TotalSpace.mk' (EuclideanSpace ℝ (Fin n)) y (dotV y))).2) x := by
     apply hcoordDeriv.congr_of_eventuallyEq

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Curvature.StandardCapSectional
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Metric.Standard.Radial.RadialCompleteness
 import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Calculus.Tensors.RiemannRegularity
@@ -240,7 +241,7 @@ private theorem warp_radial_numerator (g₀ : StandardInitialMetric) {r : ℝ} (
   have hDV := g₀.connection.normalization_mvfderiv_inner Y V X
     ((hV.contMDiffAt (x := x) (by simp)).mdifferentiableAt (by simp))
     ((hX x).mdifferentiableAt (by simp))
-  simp only [mvfderiv, mfderiv_eq_fderiv, ContinuousLinearMap.comp_apply,
+  simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.comp_apply,
     NormedSpace.fromTangentSpace] at hDW hDV
   change fderiv ℝ (fun y => g₀.metric.inner y (W y) v) x v =
     g₀.metric.inner x (g₀.connection.connection W x v) v +

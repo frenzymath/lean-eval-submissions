@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Analysis.Derivative.Kernel
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Comparison.Smoothing.Charts.Distance
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.Compatibility.Comparison
@@ -68,7 +69,7 @@ theorem mfderiv_apply_eq_zero_of_increment_bound {f : E → G} {h : E → M}
     have hchain : fderiv ℝ (n ∘ h) x v = mfderiv 𝓘(ℝ, E) 𝓘(ℝ, F) h x v := by
       have hc := M40.normalizedSmoothChart_mfderiv_apply e he hx
         (mfderiv 𝓘(ℝ, E) 𝓘(ℝ, F) h x v)
-      rw [← mfderiv_comp_apply x hnd hd, mfderiv_eq_fderiv] at hc
+      rw [← mfderiv_comp_apply x hnd hd, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hc
       exact hc
     rw [← hchain]
     exact fderiv_apply_eq_zero_of_increment_bound hf hb hv

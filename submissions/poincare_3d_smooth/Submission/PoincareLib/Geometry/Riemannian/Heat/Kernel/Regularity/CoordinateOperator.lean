@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Analysis.Elliptic.Regularity.InteriorEstimates.Operators.Basic
 import Submission.PoincareLib.Geometry.Riemannian.Elliptic.Dirichlet.Coefficients
 import Submission.PoincareLib.Geometry.Riemannian.Elliptic.Dirichlet.ClassicalEquation
@@ -135,7 +136,7 @@ theorem coordinateGradientFlux_eq_sum
     rw [hA.self_apply_inverse, D.inner_gradient]
     have h := congrArg (fun L => L v) (mvfderiv_comp x
       (hu.mdifferentiableAt (by simp)) (hD.mdifferentiableAt hx))
-    simp only [mvfderiv, mfderiv_eq_fderiv, NormedSpace.fromTangentSpace,
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model, NormedSpace.fromTangentSpace,
       ContinuousLinearMap.comp_apply] at h
     exact h.symm
   have hgrad' := congrArg (g.pullbackCoefficients e x).inverse hgrad

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Tube.Gluing.Scalar
 import Mathlib.Analysis.Normed.Module.Connected
 import Mathlib.Topology.Order.IntermediateValue
@@ -38,7 +39,7 @@ theorem exists_scalar_collar_extension_of_nonzero (h : RoundCylinderSpace → �
       (contMDiffAt_const (x := q)) (by simp : (∞ : ℕ∞ω) + 1 ≤ ∞)
     rw [inTangentCoordinates_model_space] at hd
     have hv := hd.clm_apply (contMDiffAt_const (c := (1 : ℝ)))
-    simpa only [mfderiv_eq_fderiv, fderiv_eq_deriv_mul, mul_one, α] using hv
+    simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_eq_deriv_mul, mul_one, α] using hv
   have hrank : 1 < Module.rank ℝ (EuclideanSpace ℝ (Fin 3)) := by
     rw [← Module.finrank_eq_rank]
     norm_num

@@ -167,7 +167,7 @@ variable {X E F : Type*} [MeasurableSpace X] [NormedAddCommGroup E]
 
 private theorem memLp_pair {u : X → E} {v : X → F}
     (hu : MemLp u q mu) (hv : MemLp v q mu) : MemLp (fun z => (u z, v z)) q mu :=
-  (hu.norm.add hv.norm).of_le (hu.1.prodMk hv.1) (Eventually.of_forall fun z => by
+  (hu.norm.add hv.norm).of_le (hu.aestronglyMeasurable.prodMk hv.aestronglyMeasurable) (Eventually.of_forall fun z => by
     simp only [Prod.norm_def, Pi.add_apply, Real.norm_of_nonneg (add_nonneg
       (norm_nonneg _) (norm_nonneg _))]
     exact max_le_add_of_nonneg (norm_nonneg _) (norm_nonneg _))
@@ -184,12 +184,15 @@ private theorem strong_pair {u : ℕ → X → E} {v : ℕ → X → F}
       eLpNorm (u j - u0) q mu + eLpNorm (v j - v0) q mu := by
     calc
       _ ≤ eLpNorm (fun z => ‖u j z - u0 z‖ + ‖v j z - v0 z‖) q mu :=
-        eLpNorm_mono (fun z => by
+        eLpNorm_mono
+          (show AEStronglyMeasurable (fun z => (u j z, v j z) - (u0 z, v0 z)) mu from
+            ((hu j).prodMk (hv j)).sub (hu0.prodMk hv0)) (fun z => by
           rw [Real.norm_of_nonneg (by positivity), Prod.norm_def]
           exact max_le_add_of_nonneg (norm_nonneg _) (norm_nonneg _))
       _ ≤ _ := by
-        have hh := eLpNorm_add_le ((hu j).sub hu0).norm ((hv j).sub hv0).norm hq
-        rw [eLpNorm_norm, eLpNorm_norm] at hh
+        have hh := eLpNorm_add_le (μ := mu) (f := fun z => ‖(u j - u0) z‖)
+          (g := fun z => ‖(v j - v0) z‖) hq
+        rw [eLpNorm_norm _ ((hu j).sub hu0), eLpNorm_norm _ ((hv j).sub hv0)] at hh
         convert! hh using 1
   exact tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds
     (by simpa only [add_zero] using hlu.add hlv) (fun _ => bot_le) hb
@@ -207,7 +210,7 @@ private theorem strong_of_uniform [IsFiniteMeasure mu]
     have heps' : 0 < eps.toReal := ENNReal.toReal_pos heps.ne' ht
     obtain ⟨N, hN⟩ := eventually_atTop.mp (Metric.tendstoUniformly_iff.mp hlim eps.toReal heps')
     refine ⟨N, fun j hj => ?_⟩
-    rw [eLpNorm_exponent_top]
+    rw [eLpNorm_exponent_top ((hu j).sub hu0)]
     have hh := eLpNormEssSup_le_of_ae_bound (μ := mu)
       (Eventually.of_forall fun z => show ‖(u j - u0) z‖ ≤ eps.toReal from by
         rw [Pi.sub_apply, ← dist_eq_norm, dist_comm]
@@ -376,12 +379,12 @@ theorem suAlpha_attained_local_minimum [CompactSpace M] [T2Space M]
   have hdLp : Tendsto (fun j => eLpNorm (fun z =>
       suAlphaDerivativePair (u j) z - (V 0 z, V 1 z)) q mu) atTop (𝓝 0) :=
     strong_pair hq (fun j => ((hpair j).fst).aestronglyMeasurable)
-      (fun j => ((hpair j).snd).aestronglyMeasurable) (hVp 0).1 (hVp 1).1
+      (fun j => ((hpair j).snd).aestronglyMeasurable) (hVp 0).aestronglyMeasurable (hVp 1).aestronglyMeasurable
         ((hstrong 0).comp hk.tendsto_atTop) ((hstrong 1).comp hk.tendsto_atTop)
   have hWLp : Tendsto (fun j => eLpNorm (W j - state) q mu) atTop (𝓝 0) :=
     strong_pair hq (fun j => (hu j).continuous.aestronglyMeasurable)
       (fun j => (hpair j).aestronglyMeasurable) hu0.aestronglyMeasurable
-        ((hVp 0).1.prodMk (hVp 1).1) huLp hdLp
+        ((hVp 0).aestronglyMeasurable.prodMk (hVp 1).aestronglyMeasurable) huLp hdLp
   refine ⟨e, r, r0, fun i z => V i z, he, hr, hr0, hKt, fun z hz =>
     ⟨(hlocal z hz).1, (hlocal z hz).2.1⟩, hVp, htest, ?_⟩
   intro phi hphi hcompact hsub

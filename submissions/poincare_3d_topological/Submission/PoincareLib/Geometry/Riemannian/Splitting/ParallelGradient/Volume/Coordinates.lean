@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Splitting.ParallelGradient.ProductIsometry
 import Submission.PoincareLib.Geometry.Riemannian.Measure.Density
 import Submission.PoincareLib.Analysis.InnerProductSpace.Coordinates.FinSucc
@@ -117,14 +118,14 @@ theorem mfderiv_productVolumeChart
   congr 1
   apply Prod.ext
   · change mfderiv (𝓡 (n + 1)) (𝓡 n) (c ∘ euclideanTail) x v = _
-    erw [mfderiv_comp_apply x hc ht, mfderiv_eq_fderiv]
+    erw [mfderiv_comp_apply x hc ht, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     change mfderiv (𝓡 n) (𝓡 n) c (euclideanTail x)
       (fderiv ℝ (euclideanTailProjectionCLM n) x v) = _
     rw [(euclideanTailProjectionCLM n).fderiv]
     rfl
   · change mfderiv (𝓡 (n + 1)) 𝓘(ℝ, ℝ)
       (PiLp.proj (𝕜 := ℝ) 2 (fun _ : Fin (n + 1) => ℝ) 0) x v = _
-    rw [mfderiv_eq_fderiv, ContinuousLinearMap.fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, ContinuousLinearMap.fderiv]
     rfl
 
 variable [IsManifold (𝓡 n) ∞ N] [IsManifold (𝓡 (n + 1)) ∞ M]

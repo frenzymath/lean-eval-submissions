@@ -1,3 +1,5 @@
+import Submission.PoincareLib.Compatibility.Tangent
+import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Compactness.Boundedness.Geometry.Smoothing.ComponentDiameter.Euclidean
 import Mathlib.Geometry.Manifold.MFDeriv.Atlas
 import Mathlib.Geometry.Manifold.MFDeriv.FDeriv
@@ -99,7 +101,7 @@ theorem mfderiv_eq_zero_of_coordinate_critical_point
     (hzero : fderiv ℝ (f ∘ e.symm) x = 0) :
     mfderiv I₃ 𝓘(ℝ, ℝ) f (e.symm x) = 0 := by
   have hcomp := mfderiv_comp x hf hei
-  rw [mfderiv_eq_fderiv, hzero] at hcomp
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model, hzero] at hcomp
   have hinv : (e.symm ∘ e) =ᶠ[𝓝 (e.symm x)] id := by
     filter_upwards [e.open_source.mem_nhds (e.map_target hx)] with y hy
     exact e.left_inv hy

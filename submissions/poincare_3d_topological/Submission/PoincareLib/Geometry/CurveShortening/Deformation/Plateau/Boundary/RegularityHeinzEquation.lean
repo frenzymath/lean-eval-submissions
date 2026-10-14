@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.RegularityTransverse
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.RegularityHeinzChart
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Plateau.Boundary.RegularityConformalChart
@@ -88,7 +89,7 @@ private theorem straight_metric_compact_bounds
     change 0 < g.inner (E.symm (E y))
       (mfderiv (𝓡 3) (𝓡 3) E.symm (E y) v) (mfderiv (𝓡 3) (𝓡 3) E.symm (E y) v)
     apply g.pos
-    rw [mfderiv_eq_fderiv]
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     intro hz
     have hh := straight_inverse_derivative E.symm hEs hE (E.map_source (hKS hy)) v
     have hz' : fderiv ℝ E.symm (E y) v = 0 := by simpa +instances only using! hz
@@ -228,7 +229,7 @@ theorem straight_harmonic_transverse_growth
   have hG (a c : LoopAmbient) : G a c = g.inner (H z)
       (fderiv ℝ E.symm (E (H z)) a) (fderiv ℝ E.symm (E (H z)) c) := by
     simp +instances only [G, RiemannianMetric.pullbackCoefficients,
-      ContinuousLinearMap.bilinearComp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.bilinearComp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     convert! congrArg (fun y : LoopAmbient => g.euclideanCoefficients y
       (fderiv ℝ E.symm (E (H z)) a) (fderiv ℝ E.symm (E (H z)) c)) (E.left_inv hs) using 1
   have hcols (i k : Fin 2) : G (w i) (w k) = g.inner (H z) (v i) (v k) := by
@@ -437,7 +438,7 @@ theorem straight_metric_data (g : RiemannianMetric 3 LoopAmbient)
       G z v w = g.inner (H z) (fderiv ℝ E.symm (E (H z)) v)
         (fderiv ℝ E.symm (E (H z)) w) := by
     simp +instances only [G, RiemannianMetric.pullbackCoefficients,
-      ContinuousLinearMap.bilinearComp_apply, mfderiv_eq_fderiv]
+      ContinuousLinearMap.bilinearComp_apply, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     convert! congrArg (fun y : LoopAmbient => g.euclideanCoefficients y
       (fderiv ℝ E.symm (E (H z)) v) (fderiv ℝ E.symm (E (H z)) w))
         (E.left_inv (hsource hz)) using 1

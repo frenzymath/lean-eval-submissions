@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Analysis.Basic.ModelTangentSection
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Coordinates.PullbackExtension
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Imports.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Coordinates.PullbackExtension
@@ -29,7 +30,7 @@ variable {n : ℕ}
 including the common totalized value (Proposition 12.13). -/
 theorem model_curveVelocity_eq_deriv (alpha : ℝ → EuclideanSpace ℝ (Fin n)) (s : ℝ) :
     curveVelocity (n := n) alpha s = deriv alpha s := by
-  simp only [curveVelocity, mfderiv_eq_fderiv, deriv]
+  simp only [curveVelocity, Poincare.Compatibility.mfderiv_eq_fderiv_model, deriv]
   rfl
 
 /-- A smooth model-space curve has a smooth velocity on its open domain

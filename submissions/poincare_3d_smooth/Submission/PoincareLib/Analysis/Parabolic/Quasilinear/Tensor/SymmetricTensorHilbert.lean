@@ -143,6 +143,8 @@ variable {n : ℕ} {M : Type u} [TopologicalSpace M] [T2Space M]
 
 namespace Data
 
+attribute [local instance] firstOrderAmbient_innerProductSpace firstOrderGraph_innerProductSpace
+
 variable {g : RiemannianMetric n M} (d : Data g)
 
 /-- Decode the actual swapped smooth probes in the fixed Parseval frame. -/
@@ -380,6 +382,8 @@ end OrthogonalProjection
 
 namespace Data
 
+attribute [local instance] firstOrderAmbient_innerProductSpace firstOrderGraph_innerProductSpace
+
 variable {g : RiemannianMetric n M} (d : Data g)
 
 def valueSymmetrize : d.Value →L[ℝ] d.Value := involutionProjection d.valueTranspose
@@ -527,6 +531,18 @@ theorem symmetricInclusion_injective : Function.Injective d.symmetricInclusion :
 theorem symmetricInclusion_compact : IsCompactOperator d.symmetricInclusion :=
   (d.inclusion_compact.comp_clm d.symmetricForm.subtypeL).codRestrict
     d.inclusion_mem_symmetricValue d.isClosed_symmetricValue
+
+local instance symmetricForm_normedAddCommGroup : NormedAddCommGroup d.SymmetricForm :=
+  d.symmetricForm.normedAddCommGroup
+
+local instance symmetricValue_normedAddCommGroup : NormedAddCommGroup d.SymmetricValue :=
+  d.symmetricValue.normedAddCommGroup
+
+local instance symmetricForm_normedSpace : NormedSpace ℝ d.SymmetricForm :=
+  d.symmetricForm.normedSpace
+
+local instance symmetricValue_normedSpace : NormedSpace ℝ d.SymmetricValue :=
+  d.symmetricValue.normedSpace
 
 theorem norm_symmetricInclusion_le_one : ‖d.symmetricInclusion‖ ≤ 1 := by
   apply d.symmetricInclusion.opNorm_le_bound zero_le_one

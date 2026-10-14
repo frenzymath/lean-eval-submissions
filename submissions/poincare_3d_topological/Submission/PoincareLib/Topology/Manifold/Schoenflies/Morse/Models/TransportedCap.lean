@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Models.CylindricalCap
 import Submission.PoincareLib.Geometry.Euclidean.PlaneLift
 
@@ -51,7 +52,7 @@ theorem exists_cylindrical_cap_over_disk_with_range
     have hFd : Function.Injective (fderiv Real F (k x)) := by
       have h := (F.mfderivToContinuousLinearEquiv (by simp) (k x)).injective
       change Function.Injective (mfderiv (𝓡 3) (𝓡 3) F (k x)) at h
-      simpa only [mfderiv_eq_fderiv, TangentSpace] using h
+      simpa only [Poincare.Compatibility.mfderiv_eq_fderiv_model, TangentSpace] using h
     rw [show g = F ∘ k from rfl, fderiv_comp x
       (F.contMDiff.contDiff.differentiable (by simp) (k x))
       (hk.differentiable (by simp) x)]

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Nonconjugacy
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Exponential.JetBounds.CovariantPullback
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.SectionalBounds
@@ -37,7 +38,7 @@ private theorem chartField_velocity_eq_deriv {q : ℝ → M} {a : M} {t : ℝ}
       deriv ((extChartAt (𝓡 n) a) ∘ q) t := by
   have hd := mfderiv_comp t
     (mdifferentiableAt_extChartAt (by simpa only [extChartAt_source] using ha)) hq
-  rw [mfderiv_eq_fderiv] at hd
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
   have hd1 := congrArg (fun A : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => A 1) hd
   change fderiv ℝ ((extChartAt (𝓡 n) a) ∘ q) t 1 = _ at hd1
   rw [fderiv_eq_smul_deriv, one_smul] at hd1
@@ -218,7 +219,7 @@ theorem radial_gauss_identity
     have hd := mfderiv_comp t
       ((he.contMDiffAt (Metric.isOpen_ball.mem_nhds ht)).mdifferentiableAt (by simp))
       hline.differentiableAt.mdifferentiableAt
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     have hd1 := congrArg (fun A : ℝ →L[ℝ] EuclideanSpace ℝ (Fin n) => A 1) hd
     change mfderiv 𝓘(ℝ, ℝ) (𝓡 n) q t 1 =
       mfderiv (𝓡 n) (𝓡 n) e (t • v) (fderiv ℝ (fun s : ℝ => s • v) t 1) at hd1

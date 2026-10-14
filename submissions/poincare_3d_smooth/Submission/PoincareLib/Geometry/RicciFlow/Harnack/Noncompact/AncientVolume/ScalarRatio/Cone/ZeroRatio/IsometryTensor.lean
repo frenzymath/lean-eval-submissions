@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.ZeroRatio.IsometryRegularity
 
 /-!
@@ -42,7 +43,7 @@ private theorem minimizing_speed
   obtain ⟨C, hC⟩ := hγ.exists_constant_tangentNorm (by norm_num)
   have hnorm (u : ℝ) (hu : u ∈ Ioo (-1 : ℝ) 2) :
       g.tangentNorm (γ u) (deriv γ u) = C := by
-    convert! hC u hu using 1; simp only [mfderiv_eq_fderiv, deriv]
+    convert! hC u hu using 1; simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, deriv]
     rfl
   have hs' := congrArg ENNReal.toReal hs
   rw [ENNReal.toReal_ofReal (show 0 ≤ g.tangentNorm (γ 0) (deriv γ 0) from
@@ -159,7 +160,7 @@ theorem smooth_isometric_charts_of_edist_eq
       (hdist (e.symm x) (e.map_target hx) (e.symm y) (e.map_target hy)).symm
   · intro p hp v w
     convert! g.inner_fderiv_of_edist_eq h e.open_source hdist hp v w using 1
-    simp only [mfderiv_eq_fderiv]
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model]
     rfl
 
 end PoincareMT.RiemannianMetric

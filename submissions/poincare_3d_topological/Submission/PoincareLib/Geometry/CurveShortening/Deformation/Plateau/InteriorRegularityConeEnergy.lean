@@ -51,13 +51,13 @@ theorem coneDisk_derivativeEnergy_le {E : Type*}
   have hS : IsCompact S := isCompact_Icc.prod isCompact_Icc
   have hA : IntegrableOn A (Icc (-Real.pi) Real.pi) :=
     (((hv.sub continuousOn_const).norm.pow 2).integrableOn_compact isCompact_Icc).add
-      ((memLp_two_iff_integrable_sq_norm hd.1).mp hd)
+      ((memLp_two_iff_integrable_sq_norm hd.aestronglyMeasurable).mp hd)
   have hfields : IntegrableOn
       (fun p : ℝ × ℝ => ∑ i : Fin 2, ‖coneCartesianField g r v0 v d p.1 p.2 i‖ ^ 2) S := by
     apply integrable_finsetSum
     intro i _
     have hi := coneCartesianField_memLp hr hρ hK hv hg h0 hvb hd hD i
-    exact (memLp_two_iff_integrable_sq_norm hi.1).mp hi
+    exact (memLp_two_iff_integrable_sq_norm hi.aestronglyMeasurable).mp hi
   have hweighted : IntegrableOn (fun p : ℝ × ℝ =>
       p.1 * ∑ i : Fin 2, ‖coneCartesianField g r v0 v d p.1 p.2 i‖ ^ 2) S :=
     IntegrableOn.continuousOn_mul continuous_fst.continuousOn hfields hS

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Metric.Coordinates.PreferredFields
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Regularity.AlmostEverywhere.RegularGerms
 import Mathlib.Analysis.Calculus.FDeriv.CompCLM
@@ -90,7 +91,7 @@ theorem preferredField_second_scalar_derivative {f : M → ℝ} (q : M)
   rw [mvfderiv_eq_of_eventuallyEq heq]
   have hchain := mfderiv_comp_apply q hK.mdifferentiableAt
     (mdifferentiableAt_extChartAt (mem_chart_source _ _)) v
-  rw [mfderiv_extChartAt_self, mfderiv_eq_fderiv] at hchain
+  rw [mfderiv_extChartAt_self, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hchain
   change mvfderiv (𝓡 n) (K ∘ e) q v = fderiv ℝ K (e q) v at hchain
   change mvfderiv (𝓡 n) (K ∘ e) q v = _
   rw [show mvfderiv (𝓡 n) (K ∘ e) q v = fderiv ℝ K (e q) v from hchain]

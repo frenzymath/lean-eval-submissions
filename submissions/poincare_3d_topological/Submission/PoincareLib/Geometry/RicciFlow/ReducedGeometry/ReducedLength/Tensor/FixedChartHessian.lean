@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.Tensor.FixedChartTensor
 
 /-!
@@ -33,7 +34,7 @@ theorem mvfderiv_chartVectorField_normed
   rw [chartVectorField_at_inverse p u y hy]
   have h := mfderiv_comp y hf
     ((mdifferentiable_chart (I := 𝓡 n) p).mdifferentiableAt_symm hy)
-  rw [mfderiv_eq_fderiv] at h
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at h
   exact (congrArg (fun L ↦ L u) h).symm
 
 set_option maxHeartbeats 1000000 in

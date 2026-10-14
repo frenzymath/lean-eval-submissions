@@ -40,7 +40,7 @@ theorem pullbackCovariantDerivative_velocity_eq_zero_of_constant
       exact hconstant hu
     unfold curveVelocityWithin
     rw [mfderivWithin_of_mem_nhds (hI.mem_nhds hr), hnear.mfderiv_eq]
-    simp only [mfderiv_const, zero_apply]
+    simp only [mfderiv_const, ContinuousLinearMap.comp_zero, zero_apply]
   have hext : (fun r ↦ E.extension r (α s)) =ᶠ[𝓝 s]
       (fun _ ↦ (0 : TangentSpace (𝓡 n) (α s))) := by
     filter_upwards [hI.mem_nhds hs] with r hr

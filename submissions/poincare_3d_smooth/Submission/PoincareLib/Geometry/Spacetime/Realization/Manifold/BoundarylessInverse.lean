@@ -43,6 +43,13 @@ theorem boundaryless_inverse_smooth (e : OpenPartialHomeomorph M N) {a : N}
   have hd : HasFDerivAt c e'.toContinuousLinearMap (c₁ (e.symm a)) := by
     have h := (he.mdifferentiableAt (by simp)).hasMFDerivAt.2
     rw [he'] at h
+    have hcast : (tangentSpaceCastModel 𝓘(ℝ, F) (e (e.symm a))).toContinuousLinearMap.comp
+        (e'.toContinuousLinearMap.comp
+          (tangentSpaceCastModel 𝓘(ℝ, E) (e.symm a)).symm.toContinuousLinearMap) =
+        (e' : E →L[ℝ] F) := by
+      ext v
+      rfl
+    rw [hcast] at h
     simpa [c, c₁, c₂, writtenInExtChartAt, extChartAt_coe, extChartAt_coe_symm,
       e.right_inv ha, Function.comp_assoc] using h
   have hinv := c.contDiffAt_symm hc (hpoint ▸ hd) (hpoint ▸ hs)

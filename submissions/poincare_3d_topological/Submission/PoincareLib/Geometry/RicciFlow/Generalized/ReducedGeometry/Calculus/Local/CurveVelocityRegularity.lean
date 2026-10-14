@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Mathlib.Geometry.Manifold.ContMDiffMFDeriv
 import Mathlib.Analysis.Calculus.ContDiff.Deriv
 
@@ -55,7 +56,7 @@ theorem contMDiffOn_succ_of_curveVelocity (hJ : IsOpen J)
       (mfderiv (𝓘(ℝ, ℝ)) I γ t (1 : ℝ))
     rw [mfderivWithin_of_mem_nhds ((chartAt H (γ s)).open_source.mem_nhds ht.2)]
     have hd := mfderiv_comp_apply t (hcd t ht) (hγd t ht) (1 : ℝ)
-    rw [mfderiv_eq_fderiv] at hd
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hd
     change deriv (c ∘ γ) t = _ at hd
     exact hd
   have hregular : ContDiffOn ℝ ((k : ℕ∞ω) + 1) (c ∘ γ) O :=

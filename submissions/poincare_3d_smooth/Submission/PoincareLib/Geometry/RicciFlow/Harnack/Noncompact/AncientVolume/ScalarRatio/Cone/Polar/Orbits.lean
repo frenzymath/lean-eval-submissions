@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Noncompact.AncientVolume.ScalarRatio.Cone.Polar.Dilation
 
 /-!
@@ -192,7 +193,7 @@ theorem hasDerivAt_radialOrbit_zero (d : UnitSliceRadialChartData hcomparison n)
     exact ((contMDiffAt_iff_contDiffAt.mp (d.smooth x)).differentiableAt (by simp)).hasFDerivAt
   have hcross : d.metric.inner x (d.connection.gradient d.potential x) v = 2 * d.potential x := by
     rw [d.connection.inner_gradient]
-    simp only [mvfderiv, mfderiv_eq_fderiv]
+    simp only [mvfderiv, Poincare.Compatibility.mfderiv_eq_fderiv_model]
     exact (hf.comp_hasDerivAt 0 hdiff.hasDerivAt).unique hderiv
   have hgrad : d.metric.inner x (d.connection.gradient d.potential x)
       (d.connection.gradient d.potential x) = 2 * d.potential x := d.eikonal x hx

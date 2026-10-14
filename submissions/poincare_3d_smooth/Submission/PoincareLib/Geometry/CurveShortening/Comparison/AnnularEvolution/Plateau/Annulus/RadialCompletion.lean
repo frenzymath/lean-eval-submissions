@@ -43,7 +43,7 @@ theorem m64AnnulusRadialCompletion_interior {M : Type*}
     (f : LoopPlane → M) (c0 c1 : ℝ → M) {p : LoopPlane}
     (hp : p 1 ∈ Ioo (0 : ℝ) 1) :
     m64AnnulusRadialCompletion f c0 c1 p = f p := by
-  simp only [m64AnnulusRadialCompletion, if_neg hp.1.ne', if_neg hp.2.ne]
+  simp only [m64AnnulusRadialCompletion, ite_eq_right hp.1.ne', ite_eq_right hp.2.ne]
 
 /-- Radial reflection commutes with completion after swapping the two literal traces. This
 identity holds on the whole source plane. Source: MT Lemma 19.15, pp. 447-449; M64
@@ -64,6 +64,6 @@ theorem m64AnnulusRadialCompletion_flip {M : Type*}
   · simp [hp1]
   have hn0 : 1 - p 1 ≠ 0 := sub_ne_zero.mpr (Ne.symm hp1)
   have hn1 : 1 - p 1 ≠ 1 := by intro h; exact hp0 (by linarith only [h])
-  simp only [if_neg hp0, if_neg hp1, if_neg hn0, if_neg hn1]
+  simp only [ite_eq_right hp0, ite_eq_right hp1, ite_eq_right hn0, ite_eq_right hn1]
 
 end PoincareMT

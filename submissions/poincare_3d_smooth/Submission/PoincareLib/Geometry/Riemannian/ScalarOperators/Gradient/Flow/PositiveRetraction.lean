@@ -119,7 +119,8 @@ theorem PoincareMT.LeviCivitaData.exists_positive_level_retraction_on_closedBall
     rw [mfderiv_prod_eq_add_apply ((hΦd y hy).mdifferentiableAt (by simp)),
       ((horbit y hy.1).2.isMIntegralCurveAt (isOpen_Ioo.mem_nhds hy.2)).hasMFDerivAt.mfderiv] at he
     change mfderiv (𝓡 n) (𝓡 n) Q y v =
-      (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) σ y v) • D.normalizedGradient f (Q y) + L v at he
+      ((NormedSpace.fromTangentSpace (𝕜 := ℝ) (σ y))
+        (mfderiv (𝓡 n) 𝓘(ℝ, ℝ) σ y v)) • D.normalizedGradient f (Q y) + L v at he
     simpa [mvfderiv, NormedSpace.fromTangentSpace] using he
   have hσv : mvfderiv (𝓡 n) σ y v = -mvfderiv (𝓡 n) f y v := by
     dsimp only [σ]

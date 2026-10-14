@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.DeepHorn.Construction.AncientLimits.Identification.AncientSurfaceHomothety
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.DeepHorn.Construction.AncientLimits.Identification.AncientSphereFactor
 
@@ -86,7 +87,7 @@ theorem roundProduct_exists_normalized_evolvingCylinder
       mfderiv 𝓘(ℝ, ℝ) 𝓘(ℝ, ℝ) (fun z : ℝ => r0 + z) r v = v := by
     have hfd : fderiv ℝ (fun z : ℝ => r0 + z) r = ContinuousLinearMap.id ℝ ℝ :=
       ((hasFDerivAt_id r).const_add r0).fderiv
-    simp only [mfderiv_eq_fderiv, hfd]
+    simp only [Poincare.Compatibility.mfderiv_eq_fderiv_model, hfd]
     rfl
   funext z v w
   have hdb (v : RoundCylinderTangent z) :

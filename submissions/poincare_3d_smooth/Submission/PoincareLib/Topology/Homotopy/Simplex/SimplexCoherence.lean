@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Topology.Homotopy.Simplex.LegacySingular
 import Submission.PoincareLib.Topology.Homotopy.Simplex.SimplexFaceHomotopy
 import Mathlib.AlgebraicTopology.SimplicialSet.TopAdj
 
@@ -144,10 +145,10 @@ theorem singularSimplex_double_face (X : TopCat.{w}) (n : ℕ)
     (s : (TopCat.toSSet.obj X) _⦋n + 2⦌) (i : Fin (n + 3)) (j : Fin (n + 2)) :
     (TopCat.toSSet.obj X).δ j ((TopCat.toSSet.obj X).δ i s) =
       (TopCat.toSSet.obj X).δ (j.predAbove i) ((TopCat.toSSet.obj X).δ (i.succAbove j) s) := by
-  apply (X.toSSetObjEquiv _).injective
+  apply (X.toLegacySSetObjEquiv _).injective
   ext z
-  simp only [TopCat.toSSetObjEquiv_δ_apply]
-  exact congrArg (X.toSSetObjEquiv _ s) (stdSimplex_face_map_comp n i j z)
+  simp only [TopCat.toLegacySSetObjEquiv_δ_apply]
+  exact congrArg (X.toLegacySSetObjEquiv _ s) (stdSimplex_face_map_comp n i j z)
 
 /-- Every prescribed simplex boundary homotopy extends over the simplex,
 including the empty boundary in dimension zero. -/

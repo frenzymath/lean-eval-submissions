@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.Continuation.FixedChart
 import Submission.PoincareLib.Geometry.Riemannian.Curvature.LocalIsometry
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Injectivity.Lifting.SmoothDeck
@@ -57,12 +58,12 @@ theorem IsGeodesicOn.comp_local_isometry
         (fderiv ℝ f y a) (fderiv ℝ f y b) := by
     filter_upwards [hU.mem_nhds (hγU hs)] with y hy a b
     have hh := hmetric y hy a b
-    rw [mfderiv_eq_fderiv] at hh
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hh
     convert! hh using 1
   have hsurj : Function.Surjective (fderiv ℝ f (γ s)) := by
     have hb := g.mfderiv_bijective_of_pullback_eq h (γ s)
       (fun a b => (hmetric _ (hγU hs) a b).symm)
-    rw [mfderiv_eq_fderiv] at hb
+    rw [Poincare.Compatibility.mfderiv_eq_fderiv_model] at hb
     convert! hb.2 using 1
   have htrans := hasDerivAt_geodesic_change_coordinates
     ((g.contDiffAt_euclideanCoefficients (γ s)).differentiableAt (by simp))
@@ -93,7 +94,7 @@ theorem inner_deck_motion_of_pullback
       (mfderiv (𝓡 n) (𝓡 n) d x a) (mfderiv (𝓡 n) (𝓡 n) d x b) := by
   have hm := pullbackCoefficients_deck_motion g he hd hproj a b
   rw [← hGx, ← hGdx] at hm
-  rw [mfderiv_eq_fderiv]
+  rw [Poincare.Compatibility.mfderiv_eq_fderiv_model]
   convert! hm.symm using 1
 
 end PoincareMT.RiemannianMetric

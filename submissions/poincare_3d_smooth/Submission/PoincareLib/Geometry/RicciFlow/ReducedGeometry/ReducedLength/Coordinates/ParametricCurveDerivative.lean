@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Basic
 import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Mathlib.Geometry.Manifold.MFDeriv.SpecificFunctions
@@ -36,7 +37,7 @@ theorem hasDerivAt_parametric_curve (f : ℝ × M → W) (γ : ℝ → M) (s : �
   have htime : mfderiv (𝓘(ℝ, ℝ)) (𝓘(ℝ, W)) (fun t ↦ f (t, γ s)) s 1 =
       deriv (fun t ↦ f (t, γ s)) s := by
     exact (congrArg (fun L : ℝ →L[ℝ] W ↦ L 1)
-      (mfderiv_eq_fderiv (f := fun t ↦ f (t, γ s)) (x := s))).trans
+      (Poincare.Compatibility.mfderiv_eq_fderiv_model (f := fun t ↦ f (t, γ s)) (x := s))).trans
         fderiv_apply_one_eq_deriv
   have hvalue : mfderiv ((𝓘(ℝ, ℝ)).prod (𝓡 n)) (𝓘(ℝ, W)) f (s, γ s)
       (1, curveVelocity γ s) =

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.Compatibility.SourceNames
 import Submission.PoincareLib.Geometry.CurveShortening.Deformation.SweptArea.PlaneMapRegularity
 import Mathlib.Analysis.Calculus.Deriv.AffineMap
@@ -38,7 +39,7 @@ theorem m65Edist_le_of_derivative_bound (g : RiemannianMetric n M)
   have hd : ContMDiff 𝓘(ℝ, ℝ) (𝓡 2) 1 delta := (AffineMap.contDiff_lineMap x y).contMDiff
   have hpath : ContMDiff 𝓘(ℝ, ℝ) (𝓡 n) 1 (f ∘ delta) := hf.comp hd
   have hdvelocity (t : ℝ) : mfderiv 𝓘(ℝ, ℝ) (𝓡 2) delta t 1 = y - x := by
-    simpa +instances only [mfderiv_eq_fderiv, fderiv_apply_one_eq_deriv] using!
+    simpa +instances only [Poincare.Compatibility.mfderiv_eq_fderiv_model, fderiv_apply_one_eq_deriv] using!
       (AffineMap.hasDerivAt_lineMap (a := x) (b := y) (x := t)).deriv
   have hspeed : ∀ t ∈ Icc (0 : ℝ) 1, M04.pathSpeed g (f ∘ delta) t ≤ K * ‖y - x‖ := by
     intro t ht

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Circle.PhaseLift
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AnnularEvolution.Plateau.Circle.PhaseEnergy
 import Submission.PoincareLib.Geometry.Riemannian.MinimalSurface.Sphere.AreaEnergy
@@ -48,7 +49,7 @@ theorem m64CirclePhase_column_sq_le_gram (P : M62.CircleProductData F circumfere
     (P.circle.quotient_smooth.mdifferentiableAt (by simp))
     ((hL.differentiable (by simp) p).hasFDerivAt.hasMFDerivAt.mdifferentiableAt) v
   have heq : P.circle.quotient ∘ L = Prod.snd ∘ f := funext hquot
-  rw [heq, mfderiv_eq_fderiv] at hl
+  rw [heq, Poincare.Compatibility.mfderiv_eq_fderiv_model] at hl
   have hv : (P.charts.split (f p) W).2 =
       mfderiv 𝓘(ℝ, ℝ) (𝓡 1) P.circle.quotient (L p) (fderiv ℝ L p v) := by
     rw [P.charts.split_circle]

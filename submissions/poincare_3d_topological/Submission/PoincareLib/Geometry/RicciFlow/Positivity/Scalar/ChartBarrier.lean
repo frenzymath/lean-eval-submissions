@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.Tangent
 import Submission.PoincareLib.Geometry.Riemannian.Connection
 import Mathlib.Analysis.InnerProductSpace.Calculus
 import Mathlib.Geometry.Manifold.ContMDiff.Atlas
@@ -60,7 +61,7 @@ theorem mfderiv_chart_radial_ne_zero (p : M) (c : EuclideanSpace ℝ (Fin n)) (r
       (fderiv ℝ φ (e x)).comp L := by
     change mfderiv (𝓡 n) 𝓘(ℝ, ℝ) (φ ∘ e) x = _
     rw [mfderiv_comp x ((hφ.differentiable (by simp)) (e x)).mdifferentiableAt he,
-      mfderiv_eq_fderiv]
+      Poincare.Compatibility.mfderiv_eq_fderiv_model]
   have hs := ((hasFDerivAt_id (e x)).sub_const c).norm_sq
   have hφd : HasFDerivAt φ (0 - 2 • (innerSL ℝ) z) (e x) := by
     simpa only [φ, z, Pi.sub_apply, id_eq, ContinuousLinearMap.comp_id] using!
