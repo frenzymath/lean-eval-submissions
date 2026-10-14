@@ -1,1 +1,0 @@
-import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.Classification.CompactCoverage.Transport.StrongCollar
