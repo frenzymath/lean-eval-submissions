@@ -68,5 +68,18 @@
     "smooth_current_root_rebuild": "success",
     "smooth_source_receipt": "smooth-canonical-root-build.sources.json"
   },
-  "updated_at": "2026-10-13T17:32:30.676146+00:00"
+  "updated_at": "2026-10-13T17:32:30.676146+00:00",
+  "smooth_official_verification": {
+    "status": "passed",
+    "variant": "smooth",
+    "original_log": "/gpfs/share/home/2301110044/.horizon/development-tmp/poincare-leaneval-port/checks/20261014-084623-3760373.log",
+    "source_sha256": "416764a8a538067d2ed16b3afebe72628bc3999d5742b3a87883e9c653bc0ab6",
+    "log_sha256": "6c24e7b165bc9ab3130cf24e85675ba47013bcd921a9a71e25291b3e4ebe9cd1",
+    "acceptance_markers": [
+      "nanoda kernel accepts the solution",
+      "Lean default kernel accepts the solution",
+      "Your solution is okay!"
+    ],
+    "evidence": "Completed official WorkspaceTest terminal log; separate historical process exit code not asserted."
+  }
 }

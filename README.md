@@ -11,8 +11,7 @@ workflows, including work before the LeanEval adaptation. See the
 
 ## Current status
 
-**Topological submission passes the local official LeanEval checks; smooth
-verification is in progress.** Both workspaces target official benchmark
+**Both Poincare submissions pass the complete local official LeanEval checks.** Both workspaces target official benchmark
 `38361be884302c7edce1908c4aef8296eb2cb27e`, Lean 4.35.0-rc3, and its exact
 Mathlib dependencies. The topological `lake test` finished with Comparator's
 `Your solution is okay!`, Nanoda acceptance, and Lean default-kernel acceptance.
@@ -21,12 +20,13 @@ Its source fingerprint and terminal log are in
 process exit code was not recovered from the session registry; the complete
 success log is retained.
 
-The smooth library passed normal `lake build`, and its corrected endpoint roots
-also build with exact explicit statement agreement. Its official verifier is
-running after the shared statement-instance correction. Topological checking reuses 23,558 verified unchanged helpers and
+The smooth submission also passed Comparator, Nanoda, and Lean default-kernel
+verification (`checks/20261014-084623-3760373.log`). Topological checking reuses 23,558 verified unchanged helpers and
 freshly compiled roots. External host resource workarounds use the unchanged
 compiler and its existing loader fallback. The public topological snapshot is
 submitted through [LeanEval issue #2113](https://github.com/leanprover/lean-eval-submissions/issues/2113).
+The smooth snapshot is submitted through
+[LeanEval issue #2119](https://github.com/leanprover/lean-eval-submissions/issues/2119).
 Remote acceptance is pending; the earlier private-source attempt could not
 fetch the repository and did not evaluate the proof.
 

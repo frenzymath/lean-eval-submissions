@@ -5,8 +5,7 @@ official LeanEval test, including Comparator, Nanoda, and Lean's default kernel.
 Its terminal log reports `Your solution is okay!`. A separate process exit
 code was not recovered from the session registry; acceptance is established
 by the retained complete success log. The corrected smooth roots also build,
-and their fully explicit theorem types match the challenge byte for byte. Its
-official test is running. No submission has been sent to LeanEval, and remote
+and their fully explicit theorem types match the challenge byte for byte. Its official test also passed Comparator, Nanoda, and Lean default-kernel replay. No submission has been sent to LeanEval, and remote
 evaluation acceptance is not claimed.
 
 The migration branch starts from packaged source
@@ -144,7 +143,7 @@ not the full Poincaré submissions.
 
 | Workspace | Official `lake test` | Comparator | Nanoda | Default kernel |
 | --- | --- | --- | --- | --- |
-| Smooth | Running (`checks/20261014-084623-3760373.log`) | Pending | Pending | Pending |
+| Smooth | Passed (`checks/20261014-084623-3760373.log`) | Passed | Accepted | Accepted |
 | Topological | Success terminal log | Accepts | Accepts | Accepts |
 
 The accepted topological test log is
@@ -165,3 +164,6 @@ registry, so no separate numeric exit-code receipt is claimed. The complete
 terminal success log is the acceptance evidence. Smooth final logs and source
 fingerprints will be added after its checks finish. Neither submission has
 been sent to the LeanEval service.
+
+Smooth final verification is recorded in `reports/evidence/smooth-verifier-success.json`;
+its complete terminal log reports both kernel acceptances and `Your solution is okay!`.
