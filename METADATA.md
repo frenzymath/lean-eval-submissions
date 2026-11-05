@@ -8,11 +8,13 @@ and final checks, before submission.
 | --- | --- |
 | Problem | `jacobian_challenge_alggeo` |
 | Title | Jacobian of a smooth proper curve (Merten challenge) |
-| Declared model/system | `Relay (Codex; primarily GPT-6.1)` |
+| Declared model/system | `GPT-6.1-sol xhigh with additional custom tools` |
 | Authors / credit identity | Axel Delaval; Jie Xu; Shitan Xu |
-| Harness | Relay: Codex sessions with goal instructions, a formalization graph, delegated proof tasks, repository reuse, and Lean feedback. |
+| Harness | Codex with additional custom tools for a formalization graph, task delegation, code search and reuse, and Lean/cluster compilation. |
 | Source repository | `frenzymath/lean-eval-submissions` |
 | Intended branch | `leaneval-jacobian` |
+| Public library reference | https://github.com/frenzymath/Jacobian-Challenge |
+| Library publication date | 2026-11-05 |
 | Publication choice | `scheduled` for the current submission service, as required for this public repository. |
 | Web / repository access | Yes |
 | License | Apache 2.0 |
@@ -34,16 +36,19 @@ The submission is based on the completed `frenzymath/Jacobian-Challenge` library
 Development used multiple human-directed Codex sessions, a formalization graph,
 delegated proof tasks, existing formalizations, and Lean compiler feedback,
 followed by library cleanup and independent release checks. Parts of the library
-are adapted from Weil's conjectures project; see NOTICE. GPT-6.1 with xhigh
-reasoning was the primary configured model. Complete auxiliary-model, token,
-cost, and elapsed-time totals have not been established.
+are adapted from Weil's conjectures project; see NOTICE. The declared system is
+GPT-6.1-sol xhigh with additional custom tools. The source library is public at
+https://github.com/frenzymath/Jacobian-Challenge from November 5, 2026.
+Complete auxiliary-model, token, cost, and elapsed-time totals have not been
+established.
 
 ## Fields left unspecified
 
 Token counts, monetary cost, wall-clock duration, complete component-model list,
 and a verbatim combined prompt are omitted. No missing measurement is represented
-as zero. Publication and terms consent are to be confirmed with the final checked
-snapshot; the draft request leaves `terms_accepted` false.
+as zero. The final evaluation request remains to be confirmed with the checked
+snapshot; the draft request leaves `terms_accepted` false. The source library's
+public visibility has already been authorized and enabled.
 
 The authenticated submitter must have access to the exact source commit, and the
 current service requires its two read-only GitHub Apps on the source repository.
