@@ -1,10 +1,10 @@
-# Proposed LeanEval metadata
+# LeanEval submission metadata
 
-This proposal accompanies an unvalidated local draft. No evaluation request has
-been sent. The exact source commit will be pinned after the compatibility work
-and final checks, before submission.
+The packaged library is pinned to `frenzymath/Jacobian-Challenge` commit
+`dce1ca5941773caba3608dceff56371cefce58ec`, checked with Lean `4.35.0-rc3`.
+The evaluation request pins the exact commit of this submission repository.
 
-| Field | Proposed value |
+| Field | Value |
 | --- | --- |
 | Problem | `jacobian_challenge_alggeo` |
 | Title | Jacobian of a smooth proper curve (Merten challenge) |
@@ -46,9 +46,10 @@ established.
 
 Token counts, monetary cost, wall-clock duration, complete component-model list,
 and a verbatim combined prompt are omitted. No missing measurement is represented
-as zero. The final evaluation request remains to be confirmed with the checked
-snapshot; the draft request leaves `terms_accepted` false. The source library's
-public visibility has already been authorized and enabled.
+as zero. The user authorized submission on November 6, 2026. The request accepts the
+current LeanEval terms, including private fetch, archive, build and execution,
+indefinite encrypted retention, public results and metadata, and scheduled
+Apache 2.0 release. The source library is already public.
 
 The authenticated submitter must have access to the exact source commit, and the
 current service requires its two read-only GitHub Apps on the source repository.
