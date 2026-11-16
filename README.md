@@ -1,3 +1,5 @@
+This evaluation snapshot contains only `poincare_3d_smooth`. The full migration and both validation records are preserved in parent commit `cfa10bd8c0580b74c307c2a7c8d64066d3bc190a`.
+
 # Poincare LeanEval packages
 
 This repository prepares separate smooth and topological Poincaré submissions
@@ -20,7 +22,6 @@ publication date, October 14, 2026.
 ## Packages
 
 - `submissions/poincare_3d_smooth/`: smooth endpoint.
-- `submissions/poincare_3d_topological/`: topological endpoint.
 - `packaging-provenance.json`: original source revisions, transformations,
   file hashes, historical checks, and the stable update.
 - `source-notices/`: original third-party license notices with source paths.
