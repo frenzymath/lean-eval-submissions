@@ -1,0 +1,38 @@
+{
+  "problem_id": "jacobian_challenge_alggeo",
+  "benchmark_commit": "8955681b9914d7ebc7d286414843021b7d6c9de1",
+  "toolchain": "leanprover/lean4:v4.35.0",
+  "mathlib_commit": "074063781836922cb02701cd12943c9f51731afa",
+  "started_at": "2026-11-16T03:37:39.071459+00:00",
+  "input_file_count": 733,
+  "input_tree_sha256": "a91fcf908e9783e726032672962a3da0f8764f12b3c94bdbfd707856a54a347e",
+  "stages": [
+    {
+      "command": [
+        "lake",
+        "--no-cache",
+        "build",
+        "Submission",
+        "Solution",
+        "Challenge"
+      ],
+      "started_at": "2026-11-16T03:37:39.073539+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-16T03:53:44.398984+00:00",
+      "elapsed_seconds": 965.325
+    },
+    {
+      "command": [
+        "lake",
+        "test"
+      ],
+      "started_at": "2026-11-16T03:53:44.399021+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-16T05:06:53.132131+00:00",
+      "elapsed_seconds": 4388.733
+    }
+  ],
+  "exit_code": 0,
+  "sources_stable": true,
+  "finished_at": "2026-11-16T05:06:53.148178+00:00"
+}

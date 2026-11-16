@@ -388,6 +388,7 @@ lemma pullbackUnitApp_eq_of_pullbackCompOfEq {X Y : Scheme.{u}} (y : Y ⟶ X) (N
   rw [pullSec_le_rfl, pullSec_le_rfl] at h₄
   exact pullbackUnitApp_injective_id _ _ (h₄.trans (pullSec_le_rfl (𝟙 Y) x))
 
+set_option maxHeartbeats 2000000 in
 /-- **A quasi-coherent module is the module of compatible sections of its descent datum.** For a
 family `f` generating an fpqc covering sieve and an isomorphism of descent data
 `κ : (toDescentData f).obj P ≅ D` with `P` quasi-coherent, the induced morphism

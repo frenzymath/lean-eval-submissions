@@ -441,6 +441,7 @@ lemma extendRestrict_smul (A V : Z.Opens) (r : Γ(Z, V))
 
 variable {ι : Type u} (U : ι → Z.Opens)
 
+set_option maxHeartbeats 2000000 in
 /-- The sections of the Čech resolution in explicit cochains, through the restriction maps of the
 presheaf `V ↦ j_{V,*} (M|_V)`. -/
 lemma sectionsCechResolutionIso_hom_f_apply (V : Z.Opens) (k : ℕ)

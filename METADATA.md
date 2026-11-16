@@ -1,7 +1,9 @@
 # LeanEval submission metadata
 
 The packaged library is pinned to `frenzymath/Jacobian-Challenge` commit
-`dce1ca5941773caba3608dceff56371cefce58ec`, checked with Lean `4.35.0-rc3`.
+`dce1ca5941773caba3608dceff56371cefce58ec`, originally checked with Lean `4.35.0-rc3`.
+The November 16 resubmission selects supported stable Lean `4.35.0` and Mathlib
+`074063781836922cb02701cd12943c9f51731afa`.
 The evaluation request pins the exact commit of this submission repository.
 
 | Field | Value |
@@ -12,17 +14,15 @@ The evaluation request pins the exact commit of this submission repository.
 | Authors / credit identity | Axel Delaval; Jie Xu; Shitan Xu |
 | Harness | Codex with additional custom tools for a formalization graph, task delegation, code search and reuse, and Lean/cluster compilation. |
 | Source repository | `frenzymath/lean-eval-submissions` |
-| Intended branch | `leaneval-jacobian` |
+| Resubmission branch | `fix/lean-eval-v435-stable` |
 | Public library reference | https://github.com/frenzymath/Jacobian-Challenge |
 | Library publication date | 2026-11-05 |
-| Publication choice | `scheduled` for the current submission service, as required for this public repository. |
+| Exact solution publication status | Public |
 | Web / repository access | Yes |
 | License | Apache 2.0 |
 
-The current service resolves the canonical group and statement revision from its
-catalog. The pinned benchmark currently reports `formalization-evaluation`,
-revision 1. These are recorded for reference rather than supplied as client
-fields.
+The pinned benchmark reports group `formalization-evaluation`, statement
+revision 1. This package supplies all nine answers.
 
 ## Human involvement
 
@@ -46,10 +46,16 @@ established.
 
 Token counts, monetary cost, wall-clock duration, complete component-model list,
 and a verbatim combined prompt are omitted. No missing measurement is represented
-as zero. The user authorized submission on November 6, 2026. The request accepts the
-current LeanEval terms, including private fetch, archive, build and execution,
-indefinite encrypted retention, public results and metadata, and scheduled
-Apache 2.0 release. The source library is already public.
+as zero. The user authorized the original submission on November 6, 2026 and
+fixing and resubmitting it on November 16, 2026. The submission issue records
+the current intake acknowledgements for fetching and evaluation, publication
+of results and metadata, and indefinite encrypted audit retention. The source
+library is already public under Apache 2.0.
 
-The authenticated submitter must have access to the exact source commit, and the
-current service requires its two read-only GitHub Apps on the source repository.
+The original submission was rejected at toolchain selection, before proof
+evaluation. The resubmission preserves the authors, historical model declaration,
+public library revision, and mathematical statements.
+
+The stable package passed its full build and official comparator with both Lean
+and NanoDa on November 16, 2026. The checked source digest and stage results are
+recorded in [`validation-20261116.json`](validation-20261116.json).

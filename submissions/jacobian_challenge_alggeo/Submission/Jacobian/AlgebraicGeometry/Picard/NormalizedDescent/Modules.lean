@@ -62,6 +62,7 @@ lemma pullHom_smulHom {Y Y' Z : Scheme.{u}} (M : modulesPseudofunctor.obj (.mk (
   rw [Cat.Hom.hom_inv_id_toNatTrans_app, Category.comp_id]
   rfl
 
+set_option maxHeartbeats 2000000 in
 /-- **Normalizing an isomorphism.** Any isomorphism between pullbacks of invertible modules can be
 rescaled by a unit to a normalized isomorphism. -/
 lemma exists_isSectionNormalized {Y : Over S} (hs : s Y ≫ pullback.snd f Y.hom = 𝟙 _) {i j : ι}

@@ -55,7 +55,7 @@ private theorem sectionsBaseChange_injective
       change TopCat.Sheaf.extFreeSheafZeroAddEquiv ⊤ _
           ((Ext.WithAction.toExt _ element).comp
             (Ext.mk₀ (toSheafUnit projection moduleSheaf ≫
-              pushforwardPullbackAction pulledStructureMap projection moduleSheaf scalar))
+              (pushforwardPullbackAction pulledStructureMap projection moduleSheaf scalar).asHom))
             (add_zero 0)) =
         sectionsModuleBaseChange cartesian moduleSheaf scalarEquation ⊤
           (scalar ⊗ₜ sectionsLinearEquiv moduleSheaf ⊤ element)

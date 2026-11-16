@@ -3,9 +3,9 @@
   "source_repository": "https://github.com/frenzymath/Jacobian-Challenge",
   "source_commit": "dce1ca5941773caba3608dceff56371cefce58ec",
   "benchmark_repository": "https://github.com/leanprover/lean-eval",
-  "benchmark_commit": "85a88c37f80170d9f08651dc63ce6b81a8a48cb9",
+  "benchmark_commit": "8955681b9914d7ebc7d286414843021b7d6c9de1",
   "source_toolchain": "leanprover/lean4:v4.35.0-rc3",
-  "benchmark_toolchain": "leanprover/lean4:v4.35.0-rc3",
+  "benchmark_toolchain": "leanprover/lean4:v4.35.0",
   "included_source_modules": 723,
   "excluded_source_modules": [
     "Challenge",
@@ -499,16 +499,14 @@
     "config.json": "63606f20b82ed8417b75c734791f41e5a71a956d83edeb0a1ac2de6bcb3c025f",
     "holes.json": "d42b095770cb7e76dff1bacd944b1086664ebbc864bf614641caeef403879c1a",
     "Solution.lean": "cf5b8564b5637d2fab224005ff40e4239dda91c6eecb9b958a1b86c73b4103c0",
-    "lakefile.toml": "d1d589f899f3e77a4920ada8e9f14f3e686d5d5a69fa22fa0f5d66c9825d1772",
     "README.md": "6965d233905b04ba8bd1a08b2e29dc5c713467b98a5e01489c8b054288cc3f70",
     "WorkspaceTest.lean": "082806a7a6db89461febef4cf50c1d8c620945f96cd1a214a0b481a4cb6ee971",
-    "lean-toolchain": "bc84812c94489d1e3e191baa1dc10d5eb684382d7fe9d2a5ab085e72c1c67e47",
     "Challenge.lean": "5bd20676910804f5afce2d8cdeb508c219bede5c1f9526f5e793029c202d8020",
     "Submission/Helpers.lean": "b5b5c31e59632f5c10241037df5e8d8d3f4ba346d99917caffd60932c7dae226"
   },
   "all_nine_adapter_bodies_present": true,
-  "library_changes": "Local import module paths only; proof bodies unchanged.",
-  "validation": "Packaging checks passed. Lean elaboration and official Comparator not yet run.",
+  "library_changes": "Local import module paths, stable Mathlib endomorphism-wrapper compatibility in five modules, and checking-budget increases scoped to three existing lemmas and the categorical gluing module. Existing declaration headers and docstrings are unchanged. No custom axioms or admissions are added.",
+  "validation": "Stable Lean 4.35.0 package passed lake --no-cache build Submission Solution Challenge and the unchanged official lake test comparator on 2026-11-16, including Lean and NanoDa kernel checks. See validation-20261116.json for the checked input digest and stage results. The original rc3 package also passed on 2026-11-06.",
   "files": [
     {
       "source": "Jacobian/Algebra/Category/Grp/Preadditive.lean",
@@ -568,7 +566,7 @@
       "source": "Jacobian/Algebra/Category/ModuleCat/Presheaf/InternalHom.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/Algebra/Category/ModuleCat/Presheaf/InternalHom.lean",
       "source_sha256": "ef966092831998fa613f951c5a13c65bb10fe42dbbde514f321ec2329c107b84",
-      "packaged_sha256": "8907d0514c3f7589fcc86197dfd5f043fdd84e5d1fc64599434b53b966a91f7e"
+      "packaged_sha256": "36ea493c6980f528a61befbba908fdbe670a27d03534f261164d4ec457cace5f"
     },
     {
       "source": "Jacobian/Algebra/Category/ModuleCat/Presheaf/InternalHomUnit.lean",
@@ -772,7 +770,7 @@
       "source": "Jacobian/Algebra/Homology/DerivedCategory/Ext/BaseChange.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/Algebra/Homology/DerivedCategory/Ext/BaseChange.lean",
       "source_sha256": "176b7587b3cffe3a1e6afb847d0f50d5110047638c84e0f60487c93b3185d496",
-      "packaged_sha256": "176b7587b3cffe3a1e6afb847d0f50d5110047638c84e0f60487c93b3185d496"
+      "packaged_sha256": "e7e48cfe37dddae54f5c7b7c39eb96d485d078777680ca5add4e15765ad4d400"
     },
     {
       "source": "Jacobian/Algebra/Homology/DerivedCategory/Ext/Iso.lean",
@@ -1072,7 +1070,7 @@
       "source": "Jacobian/AlgebraicGeometry/Cohomology/Basic.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Cohomology/Basic.lean",
       "source_sha256": "6eb38c328597a55969df2f5d761de9b0815a6a059ae98ed5ae20c96d95801dd2",
-      "packaged_sha256": "6eb38c328597a55969df2f5d761de9b0815a6a059ae98ed5ae20c96d95801dd2"
+      "packaged_sha256": "2b4f55cb6869b0dc4896cf760cfd8c330556c2310dd6460c824d84727abddf7e"
     },
     {
       "source": "Jacobian/AlgebraicGeometry/Cohomology/Cartier.lean",
@@ -1138,7 +1136,7 @@
       "source": "Jacobian/AlgebraicGeometry/Cohomology/DirectImage/CechResolution.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Cohomology/DirectImage/CechResolution.lean",
       "source_sha256": "cbef0173b5b5d765d5c15f219a5e0c00f5c50c9a30b2b8c7b184ae2e99bdcd33",
-      "packaged_sha256": "70af3226079a1a19d05102a546458f986b13dd9199783320b7e76ddae9613183"
+      "packaged_sha256": "510fc28d9097e46420187513c5b8b80284f6520e935f170ad5595b348e0cc4b7"
     },
     {
       "source": "Jacobian/AlgebraicGeometry/Cohomology/DirectImage/CechResolutionAffine.lean",
@@ -1294,7 +1292,7 @@
       "source": "Jacobian/AlgebraicGeometry/Cohomology/FlatBaseChange.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Cohomology/FlatBaseChange.lean",
       "source_sha256": "fee2625021214423266b21f32cfe53962281b2ba1dc95508144fb9f0182faaf6",
-      "packaged_sha256": "3e2dc023f9635aa7954e909be3f5d27eef8bee49d79f35333a61ebfc2e27d36f"
+      "packaged_sha256": "0db906107f3bec8fbe603673657da47e34bb77fac60bcad0ecd33d8ad53b5692"
     },
     {
       "source": "Jacobian/AlgebraicGeometry/Cohomology/GlobalFunctions.lean",
@@ -1990,7 +1988,7 @@
       "source": "Jacobian/AlgebraicGeometry/Hilbert/SectionPencil/BaseChange.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Hilbert/SectionPencil/BaseChange.lean",
       "source_sha256": "2737b89605e804bcda851ddea00e5f5008fa9a58a61265b343f827b46ec8935e",
-      "packaged_sha256": "cde624f7d5017f35f18622a93e141d48a2e0d282ae08251d74c6207edca149b8"
+      "packaged_sha256": "344b6a2cb8cc06b388b4b8180e514194f977109b8edd15a9f3a5aefa036c6837"
     },
     {
       "source": "Jacobian/AlgebraicGeometry/Hilbert/SectionPencil/Coordinates.lean",
@@ -2428,7 +2426,7 @@
       "source": "Jacobian/AlgebraicGeometry/Modules/DescentEffective.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Modules/DescentEffective.lean",
       "source_sha256": "1cadf879405bd14659f1e5e5501d1fef477a2a8c15483efcec39057ee02e6493",
-      "packaged_sha256": "4d03a549e844855f80c337542977369b40183bb3e3efc35d28d5b7cfe44e2b77"
+      "packaged_sha256": "b714b82b394ac1f655a84ae5fcd034b3759180ed694ad3635793d27d9f1b448c"
     },
     {
       "source": "Jacobian/AlgebraicGeometry/Modules/DescentGlue.lean",
@@ -2728,7 +2726,7 @@
       "source": "Jacobian/AlgebraicGeometry/Modules/Limits/Gluing.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Modules/Limits/Gluing.lean",
       "source_sha256": "5d66665777cfde3570beaadc8b36ebebd56d84e158c3cdba9537efe89b5ead1e",
-      "packaged_sha256": "9d77841b09c630fc108b57305e091b6cbd64ba236de8a240ce6261f652dd1d6a"
+      "packaged_sha256": "9a76f4af2bc60dd7488ec82f7a46b490473612a3c7173531ca34ad332253e2df"
     },
     {
       "source": "Jacobian/AlgebraicGeometry/Modules/Limits/Hom.lean",
@@ -3418,7 +3416,7 @@
       "source": "Jacobian/AlgebraicGeometry/Picard/NormalizedDescent/Modules.lean",
       "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Picard/NormalizedDescent/Modules.lean",
       "source_sha256": "876324db62e7815c85e99ee9b797b92cc1a9e89d9daff32a438af7586a119d86",
-      "packaged_sha256": "79c16dbaf3befb4f934f11026c7c706c67ee4c822d048a1957ec360bac7188c0"
+      "packaged_sha256": "e8bc077602f1da0193f3f17f259e60c20e3dbc2e12dc59769501f184809ca99d"
     },
     {
       "source": "Jacobian/AlgebraicGeometry/Picard/NormalizedSheaf.lean",
@@ -4848,5 +4846,77 @@
       "source_sha256": "9fb460d11d288874a22b1a4ccbad68160f32bde65254d7f213a310fbee102334",
       "packaged_sha256": "d9b16edf15a06df653d2a295e64216714e35a67ed40e80b0e264726be522252c"
     }
-  ]
+  ],
+  "original_packaging": {
+    "submission_commit": "92b6a9a5eb87eb2f392de6fac767c6563b8856d1",
+    "benchmark_commit": "85a88c37f80170d9f08651dc63ce6b81a8a48cb9",
+    "benchmark_toolchain": "leanprover/lean4:v4.35.0-rc3",
+    "submission_issue": "https://github.com/leanprover/lean-eval-submissions/issues/2172"
+  },
+  "workspace_configuration_sha256": {
+    "lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+    "lakefile.toml": "55e892d8bf40631edc45ac1714511e838a066f5577ca5444011ac5d627c6358f",
+    "lake-manifest.json": "40427542b56387da6f9ea27090fc7d21d764c4e55545ac949d352ffb50d0de78"
+  },
+  "workspace_configuration_note": "Selects the benchmark stable Lean and Mathlib pins. The local lakefile retains only lean-pool and Mathlib dependencies used by this solution. The committed manifest pins their benchmark-compatible transitive dependencies. LeanEval overlays only Submission.lean and Submission/**/*.lean into its regenerated trusted workspace.",
+  "stable_migration": {
+    "date": "2026-11-16",
+    "mathlib_commit": "074063781836922cb02701cd12943c9f51731afa",
+    "reason": "The original rc3 toolchain was rejected before proof evaluation. The supported stable Mathlib uses an explicit CategoryTheory.End wrapper.",
+    "compatibility_changes": "Wrap categorical morphisms with End.of, use End.asHom and its operation lemmas, prove equality through End.ext, and use local projection coercions to retain existing declaration syntax. Set maxHeartbeats to 2000000 for three existing lemmas and the categorical gluing module that exceeded the stable toolchain checking budget.",
+    "existing_declaration_headers_unchanged": true,
+    "existing_docstrings_unchanged": true,
+    "files": [
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/Algebra/Category/ModuleCat/Presheaf/InternalHom.lean",
+        "original_packaged_sha256": "8907d0514c3f7589fcc86197dfd5f043fdd84e5d1fc64599434b53b966a91f7e",
+        "migrated_packaged_sha256": "36ea493c6980f528a61befbba908fdbe670a27d03534f261164d4ec457cace5f"
+      },
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/Algebra/Homology/DerivedCategory/Ext/BaseChange.lean",
+        "original_packaged_sha256": "176b7587b3cffe3a1e6afb847d0f50d5110047638c84e0f60487c93b3185d496",
+        "migrated_packaged_sha256": "e7e48cfe37dddae54f5c7b7c39eb96d485d078777680ca5add4e15765ad4d400"
+      },
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Cohomology/Basic.lean",
+        "original_packaged_sha256": "6eb38c328597a55969df2f5d761de9b0815a6a059ae98ed5ae20c96d95801dd2",
+        "migrated_packaged_sha256": "2b4f55cb6869b0dc4896cf760cfd8c330556c2310dd6460c824d84727abddf7e"
+      },
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Cohomology/DirectImage/CechResolution.lean",
+        "original_packaged_sha256": "70af3226079a1a19d05102a546458f986b13dd9199783320b7e76ddae9613183",
+        "migrated_packaged_sha256": "510fc28d9097e46420187513c5b8b80284f6520e935f170ad5595b348e0cc4b7"
+      },
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Cohomology/FlatBaseChange.lean",
+        "original_packaged_sha256": "3e2dc023f9635aa7954e909be3f5d27eef8bee49d79f35333a61ebfc2e27d36f",
+        "migrated_packaged_sha256": "0db906107f3bec8fbe603673657da47e34bb77fac60bcad0ecd33d8ad53b5692"
+      },
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Hilbert/SectionPencil/BaseChange.lean",
+        "original_packaged_sha256": "cde624f7d5017f35f18622a93e141d48a2e0d282ae08251d74c6207edca149b8",
+        "migrated_packaged_sha256": "344b6a2cb8cc06b388b4b8180e514194f977109b8edd15a9f3a5aefa036c6837"
+      },
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Modules/DescentEffective.lean",
+        "original_packaged_sha256": "4d03a549e844855f80c337542977369b40183bb3e3efc35d28d5b7cfe44e2b77",
+        "migrated_packaged_sha256": "b714b82b394ac1f655a84ae5fcd034b3759180ed694ad3635793d27d9f1b448c"
+      },
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Modules/Limits/Gluing.lean",
+        "original_packaged_sha256": "9d77841b09c630fc108b57305e091b6cbd64ba236de8a240ce6261f652dd1d6a",
+        "migrated_packaged_sha256": "9a76f4af2bc60dd7488ec82f7a46b490473612a3c7173531ca34ad332253e2df"
+      },
+      {
+        "packaged": "submissions/jacobian_challenge_alggeo/Submission/Jacobian/AlgebraicGeometry/Picard/NormalizedDescent/Modules.lean",
+        "original_packaged_sha256": "79c16dbaf3befb4f934f11026c7c706c67ee4c822d048a1957ec360bac7188c0",
+        "migrated_packaged_sha256": "e8bc077602f1da0193f3f17f259e60c20e3dbc2e12dc59769501f184809ca99d"
+      }
+    ]
+  },
+  "validation_receipt": {
+    "path": "validation-20261116.json",
+    "sha256": "b90c0c4b73594df0383d952ea4ad3c449a0e5c00d5a7cbb0550ff980abb34276",
+    "input_tree_sha256": "a91fcf908e9783e726032672962a3da0f8764f12b3c94bdbfd707856a54a347e"
+  }
 }

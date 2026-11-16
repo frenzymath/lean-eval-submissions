@@ -135,29 +135,38 @@ open CategoryTheory.Abelian.Ext
 
 variable {scheme : Scheme.{schemeUniverse}}
 
+local instance {C : Type*} [Category C] {X : C} : CoeOut (End X) (X ⟶ X) := ⟨End.asHom⟩
+
 /-- Multiplication by global functions on the underlying abelian sheaf of a sheaf of modules, as
 a ring homomorphism to its endomorphisms. -/
 noncomputable def smulRingHom (moduleSheaf : scheme.Modules) :
     Γ(scheme, ⊤) →+* End ((SheafOfModules.toSheaf scheme.ringCatSheaf).obj moduleSheaf) where
-  toFun baseScalar := (SheafOfModules.toSheaf scheme.ringCatSheaf).map (moduleSheaf.smulHom baseScalar)
-  map_one' := by rw [smulHom_one, CategoryTheory.Functor.map_id]; rfl
-  map_mul' baseScalar extensionScalar := by rw [smulHom_mul, CategoryTheory.Functor.map_comp, End.mul_def]
-  map_zero' := by rw [smulHom_zero, CategoryTheory.Functor.map_zero]
-  map_add' baseScalar extensionScalar := by rw [smulHom_add, CategoryTheory.Functor.map_add]
+  toFun baseScalar := .of
+    ((SheafOfModules.toSheaf scheme.ringCatSheaf).map (moduleSheaf.smulHom baseScalar))
+  map_one' := End.ext <| by rw [smulHom_one, CategoryTheory.Functor.map_id]; rfl
+  map_mul' baseScalar extensionScalar := End.ext <| by
+    rw [smulHom_mul, CategoryTheory.Functor.map_comp, End.mul_asHom]
+  map_zero' := End.ext <| by
+    rw [smulHom_zero, CategoryTheory.Functor.map_zero, End.zero_asHom]
+  map_add' baseScalar extensionScalar := End.ext <| by
+    rw [smulHom_add, CategoryTheory.Functor.map_add, End.add_asHom]
 
 /-- Multiplication by global functions of `Y` on the underlying abelian sheaf of the pushforward
 `g_* N` of a sheaf of modules along `g : Y ⟶ X`, as a ring homomorphism to its endomorphisms. -/
 noncomputable def pushforwardSmulRingHom {pulledScheme : Scheme.{schemeUniverse}} (baseChangeMap : pulledScheme ⟶ scheme) (otherModule : pulledScheme.Modules) :
     Γ(pulledScheme, ⊤) →+* End ((SheafOfModules.toSheaf scheme.ringCatSheaf).obj ((pushforward baseChangeMap).obj otherModule)) where
-  toFun extensionScalar := (SheafOfModules.toSheaf scheme.ringCatSheaf).map ((pushforward baseChangeMap).map (otherModule.smulHom extensionScalar))
-  map_one' := by
+  toFun extensionScalar := .of ((SheafOfModules.toSheaf scheme.ringCatSheaf).map
+    ((pushforward baseChangeMap).map (otherModule.smulHom extensionScalar)))
+  map_one' := End.ext <| by
     rw [smulHom_one, CategoryTheory.Functor.map_id, CategoryTheory.Functor.map_id]; rfl
-  map_mul' baseScalar extensionScalar := by
-    rw [smulHom_mul, CategoryTheory.Functor.map_comp, CategoryTheory.Functor.map_comp, End.mul_def]
-  map_zero' := by
-    rw [smulHom_zero, CategoryTheory.Functor.map_zero, CategoryTheory.Functor.map_zero]
-  map_add' baseScalar extensionScalar := by
-    rw [smulHom_add, CategoryTheory.Functor.map_add, CategoryTheory.Functor.map_add]
+  map_mul' baseScalar extensionScalar := End.ext <| by
+    rw [smulHom_mul, CategoryTheory.Functor.map_comp, CategoryTheory.Functor.map_comp,
+      End.mul_asHom]
+  map_zero' := End.ext <| by
+    rw [smulHom_zero, CategoryTheory.Functor.map_zero, CategoryTheory.Functor.map_zero,
+      End.zero_asHom]
+  map_add' baseScalar extensionScalar := End.ext <| by
+    rw [smulHom_add, CategoryTheory.Functor.map_add, CategoryTheory.Functor.map_add, End.add_asHom]
 
 section BaseChange
 
@@ -225,7 +234,8 @@ noncomputable def sectionsLinearEquiv (openSubset : scheme.Opens) :
   __ := (WithAction.toExt _).trans (TopCat.Sheaf.extFreeSheafZeroAddEquiv openSubset _)
   map_smul' baseScalar element := by
     change TopCat.Sheaf.extFreeSheafZeroAddEquiv openSubset _
-      ((WithAction.toExt _ element).comp (mk₀ (baseAction structureMap coherentSheaf baseScalar)) (add_zero 0)) = _
+      ((WithAction.toExt _ element).comp
+        (mk₀ (baseAction structureMap coherentSheaf baseScalar).asHom) (add_zero 0)) = _
     rw [TopCat.Sheaf.extFreeSheafZeroAddEquiv_comp_mk₀]
     rfl
 
@@ -252,7 +262,9 @@ lemma bijective_cohomologyBaseChange_zero_of_isAffineOpen {openSubset : scheme.O
       rw [hz, hz']
     | tmul extensionScalar element =>
       change TopCat.Sheaf.extFreeSheafZeroAddEquiv openSubset _ ((WithAction.toExt _ element).comp
-          (mk₀ (toSheafUnit baseChangeMap' coherentSheaf ≫ pushforwardPullbackAction structureMap' baseChangeMap' coherentSheaf extensionScalar)) (add_zero 0)) =
+          (mk₀ (toSheafUnit baseChangeMap' coherentSheaf ≫
+            (pushforwardPullbackAction structureMap' baseChangeMap' coherentSheaf
+              extensionScalar).asHom)) (add_zero 0)) =
         sectionsModuleBaseChange cartesian coherentSheaf hg openSubset (extensionScalar ⊗ₜ sectionsLinearEquiv coherentSheaf openSubset element)
       rw [TopCat.Sheaf.extFreeSheafZeroAddEquiv_comp_mk₀, sectionsModuleBaseChange_tmul]
       rfl

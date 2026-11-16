@@ -4,6 +4,7 @@ import Mathlib.LinearAlgebra.TensorProduct.Prod
 import Mathlib.RingTheory.Flat.Basic
 
 set_option backward.isDefEq.respectTransparency false
+set_option backward.isDefEq.respectTransparency.types false
 
 /-!
 # Flat base change of `Ext`-groups along actions on the target
@@ -42,6 +43,8 @@ namespace CategoryTheory.Abelian.Ext
 
 variable {C : Type u} [Category.{v} C] [Abelian C] [HasExt.{w} C]
 
+local instance {X : C} : CoeOut (End X) (X ⟶ X) := ⟨End.asHom⟩
+
 /-- In degree `0`, postcomposition with `mk₀ φ` is composition with `φ`. -/
 lemma addEquiv₀_comp_mk₀ {P F G : C} (x : Ext P F 0) (φ : F ⟶ G) :
     addEquiv₀ (x.comp (mk₀ φ) (add_zero 0)) = addEquiv₀ x ≫ φ := by
@@ -65,27 +68,27 @@ noncomputable instance (P : C) (n : ℕ) : AddCommGroup (WithAction ρ P n) :=
 /-- The action of `A` on `Ext P F n` induced by `ρ`, as a ring homomorphism to the additive
 endomorphisms. -/
 noncomputable def smulEnd (P : C) (n : ℕ) : A →+* AddMonoid.End (Ext P F n) where
-  toFun a := (mk₀ (ρ a)).postcomp P (add_zero n)
+  toFun a := (mk₀ (ρ a).asHom).postcomp P (add_zero n)
   map_one' := by
     ext x
-    change x.comp (mk₀ (ρ 1)) (add_zero n) = x
-    rw [map_one, End.one_def]
+    change x.comp (mk₀ (ρ 1).asHom) (add_zero n) = x
+    rw [map_one, End.one_asHom]
     exact comp_mk₀_id x
   map_mul' a b := by
     ext x
-    change x.comp (mk₀ (ρ (a * b))) (add_zero n) =
-      (x.comp (mk₀ (ρ b)) (add_zero n)).comp (mk₀ (ρ a)) (add_zero n)
-    rw [map_mul, End.mul_def, comp_assoc_of_third_deg_zero, mk₀_comp_mk₀]
+    change x.comp (mk₀ (ρ (a * b)).asHom) (add_zero n) =
+      (x.comp (mk₀ (ρ b).asHom) (add_zero n)).comp (mk₀ (ρ a).asHom) (add_zero n)
+    rw [map_mul, End.mul_asHom, comp_assoc_of_third_deg_zero, mk₀_comp_mk₀]
   map_zero' := by
     ext x
-    change x.comp (mk₀ (ρ 0)) (add_zero n) = 0
-    rw [map_zero, mk₀_zero]
+    change x.comp (mk₀ (ρ 0).asHom) (add_zero n) = 0
+    rw [map_zero, End.zero_asHom, mk₀_zero]
     exact comp_zero _ _ _ _ _
   map_add' a b := by
     ext x
-    change x.comp (mk₀ (ρ (a + b))) (add_zero n) =
-      x.comp (mk₀ (ρ a)) (add_zero n) + x.comp (mk₀ (ρ b)) (add_zero n)
-    rw [map_add, mk₀_add]
+    change x.comp (mk₀ (ρ (a + b)).asHom) (add_zero n) =
+      x.comp (mk₀ (ρ a).asHom) (add_zero n) + x.comp (mk₀ (ρ b).asHom) (add_zero n)
+    rw [map_add, End.add_asHom, mk₀_add]
     exact comp_add _ _ _ _
 
 noncomputable instance (P : C) (n : ℕ) : Module A (WithAction ρ P n) :=
@@ -103,7 +106,7 @@ noncomputable def precompₗ {P P' : C} {m : ℕ} (α : Ext P P' m) {n n' : ℕ}
     WithAction ρ P' n →ₗ[A] WithAction ρ P n' where
   toFun x := (toExt ρ).symm (α.comp (toExt ρ x) h)
   map_add' x y := comp_add α (toExt ρ x) (toExt ρ y) h
-  map_smul' a x := (comp_assoc_of_third_deg_zero α (toExt ρ x) (mk₀ (ρ a)) h).symm
+  map_smul' a x := (comp_assoc_of_third_deg_zero α (toExt ρ x) (mk₀ (ρ a).asHom) h).symm
 
 lemma toExt_precompₗ {P P' : C} {m : ℕ} (α : Ext P P' m) {n n' : ℕ} (h : m + n = n')
     (x : WithAction ρ P' n) : toExt ρ (precompₗ ρ α h x) = α.comp (toExt ρ x) h :=
@@ -132,24 +135,26 @@ variable {B : Type*} [CommRing B] [Algebra A B] {G : C} (σ : B →+* End G) (η
 noncomputable def baseChangeAddHom (P : C) (n : ℕ) :
     B ⊗[A] WithAction ρ P n →+ WithAction σ P n :=
   TensorProduct.liftAddHom
-    { toFun b := ((mk₀ (η ≫ σ b)).postcomp P (add_zero n)).comp (toExt ρ).toAddMonoidHom
+    { toFun b := ((mk₀ (η ≫ (σ b).asHom)).postcomp P (add_zero n)).comp
+        (toExt ρ).toAddMonoidHom
       map_zero' := by
         ext x
-        change (toExt ρ x).comp (mk₀ (η ≫ σ 0)) (add_zero n) = 0
-        rw [map_zero, Limits.comp_zero, mk₀_zero]
+        change (toExt ρ x).comp (mk₀ (η ≫ (σ 0).asHom)) (add_zero n) = 0
+        rw [map_zero, End.zero_asHom, Limits.comp_zero, mk₀_zero]
         exact Ext.comp_zero _ _ _ _ _
       map_add' b b' := by
         ext x
-        change (toExt ρ x).comp (mk₀ (η ≫ σ (b + b'))) (add_zero n) =
-          (toExt ρ x).comp (mk₀ (η ≫ σ b)) (add_zero n) +
-            (toExt ρ x).comp (mk₀ (η ≫ σ b')) (add_zero n)
-        rw [map_add, Preadditive.comp_add, mk₀_add]
+        change (toExt ρ x).comp (mk₀ (η ≫ (σ (b + b')).asHom)) (add_zero n) =
+          (toExt ρ x).comp (mk₀ (η ≫ (σ b).asHom)) (add_zero n) +
+            (toExt ρ x).comp (mk₀ (η ≫ (σ b').asHom)) (add_zero n)
+        rw [map_add, End.add_asHom, Preadditive.comp_add, mk₀_add]
         exact Ext.comp_add _ _ _ _ }
     (fun a b x ↦ by
-      change (toExt ρ x).comp (mk₀ (η ≫ σ (a • b))) (add_zero n) =
-        ((toExt ρ x).comp (mk₀ (ρ a)) (add_zero n)).comp (mk₀ (η ≫ σ b)) (add_zero n)
+      change (toExt ρ x).comp (mk₀ (η ≫ (σ (a • b)).asHom)) (add_zero n) =
+        ((toExt ρ x).comp (mk₀ (ρ a).asHom) (add_zero n)).comp
+          (mk₀ (η ≫ (σ b).asHom)) (add_zero n)
       rw [comp_assoc_of_third_deg_zero, mk₀_comp_mk₀, ← Category.assoc, hη, Algebra.smul_def,
-        mul_comm, map_mul, End.mul_def, Category.assoc])
+        mul_comm, map_mul, End.mul_asHom, Category.assoc])
 
 include hη in
 lemma baseChangeAddHom_tmul (P : C) (n : ℕ) (b : B) (x : WithAction ρ P n) :
@@ -169,9 +174,10 @@ noncomputable def baseChange (P : C) (n : ℕ) :
     | add z z' hz hz' => rw [smul_add, map_add, map_add, hz, hz', smul_add]
     | tmul b x =>
       rw [TensorProduct.smul_tmul']
-      change (toExt ρ x).comp (mk₀ (η ≫ σ (c • b))) (add_zero n) =
-        ((toExt ρ x).comp (mk₀ (η ≫ σ b)) (add_zero n)).comp (mk₀ (σ c)) (add_zero n)
-      rw [comp_assoc_of_third_deg_zero, mk₀_comp_mk₀, smul_eq_mul, map_mul, End.mul_def,
+      change (toExt ρ x).comp (mk₀ (η ≫ (σ (c • b)).asHom)) (add_zero n) =
+        ((toExt ρ x).comp (mk₀ (η ≫ (σ b).asHom)) (add_zero n)).comp
+          (mk₀ (σ c).asHom) (add_zero n)
+      rw [comp_assoc_of_third_deg_zero, mk₀_comp_mk₀, smul_eq_mul, map_mul, End.mul_asHom,
         Category.assoc]
 
 lemma baseChange_tmul (P : C) (n : ℕ) (b : B) (x : WithAction ρ P n) :
@@ -190,8 +196,8 @@ lemma baseChange_comp_lTensor_precompₗ {P P' : C} {m : ℕ} (α : Ext P P' m) 
   | zero => simp only [map_zero]
   | add z z' hz hz' => simp only [map_add, hz, hz']
   | tmul b x =>
-    change (α.comp (toExt ρ x) h).comp (mk₀ (η ≫ σ b)) (add_zero n') =
-      α.comp ((toExt ρ x).comp (mk₀ (η ≫ σ b)) (add_zero n)) h
+    change (α.comp (toExt ρ x) h).comp (mk₀ (η ≫ (σ b).asHom)) (add_zero n') =
+      α.comp ((toExt ρ x).comp (mk₀ (η ≫ (σ b).asHom)) (add_zero n)) h
     exact comp_assoc_of_third_deg_zero _ _ _ _
 
 lemma baseChange_lTensor_precompₗ_apply {P P' : C} {m : ℕ} (α : Ext P P' m) {n n' : ℕ}
