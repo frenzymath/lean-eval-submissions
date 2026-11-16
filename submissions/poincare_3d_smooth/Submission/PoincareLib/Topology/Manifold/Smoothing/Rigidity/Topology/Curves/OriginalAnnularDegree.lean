@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.Curves.OriginalAnnulusMark
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.Curves.SignedAnnularDegree
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.SquareRimFilling
@@ -126,7 +127,8 @@ theorem squareRimLoop_class_ne_one_of_not_nullhomotopic
     FundamentalGroup.fromPath
       (Path.Homotopic.Quotient.mk (squareRimLoop.map gamma.continuous)) ≠ 1 := by
   intro hn
-  exact hgamma (nullhomotopic_of_squareRimLoop gamma (Path.Homotopic.Quotient.eq.mp hn))
+  exact hgamma (nullhomotopic_of_squareRimLoop gamma ((FundamentalGroup.fromPath_eq_one_iff
+    _).mp hn))
 
 /-- Caller-facing degree comparison from the actual terminal rim's
 non-nullhomotopy in the retained region and its actual boundary homotopy

@@ -4,6 +4,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 import Submission.PoincareLib.Topology.Surface.Triangulation.Faces.Bands.Oblique
 import Mathlib.Topology.LocallyFinite
 
+noncomputable section
+
 /-!
 # Frontier and local sides of an oblique band
 
@@ -71,7 +73,7 @@ theorem continuousOn_height : ContinuousOn B.height (Icc (0 : ℝ) 1) := by
   intro i
   let G := B.interface.pieceCoordinates B.open_domain B.smooth_lower i
   apply ((G.smooth_upperGraph B.smooth_lower).continuousOn.mono
-    (fun _ ht => G.parameter_mem_target ht)).congr
+    (by intro _ ht; exact G.parameter_mem_target ht)).congr
   intro t ht
   exact B.height_eq_upperGraph ht
 
@@ -146,7 +148,7 @@ theorem isOpen_openBand : IsOpen B.openBand := by
   have hH : ContinuousOn (fun q : EuclideanSpace ℝ (Fin 2) =>
       B.height (collarParameterEquiv q).1 - (collarParameterEquiv q).2) D :=
     (B.continuousOn_height.comp (continuous_fst.comp collarParameterEquiv.continuous).continuousOn
-      (fun _ hq => ⟨hq.1.le, hq.2.le⟩)).sub
+      (by intro _ hq; exact ⟨hq.1.le, hq.2.le⟩)).sub
         (continuous_snd.comp collarParameterEquiv.continuous).continuousOn
   have htop := hH.isOpen_inter_preimage hD (isOpen_Ioi (a := (0 : ℝ)))
   have hbottom : IsOpen {q : EuclideanSpace ℝ (Fin 2) | 0 < (collarParameterEquiv q).2} :=
@@ -344,7 +346,7 @@ theorem isOpen_lowerParameterNeighborhood : IsOpen B.lowerParameterNeighborhood 
   have hH : ContinuousOn (fun q : EuclideanSpace ℝ (Fin 2) =>
       B.height (collarParameterEquiv q).1 - |(collarParameterEquiv q).2|) D :=
     (B.continuousOn_height.comp (continuous_fst.comp collarParameterEquiv.continuous).continuousOn
-      (fun _ hq => ⟨hq.1.le, hq.2.le⟩)).sub
+      (by intro _ hq; exact ⟨hq.1.le, hq.2.le⟩)).sub
         (continuous_snd.comp collarParameterEquiv.continuous).abs.continuousOn
   have htop := hH.isOpen_inter_preimage hD (isOpen_Ioi (a := (0 : ℝ)))
   convert B.coordinates.open_source.inter htop using 1

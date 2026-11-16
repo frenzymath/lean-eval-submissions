@@ -70,7 +70,7 @@ theorem exists_tangential_weakPartial_of_local_weakEquation
     hVc.of_isClosed_subset isClosed_closure (closure_mono inter_subset_left)
   let p₀ : Fin d → E → ℝ := fun i => (halfSpace d).indicator (p i)
   have hp₀ (i : Fin d) : MemLp (p₀ i) 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr (hp i)
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr (hp i)
   intro k hk i
   obtain ⟨C, _, hC⟩ := local_tangential_diffQuot_weakGradient_localL2_bound B hW hu hf hp hw hF heq
     hη hηc hηrange hN hDη hU (subset_univ _) hUc hUW hR

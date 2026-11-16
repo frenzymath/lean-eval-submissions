@@ -18,11 +18,11 @@ noncomputable def finiteRegularizedMin (δ : ℝ) (hδ : 0 < δ) :
 theorem contDiff_finiteRegularizedMin (δ : ℝ) (hδ : 0 < δ) (n : ℕ) :
     ContDiff ℝ ∞ (finiteRegularizedMin δ hδ n) := by
   induction n with
-  | zero => exact contDiff_apply ℝ ℝ 0
+  | zero => exact contDiff_apply ℝ (fun _ ↦ ℝ) (0 : Fin 1)
   | succ n ih =>
     exact (contDiff_regularizedMin δ hδ).comp
-      ((contDiff_apply ℝ ℝ 0).prodMk (ih.comp
-        (contDiff_pi.mpr fun i => contDiff_apply ℝ ℝ i.succ)))
+      ((contDiff_apply ℝ (fun _ ↦ ℝ) (0 : Fin (n + 2))).prodMk (ih.comp
+        (contDiff_pi.mpr fun i : Fin (n + 1) => contDiff_apply ℝ (fun _ ↦ ℝ) i.succ)))
 
 theorem finiteRegularizedMin_le (δ : ℝ) (hδ : 0 < δ) (n : ℕ)
     (f : Fin (n + 1) → ℝ) (i : Fin (n + 1)) : finiteRegularizedMin δ hδ n f ≤ f i := by

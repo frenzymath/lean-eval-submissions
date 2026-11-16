@@ -177,7 +177,7 @@ private theorem disjoint_closures_of_local_exterior
   obtain ⟨y, hyV, hyA⟩ := mem_closure_iff.mp hxA V hV hxV
   obtain ⟨z, hzV, hzB⟩ := mem_closure_iff.mp hxB V hV hxV
   rcases hcV.subset_or_subset hA hB hdis
-    (fun q hq => hcover.symm.subset hq.1) with hs | hs
+    (by intro q hq; exact hcover.symm.subset hq.1) with hs | hs
   · exact disjoint_left.mp hdis (hs ⟨hcover.subset (Or.inr hzB), hzV⟩) hzB
   · exact disjoint_left.mp hdis hyA (hs ⟨hcover.subset (Or.inl hyA), hyV⟩)
 

@@ -78,7 +78,7 @@ theorem exists_local_smooth_minimizing_interpolator
   obtain ⟨e, he0, he00, _hsource, _htarget, _he, hei, hefirst,
       Gamma, hGamma, hspec⟩ :=
     exists_joint_coordinate_exponential_inverse htopen hB
-      (fun y hy => g.isInvertible_chartCoefficients p0 hy)
+      (by intro y hy; exact g.isInvertible_chartCoefficients p0 hy)
       (fun y _ v w => g.symm _ _ _) hx0
   obtain ⟨eta, heta, hetaSub⟩ := Metric.mem_nhds_iff.mp (e.open_source.mem_nhds he0)
   have hbox {y v : E} (hy : y ∈ ball x0 eta) (hv : v ∈ ball 0 eta) :
@@ -232,16 +232,20 @@ theorem exists_local_smooth_minimizing_interpolator
         (contMDiffOn_extChartAt (I := 𝓡 n) (n := ∞) (x := p0))
     have hcoords : ContMDiffOn ((𝓡 n).prod (𝓡 n)) 𝓘(ℝ, E × E) ∞
         (fun pq : M × M => (c pq.1, c pq.2)) (O ×ˢ O) :=
-      (hc.comp contMDiff_fst.contMDiffOn (fun _ hw => hOsource hw.1)).prodMk_space
-        (hc.comp contMDiff_snd.contMDiffOn (fun _ hw => hOsource hw.2))
+      (hc.comp (s := O ×ˢ O) contMDiff_fst.contMDiffOn (by
+          intro _ hw
+          exact hOsource hw.1)).prodMk_space
+        (hc.comp contMDiff_snd.contMDiffOn (by intro _ hw; exact hOsource hw.2))
     have hZm : ContMDiffOn ((𝓡 n).prod (𝓡 n)) 𝓘(ℝ, E × E) ∞ Z (O ×ˢ O) :=
       (contMDiffOn_iff_contDiffOn.mpr hei).comp hcoords
-        (fun _ hw => hpqTarget hw.1 hw.2)
+        (by intro _ hw; exact hpqTarget hw.1 hw.2)
     have hinput : ContMDiffOn
         ((𝓘(ℝ, ℝ)).prod ((𝓡 n).prod (𝓡 n))) 𝓘(ℝ, (E × E) × ℝ) ∞
         (fun w : ℝ × (M × M) => (Z w.2, w.1))
         (Ioo (-1 : ℝ) 2 ×ˢ (O ×ˢ O)) :=
-      (hZm.comp contMDiff_snd.contMDiffOn (fun _ hw => hw.2)).prodMk_space
+      (hZm.comp (s := Ioo (-1 : ℝ) 2 ×ˢ (O ×ˢ O)) contMDiff_snd.contMDiffOn (by
+          intro _ hw
+          exact hw.2)).prodMk_space
         contMDiff_fst.contMDiffOn
     have hpos : ContMDiffOn 𝓘(ℝ, (E × E) × ℝ) (𝓡 n) ∞
         (fun w => (Gamma w).1) (e.source ×ˢ Ioo (-2 : ℝ) 2) :=
@@ -249,7 +253,7 @@ theorem exists_local_smooth_minimizing_interpolator
     exact (contMDiffOn_extChartAt_symm (I := 𝓡 n) (n := ∞) p0).comp
       (hpos.comp hinput (fun _ hw =>
         ⟨hZ hw.2.1 hw.2.2, by constructor <;> linarith [hw.1.1, hw.1.2]⟩))
-      (fun w hw => ((hspec _ (hZ hw.2.1 hw.2.2)).2.2 w.1
+      (by intro w hw; exact ((hspec _ (hZ hw.2.1 hw.2.2)).2.2 w.1
         ⟨by linarith [hw.1.1], hw.1.2⟩).1)
   have hclosed {eps : ℝ} (heps : 0 < eps) :
       Icc (0 : ℝ) 1 ⊆ Ioo (-eps) (1 + eps) := by
@@ -289,8 +293,9 @@ theorem exists_local_smooth_minimizing_interpolator
           (g.edist p q).toReal := by
     obtain ⟨Cs, hCs⟩ := hgamma.exists_constant_tangentNorm (by linarith)
     have hlengthCs : g.pathELength gamma 0 1 = ENNReal.ofReal (Cs : ℝ) := by
-      simpa using g.pathELength_eq_of_tangentNorm_eq (a := 0) (b := 1)
-        (fun t ht => hCs t (hclosed heps ht))
+      simpa only [sub_zero, ENNReal.ofReal_one, mul_one] using
+        g.pathELength_eq_of_tangentNorm_eq (a := 0) (b := 1)
+        (by intro t ht; exact hCs t (hclosed heps ht))
     have hCsD : (Cs : ℝ) = (g.edist p q).toReal := by
       have hh := congrArg ENNReal.toReal (hlengthCs.symm.trans hlength)
       exact (ENNReal.toReal_ofReal Cs.2).symm.trans hh
@@ -371,7 +376,7 @@ theorem exists_local_smooth_minimizing_interpolator
     have hfinite : g.edist p q ≠ ⊤ := ne_top_of_lt ((hpqSmall hp hq).1.trans_le le_top)
     refine ⟨(hpqSmall hp hq).1, hH0 hp hq, hH1 hp hq, hHgeo hp hq, hHspeed, ?_, ?_⟩
     · have hh := g.pathELength_eq_of_tangentNorm_eq (a := 0) (b := 1)
-        (fun t ht => hHspeed t (by constructor <;> linarith [ht.1, ht.2]))
+        (by intro t ht; exact hHspeed t (by constructor <;> linarith [ht.1, ht.2]))
       simpa only [sub_zero, ENNReal.ofReal_one, mul_one,
         ENNReal.ofReal_toReal hfinite] using hh
     · intro s hs t ht

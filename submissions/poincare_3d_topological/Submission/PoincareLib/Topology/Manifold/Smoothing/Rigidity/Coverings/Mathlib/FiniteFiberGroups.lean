@@ -26,16 +26,20 @@ theorem nontrivial_fundamentalGroup_of_finite_fiber
   have hinj : Function.Injective (hp.monodromyPerm (p e)) := by
     apply (injective_iff_map_eq_one (hp.monodromyPerm (p e))).mpr
     intro gamma hgamma
-    have hfix : hp.monodromy gamma ⟨e, rfl⟩ = ⟨e, rfl⟩ := by
+    have hfix : hp.monodromy gamma.toPath ⟨e, rfl⟩ = ⟨e, rfl⟩ := by
       exact congrArg (fun f : Equiv.Perm (p ⁻¹' {p e}) => f ⟨e, rfl⟩) hgamma
     let delta : FundamentalGroup E e :=
-      (hp.liftPathQuotient gamma ⟨e, rfl⟩).cast rfl (congrArg Subtype.val hfix).symm
-    have hmap : Path.Homotopic.Quotient.map delta ⟨p, hp.continuous⟩ = gamma := by
-      simp only [delta, Path.Homotopic.Quotient.map_cast, hp.map_liftPathQuotient,
+      FundamentalGroup.fromPath
+        ((hp.liftPathQuotient gamma.toPath ⟨e, rfl⟩).cast rfl (congrArg Subtype.val hfix).symm)
+    have hmap : FundamentalGroup.map ⟨p, hp.continuous⟩ e delta = gamma := by
+      apply CategoryTheory.End.ext
+      change Path.Homotopic.Quotient.map delta.toPath ⟨p, hp.continuous⟩ = gamma.toPath
+      simp only [delta, FundamentalGroup.toPath, FundamentalGroup.toArrow,
+        FundamentalGroup.fromPath, FundamentalGroup.fromArrow, Path.Homotopic.Quotient.map_cast,
+          hp.map_liftPathQuotient,
         Path.Homotopic.Quotient.cast_cast, Path.Homotopic.Quotient.cast_rfl_rfl]
     have hdelta : delta = 1 := Subsingleton.elim _ _
     have hh := congrArg (FundamentalGroup.map ⟨p, hp.continuous⟩ e) hdelta
-    change Path.Homotopic.Quotient.map delta ⟨p, hp.continuous⟩ = _ at hh
     simpa only [hmap, map_one] using hh
   exact (Finite.of_injective (hp.monodromyPerm (p e)) hinj).false
 

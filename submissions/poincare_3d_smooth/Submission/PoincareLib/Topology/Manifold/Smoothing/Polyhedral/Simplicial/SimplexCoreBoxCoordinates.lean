@@ -36,7 +36,8 @@ theorem contDiff_boxPoint (ι κ : Type*) [Fintype ι] [Fintype κ] (η : ℝ) (
   · apply contDiff_pi.mpr
     intro i
     exact contDiff_const.add (((contDiff_boxScale ι η n).comp contDiff_snd).mul
-      (((contDiff_apply ℝ ℝ i).comp contDiff_fst).sub contDiff_const))
+      (((contDiff_apply ℝ (fun _ ↦ ℝ) i).comp (contDiff_fst : ContDiff ℝ n (Prod.fst : (ι → ℝ) ×
+        (κ → ℝ) → (ι → ℝ)))).sub contDiff_const))
   · exact contDiff_snd
 
 /-- The core-base formula is smooth wherever its radial factor
@@ -46,7 +47,8 @@ theorem contDiffAt_boxBase (η : ℝ) (n : ℕ∞ω) (z : (ι → ℝ) × (κ �
   apply contDiffAt_pi.mpr
   intro i
   exact contDiffAt_const.add
-    ((((contDiff_apply ℝ ℝ i).comp contDiff_fst).contDiffAt.sub contDiffAt_const).div
+    ((((contDiff_apply ℝ (fun _ ↦ ℝ) i).comp (contDiff_fst : ContDiff ℝ n (Prod.fst : (ι → ℝ) ×
+      (κ → ℝ) → (ι → ℝ)))).contDiffAt.sub contDiffAt_const).div
       ((contDiff_boxScale ι η n).comp contDiff_snd).contDiffAt hz)
 
 /-- Each closed core neighborhood is the product of its core

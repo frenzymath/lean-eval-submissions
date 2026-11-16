@@ -99,7 +99,7 @@ theorem exists_connected_dense_core_neighborhood_of_chart
       rw [Topology.IsInducing.subtypeVal.closure_eq_preimage_closure_image,hcoreImage]
       exact isOpen_ball.inter_closure ⟨hz.2,hMC (H z).property⟩
     have hh := ((hcont.continuousWithinAt (H.map_source hz.1)).mono
-      (fun _ hw => hballT hw.1)).mem_closure hcl
+      (show coreM ⊆ H.target by intro w hw; exact hballT hw.1)).mem_closure hcl
       (show MapsTo (fun z : M => (H.symm z : P2)) coreM (V ∩ (K \ B)) from
         fun _ hw => hcoreEq.subset (mem_image_of_mem _ hw))
     simpa only [H.left_inv hz.1] using hh

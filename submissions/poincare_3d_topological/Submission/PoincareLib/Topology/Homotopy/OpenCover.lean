@@ -78,6 +78,7 @@ theorem simplyConnectedSpace_of_pathConnectedOpenCover
   have hsub : Subsingleton (FundamentalGroup X x₀) := by
     constructor
     intro a b
+    apply CategoryTheory.End.ext
     change FundamentalGroup.toPath a = FundamentalGroup.toPath b
     obtain ⟨γ, hγ⟩ :=
       Path.Homotopic.Quotient.mk_surjective (FundamentalGroup.toPath a)

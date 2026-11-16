@@ -53,9 +53,9 @@ theorem core_germ_of_collar_germ (R : T.decomposition.regions) {q : Plane}
   have hc := T.core_complement_germ R q hq
   have hi := support_eventuallyEq_interior hcollar
   filter_upwards [hc, hi] with z hz hi
-  change ((T.refined.mesh R).toPlaneComplex.support z) = ¬interior A z
-  change ((T.refined.mesh R).toPlaneComplex.support z) = ¬interior _ z at hz
-  change interior _ z = interior _ z at hi
+  change (z ∈ (T.refined.mesh R).toPlaneComplex.support) = (z ∉ interior A)
+  change (z ∈ (T.refined.mesh R).toPlaneComplex.support) = (z ∉ interior _) at hz
+  change (z ∈ interior _) = (z ∈ interior _) at hi
   rw [hi] at hz
   exact hz
 

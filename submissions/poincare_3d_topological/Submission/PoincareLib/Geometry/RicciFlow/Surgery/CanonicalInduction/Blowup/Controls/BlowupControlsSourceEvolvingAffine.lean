@@ -130,7 +130,7 @@ theorem exists_source_neck_family_coefficient_tolerance
                 (0, z)‖ ≤ kappa) →
       RoundCylinderFamilyClose epsilon (Icc (-1 : ℝ) 0) B := by
   obtain ⟨eta, heta, hperturb⟩ := exists_same_epsilon_neck_family_perturbation_tolerance
-    hepsilon (fun _ hu => hu.2) D hD
+    hepsilon (I := Icc (-1 : ℝ) 0) (fun _ hu => hu.2) D hD
   let K0 : Set V := ({0} : Set E₂) ×ˢ Icc (-epsilon⁻¹) epsilon⁻¹
   obtain ⟨A, hA, hbound⟩ := exists_roundCylinder_covariant_difference_component_bound
     (isCompact_Icc : IsCompact (Icc (-1 : ℝ) 0))

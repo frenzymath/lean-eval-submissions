@@ -32,7 +32,8 @@ theorem loopTwoSphere_homotopic_const
   let : LocallyPathConnectedSpace M := ChartedSpace.locallyPathConnectedSpace LoopAmbient M
   let : PathConnectedSpace M := .of_locallyPathConnectedSpace
   let e : Metric.sphere (0 : LoopAmbient) 1 ≃ₜ LoopTwoSphere :=
-    Homeomorph.setCongr (by ext z; exact mem_sphere_zero_iff_norm)
+    Homeomorph.setCongr (s := Metric.sphere (0 : LoopAmbient) 1)
+      (t := {z : LoopAmbient | ‖z‖ = 1}) (by ext z; exact mem_sphere_zero_iff_norm)
   have h := sphere_homotopic_const_of_pi_trivial 1 x hpi (f.comp (e : C(_, _)))
   have h' := h.comp (ContinuousMap.Homotopic.refl
     (e.symm : C(LoopTwoSphere, Metric.sphere (0 : LoopAmbient) 1)))

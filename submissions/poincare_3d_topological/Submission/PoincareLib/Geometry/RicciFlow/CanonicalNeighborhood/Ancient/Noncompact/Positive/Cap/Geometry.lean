@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.N
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.Noncompact.Positive.Collars.Placement
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.Noncompact.Positive.Collars.Restriction
 
+noncomputable section
+
 /-!
 # A positive cap's actual collar geometry
 

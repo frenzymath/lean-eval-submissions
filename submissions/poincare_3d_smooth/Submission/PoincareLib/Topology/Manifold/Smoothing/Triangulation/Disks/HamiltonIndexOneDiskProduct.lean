@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Handles.HamiltonIndexOneProductCut
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Handles.HamiltonIndexOneMeridianBand
 
+noncomputable section
+
 /-!
 # The marked product consumed by the index-one physical cut
 

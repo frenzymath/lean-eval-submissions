@@ -90,7 +90,7 @@ theorem suFirstJet_coefficient_chain
   have hdfc : ContinuousOn (fun x => fderiv ℝ F (U x)) (closedBall center rho) :=
     (hF.continuousOn_fderiv_of_isOpen hO (by norm_num)).comp hU hmap
   refine ⟨suContinuous_memLp_ball hfc, fun k => ⟨?_, ?_⟩⟩
-  · exact (ContinuousLinearMap.apply ℝ ℝ (E := LoopPlane × Jet n)).memLp_of_bilin
+  · exact (ContinuousLinearMap.apply ℝ ℝ (E' := LoopPlane × Jet n)).memLp_of_bilin
       (p := 2) (q := ⊤) 2 (memLp_prod_iff.mpr ⟨memLp_const _, hW k⟩)
         (suContinuous_memLp_ball hdfc)
   · exact suWeakPartial_source_comp_on_compact hr hrH (suContinuous_memLp_ball hJ) hW hw

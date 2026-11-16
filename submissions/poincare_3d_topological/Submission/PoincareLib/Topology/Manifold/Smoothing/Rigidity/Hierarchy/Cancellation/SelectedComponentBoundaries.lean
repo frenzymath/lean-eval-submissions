@@ -298,7 +298,8 @@ theorem exists_hamiltonZero_selected_component_boundaries
     have hfactor : VanKampen.inclusion S =
         (VanKampen.inclusion P).comp (ContinuousMap.inclusion hSP) := rfl
     rw [hfactor, FundamentalGroup.map_comp] at hamb
-    exact Function.Injective.of_comp hamb
+    exact Function.Injective.of_comp
+      (f := FundamentalGroup.map (VanKampen.inclusion P) ((ContinuousMap.inclusion hSP) z)) hamb
   refine ⟨hPc, hPconn, hIP, hinjP, iA, iB, hAP, hBP, hdis, hAF, hBF,
     hAwhole, hBwhole, hcoverA, hcoverB, hboundaryInj hAF hAwhole hAP,
     hboundaryInj hBF hBwhole hBP, xA, xB, ?_⟩

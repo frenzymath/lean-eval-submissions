@@ -1,6 +1,8 @@
 import Mathlib.Analysis.Normed.Module.Connected
 import Mathlib.Analysis.Convex.Contractible
 
+noncomputable section
+
 /-!
 # Coordinate topology of a disk block and its lateral band
 

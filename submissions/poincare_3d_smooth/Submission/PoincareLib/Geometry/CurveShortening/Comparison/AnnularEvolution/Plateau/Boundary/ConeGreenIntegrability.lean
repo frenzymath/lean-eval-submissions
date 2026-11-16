@@ -46,7 +46,9 @@ theorem coneRadialFlux_deriv_continuous {g : C → ℝ}
   have hQ := (cone_reconstruction_continuous hr hρ hv hg h0 hvb).1
   have hA := (cone_reconstruction_continuous hr hρ hv hg h0 hvb).2
   have hvp : ContinuousOn (fun p : ℝ × ℝ => v p.2 - v0) S :=
-    (hv.comp continuous_snd.continuousOn (fun _ hp => hp.2)).sub continuousOn_const
+    (hv.comp (s := S) continuous_snd.continuousOn (by
+        intro p hp
+        exact hp.2)).sub continuousOn_const
   have heV : Continuous (fun p : ℝ × ℝ => Proofs.M58.angularPoint p.2) :=
     Proofs.M58.contDiff_angularPoint.continuous.comp continuous_snd
   have he : Continuous (fun p : ℝ × ℝ => Proofs.M58.angularPoint p.2 i) :=

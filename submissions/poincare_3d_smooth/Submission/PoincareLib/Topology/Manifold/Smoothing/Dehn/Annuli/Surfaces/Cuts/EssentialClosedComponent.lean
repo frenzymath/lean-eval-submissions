@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Annuli.Surfaces.Cuts.ClosedComponentParity
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Annuli.Surfaces.Caps.CountTwoSphere
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Spheres.Mathlib.FinitePLCubeSphereModel
@@ -59,7 +60,7 @@ theorem surfaceEulerCount_ne_two_of_rim_retraction
   let : SimplyConnectedSpace K.space :=
     K.simplyConnectedSpace_of_surfaceEulerCount_eq_two hK hpure hconn hlinks hcofaces hcount
   apply PoincareMT.M76.Dehn.squareRimLoop_map_class_ne_one_of_retraction gamma radial hleft
-  exact Path.Homotopic.Quotient.eq.mpr (SimplyConnectedSpace.paths_homotopic _ _)
+  exact (FundamentalGroup.fromPath_eq_one_iff _).mpr (SimplyConnectedSpace.paths_homotopic _ _)
 
 open Classical in
 theorem closed_surface_rank_ge_two_of_rim_retraction

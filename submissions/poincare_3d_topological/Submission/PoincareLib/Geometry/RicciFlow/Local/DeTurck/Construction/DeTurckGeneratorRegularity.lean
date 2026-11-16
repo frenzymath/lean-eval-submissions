@@ -566,7 +566,7 @@ theorem exists_secondDerivatives_of_weak_equation {α β : Type*} [TopologicalSp
     filter_upwards [hnear] with h hh
     have habs : ‖h‖ < r := by simpa only [mem_ball, dist_zero_right] using hh
     have hsmall : ‖h • EuclideanSpace.single k (1 : ℝ)‖ ≤ r := by
-      simpa only [norm_smul, EuclideanSpace.norm_single, norm_one, mul_one] using habs.le
+      simpa only [norm_smul, PiLp.norm_single, norm_one, mul_one] using habs.le
     exact norm_coordinateQuotient_le_of_weak_equation e he S U D hU hD hSU hSD A hSK
       hr.le hEll hB hell hAB G z k h hsmall (hweak k h hsmall) i
   choose W hW using fun i k =>
@@ -607,7 +607,7 @@ theorem exists_secondDerivatives_of_weak_equation_integrable
     filter_upwards [hnear] with h hh
     have habs : ‖h‖ < r := by simpa only [mem_ball, dist_zero_right] using hh
     have hsmall : ‖h • EuclideanSpace.single k (1 : ℝ)‖ ≤ r := by
-      simpa only [norm_smul, EuclideanSpace.norm_single, norm_one, mul_one] using habs.le
+      simpa only [norm_smul, PiLp.norm_single, norm_one, mul_one] using habs.le
     exact norm_coordinateQuotient_le_of_weak_equation e he S U D hU hD hSU hSD A hSK
       hr.le hEll hB hell hAB G z k h hsmall (hweak k h hsmall) i
   choose W hW using fun i k =>

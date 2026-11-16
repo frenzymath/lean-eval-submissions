@@ -5,6 +5,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Disks.Polyh
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Arcs.FinitePLIntervals
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Products.AlexanderBaseProductBall
 
+noncomputable section
+
 /-!+# PL descent through the periodic square
 
 The four half-period rectangles are injective for the periodic projection.

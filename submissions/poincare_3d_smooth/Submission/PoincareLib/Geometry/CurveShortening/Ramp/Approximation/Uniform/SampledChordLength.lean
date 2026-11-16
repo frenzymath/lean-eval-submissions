@@ -54,7 +54,8 @@ theorem exists_uniform_sampled_chord_length
     ⟨⟨g.inner, g.contMDiff.continuous, fun _ _ _ => rfl⟩⟩
   let : EMetricSpace M := EMetricSpace.ofRiemannianMetric (𝓡 3) M
   let sphereEquiv : Metric.sphere (0 : LoopAmbient) 1 ≃ₜ LoopTwoSphere :=
-    Homeomorph.setCongr (by ext z; exact mem_sphere_zero_iff_norm)
+    Homeomorph.setCongr (s := Metric.sphere (0 : LoopAmbient) 1)
+      (t := {z : LoopAmbient | ‖z‖ = 1}) (by ext z; exact mem_sphere_zero_iff_norm)
   let : CompactSpace LoopTwoSphere := sphereEquiv.compactSpace
   let X := LoopTwoSphere × Icc (0 : ℝ) curvePeriod
   let gamma : LoopTwoSphere → ℝ → M := fun z => periodicFreeLoop (Gamma z)

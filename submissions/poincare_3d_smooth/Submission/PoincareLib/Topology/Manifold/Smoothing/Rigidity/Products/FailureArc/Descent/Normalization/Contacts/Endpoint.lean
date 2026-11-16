@@ -66,7 +66,8 @@ theorem double_point_interior_of_not_exceptional
 omit [FiniteDimensional ℝ V] in
 theorem projected_fiber_finite (z : s.Carrier) :
     (D.K.space ∩ D.projected ⁻¹' {z}).Finite := by
-  apply (step.projectionInclusion_fiber z).1.of_injOn (f := D.endpoint) (fun _ hx => hx.2)
+  apply (step.projectionInclusion_fiber z).1.of_injOn (f := D.endpoint)
+    (fun x (hx : x ∈ D.K.space ∩ D.projected ⁻¹' {z}) ↦ hx.2)
   intro a ha b hb hab
   exact congrArg Subtype.val ((D.states D.length).embedding.injective
     (a₁ := ⟨a, ha.1⟩) (a₂ := ⟨b, hb.1⟩) hab)

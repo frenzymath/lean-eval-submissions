@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Models
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Monodromy.MonodromyCylinder
 
+noncomputable section
+
 /-!
 # The nonseparating fiber and its exact open-cylinder complement
 

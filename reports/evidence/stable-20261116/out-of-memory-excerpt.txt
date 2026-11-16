@@ -1,0 +1,5 @@
+validation-pass19.log: error: Lean default exited with 137
+validation-pass19.log: Lean default kernel rejected the solution
+validation-pass19.log: slurmstepd: error: Detected 1 oom_kill event in StepId=5184218.184. Some of the step tasks have been OOM Killed.
+validation-pass19.log: srun: error: a2n16c1: task 0: Out Of Memory
+preparation-concurrent.log: subprocess.CalledProcessError: Command '['srun', '--jobid=5184218', '--overlap', '-N1', '-n1', '-c16', 'env', 'POINCARE_OLEAN_READ_FALLBACK=1', 'POINCARE_LOCAL_WORKSPACE_NAME=workspace-topological', '/tmp/poincare-resubmit-20261116-5184218/force-olean-read', 'bash', '/gpfs/share/home/2301110044/AxelWorkspace/state/poincare-resubmit-20261116/run-local.sh', 'topological']' returned non-zero exit status 137.

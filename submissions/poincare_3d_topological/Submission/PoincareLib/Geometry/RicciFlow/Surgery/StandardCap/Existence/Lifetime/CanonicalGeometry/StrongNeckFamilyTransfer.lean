@@ -87,7 +87,7 @@ theorem ordinaryChapter11_eventually_neck_familyClose
       (C.exhaustion.space_open k) hcoordinate
       (fun z hz => hcapture.1 ⟨z, ⟨mem_univ _, hz.2.1.le, hz.2.2.le⟩, rfl⟩)
       (hcapture.2 ⟨hs.1.le, hs.2⟩)
-  apply hperturb N.epsilon_pos hdelta (fun _ hu => hu.2) B D hlimit hBs
+  apply hperturb N.epsilon_pos hdelta (I := Ioc (-1 : ℝ) 0) (fun _ hu => hu.2) B D hlimit hBs
   intro s hs z hz j hj a
   have hDs : RoundCylinderTensorSmoothOn epsilon (D s) :=
     (hlimit.1 s hs).mono_epsilon N.epsilon_pos hstrict.le

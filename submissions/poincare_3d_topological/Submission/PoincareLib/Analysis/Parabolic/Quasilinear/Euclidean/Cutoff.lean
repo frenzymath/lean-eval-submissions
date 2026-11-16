@@ -32,7 +32,7 @@ variable {X E : Type*} [MeasurableSpace X]
   {U : Set X} (hU : MeasurableSet U)
 
 def zeroExtendL2Fun (f : Lp E 2 (μ.restrict U)) : Lp E 2 μ :=
-  ((memLp_indicator_iff_restrict hU).mpr (Lp.memLp f)).toLp (U.indicator f)
+  ((memLp_indicator_iff_restrict hU.nullMeasurableSet).mpr (Lp.memLp f)).toLp (U.indicator f)
 
 theorem zeroExtendL2Fun_coe (f : Lp E 2 (μ.restrict U)) :
     zeroExtendL2Fun hU f =ᵐ[μ] U.indicator f := MemLp.coeFn_toLp _
@@ -63,9 +63,9 @@ def zeroExtendL2 : Lp E 2 (μ.restrict U) →ₗᵢ[ℝ] Lp E 2 μ where
     · simpa [hx] using hxmap
     · simp [hx]
   norm_map' f := by
-    change ‖((memLp_indicator_iff_restrict hU).mpr (Lp.memLp f)).toLp
+    change ‖((memLp_indicator_iff_restrict hU.nullMeasurableSet).mpr (Lp.memLp f)).toLp
       (U.indicator f)‖ = ‖f‖
-    rw [Lp.norm_toLp, eLpNorm_indicator_eq_eLpNorm_restrict hU, Lp.norm_def]
+    rw [Lp.norm_toLp, eLpNorm_indicator_eq_eLpNorm_restrict hU.nullMeasurableSet, Lp.norm_def]
 
 theorem zeroExtendL2_coe (f : Lp E 2 (μ.restrict U)) :
     zeroExtendL2 hU f =ᵐ[μ] U.indicator f := zeroExtendL2Fun_coe hU f

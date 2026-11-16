@@ -102,8 +102,9 @@ theorem inter_connectedComponentIn_eq_interval_endpoints
       exact hz (heq ▸ connectedComponentIn_subset K q hx)
     have hfcont : ContinuousAt f 0 := hf.continuousAt (Ioo_mem_nhds h0.1 h0.2)
     have hn : {s : ℝ | s ∈ Ioo (-d) d ∧ f s ∈ W ∧ f s ≠ z} ∈ 𝓝 0 := by
-      refine inter_mem (Ioo_mem_nhds h0.1 h0.2) ?_
-      refine hfcont (inter_mem (hW.mem_nhds ?_) (isOpen_compl_singleton.mem_nhds ?_))
+      change Ioo (-d) d ∩ {s | f s ∈ W ∧ f s ≠ z} ∈ 𝓝 0
+      refine Filter.inter_mem (Ioo_mem_nhds h0.1 h0.2) ?_
+      refine hfcont (Filter.inter_mem (hW.mem_nhds ?_) (isOpen_compl_singleton.mem_nhds ?_))
       · rwa [hf0]
       · simpa [hf0] using htz
     obtain ⟨u, v, huv, hsub⟩ := mem_nhds_iff_exists_Ioo_subset.mp hn

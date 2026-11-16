@@ -65,7 +65,7 @@ theorem suWeakHessian_unit_comparison :
   have hg : MemLp g 2 (volume.restrict O) :=
     (memLp_finsetSum _ (fun i _ => hH i i)).neg
   have hG : MemLp G 2 volume :=
-    (memLp_indicator_iff_restrict Metric.isOpen_ball.measurableSet).mpr hg
+    (memLp_indicator_iff_restrict Metric.isOpen_ball.measurableSet.nullMeasurableSet).mpr hg
   have hGmetric : MemLp G 2 (RiemannianMetric.euclideanMetric 2).volumeMeasure := by
     simpa only [RiemannianMetric.euclideanMetric_volumeMeasure] using hG
   let F : Lp ℝ 2 (RiemannianMetric.euclideanMetric 2).volumeMeasure := hGmetric.toLp G

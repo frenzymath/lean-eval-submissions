@@ -88,7 +88,7 @@ theorem frontier_vertex_ballPair (p : (T.marked 2).vertices)
       fun hx => ⟨(G x).property, (hboundary x).mp hx.2⟩⟩
   have hrim : g '' (frontier C ∩ {x : C3 | x.1.1 = 0}) =
       (N.space ∩ (T.marked 1).space) ∩ (N.link p).space := by
-    apply himage _ _ (fun _ hx => hC.isClosed.frontier_subset hx.1)
+    apply himage _ _ (by intro _ hx; exact hC.isClosed.frontier_subset hx.1)
       (inter_subset_left.trans inter_subset_left)
     intro x
     exact ⟨fun hx => ⟨⟨x.property, (hboundary x).mpr hx.2⟩, (hlink x).mpr hx.1⟩,

@@ -131,7 +131,8 @@ theorem ConnectedNeckCapCover.exists_uniform_cap_truncation_depth_gain_of_end_ne
     have hclosed : IsClosed {z | g.edist y z ≤ ENNReal.ofReal ell} :=
       isClosed_le (continuous_const.edist continuous_id) continuous_const
     have hdist : g.edist y p ≤ ENNReal.ofReal ell :=
-      closure_minimal (hdiam y hy) hclosed hpP
+      closure_minimal (s := P0) (t := {z | g.edist y z ≤ ENNReal.ofReal ell})
+        (hdiam y hy) hclosed hpP
     exact (iInf₂_le p hpout).trans hdist
   have hloss : C0.exteriorEDepth x ≤
       (⨅ y ∈ D0ᶜ, g.edist x y) + ENNReal.ofReal ell := by

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Coordinates.SquareAnnulusCylinder
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Loops.EssentialSquareRim
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Annuli.Surfaces.Caps.OneBoundaryDisk
@@ -29,7 +30,7 @@ theorem squareRim_identity_not_nullhomotopic : ¬ (ContinuousMap.id Q2).Nullhomo
   intro h
   let : ContractibleSpace Q2 := (contractible_iff_id_nullhomotopic Q2).mpr h
   exact squareRimLoop_class_ne_one
-    (Path.Homotopic.Quotient.eq.mpr (SimplyConnectedSpace.paths_homotopic _ _))
+    ((FundamentalGroup.fromPath_eq_one_iff _).mpr (SimplyConnectedSpace.paths_homotopic _ _))
 
 omit [NormedSpace ℝ E] [FiniteDimensional ℝ E] in
 theorem exists_offset_rim_radial_homotopy

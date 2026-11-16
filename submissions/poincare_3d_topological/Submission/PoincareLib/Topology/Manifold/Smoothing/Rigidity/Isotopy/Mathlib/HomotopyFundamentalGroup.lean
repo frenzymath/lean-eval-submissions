@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Isotopy.Mathlib.IdentityHomotopy
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.InducedMaps
@@ -25,7 +26,7 @@ basepoints. See rigidity052, sections1--2. -/
 theorem map_comp_apply (f : C(X, Y)) (g : C(Y, Z)) (x : X)
     (a : FundamentalGroup X x) :
     map (g.comp f) x a = map g (f x) (map f x a) := by
-  obtain ⟨a, rfl⟩ := Path.Homotopic.Quotient.mk_surjective a
+  obtain ⟨a, rfl⟩ := FundamentalGroup.exists_path_rep a
   rfl
 
 /-- A homotopy equivalence makes its actual based forward map
@@ -35,7 +36,14 @@ theorem map_bijective_of_homotopyEquiv (h : ContinuousMap.HomotopyEquiv X Y) (x 
   let e := FundamentalGroupoidFunctor.equivOfHomotopyEquiv h
   let : e.functor.Faithful := e.faithful_functor
   let : e.functor.Full := e.full_functor
-  exact ⟨e.functor.map_injective, e.functor.map_surjective⟩
+  constructor
+  · intro a b hab
+    apply CategoryTheory.End.ext
+    apply e.functor.map_injective
+    exact congrArg CategoryTheory.End.asHom hab
+  · intro a
+    obtain ⟨b, hb⟩ := e.functor.map_surjective a.asHom
+    exact ⟨.of b, CategoryTheory.End.ext hb⟩
 
 /-- Package the same actual homomorphism as a group isomorphism;
 no independent abstract group comparison is chosen. See052, section1. -/

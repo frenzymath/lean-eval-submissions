@@ -35,10 +35,7 @@ noncomputable def pullbackCoefficients (g : RiemannianMetric n M)
     infer_instance
   let A : EuclideanSpace ℝ (Fin n) →L[ℝ] TangentSpace (𝓡 n) (f x) :=
     mfderiv (𝓡 n) (𝓡 n) f x
-  exact ContinuousLinearMap.bilinearComp
-    (E := TangentSpace (𝓡 n) (f x)) (F := TangentSpace (𝓡 n) (f x)) (G := ℝ)
-    (E' := EuclideanSpace ℝ (Fin n)) (F' := EuclideanSpace ℝ (Fin n))
-    (g.inner (f x)) A A
+  exact (g.inner (f x)).bilinearComp A A
 
 /-- Smooth pullback coefficients, with no extension outside the coordinate domain. -/
 theorem contDiffAt_pullbackCoefficients (g : RiemannianMetric n M)

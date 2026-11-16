@@ -4,6 +4,8 @@ import Submission.PoincareLib.Geometry.Riemannian.ScalarOperators
 import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
+noncomputable section
+
 /-! Ported from Mapher06/Poincare-MorganTian, `PoincareMT/Definitions/M14PathCalculus.lean`,
 revision `f927d9e1f0810042766d3b5f64d3f4da02ee93cc`. Declaration bodies are unchanged;
 imports and module placement are adapted. See

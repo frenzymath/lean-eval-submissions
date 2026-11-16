@@ -106,7 +106,7 @@ theorem isClosed_sideGlueRelation (hK : K.faces.Finite)
       sideGlueRelation K label contact q.1 q.2} := by
   classical
   letI : Finite (Triangle K) :=
-    (hK.subset (fun _ h ↦ h.1)).to_subtype
+    (hK.subset (t := {s | s ∈ K.faces ∧ s.card = 3}) (by intro _ h; exact h.1)).to_subtype
   letI : Fintype (Triangle K) := Fintype.ofFinite _
   let Pair := {p : Triangle K × Triangle K //
     Relation.EqvGen contact p.1 p.2}

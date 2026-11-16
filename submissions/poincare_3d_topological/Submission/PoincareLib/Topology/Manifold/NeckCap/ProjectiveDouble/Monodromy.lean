@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Cap.Projective.Covering
 import Submission.PoincareLib.Topology.Homotopy.Sphere
 import Mathlib.Topology.Homotopy.Lifting
@@ -13,6 +14,8 @@ permutation action therefore maps onto any prescribed dihedral reflection.
 
 noncomputable section
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 set_option backward.isDefEq.respectTransparency false
 
 open Set Function
@@ -109,7 +112,8 @@ theorem exists_dihedral_reflection_monodromy
     (Γ.map ⟨S.restrictedCover, cov.continuous⟩).cast rfl hy.symm
   have hγ : cov.monodromy γ x = y := by
     apply cov.monodromy_eq_of_map_eq Γ
-    simp [γ, x, y]
+    simp [γ, x, y, FundamentalGroup.toPath, FundamentalGroup.toArrow,
+      FundamentalGroup.fromPath, FundamentalGroup.fromArrow]
   refine ⟨φ.comp (cov.monodromyPerm (S.restrictedCover a)), ⟨γ, ?_⟩⟩
   simp [MonoidHom.comp_apply, φ, twoPointReflectionHom,
     IsCoveringMap.coe_monodromyPerm, hγ, hxy.symm]

@@ -113,9 +113,9 @@ theorem closed_regular_support_germ_of_two_rays
   have hboundary : ∀ z ∈ coordinateBox c r,
       z ∈ frontier K ↔ z ∉ A ∪ B := by
     intro z hz
-    change frontier K z ↔ _
+    change (z ∈ frontier K) ↔ _
     have hh := hbox hz
-    change frontier K z = _ at hh
+    change (z ∈ frontier K) = _ at hh
     rw [hh]
     simp only [A, B, mem_ofPred_eq, mem_union, mem_inter_iff, hz, true_and,
       not_or, not_and_or, not_lt]
@@ -160,9 +160,9 @@ theorem closed_regular_support_germ_of_line
   have hboundary : ∀ z ∈ coordinateBox c r,
       z ∈ frontier K ↔ z ∉ A ∪ B := by
     intro z hz
-    change frontier K z ↔ _
+    change (z ∈ frontier K) ↔ _
     have hh := hbox hz
-    change frontier K z = _ at hh
+    change (z ∈ frontier K) = _ at hh
     rw [hh]
     simp only [A, B, mem_ofPred_eq, mem_union, mem_inter_iff, hz, true_and,
       not_or, not_lt]

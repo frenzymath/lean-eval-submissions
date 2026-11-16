@@ -71,7 +71,7 @@ theorem weightedChartPerturbation_smooth_near_center
   have hc : ContDiffOn ℝ ∞ (fun z : ℝ × P ↦ e (f z)) U0 :=
     (contMDiffOn_chart.comp hf0 (fun z hz ↦ hz.2)).contDiffOn
   have hBp : ContDiffOn ℝ ∞ (fun z : ℝ × P ↦ B z.1 z.2) U0 :=
-    (hB.comp contDiffOn_fst (fun z hz ↦ hz.1.2.1)).clm_apply contDiffOn_snd
+    (hB.comp (s := U0) contDiffOn_fst (by intro z hz; exact hz.1.2.1)).clm_apply contDiffOn_snd
   have hk : ContDiffOn ℝ ∞ k U0 :=
     hc.add (((hρ.comp contDiff_fst).contDiffOn).smul hBp)
   let V0 := U ∩ ((tsupport ρ)ᶜ ×ˢ Set.univ)

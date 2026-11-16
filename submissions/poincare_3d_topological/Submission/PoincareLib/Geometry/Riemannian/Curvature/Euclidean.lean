@@ -73,9 +73,9 @@ theorem connection_eq_fderiv_add (D : LeviCivitaData g)
         (E := TangentSpace (𝓡 n)) (Y x)) x := by
     rw [mdifferentiableAt_totalSpace]
     exact ⟨mdifferentiableAt_id, by simpa using mdifferentiableAt_const (c := Y x)⟩
-  have h₁ := D.connection.isCovariantDerivativeOnUniv.difference_apply
+  have h₁ := D.connection.isCovariantDerivativeOn.difference_apply
     (flat_isCovariantDerivativeOn n) (by simp) hy
-  have h₂ := D.connection.isCovariantDerivativeOnUniv.difference_apply
+  have h₂ := D.connection.isCovariantDerivativeOn.difference_apply
     (flat_isCovariantDerivativeOn n) (by simp) hc
   have h := congrArg (fun L => L v) (h₁.symm.trans h₂)
   let a : EuclideanSpace ℝ (Fin n) := D.connection Y x v

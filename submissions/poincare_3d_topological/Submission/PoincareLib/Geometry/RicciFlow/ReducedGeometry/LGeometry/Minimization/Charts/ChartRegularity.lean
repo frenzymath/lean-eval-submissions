@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.LGeometry.Minim
 import Mathlib.Analysis.Normed.Operator.Banach
 import Mathlib.Analysis.Calculus.ContDiff.Operations
 
+noncomputable section
+
 /-! Adapted from Mapher `PoincareMT/Proofs/M08/ChartRegularity.lean` at
 `f927d9e1f0810042766d3b5f64d3f4da02ee93cc`. -/
 

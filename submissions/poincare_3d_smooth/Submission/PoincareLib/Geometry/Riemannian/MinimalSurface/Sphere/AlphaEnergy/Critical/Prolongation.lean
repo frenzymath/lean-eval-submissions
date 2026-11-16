@@ -67,7 +67,7 @@ theorem suFirstJet_affine_coefficient_chain {m : ℕ}
     (hF.continuousOn_fderiv_of_isOpen hO (by norm_num)).comp hU hmap
   refine ⟨suContinuous_memLp_ball hfc, fun k => ⟨?_, ?_⟩⟩
   · exact (ContinuousLinearMap.apply ℝ ℝ
-      (E := LoopPlane × EuclideanSpace ℝ (Fin (3 * m)))).memLp_of_bilin
+      (E' := LoopPlane × EuclideanSpace ℝ (Fin (3 * m)))).memLp_of_bilin
         (p := 2) (q := ⊤) 2 (memLp_prod_iff.mpr ⟨memLp_const _, hW k⟩)
           (suContinuous_memLp_ball hdfc)
   · exact suWeakPartial_source_comp_on_compact hr hrH (suContinuous_memLp_ball hJ) hW hw

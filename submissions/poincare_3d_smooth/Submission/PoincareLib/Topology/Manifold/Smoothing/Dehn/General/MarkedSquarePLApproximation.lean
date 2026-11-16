@@ -94,9 +94,9 @@ theorem exists_marked_PL_square_pair
   · intro x
     exact hga (inc x)
   · have heq := H.loop_quotient_eq_whisker squareRimLoop
-    change Path.Homotopic.Quotient.mk
+    change FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk
       (((H.evalAt squareRimBase).trans (squareRimLoop.map gamma₀.continuous)).trans
-        (H.evalAt squareRimBase).symm) ∉ J
+        (H.evalAt squareRimBase).symm)) ∉ J
     rw [← heq]
     exact houtside
 

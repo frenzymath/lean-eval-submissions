@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Surgery.Reverse.Reconstruction
 
+noncomputable section
+
 /-! # Choosing an innermost supplied child filling -/
 
 set_option autoImplicit false

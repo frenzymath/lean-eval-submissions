@@ -42,6 +42,7 @@ theorem contDiffOn_prolong {n : ℕ} {Q : Jet E V n → W} {Ω : Set (Jet E V n)
     (hΩ : IsOpen Ω) (hQ : ContDiffOn ℝ ∞ Q Ω) :
     ContDiffOn ℝ ∞ (prolong n Q) ((truncate n) ⁻¹' Ω) := by
   exact ((hQ.fderiv_of_isOpen hΩ (m := ∞) (by simp)).comp
+    (s := (truncate n) ⁻¹' Ω)
     (truncate n).contDiff.contDiffOn (fun _ h => h)).clm_comp
       (shift (E := E) (V := V) n).contDiff.contDiffOn
 

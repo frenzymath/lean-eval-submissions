@@ -33,7 +33,8 @@ theorem shiftedHarnack_intervalIntegrable {a b : ℝ} (ha : 0 ≤ a) (hab : a < 
   · have ha' : 0 < a := lt_of_le_of_ne ha (Ne.symm ha0)
     have hc : ContinuousOn (fun t => (1 - Real.sqrt a / Real.sqrt t) ^ 2) (uIcc a b) := by
       rw [uIcc_of_le hab.le]
-      exact (continuousOn_const.sub (continuousOn_const.div Real.continuous_sqrt.continuousOn
+      exact (continuousOn_const.sub (continuousOn_const.div (Real.continuous_sqrt.continuousOn
+        (s := Icc a b))
         (fun t ht => (Real.sqrt_pos.mpr (ha'.trans_le ht.1)).ne'))).pow 2
     apply (hH.mul_continuousOn hc).congr_uIoo
     intro t ht

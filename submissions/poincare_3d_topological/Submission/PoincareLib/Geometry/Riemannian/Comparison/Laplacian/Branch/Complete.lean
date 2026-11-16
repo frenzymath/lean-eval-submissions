@@ -34,7 +34,8 @@ theorem isCompact_closure_ball_of_metricComplete
   let : EMetricSpace M := EMetricSpace.ofRiemannianMetric (𝓡 n) M
   apply (g.isCompact_closedBall_of_metricComplete hc p R).of_isClosed_subset
     isClosed_closure
-  apply closure_minimal (fun q (hq : g.edist p q < ENNReal.ofReal R) => hq.le)
+  apply closure_minimal (s := g.ball p R)
+    (by intro q hq; exact (show g.edist p q < ENNReal.ofReal R from hq).le)
   exact isClosed_le (continuous_const.edist continuous_id) continuous_const
 
 theorem exists_orthonormal_radial_exponential_of_metricComplete

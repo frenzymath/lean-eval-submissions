@@ -51,7 +51,7 @@ theorem rawLeafwiseCovariantDerivative_add
     (j.symm v)) = j ((D.sliceConnection t).connection (restrictHorizontalSection S t V) x
     (j.symm v)) + j ((D.sliceConnection t).connection (restrictHorizontalSection S t W) x
     (j.symm v))
-  erw [hr, (D.sliceConnection t).connection.isCovariantDerivativeOn.add hv hw]
+  erw [hr, (D.sliceConnection t).connection.isCovariantDerivativeOnUniv.add hv hw]
   simp only [add_apply, map_add]
   rfl
 
@@ -84,7 +84,7 @@ theorem rawLeafwiseCovariantDerivative_smul
     rfl
   change j ((D.sliceConnection t).connection (restrictHorizontalSection S t (f • V)) x
     (j.symm v)) = _
-  erw [hr, (D.sliceConnection t).connection.isCovariantDerivativeOn.leibniz hv hf']
+  erw [hr, (D.sliceConnection t).connection.isCovariantDerivativeOnUniv.leibniz hv hf']
   simp only [add_apply, smul_apply,
     ContinuousLinearMap.smulRight_apply, map_add, map_smul, hd]
   simp only [j, ContinuousLinearEquiv.apply_symm_apply]

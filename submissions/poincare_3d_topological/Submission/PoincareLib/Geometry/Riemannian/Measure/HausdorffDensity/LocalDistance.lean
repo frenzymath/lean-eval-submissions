@@ -103,7 +103,9 @@ theorem edist_le_mul_riemannianEDist_of_mfderiv_le_on_ball
           riemannianEDist_triangle
         _ < (r : ℝ≥0∞) + 2 * r := ENNReal.add_lt_add hx hxt
         _ = 3 * (r : ℝ≥0∞) := by ring
-    have hdist := edist_le_mul_pathELength_of_mfderiv_le hf hbound hγsmooth hγball
+    have hdist := edist_le_mul_pathELength_of_mfderiv_le
+      (s := {z | riemannianEDist I p z < 3 * (r : ℝ≥0∞)}) hf
+      (by intro z hz; exact hbound z hz) hγsmooth (by intro t ht; exact hγball t ht)
     rw [hγ0, hγ1] at hdist
     apply (ENNReal.div_le_iff (by exact_mod_cast hK.ne') ENNReal.coe_ne_top).mpr
     calc

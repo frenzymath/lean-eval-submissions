@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.OriginalClosedAmbient
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Topology.CircleGroups.IntegerWinding
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.TopologicalAdapters
@@ -11,6 +12,8 @@ ambient fundamental group to the multiplicative form of `Fin 3 → ℤ`.
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 open Set
 
@@ -39,8 +42,9 @@ private noncomputable def zeroCoordinateWinding (x : H0) (i : Fin 3) :
 private theorem zeroCoordinateWinding_injective (x : H0) :
     Function.Injective (MonoidHom.pi (zeroCoordinateWinding x)) := by
   intro a b hab
-  obtain ⟨a, rfl⟩ := Path.Homotopic.Quotient.mk_surjective a
-  obtain ⟨b, rfl⟩ := Path.Homotopic.Quotient.mk_surjective b
+  obtain ⟨a, rfl⟩ := FundamentalGroup.exists_path_rep a
+  obtain ⟨b, rfl⟩ := FundamentalGroup.exists_path_rep b
+  apply CategoryTheory.End.ext
   apply Path.Homotopic.Quotient.eq.mpr
   have hcoord (i : Fin 3) :
       (a.map (zeroCoordinate i).continuous).Homotopic
@@ -49,10 +53,9 @@ private theorem zeroCoordinateWinding_injective (x : H0) :
     have hi : (zeroCoordinateWinding x i) (Path.Homotopic.Quotient.mk a) =
         (zeroCoordinateWinding x i) (Path.Homotopic.Quotient.mk b) := by
       exact congrArg (fun z : (∀ j : Fin 3, Multiplicative ℤ) => z i) hab
-    simpa only [zeroCoordinateWinding, FundamentalGroup.map_apply,
-      Path.Homotopic.Quotient.mk_map] using
-      (HamiltonIntervalTorus.circleFundamentalGroupEquivInt (4 * (16 : ℝ)) (by norm_num)
-        ((zeroCoordinate i) x)).injective hi
+    exact congrArg FundamentalGroup.toPath
+        ((HamiltonIntervalTorus.circleFundamentalGroupEquivInt (4 * (16 : ℝ)) (by norm_num)
+          ((zeroCoordinate i) x)).injective hi)
   let Q := hamiltonZeroHierarchyCoordinates
   obtain ⟨hzero⟩ := hcoord 0
   obtain ⟨hone⟩ := hcoord 1

@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Compactness.Ancient.CompactEmbe
 import Submission.PoincareLib.Geometry.Manifold.InverseFunction.SmoothInverse
 import Submission.PoincareLib.Geometry.Manifold.OpenEmbedding
 
+noncomputable section
+
 /-!
 # Actual partial charts for the retained ancient embeddings
 

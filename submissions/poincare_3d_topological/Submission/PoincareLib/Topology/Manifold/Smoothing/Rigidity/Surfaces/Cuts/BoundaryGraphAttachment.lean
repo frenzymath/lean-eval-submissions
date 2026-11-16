@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Surfaces.Cuts.BoundaryHeightExtension
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Surfaces.Cuts.FiniteSeparatedAttachments
 
+noncomputable section
+
 /-!
 # Attaching original sectors along prescribed lifted boundary graphs
 

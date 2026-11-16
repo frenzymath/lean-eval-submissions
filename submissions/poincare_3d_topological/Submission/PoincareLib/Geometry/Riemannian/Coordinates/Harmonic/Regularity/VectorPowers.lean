@@ -44,7 +44,7 @@ theorem sum_inner_connection_smul_eq (D : LeviCivitaData g)
         mvfderiv (𝓡 n) (fun y => g.inner y (V y) (V y)) x (g.orthonormalBasis x i)) := by
     change g.inner x (D.connection V x (g.orthonormalBasis x i))
       (D.connection (φ • V) x (g.orthonormalBasis x i)) = _
-    rw [D.connection.isCovariantDerivativeOn.leibniz hV hφ,
+    rw [D.connection.isCovariantDerivativeOnUniv.leibniz hV hφ,
       D.mvfderiv_normSq hV]
     simp only [add_apply, smul_apply, ContinuousLinearMap.smulRight_apply,
       map_add, map_smul, smul_eq_mul]
@@ -108,7 +108,7 @@ theorem sum_inner_connection_regularized_power_cross (D : LeviCivitaData g)
           g.inner x (D.connection X x (g.orthonormalBasis x i)) (V x)) := by
     change g.inner x (D.connection X x (g.orthonormalBasis x i))
       (D.connection (φ • V) x (g.orthonormalBasis x i)) = _
-    rw [D.connection.isCovariantDerivativeOn.leibniz
+    rw [D.connection.isCovariantDerivativeOnUniv.leibniz
       ((hV x).mdifferentiableAt (by simp)) ((hφ x).mdifferentiableAt (by simp))]
     simp only [add_apply, smul_apply, ContinuousLinearMap.smulRight_apply,
       map_add, map_smul, smul_eq_mul, hφder]

@@ -33,7 +33,8 @@ theorem memLp_continuous_mul_of_hasCompactSupport
     · simp [hx]
     · simp [hx, image_eq_zero_of_notMem_tsupport hx]
   rw [← heq]
-  exact (memLp_indicator_iff_restrict (isClosed_tsupport v).measurableSet).mpr hlocal
+  exact (memLp_indicator_iff_restrict (isClosed_tsupport v).measurableSet.nullMeasurableSet).mpr
+    hlocal
 
 /-- Restriction and pointwise replacement on an open set preserve the raw weak equation. -/
 theorem weakEquation_congr_restrict

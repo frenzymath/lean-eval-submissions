@@ -175,8 +175,9 @@ theorem m64AnnulusSeamExtend_memLp {E : Type*} [NormedAddCommGroup E]
     m64AnnulusSeamLeft.indicator (fun p => f (v + p))
   have hleft := hf.comp_measurePreserving m64AnnulusSeam_translation_measurePreserving
   have hF : MemLp F q volume :=
-    ((memLp_indicator_iff_restrict isOpen_interior.measurableSet).mpr hf).add
-      ((memLp_indicator_iff_restrict m64AnnulusSeamLeft_isOpen.measurableSet).mpr hleft)
+    ((memLp_indicator_iff_restrict isOpen_interior.measurableSet.nullMeasurableSet).mpr hf).add
+      ((memLp_indicator_iff_restrict
+        m64AnnulusSeamLeft_isOpen.measurableSet.nullMeasurableSet).mpr hleft)
   apply (hF.mono_measure (Measure.restrict_le_self (s := m64AnnulusSeamDomain))).ae_eq
   filter_upwards [ae_restrict_of_ae m64AnnulusSeamDomain_ae_union,
     ae_restrict_mem m64AnnulusSeamDomain_isOpen.measurableSet] with p hp hO

@@ -83,24 +83,24 @@ private theorem weighted_bilinear_flux_source_memLp
       -(modulus * D p (EuclideanSpace.single j 1) (V 0 p) (V 0 p) +
         modulus⁻¹ * D p (EuclideanSpace.single j 1) (V 1 p) (V 1 p)) / 2) mu := by
   have hGV (i : Fin 2) : MemLp (fun p => G p (V i p)) 2 mu :=
-    (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) («E» := E)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
       (p := 2) (q := ⊤) 2 (hV i) hGM
   refine ⟨?_, ?_⟩
   · intro j i
-    exact (((ContinuousLinearMap.apply ℝ ℝ («E» := E)) (EuclideanSpace.single j 1)
+    exact (((ContinuousLinearMap.apply ℝ ℝ (E' := E)) (EuclideanSpace.single j 1)
       ).comp_memLp' (hGV i)).const_mul _
   · intro j
     have hDG : MemLp (fun p => D p (EuclideanSpace.single j 1)) ⊤ mu :=
-      (((ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) («E» := E))
+      (((ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) (E' := E))
         (EuclideanSpace.single j 1)).comp_memLp' hDM)
     have hquad (i : Fin 2) : Integrable (fun p =>
         D p (EuclideanSpace.single j 1) (V i p) (V i p)) mu := by
       have hfirst : MemLp (fun p =>
           D p (EuclideanSpace.single j 1) (V i p)) 2 mu :=
-        (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) («E» := E)).memLp_of_bilin
+        (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
         (p := 2) (q := ⊤) 2 (hV i) hDG
       exact memLp_one_iff_integrable.mp
-        ((ContinuousLinearMap.apply ℝ ℝ («E» := E)).memLp_of_bilin
+        ((ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
           (p := 2) (q := 2) 1 (hV i) hfirst)
     exact (((hquad 0).const_mul modulus).add ((hquad 1).const_mul modulus⁻¹)).neg.div_const 2
 

@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.RegularLimit.Coordinates.CompactControl
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.RegularLimit.Coordinates.Convergence
 
+noncomputable section
+
 /-!
 # Smooth convergence on compact subsets of any reference chart
 

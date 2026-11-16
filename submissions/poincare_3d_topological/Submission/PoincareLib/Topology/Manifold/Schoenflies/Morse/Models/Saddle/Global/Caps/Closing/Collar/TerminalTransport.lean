@@ -63,8 +63,10 @@ theorem exists_relative_terminal_collar_transport_within
   have hq : ContinuousOn q (V ×ˢ (univ : Set Real)) :=
     A.contMDiff.continuous.comp_continuousOn
       ((continuousOn_const.add ((continuousOn_const.sub continuousOn_snd).mul
-        (ha.continuousOn.comp continuousOn_fst (fun _ hz => hVT hz.1)))).smul
-        (hm.comp continuousOn_fst (fun _ hz => hz.1)))
+        (ha.continuousOn.comp (s := V ×ˢ (univ : Set Real))
+          continuousOn_fst (by intro z hz; exact hVT hz.1)))).smul
+        (hm.comp (s := V ×ˢ (univ : Set Real))
+          continuousOn_fst (by intro z hz; exact hz.1)))
   have hqopen : IsOpen ((V ×ˢ (univ : Set Real)) ∩ q ⁻¹' N) :=
     hq.isOpen_inter_preimage (hV.prod isOpen_univ) hN
   have hqcircle : sphere (0 : E2) 1 ×ˢ Icc (0 : Real) 1 ⊆

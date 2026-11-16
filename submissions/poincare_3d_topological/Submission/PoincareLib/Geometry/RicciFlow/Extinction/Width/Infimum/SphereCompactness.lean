@@ -15,7 +15,10 @@ namespace PoincareMT.Proofs.M61
 /-- The parameter sphere of Definition 18.17, p. 430, is compact. -/
 instance loopTwoSphereCompactSpace : CompactSpace LoopTwoSphere := by
   let e : (Metric.sphere (0 : LoopAmbient) 1) ≃ₜ LoopTwoSphere :=
-    Homeomorph.setCongr (by ext z; exact mem_sphere_zero_iff_norm)
+    Homeomorph.setCongr (show Metric.sphere (0 : LoopAmbient) 1 =
+      {z : LoopAmbient | ‖z‖ = 1} by
+        ext z
+        simp only [Metric.mem_sphere, dist_zero_right, Set.mem_setOf_eq])
   exact e.compactSpace
 
 /-- A unit coordinate vector inhabits the sphere of Definition 18.17, p. 430. -/

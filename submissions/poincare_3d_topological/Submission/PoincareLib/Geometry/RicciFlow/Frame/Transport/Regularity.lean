@@ -76,7 +76,7 @@ theorem transportCurveOn_contDiffOn
       exact (Poincare.ODE.LocalFlow.linearODESolution_hasDerivAt
         ha hB.continuousOn hp (hsub ht)).hasDerivWithinAt
   exact (hΨ.mono (prod_mono Subset.rfl hsub)).congr
-    (fun q hq => heq q.1 hq.1 hq.2)
+    (by intro q hq; exact heq q.1 hq.1 hq.2)
 
 private def cosineClock (a b s : ℝ) : ℝ := a + (b - a) * (1 - Real.cos s) / 2
 
@@ -170,7 +170,7 @@ private theorem linearODE_cosine_contDiffOn
     contDiff_fst.prodMk ((cosineClock_contDiff a b).comp contDiff_snd)
   have hcoeff : ContDiffOn ℝ ∞ (fun q : P × ℝ => A q.1 (cosineClock a b q.2))
       (U ×ˢ Ioo (-1) (Real.pi + 1)) :=
-    hA.comp harg.contDiffOn (fun q hq => ⟨hq.1, cosineClock_mem hab q.2⟩)
+    hA.comp harg.contDiffOn (by intro q hq; exact ⟨hq.1, cosineClock_mem hab q.2⟩)
   have hB : ContDiffOn ℝ ∞ (Function.uncurry B)
       (U ×ˢ Ioo (-1) (Real.pi + 1)) :=
     ((contDiffOn_const.mul (Real.contDiff_sin.comp contDiff_snd).contDiffOn).div_const 2).smul
@@ -184,7 +184,7 @@ private theorem linearODE_cosine_contDiffOn
     change ContinuousOn (Function.uncurry B ∘ (fun s : ℝ => (q.1, s))) _
     exact hB.continuousOn.comp
       ((continuous_const.prodMk continuous_id).continuousOn)
-      (fun _ hs => ⟨hq.1, hs⟩)
+      (by intro _ hs; exact ⟨hq.1, hs⟩)
   have hΦ : ∀ s ∈ Ioo (-1) (Real.pi + 1),
       HasDerivAt (fun r => Φ q.1 (cosineClock a b r))
         (B q.1 s (Φ q.1 (cosineClock a b s))) s := by
@@ -195,7 +195,7 @@ private theorem linearODE_cosine_contDiffOn
     exact (hsol q.1 hq.1 _ (cosineClock_mem hab s)).scomp_hasDerivAt s
         (cosineClock_hasDerivAt a b s) (cosineClock_mem hab)
   have heq := Poincare.ODE.LocalFlow.linearODE_unique_on_Ioo hzero hBc hΦ
-    (fun s hs => Poincare.ODE.LocalFlow.linearODESolution_hasDerivAt
+    (fun s hs ↦ Poincare.ODE.LocalFlow.linearODESolution_hasDerivAt
       hzero hB.continuousOn hq.1 hs)
     (by
       change Φ q.1 (cosineClock a b 0) = Ψ q.1 0
@@ -228,7 +228,7 @@ theorem linearODE_contDiffOn_spatial
   have hh : ContDiffOn ℝ ∞
       (fun p => Φ p (cosineClock a b s)) U :=
     (linearODE_cosine_contDiffOn A hab hU hA Φ hinit hsol).comp
-      harg (fun _ hp => ⟨hp, hs⟩)
+      harg (by intro _ hp; exact ⟨hp, hs⟩)
   simpa only [hclock] using hh
 
 /-- The compact transport is spatially smooth under a jointly smooth
@@ -243,9 +243,9 @@ theorem transportCurveOn_contDiffOn_spatial
     ContDiffOn ℝ ∞
       (fun p => transportCurveOn (A p) hab (hcont p) (hK p) t) U := by
   apply linearODE_contDiffOn_spatial
-    (fun p s => ContinuousLinearMap.compL ℝ V V V (A p s)) hab hU
+    (fun (p : P) (s : ℝ) ↦ ContinuousLinearMap.compL ℝ V V V (A p s)) hab hU
     ((ContinuousLinearMap.compL ℝ V V V).contDiff.comp_contDiffOn hA)
-    (fun p s => transportCurveOn (A p) hab (hcont p) (hK p) s) ?_ ?_ ht
+    (fun (p : P) (s : ℝ) ↦ transportCurveOn (A p) hab (hcont p) (hK p) s) ?_ ?_ ht
   · apply (contDiffOn_const :
       ContDiffOn ℝ ∞ (fun _ : P => ContinuousLinearMap.id ℝ V) U).congr
     intro p hp
@@ -266,7 +266,7 @@ theorem linearODE_continuousOn
     ContinuousOn (Function.uncurry Φ) (U ×ˢ Icc a b) := by
   rcases eq_or_lt_of_le hab with heq | hlt
   · have h0 : ContinuousOn (fun q : P × ℝ => Φ q.1 a) (U ×ˢ Icc a b) :=
-      hinit.continuousOn.comp continuousOn_fst (fun q hq => hq.1)
+      hinit.continuousOn.comp continuousOn_fst (by intro q hq; exact hq.1)
     apply h0.congr
     intro q hq
     have ht : q.2 = a := by obtain ⟨ht₁, ht₂⟩ := hq.2; linarith
@@ -277,8 +277,9 @@ theorem linearODE_continuousOn
       (fun q : P × ℝ => Φ q.1 (cosineClock a b (cosineClockInv a b q.2)))
       (U ×ˢ Icc a b) :=
     (linearODE_cosine_contDiffOn A hab hU hA Φ hinit hsol).continuousOn.comp
-      harg.continuousOn (fun q hq => ⟨hq.1, cosineClockInv_mem a b q.2⟩)
-  exact hc.congr (fun q hq => by
+      harg.continuousOn (by intro q hq; exact ⟨hq.1, cosineClockInv_mem a b q.2⟩)
+  exact hc.congr (by
+    intro q hq
     change Φ q.1 q.2 = Φ q.1 (cosineClock a b (cosineClockInv a b q.2))
     rw [cosineClock_inv hlt hq.2])
 
@@ -297,7 +298,7 @@ theorem linearODE_continuousOn_fderiv_param
   · have h0 : ContinuousOn (fun q : P × ℝ => fderiv ℝ (fun p => Φ p a) q.1)
         (U ×ˢ Icc a b) :=
       (hinit.fderiv_of_isOpen hU (m := 0) (by simp)).continuousOn.comp
-        continuousOn_fst (fun q hq => hq.1)
+        continuousOn_fst (by intro q hq; exact hq.1)
     apply h0.congr
     intro q hq
     have ht : q.2 = a := by obtain ⟨ht₁, ht₂⟩ := hq.2; linarith
@@ -315,7 +316,7 @@ theorem linearODE_continuousOn_fderiv_param
   have harg : Continuous (fun q : P × ℝ => (q.1, cosineClockInv a b q.2)) :=
     continuous_fst.prodMk ((cosineClockInv_continuous a b).comp continuous_snd)
   apply (hD.comp harg.continuousOn
-    (fun q hq => ⟨hq.1, cosineClockInv_mem a b q.2⟩)).congr
+    (by intro q hq; exact ⟨hq.1, cosineClockInv_mem a b q.2⟩)).congr
   intro q hq
   have hpt : (q.1, cosineClockInv a b q.2) ∈ U ×ˢ Ioo (-1) (Real.pi + 1) :=
     ⟨hq.1, cosineClockInv_mem a b q.2⟩
@@ -343,12 +344,12 @@ theorem linearODE_contDiffOn_interior
   have harg : ContDiffOn ℝ ∞
       (fun q : P × ℝ => (q.1, cosineClockInv a b q.2)) (U ×ˢ Ioo a b) :=
     contDiffOn_fst.prodMk ((cosineClockInv_contDiffOn a b).comp contDiffOn_snd
-      (fun _ hq => hq.2))
+      (by intro _ hq; exact hq.2))
   have hc : ContDiffOn ℝ ∞
       (fun q : P × ℝ => Φ q.1 (cosineClock a b (cosineClockInv a b q.2)))
       (U ×ˢ Ioo a b) :=
     (linearODE_cosine_contDiffOn A hab hU hA Φ hinit hsol).comp harg
-      (fun q hq => ⟨hq.1, cosineClockInv_mem a b q.2⟩)
+      (by intro q hq; exact ⟨hq.1, cosineClockInv_mem a b q.2⟩)
   apply hc.congr
   intro q hq
   change Φ q.1 q.2 = Φ q.1 (cosineClock a b (cosineClockInv a b q.2))
@@ -367,7 +368,7 @@ theorem linearODE_contDiffOn_one
     ContDiffOn ℝ 1 (Function.uncurry Φ) (U ×ˢ Icc a b) := by
   rcases eq_or_lt_of_le hab with heq | hlt
   · have h0 : ContDiffOn ℝ 1 (fun q : P × ℝ => Φ q.1 a) (U ×ˢ Icc a b) :=
-      (hinit.of_le (by simp)).comp contDiffOn_fst (fun _ hq => hq.1)
+      (hinit.of_le (by simp)).comp contDiffOn_fst (by intro _ hq; exact hq.1)
     apply h0.congr
     intro q hq
     have ht : q.2 = a := by obtain ⟨ht₁, ht₂⟩ := hq.2; linarith
@@ -393,7 +394,7 @@ theorem linearODE_contDiffOn_one
     have hx : HasFDerivAt (fun p => Φ p q.2) (Dx q) q.1 :=
       (((hs q.1 hq.1).contDiffAt (hU.mem_nhds hq.1)).differentiableAt (by simp)).hasFDerivAt
     exact Poincare.hasFDerivWithinAt_prod_of_continuous_partial (convex_Icc a b) hq hx
-      (fun r hr => (hsol r.1 hr.1 r.2 hr.2).hasFDerivWithinAt) (hDtL q hq)
+      (by intro r hr; exact (hsol r.1 hr.1 r.2 hr.2).hasFDerivWithinAt) (hDtL q hq)
   have hud : UniqueDiffOn ℝ (U ×ˢ Icc a b) := hU.uniqueDiffOn.prod (uniqueDiffOn_Icc hlt)
   change ContDiffOn ℝ ((0 : WithTop ℕ∞) + 1) (Function.uncurry Φ) (U ×ˢ Icc a b)
   exact (contDiffOn_succ_iff_hasFDerivWithinAt_of_uniqueDiffOn hud).mpr
@@ -418,7 +419,7 @@ theorem contDiffOn_fderiv_param_Icc
   have hprod := (hf.differentiableOn (by simp) q hq).hasFDerivWithinAt
   have hp := hprod.comp q.1
     (hasFDerivAt_prodMk_left (𝕜 := ℝ) q.1 q.2).hasFDerivWithinAt
-    (fun p hp => (show (p, q.2) ∈ U ×ˢ Icc a b from ⟨hp, hq.2⟩))
+    (by intro p hp; exact (show (p, q.2) ∈ U ×ˢ Icc a b from ⟨hp, hq.2⟩))
   exact (hp.hasFDerivAt (hU.mem_nhds hq.1)).fderiv
 
 end PoincareMT.RicciFlow.Frame

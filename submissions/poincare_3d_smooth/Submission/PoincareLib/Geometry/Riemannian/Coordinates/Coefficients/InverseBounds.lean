@@ -53,6 +53,7 @@ theorem isCompact_bounded_uniformlyElliptic (a C : ℝ) :
   constructor
   · have hn : IsClosed {A : E →L[ℝ] E →L[ℝ] ℝ | ‖A‖ ≤ C} :=
       isClosed_le (continuous_norm (E := E →L[ℝ] E →L[ℝ] ℝ)) continuous_const
+    rw [Set.ofPred_and]
     apply hn.inter
     change IsClosed {A : E →L[ℝ] E →L[ℝ] ℝ | ∀ v, a * ‖v‖ ^ 2 ≤ A v v}
     rw [Set.ofPred_forall]
@@ -108,7 +109,7 @@ theorem hasUniformJetBoundsOn_inverse_metric {ι : Type*} {U : Set E}
     exact ⟨B, fun _ x hx => hB () x hx⟩
   apply HasUniformJetBoundsOn.comp_fixed_on hU hT (hjets n) houter
     (fun i => (hA i).of_le (by exact_mod_cast (le_top : (n : ℕ∞) ≤ ⊤)))
-    (fun B hB => hB.contDiffAt_map_inverse.contDiffWithinAt) ?_ hK
+    (by intro B hB; exact hB.contDiffAt_map_inverse.contDiffWithinAt) ?_ hK
   intro i x hx
   exact ⟨by simpa only [norm_iteratedFDeriv_zero] using hC i x hx, hell i x hx⟩
 

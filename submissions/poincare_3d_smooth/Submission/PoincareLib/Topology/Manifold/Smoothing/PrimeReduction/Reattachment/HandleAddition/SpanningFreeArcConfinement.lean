@@ -117,7 +117,8 @@ theorem HamiltonMarkedProtectedBall.arc_between_nested_annular_circles
     have hh : a true = a false := Subtype.ext (ht.2.symm.trans hf.2)
     exact Bool.noConfusion (ha.1 hh)
   have hAcov : A true ∪ A false = E ∩ frontier R := by
-    apply Subset.antisymm (union_subset (fun _ h => h.1) (fun _ h => h.1))
+    apply Subset.antisymm (union_subset (s := A true) (t := A false) (fun _ h => h.1) (fun _ h
+      => h.1))
     intro x hx
     have hx1 : x.1 ∈ sphere (0 : ι → ℝ) 1 := by
       have hh := hx.2

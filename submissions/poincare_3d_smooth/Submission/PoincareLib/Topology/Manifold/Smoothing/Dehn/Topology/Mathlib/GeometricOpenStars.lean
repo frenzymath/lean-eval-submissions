@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Barycentric.Mathl
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Simplicial.Mathlib.OriginalFaceLabels
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Barycentric.FiniteBarycentricCoordinates
 
+noncomputable section
+
 /-!
 # Actual geometric open stars retain every containing face
 

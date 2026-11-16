@@ -67,7 +67,7 @@ theorem m64Source_quasiMeasurePreserving
     rw [himage]
     exact addHaar_image_eq_zero_of_differentiableOn_of_addHaar_eq_zero volume
       hi.differentiableOn hz
-  apply hq.restrict
+  apply Measure.QuasiMeasurePreserving.restrict hq
   intro p hp
   exact (congrArg (fun U => p ∈ U) hpre).mpr hp
 

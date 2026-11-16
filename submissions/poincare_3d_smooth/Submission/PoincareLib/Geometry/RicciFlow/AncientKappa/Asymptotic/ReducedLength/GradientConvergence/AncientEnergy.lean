@@ -102,7 +102,8 @@ theorem reducedLength_gradient_energies_memLp_top
     apply memLp_top_of_bound (C := C)
     · dsimp only [μ]
       rw [Measure.prod_restrict]
-      exact (hc.comp continuous_swap.continuousOn (fun z hz => ⟨hz.2, hz.1⟩)).aestronglyMeasurable
+      exact (hc.comp (s := Icc α β ×ˢ Metric.ball a (r / 2))
+        continuous_swap.continuousOn (by intro z hz; exact ⟨hz.2, hz.1⟩)).aestronglyMeasurable
         (measurableSet_Icc.prod measurableSet_ball)
     · filter_upwards [hmem] with z hz
       exact hkb z.swap ⟨hUC hz.2, hz.1⟩ i j
@@ -118,7 +119,8 @@ theorem reducedLength_gradient_energies_memLp_top
     apply memLp_top_of_bound (C := C)
     · dsimp only [μ]
       rw [Measure.prod_restrict]
-      exact (hc.comp continuous_swap.continuousOn (fun z hz => ⟨hz.2, hz.1⟩)).aestronglyMeasurable
+      exact (hc.comp (s := Icc α β ×ˢ Metric.ball a (r / 2))
+        continuous_swap.continuousOn (by intro z hz; exact ⟨hz.2, hz.1⟩)).aestronglyMeasurable
         (measurableSet_Icc.prod measurableSet_ball)
     · filter_upwards [hmem] with z hz
       have hz' : z.swap ∈ Metric.closedBall a r ×ˢ Icc α β := ⟨hUC hz.2, hz.1⟩

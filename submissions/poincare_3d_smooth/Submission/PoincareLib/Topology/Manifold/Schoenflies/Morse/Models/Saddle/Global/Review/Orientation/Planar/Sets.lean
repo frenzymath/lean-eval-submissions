@@ -121,7 +121,9 @@ theorem reflectGeometry_modelDomain (i : Fin 3) : (G).modelDomain i = d.modelDom
   have hset : {q : S2 | inner Real (s.reduction.v : E3) ((G).filledModel q) ∉ (G).I} =
       {q : S2 | inner Real (s'.reduction.v : E3) (d.filledModel q) ∉ d.I} := by
     ext q
-    rw [mem_ofPred_eq, mem_ofPred_eq, reflectGeometry_mem_I, reflectGeometry_filledModel,
+    change (inner Real (s.reduction.v : E3) ((G).filledModel q) ∉ (G).I) ↔
+      (inner Real (s'.reduction.v : E3) (d.filledModel q) ∉ d.I)
+    rw [reflectGeometry_mem_I, reflectGeometry_filledModel,
       inner_heightReflection, neg_neg, hv]
   change closure (connectedComponentIn _ (d.modelSeed i)) =
     closure (connectedComponentIn _ (d.modelSeed i))

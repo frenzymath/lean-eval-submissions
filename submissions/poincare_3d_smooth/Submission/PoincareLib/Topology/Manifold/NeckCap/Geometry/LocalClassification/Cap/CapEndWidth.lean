@@ -224,7 +224,9 @@ theorem CapCertificate.end_width_le_pathELength
   have hLmem : L ∈ closure (Ioo (0 : ℝ) L) := by
     rw [closure_Ioo (ne_of_lt hL)]
     exact ⟨hL.le, le_rfl⟩
-  exact closure_minimal hwidth hclosed hLmem
+  exact closure_minimal (s := Ioo (0 : ℝ) L)
+    (t := {r | ENNReal.ofReal (2 * r * N.scale * Real.sqrt (1 - C.epsilon)) ≤
+      g.pathELength γ a b}) hwidth hclosed hLmem
 
 /-- An inner set's exterior depth and the full cap-end width add along
 every exit path. MT Claim A.22, pp. 509-511; cap-width derivation W3.

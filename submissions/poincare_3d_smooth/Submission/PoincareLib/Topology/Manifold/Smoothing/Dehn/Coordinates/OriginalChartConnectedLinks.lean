@@ -53,10 +53,10 @@ theorem isConnected_faceLink_of_original_interior_chart
       have hne : ell (a p) ≠ 0 := fun h => hpfront ((hfront p hpS).mpr h)
       have hpos : 0 < ell (a p) := lt_of_le_of_ne hnonneg (Ne.symm hne)
       exact interior_maximal
-        (fun z hz => hpatch ⟨hz.1, (show 0 < ell z from hz.2).le⟩)
+        (fun z (hz : z ∈ V ∩ {z | 0 < ell z}) ↦ hpatch ⟨hz.1, (show 0 < ell z from hz.2).le⟩)
         (hV.inter (isOpen_lt continuous_const ell.continuous)) ⟨hpV, hpos⟩
   let J := hface.embeddedImage hinj
-  have hS : S.faces.Finite := hK.subset (fun _ ht => ht.1)
+  have hS : S.faces.Finite := hK.subset (t := S.faces) (by intro _ ht; exact ht.1)
   have hJ : J.faces.Finite := hface.embeddedImage_finite hinj hS
   have hsJ : s.image a ∈ J.faces :=
     (hface.image_mem_embeddedImage_iff hinj (S.subset_space hsS)).mpr hsS
@@ -110,7 +110,7 @@ theorem isConnected_faceLink_of_original_boundary_chart
   obtain ⟨hinj, O, hO, hpO, hOB, hOR⟩ :=
     K.exists_original_open_neighborhood_of_closedStar hK H g hg hp B hsource
   let J := hface.embeddedImage hinj
-  have hS : S.faces.Finite := hK.subset (fun _ ht => ht.1)
+  have hS : S.faces.Finite := hK.subset (t := S.faces) (by intro _ ht; exact ht.1)
   have hJ : J.faces.Finite := hface.embeddedImage_finite hinj hS
   have hsJ : s.image a ∈ J.faces :=
     (hface.image_mem_embeddedImage_iff hinj (S.subset_space hsS)).mpr hsS
@@ -171,7 +171,7 @@ theorem original_chart_stars_connected_links
       (Finset.singleton_subset_iff.mpr hps) (Finset.singleton_nonempty p)
     obtain ⟨B, hsource, hface, hregion⟩ := hstars p hp
     exact isConnected_faceLink_of_original_boundary_chart K hK H g hg hs
-      (fun q hq => (hboundary q (K.subset_space hs hq)).mpr (A.subset_space hsA hq))
+      (by intro q hq; exact (hboundary q (K.subset_space hs hq)).mpr (A.subset_space hsA hq))
       hps B hsource hface hregion
   · obtain ⟨p, hps, hpA⟩ :=
       SimplicialComplex.exists_vertex_off_full_subcomplex hAK hfull hs hsA

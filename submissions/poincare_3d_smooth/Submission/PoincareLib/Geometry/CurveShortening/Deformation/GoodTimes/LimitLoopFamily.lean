@@ -77,7 +77,7 @@ theorem m65SmoothFilledLoopFamily_of_values
     contDiff_snd.prodMk contDiff_fst
   let L : M65SmoothFilledLoopFamily F J := {
     loops := loops
-    joint_smooth := (hc.comp hswap.contMDiff.contMDiffOn
+    joint_smooth := (hc.comp (s := (univ : Set ℝ) ×ˢ J) hswap.contMDiff.contMDiffOn
       (fun z hz => ⟨hz.2, mem_univ _⟩)).congr
         (fun z hz => heq z.2 hz.2 z.1)
     immersed := fun t ht x => by rw [hs t ht]; exact (hgeom t ht x).1

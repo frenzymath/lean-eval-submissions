@@ -14,7 +14,9 @@ theorem map_injective_of_homotopy
   let T := FundamentalGroupoidFunctor.homotopicMapsNatIso H
   intro a b hab
   apply hf
-  change (FundamentalGroupoid.map f).map a = (FundamentalGroupoid.map f).map b
+  apply CategoryTheory.End.ext
+  have hab := congrArg CategoryTheory.End.asHom hab
+  change (FundamentalGroupoid.map f).map a.asHom = (FundamentalGroupoid.map f).map b.asHom
   apply (cancel_mono (T.app ⟨x⟩)).mp
   rw [T.naturality, T.naturality]
   exact congrArg (fun u => T.app ⟨x⟩ ≫ u) hab

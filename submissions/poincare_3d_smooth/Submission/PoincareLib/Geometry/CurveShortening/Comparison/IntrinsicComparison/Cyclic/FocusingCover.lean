@@ -76,7 +76,8 @@ private theorem exists_periodic_weighted_projection
       simp only [mem_union, Set.mem_sdiff]
       tauto
     rw [hset, setIntegral_union
-      (disjoint_left.mpr (fun _ hx hy => hy.2 hx)) (hD.diff hC)
+      (show Disjoint C (D \ C) from
+        disjoint_left.mpr (by intro x hx hy; exact hy.2 hx)) (hD.diff hC)
       hCi (hDi.mono_set sdiff_subset)]
     exact add_le_add le_rfl (setIntegral_mono_set (s := D \ C) hDi
       (Eventually.of_forall hfnonneg) (Eventually.of_forall sdiff_subset))

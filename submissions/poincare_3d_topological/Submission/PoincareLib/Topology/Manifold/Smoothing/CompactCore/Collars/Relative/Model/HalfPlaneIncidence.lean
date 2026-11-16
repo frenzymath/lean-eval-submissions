@@ -115,7 +115,7 @@ theorem mem_closure_interior_of_halfPlane_germ {S U : Set P2}
     rw [closure_prod_eq, closure_Ioi, closure_univ]
     exact ⟨hx, mem_univ _⟩
   apply closure_mono (s := U ∩ {z : P2 | 0 < z.1}) ?_ (hU.inter_closure ⟨hxU, hxcl⟩)
-  exact interior_maximal (fun z hz => hUS ⟨hz.1, (show 0 < z.1 from hz.2).le⟩)
+  exact interior_maximal (by intro z hz; exact hUS ⟨hz.1, (show 0 < z.1 from hz.2).le⟩)
     (hU.inter (isOpen_lt continuous_const continuous_fst))
 
 /-- A planar face meeting an actual open half-plane germ has a
@@ -235,7 +235,7 @@ theorem faceLink_ncard_eq_two_of_halfPlane_star
     simp
   have hpint : a p ∈ interior J.space := by
     rw [ha.embeddedImage_space hai]
-    exact interior_maximal (fun z hz => hUS ⟨hz.1, (show 0 < z.1 from hz.2).le⟩)
+    exact interior_maximal (by intro z hz; exact hUS ⟨hz.1, (show 0 < z.1 from hz.2).le⟩)
       (hU.inter (isOpen_lt continuous_const continuous_fst)) ⟨hpU, hppos⟩
   have hc := J.faceLink_ncard_eq_two_of_hull_meets_interior hJ hsJ hscJ
     ⟨a p, subset_convexHull ℝ _ (Finset.mem_image.mpr ⟨p, hps, rfl⟩), hpint⟩

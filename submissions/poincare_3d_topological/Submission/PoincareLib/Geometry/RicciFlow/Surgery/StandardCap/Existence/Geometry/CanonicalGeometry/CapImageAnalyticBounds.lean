@@ -126,7 +126,10 @@ theorem exists_image_scalarAnalytic_tolerance {C eta : ℝ}
       _ ≤ eta := hbnu.trans (by linarith)
   · intro x hx
     have hxend : x ∈ closure N.end_neck.carrier :=
-      (closure_mono (fun _ hy => hy.1)) (N.boundary_subset_negative_end_closure hx)
+      by
+        apply closure_mono ?_ (N.boundary_subset_negative_end_closure hx)
+        intro y hy
+        exact hy.1
     have hsource := (abs_le.mp ((hold x hxend).trans (min_le_right _ _))).1
     have htarget := (abs_le.mp ((hweighted x (N.boundary_subset hx)).trans hanu')).1
     have hlow : (1 / 2 : ℝ) ≤ a * D.scalarCurvature (f x) := by

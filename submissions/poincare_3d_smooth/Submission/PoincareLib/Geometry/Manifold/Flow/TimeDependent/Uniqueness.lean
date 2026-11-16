@@ -80,7 +80,8 @@ theorem timeDependent_integralCurve_eqOn [T2Space M]
     rw [inter_comm, ← Subtype.image_preimage_val, inter_comm, ← Subtype.image_preimage_val,
       image_subset_image_iff Subtype.val_injective, preimage_ofPred_eq]
     intro t ht
-    rw [mem_preimage, ← closure_subtype] at ht
+    change (t : ℝ) ∈ closure (Subtype.val '' (Subtype.val ⁻¹' _)) at ht
+    rw [← closure_subtype] at ht
     revert ht t
     apply IsClosed.closure_subset (isClosed_eq _ _)
     · rw [continuous_iff_continuousAt]

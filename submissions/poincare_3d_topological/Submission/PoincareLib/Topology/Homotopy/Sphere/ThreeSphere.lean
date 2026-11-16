@@ -1,5 +1,7 @@
 import Mathlib
 
+noncomputable section
+
 /-! # The standard three-sphere -/
 
 namespace PoincareMT

@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.Basic
 
+noncomputable section
+
 /-!
 # Further extraction of ancient compact-time convergence
 

@@ -59,7 +59,7 @@ theorem norm_extension_le_indicator (K : Set E) (f : K →ᵇ ℝ) (x : E) :
 theorem memLp_extension {K : Set E} (hK : IsCompact K) (f : K →ᵇ ℝ) :
     MemLp (extension K f) 2 volume := by
   have hi := memLp_indicator_const (μ := (volume : Measure E)) 2
-    hK.isClosed.measurableSet ‖f‖ (Or.inr hK.measure_ne_top)
+    hK.isClosed.measurableSet.nullMeasurableSet ‖f‖ (Or.inr hK.measure_ne_top)
   exact hi.of_le (measurable_extension hK.isClosed.measurableSet f).aestronglyMeasurable
     (Eventually.of_forall (norm_extension_le_indicator K f))
 

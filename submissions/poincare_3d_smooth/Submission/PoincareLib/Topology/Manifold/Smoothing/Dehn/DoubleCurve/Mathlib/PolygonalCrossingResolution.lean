@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Products.Al
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.General.FinitePLArithmetic
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.General.SupportedPlanarShear
 
+noncomputable section
+
 /-!
 # Concrete polygonal resolutions with the entire outer collar
 

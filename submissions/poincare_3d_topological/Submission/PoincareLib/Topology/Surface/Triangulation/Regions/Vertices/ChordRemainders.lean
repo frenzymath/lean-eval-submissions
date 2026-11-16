@@ -5,6 +5,8 @@ import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Vertices.At
 import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Vertices.CapTransversals
 import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Intersections
 
+noncomputable section
+
 /-!
 # Compact remainders of cap chords
 

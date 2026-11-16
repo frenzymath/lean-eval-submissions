@@ -20,6 +20,7 @@ theorem whiskeredLoopClass_eq_one_iff (p : Path b v) (q : Path v v) :
       FundamentalGroup.fromPath (Homotopic.Quotient.mk q) = 1 := by
   constructor
   · intro h
+    have h := congrArg FundamentalGroup.toPath h
     change ((Homotopic.Quotient.mk p).trans (Homotopic.Quotient.mk q)).trans
       (Homotopic.Quotient.mk p).symm = Homotopic.Quotient.refl b at h
     have hh := congrArg (fun r : Homotopic.Quotient b b =>
@@ -28,8 +29,10 @@ theorem whiskeredLoopClass_eq_one_iff (p : Path b v) (q : Path v v) :
       Homotopic.Quotient.trans_refl] at hh
     rw [← Homotopic.Quotient.trans_assoc, Homotopic.Quotient.symm_trans,
       Homotopic.Quotient.refl_trans] at hh
-    exact hh
+    exact CategoryTheory.End.ext hh
   · intro h
+    have h := congrArg FundamentalGroup.toPath h
+    apply CategoryTheory.End.ext
     change ((Homotopic.Quotient.mk p).trans (Homotopic.Quotient.mk q)).trans
       (Homotopic.Quotient.mk p).symm = Homotopic.Quotient.refl b
     change Homotopic.Quotient.mk q = Homotopic.Quotient.refl v at h
@@ -50,13 +53,15 @@ theorem loopClass_map_eq_one_iff (H : X ≃ₜ Y) {x : X} (q : Path x x) :
   constructor
   · intro h
     have hhom : (q.map H.continuous).Homotopic (Path.refl (H x)) :=
-      Path.Homotopic.Quotient.exact h
+      Path.Homotopic.Quotient.exact (congrArg FundamentalGroup.toPath h)
     have hhom' : (q.map H.continuous).Homotopic ((Path.refl x).map H.continuous) := by
       simpa only [hrefl] using hhom
-    exact Path.Homotopic.Quotient.eq.mpr (hhom'.of_map_homeomorph H)
+    exact CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr (hhom'.of_map_homeomorph H))
   · intro h
-    have hhom : q.Homotopic (Path.refl x) := Path.Homotopic.Quotient.exact h
+    have hhom : q.Homotopic (Path.refl x) := Path.Homotopic.Quotient.exact (congrArg
+      FundamentalGroup.toPath h)
     have hmapped := hhom.map ⟨H, H.continuous⟩
+    apply CategoryTheory.End.ext
     change Path.Homotopic.Quotient.mk (q.map H.continuous) =
       Path.Homotopic.Quotient.mk (Path.refl (H x))
     simpa only [hrefl] using Path.Homotopic.Quotient.eq.mpr hmapped

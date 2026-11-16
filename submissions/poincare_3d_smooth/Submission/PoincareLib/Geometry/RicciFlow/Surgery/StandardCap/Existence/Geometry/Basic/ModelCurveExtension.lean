@@ -59,7 +59,7 @@ noncomputable def modelCurveVelocityExtension
   smooth := by
     have hv := (model_curveVelocity_contDiffOn hO ha).contMDiffOn
     exact (contMDiff_modelTangentMk (𝓡 n) ∞).comp_contMDiffOn
-      (contMDiffOn_snd.prodMk (hv.comp contMDiffOn_fst (fun _ hs => hs.1)))
+      (contMDiffOn_snd.prodMk (hv.comp contMDiffOn_fst (by intro _ hs; exact hs.1)))
   agrees := by
     intro s hs
     exact (PoincareMT.Proofs.M09.curveVelocityWithin_eq_curveVelocity alpha K s

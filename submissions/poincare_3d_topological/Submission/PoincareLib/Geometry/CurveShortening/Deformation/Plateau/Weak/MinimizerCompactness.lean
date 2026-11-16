@@ -29,11 +29,12 @@ private theorem m65ZeroExtension_norm_le
     ‖v‖ ≤ C * ‖u‖ := by
   have hZ : MemLp (loopDiskSet.indicator (u : LoopPlane → ℝ)) 2 volume :=
     (memLp_indicator_iff_restrict
-      (show MeasurableSet loopDiskSet from measurableSet_closedBall)).mpr (Lp.memLp u)
+      (show MeasurableSet loopDiskSet from measurableSet_closedBall).nullMeasurableSet).mpr
+        (Lp.memLp u)
   let Z := hZ.toLp (loopDiskSet.indicator (u : LoopPlane → ℝ))
   have hnorm : ‖Z‖ = ‖u‖ := by
     rw [Lp.norm_toLp, eLpNorm_indicator_eq_eLpNorm_restrict
-      (show MeasurableSet loopDiskSet from measurableSet_closedBall), Lp.norm_def]
+      (show MeasurableSet loopDiskSet from measurableSet_closedBall).nullMeasurableSet, Lp.norm_def]
   rw [← hnorm]
   apply Lp.norm_le_mul_norm_of_ae_le_mul
   filter_upwards [hv, hZ.coeFn_toLp, (ae_restrict_iff'
@@ -67,9 +68,9 @@ private theorem m65WeakCutoff_norm_bounds
   have hg : MemLp (fun z => fderiv ℝ θ z e * u z) 2 (volume.restrict loopDiskSet) :=
     (((∂_{e} θ).memLp ∞ volume).restrict loopDiskSet).fun_mul (Lp.memLp u)
   have hF := (memLp_indicator_iff_restrict
-    (show MeasurableSet loopDiskSet from measurableSet_closedBall)).mpr hf
+    (show MeasurableSet loopDiskSet from measurableSet_closedBall).nullMeasurableSet).mpr hf
   have hG := (memLp_indicator_iff_restrict
-    (show MeasurableSet loopDiskSet from measurableSet_closedBall)).mpr hg
+    (show MeasurableSet loopDiskSet from measurableSet_closedBall).nullMeasurableSet).mpr hg
   let F := hF.toLp (loopDiskSet.indicator (fun z => θ z * d i z))
   let G := hG.toLp (loopDiskSet.indicator (fun z => fderiv ℝ θ z e * u z))
   have hsplit : D i = F + G := by

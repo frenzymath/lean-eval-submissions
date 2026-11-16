@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Annuli.Descent.Normalization.Endpoint
 
+noncomputable section
+
 /-!
 # Literal face carriers in the endpoint comparison charts
 

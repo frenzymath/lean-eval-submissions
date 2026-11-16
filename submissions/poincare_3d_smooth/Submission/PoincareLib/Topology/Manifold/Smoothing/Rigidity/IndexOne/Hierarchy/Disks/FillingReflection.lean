@@ -51,12 +51,13 @@ theorem exists_square_filling_of_pi1_injective
   have hmap : FundamentalGroup.map i (gamma squareRimBase)
       (FundamentalGroup.fromPath
         (Path.Homotopic.Quotient.mk (squareRimLoop.map gamma.continuous))) = 1 :=
-    Path.Homotopic.Quotient.eq.mpr hnullAmbient
+    CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr hnullAmbient)
   have hnull : FundamentalGroup.fromPath
       (Path.Homotopic.Quotient.mk (squareRimLoop.map gamma.continuous)) = 1 :=
     hinj (hmap.trans (map_one (FundamentalGroup.map i (gamma squareRimBase))).symm)
   exact (nullhomotopic_of_squareRimLoop gamma
-    (Path.Homotopic.Quotient.exact hnull)).exists_closedBall_extension gamma
+    (Path.Homotopic.Quotient.exact (congrArg FundamentalGroup.toPath
+      hnull))).exists_closedBall_extension gamma
 
 /-- Inclusion into the ambient space reflects the filling into the literal
 subspace, assuming only the actual based fundamental-group injection. -/

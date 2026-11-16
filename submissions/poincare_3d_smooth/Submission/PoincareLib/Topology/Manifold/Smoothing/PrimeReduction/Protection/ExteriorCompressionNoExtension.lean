@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Protection.MarkedCrossingEssentiality
 
 /-!
@@ -38,7 +39,7 @@ theorem Dehn.squareRimLoop_class_eq_one_of_extension
   have hh : FundamentalGroup.fromPath
       (Path.Homotopic.Quotient.mk
         (squareRimLoop.map (F.comp inclusion).continuous)) = 1 :=
-    Path.Homotopic.Quotient.eq.mpr hnull
+    (FundamentalGroup.fromPath_eq_one_iff _).mpr hnull
   exact hh
 
 theorem HamiltonMarkedProtectedBall.exists_original_exterior_essential_disk_with_no_extension

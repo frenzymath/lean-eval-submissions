@@ -1,0 +1,24 @@
+{
+  "smooth": {
+    "slurm_job_id": "5184218",
+    "cpus": 16,
+    "memory_mib": 60000,
+    "lean_num_threads": 16,
+    "workspace": "workspace"
+  },
+  "topological": {
+    "slurm_job_id": "5186066",
+    "cpus": 26,
+    "memory_mib": 100000,
+    "lean_num_threads": 8,
+    "workspace": "workspace-topological"
+  },
+  "node": "a2n16c1",
+  "independent_memory_cgroups": true,
+  "same_physical_node": true,
+  "hosted_cold_runtime_measured": false,
+  "prior_shared_allocation_attempt": "failed with out-of-memory exit 137; excluded from successful validation",
+  "preparatory_topological_build_overlapped_smooth_validation": true,
+  "selected_final_endpoint_sequences_overlapped": false,
+  "topological_local_setup_recovery": "topological-local-override-recovery.json"
+}

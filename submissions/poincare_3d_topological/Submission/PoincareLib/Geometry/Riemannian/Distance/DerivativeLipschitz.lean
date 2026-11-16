@@ -36,7 +36,7 @@ theorem edist_le_mul_edist_of_derivative_bound (g : RiemannianMetric n M)
   have hη : ContMDiff (𝓡∂ 1) (𝓘(ℝ, ℝ)) 1 η := hf.comp hγ
   have hdist : EDist.edist (f x) (f y) ≤ ∫⁻ t, ‖mfderiv (𝓡∂ 1) (𝓘(ℝ, ℝ)) η t 1‖ₑ := by
     rw [IsRiemannianManifold.out (I := 𝓘(ℝ, ℝ)), riemannianEDist]
-    exact biInf_le _ hη
+    exact iInf_le_of_le η (iInf_le_of_le hη le_rfl)
   apply hdist.trans
   rw [← lintegral_const_mul' _ _ ENNReal.coe_ne_top]
   apply lintegral_mono

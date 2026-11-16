@@ -119,9 +119,11 @@ theorem exists_cap_image_certificate_tolerance {g : RiemannianMetric 3 M}
       closure (Eend.region (-N.epsilon⁻¹) (-N.epsilon⁻¹ / 2)) := by
     rw [hendNegative]
     rintro _ ⟨x, hx, rfl⟩
-    exact ((e.continuousOn x (hsource (N.boundary_subset hx))).mono
-      (fun _ hz => hendSource hz.1)).mem_closure_image
+    apply ContinuousWithinAt.mem_closure_image ?_
       (N.boundary_subset_negative_end_closure hx)
+    apply (e.continuousOn x (hsource (N.boundary_subset hx))).mono
+    intro z hz
+    exact hendSource hz.1
   let H : CapCertificate h := {
     epsilon := N.epsilon
     epsilon_pos := N.epsilon_pos

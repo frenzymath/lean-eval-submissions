@@ -43,8 +43,8 @@ theorem eventually_generalized_terminal_baseBall_preimage_ball
     apply IsCompact.of_isClosed_subset
       (g.isCompact_closedBall_of_metricComplete
         (G.limit.complete 0 G.limit.zero_mem) G.limit.base (4 * A)) isClosed_closure
-    apply closure_minimal
-      (fun x (hx : g.edist G.limit.base x < ENNReal.ofReal (4 * A)) => hx.le)
+    apply closure_minimal (s := g.ball G.limit.base (4 * A))
+      (by intro x hx; exact (show g.edist G.limit.base x < ENNReal.ofReal (4 * A) from hx).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   have hsmall : g.ball G.limit.base (2 * A) ⊆ K := by
     intro x hx

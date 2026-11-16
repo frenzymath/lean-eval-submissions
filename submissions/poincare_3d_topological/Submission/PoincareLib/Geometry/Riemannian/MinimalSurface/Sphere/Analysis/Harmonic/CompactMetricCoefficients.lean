@@ -19,7 +19,7 @@ theorem suCompactMetric_coercive {Y : Type*} [TopologicalSpace Y]
     ∃ a > 0, ∀ y ∈ K, ∀ v, a * ‖v‖ ^ 2 ≤ B y v v := by
   have hc : ContinuousOn (fun q : Y × E => B q.1 q.2 q.2)
       (K ×ˢ Metric.sphere 0 1) :=
-    ((hB.comp continuous_fst.continuousOn (fun _ h => h.1)).clm_apply
+    ((hB.comp continuous_fst.continuousOn (by intro _ h; exact h.1)).clm_apply
       continuous_snd.continuousOn).clm_apply continuous_snd.continuousOn
   obtain ⟨a, ha, hab⟩ := (hK.prod (isCompact_sphere (0 : E) 1)).exists_forall_le' hc
     (a := 0) (by

@@ -24,7 +24,7 @@ private theorem memLp_piecewise_local {E : Type*} [NormedAddCommGroup E]
     (hf : MemLp f 2 (volume.restrict D)) (hg : MemLp g 2 (volume.restrict K)) :
     MemLp (D.piecewise f g) 2 (volume.restrict K) := by
   classical
-  apply MemLp.piecewise hD _ (hg.restrict Dᶜ)
+  apply MemLp.piecewise hD.nullMeasurableSet _ (hg.restrict Dᶜ)
   apply hf.mono_measure
   rw [Measure.restrict_restrict hD]
   exact Measure.restrict_mono_set volume inter_subset_left

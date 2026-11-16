@@ -100,6 +100,8 @@ theorem exists_compact_elliptic_jet_box (n r : ℕ) {a : ℝ} (ha : 0 < a) (B : 
       (ContinuousLinearMap.proj 0)
   let K := {J : Jet E V (2 + r) | ‖J‖ ≤ B ∧ ∀ v, a * ‖v‖ ^ 2 ≤ ev J v v}
   have hclosed : IsClosed K := by
+    change IsClosed ({J : Jet E V (2 + r) | ‖J‖ ≤ B} ∩
+      {J | ∀ v, a * ‖v‖ ^ 2 ≤ ev J v v})
     apply (isClosed_le continuous_norm continuous_const).inter
     change IsClosed {J : Jet E V (2 + r) | ∀ v, a * ‖v‖ ^ 2 ≤ ev J v v}
     rw [Set.ofPred_forall]

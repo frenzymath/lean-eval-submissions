@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Retained.RetainedAnnuli
 import Mathlib.Topology.ContinuousMap.Basic
 
+noncomputable section
+
 /-!
 # Extending retained component labels across actual caps
 

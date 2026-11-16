@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Hierarchy.Regluing.TerminalCoordinatePL
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Arcs.Mathlib.ShiftedCircleClosedArc
 
+noncomputable section
+
 /-!
 # Marked target cells for successive circle cuts
 

@@ -87,7 +87,7 @@ theorem halfDisk_even_memLp {E : Type*} [NormedAddCommGroup E]
     apply Measure.restrict_mono_set volume
     rw [reflection_preimage_halfDisk]
     exact fun z hz => ⟨hz.2, (lt_of_not_ge (show ¬0 ≤ z 1 from hz.1)).le⟩
-  exact MemLp.piecewise hH hupper hlower
+  exact MemLp.piecewise hH.nullMeasurableSet hupper hlower
 
 private theorem halfDisk_integral_split {r : ℝ} {f : LoopPlane → ℝ}
     (hf : IntegrableOn f (closedBall (0 : LoopPlane) r)) :
@@ -182,7 +182,8 @@ theorem halfDisk_reflected_localMap_of_green {M : Type*} {N : ℕ}
     by_cases hz : 0 ≤ z 1 <;> simp [q, hz]
   have hD (i : Fin 2) : MemLp (d i) 2 (volume.restrict B) := by
     have hev := halfDisk_even_memLp (hd i)
-    have hp := MemLp.piecewise hH (hev.restrict H) ((hev.const_smul (sig i)).restrict Hᶜ)
+    have hp := MemLp.piecewise hH.nullMeasurableSet (hev.restrict H) ((hev.const_smul (sig
+      i)).restrict Hᶜ)
     apply hp.ae_eq
     filter_upwards with z
     by_cases hz : 0 ≤ z 1 <;> simp [d, H, hz]

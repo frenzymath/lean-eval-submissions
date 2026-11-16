@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Geo
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.PartialLimits.Geometry.LocalNormalCharts
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.GeometricLimit.BoundaryCoverage
 
+noncomputable section
+
 /-!
 # Intrinsic regular points and their base components
 

@@ -44,7 +44,8 @@ theorem linear_halfspace_bounds_and_active_of_mem_frontier
     exact isOpen_biInter_finset fun A _ =>
       isOpen_lt A.continuous_of_finiteDimensional continuous_const
   exact hp.2 (interior_maximal
-    (fun x (hx : ∀ A ∈ H, A x < 1) A hA => (hx A hA).le) hopen hstrict)
+    (t := {x : E | ∀ A ∈ H, A x < 1})
+    (by intro x hx A hA; exact (hx A hA).le) hopen hstrict)
 
 end Set
 

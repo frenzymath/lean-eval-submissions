@@ -62,8 +62,8 @@ private theorem isPreconnected_diff_of_connected_frontier
     obtain ⟨x, hxC, hxs, hxs', hxU⟩ := isPreconnected_closed_iff.mp hC
       (s ∪ closure U) (s' ∩ Uᶜ) (hs.union isClosed_closure)
       (hs'.inter hU.isClosed_compl) hcov'
-      (hCs.mono (fun _ hx => ⟨hx.1.1, Or.inl hx.2⟩))
-      (hCs'.mono (fun _ hx => ⟨hx.1.1, hx.2, hx.1.2⟩))
+      (hCs.mono (t := C ∩ (s ∪ closure U)) (by intro x hx; exact ⟨hx.1.1, Or.inl hx.2⟩))
+      (hCs'.mono (t := C ∩ (s' ∩ Uᶜ)) (by intro x hx; exact ⟨hx.1.1, hx.2, hx.1.2⟩))
     refine ⟨x, ⟨hxC, hxU⟩, ?_, hxs'⟩
     exact hxs.elim id (fun hxcl => hFs (by rw [hU.frontier_eq]; exact ⟨hxcl, hxU⟩))
   rcases hside with hFt | hFt'

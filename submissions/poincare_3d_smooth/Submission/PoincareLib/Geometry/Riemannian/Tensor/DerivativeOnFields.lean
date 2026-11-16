@@ -71,12 +71,12 @@ lemma covariantTensorDerivative_two_on_fields
     constructor
     · intro f Y hf hY
       simp [Φ, mvfderiv_fun_mul hf (hd Y Z hY hZ),
-        D.connection.isCovariantDerivativeOn.leibniz hY hf,
+        D.connection.isCovariantDerivativeOnUniv.leibniz hY hf,
         map_add, map_smul, LinearMap.add_apply, LinearMap.smul_apply]
       ring
     · intro Y Y' hY hY'
       simp [Φ, mvfderiv_fun_add (hd Y Z hY hZ) (hd Y' Z hY' hZ),
-        D.connection.isCovariantDerivativeOn.add hY hY',
+        D.connection.isCovariantDerivativeOnUniv.add hY hY',
         map_add, LinearMap.add_apply]
       ring
   have hΦ₂ (Y : (y : M) → TangentSpace (𝓡 n) y)
@@ -85,12 +85,12 @@ lemma covariantTensorDerivative_two_on_fields
     constructor
     · intro f Z hf hZ
       simp [Φ, mvfderiv_fun_mul hf (hd Y Z hY hZ),
-        D.connection.isCovariantDerivativeOn.leibniz hZ hf,
+        D.connection.isCovariantDerivativeOnUniv.leibniz hZ hf,
         map_add, map_smul]
       ring
     · intro Z Z' hZ hZ'
       simp [Φ, mvfderiv_fun_add (hd Y Z hY hZ) (hd Y Z' hY hZ'),
-        D.connection.isCovariantDerivativeOn.add hZ hZ', map_add]
+        D.connection.isCovariantDerivativeOnUniv.add hZ hZ', map_add]
       ring
   have heq := TensorialAt.pointwise₂ hΦ₁ hΦ₂ hY
     (FiberBundle.mdifferentiableAt_extend (𝓡 n) (EuclideanSpace ℝ (Fin n)) (Y x))
@@ -179,14 +179,14 @@ private lemma covariantTensorDerivativeOnFields_tensorial
   · intro f Z hf hZ
     simp only [hexp, Pi.smul_apply', MultilinearMap.map_update_smul, smul_eq_mul]
     rw [mvfderiv_fun_mul hf (hd Z hZ),
-      D.connection.isCovariantDerivativeOn.leibniz hZ hf]
+      D.connection.isCovariantDerivativeOnUniv.leibniz hZ hf]
     simp [MultilinearMap.map_update_add, MultilinearMap.map_update_smul,
       smul_eq_mul, ← Finset.mul_sum]
     ring
   · intro Z W hZ hW
     simp only [hexp, Pi.add_apply, MultilinearMap.map_update_add]
     rw [mvfderiv_fun_add (hd Z hZ) (hd W hW),
-      D.connection.isCovariantDerivativeOn.add hZ hW]
+      D.connection.isCovariantDerivativeOnUniv.add hZ hW]
     simp [MultilinearMap.map_update_add, Finset.sum_add_distrib]
     ring
 

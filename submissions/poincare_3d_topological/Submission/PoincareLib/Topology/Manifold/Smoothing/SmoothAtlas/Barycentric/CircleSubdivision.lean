@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.SmoothAtlas.Coordinates.CircleAngleCoordinates
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Arcs.ShortCircleArc
 
+noncomputable section
+
 /-!
 # Short-arc circle subdivisions from gap coordinates
 

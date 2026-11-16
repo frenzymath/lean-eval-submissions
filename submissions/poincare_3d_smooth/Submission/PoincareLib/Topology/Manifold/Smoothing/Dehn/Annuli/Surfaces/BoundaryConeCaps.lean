@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Regions.Rad
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Regions.FinitePLBallImages
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Handles.HamiltonHandleCubeBall
 
+noncomputable section
+
 /-!
 # Actual cone caps on marked surface boundary circles
 

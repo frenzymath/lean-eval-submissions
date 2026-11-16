@@ -49,7 +49,7 @@ theorem limitCanonical_exists_compressed_limit_family
   have hB : RoundCylinderFamilyClose N.epsilon (Ioc (-1 : ℝ) 0)
       (fun s z v w => B s z v w) := hfamily
   obtain ⟨lambda, hlambda, hcompress⟩ := exists_same_epsilon_neck_axial_compression
-    N.epsilon_pos (fun _ hs => hs.2) B hB
+    N.epsilon_pos (I := Ioc (-1 : ℝ) 0) (fun _ hs => hs.2) B hB
   have hzero : |(0 : ℝ)| < (1 - lambda) * N.epsilon⁻¹ := by
     rw [abs_zero]
     exact mul_pos (sub_pos.mpr hlambda.2) (inv_pos.mpr N.epsilon_pos)

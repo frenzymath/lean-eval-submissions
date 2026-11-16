@@ -91,9 +91,9 @@ theorem hasDerivAt_pieceEnergy {τ₀ τ₁ r : ℝ} {U : Set E}
       (∫ t in τ₀..τ₁, deriv (fun ρ => energyDensity G u (0, 1) (ρ, t)) s) s := by
   have hf2 : ContDiffOn ℝ 2 (energyDensity G u ((0 : ℝ), (1 : ℝ)))
       (Set.Ioo ((0 : ℝ) - r) ((0 : ℝ) + r) ×ˢ Set.Ioo (τ₀ - r) (τ₁ + r)) := by
-    refine contDiffOn_energyDensity hG hu (fun p hp => humem p ⟨?_, hp.2⟩) _
-    have := hp.1
-    simpa using this
+    refine contDiffOn_energyDensity hG hu ?_ _
+    intro p hp
+    exact humem p ⟨by simpa using hp.1, hp.2⟩
   have hf1 : ContDiffOn ℝ 1 (energyDensity G u ((0 : ℝ), (1 : ℝ)))
       (Set.Ioo ((0 : ℝ) - r) ((0 : ℝ) + r) ×ˢ Set.Ioo (τ₀ - r) (τ₁ + r)) :=
     hf2.of_le (by norm_num)
@@ -134,9 +134,9 @@ theorem hasDerivAt_deriv_pieceEnergy_chartIndexIntegrand {τ₀ τ₁ r : ℝ} {
   -- `deriv_deriv_pieceEnergy_eq_boundary_add_integral`
   have hf2 : ContDiffOn ℝ 2 (energyDensity G u ((0 : ℝ), (1 : ℝ)))
       (Set.Ioo ((0 : ℝ) - r) ((0 : ℝ) + r) ×ˢ Set.Ioo (τ₀ - r) (τ₁ + r)) := by
-    refine contDiffOn_energyDensity hG hu (fun p hp => humem p ⟨?_, hp.2⟩) _
-    have := hp.1
-    simpa using this
+    refine contDiffOn_energyDensity hG hu ?_ _
+    intro p hp
+    exact humem p ⟨by simpa using hp.1, hp.2⟩
   -- the abstract `HasDerivAt` at the second level, with the *analytic* value
   have hHD := hasDerivAt_deriv_intervalIntegral_of_contDiffOn_box
     (F := fun σ t => energyDensity G u ((0 : ℝ), (1 : ℝ)) (σ, t)) hτ hr hf2
@@ -186,11 +186,11 @@ theorem hasDerivAt_deriv_sum (hε : 0 < ε)
       =ᶠ[𝓝 (0 : ℝ)] fun s => ∑ i ∈ Finset.range N, f' i s := by
     filter_upwards [hnhds] with s hs
     rw [funext_sum_range f N]
-    exact (HasDerivAt.sum (fun i hi => hd i (Finset.mem_range.mp hi) s hs)).deriv
+    exact (HasDerivAt.sum (by intro i hi; exact hd i (Finset.mem_range.mp hi) s hs)).deriv
   have hsum2 : HasDerivAt (fun s => ∑ i ∈ Finset.range N, f' i s)
       (∑ i ∈ Finset.range N, L i) 0 := by
     rw [funext_sum_range f' N]
-    exact HasDerivAt.sum (fun i hi => hd2 i (Finset.mem_range.mp hi))
+    exact HasDerivAt.sum (by intro i hi; exact hd2 i (Finset.mem_range.mp hi))
   exact hsum2.congr_of_eventuallyEq hEq
 
 /-- **Math.** Value form of `hasDerivAt_deriv_sum`: the second derivative of a finite sum at `0`
@@ -210,7 +210,7 @@ theorem continuousAt_sum (hε : 0 < ε)
     ContinuousAt (fun s => ∑ i ∈ Finset.range N, f i s) 0 := by
   rw [funext_sum_range f N]
   exact (HasDerivAt.sum
-    (fun i hi => hd i (Finset.mem_range.mp hi) 0 ⟨by linarith, hε⟩)).continuousAt
+    (by intro i hi; exact hd i (Finset.mem_range.mp hi) 0 ⟨by linarith, hε⟩)).continuousAt
 
 /-- The second variations of finitely many pieces have nonnegative sum when
 their total energy has a local minimum. -/

@@ -385,7 +385,7 @@ theorem exists_contDiff_pointCorrection_inner
           ∀ (t : unitInterval) (x : E), x ∉ K → H (t, x) = x := by
   let N : E × E → ℝ := fun p => Real.sqrt (B p.1 p.2 p.2)
   have hN : ContinuousOn N (U ×ˢ univ) :=
-    (((hB.comp continuous_fst.continuousOn (fun _ hp => hp.1)).clm_apply
+    (((hB.comp continuous_fst.continuousOn (by intro _ hp; exact hp.1)).clm_apply
       continuous_snd.continuousOn).clm_apply continuous_snd.continuousOn).sqrt
   have hNpos : ∀ x ∈ U, ∀ w : E, w ≠ 0 → 0 < N (x, w) :=
     fun x hx w hw => Real.sqrt_pos.mpr (hBpos x hx w hw)

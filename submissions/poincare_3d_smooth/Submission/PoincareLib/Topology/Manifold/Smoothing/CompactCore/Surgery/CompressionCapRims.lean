@@ -62,7 +62,9 @@ theorem OriginalDiskProduct.exists_essential_lateral_rim
   refine ⟨capRim, H, hcap, fun _ => rfl, ?_⟩
   intro hnull
   apply hessential
+  apply CategoryTheory.End.ext
   exact Path.Homotopic.Quotient.eq.mpr
-    (H.map_loop_homotopic_refl Dehn.squareRimLoop (Path.Homotopic.Quotient.exact hnull))
+    (H.map_loop_homotopic_refl Dehn.squareRimLoop (Path.Homotopic.Quotient.exact (congrArg
+      FundamentalGroup.toPath hnull)))
 
 end PoincareMT.M76

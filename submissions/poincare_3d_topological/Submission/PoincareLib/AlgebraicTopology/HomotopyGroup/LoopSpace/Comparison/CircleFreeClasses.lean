@@ -39,7 +39,8 @@ theorem homotopic_of_descend_homotopic
       q.boundary_collapsed _ ⟨0, Or.inr rfl⟩]
   have hp := Path.homotopic_of_free_homotopy hcomm p r K hK
   have he : (⟦f⟧ : HomotopyGroup (Fin 1) X x) = ⟦g⟧ :=
-    (homotopyGroupEquivFundamentalGroupOfUnique (Fin 1)).injective (Quotient.sound hp)
+    (homotopyGroupEquivFundamentalGroupOfUnique (Fin 1)).injective (CategoryTheory.End.ext
+      (Quotient.sound hp))
   exact Quotient.exact he
 
 /-- For abelian pi1, based interval classes are exactly free classes of

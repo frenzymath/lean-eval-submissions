@@ -30,7 +30,8 @@ theorem pathValue_eq_of_loopCharacter_eq_one (c : A.ModTwoEdgeCocycle)
     (x : A.barycentricSpace) (hzero : ∀ g, c.loopCharacter x g = 1)
     {y : A.barycentricSpace} (p q : Path x y) : c.pathValue p = c.pathValue q := by
   have h := congrArg Multiplicative.toAdd
-    (hzero ((Path.Homotopic.Quotient.mk p).trans (Path.Homotopic.Quotient.mk q).symm))
+    (hzero (FundamentalGroup.fromPath
+      ((Path.Homotopic.Quotient.mk p).trans (Path.Homotopic.Quotient.mk q).symm)))
   change c.quotientValue
     ((Path.Homotopic.Quotient.mk p).trans (Path.Homotopic.Quotient.mk q).symm) = 0 at h
   rw [c.quotientValue_trans, c.quotientValue_symm] at h

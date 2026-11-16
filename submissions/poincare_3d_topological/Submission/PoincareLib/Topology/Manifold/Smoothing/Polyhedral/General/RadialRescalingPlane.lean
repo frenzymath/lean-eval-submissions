@@ -31,11 +31,11 @@ theorem affine_eq_zero_iff_of_vertex_zeros (s : Finset E)
   constructor
   · intro hAx
     have hz := s.mem_convexHull_zero_vertices A hA hx hAx
-    exact convexHull_min (fun v hv => (hzero v hv.1).mp hv.2)
+    exact convexHull_min (by intro v hv; exact (hzero v hv.1).mp hv.2)
       ((convex_singleton (0 : ℝ)).affine_preimage B) hz
   · intro hBx
     have hz := s.mem_convexHull_zero_vertices B hB hx hBx
-    exact convexHull_min (fun v hv => (hzero v hv.1).mpr hv.2)
+    exact convexHull_min (by intro v hv; exact (hzero v hv.1).mpr hv.2)
       ((convex_singleton (0 : ℝ)).affine_preimage A) hz
 
 end Finset

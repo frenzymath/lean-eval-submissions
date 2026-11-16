@@ -74,14 +74,14 @@ private lemma derivative_slot_tensorial
   · intro f Z hf hZ
     simp only [hexp, Pi.smul_apply', MultilinearMap.map_update_smul, smul_eq_mul]
     rw [mvfderiv_fun_mul hf (hd Z hZ),
-      D.connection.isCovariantDerivativeOn.leibniz hZ hf]
+      D.connection.isCovariantDerivativeOnUniv.leibniz hZ hf]
     simp [MultilinearMap.map_update_add, MultilinearMap.map_update_smul,
       smul_eq_mul, ← Finset.mul_sum]
     ring
   · intro Z W hZ hW
     simp only [hexp, Pi.add_apply, MultilinearMap.map_update_add]
     rw [mvfderiv_fun_add (hd Z hZ) (hd W hW),
-      D.connection.isCovariantDerivativeOn.add hZ hW]
+      D.connection.isCovariantDerivativeOnUniv.add hZ hW]
     simp [MultilinearMap.map_update_add, Finset.sum_add_distrib]
     ring
 

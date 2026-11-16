@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Surgery.Reverse.Assembly.Replacement.CapCollar
 
+noncomputable section
+
 /-! # Open cap ranges under a canonical reparametrization -/
 
 set_option autoImplicit false

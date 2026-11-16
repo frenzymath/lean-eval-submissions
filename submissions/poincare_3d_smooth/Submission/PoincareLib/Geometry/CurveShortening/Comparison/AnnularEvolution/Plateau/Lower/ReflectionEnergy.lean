@@ -76,7 +76,7 @@ theorem m64LowerReflection_integral_norm_sq
         ∫ p in closedBall (R b) r ∩ S, ‖V p‖ ^ 2 := by
   classical
   let U := (S).indicator V
-  have hU := (memLp_indicator_iff_restrict isOpen_interior.measurableSet).mpr hV
+  have hU := (memLp_indicator_iff_restrict isOpen_interior.measurableSet.nullMeasurableSet).mpr hV
   have hi : Integrable (fun p => ‖U p‖ ^ 2) volume := hU.norm.integrable_sq
   have hir : Integrable (fun p => ‖U (R p)‖ ^ 2) volume :=
     m60PlaneReflection.measurePreserving.integrable_comp_of_integrable hi

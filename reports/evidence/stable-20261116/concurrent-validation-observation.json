@@ -1,0 +1,14 @@
+{
+  "topological_started_at": "2026-11-16T11:20:17.514117+00:00",
+  "slurm_job_id": "5184218",
+  "shared_cpu_allocation": 16,
+  "shared_memory_allocation_mib": 60000,
+  "smooth_workspace": "/tmp/poincare-resubmit-20261116-5184218/workspace",
+  "topological_workspace": "/tmp/poincare-resubmit-20261116-5184218/workspace-topological",
+  "cache_copy": "cp -a --reflink=auto; independent files, not hardlinks",
+  "source_and_build_directories_separate": true,
+  "timing_scope": "Endpoint validations overlap in one allocation; timings are not isolated or cold.",
+  "outcome": "failed: combined memory usage exceeded the shared allocation; smooth checker and topological rebuild exited 137",
+  "successful_validation": false,
+  "superseded_by": "validation-recovery-resources.json"
+}

@@ -46,7 +46,7 @@ theorem scalarAnnulus_exists_C1_physical_approximation
   obtain ⟨B, hBA, hBlo, hBhi, -⟩ := scalarAnnulus_exists_flat_collars A hc0 hc1
   obtain ⟨F, hFc, hdesc, hFL⟩ := scalarAnnulus_exists_physical_descent B
   obtain ⟨hFI, hFA⟩ := scalarAnnulusDescent_area B hdesc
-  have hlocal := scalar_locallyChartLipschitz_of_intrinsic g hFL
+  have hlocal := scalar_locallyChartLipschitz_of_intrinsic g (f := F) (O := {p | p ≠ 0}) hFL
   let K : Set Plane := {p | ‖p‖ ∈ Icc (5 / 4 : ℝ) (3 / 2)}
   have hK : IsCompact K := by
     apply (isCompact_closedBall (0 : Plane) (3 / 2)).of_isClosed_subset

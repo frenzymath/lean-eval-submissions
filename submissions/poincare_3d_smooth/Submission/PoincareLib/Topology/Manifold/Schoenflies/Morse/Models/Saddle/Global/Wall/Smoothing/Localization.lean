@@ -32,6 +32,7 @@ def edgeNeighborhood (δ : Real) : Set E3 :=
   {p | -δ < p 0 ∧ p 2 - (p 1)^2 < δ}
 
 theorem isOpen_edgeNeighborhood (δ : Real) : IsOpen (edgeNeighborhood δ) := by
+  change IsOpen ({p : E3 | -δ < p 0} ∩ {p : E3 | p 2 - (p 1)^2 < δ})
   apply IsOpen.inter
   · exact isOpen_lt continuous_const (EuclideanSpace.proj (𝕜 := Real) 0).continuous
   · exact isOpen_lt

@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Surfaces.Orig
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Disks.Mathlib.FinitePLDiskAttachment
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Regions.FinitePLBallImages
 
+noncomputable section
+
 /-!
 # Realizing a leaf triangle in a fresh coordinate
 

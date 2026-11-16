@@ -11,6 +11,8 @@ Euclidean Laplacian on smooth supported tests.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 
 noncomputable section
 

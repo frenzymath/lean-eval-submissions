@@ -37,8 +37,8 @@ private theorem compact_forward_spacetime_support
   apply hc.isCompact.image_of_continuousOn
   have hforward : ContinuousOn (fun z : Spacetime n => (e z.1, z.2))
       (e.source ×ˢ univ) :=
-    (e.continuousOn.comp continuous_fst.continuousOn
-      (fun z hz => hz.1)).prodMk continuous_snd.continuousOn
+    (e.continuousOn.comp (s := e.source ×ˢ univ) continuous_fst.continuousOn
+      (by intro z hz; exact hz.1)).prodMk continuous_snd.continuousOn
   exact hforward.mono hs
 
 theorem tsupport_spacetimeChartPushforward_subset_image
@@ -51,7 +51,7 @@ theorem tsupport_spacetimeChartPushforward_subset_image
   intro z hz
   have htarget : z.1 ∈ e.target := by
     by_contra h
-    exact hz (indicator_of_notMem (fun hz' => h hz'.1) _)
+    exact hz (indicator_of_notMem (s := e.target ×ˢ univ) (by intro hz'; exact h hz'.1) _)
   refine ⟨(e.symm z.1, z.2), subset_tsupport ψ ?_, ?_⟩
   · simpa only [Function.mem_support, spacetimeChartPushforward_apply e ψ htarget] using hz
   · simp only [e.right_inv htarget, Prod.eta]
@@ -103,7 +103,7 @@ theorem spacetimeChartPullback_pushforward
   · rw [spacetimeChartPullback_apply e _ hz,
       spacetimeChartPushforward_apply e ψ (e.map_source hz), e.left_inv hz]
   · rw [show ψ z = 0 from image_eq_zero_of_notMem_tsupport (fun h => hz (hs h).1)]
-    exact indicator_of_notMem (fun h => hz h.1) _
+    exact indicator_of_notMem (s := e.source ×ˢ univ) (by intro h; exact hz h.1) _
 
 theorem integrableOn_coordinate_heat_pairing
     (F : RicciFlow n M (Iio (0 : ℝ)))
@@ -181,8 +181,9 @@ theorem coordinate_pairing_eq_zero_of_weakPairing_eq_zero
   have hpull : spacetimeChartPullback e φ = ψ := spacetimeChartPullback_pushforward e hs'
   have huc : ContinuousOn (fun z : Spacetime n => u (e z.1, z.2))
       (e.source ×ˢ Ioi (0 : ℝ)) :=
-    hu.comp ((e.continuousOn.comp continuous_fst.continuousOn
-      (fun z hz => hz.1)).prodMk continuous_snd.continuousOn)
+    hu.comp (s := e.source ×ˢ Ioi (0 : ℝ))
+      ((e.continuousOn.comp (s := e.source ×ˢ Ioi (0 : ℝ))
+        continuous_fst.continuousOn (by intro z hz; exact hz.1)).prodMk continuous_snd.continuousOn)
       (fun z hz => ⟨mem_univ _, hz.2⟩)
   have hBi := integrableOn_coordinate_heat_pairing F e he hei huc hψ hc hs
   have hBi' : IntegrableOn (fun z : Spacetime n =>
@@ -207,7 +208,8 @@ theorem potential_contMDiffOn_of_weakPairing_eq_zero
     ContMDiffOn ((𝓡 n).prod 𝓘(ℝ, ℝ)) 𝓘(ℝ, ℝ) ∞ l (univ ×ˢ Ioi (0 : ℝ)) := by
   let u : M × ℝ → ℝ := fun z => z.2 ^ (-(n : ℝ) / 2) * Real.exp (-l z)
   have hu : ContinuousOn u (univ ×ˢ Ioi (0 : ℝ)) :=
-    (continuousOn_snd.rpow_const (fun z hz => Or.inl (ne_of_gt hz.2))).mul
+    ((continuousOn_snd (s := univ ×ˢ Ioi (0 : ℝ))).rpow_const (fun z hz => Or.inl (ne_of_gt
+      hz.2))).mul
       (Real.continuous_exp.comp_continuousOn hl.neg)
   intro z hz
   let e := (chartAt (EuclideanSpace ℝ (Fin n)) z.1).symm
@@ -218,8 +220,8 @@ theorem potential_contMDiffOn_of_weakPairing_eq_zero
   have hDdomain : D ⊆ BackwardCoordinates.domain (Iio (0 : ℝ)) e := by
     rw [BackwardCoordinates.domain_Iio_zero]
   have hlc : ContinuousOn (fun y : Spacetime n => l (e y.1, y.2)) D :=
-    hl.comp ((e.continuousOn.comp continuous_fst.continuousOn
-      (fun y hy => hy.1)).prodMk continuous_snd.continuousOn)
+    hl.comp (s := D) ((e.continuousOn.comp (s := D) continuous_fst.continuousOn
+      (by intro y hy; exact hy.1)).prodMk continuous_snd.continuousOn)
       (fun y hy => ⟨mem_univ _, hy.2⟩)
   have hc : ContDiffOn ℝ ∞ (fun y : Spacetime n => l (e y.1, y.2)) D := by
     apply BackwardCoordinates.potential_contDiffOn_of_weak_heat_pairing F e he hei

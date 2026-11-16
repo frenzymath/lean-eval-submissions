@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Neck
 import Mathlib.Geometry.Manifold.ContMDiff.NormedSpace
 import Mathlib.Geometry.Manifold.ContMDiff.Constructions
 
+noncomputable section
+
 /-!
 Adapted from Mapher `PoincareMT/Proofs/M49/NeckCoordinates.lean` at
 revision `f927d9e1f0810042766d3b5f64d3f4da02ee93cc`.

@@ -49,9 +49,9 @@ theorem exists_finite_local_halfspace_traces
       exact finite_empty
     rcases hkind with hin | ⟨ell, hlin, hhalf⟩
     · refine ⟨N, N, ⊥, W, hNK, hW, hxW, hWN, hN, hbot, ?_, ?_⟩
-      · exact (inter_eq_left.mpr (fun y hy => interior_subset (hin (hNsource hy)))).symm
+      · exact (inter_eq_left.mpr (by intro y hy; exact interior_subset (hin (hNsource hy)))).symm
       · rw [SimplicialComplex.space_bot]
-        exact (eq_empty_iff_forall_notMem.mpr (fun y hy =>
+        exact (eq_empty_iff_forall_notMem.mpr (fun y (hy : y ∈ N.space ∩ frontier R) ↦
           disjoint_left.mp disjoint_interior_frontier (hin (hNsource hy.1)) hy.2)).symm
     · let a : V3 →ᵃ[ℝ] ℝ := ell.toAffineMap
       obtain ⟨P, hP, hPs⟩ := hcoords.exists_finite_halfspace_preimage {-a}
@@ -76,7 +76,7 @@ theorem exists_finite_local_halfspace_traces
   choose N P B W hNK hW hxW hWN hP hB hPs hBs using hlocal
   let : CompactSpace K.space := isCompact_iff_compactSpace.mp (K.isCompact_space_of_finite hK)
   obtain ⟨t, ht⟩ := isCompact_univ.elim_finite_subcover W hW
-    (fun x _ => mem_iUnion.mpr ⟨x, hxW x⟩)
+    (by intro x _; exact mem_iUnion.mpr ⟨x, hxW x⟩)
   obtain ⟨P0, hP0, hP0s, _⟩ :=
     SimplicialComplex.exists_finite_triangulation_iUnion (fun x : t => P x) (fun x => hP x)
   obtain ⟨B0, hB0, hB0s, _⟩ :=

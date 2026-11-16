@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Surgery.CompressionCapParametrization
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Surgery.CompressionCapOutsidePoint
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Surgery.CompressionCapRims
@@ -71,7 +72,7 @@ theorem cap_component_not_sphere_of_graph
     (Dehn.squareRimLoop.map rimComp.continuous) (Path.refl (rimComp Dehn.squareRimBase))
   have hnullF : (Dehn.squareRimLoop.map capRim.continuous).Homotopic
       (Path.refl (capRim Dehn.squareRimBase)) := hnull.map (ContinuousMap.inclusion hTF)
-  exact hcapEssential (Path.Homotopic.Quotient.eq.mpr hnullF)
+  exact hcapEssential ((FundamentalGroup.fromPath_eq_one_iff _).mpr hnullF)
 
 theorem cap_component_not_sphere
     {X ι : Type*} [TopologicalSpace X] [T2Space X]

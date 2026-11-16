@@ -1,3 +1,4 @@
+import Mathlib.Topology.Algebra.Order.ArchimedeanDiscrete
 import Submission.PoincareLib.Geometry.Riemannian.Heat.Kernel.LineArclength
 import Mathlib.Topology.Algebra.Order.Archimedean
 
@@ -235,8 +236,9 @@ theorem exists_fundamental_period_line_geodesic [CompactSpace M] [PreconnectedSp
     apply hne
     rw [heq]
     exact deriv_const _ _
-  obtain ⟨a, ha⟩ := P.dense_or_cyclic.resolve_left hndense
-  rw [← AddSubgroup.zmultiples_eq_closure] at ha
+  have hcyclic := P.dense_or_isCyclic.resolve_left hndense
+  obtain ⟨a, ha⟩ := P.isAddCyclic_iff_exists_zmultiples_eq_top.mp hcyclic
+  have ha := ha.symm
   obtain ⟨S, hS, hperS⟩ := exists_pos_period_line_geodesic g hc hγ hp hv0 hv
   have hane : a ≠ 0 := by
     intro hz

@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Neighborhood.Disks.RimBands.Coordinates.ClosedArms
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Neighborhood.Disks.RimBands.Patches.HalfPatch
 
+noncomputable section
+
 /-! # Four closed rectangle charts for the full rim cylinder -/
 
 set_option autoImplicit false

@@ -79,7 +79,7 @@ include hS hνS hk hC hbound
 omit [CompleteSpace K] hC in
 theorem kernelOn_memLp (u : K) :
     MemLp (S.indicator fun x => inner ℝ (k x) u) 2 ν := by
-  rw [memLp_indicator_iff_restrict hS]
+  rw [memLp_indicator_iff_restrict hS.nullMeasurableSet]
   let : IsFiniteMeasure (ν.restrict S) := ⟨by simpa using hνS.lt_top⟩
   apply MemLp.of_bound ((hk u).mono_measure Measure.restrict_le_self) (C * ‖u‖)
   exact Filter.Eventually.of_forall fun x =>
@@ -120,7 +120,7 @@ private theorem norm_kernelOnLinear_sq_le (u : K) :
   rw [h_ind, integral_indicator hS]
   let : IsFiniteMeasure (ν.restrict S) := ⟨by simpa using hνS.lt_top⟩
   have hm : MemLp (fun x => inner ℝ (k x) u) 2 (ν.restrict S) :=
-    (memLp_indicator_iff_restrict hS).mp (kernelOn_memLp S hS hνS k hk C hbound u)
+    (memLp_indicator_iff_restrict hS.nullMeasurableSet).mp (kernelOn_memLp S hS hνS k hk C hbound u)
   have hi := hm.integrable_sq
   calc
     (∫ x in S, (inner ℝ (k x) u) ^ 2 ∂ν) ≤
@@ -170,7 +170,7 @@ theorem sum_norm_kernelOn_map_sq_le (A : H →L[ℝ] K) {b : ι → H}
   let : IsFiniteMeasure (ν.restrict S) := ⟨by simpa using hνS.lt_top⟩
   have hi (i : ι) : Integrable (fun x => (inner ℝ (k x) (A (b i))) ^ 2)
       (ν.restrict S) := by
-    have hm := (memLp_indicator_iff_restrict hS).mp
+    have hm := (memLp_indicator_iff_restrict hS.nullMeasurableSet).mp
       (kernelOn_memLp S hS hνS k hk C hbound (A (b i)))
     exact hm.integrable_sq
   simpa [Measure.real] using

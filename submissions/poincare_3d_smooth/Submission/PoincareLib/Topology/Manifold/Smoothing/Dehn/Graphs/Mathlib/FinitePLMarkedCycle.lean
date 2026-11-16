@@ -108,8 +108,8 @@ theorem FinitePiecewiseAffineOn.exists_excluded_marked_image_cycle
   have hclass : p.whiskeredLoopClass ((K.geometricWalkPath W).map G.continuous) =
       p.whiskeredLoopClass
         ((Path.imageIntervalLoop f hf.continuousOn hclosed).map j.continuous) :=
-    Path.Homotopic.Quotient.eq.mpr
-      (((Path.Homotopic.refl p).hcomp hmap).hcomp (Path.Homotopic.refl p.symm))
+    CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr
+      (((Path.Homotopic.refl p).hcomp hmap).hcomp (Path.Homotopic.refl p.symm)))
   have hW : p.whiskeredLoopClass
       (SimpleGraph.Walk.realizePath (G ∘ a)
         (fun h => (K.geometricEdgePath h).map G.continuous) W) ∉ J := by

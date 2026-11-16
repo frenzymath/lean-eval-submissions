@@ -83,7 +83,7 @@ theorem exists_horizontalSource
     observed_memLp := hobs
     column := column
     tangent := fun i => by
-      filter_upwards [hc i, hq.ae (A.tangent i)] with p hp htan
+      filter_upwards [hc i, Measure.QuasiMeasurePreserving.ae hq (A.tangent i)] with p hp htan
       obtain ⟨v, hv⟩ := htan
       refine ⟨(if i = 0 then deriv tau (p 0) else 1) • v, ?_⟩
       exact ((mfderiv (𝓡 n) (𝓡 m) e (A.map (T p))).map_smul

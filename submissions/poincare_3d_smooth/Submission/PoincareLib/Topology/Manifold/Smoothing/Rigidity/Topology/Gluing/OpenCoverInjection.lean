@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.Gluing.OverlapTransport
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.VanKampen.Retraction
 
@@ -12,6 +13,7 @@ by the existing rectangle subdivision argument.
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
 
 open Set
 open scoped unitInterval
@@ -131,12 +133,13 @@ theorem inclusion_injective_of_overlap_injective
       (VanKampen.cover_covers U V hcover) _ false (fun t => (p t).2)]
     exact glueLocalTransports_first U V L R hLR _ (fun t => (p t).2)
   intro p q hpq
-  induction p using Path.Homotopic.Quotient.ind with
+  induction p using FundamentalGroup.path_ind with
   | mk p =>
-    induction q using Path.Homotopic.Quotient.ind with
+    induction q using FundamentalGroup.path_ind with
     | mk q =>
       have hhom : (p.map (VanKampen.inclusion U).continuous).Homotopic
-          (q.map (VanKampen.inclusion U).continuous) := Path.Homotopic.Quotient.eq.mp hpq
+          (q.map (VanKampen.inclusion U).continuous) := Path.Homotopic.Quotient.eq.mp (congrArg
+            FundamentalGroup.toPath hpq)
       have ht := Tglobal.value_homotopic hhom
       rw [hrestriction, hrestriction] at ht
       have hc := regularProduct_injective (G := GU) GV ht

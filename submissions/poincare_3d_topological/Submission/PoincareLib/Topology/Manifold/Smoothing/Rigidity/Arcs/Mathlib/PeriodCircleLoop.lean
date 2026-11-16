@@ -35,6 +35,9 @@ def periodLoop : Path (0 : AddCircle p) 0 where
 
 variable [Fact (0 < p)]
 
+local instance : Coe (FundamentalGroup (AddCircle p) 0)
+    (Path.Homotopic.Quotient (0 : AddCircle p) 0) := ⟨FundamentalGroup.toPath⟩
+
 /-- The one-period loop cannot contract through based loops:
 its actual real lift has different endpoint from the constant
 loop's lift. See rigidity050, section2. -/
@@ -74,6 +77,7 @@ theorem periodLoop_class_ne_one :
 circle is nontrivial. See rigidity050, section2. -/
 theorem nontrivial_fundamentalGroup_zero :
     Nontrivial (FundamentalGroup (AddCircle p) 0) :=
-  ⟨⟨Path.Homotopic.Quotient.mk (periodLoop p), 1, periodLoop_class_ne_one p⟩⟩
+  ⟨⟨FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk (periodLoop p)), 1,
+    fun h ↦ periodLoop_class_ne_one p (congrArg FundamentalGroup.toPath h)⟩⟩
 
 end AddCircle

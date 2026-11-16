@@ -21,7 +21,9 @@ theorem smoothOn_pullback {ε δ : ℝ} (a s : ℝ) {B : RoundCylinderTwoTensor}
   intro q i j
   simp only [coefficient_pullback a s B hbilinear]
   apply contDiffOn_const.mul
-  apply (hB q i j).comp ?_ (fun p hp => ⟨hp.1, hsub hp.2⟩)
+  apply (hB q i j).comp
+    (s := (chartAt (EuclideanSpace ℝ (Fin 2)) q).target ×ˢ Ioo (-δ⁻¹) δ⁻¹)
+    ?_ (by intro p hp; exact ⟨hp.1, hsub hp.2⟩)
   exact (contDiff_fst.prodMk ((contDiff_const.mul contDiff_snd).add contDiff_const)).contDiffOn
 
 theorem smoothOn_scaled_pullback {ε δ : ℝ} (c a s : ℝ) {B : RoundCylinderTwoTensor}

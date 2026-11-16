@@ -73,8 +73,10 @@ theorem exists_affine_lift_germ_of_common_window
   have h01 : Icc u' v' ⊆ Icc (0 : ℝ) 1 :=
     hinterval.trans (Icc_subset_Icc hu hv)
   have hheightP (t : ℝ) (ht : t ∈ Icc u' v') : (P t).1 ∈ Icc (-1 : ℝ) 1 :=
-    (supported_homeomorph_mem_iff (fun z hz => (hE hz).1) J jfix (H (Q t))).mp
-      ((supported_homeomorph_mem_iff (fun z hz => (hD hz).1) H hfix (Q t)).mp
+    (supported_homeomorph_mem_iff (T := {z : P2 | z.1 ∈ Icc (-1 : ℝ) 1}) (fun z hz => (hE hz).1)
+      J jfix (H (Q t))).mp
+      ((supported_homeomorph_mem_iff (T := {z : P2 | z.1 ∈ Icc (-1 : ℝ) 1}) (fun z hz => (hD
+        hz).1) H hfix (Q t)).mp
         (hheight ⟨t, h01 ht⟩))
   have hphase (t : ℝ) (ht : t ∈ Icc u' v') :
       ((r' t).1 : Circle) = ((c + (P t).2 : ℝ) : Circle) := by

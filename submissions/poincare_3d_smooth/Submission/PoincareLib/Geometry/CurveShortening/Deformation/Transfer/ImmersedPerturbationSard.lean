@@ -61,7 +61,8 @@ theorem critical_image_null_and_fibers_discrete (mu : Measure E) [IsAddHaarMeasu
     · intro x hx
       exact hx.2
   · intro y hy
-    apply IsDiscrete.of_openPartialHomeomorph f (fun _ hx => hx.2)
+    apply IsDiscrete.of_openPartialHomeomorph f (t := {x ∈ U | f x = y})
+      (fun _ hx ↦ hx.2)
     intro x hx
     apply exists_local_inverse_of_det_ne_zero f x (hf.contDiffAt (hU.mem_nhds hx.1))
     intro hdet

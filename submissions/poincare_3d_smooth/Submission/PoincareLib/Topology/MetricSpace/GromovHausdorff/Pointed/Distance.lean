@@ -9,6 +9,8 @@ import Mathlib.Analysis.SpecificLimits.Basic
 import Mathlib.Topology.MetricSpace.Gluing
 import Mathlib.Topology.MetricSpace.Infsep
 
+noncomputable section
+
 /-! 
 # pointed Gromov--Hausdorff interfaces
 

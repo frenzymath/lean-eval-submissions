@@ -79,7 +79,7 @@ theorem IsFinitePL.exists_ordinary_capped_cut_level
   let Y₀ : Set E := ((H '' T) ∪ R) ∩ {x | A x = c}
   let X := X₀ ∩ s₀
   let Y := Y₀ ∩ (H '' s₀)
-  have hwb : Disjoint w b := hbk.symm.mono_left (fun _ hx => hx.1)
+  have hwb : Disjoint w b := hbk.symm.mono_left (by intro _ hx; exact hx.1)
   have h₀ (x : E) (hx : x ∈ w) :
       ∃ p : {p : E × ℝ | p.1 ∈ B ∧ p.2 ∈ Icc 0 (upper p.1)},
         (p : E × ℝ).1 = x ∧ f₀ x = (C p : E) :=
@@ -94,7 +94,7 @@ theorem IsFinitePL.exists_ordinary_capped_cut_level
     obtain ⟨p, hp, hv, _⟩ := hLp z
     exact ⟨p, hp, (hf₁val x hx.1 hx.2).trans hv⟩
   have hmem := C.collar_complement_map_mem_cut_iff hheight hbottom
-    hs₀.isCompact.isClosed hs₁ hcover hinter hbzero H (fun x hx => hfix x hx.1)
+    hs₀.isCompact.isClosed hs₁ hcover hinter hbzero H (by intro x hx; exact hfix x hx.1)
     hwb f₀ f₁ h₀ h₁ F hFR hFw
   have hcopy := hs₀
   obtain ⟨_, _, _, _, _, _, ⟨_, ⟨K₀, hK₀, hK₀s, _⟩, _⟩, _⟩ := hcopy

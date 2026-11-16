@@ -30,7 +30,7 @@ theorem exists_energy_le_in_window {energy : ℝ → ℝ} {a b s t C B : ℝ}
     by_contra hbad
     exact hnone ⟨r, hr, le_of_not_gt hbad⟩
   have hfinite : volume {r | r ∈ Icc a b ∧ B < energy r} ≠ ⊤ := by
-    apply ne_top_of_le_ne_top _ (measure_mono fun _ hr => hr.1)
+    apply ne_top_of_le_ne_top _ (measure_mono (by intro _ hr; exact hr.1))
     rw [Real.volume_Icc]
     exact ENNReal.ofReal_ne_top
   have hmeasure := (measureReal_mono hsubset hfinite).trans

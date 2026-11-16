@@ -24,7 +24,7 @@ private theorem mem_of_mem_convexHull_of_supporting_affine_zeros
     rw [← convexHull_inter_affine_zero_of_nonneg_set s f hf]
     exact ⟨hx, hfx⟩
   have hxBoth : x ∈ convexHull ℝ ((s ∩ {y | f y = 0}) ∩ {y | g y = 0}) := by
-    rw [← convexHull_inter_affine_zero_of_nonneg_set _ g (fun y hy => hg y hy.1)]
+    rw [← convexHull_inter_affine_zero_of_nonneg_set _ g (by intro y hy; exact hg y hy.1)]
     exact ⟨hxFirst, hgx⟩
   obtain ⟨y, hy⟩ := convexHull_nonempty_iff.mp ⟨x, hxBoth⟩
   exact hunique y hy.1.2 hy.2 ▸ hy.1.1

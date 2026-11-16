@@ -92,7 +92,9 @@ theorem exists_positive_ambient_cylinder_half
   have hcomponentU (x : M) (hx : x ∈ P) :
       connectedComponentIn ((U : Set M) \ N.central_sphere) x = P := by
     apply Subset.antisymm
-    · exact (connectedComponentIn_mono x (fun _ hy => hy.2)).trans_eq (hcomponent x hx)
+    · exact (connectedComponentIn_mono x
+      (show (U : Set M) \ N.central_sphere ⊆ N.central_sphereᶜ by
+        intro y hy; exact hy.2)).trans_eq (hcomponent x hx)
     · exact hPc.isPreconnected.subset_connectedComponentIn hx hPU
   exact ⟨P, phi, hPo, hPc, hPX, hPf, hPcl, hcomponent, hcollar, hzero',
     cylinderSignedHeight_component_half phi hzero' hPc hPU hcomponentU⟩

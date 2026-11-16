@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.General.Mathlib.SquareRimFinitePL
 
+noncomputable section
+
 /-!
 # The two parametrized halves of the fixed square rim
 

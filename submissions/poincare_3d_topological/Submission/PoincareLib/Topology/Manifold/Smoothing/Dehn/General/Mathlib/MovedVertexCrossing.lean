@@ -149,7 +149,9 @@ theorem exists_moved_zero_vertex_crossing
     hh.exists_interior_chart rfl
   have hstarint : (0 : C3) ∈ interior (Ambient.closedStar 0).space := by
     obtain ⟨d, hd, hnear⟩ := Ambient.exists_ball_inter_space_subset_closedStar hAmbient hzeroA
-    apply interior_maximal (fun x hx => hnear ⟨interior_subset hx.1, hx.2⟩)
+    apply interior_maximal (t := interior Ambient.space ∩ ball (0 : C3) d) (by
+        intro x hx
+        exact hnear ⟨interior_subset hx.1, hx.2⟩)
       (isOpen_interior.inter isOpen_ball)
     exact ⟨hintA, mem_ball_self hd⟩
   have hχzero : (0 : C3) ∈ χ.source := hχsource.symm.subset hstarint
@@ -161,7 +163,7 @@ theorem exists_moved_zero_vertex_crossing
       ⟨a₀, hPlink.subset (hPzero.symm.subset (by simp)).1⟩
     rw [hPlink, ← coneAtZero_link_eq_closedStar Branch hzeroB]
     exact (Branch.link 0).coneAtZero_space_eq_convexJoin
-      (fun _ hs => linearIndependent_of_mem_link_zero hs) Branch.injOn_normalize_link hne
+      (by intro _ hs; exact linearIndependent_of_mem_link_zero hs) Branch.injOn_normalize_link hne
   let V := O
   have hV : IsOpen V := hO
   have hvV : H v ∈ V := hwO
@@ -178,7 +180,7 @@ theorem exists_moved_zero_vertex_crossing
       exact mem_ball_self hd
   have hLocalPL : LocallyPiecewiseAffineOn localChart localChart.source :=
     (hχ.comp (locallyPiecewiseAffineOn_affine E.toContinuousAffineMap isOpen_univ)).mono
-      localChart.open_source (fun _ hx => ⟨hx.1, hx.2.1⟩)
+      localChart.open_source (by intro _ hx; exact ⟨hx.1, hx.2.1⟩)
   have hlocal (x : V3) (hx : x ∈ localChart.source) :
       x ∈ V ∧ ((c x).2 = 0 ↔ (localChart x).1.1 = 0) ∧
         (x ∈ Knew.space ↔ (localChart x).2 = 0) := by

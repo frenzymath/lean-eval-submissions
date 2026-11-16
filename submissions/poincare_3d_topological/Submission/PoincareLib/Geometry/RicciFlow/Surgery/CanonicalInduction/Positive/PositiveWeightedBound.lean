@@ -83,7 +83,8 @@ theorem exists_uniform_weighted_ricci_bound
     rw [interior_Ico]
     exact ⟨hs.1, hs.2.trans_lt ht.2⟩
   have hW : ContinuousOn (Function.uncurry W) (univ ×ˢ Icc 0 t) := by
-    exact (hqjoint.comp (continuous_snd.prodMk continuous_fst).continuousOn
+    exact (hqjoint.comp (s := (univ : Set M) ×ˢ Icc 0 t)
+      (continuous_snd.prodMk continuous_fst).continuousOn
       (fun z hz => ⟨htime z.2 hz.2, mem_univ z.1⟩)).sub continuousOn_const
   have hderiv : ∀ y s, s ∈ Ioc 0 t →
       HasDerivWithinAt (W y) (W' y s) (Icc 0 t) s := by

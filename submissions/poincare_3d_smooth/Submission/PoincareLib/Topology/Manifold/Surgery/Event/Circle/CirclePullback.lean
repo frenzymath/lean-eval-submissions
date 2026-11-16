@@ -100,7 +100,8 @@ theorem projection_isLocalHomeomorph (hπ : Continuous π) :
     open_target := e.open_source.preimage hπ
     continuousOn_toFun := (continuous_projection π).continuousOn
     continuousOn_invFun := by
-      apply Topology.IsInducing.subtypeVal.continuousOn_iff.mpr
+      apply ((Topology.IsInducing.subtypeVal
+        (t := {p : M × ℝ | π p.1 = unitCircleExp p.2})).continuousOn_iff (f := L)).mpr
       apply (continuous_id.continuousOn.prodMk
         (e.continuousOn.comp hπ.continuousOn (fun _ hx => hx))).congr
       intro x hx

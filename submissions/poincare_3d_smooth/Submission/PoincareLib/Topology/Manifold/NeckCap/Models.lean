@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Models
 import Mathlib.Geometry.Manifold.SmoothEmbedding
 
+noncomputable section
+
 /-!
 # Cylinder and sphere-bundle models
 

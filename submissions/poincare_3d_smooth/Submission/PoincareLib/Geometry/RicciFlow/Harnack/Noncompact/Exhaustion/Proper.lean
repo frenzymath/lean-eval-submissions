@@ -39,6 +39,7 @@ theorem SmoothExhaustion.isCompact_sublevel_component
     ⟨⟨g.inner, g.toContinuousRiemannianMetric.continuous, fun _ _ _ ↦ rfl⟩⟩
   let : EMetricSpace M := EMetricSpace.ofRiemannianMetric (𝓡 n) M
   have hclosed : IsClosed {x | S.toFun x ≤ r ∧ g.edist O x ≠ ⊤} := by
+    change IsClosed ({x | S.toFun x ≤ r} ∩ {x | g.edist O x ≠ ⊤})
     apply (isClosed_le S.smooth.continuous continuous_const).inter
     change IsClosed {x | g.edist O x ≠ ⊤}
     have heq : {x | g.edist O x ≠ ⊤} = Metric.eball O ⊤ := by

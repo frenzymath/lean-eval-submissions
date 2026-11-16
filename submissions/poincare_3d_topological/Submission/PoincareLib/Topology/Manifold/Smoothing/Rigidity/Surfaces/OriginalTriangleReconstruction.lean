@@ -26,7 +26,8 @@ theorem isCompact_carrier (hK : K.faces.Finite) (label : Triangle K → ℝ) :
     IsCompact (carrier K label) := by
   classical
   letI : Finite (Triangle K) :=
-    (hK.subset (fun _ h ↦ h.1)).to_subtype
+    (hK.subset (t := {s : Finset E | s ∈ K.faces ∧ s.card = 3})
+      (by intro _ h; exact h.1)).to_subtype
   apply isCompact_iUnion
   intro s
   rw [copy]

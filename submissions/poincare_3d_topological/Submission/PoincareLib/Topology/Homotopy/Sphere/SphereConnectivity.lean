@@ -232,8 +232,9 @@ theorem sphere_simplyConnectedSpace_of_two_lt_finrank
       sphere_homotopyGroup_subsingleton_of_dim_lt (N := Fin 1)
         (by simpa only [Fintype.card_fin] using hdim) x
     let e := HomotopyGroup.pi1EquivFundamentalGroup (X := sphere (0 : E) 1) (x := x)
-    have heq : (⟦p⟧ : FundamentalGroup (sphere (0 : E) 1) x) = ⟦Path.refl x⟧ :=
+    have heq : FundamentalGroup.fromPath ⟦p⟧ =
+        (FundamentalGroup.fromPath ⟦Path.refl x⟧ : FundamentalGroup (sphere (0 : E) 1) x) :=
       e.symm.injective (Subsingleton.elim _ _)
-    exact Quotient.exact heq
+    exact Quotient.exact (congrArg FundamentalGroup.toPath heq)
 
 end Poincare.Topology

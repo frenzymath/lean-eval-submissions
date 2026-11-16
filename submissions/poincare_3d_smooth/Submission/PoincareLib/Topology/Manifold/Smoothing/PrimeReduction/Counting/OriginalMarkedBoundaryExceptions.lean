@@ -88,7 +88,7 @@ theorem original_component_closure_mapsTo_interior_of_not_boundary_exception
   intro y hy
   have hyK : y ∈ K.space :=
     (K.isCompact_space_of_finite hK).isClosed.closure_subset_iff.mpr
-      ((connectedComponentIn_subset _ _).trans inter_subset_left) hy
+      ((connectedComponentIn_subset _ _).trans sdiff_subset) hy
   by_contra hyint
   have hyfront : g y ∈ frontier R := ⟨subset_closure (hKR ⟨y,hyK,rfl⟩),hyint⟩
   have hyP : y ∈ K.space \ g ⁻¹' S := ⟨hyK,fun hs => hyint (hS hs)⟩

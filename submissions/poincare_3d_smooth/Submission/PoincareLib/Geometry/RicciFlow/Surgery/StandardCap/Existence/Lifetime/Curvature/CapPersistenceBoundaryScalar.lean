@@ -99,7 +99,10 @@ theorem capPersistence_exists_cap_boundary_accuracy :
       |N.end_neck.scale ^ 2 * N.connection.scalarCurvature x - 1| ≤ 1 / 10 := by
     intro x hx
     have hxclose : x ∈ closure N.end_neck.carrier :=
-      closure_mono (fun _ hy => hy.1) (N.boundary_subset_negative_end_closure hx)
+      by
+        apply closure_mono ?_ (N.boundary_subset_negative_end_closure hx)
+        intro y hy
+        exact hy.1
     have h := hclose x hxclose
     rwa [N.end_neck_connection] at h
   exact ⟨hR, N.boundary_scale_le_of_scalar_error hR⟩

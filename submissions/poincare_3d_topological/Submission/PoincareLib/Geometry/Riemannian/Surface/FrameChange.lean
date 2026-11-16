@@ -59,10 +59,10 @@ theorem surfaceConnectionForm_rotate
     rw [g.symm]
     exact horth.self_of_nhds
   unfold surfaceConnectionForm covariantDerivativeOnFields at *
-  rw [D.connection.isCovariantDerivativeOn.add (ha.smul_section hd₁)
+  rw [D.connection.isCovariantDerivativeOnUniv.add (ha.smul_section hd₁)
     (hb.smul_section hd₂),
-    D.connection.isCovariantDerivativeOn.leibniz hd₁ ha,
-    D.connection.isCovariantDerivativeOn.leibniz hd₂ hb]
+    D.connection.isCovariantDerivativeOnUniv.leibniz hd₁ ha,
+    D.connection.isCovariantDerivativeOnUniv.leibniz hd₂ hb]
   simp only [Pi.add_apply, Pi.smul_apply', Pi.neg_apply, add_apply,
     ContinuousLinearMap.smulRight_apply, map_add, map_smul, smul_apply,
     smul_eq_mul, hunit₁.self_of_nhds, hunit₂.self_of_nhds,

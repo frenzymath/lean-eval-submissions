@@ -161,8 +161,8 @@ theorem exists_nonnegative_left_extension_on_terminal_ball
     apply IsCompact.of_isClosed_subset
       (g.isCompact_closedBall_of_metricComplete
         (G.limit.complete 0 G.limit.zero_mem) G.limit.base r) isClosed_closure
-    apply closure_minimal
-      (fun x (hx : g.edist G.limit.base x < ENNReal.ofReal r) => hx.le)
+    apply closure_minimal (s := g.ball G.limit.base r)
+      (by intro x hx; exact (show g.edist G.limit.base x < ENNReal.ofReal r from hx).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   let Yplus : TopologicalSpace.Opens G.limit.carrier.carrier :=
     ⟨g.ball G.limit.base (A + 1), by rw [← hball]; exact Metric.isOpen_ball⟩

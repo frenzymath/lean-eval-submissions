@@ -6,6 +6,8 @@ import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Vertices.Ch
 import Submission.PoincareLib.Topology.Plane.Affine.Lines
 import Submission.PoincareLib.Topology.Surface.Triangulation.Faces.Corners.OuterFaces
 
+noncomputable section
+
 /-!
 # Compact residual interfaces of actual region collars
 

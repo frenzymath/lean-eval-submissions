@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Single.SingleCutHandleCoordinates
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Reciprocal.ReciprocalEnclosingCollar
 
+noncomputable section
+
 /-!
 # The actual outer punctured region and boundary for one reverse cut
 

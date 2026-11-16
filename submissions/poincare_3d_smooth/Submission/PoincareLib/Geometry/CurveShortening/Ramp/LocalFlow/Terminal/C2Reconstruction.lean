@@ -320,7 +320,7 @@ theorem closed_c2_tail_of_terminal_fields
     nlinarith only [hi]
   have hjoint : ContMDiffOn 𝓘(ℝ, ℝ × ℝ) (𝓡 n) 1
       (fun z : ℝ × ℝ => d z.1 z.2) (univ ×ˢ Ioo tau T) := by
-    apply (hc.joint_c1.mono ?_).congr (fun z hz => hagree z.2
+    apply (hc.joint_c1.mono (t := (univ : Set ℝ) ×ˢ Ioo tau T) ?_).congr (fun z hz => hagree z.2
       (Ioo_subset_Ico_self hz.2) z.1)
     rw [interior_Ico]
     exact fun z hz => ⟨mem_univ _, hat.trans hz.2.1, hz.2.2⟩

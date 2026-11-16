@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Handles.
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Affine.FiniteAffineSlabComplex
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Maps.FinitePLUnionMaps
 
+noncomputable section
+
 /-!
 # The actual complete shell-boundary parametrization
 

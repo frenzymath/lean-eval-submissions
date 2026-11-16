@@ -88,7 +88,9 @@ theorem m63FamilyLengthSup_properties (g : RiemannianMetric 3 M)
       0 ≤ m63FamilyLengthSup g Gamma ∧
       ∀ z, freeLoopLength g (Gamma z) ≤ m63FamilyLengthSup g Gamma := by
   let e : Metric.sphere (0 : LoopAmbient) 1 ≃ₜ LoopTwoSphere :=
-    Homeomorph.setCongr (by ext z; exact mem_sphere_zero_iff_norm)
+    Homeomorph.setCongr (s := Metric.sphere (0 : LoopAmbient) 1)
+      (t := {z : LoopAmbient | ‖z‖ = 1})
+      (by ext z; exact mem_sphere_zero_iff_norm)
   let : CompactSpace LoopTwoSphere := e.compactSpace
   let z0 : LoopTwoSphere := ⟨EuclideanSpace.single (0 : Fin 3) 1, by simp⟩
   have hcompact : IsCompact (range (fun z => freeLoopLength g (Gamma z))) :=

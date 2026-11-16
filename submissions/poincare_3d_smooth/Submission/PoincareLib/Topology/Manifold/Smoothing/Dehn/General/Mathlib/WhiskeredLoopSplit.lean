@@ -25,6 +25,7 @@ noncomputable def whiskeredLoopClass (p : Path b v) (q : Path v v) :
 basepoint, for every actual whisker. See Dehn 024, section 3. -/
 theorem whiskeredLoopClass_refl (p : Path b v) :
     p.whiskeredLoopClass (Path.refl v) = 1 := by
+  apply CategoryTheory.End.ext
   change ((Homotopic.Quotient.mk p).trans (Homotopic.Quotient.refl v)).trans
     (Homotopic.Quotient.mk p).symm = Homotopic.Quotient.refl b
   rw [Homotopic.Quotient.trans_refl, Homotopic.Quotient.trans_symm]

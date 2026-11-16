@@ -3,6 +3,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 -/
 import Submission.PoincareLib.Topology.Surface.Triangulation.CircleCover.CrossingPatches
 
+noncomputable section
+
 /-!
 # Smooth rectangular patches at regular circle vertices
 

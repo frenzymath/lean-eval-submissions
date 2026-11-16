@@ -70,7 +70,8 @@ theorem exists_periodicH1_finite_composition {ι : Type*} [Fintype ι]
       exact (M.contDiff.comp
         ((ContinuousPathCompositionNative.contDiff_postcomp_of_order
           (AddCircle L) (a i) (hA i)).comp hDX)).clm_apply
-            ((DL.restrictScalars ℝ).contDiff.comp (contDiff_apply ℝ H i))
+            ((DL.restrictScalars ℝ).contDiff.comp ((ContinuousLinearMap.proj i : X →L[ℝ]
+              H).contDiff))
     have hG : ContDiff ℝ k G := (R.restrictScalars ℝ).contDiff.comp (hf.prodMk hg)
     let s : Set X := {u | ∀ i, u i ∈ periodicC1Core (L := L)}
     have hs : Dense s := by

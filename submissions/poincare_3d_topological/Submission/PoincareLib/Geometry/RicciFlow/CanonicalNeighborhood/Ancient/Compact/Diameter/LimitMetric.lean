@@ -48,9 +48,6 @@ noncomputable def terminalPullbackCoefficients
     (mfderiv (𝓡 3) (𝓡 3) f (c.symm z)).comp
     (mfderiv (𝓡 3) (𝓡 3) c.symm z)
   exact ContinuousLinearMap.bilinearComp
-    (E := TangentSpace (𝓡 3) (f (c.symm z)))
-    (F := TangentSpace (𝓡 3) (f (c.symm z))) (G := ℝ)
-    (E' := EuclideanSpace ℝ (Fin 3)) (F' := EuclideanSpace ℝ (Fin 3))
     ((source.flow.flow.metric 0).inner (f (c.symm z))) A A
 
 end NormalizedKappaSpacetimeEmbedding

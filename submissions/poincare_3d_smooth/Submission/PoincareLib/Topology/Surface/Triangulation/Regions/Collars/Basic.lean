@@ -6,6 +6,8 @@ import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Edges.Graph
 import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Vertices.Frontier
 import Submission.PoincareLib.Topology.Surface.Triangulation.Faces.Bands.Gluing
 
+noncomputable section
+
 /-!
 # The actual finite collar assigned to one region
 

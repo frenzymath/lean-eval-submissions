@@ -60,7 +60,7 @@ theorem lExponentialFamily_exists_parametric_comparison_action
   let γ : P × ℝ → M := fun z ↦ A.squareFamily z.1.1 (Real.sqrt z.1.2 * z.2)
   have hS : IsOpen S := (isOpen_univ.prod isOpen_Ioo).prod isOpen_univ
   have hΦ : ContDiffOn ℝ ∞ Φ S := contDiff_fst.fst.contDiffOn.prodMk
-    ((contDiff_fst.snd.contDiffOn.sqrt (fun z hz ↦ hz.1.2.1.ne')).mul contDiffOn_snd)
+    (((contDiff_fst.snd.contDiffOn (s := S)).sqrt (fun z hz ↦ hz.1.2.1.ne')).mul contDiffOn_snd)
   have hD : IsOpen D := hΦ.continuousOn.isOpen_inter_preimage hS A.square_open
   have hA : ContMDiffOn (𝓘(ℝ, TangentSpace (𝓡 n) p × ℝ)) (𝓡 n) ∞
       (fun z ↦ A.squareFamily z.1 z.2) A.squareDomain := by
@@ -122,7 +122,9 @@ theorem lExponentialFamily_exists_parametric_comparison_action
   let B : M × ℝ → ℝ := fun w ↦ C (c w)
   have hc : ContMDiffOn ((𝓡 n).prod (𝓘(ℝ, ℝ))) (𝓘(ℝ, (P × E) × ℝ)) ∞ c Cdom :=
     (contMDiffOn_const.prodMk_space
-      (contMDiffOn_chart.comp contMDiffOn_fst (fun w hw ↦ hw.1))).prodMk_space contMDiffOn_snd
+      (contMDiffOn_chart.comp (s := Cdom) contMDiffOn_fst (by
+          intro w hw
+          exact hw.1))).prodMk_space contMDiffOn_snd
   have hN : IsOpen N := hc.continuousOn.isOpen_inter_preimage
     (e.open_source.prod isOpen_univ) (hV.prod isOpen_Ioo)
   have hqN : (q, a.2) ∈ N := ⟨⟨hsource a ha, Set.mem_univ _⟩, hgraph' a ha, ht, hmax⟩

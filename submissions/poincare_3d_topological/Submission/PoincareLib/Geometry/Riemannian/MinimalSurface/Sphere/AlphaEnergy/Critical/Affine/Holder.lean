@@ -306,7 +306,7 @@ theorem suAffineJet_lowerTrace_memLp {m : ℕ}
   have hdL : MemLp (fun x => C.sourceOffset (x, u x)) 4 mu :=
     suContinuous_memLp_ball (hd.comp hz hmap)
   have hsource : MemLp (fun x => C.source (x, u x) (V 0 x, V 1 x)) 4 mu :=
-    ((ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := Q)).memLp_of_bilin
+    ((ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := Q)).memLp_of_bilin
       (p := 4) (q := ⊤) 4 hq4 hBL).add hdL
   have hterm (i : Fin 2) : MemLp (fun x =>
       fderiv ℝ C.principal (x, u x) (EuclideanSpace.single i 1, V i x) (V 0 x, V 1 x) +
@@ -321,7 +321,7 @@ theorem suAffineJet_lowerTrace_memLp {m : ℕ}
       let ev : B →L[ℝ] (B →L[ℝ] Q →L[ℝ] ℝ) →L[ℝ] Q →L[ℝ] ℝ :=
         ContinuousLinearMap.apply ℝ (Q →L[ℝ] ℝ)
       exact ev.memLp_of_bilin (p := 4) (q := ⊤) 4 (hb4 i) hDc
-    exact ((ContinuousLinearMap.apply ℝ (Q →L[ℝ] ℝ) (E := Q)).memLp_of_bilin
+    exact ((ContinuousLinearMap.apply ℝ (Q →L[ℝ] ℝ) (E' := Q)).memLp_of_bilin
       (p := 8) (q := 8) 4 hq8 hfirst).add hsecond
   apply MemLp.of_eval_piLp
   intro a
@@ -358,7 +358,7 @@ theorem suAffineJet_holder_of_trace :
     suContinuous_memLp_ball (N.normalizer_smooth.continuousOn.comp hz hmap)
   have hf0 := ((N.targetChange.toContinuousLinearMap).comp_memLp'
     ((ContinuousLinearMap.apply ℝ (EuclideanSpace ℝ (Fin m))
-      (E := EuclideanSpace ℝ (Fin m))).memLp_of_bilin (p := 4) (q := ⊤) 4
+      (E' := EuclideanSpace ℝ (Fin m))).memLp_of_bilin (p := 4) (q := ⊤) 4
         (suAffineJet_lowerTrace_memLp G C hO hmap hA hc hB hd) hN)).neg
   have hf : MemLp f 4 (volume.restrict (ball center (G.radius / 2))) :=
     hf0.mono_measure (Measure.restrict_mono

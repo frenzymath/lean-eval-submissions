@@ -131,7 +131,7 @@ private theorem conjugate_partial
   have hes : e.source = b '' r.source := by
     rw [OpenPartialHomeomorph.trans_source'', OpenPartialHomeomorph.trans_source]
     congr 1
-    exact inter_eq_right.mpr (fun x hx => hs hx.1) |>.trans
+    exact inter_eq_right.mpr (by intro x hx; exact hs hx.1) |>.trans
       (inter_eq_left.mpr (fun x hx => ht (r.map_source hx)))
   have het : e.target = b '' r.target := by
     rw [OpenPartialHomeomorph.trans_target'', OpenPartialHomeomorph.trans_source,

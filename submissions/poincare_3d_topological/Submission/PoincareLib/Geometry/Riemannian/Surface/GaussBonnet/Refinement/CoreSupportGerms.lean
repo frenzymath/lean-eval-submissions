@@ -88,9 +88,9 @@ theorem core_eventuallyEq_compl_incident_interior
   have hc := core_eventuallyEq_compl_interior hU hC hcover hfront hq
   have hi := support_eventuallyEq_interior (finite_closed_union_eventuallyEq_incident A hA q)
   filter_upwards [hc, hi] with z hc hi
-  change C z = ¬ interior (⋃ i : {i : I // q ∈ A i}, A i.1) z
-  change C z = ¬ interior (⋃ i, A i) z at hc
-  change interior _ z = interior _ z at hi
+  change (z ∈ C) = ¬ (z ∈ interior (⋃ i : {i : I // q ∈ A i}, A i.1))
+  change (z ∈ C) = ¬ (z ∈ interior (⋃ i, A i)) at hc
+  change (z ∈ interior _) = (z ∈ interior _) at hi
   rw [hi] at hc
   exact hc
 
@@ -155,10 +155,10 @@ theorem coordinate_core_support_eventuallyEq_compl_incident_interior
     simpa only [mem_iUnion, mem_preimage] using he
   have hi := support_eventuallyEq_interior hlocal
   filter_upwards [hc, hi] with z hc hi
-  change M.toPlaneComplex.support z =
-    ¬ interior (⋃ i : {i : I // F q ∈ A i}, F ⁻¹' A i.1) z
-  change M.toPlaneComplex.support z = ¬ interior (F ⁻¹' (⋃ i, A i)) z at hc
-  change interior _ z = interior _ z at hi
+  change (z ∈ M.toPlaneComplex.support) =
+    ¬ (z ∈ interior (⋃ i : {i : I // F q ∈ A i}, F ⁻¹' A i.1))
+  change (z ∈ M.toPlaneComplex.support) = ¬ (z ∈ interior (F ⁻¹' (⋃ i, A i))) at hc
+  change (z ∈ interior _) = (z ∈ interior _) at hi
   rw [hi] at hc
   exact hc
 

@@ -1,0 +1,14 @@
+{
+  "vm_max_map_count": 65530,
+  "stock_toolchain": true,
+  "proof_checking_unchanged": true,
+  "sysctl_changed": false,
+  "scope": "validation process tree only",
+  "restriction": "seccomp returns EEXIST for mmap with MAP_FIXED_NOREPLACE; all other syscalls are allowed",
+  "effect": "Lean uses its existing malloc/read fallback in src/library/module.cpp",
+  "lean_commit": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+  "launcher_source_sha256": "aa3971642f7f492526d8fd3e8dc02c103ad1725113f26879f831a92390c00ae2",
+  "launcher_binary_sha256": "2eb6b3c44095af28c4920dbf2b3ce0d534048050f8bde67f9fd115696f7fb4da",
+  "uname": "Linux a2n16c1 4.18.0-477.10.1.el8_8.x86_64 #1 SMP Tue May 16 11:38:37 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux",
+  "packaged_as_build_configuration": false
+}

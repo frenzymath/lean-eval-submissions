@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.General.FinitePLImageTriangulation
 
+noncomputable section
+
 /-!
 # Separate original triangle copies and their reconstruction
 
@@ -91,7 +93,8 @@ theorem exists_finite_triangulation (hK : K.faces.Finite) (label : Triangle K �
       J.AffineOnFaces Prod.fst := by
   classical
   let : Finite (Triangle K) :=
-    (hK.subset (fun _ h ↦ h.1)).to_subtype
+    (hK.subset (t := {s : Finset E | s ∈ K.faces ∧ s.card = 3})
+      (by intro _ h; exact h.1)).to_subtype
   obtain ⟨J, hJ, hJs, _⟩ := SimplicialComplex.exists_finite_triangulation_iUnion_finiteHull
     (fun s : Triangle K ↦ s.val.image (inclusion (E := E) (label s)))
   refine ⟨J, hJ, hJs.trans ?_, J.affineOnFaces_affine
@@ -113,7 +116,8 @@ theorem exists_separated_copies (hK : K.faces.Finite)
       Function.Injective label ∧ J.faces.Finite ∧ J.space = carrier K label ∧
       J.AffineOnFaces Prod.fst ∧ Prod.fst '' J.space = K.space := by
   classical
-  let : Finite (Triangle K) := (hK.subset (fun _ h ↦ h.1)).to_subtype
+  let : Finite (Triangle K) := (hK.subset (t := {s : Finset E | s ∈ K.faces ∧ s.card = 3})
+      (by intro _ h; exact h.1)).to_subtype
   let : Fintype (Triangle K) := Fintype.ofFinite _
   let label : Triangle K → ℝ := fun s ↦ ((Fintype.equivFin (Triangle K) s).val : ℝ)
   have hi : Function.Injective label := by

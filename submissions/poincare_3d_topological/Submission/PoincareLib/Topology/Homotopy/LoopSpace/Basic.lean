@@ -3,6 +3,8 @@ import Mathlib.MeasureTheory.Measure.Lebesgue.VolumeOfBalls
 import Mathlib.Topology.Homotopy.HomotopyGroup
 import Mathlib.Topology.CompactOpen
 
+noncomputable section
+
 /-!
 # The C1 free-loop space
 

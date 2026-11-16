@@ -53,12 +53,13 @@ theorem measureData_change_of_variables_subset (D : M14MeasureJacobianData G T �
       rw [indicator_of_notMem hZV, indicator_of_notMem hZW, zero_mul]
   have hsource : IntegrableOn (fun Z => V.indicator φ (H.endpoint_slice_map Z) * D.jacobian Z)
       H.carrier D.sourceMeasure ↔ IntegrableOn f W D.sourceMeasure := by
-    rw [integrableOn_congr_fun heq D.carrier_measurable, integrableOn_indicator_iff hm,
+    rw [integrableOn_congr_fun heq D.carrier_measurable, integrableOn_indicator_iff
+      hm.nullMeasurableSet,
       inter_eq_left.mpr hW]
   have htarget : IntegrableOn (V.indicator φ) (H.endpoint_slice_map '' H.carrier)
       (calibratedMetricVolume (G.slices (T - τ)).metricOnPoints) ↔
       IntegrableOn φ V (calibratedMetricVolume (G.slices (T - τ)).metricOnPoints) := by
-    rw [integrableOn_indicator_iff hV, inter_eq_left.mpr hVsub]
+    rw [integrableOn_indicator_iff hV.nullMeasurableSet, inter_eq_left.mpr hVsub]
   have hsourceIntegral :
       (∫ Z in H.carrier, V.indicator φ (H.endpoint_slice_map Z) * D.jacobian Z
         ∂D.sourceMeasure) = ∫ Z in W, f Z ∂D.sourceMeasure := by

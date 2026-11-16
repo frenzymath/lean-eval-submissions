@@ -101,9 +101,9 @@ theorem suWeakPartial_comp_quadratic {m : ℕ}
   let U : Plane → EuclideanSpace ℝ (Fin m) := O.indicator u
   let Q : Plane → EuclideanSpace ℝ (Fin m) := O.indicator (W i)
   have hU : MemLp U 4 volume :=
-    (memLp_indicator_iff_restrict Metric.isOpen_ball.measurableSet).mpr hu
+    (memLp_indicator_iff_restrict Metric.isOpen_ball.measurableSet.nullMeasurableSet).mpr hu
   have hQ : MemLp Q 2 volume :=
-    (memLp_indicator_iff_restrict Metric.isOpen_ball.measurableSet).mpr (hW i)
+    (memLp_indicator_iff_restrict Metric.isOpen_ball.measurableSet.nullMeasurableSet).mpr (hW i)
   have hUl : LocallyIntegrable U volume := hU.locallyIntegrable (by norm_num)
   have hQl : LocallyIntegrable Q volume := hQ.locallyIntegrable (by norm_num)
   let ε : ℕ → ℝ := fun j => ((R - r) / 4) * (1 / 2 : ℝ) ^ j

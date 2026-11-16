@@ -222,10 +222,10 @@ theorem connection_hasDerivAt_zero_of_covariantRicciDerivative_eq_zero
   have heq (s : ℝ) : (F.connection s).connection V x =
       (F.connection s).connection W x +
         ((F.connection t).connection V x - (F.connection t).connection W x) := by
-    have hd := (F.connection s).connection.isCovariantDerivativeOnUniv.difference_apply
+    have hd := (F.connection s).connection.isCovariantDerivativeOn.difference_apply
       (F.connection t).connection.isCovariantDerivativeOnUniv (by simp)
       (hV.mdifferentiableAt (by simp))
-    have hw := (F.connection s).connection.isCovariantDerivativeOnUniv.difference_apply
+    have hw := (F.connection s).connection.isCovariantDerivativeOn.difference_apply
       (F.connection t).connection.isCovariantDerivativeOnUniv (by simp) hW
     simp only [FiberBundle.extend_apply_self] at hw
     have hdiff := hd.symm.trans hw

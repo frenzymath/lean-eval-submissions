@@ -61,10 +61,10 @@ theorem contDiffOn_clock_spatialPullback_inner (F : RicciFlow n M J)
   intro p hp
   apply (F.contDiffWithinAt_family_pullback_inner (τ := fun z : ℝ × E => τ z.1)
     (f := f) (p := p) (hK hp.1)
-    (fun _ hz => hK hz.1) (hτ.contDiffAt.comp p contDiffAt_fst)
+    (by intro _ hz; exact hK hz.1) (hτ.contDiffAt.comp p contDiffAt_fst)
     (hf hp.2) (0, v) (0, w)).congr_of_eventuallyEq_of_mem ?_ hp
-  filter_upwards [Filter.mem_of_superset self_mem_nhdsWithin (fun z hz => hz.2)]
-    with z hz
+  filter_upwards [self_mem_nhdsWithin (s := K ×ˢ U)] with z hz
+  have hz := hz.2
   have ha := RiemannianMetric.mfderiv_slice_apply ((hf hz).mdifferentiableAt (by simp)) v
   have hb := RiemannianMetric.mfderiv_slice_apply ((hf hz).mdifferentiableAt (by simp)) w
   rw [← ha, ← hb]

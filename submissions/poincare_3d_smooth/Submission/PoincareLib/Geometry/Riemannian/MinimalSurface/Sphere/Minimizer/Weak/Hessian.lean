@@ -145,7 +145,7 @@ theorem suWeak_local_hessian_integral_le
   have hp₀c (i : Fin d) : HasCompactSupport (p₀ i) :=
     hχc.mul_right.add (hχc.fderiv_apply (𝕜 := ℝ) (EuclideanSpace.single i 1)).mul_right
   have hf₀ : MemLp f₀ 2 volume :=
-    (memLp_indicator_iff_restrict hV.measurableSet).mpr hf
+    (memLp_indicator_iff_restrict hV.measurableSet.nullMeasurableSet).mpr hf
   have hF (j : Fin d) : MemLp (fun x => ∑ i : Fin d, B.a x i j * p₀ i x) 2 volume :=
     memLp_finsetSum _ (fun i _ =>
       Poincare.Analysis.Elliptic.memLp_continuous_mul_of_hasCompactSupport

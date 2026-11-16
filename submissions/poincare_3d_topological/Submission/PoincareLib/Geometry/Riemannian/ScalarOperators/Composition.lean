@@ -59,7 +59,7 @@ theorem hessian_comp (D : LeviCivitaData g) {f : M → ℝ} {F : ℝ → ℝ}
     exact D.gradient_comp ((hf y).mdifferentiableAt (by simp))
       (hF.differentiable (by simp) (f y))
   rw [D.hessian_eq_inner_connection_gradient ((hF.contMDiff.comp hf) x), heq,
-    D.connection.isCovariantDerivativeOn.leibniz
+    D.connection.isCovariantDerivativeOnUniv.leibniz
       ((D.contMDiffAt_gradient (hf x)).mdifferentiableAt (by simp))
       ((hdf x).mdifferentiableAt (by simp)),
     D.hessian_eq_inner_connection_gradient (hf x)]

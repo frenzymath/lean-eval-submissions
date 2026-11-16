@@ -59,7 +59,7 @@ theorem tendstoUniformlyOn_scalarNormalized_spatialJets
       continuous_fst.continuousOn
     have htime : ContinuousOn (fun p : ℝ × (ℝ × E) => (p.2.1 / p.1, p.2.2))
         (A ×ˢ V) :=
-      ((continuousOn_snd.fst.div continuousOn_fst
+      ((continuousOn_snd.fst.div (s := A ×ˢ V) continuousOn_fst
         (fun p hp => (hapos hp.1).ne')).prodMk continuousOn_snd.snd)
     have hcomp := hjoint.comp htime (fun p hp =>
       ⟨div_nonpos_of_nonpos_of_nonneg hp.2.1.2 (hapos hp.1).le, hKU hp.2.2⟩)

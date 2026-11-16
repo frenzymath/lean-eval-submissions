@@ -37,7 +37,7 @@ lemma integral_area_mul_reciprocal_sq_le_pow
     apply ContinuousOn.intervalIntegrable
     rw [uIcc_of_le hab]
     exact hc.mul ((continuousOn_const.div continuousOn_id
-      (fun t ht => (ha.trans_le ht.1).ne')).pow 2)
+      (by intro t ht; exact (ha.trans_le ht.1).ne')).pow 2)
   have h := intervalIntegral.integral_mono_on hab hi intervalIntegrable_const
     (fun t ht => (area_mul_reciprocal_sq_le_pow (ha.trans_le ht.1) hm (hA t ht)).trans
       (mul_le_mul_of_nonneg_left (pow_le_pow_left₀ (ha.trans_le ht.1).le ht.2 _)

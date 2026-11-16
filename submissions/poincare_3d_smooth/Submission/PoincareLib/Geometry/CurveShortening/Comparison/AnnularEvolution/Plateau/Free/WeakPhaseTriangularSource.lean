@@ -119,7 +119,8 @@ theorem exists_triangularSource
     phaseColumn := column
     phase_weak := fun i => m64WeakPartialDeriv_ae_congr hphase.symm (hcolumn i).symm (hw i)
     phase_observation := by
-      filter_upwards [hq.ae_eq A.phase_observation, hphase] with p hp hu
+      filter_upwards [Measure.QuasiMeasurePreserving.ae_eq_comp hq A.phase_observation, hphase]
+        with p hp hu
       rw [hQmap]
       exact hp.trans (congrArg (fun z => angularPoint (k * z)) hu.symm)
     offset := A.offset

@@ -62,7 +62,7 @@ theorem inner_connection_smul_gradient_of_tangent
     g.inner x (D.connection (fun y => a y • D.gradient f y) x v) v =
       a x * D.hessian f x v v := by
   have hgrad := (D.contMDiffAt_gradient hf).mdifferentiableAt (by simp)
-  have hleib := D.connection.isCovariantDerivativeOn.leibniz hgrad ha
+  have hleib := D.connection.isCovariantDerivativeOnUniv.leibniz hgrad ha
   have he := congrArg (fun A => g.inner x (A v) v) hleib
   simpa only [Pi.smul_def', Pi.smul_apply, add_apply,
     ContinuousLinearMap.smulRight_apply, map_add, map_smul, smul_apply,

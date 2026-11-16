@@ -93,7 +93,7 @@ lemma coordinateConnectionDifference_tensorial (D : LeviCivitaData g) (p : M)
       funext y
       exact map_smul _ (f y) (Y y)
     rw [coordinateConnectionDifference, hfun,
-      D.connection.isCovariantDerivativeOn.leibniz hY hf,
+      D.connection.isCovariantDerivativeOnUniv.leibniz hY hf,
       mvfderiv_smul hf hcoord]
     ext u
     simp [coordinateConnectionDifference, coordinateRepresentative]
@@ -106,7 +106,7 @@ lemma coordinateConnectionDifference_tensorial (D : LeviCivitaData g) (p : M)
       funext y
       exact map_add _ (Y y) (Z y)
     rw [coordinateConnectionDifference, hfun,
-      D.connection.isCovariantDerivativeOn.add hY hZ,
+      D.connection.isCovariantDerivativeOnUniv.add hY hZ,
       mvfderiv_add hYcoord hZcoord]
     ext u
     simp [coordinateConnectionDifference]
@@ -131,13 +131,13 @@ private def coordinateConnectionBilinear (D : LeviCivitaData g) (p x : M)
         constantCoordinateField p v + constantCoordinateField p v' := by
       funext y
       exact map_add _ v v'
-    simp [H, hfields, D.connection.isCovariantDerivativeOn.add (hfield v) (hfield v')]
+    simp [H, hfields, D.connection.isCovariantDerivativeOnUniv.add (hfield v) (hfield v')]
   · intro c u v
     have hfields : constantCoordinateField p (c • v) =
         c • constantCoordinateField p v := by
       funext y
       exact map_smul _ c v
-    simp [H, hfields, D.connection.isCovariantDerivativeOn.smul_const c (hfield v)]
+    simp [H, hfields, D.connection.isCovariantDerivativeOnUniv.smul_const c (hfield v)]
 
 /-- The full connection coefficient, including differentiation of the chosen
 local frame. The first argument is the direction and the second the section. -/

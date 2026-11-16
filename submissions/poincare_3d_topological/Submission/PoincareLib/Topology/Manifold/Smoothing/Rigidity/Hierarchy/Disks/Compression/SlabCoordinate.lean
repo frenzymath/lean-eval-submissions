@@ -46,7 +46,7 @@ theorem locallyPL_hamiltonZero_third_circle_coordinate
   let B : Set ℝ := ((↑) : ℝ → C0) ⁻¹' {(c : C0)}ᶜ
   have hB : IsOpen B := isClosed_singleton.isOpen_compl.preimage (AddCircle.continuous_mk' _)
   have hmod : LocallyPiecewiseAffineOn (toIcoMod (by norm_num : 0 < p) c) B :=
-    locallyPiecewiseAffineOn_toIcoMod _ c hB (fun _ h => h)
+    locallyPiecewiseAffineOn_toIcoMod _ c hB (by intro _ h; exact h)
   apply LocallyPiecewiseAffineOn.locality
   intro z hz
   obtain ⟨K, w, hK, hxK, _, hw, hlift⟩ :=
@@ -69,7 +69,7 @@ theorem locallyPL_hamiltonZero_third_circle_coordinate
     rw [← hqformula y hy]
     exact hy.2.2
   have hlocal : LocallyPiecewiseAffineOn ((A.symm ∘ q) ∘ (e i).symm) V := by
-    apply ((hmod.comp hwV).mono hV (fun y hy => ⟨hy, hwB hy⟩)).congr
+    apply ((hmod.comp hwV).mono hV (by intro y hy; exact ⟨hy, hwB hy⟩)).congr
     intro y hy
     change toIcoMod (by norm_num : 0 < p) c (w y) = A.symm (q ((e i).symm y))
     rw [hqformula y hy]
@@ -105,7 +105,9 @@ theorem exists_hamiltonZero_shifted_lower_third_slab_coordinate
   let f := fun x => A.symm (q x) - a
   have hW : IsOpen W := isOpen_interior.inter (A.open_target.preimage q.continuous)
   have hfc : ContinuousOn f W :=
-    (A.symm.continuousOn.comp q.continuous.continuousOn (fun _ hx => hx.2)).sub continuousOn_const
+    (A.symm.continuousOn.comp (s := W) q.continuous.continuousOn (by
+        intro _ hx
+        exact hx.2)).sub continuousOn_const
   let U := W ∩ f ⁻¹' Ioo (-(b - a)) (b - a)
   have hU : IsOpen U := hfc.isOpen_inter_preimage hW isOpen_Ioo
   have hrep (x : X0) (hx : x ∈ W) : A.symm (q x) ∈ Ioo c (c + p) := by
@@ -146,7 +148,7 @@ theorem exists_hamiltonZero_shifted_lower_third_slab_coordinate
     rw [preimage_univ, inter_univ] at h
     have hUi : IsOpen ((e i).target ∩ (e i).symm ⁻¹' U) :=
       (e i).symm.continuousOn.isOpen_inter_preimage (e i).open_target hU
-    exact (h.mono hUi (fun _ hx => ⟨hx.1, hx.2.1.2⟩)).congr (fun _ _ => rfl)
+    exact (h.mono hUi (by intro _ hx; exact ⟨hx.1, hx.2.1.2⟩)).congr (by intro _ _; exact rfl)
   · intro x hx
     rw [← hqrep x hx.1]
     change ((A.symm (q x) : ℝ) : C0) = (a : C0) + ((A.symm (q x) - a : ℝ) : C0)

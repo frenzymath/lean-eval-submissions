@@ -52,7 +52,7 @@ theorem eventually_buffered_neck_family_of_compressed_comparison
     neckAxialTensorPullback lambda 0
       (roundCylinderPullback (F.metric (T p0 + u / Q p0)) N.coordinate_map) z v w
   obtain ⟨eta, heta, hperturb⟩ := exists_same_epsilon_neck_family_perturbation_tolerance
-    N.epsilon_pos (fun _ hu => hu.2) D hbaseline
+    N.epsilon_pos (I := Ioc (-1 : ℝ) 0) (fun _ hu => hu.2) D hbaseline
   let K0 : Set V := ({0} : Set E₂) ×ˢ Icc (-N.epsilon⁻¹) N.epsilon⁻¹
   obtain ⟨A, hA, hAbound⟩ := exists_roundCylinder_covariant_difference_component_bound
     (isCompact_Icc : IsCompact (Icc (-1 : ℝ) 0))
@@ -118,7 +118,7 @@ theorem exists_eventually_buffered_normalized_neck_family
   have hB0 : RoundCylinderFamilyClose N.epsilon (Ioc (-1 : ℝ) 0)
       (fun u z v w => B0 u z v w) := hclose
   obtain ⟨lambda, hlambda, hcompression⟩ := exists_same_epsilon_neck_axial_compression
-    N.epsilon_pos (fun _ hu => hu.2) B0 hB0
+    N.epsilon_pos (I := Ioc (-1 : ℝ) 0) (fun _ hu => hu.2) B0 hB0
   have hzero : |(0 : ℝ)| < (1 - lambda) * N.epsilon⁻¹ := by
     rw [abs_zero]
     exact mul_pos (sub_pos.mpr hlambda.2) (inv_pos.mpr N.epsilon_pos)

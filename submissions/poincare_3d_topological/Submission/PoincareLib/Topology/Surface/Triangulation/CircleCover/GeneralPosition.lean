@@ -4,6 +4,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 import Submission.PoincareLib.Topology.Surface.Triangulation.CircleCover
 import Submission.PoincareLib.Topology.Surface.Triangulation.ChartLevel.Transverse
 
+noncomputable section
+
 /-!
 # Coordinate-circle covers in general position
 

@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Surgery.ProtectedBlockFrontier
 
+noncomputable section
+
 /-!
 # Literal cap carriers and their complements
 

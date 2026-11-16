@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Surgery.Counts.CompressionCylinderRectangles
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Surgery.Counts.FourConvexPiecesEulerCount
 
+noncomputable section
+
 /-!
 # Euler count of the literal square rim
 

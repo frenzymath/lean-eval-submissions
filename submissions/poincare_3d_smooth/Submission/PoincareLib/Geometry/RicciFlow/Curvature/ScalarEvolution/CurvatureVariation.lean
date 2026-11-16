@@ -73,10 +73,10 @@ private theorem deriv_connection_eq_extend
   have heq (s : ℝ) :
       (F.connection s).connection Y x - (F.connection t).connection Y x =
         (F.connection s).connection Z x - (F.connection t).connection Z x := by
-    have h1 := (F.connection s).connection.isCovariantDerivativeOnUniv.difference_apply
+    have h1 := (F.connection s).connection.isCovariantDerivativeOn.difference_apply
       (F.connection t).connection.isCovariantDerivativeOnUniv (by simp)
       (hY.mdifferentiableAt (by simp))
-    have h2 := (F.connection s).connection.isCovariantDerivativeOnUniv.difference_apply
+    have h2 := (F.connection s).connection.isCovariantDerivativeOn.difference_apply
       (F.connection t).connection.isCovariantDerivativeOnUniv (by simp)
       (hZ.mdifferentiableAt (by simp))
     simp only [FiberBundle.extend_apply_self] at h2

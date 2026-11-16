@@ -68,9 +68,9 @@ theorem pullbackCovariantDerivative_affine {J C : Set ℝ} (F : RicciFlow n M J)
     (by simp)
   have hZ := (parametricExtension_contMDiffAt_space EZ (EZ.graph_mem s hs)).mdifferentiableAt
     (by simp)
-  have hadd := (F.connection (time s)).connection.isCovariantDerivativeOn.add hY
+  have hadd := (F.connection (time s)).connection.isCovariantDerivativeOnUniv.add hY
     ((mdifferentiableAt_const (c := c)).smul_section hZ)
-  have hsmul := (F.connection (time s)).connection.isCovariantDerivativeOn.smul_const c hZ
+  have hsmul := (F.connection (time s)).connection.isCovariantDerivativeOnUniv.smul_const c hZ
   change (F.connection (time s)).connection (EY.extension s + c • EZ.extension s) (α s) =
     (F.connection (time s)).connection (EY.extension s) (α s) +
       (F.connection (time s)).connection (c • EZ.extension s) (α s) at hadd

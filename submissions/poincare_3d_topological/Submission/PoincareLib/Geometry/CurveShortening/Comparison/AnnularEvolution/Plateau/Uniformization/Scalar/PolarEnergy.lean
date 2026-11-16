@@ -51,7 +51,9 @@ theorem scalarPolar_radial_continuousOn {H : Plane → ℝ}
       scalarAnnulus_isOpen (by simp)
   have hp : Continuous (fun p : ℝ × ℝ => p.1 • angularPoint p.2) :=
     continuous_fst.smul (contDiff_angularPoint.continuous.comp continuous_snd)
-  exact (hdf.comp hp.continuousOn (fun p hp => polar_mem_annulus hp.1)).clm_apply
+  exact (hdf.comp (s := Band) hp.continuousOn (by
+      intro p hp
+      exact polar_mem_annulus hp.1)).clm_apply
     (contDiff_angularPoint.continuous.comp continuous_snd).continuousOn
 
 /-- Total differential energy controls the actual radial energy on the full polar band, with

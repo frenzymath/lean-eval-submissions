@@ -59,7 +59,9 @@ theorem exists_curvature_component_jet_bound (m : ℕ) {a : ℝ} (ha : 0 < a) (Z
   have hK : IsCompact K := by
     apply Metric.isCompact_iff_isClosed_bounded.mpr
     constructor
-    · apply (isClosed_le continuous_norm continuous_const).inter
+    · change IsClosed ({J : MetricTwoJet 3 | ‖J‖ ≤ Z} ∩
+        {J | ∀ v : E, a * ‖v‖ ^ 2 ≤ J.1 v v})
+      apply (isClosed_le continuous_norm continuous_const).inter
       change IsClosed {J : MetricTwoJet 3 | ∀ v : E, a * ‖v‖ ^ 2 ≤ J.1 v v}
       rw [Set.ofPred_forall]
       apply isClosed_iInter

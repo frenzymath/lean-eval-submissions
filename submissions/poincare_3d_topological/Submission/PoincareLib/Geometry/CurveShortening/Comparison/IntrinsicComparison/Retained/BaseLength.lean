@@ -53,7 +53,7 @@ theorem m64Intrinsic_retained_short_base_length_lower
     simp only [Y, X, Set.mem_sdiff, mem_inter_iff, mem_ofPred_eq, not_lt]
   have hhigh : (∫ s in B ∩ Y, speed s) = m64IntrinsicHighCurvatureLength N alpha := by
     apply setIntegral_congr_set
-    exact Ico_ae_eq_Ioc.inter (ae_eq_refl Y)
+    exact Ico_ae_eq_Ioc.inter (show Y =ᵐ[volume] Y by filter_upwards [] with x; rfl)
   have hfull : (∫ s in B, speed s) = intrinsicBoundaryLength N.metric 1 0 rampPeriod := by
     change (∫ s in Ico (0 : ℝ) rampPeriod, speed s) = ∫ s in (0 : ℝ)..rampPeriod, speed s
     rw [intervalIntegral.integral_of_le (show (0 : ℝ) ≤ rampPeriod from Real.two_pi_pos.le)]

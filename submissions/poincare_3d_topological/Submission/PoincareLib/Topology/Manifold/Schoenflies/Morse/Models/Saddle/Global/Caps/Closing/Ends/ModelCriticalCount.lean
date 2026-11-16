@@ -115,7 +115,12 @@ theorem finite_terminal_model_critical_points
     Nat.card {q : S2 | mfderiv (𝓡 2) 𝓘(Real, Real)
       (fun y : S2 => inner Real (M.v : E3)
         (data.toTerminalSaddleGeometry.filledModel y)) q = 0} ≤ 4 := by
-  have heq := Set.ext (terminal_model_critical_iff data)
+  have heq : {q : S2 | mfderiv (𝓡 2) 𝓘(Real, Real)
+      (fun y : S2 => inner Real (M.v : E3)
+        (data.toTerminalSaddleGeometry.filledModel y)) q = 0} =
+      {q : S2 | mfderiv (𝓡 2) 𝓘(Real, Real) (fun y : S2 => data.model y 2) q = 0} := by
+    ext q
+    exact terminal_model_critical_iff data q
   rw [heq]
   rcases data.model_kind with hstd | hnest
   · rw [hstd]

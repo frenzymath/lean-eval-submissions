@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Coordinates.SquareRimCoordinates
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Regions.ContractibleBallExtension
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup
@@ -192,12 +193,12 @@ theorem injective_or_exists_squareRim_filling
       exact h _ hne hc
     exact mul_inv_eq_one.mp hunit
   obtain ⟨c, hc, hci⟩ := hex
-  obtain ⟨p, rfl⟩ := Path.Homotopic.Quotient.mk_surjective c
+  obtain ⟨p, rfl⟩ := FundamentalGroup.exists_path_rep c
   obtain ⟨gamma, hgamma⟩ := exists_squareRimMap p
   have hbase : gamma squareRimBase = y := by
     simpa only [Path.source] using hgamma 0
   have hpi : (p.map i.continuous).Homotopic (Path.refl (i y)) :=
-    Path.Homotopic.Quotient.exact hci
+    Path.Homotopic.Quotient.exact (congrArg FundamentalGroup.toPath hci)
   have hloop : (squareRimLoop.map (i.comp gamma).continuous) =
       (p.map i.continuous).cast (congrArg i hbase) (congrArg i hbase) := by
     ext t
@@ -214,7 +215,8 @@ theorem injective_or_exists_squareRim_filling
   refine ⟨gamma, f, hbase, hf, ?_⟩
   intro htrivial
   have hgp : (squareRimLoop.map gamma.continuous).Homotopic
-      (Path.refl (gamma squareRimBase)) := Path.Homotopic.Quotient.exact htrivial
+      (Path.refl (gamma squareRimBase)) := Path.Homotopic.Quotient.exact (congrArg
+        FundamentalGroup.toPath htrivial)
   have heq : (squareRimLoop.map gamma.continuous).cast hbase.symm hbase.symm = p := by
     ext t
     exact hgamma t
@@ -225,6 +227,6 @@ theorem injective_or_exists_squareRim_filling
       ext t
       exact hbase
     simpa only [heq, href] using hh
-  exact hc (Path.Homotopic.Quotient.eq.mpr hprefl)
+  exact hc (CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr hprefl))
 
 end PoincareMT.M76.Dehn

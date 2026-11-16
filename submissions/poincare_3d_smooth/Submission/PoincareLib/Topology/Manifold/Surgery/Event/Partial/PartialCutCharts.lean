@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Partial.PartialCutPatches
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Capping.CappingCharts
 
+noncomputable section
+
 /-!
 # The smooth quotient for a selected family of actual cuts
 

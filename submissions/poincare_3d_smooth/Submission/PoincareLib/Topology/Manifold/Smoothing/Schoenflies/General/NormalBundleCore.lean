@@ -54,7 +54,7 @@ noncomputable def normalBundleCore : FiberBundleCore ι S SignTypeˣ where
   coordChange_self i x hx v := by rw [A.transitionUnit_self i x hx, one_mul]
   continuousOn_coordChange i j :=
     ((A.continuousOn_transitionUnit i j).comp continuous_fst.continuousOn
-      (fun _ h => h.1)).mul continuous_snd.continuousOn
+      (by intro _ h; exact h.1)).mul continuous_snd.continuousOn
   coordChange_comp i j k x hx v := by
     rw [← mul_assoc, A.transitionUnit_cocycle i j k x hx]
 

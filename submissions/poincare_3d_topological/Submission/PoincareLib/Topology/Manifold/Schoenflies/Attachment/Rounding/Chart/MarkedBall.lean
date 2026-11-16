@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Schoenflies.Attachment.Rounding.
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Attachment.Rounding.Sweep.UnitBall
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Attachment.Rounding.Chart.Transport
 
+noncomputable section
+
 /-!
 # Sweep coordinates for a parametrized marked ball
 

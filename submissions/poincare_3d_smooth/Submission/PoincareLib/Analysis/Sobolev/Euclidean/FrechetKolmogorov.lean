@@ -462,7 +462,7 @@ theorem tendsto_lp_of_tendstoUniformlyOn_compact
       · simp [hx]
       · simp [hx, h_diff_supp k x hx]
     rw [hindicator]
-    rw [eLpNorm_indicator_eq_eLpNorm_restrict hK_meas]
+    rw [eLpNorm_indicator_eq_eLpNorm_restrict hK_meas.nullMeasurableSet]
     have hbnd_ae : ∀ᵐ x ∂(volume.restrict K), ‖g k x - g_lim x‖ ≤ ε :=
       Filter.Eventually.of_forall hbnd
     have h_le := eLpNorm_le_of_ae_bound (μ := volume.restrict K)
@@ -615,7 +615,7 @@ private lemma cauchy_lp_of_uniformly_cauchy_on_compact_supp
       by_cases hx : x ∈ K
       · simp [hx]
       · simp [hx, h_diff_supp x hx]
-    rw [h_indicator, eLpNorm_indicator_eq_eLpNorm_restrict hK_meas]
+    rw [h_indicator, eLpNorm_indicator_eq_eLpNorm_restrict hK_meas.nullMeasurableSet]
     have hbnd_ae : ∀ᵐ x ∂(volume.restrict K), ‖g j x - g l x‖ ≤ η :=
       Filter.Eventually.of_forall hbnd
     have h_le := eLpNorm_le_of_ae_bound (μ := volume.restrict K) (p := p) ((hg_cont j).sub (hg_cont l)).aestronglyMeasurable hbnd_ae
@@ -890,7 +890,7 @@ theorem tendsto_subseq_of_uniform_translation_in_Lp
         · rw [Set.indicator_of_notMem hxK, hv_supp n x hxK]
       conv_lhs => rw [h_ind_eq]
       exact MeasureTheory.eLpNorm_indicator_eq_eLpNorm_restrict (μ := volume)
-        (s := K) (p := 1) (f := vFn n) hK_meas
+        (s := K) (p := 1) (f := vFn n) hK_meas.nullMeasurableSet
     have h_eLpp_eq :
         eLpNorm (vFn n) p volume = eLpNorm (vFn n) p (volume.restrict K) := by
       have h_ind_eq : (vFn n) = K.indicator (vFn n) := by
@@ -900,7 +900,7 @@ theorem tendsto_subseq_of_uniform_translation_in_Lp
         · rw [Set.indicator_of_notMem hxK, hv_supp n x hxK]
       conv_lhs => rw [h_ind_eq]
       exact MeasureTheory.eLpNorm_indicator_eq_eLpNorm_restrict (μ := volume)
-        (s := K) (p := p) (f := vFn n) hK_meas
+        (s := K) (p := p) (f := vFn n) hK_meas.nullMeasurableSet
     have : IsFiniteMeasure (volume.restrict K) := by
       refine ⟨?_⟩
       rw [Measure.restrict_apply MeasurableSet.univ, Set.univ_inter]

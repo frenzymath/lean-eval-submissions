@@ -74,7 +74,7 @@ theorem equicontinuous_iteratedFDerivWithin [LocallyCompactSpace S]
   have hLip (j : ℕ) (y : S) (hy : dist y x < r) :
       ‖iteratedFDerivWithin ℝ m (f j) S (x : E) -
         iteratedFDerivWithin ℝ m (f j) S (y : E)‖ ≤ C * ‖(x : E) - y‖ := by
-    apply Convex.norm_image_sub_le_of_norm_hasFDerivWithin_le
+    apply Convex.norm_image_sub_le_of_norm_hasFDerivWithin_le (s := ball (x : E) r ∩ S)
       (fun z hz => ((hf j).differentiableOn_iteratedFDerivWithin
         (ENat.natCast_lt_of_coe_top_le_withTop (N := (∞ : ℕ∞ω)) le_rfl m)
         hS z hz.2).hasFDerivWithinAt.mono inter_subset_right)

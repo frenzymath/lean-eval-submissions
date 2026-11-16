@@ -1,0 +1,23 @@
+{
+  "benchmark_commit": "8955681b9914d7ebc7d286414843021b7d6c9de1",
+  "lean": "4.35.0",
+  "mathlib": "074063781836922cb02701cd12943c9f51731afa",
+  "trusted_file_sha256": {
+    "poincare_3d_smooth": {
+      "Challenge.lean": "2c6d98e0b4dec00506f1555fccf4e3d24a0fe2b687f40710380baf09f26a655e",
+      "Solution.lean": "606223a185c59e68af37b558a87c2503f3543dbacfe13c1a9a7f943e97eeb35c",
+      "WorkspaceTest.lean": "082806a7a6db89461febef4cf50c1d8c620945f96cd1a214a0b481a4cb6ee971",
+      "config.json": "6dbbf39da3eb547f98fd71da07e128a6571fa4cab4bf7b3791a92b333369b863",
+      "holes.json": "c1e092f067d4496d47ad6a92e169c7545c1a3aeff6b4f1909ab6845f5fa068c8",
+      "Submission/Helpers.lean": "b5b5c31e59632f5c10241037df5e8d8d3f4ba346d99917caffd60932c7dae226"
+    },
+    "poincare_3d_topological": {
+      "Challenge.lean": "195fab7efbcc2bc3168429d2df3aea38ff960cc9c795d9152cbeb24608909007",
+      "Solution.lean": "425a04584059b0a2835226df5692b8eef9ae82a752f10edb114e0e3013fd67b5",
+      "WorkspaceTest.lean": "082806a7a6db89461febef4cf50c1d8c620945f96cd1a214a0b481a4cb6ee971",
+      "config.json": "f8230f9b8928bea2f6c24ebbc97448063486f5d9be8bdc025a8f5c5a310238d5",
+      "holes.json": "08b095ed44170771cc95b53ae7f7ba2db057f0459f808a87892d04562bfcbb89",
+      "Submission/Helpers.lean": "b5b5c31e59632f5c10241037df5e8d8d3f4ba346d99917caffd60932c7dae226"
+    }
+  }
+}

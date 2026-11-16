@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Arcs.OriginalStripClosure
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Products.ProductStripCutTopology
 
+noncomputable section
+
 /-!
 # The complete physical cut of the original disk product
 

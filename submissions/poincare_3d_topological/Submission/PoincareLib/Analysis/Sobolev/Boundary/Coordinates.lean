@@ -1,5 +1,6 @@
 import Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
 import Mathlib.MeasureTheory.Constructions.Pi
+import Mathlib.Topology.Algebra.Module.Equiv.Prod
 
 /-!
 # Tangential and normal Euclidean coordinates

@@ -39,8 +39,8 @@ theorem affineGaugeFamily_contMDiffWithinAt {U : Set G.Point} (hU : IsOpen U)
       G.gaugeCover.spatial b) :
     ContMDiffWithinAt ((𝓘(ℝ, ℝ)).prod (𝓘(ℝ, ℝ))) (spacetimeModel n) ∞
       (affineGaugeFamily V b lift η c) (M14SqrtParameterInterval τ₁ τ₂ ×ˢ P) z := by
-  have hV := (V.square_smooth.mono
-    (fun _ hw => V.square_contains ⟨hw.1, hP hw.2⟩)) z hz
+  have hV := (V.square_smooth.mono (t := M14SqrtParameterInterval τ₁ τ₂ ×ˢ P)
+    (by intro w hw; exact V.square_contains ⟨hw.1, hP hw.2⟩)) z hz
   have hL := ((hlift _ hsrc).contMDiffAt (hU.mem_nhds hsrc)).comp_contMDiffWithinAt z hV
   have hη' : ContMDiffWithinAt ((𝓘(ℝ, ℝ)).prod (𝓘(ℝ, ℝ)))
       (𝓘(ℝ, EuclideanSpace ℝ (Fin n))) ∞ (fun w : ℝ × ℝ => η w.1)

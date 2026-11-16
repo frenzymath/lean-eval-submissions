@@ -51,10 +51,11 @@ theorem hamiltonZero_boundary_rim_injective_and_phase_nontrivial
   intro hsub x
   have hinj : Function.Injective (FundamentalGroup.map
       ((hamiltonZeroSecondPhaseCircleMap phi R theta).comp (ContinuousMap.inclusion hsub)) x) :=
-    hcover.injective_path_homotopic_map x x
+    fun a b hab ↦ CategoryTheory.End.ext
+      (hcover.injective_path_homotopic_map x x (congrArg FundamentalGroup.toPath hab))
   rw [FundamentalGroup.map_comp] at hinj
   have hi : Function.Injective (FundamentalGroup.map (ContinuousMap.inclusion hsub) x) :=
-    Function.Injective.of_comp hinj
+    Function.Injective.of_comp (by simpa only [MonoidHom.coe_comp] using hinj)
   let : Nontrivial (FundamentalGroup
       (frontier R ∩ hamiltonZeroSecondCircleMap phi ⁻¹' {theta} : Set X0) x) :=
     nontrivial_hamiltonZero_boundary_rim_group phi R theta hcover x

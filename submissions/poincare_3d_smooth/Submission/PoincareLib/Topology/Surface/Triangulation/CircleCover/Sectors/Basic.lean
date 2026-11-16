@@ -3,6 +3,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 -/
 import Submission.PoincareLib.Topology.Surface.Triangulation.CircleCover.VertexPatches
 
+noncomputable section
+
 /-!
 # Coordinate sectors at vertices of a circle arrangement
 

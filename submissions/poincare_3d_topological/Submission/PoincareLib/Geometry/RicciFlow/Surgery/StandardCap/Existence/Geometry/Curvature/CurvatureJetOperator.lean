@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.Coordinates.SpacetimeBounds.Ricci.BootstrapAdapter
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.Coordinates.SpacetimeBounds.Curvature.Recurrence
 
+noncomputable section
+
 /-!
 # Universal finite-jet operators for covariant curvature components
 

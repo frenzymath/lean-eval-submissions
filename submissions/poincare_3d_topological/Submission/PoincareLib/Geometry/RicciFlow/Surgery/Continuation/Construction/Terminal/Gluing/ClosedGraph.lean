@@ -61,6 +61,7 @@ theorem isClosed_negative_graph (U : Opens M)
     {p | p.1.val ∈ I.negativeHalf ∧ R.collapse p.1.val = p.2}
   have hy : ∀ p ∈ closure S,
       p.2 ∈ closure (R.collapse '' (I.negativeHalf : Set M)) := by
+    change closure S ⊆ Prod.snd ⁻¹' closure (R.collapse '' (I.negativeHalf : Set M))
     apply closure_minimal
     · intro p hp
       exact subset_closure ⟨p.1.val, hp.1, hp.2⟩

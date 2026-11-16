@@ -214,10 +214,16 @@ theorem BalancedNeckChain.exists_reflected_finite_chain_of_frontier_incidence :
             linarith only [(abs_lt.mp hratio).2])).le
       rw [hcomm (C.neck (i + 1)).center (C.neck i).center]
       exact hmetric (C.neck i) (C.epsilon_eq i hi) (C.neck (i + 1)).center
-        (closure_mono (fun _ hx => hx.1) hy) hout (C.neck (i + 1)).scale
+        (by
+          apply closure_mono ?_ hy
+          intro x hx
+          exact hx.1) hout (C.neck (i + 1)).scale
         (C.neck (i + 1)).scale_pos hlo hhi
     · apply hmetric (C.neck (i + 1)) (C.epsilon_eq (i + 1) hn) (C.neck i).center
-        (closure_mono (fun _ hx => hx.1) hy) hout (C.neck (i + 1)).scale
+        (by
+          apply closure_mono ?_ hy
+          intro x hx
+          exact hx.1) hout (C.neck (i + 1)).scale
         (C.neck (i + 1)).scale_pos
       · nlinarith only [(C.neck (i + 1)).scale_pos]
       · nlinarith only [(C.neck (i + 1)).scale_pos]

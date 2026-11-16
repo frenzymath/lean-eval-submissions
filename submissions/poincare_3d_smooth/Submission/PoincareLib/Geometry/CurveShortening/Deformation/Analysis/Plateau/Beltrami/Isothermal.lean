@@ -26,7 +26,7 @@ private theorem smooth_positiveMetricBeltrami
     (hK : ContDiff ℝ ∞ K) (hpos : ∀ z, (K z).PosDef) :
     ContDiff ℝ ∞ (fun z => positiveMetricBeltrami (K z)) := by
   have he (i j : Fin 2) : ContDiff ℝ ∞ (fun z => K z i j) :=
-    (contDiff_apply_apply ℝ ℝ i j).comp hK
+    (contDiff_apply_apply ℝ i j).comp hK
   have hdet : ContDiff ℝ ∞ (fun z => (K z).det) := by
     simpa only [Matrix.det_fin_two] using
       ((he 0 0).mul (he 1 1)).sub ((he 0 1).mul (he 1 0))

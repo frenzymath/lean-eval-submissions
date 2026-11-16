@@ -105,7 +105,7 @@ theorem tendstoUniformlyOn_fderiv_comp_of_compact
   let H (z : F × (E →L[ℝ] F)) : E →L[ℝ] G := (fderiv ℝ g z.1).comp z.2
   have hH : ContinuousOn H (U ×ˢ univ) :=
     ((hg.continuousOn_fderiv_of_isOpen hU le_rfl).comp continuousOn_fst
-      (fun _ hz => hz.1)).clm_comp continuousOn_snd
+      (by intro _ hz; exact hz.1)).clm_comp continuousOn_snd
   have hlim := hH.comp_tendstoUniformlyOn_of_compact_image (hU.prod isOpen_univ)
     (hK.image_of_continuousOn (hfcont.prodMk hdcont))
     (fun x hx => ⟨hfU hx, mem_univ _⟩) hJ

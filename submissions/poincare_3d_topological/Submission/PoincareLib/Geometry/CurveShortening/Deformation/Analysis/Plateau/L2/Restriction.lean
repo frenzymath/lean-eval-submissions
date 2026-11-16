@@ -46,7 +46,7 @@ identity; Morrey ICM pp. 183-185, M65 derivation 27. -/
 theorem MemLp.norm_toLp_restrict_eq_of_zero {f : X → E} (hf : MemLp f 2 mu)
     {S : Set X} (hS : MeasurableSet S) (hzero : ∀ x, x ∉ S → f x = 0) :
     ‖(hf.restrict S).toLp f‖ = ‖hf.toLp f‖ := by
-  rw [Lp.norm_toLp, Lp.norm_toLp, ← eLpNorm_indicator_eq_eLpNorm_restrict hS]
+  rw [Lp.norm_toLp, Lp.norm_toLp, ← eLpNorm_indicator_eq_eLpNorm_restrict hS.nullMeasurableSet]
   congr 2
   funext x
   by_cases hx : x ∈ S

@@ -60,7 +60,7 @@ theorem exists_uniform_matrix_lower_bound
     intro i _
     apply continuousOn_finsetSum
     intro j _
-    exact (((hA i j).comp continuousOn_fst (fun z hz => hz.1)).mul
+    exact (((hA i j).comp continuousOn_fst (by intro z hz; exact hz.1)).mul
       ((PiLp.continuous_apply 2 _ i).comp continuous_snd).continuousOn).mul
       ((PiLp.continuous_apply 2 _ j).comp continuous_snd).continuousOn
   obtain ⟨c, hc, hbound⟩ := hcompact.exists_forall_le' henergy (fun z hz => by

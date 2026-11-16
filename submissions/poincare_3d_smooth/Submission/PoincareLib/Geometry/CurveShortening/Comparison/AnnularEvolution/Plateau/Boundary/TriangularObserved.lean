@@ -89,7 +89,8 @@ theorem exists_triangularSource
     observed_memLp := hobs
     column := column
     tangent := fun i => by
-      filter_upwards [hc i, hq.ae (A.tangent 0), hq.ae (A.tangent 1)] with p hp htan0 htan1
+      filter_upwards [hc i, Measure.QuasiMeasurePreserving.ae hq (A.tangent 0),
+        Measure.QuasiMeasurePreserving.ae hq (A.tangent 1)] with p hp htan0 htan1
       obtain ⟨v0, hv0⟩ := htan0
       obtain ⟨v1, hv1⟩ := htan1
       let L := mfderiv (𝓡 n) (𝓡 m) e (A.map (T p))

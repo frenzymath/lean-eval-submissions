@@ -250,9 +250,9 @@ theorem core_complement_germ_at_band_junction
     (T.bandJunctionPoint_mem_source p i) (T.bandJunctionPoint_mem_region p i)
   have hi := support_eventuallyEq_interior (T.coordinate_collar_germ_at_band_junction p i j hij)
   filter_upwards [hc, hi] with z hcz hiz
-  change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior _ z
-  change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior _ z at hcz
-  change interior _ z = interior _ z at hiz
+  change (z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support) = ¬(z ∈ interior _)
+  change (z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support) = ¬(z ∈ interior _) at hcz
+  change (z ∈ interior _) = (z ∈ interior _) at hiz
   rwa [hiz] at hcz
 
 /-- The two adjacent bands and their actual residual core fill a

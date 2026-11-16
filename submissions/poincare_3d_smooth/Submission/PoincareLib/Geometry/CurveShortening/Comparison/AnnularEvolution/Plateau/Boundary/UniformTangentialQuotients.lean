@@ -111,16 +111,16 @@ theorem m64WeightedMixedMetric_uniform_tangential_quotients
   let b := fun j : Fin n => S.indicator (fun p =>
     -(∑ i : Fin 2, w i * T (u p) (EuclideanSpace.single j 1) (V i p) (V i p)) / 2)
   have hFI (j : Fin n) (i : Fin 2) : MemLp (F j i) 2 volume :=
-    (memLp_indicator_iff_restrict hSm).mpr
+    (memLp_indicator_iff_restrict hSm.nullMeasurableSet).mpr
       ((hflux j i).mono_measure (Measure.restrict_mono hsub le_rfl))
   have hbI (j : Fin n) : Integrable (b j) :=
     (integrable_indicator_iff hSm).mpr ((hsource j).mono_set hsub)
   have hHI : Integrable H := (integrable_indicator_iff hSm).mpr
     ((integrable_finsetSum _ (fun i _ => (hV i).norm.integrable_sq)).integrableOn)
   have hWI : Integrable W := memLp_one_iff_integrable.mp
-    (memLp_indicator_const 1 hSm 1 (Or.inr
+    (memLp_indicator_const 1 hSm.nullMeasurableSet 1 (Or.inr
       ((measure_mono inter_subset_left).trans_lt measure_ball_lt_top).ne))
-  have hWp : MemLp Wp ⊤ volume := (memLp_top_const (1 : ℝ)).indicator hHm
+  have hWp : MemLp Wp ⊤ volume := (memLp_top_const (1 : ℝ)).indicator hHm.nullMeasurableSet
   have hW0 (p : LoopPlane) : 0 ≤ Wp p := indicator_nonneg (fun _ _ => zero_le_one) p
   have hH0 (p : LoopPlane) : 0 ≤ H p :=
     indicator_nonneg (fun _ _ => Finset.sum_nonneg fun _ _ => sq_nonneg _) p
@@ -154,7 +154,7 @@ theorem m64WeightedMixedMetric_uniform_tangential_quotients
     huj hucj (fun j i => (hV i).eval_piLp j) (fun j i => hweak i j)
     hxi hxic (fun p => abs_le.mpr ⟨by linarith [(hxi01 ⟨p, rfl⟩).1],
       (hxi01 ⟨p, rfl⟩).2⟩) hHI hH0
-    ((memLp_top_const (1 / 2 : ℝ)).indicator hHm)
+    ((memLp_top_const (1 / 2 : ℝ)).indicator hHm.nullMeasurableSet)
   refine ⟨rho / 8, by positivity, by linarith, rho / 8, by positivity, (2 * B / nu) * D, ?_⟩
   intro j h hh hhh
   let v : LoopPlane := h • EuclideanSpace.single (0 : Fin 2) (1 : ℝ)

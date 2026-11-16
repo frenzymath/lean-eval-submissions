@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Capping.CappingPatchSmooth
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Capping.CappingCharts
 
+noncomputable section
+
 /-!
 # The actual capped discarded-side atlas
 

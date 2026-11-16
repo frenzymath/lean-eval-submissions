@@ -37,7 +37,7 @@ theorem m64MeasurePreserving_memLp_restrict
       eLpNorm (u ∘ T) p (mu.restrict K) ≤ eLpNorm u p (nu.restrict O) := by
   classical
   let U := O.indicator u
-  have hU : MemLp U p nu := (memLp_indicator_iff_restrict hO).mpr hu
+  have hU : MemLp U p nu := (memLp_indicator_iff_restrict hO.nullMeasurableSet).mpr hu
   have heq : U ∘ T =ᵐ[mu.restrict K] u ∘ T := by
     filter_upwards [hbase] with x hx
     exact indicator_of_mem hx u
@@ -46,7 +46,7 @@ theorem m64MeasurePreserving_memLp_restrict
     _ = eLpNorm (U ∘ T) p (mu.restrict K) := eLpNorm_congr_ae heq.symm
     _ ≤ eLpNorm (U ∘ T) p mu := eLpNorm_mono_measure _ Measure.restrict_le_self
     _ = eLpNorm U p nu := eLpNorm_comp_measurePreserving hU.aestronglyMeasurable hT
-    _ = _ := eLpNorm_indicator_eq_eLpNorm_restrict hO
+    _ = _ := eLpNorm_indicator_eq_eLpNorm_restrict hO.nullMeasurableSet
 
 /-- Actual almost-everywhere data on the original domain pull back to a restricted set with
 almost-everywhere image inclusion. Source: M64's inward approximation derivation, transport

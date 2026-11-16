@@ -164,7 +164,10 @@ theorem exists_positive_frontier_quarter_control :
   have hscaleLower : (99 : ℝ) / 100 * N.scale ≤ N'.scale :=
     ((lt_div_iff₀ N.scale_pos).mp hratioLower).le
   have hycarrier : N'.center ∈ closure N.carrier :=
-    closure_mono (fun _ hx => hx.1) hy
+    by
+      apply closure_mono ?_ hy
+      intro x hx
+      exact hx.1
   have hcenters := N.edist_center_closure_bounds hycarrier hyout
   refine ⟨?_, ?_, ?_⟩
   · intro x hx

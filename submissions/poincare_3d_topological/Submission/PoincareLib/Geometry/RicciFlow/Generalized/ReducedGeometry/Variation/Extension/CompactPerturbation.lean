@@ -55,7 +55,9 @@ theorem compactPerturbation_action_integrable (hM12 : GeneralizedRicciGaugeTheor
     IntervalIntegrable (M14RawLIntegrand G γ (projectedCurveVelocity G γ)) volume τ₁ τ₂ := by
   have hmiddle : IntervalIntegrable (M14RawLIntegrand G γ (projectedCurveVelocity G γ))
       volume a b := ((rawLIntegrand_projectedVelocity_continuousOn hM12 isOpen_Ioo hγ).mono
-        (fun _ ht => ⟨ha.trans_le ht.1, ht.2.trans_lt hb⟩)).intervalIntegrable_of_Icc hab.le
+        (by
+            intro _ ht
+            exact ⟨ha.trans_le ht.1, ht.2.trans_lt hb⟩)).intervalIntegrable_of_Icc hab.le
   have hleftOld := p.action_integrable.mono_set
     (show uIcc τ₁ a ⊆ uIcc τ₁ τ₂ by
       rw [uIcc_of_le ha.le, uIcc_of_le p.tau_lt.le]

@@ -1,95 +1,59 @@
-# Poincare LeanEval submission draft
+# Poincare LeanEval packages
 
-This draft contains two self-contained submission workspaces for the
-Poincare source library. The normal library remains in its development
-repository; this is a lean source snapshot for evaluation, excluding
-reference PDFs and build artifacts.
+This repository prepares separate smooth and topological Poincaré submissions
+for supported Lean **4.35.0**, with Mathlib pinned to
+`074063781836922cb02701cd12943c9f51731afa`.
 
-The formalization was developed through combined Archon Horizon and Codex
-workflows, including work before the LeanEval adaptation. See the
-[project paper](https://arxiv.org/html/2610.08329v1).
+**Both stable-toolchain packages passed compilation and the unchanged official
+NanoDa/Lean comparator test.** Exact source hashes, exit codes, and logs are in
+[the stable migration report](reports/stable-resubmission-20261116.md).
+Both final builds reuse helper and pinned dependency artifacts. Topological
+helpers were recompiled under their distinct package name in a preceding build.
+These are not cold hosted-build measurements.
 
-## Current status
+The original formalization was developed through combined **Archon Horizon +
+Codex** workflows, including work before the LeanEval adaptation. The
+[project paper](https://arxiv.org/html/2610.08329v1) and
+[submission metadata](METADATA.md) preserve the original attribution and public
+publication date, October 14, 2026.
 
-**Both Poincare submissions pass the complete local official LeanEval checks.** Both workspaces target official benchmark
-`38361be884302c7edce1908c4aef8296eb2cb27e`, Lean 4.35.0-rc3, and its exact
-Mathlib dependencies. The topological `lake test` finished with Comparator's
-`Your solution is okay!`, Nanoda acceptance, and Lean default-kernel acceptance.
-Its source fingerprint and terminal log are in
-[the migration report](reports/leaneval-lean435-migration.md). The separate
-process exit code was not recovered from the session registry; the complete
-success log is retained.
+## Packages
 
-The smooth submission also passed Comparator, Nanoda, and Lean default-kernel
-verification (`checks/20261014-084623-3760373.log`). Topological checking reuses 23,558 verified unchanged helpers and
-freshly compiled roots. External host resource workarounds use the unchanged
-compiler and its existing loader fallback. The public topological snapshot is
-submitted through [LeanEval issue #2113](https://github.com/leanprover/lean-eval-submissions/issues/2113).
-The smooth snapshot is submitted through
-[LeanEval issue #2119](https://github.com/leanprover/lean-eval-submissions/issues/2119).
-Remote acceptance is pending; the earlier private-source attempt could not
-fetch the repository and did not evaluate the proof.
+- `submissions/poincare_3d_smooth/`: smooth endpoint.
+- `submissions/poincare_3d_topological/`: topological endpoint.
+- `packaging-provenance.json`: original source revisions, transformations,
+  file hashes, historical checks, and the stable update.
+- `source-notices/`: original third-party license notices with source paths.
 
-## Layout and imports
+Each package contains its own `Submission.lean` and the complete helper import
+closure under `Submission/`. Packaging preserves library declaration namespaces
+and source credits while prefixing local module imports with `Submission.`.
+The existing benchmark theorem statements and subtype-topology instance
+registration are retained. The current official trusted workspace files are
+copied from LeanEval `8955681b9914d7ebc7d286414843021b7d6c9de1`.
 
-- `submissions/poincare_3d_smooth/`: smooth benchmark workspace.
-- `submissions/poincare_3d_topological/`: topological benchmark workspace.
-- `source-notices/`: original license notices retained with their source paths.
-- `packaging-provenance.json`: input revisions, overrides, file hashes and checks.
-- `tools/prepare_submission.py`: reproducible import-closure packager.
+Install the pinned toolchain and bubblewrap, obtain the exact Mathlib dependency
+cache, and run `lake build Submission Solution Challenge` followed by `lake test`
+inside either package. The unchanged official test requires both NanoDa and
+Lean kernel acceptance. Absolute local dependency overrides and build artifacts
+are not submission source.
 
-Each workspace contains its own `Submission.lean` and
-`Submission/PoincareLib/` helpers. Initial packaging preserved library
-declaration namespaces and proof bodies while prefixing local import module
-names with `Submission.`; the migration adapts helper proofs to the pinned API.
-Both benchmark theorem statements remain unchanged.
-Any reachable local Mathlib compatibility module is likewise packaged beneath
-`Submission/Mathlib/`, without shadowing the trusted Mathlib module name.
-This duplication is required because the evaluator creates a fresh workspace
-per problem and copies only `Submission.lean` and `Submission/**/*.lean`.
-Sibling/root library imports and symlinks escaping `Submission/` do not work.
-Git stores identical helper blobs once even though both snapshots contain them.
-Source comments, author credits, and notices are retained; this draft does not
-relicense third-party material. Review provenance/licensing before submission.
+## Historical results
 
-The source audit found complete import closure, identical helper copies, no
-source symlinks or top-level helper shadows, and exact matches for all 14
-trusted template files against recorded official hashes. The comments/string
-masked trust scan covered 1,346 changed or added Lean files with no admission,
-new axiom, unsafe declaration, or listed kernel-bypass mechanism found. These
-source checks precede the separately reviewed submission instance-priority
-correction and supplement the official verifier results.
+The earlier Lean 4.35.0-rc3 packages passed local official checks on October 14.
+Their reports and receipts remain under `reports/evidence/` and
+[the historical migration report](reports/leaneval-lean435-migration.md).
+Remote [topological #2113](https://github.com/leanprover/lean-eval-submissions/issues/2113)
+and [smooth #2119](https://github.com/leanprover/lean-eval-submissions/issues/2119)
+reached the six-hour limit during compilation on the older runner.
 
-## Validation and submission
+The current standard hosted tier has 16 CPUs and 32 GB of memory. Local
+validation uses independent allocations: 16 CPUs / 60,000 MiB for smooth and
+26 CPUs / 100,000 MiB for topological, with configured Lean thread counts of
+16 and 8 respectively. These local timings cannot guarantee remote completion
+within six hours.
 
-Follow the official [solver instructions](https://github.com/leanprover/lean-eval#quick-start-for-solvers)
-to install the exact pinned verification tools outside the writable workspace.
-Then, from either problem directory, run `lake update`, obtain dependency
-caches, and run `lake test` to check Comparator and Nanoda. This is a separate
-validation objective from the existing Horizon run's `lake-build-only` policy.
-Treat version errors, resource limits, and rejected proofs separately.
-
-The documented GitHub issue intake accepts public repositories. This repository
-is public, and the topological-only snapshot is pinned at
-[`31597dd539847c6a030c439de25d3104370f9614`](https://github.com/frenzymath/lean-eval-submissions/tree/31597dd539847c6a030c439de25d3104370f9614).
-The declared system is **Archon Horizon + Codex**; the production description
-links the project paper above. Issue intake discovers every matching workspace,
-so this snapshot contains only the validated topological problem at its root.
-
-The newer [submission service](https://lean-lang.org/eval/submit/) has separate
-App-access and source-visibility rules. The private-source requirement in
-`fetch_submission_server` for formalization problems does not apply to the
-legacy issue route used here.
-
-Regenerate from a chosen source checkout, without changing that checkout:
-
-```bash
-python3 tools/prepare_submission.py --source /path/to/poincare \
-  --benchmark-commit 38361be884302c7edce1908c4aef8296eb2cb27e --archive /path/to/new-draft.tar.gz
-```
-
-The packager includes tracked source plus relevant working-tree edits, records
-those overrides, checks local import closure, preserves official trusted files,
-and enforces the 100,000,000-byte compressed archive cap. It does not compile
-the proof or run any verifier. This is an evaluation layout, not a library
-replacement.
+Original author credits, comments, and third-party notices are retained. This
+package does not relicense third-party material. The original snapshot packager
+in `tools/prepare_submission.py` documents the initial packaging transformation;
+it does not reproduce later migrations or certify their proofs.

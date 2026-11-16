@@ -148,9 +148,9 @@ theorem exists_local_forced_weak_second_jets
   let H : Fin n → Fin n → Spacetime n → ℝ :=
     fun i j => (ball z s).indicator (fun y => W j i y)
   have hTm : MemLp T 2 volume :=
-    (memLp_indicator_iff_restrict measurableSet_ball).mpr (Lp.memLp (T₀ ()))
+    (memLp_indicator_iff_restrict (measurableSet_ball).nullMeasurableSet).mpr (Lp.memLp (T₀ ()))
   have hHm (i j : Fin n) : MemLp (H i j) 2 volume :=
-    (memLp_indicator_iff_restrict measurableSet_ball).mpr (Lp.memLp (W j i))
+    (memLp_indicator_iff_restrict (measurableSet_ball).nullMeasurableSet).mpr (Lp.memLp (W j i))
   refine ⟨s, hs, hsU, T, H, hTm, hHm, ?_, ?_, ?_⟩
   · intro i φ hφ hφc hφs
     have hpair {ψ : Spacetime n → ℝ} (hψ : tsupport ψ ⊆ ball z s)

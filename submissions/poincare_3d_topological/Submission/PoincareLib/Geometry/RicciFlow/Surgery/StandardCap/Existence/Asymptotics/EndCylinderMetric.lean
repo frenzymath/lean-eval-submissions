@@ -136,8 +136,7 @@ theorem endCylinderAuxMetric_smooth (e : StandardCylindricalEnd g) :
   · have hmap : ContMDiff (𝓘(ℝ, ℝ).prod (𝓡 3)) 𝓘(ℝ, ℝ × StandardCapSpace) ∞
         (fun p : ℝ × StandardCapSpace => (p.1, p.2)) :=
       contMDiff_fst.prodMk_space contMDiff_snd
-    exact (endCylinderCoefficients_contDiff e).contDiffOn.contMDiffOn.comp
-      hmap.contMDiffOn (fun _ hp => hp)
+    exact ((endCylinderCoefficients_contDiff e).contMDiff.comp hmap).contMDiffOn
   · intro t ht x u v
     exact endCylinderAuxMetric_inner e ht x u v
 

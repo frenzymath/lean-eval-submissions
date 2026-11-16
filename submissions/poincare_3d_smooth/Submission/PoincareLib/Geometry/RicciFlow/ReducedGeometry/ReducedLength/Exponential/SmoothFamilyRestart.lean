@@ -85,7 +85,7 @@ theorem normalizedSquareFamily_mem_smoothFamilyDomain_of_restart {J : Set ℝ}
     contDiff_snd.contMDiff
   have hmap : ContMDiffOn (𝓘(ℝ, E × ℝ)) ((𝓘(ℝ, Q)).prod (𝓘(ℝ, ℝ))) ∞
       (fun z : E × ℝ ↦ (psi z.1, z.2)) (W ×ˢ I) :=
-    (hpsiW.comp hfst.contMDiffOn (fun z hz ↦ hz.1)).prodMk hsnd.contMDiffOn
+    (hpsiW.comp (s := W ×ˢ I) hfst.contMDiffOn (by intro z hz; exact hz.1)).prodMk hsnd.contMDiffOn
   have hH : ContMDiffOn (𝓘(ℝ, E × ℝ)) (𝓡 n) ∞
       (fun z : E × ℝ ↦ A.curve (psi z.1) z.2) (W ×ˢ I) := by
     apply A.curve_smooth.comp hmap

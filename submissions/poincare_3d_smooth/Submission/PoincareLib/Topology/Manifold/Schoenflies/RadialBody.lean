@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Schoenflies.RadialBody.Parametri
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.BoundedSide
 import Mathlib.Analysis.InnerProductSpace.PiL2
 
+noncomputable section
+
 /-!
 # Identifying the filled body of a radial sphere graph
 

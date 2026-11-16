@@ -149,8 +149,8 @@ theorem core_complement_cap_union_germ
   filter_upwards [hk, hi] with w hkw hiw
   apply propext
   have h := propext_iff.mp hkw
-  change _ ↔ ¬ interior _ w at h ⊢
-  change interior _ w = interior _ w at hiw
+  change _ ↔ w ∉ interior _ at h ⊢
+  change (w ∈ interior _) = (w ∈ interior _) at hiw
   rw [hiw] at h
   exact h
 

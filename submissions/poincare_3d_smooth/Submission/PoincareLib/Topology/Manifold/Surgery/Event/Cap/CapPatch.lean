@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Cap.CapAnnulus
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Partial.PartialChartRestriction
 
+noncomputable section
+
 /-!
 # Actual cap patches over the discarded interior
 

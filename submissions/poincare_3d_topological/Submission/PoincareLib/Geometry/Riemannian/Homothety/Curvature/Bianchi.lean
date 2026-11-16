@@ -29,8 +29,8 @@ theorem connection_sub (D : LeviCivitaData g)
       (T% W) x) :
     D.connection (V - W) x = D.connection V x - D.connection W x := by
   have hneg : D.connection (-W) x = -D.connection W x := by
-    simpa only [neg_one_smul] using D.connection.isCovariantDerivativeOn.smul_const (-1 : ℝ) hW
-  rw [sub_eq_add_neg, D.connection.isCovariantDerivativeOn.add hV
+    simpa only [neg_one_smul] using D.connection.isCovariantDerivativeOnUniv.smul_const (-1 : ℝ) hW
+  rw [sub_eq_add_neg, D.connection.isCovariantDerivativeOnUniv.add hV
     (mdifferentiableAt_neg_section hW), hneg, sub_eq_add_neg]
 
 /-- Smooth local fields have a smooth bracket at each point of their domain. -/
@@ -97,7 +97,7 @@ theorem connection_mlieBracket (D : LeviCivitaData g) (U : Set M) (hU : IsOpen U
     exact D.connection.torsion_eq_zero_iff.mp D.torsion_eq_zero
       ((hY.contMDiffAt (hU.mem_nhds hp)).mdifferentiableAt (by simp))
       ((hZ.contMDiffAt (hU.mem_nhds hp)).mdifferentiableAt (by simp))
-  have H := D.connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+  have H := D.connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
     (mdifferentiableAt_sub_section hYZ hZY) hB Filter.univ_mem heq
   rw [← H, connection_sub D _ _ x hYZ hZY]
   rfl

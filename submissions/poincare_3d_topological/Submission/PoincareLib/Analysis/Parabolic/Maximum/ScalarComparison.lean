@@ -96,7 +96,7 @@ theorem compact_min_velocity_lower_bound
     exact hminw (show (q, y) ∈ K from ⟨⟨hq.1, hq.2.trans hsy.1.2⟩, mem_univ y⟩)
   have hdw : HasDerivWithinAt (fun q : ℝ ↦ f q y - r q)
       (v s y - (2 / (n : ℝ)) * (r s) ^ 2) (Icc a s) s :=
-    ((hderiv s hsJ y).mono fun q hq ↦ ⟨hq.1, hq.2.trans_lt hsJ.2⟩).sub
+    ((hderiv s hsJ y).mono fun q (hq : q ∈ Icc a s) ↦ ⟨hq.1, hq.2.trans_lt hsJ.2⟩).sub
       (hrderiv s hsa.le).hasDerivWithinAt
   have hcone : a - s ∈ posTangentConeAt (Icc a s) s :=
     sub_mem_posTangentConeAt_of_segment_subset (by rw [segment_symm, segment_eq_Icc hsa.le])

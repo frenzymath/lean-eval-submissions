@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Protection.OriginalAnnularDiskFilling
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Hierarchy.Annulus.Models.PolygonCircleModels
 
@@ -66,7 +67,7 @@ theorem exists_essential_enclosing_annular_circle
   refine ⟨gamma,a,hgi,ha,hval,hgammaDepth,hfull,hrange,?_⟩
   intro hnull
   have hgammaNull := Dehn.nullhomotopic_of_squareRimLoop gamma
-    (Path.Homotopic.Quotient.eq.mp hnull)
+    ((FundamentalGroup.fromPath_eq_one_iff _).mp hnull)
   have hcomp : gamma.comp ⟨g.symm,g.symm.continuous⟩ = boundary := by
     apply ContinuousMap.ext
     intro x

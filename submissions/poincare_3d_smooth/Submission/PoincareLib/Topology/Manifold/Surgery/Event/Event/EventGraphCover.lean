@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Event.EventGraphLabels
 
+noncomputable section
+
 /-!
 # A graph-component label on the actual pre-surgery slice
 

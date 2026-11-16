@@ -45,7 +45,8 @@ theorem standardRadialExponential_contDiff (g₀ : StandardInitialMetric) :
     exact standard_closed_ball_compact g₀ hR.le
   obtain ⟨e, he, _, _, hexp, _, _⟩ :=
     g₀.metric.exists_smooth_exponential_with_ball_images 0 hR hcompact
-  have heq := standard_exponential_eq_radial g₀ hexp
+  have heq := standard_exponential_eq_radial g₀
+    (V := {w | g₀.metric.tangentNorm 0 w < R}) hexp
   have hV : IsOpen {w : StandardCapSpace | g₀.metric.tangentNorm 0 w < R} :=
     isOpen_lt (continuous_standard_tangentNorm g₀) continuous_const
   have hv : g₀.metric.tangentNorm 0 v < R := by dsimp only [R]; linarith
@@ -66,7 +67,8 @@ theorem standardRadialExponential_hasFDerivAt_zero (g₀ : StandardInitialMetric
     exact standard_closed_ball_compact g₀ zero_le_one
   obtain ⟨e, _, _, hd, hexp, _, _⟩ :=
     g₀.metric.exists_smooth_exponential_with_ball_images 0 zero_lt_one hcompact
-  have heq := standard_exponential_eq_radial g₀ hexp
+  have heq := standard_exponential_eq_radial g₀
+    (V := {w | g₀.metric.tangentNorm 0 w < 1}) hexp
   have hV : IsOpen {w : StandardCapSpace | g₀.metric.tangentNorm 0 w < 1} :=
     isOpen_lt (continuous_standard_tangentNorm g₀) continuous_const
   have hzero : g₀.metric.tangentNorm 0 0 < 1 := by simp [tangentNorm]

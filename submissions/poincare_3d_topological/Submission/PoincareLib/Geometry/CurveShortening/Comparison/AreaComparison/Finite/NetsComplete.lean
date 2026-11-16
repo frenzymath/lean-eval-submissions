@@ -31,7 +31,8 @@ theorem m64FamilyAnnulusNets_of_compact
     M64FamilyAnnulusNets G := by
   intro Gamma mu hmu
   let e : Metric.sphere (0 : LoopAmbient) 1 ≃ₜ LoopTwoSphere :=
-    Homeomorph.setCongr (by ext z; exact mem_sphere_zero_iff_norm)
+    Homeomorph.setCongr (s := Metric.sphere (0 : LoopAmbient) 1)
+      (t := {z : LoopAmbient | ‖z‖ = 1}) (by ext z; exact mem_sphere_zero_iff_norm)
   let : CompactSpace LoopTwoSphere := e.compactSpace
   obtain ⟨epsilon, hepsilon, hannuli⟩ :=
     m64_uniform_close_loop_canonical_annuli F a hcompact Gamma Gamma.continuous hmu

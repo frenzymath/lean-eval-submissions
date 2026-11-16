@@ -36,7 +36,7 @@ theorem closed_regions_eq_of_common_circle_and_exterior
     · exact hfrontK hk.1
     · exact hfrontL hl.2
   have hne : (interior (K ∪ L) \ range C).Nonempty :=
-    hneK.mono (fun _ hx => ⟨interior_mono subset_union_left hx.1, hx.2⟩)
+    hneK.mono (by intro _ hx; exact ⟨interior_mono subset_union_left hx.1, hx.2⟩)
   obtain ⟨d, hs, _, _, hc, hb⟩ :=
     exists_disk_neighborhood_of_frontier_subset_circle hC hCi hCd
       (hK.union hL) hproper hfront hne
@@ -86,7 +86,9 @@ theorem sublevel_components_eq_of_common_circle_frontier
   have hopen (z : S2) : IsOpen (W z) := (isOpen_Iio.preimage hh).connectedComponentIn
   have hcl (z : S2) : closure (W z) ⊆ h ⁻¹' Iic b :=
     closure_minimal
-      ((connectedComponentIn_subset _ _).trans (fun _ hx => le_of_lt (show h _ < b from hx)))
+      ((connectedComponentIn_subset _ _).trans (by
+          intro _ hx
+          exact le_of_lt (show h _ < b from hx)))
       (isClosed_Iic.preimage hh)
   have hne (z : S2) (hz : h z < b) : (interior (closure (W z)) \ range C).Nonempty := by
     refine ⟨z, (hopen z).subset_interior_iff.mpr subset_closure (mem_connectedComponentIn hz), ?_⟩

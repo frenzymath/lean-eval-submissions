@@ -184,7 +184,7 @@ theorem differentiableOn_inverse_cauchyGauge_off_real {n : ℕ} [Nonempty (Fin n
       (hPC1.2 z ⟨hz, hzi⟩) (hFC1.contDiffAt (hV.mem_nhds ⟨hz, hzi⟩)) (heq z hz hzi)
   have hcoord (i : Fin n) : DifferentiableOn ℂ (fun z => H z i) U := by
     apply differentiableOn_of_continuousOn_off_real hU
-      ((continuous_apply i).continuousOn.comp hH (fun _ _ => mem_univ _))
+      ((continuous_apply i).continuousOn.comp hH (by intro _ _; exact mem_univ _))
     intro z hz hzi
     exact (ContinuousLinearMap.proj i : E →L[ℂ] ℂ).differentiableAt.comp z (hhol z hz hzi)
   intro z hz
@@ -487,7 +487,8 @@ theorem exists_small_reflected_coefficient {E : Type*}
   have hA0m : AEStronglyMeasurable A0 volume := by
     have hDmstar := hDm.comp_quasiMeasurePreserving conjLIE.measurePreserving.quasiMeasurePreserving
     have hreflect := (reflectionOperatorL J hJ).continuous.comp_aestronglyMeasurable hDmstar
-    exact AEStronglyMeasurable.piecewise hupper.measurableSet hDm.restrict hreflect.restrict
+    exact AEStronglyMeasurable.piecewise hupper.measurableSet.nullMeasurableSet hDm.restrict
+      hreflect.restrict
   have hnorm (T : E →L[ℂ] E) : ‖reflectionOperator J hJ T‖ ≤ ‖T‖ := by
     apply ContinuousLinearMap.opNorm_le_bound _ (norm_nonneg T)
     intro v
@@ -501,9 +502,9 @@ theorem exists_small_reflected_coefficient {E : Type*}
   have hA0s : Function.support A0 ⊆ closedBall (0 : ℂ) R := by
     intro z hz
     by_contra hnot
-    have hDz : D z = 0 := indicator_of_notMem (fun h => hnot h.1) A
+    have hDz : D z = 0 := indicator_of_notMem (show z ∉ K from fun h => hnot h.1) A
     have hDs : D (star z) = 0 := by
-      apply indicator_of_notMem
+      apply indicator_of_notMem (s := K)
       intro h
       apply hnot
       simpa only [mem_closedBall_zero_iff, norm_star] using h.1
@@ -530,8 +531,8 @@ theorem exists_small_reflected_coefficient {E : Type*}
       rw [if_neg hi, if_neg hi, hDeq (star z) hsball hsi]
   have hA0C1 : ContDiffOn ℝ 1 A0 (ball (0 : ℂ) R ∩ {z | z.im ≠ 0}) := by
     have hAr : ContDiffOn ℝ 1 A (ball (0 : ℂ) R ∩ {z | 0 < z.im}) :=
-      hAC1.mono (fun _ hz => ⟨ball_subset_ball hRr.le hz.1, hz.2⟩)
-    exact (reflectedCoefficient_contDiffOn J hJ hAr).congr (fun z hz => heq z hz.1)
+      hAC1.mono (by intro _ hz; exact ⟨ball_subset_ball hRr.le hz.1, hz.2⟩)
+    exact (reflectedCoefficient_contDiffOn J hJ hAr).congr (by intro z hz; exact heq z hz.1)
   exact ⟨A0, R, B0, hR, hRr, hB, hA0m, hA0s, hA0b, hsmall, hA0C1, heq⟩
 
 /-- The shared half-disk Hartman--Wintner alternative. The genuine
@@ -571,10 +572,10 @@ theorem exists_half_disk_power_factor {n : ℕ} [Nonempty (Fin n)]
   let F0 := reflectedField J F
   have hF0 : ContinuousOn F0 (ball (0 : ℂ) R) :=
     (reflectedField_continuousOn J hF hreal).mono
-      (fun _ hz => closedBall_subset_closedBall hRr.le (ball_subset_closedBall hz))
+      (by intro _ hz; exact closedBall_subset_closedBall hRr.le (ball_subset_closedBall hz))
   have hF0C1 : ContDiffOn ℝ 1 F0 (ball (0 : ℂ) R ∩ {z | z.im ≠ 0}) :=
     (reflectedField_contDiffOn J hFC1).mono
-      (fun _ hz => ⟨ball_subset_ball hRr.le hz.1, hz.2⟩)
+      (by intro _ hz; exact ⟨ball_subset_ball hRr.le hz.1, hz.2⟩)
   have hF0eq (z : ℂ) (hz : z ∈ ball (0 : ℂ) R) (hi : z.im ≠ 0) :
       dbar F0 z = A0 z (F0 z) := by
     rw [hA0eq z hz]

@@ -42,8 +42,8 @@ theorem curvatureOnFields_eq_zero_of_constant_covariantDerivative
   have hXY (Z : (y : M) → TangentSpace (𝓡 n) y) :
       (fun y => D.connection V y (Z y)) = c • Z := funext fun y => hV y (Z y)
   rw [curvatureOnFields, hXY, hXY,
-    D.connection.isCovariantDerivativeOn.smul_const c hY,
-    D.connection.isCovariantDerivativeOn.smul_const c hX, hV]
+    D.connection.isCovariantDerivativeOnUniv.smul_const c hY,
+    D.connection.isCovariantDerivativeOnUniv.smul_const c hX, hV]
   simp only [smul_apply]
   rw [← smul_sub, D.connection.torsion_eq_zero_iff.mp D.torsion_eq_zero hX hY,
     sub_self]

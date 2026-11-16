@@ -41,7 +41,7 @@ theorem exists_regular_value_equal_dimension
       (hf x) |>.contDiffAt
   have hnull : volume (g '' C) = 0 := by
     apply addHaar_image_eq_zero_of_det_fderivWithin_eq_zero volume
-      (fun x hx => ((hg x hx.1).differentiableAt (by simp)).hasFDerivAt.hasFDerivWithinAt)
+      (by intro x hx; exact ((hg x hx.1).differentiableAt (by simp)).hasFDerivAt.hasFDerivWithinAt)
     intro x hx
     apply LinearMap.det_eq_zero_iff_ker_ne_bot.mpr
     intro hk

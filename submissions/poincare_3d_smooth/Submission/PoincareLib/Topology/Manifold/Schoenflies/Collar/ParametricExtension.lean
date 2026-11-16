@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Collar.Extension
 
+noncomputable section
+
 /-!
 # Smooth extension of a family of sphere maps
 

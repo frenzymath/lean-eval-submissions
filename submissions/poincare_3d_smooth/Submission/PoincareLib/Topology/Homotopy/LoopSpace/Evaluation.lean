@@ -20,7 +20,10 @@ namespace PoincareMT.LoopSpace
 in the compact-open C1 topology of MT Lemma 18.27, p. 434. -/
 instance loopCircleCompactSpace : CompactSpace LoopCircle := by
   let e : (Metric.sphere (0 : LoopPlane) 1) ≃ₜ LoopCircle :=
-    Homeomorph.setCongr (by ext z; exact mem_sphere_zero_iff_norm)
+    Homeomorph.setCongr (show Metric.sphere (0 : LoopPlane) 1 =
+      {z : LoopPlane | ‖z‖ = 1} by
+        ext z
+        simp only [Metric.mem_sphere, dist_zero_right, Set.mem_setOf_eq])
   exact e.compactSpace
 
 variable {M : Type u} [TopologicalSpace M]

@@ -51,7 +51,8 @@ theorem contDiffOn_exhaustionKernel_pullback
       (Metric.ball 0 (2 * r) ×ˢ Ioi 0) := by
     apply hH.comp
       ((contMDiffOn_snd.prodMk
-        (F.he.comp contMDiffOn_fst (fun p hp => hp.1))).prodMk contMDiffOn_const)
+        (F.he.comp (s := Metric.ball 0 (2 * r) ×ˢ Ioi 0)
+          contMDiffOn_fst (by intro p hp; exact hp.1))).prodMk contMDiffOn_const)
     intro p hp
     exact ⟨⟨hp.2, mem_univ _⟩, mem_univ _⟩
   simp +instances only [← modelWithCornersSelf_prod, chartedSpaceSelf_prod] at hs

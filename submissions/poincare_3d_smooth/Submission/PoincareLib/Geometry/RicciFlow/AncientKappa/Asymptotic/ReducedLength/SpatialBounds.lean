@@ -219,7 +219,7 @@ theorem sqrt_reducedLength_coordinates_locallyLipschitz
       (mem_nhdsWithin_of_mem_nhds (((he x hx).prodMk continuousAt_const).preimage_mem_nhds hW')))
         (mem_nhdsWithin_of_mem_nhds (hfc.preimage_mem_nhds hS))
   · apply hSL.comp
-      (hWL.comp (hpairLip.mono (fun _ ht => ht.1.1)) (fun _ ht => ht.1.2))
+      (hWL.comp (hpairLip.mono (by intro _ ht; exact ht.1.1)) (by intro _ ht; exact ht.1.2))
     exact fun _ ht => ht.2
 
 /-- At a fixed positive time the regular locus has full Lebesgue measure

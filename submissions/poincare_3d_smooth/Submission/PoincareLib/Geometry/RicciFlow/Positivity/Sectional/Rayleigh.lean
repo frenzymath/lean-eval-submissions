@@ -16,6 +16,8 @@ orthonormal pairs give compact parameters for the quotient.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 
 open scoped Manifold ContDiff Bundle
 open Set Topology
@@ -219,7 +221,7 @@ theorem continuousOn_flow_sectionalRayleigh_trivialization
     exact hg.continuousOn
   have hGP (a d : (ℝ × M) × (E × E) → E) (ha : Continuous a) (hd : Continuous d) :
       ContinuousOn (fun p : (ℝ × M) × (E × E) ↦ G p.1 (a p) (d p)) V :=
-    ((hG.comp continuousOn_fst (fun _ hp ↦ hp.1)).clm_apply ha.continuousOn).clm_apply
+    ((hG.comp continuousOn_fst (by intro _ hp; exact hp.1)).clm_apply ha.continuousOn).clm_apply
       hd.continuousOn
   have hfst : Continuous (fun p : (ℝ × M) × (E × E) ↦ p.2.1) :=
     continuous_fst.comp continuous_snd

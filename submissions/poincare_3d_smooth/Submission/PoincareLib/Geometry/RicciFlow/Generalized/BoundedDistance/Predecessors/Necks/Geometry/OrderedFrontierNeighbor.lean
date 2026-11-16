@@ -142,7 +142,8 @@ theorem exists_ordered_frontier_neighbor :
     · exact False.elim (hx (N.central_sphere_subset hxS))
     · exact Or.inr (hplus x ⟨hxB, hx⟩)
   have hyK : N'.center ∈ connectedComponent N.center :=
-    closure_minimal (fun _ hx => N.m25_carrier_subset_connectedComponent hx.1)
+    closure_minimal (s := N.region 0 N.epsilon⁻¹)
+      (fun _ hx => N.m25_carrier_subset_connectedComponent hx.1)
       isClosed_connectedComponent hy
   have hyH : H N'.center = L := by
     have hnonnegative : N.region 0 N.epsilon⁻¹ ⊆ {x | 0 ≤ H x} := by

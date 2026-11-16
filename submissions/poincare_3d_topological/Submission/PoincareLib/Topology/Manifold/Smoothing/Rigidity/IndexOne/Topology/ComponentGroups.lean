@@ -22,7 +22,7 @@ theorem inclusion_surjective_of_whole_component (hSF : S ⊆ F)
     (hcomponent : ∀ x ∈ S, connectedComponentIn F x = S) (x : S) :
     Function.Surjective (map (ContinuousMap.inclusion hSF) x) := by
   intro a
-  obtain ⟨p, rfl⟩ := Path.Homotopic.Quotient.mk_surjective a
+  obtain ⟨p, rfl⟩ := FundamentalGroup.exists_path_rep a
   let f : unitInterval → X := fun t => (p t : X)
   have hf : Continuous f := continuous_subtype_val.comp p.continuous
   have hx : (x : X) ∈ range f := ⟨0, congrArg Subtype.val p.source⟩
@@ -38,6 +38,7 @@ theorem inclusion_surjective_of_whole_component (hSF : S ⊆ F)
       source' := Subtype.ext (congrArg (fun y : F => (y : X)) p.source)
       target' := Subtype.ext (congrArg (fun y : F => (y : X)) p.target) }
   refine ⟨Path.Homotopic.Quotient.mk q, ?_⟩
+  apply CategoryTheory.End.ext
   change Path.Homotopic.Quotient.mk (q.map (continuous_inclusion hSF)) =
     Path.Homotopic.Quotient.mk p
   congr 1

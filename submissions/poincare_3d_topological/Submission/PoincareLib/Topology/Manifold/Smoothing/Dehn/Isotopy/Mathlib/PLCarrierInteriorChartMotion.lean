@@ -71,7 +71,8 @@ theorem exists_interior_chart_motion {E X ι : Type*}
       · exact fun _ => iff_of_true (mem_univ _) (mem_univ _)
     · have hhalfmap := (H.preserves_halfspace_and_fixes_plane ell hell hhalf).1 t
       exact Q.supported_chart_preimage_region (H.map t) (G t) hJQ (hfix t)
-        (hGQ t) (hGout t) hQR (fun z => Set.ext_iff.mp hhalfmap z)
+        (hGQ t) (hGout t) (B := {x | 0 ≤ ell x}) hQR
+        (fun z => Set.ext_iff.mp hhalfmap z)
   have hfront : ∀ t, EqOn (G t) id (frontier R) := by
     intro t y hy
     by_cases hyQ : y ∈ Q.target

@@ -49,12 +49,12 @@ theorem cover_mem_image_nonnegative_iff (C : M27TwistedSphereLineFlowCertificate
 theorem cover_mem_positiveSlab_iff (C : M27TwistedSphereLineFlowCertificate K)
     {l u : ℝ} (hl : 0 ≤ l) (p : UnitTwoSphere × ℝ) :
     C.cover p ∈ C.cover '' (univ ×ˢ Ioo l u) ↔ l < |p.2| ∧ |p.2| < u :=
-  C.cover_mem_image_nonnegative_iff (fun _ hx => hl.trans hx.1.le) p
+  C.cover_mem_image_nonnegative_iff (by intro _ hx; exact hl.trans hx.1.le) p
 
 theorem cover_mem_closedPositiveSlab_iff (C : M27TwistedSphereLineFlowCertificate K)
     {l u : ℝ} (hl : 0 ≤ l) (p : UnitTwoSphere × ℝ) :
     C.cover p ∈ C.cover '' (univ ×ˢ Icc l u) ↔ l ≤ |p.2| ∧ |p.2| ≤ u :=
-  C.cover_mem_image_nonnegative_iff (fun _ hx => hl.trans hx.1) p
+  C.cover_mem_image_nonnegative_iff (by intro _ hx; exact hl.trans hx.1) p
 
 theorem closure_cover_image_Ioo (C : M27TwistedSphereLineFlowCertificate K)
     {l u : ℝ} (hlu : l < u) :

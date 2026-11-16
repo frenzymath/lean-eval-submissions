@@ -50,7 +50,7 @@ theorem exists_original_moved_disk_annulus
     exact congrArg Subtype.val (B.injective (Subtype.ext
       ((hkv ⟨x,hx⟩).trans (hxy.trans (hkv ⟨y,hy⟩).symm))))
   have hkimage : k '' Ann = D \ interior I := by
-    apply Subset.antisymm (image_subset_iff.mpr hkN)
+    apply Subset.antisymm (image_subset_iff.mpr (show Ann ⊆ k ⁻¹' (D \ interior I) from hkN))
     intro x hx
     refine ⟨B.symm ⟨x,hx⟩,(B.symm ⟨x,hx⟩).property,?_⟩
     rw [←hkv,B.apply_symm_apply]

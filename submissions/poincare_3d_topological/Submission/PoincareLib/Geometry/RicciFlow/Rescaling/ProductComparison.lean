@@ -1,3 +1,4 @@
+import Mathlib.Topology.Algebra.Module.Equiv.Submodule
 import Submission.PoincareLib.Geometry.RicciFlow.Rescaling.Ordinary
 import Submission.PoincareLib.Geometry.Spacetime.Rescaling.Interval.Transport
 import Mathlib.Geometry.Manifold.MFDeriv.SpecificFunctions

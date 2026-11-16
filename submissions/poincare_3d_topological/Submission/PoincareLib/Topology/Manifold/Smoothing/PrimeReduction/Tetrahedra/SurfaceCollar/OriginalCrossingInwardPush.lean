@@ -58,8 +58,9 @@ theorem exists_original_crossing_inward_push
   rcases hside with hp | hn
   · have hconv : Convex ℝ (ell ⁻¹' Ici 0) := (convex_Ici (0 : ℝ)).linear_preimage ell.toLinearMap
     have hw : (Pi.single 0 1 : V3) ∈ interior (ell ⁻¹' Ici 0) := by
-      apply (interior_maximal (fun x hx => le_of_lt hx)
-        (isOpen_lt continuous_const ell.continuous))
+      apply (interior_maximal (t := {x : V3 | 0 < ell x})
+        (by intro x hx; change 0 ≤ ell x; exact (show 0 < ell x from hx).le) (isOpen_lt
+          continuous_const ell.continuous))
       change 0 < (Pi.single 0 (1 : ℝ) : V3) 0
       simp
     apply exists_original_chart_inward_push e he D hD hO D.open_target Subset.rfl
@@ -69,8 +70,9 @@ theorem exists_original_crossing_inward_push
     simp [A]
   · have hconv : Convex ℝ (ell ⁻¹' Iic 0) := (convex_Iic (0 : ℝ)).linear_preimage ell.toLinearMap
     have hw : (Pi.single 0 (-1) : V3) ∈ interior (ell ⁻¹' Iic 0) := by
-      apply (interior_maximal (fun x hx => le_of_lt hx)
-        (isOpen_lt ell.continuous continuous_const))
+      apply (interior_maximal (t := {x : V3 | ell x < 0})
+        (by intro x hx; change ell x ≤ 0; exact (show ell x < 0 from hx).le) (isOpen_lt
+          ell.continuous continuous_const))
       change (Pi.single 0 (-1 : ℝ) : V3) 0 < 0
       simp
     apply exists_original_chart_inward_push e he D hD hO D.open_target Subset.rfl

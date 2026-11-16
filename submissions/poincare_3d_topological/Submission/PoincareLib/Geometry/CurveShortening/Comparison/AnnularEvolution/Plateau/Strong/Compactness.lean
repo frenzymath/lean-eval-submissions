@@ -49,7 +49,7 @@ theorem m64Annulus_l2_isCompact_of_localized
     simpa only [Real.norm_eq_abs, sq_abs] using
       (sq_le_sq₀ (norm_nonneg (f j p)) hA0).mpr (hA j p)
   have hU (j : ℕ) : MemLp (S.indicator (f j)) 2 volume :=
-    (memLp_indicator_iff_restrict hS).mpr (hf j)
+    (memLp_indicator_iff_restrict hS.nullMeasurableSet).mpr (hf j)
   let U (j : ℕ) := (hU j).toLp (S.indicator (f j))
   have hTB : TotallyBounded (range U) := by
     apply Metric.totallyBounded_iff.mpr

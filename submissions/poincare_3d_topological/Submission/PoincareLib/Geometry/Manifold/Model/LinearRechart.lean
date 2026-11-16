@@ -34,7 +34,9 @@ theorem isManifold_linearRechart (A : E ≃L[ℝ] E') :
   have h := (𝓘(ℝ,E)).contDiffOn_extendCoordChange
     (IsManifold.subset_maximalAtlas (I := 𝓘(ℝ,E)) (n := ∞) he) (IsManifold.subset_maximalAtlas (I := 𝓘(ℝ,E)) (n := ∞) he')
   have h' := A.contDiff.comp_contDiffOn
-    (h.comp A.symm.contDiff.contDiffOn (by intro x hx; exact hx))
+    (h.comp A.symm.contDiff.contDiffOn
+      (s := A.symm ⁻¹' (ModelWithCorners.extendCoordChange e e').source)
+      (by intro x hx; exact hx))
   convert h' using 1 <;> simp [mfld_simps, Function.comp_def]
   rfl
 

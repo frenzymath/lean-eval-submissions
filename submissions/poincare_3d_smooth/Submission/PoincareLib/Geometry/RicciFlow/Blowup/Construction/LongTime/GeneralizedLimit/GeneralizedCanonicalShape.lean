@@ -105,8 +105,8 @@ theorem exists_generalized_canonical_slice_shape_threshold :
   have hK : IsCompact K := by
     apply IsCompact.of_isClosed_subset
       (g.isCompact_closedBall_of_metricComplete (G.limit.complete t ht) x R) isClosed_closure
-    apply closure_minimal
-      (fun y (hy : g.edist x y < ENNReal.ofReal R) => hy.le)
+    apply closure_minimal (s := g.ball x R)
+      (by intro y hy; exact (show g.edist x y < ENNReal.ofReal R from hy).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   have hxK : x ∈ K := by
     apply subset_closure

@@ -110,8 +110,12 @@ theorem finite_gauge_action_le (hM12 : GeneralizedRicciGaugeTheory.{u} 3)
   let Q i := M08.integratedFormMap _ ((hD i).toLp (D i))
   have hQ (i : iota) : Tendsto (fun k => ‖Qk i k - Q i‖) atTop (𝓝 (0 : ℝ)) := by
     apply M08.integratedForm_tendsto_of_uniform (B i) (D i) (hB i) (hD i)
-    exact M08.uniform_composition_on_compact_core (hK i) (fun z : ℝ × G.Point => A i z.2)
-      ((hA i).comp continuousOn_snd (fun _ hz => hz.2)) paths gamma
+    exact M08.uniform_composition_on_compact_core (a := a i) (b := b i) (hK i) (fun z : ℝ ×
+      G.Point => A i z.2)
+      (by
+        with_unfolding_all
+          exact (hA i).comp (s := Icc (a i) (b i) ×ˢ K i)
+            continuousOn_snd Set.mapsTo_snd_prod) paths gamma
       (Eventually.of_forall (hpathsK i)) (hgammaK i) (hlim' i)
   have hQpos (i : iota) (z : M08.ChartL2 (EuclideanSpace ℝ (Fin 3)) (a i) (b i)) :
       0 ≤ Q i z z := by
@@ -160,7 +164,8 @@ theorem finite_gauge_action_le (hM12 : GeneralizedRicciGaugeTheory.{u} 3)
       exact hV.continuousOn.comp (continuousOn_id.prodMk (hpaths i k))
         (fun _ _ => mem_univ _)
     · rw [uIcc_of_le (hab i)]
-      exact M08.uniform_composition_on_compact_core (hK i) V hV.continuousOn paths gamma
+      exact M08.uniform_composition_on_compact_core (a := a i) (b := b i) (hK i) V
+        hV.continuousOn paths gamma
         (Eventually.of_forall (hpathsK i)) (hgammaK i) (hlim' i)
   have htotal := M08.finite_quadratic_action_le v w C hC hbound hweak Q Qk hQpos hQ
     (fun k => ∑ i, ∫ s in a i..b i, V (s, paths k s)) action

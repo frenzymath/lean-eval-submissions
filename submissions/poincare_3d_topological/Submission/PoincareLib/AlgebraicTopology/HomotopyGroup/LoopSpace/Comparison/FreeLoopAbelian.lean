@@ -42,14 +42,15 @@ theorem homotopic_of_free_homotopy
     (p q : Path x x) (H : p.toContinuousMap.Homotopy q.toContinuousMap)
     (htrace : ∀ t, H (t, 0) = H (t, 1)) : p.Homotopic q := by
   obtain ⟨r, h⟩ := homotopic_trans_trace p q H htrace
-  let P : FundamentalGroup X x := Homotopic.Quotient.mk p
-  let Q : FundamentalGroup X x := Homotopic.Quotient.mk q
-  let R : FundamentalGroup X x := Homotopic.Quotient.mk r
+  let P : FundamentalGroup X x := FundamentalGroup.fromPath (Homotopic.Quotient.mk p)
+  let Q : FundamentalGroup X x := FundamentalGroup.fromPath (Homotopic.Quotient.mk q)
+  let R : FundamentalGroup X x := FundamentalGroup.fromPath (Homotopic.Quotient.mk r)
   have he : R * P = Q * R := by
+    apply CategoryTheory.End.ext
     change Homotopic.Quotient.mk (p.trans r) = Homotopic.Quotient.mk (r.trans q)
     exact Quotient.sound h
   rw [hcomm Q R] at he
   have hPQ : P = Q := mul_left_cancel he
-  exact Quotient.exact hPQ
+  exact Quotient.exact (congrArg FundamentalGroup.toPath hPQ)
 
 end Path

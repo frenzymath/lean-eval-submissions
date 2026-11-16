@@ -35,10 +35,10 @@ private theorem zeroExtension_memW01p_of_continuous
     (hzero : ∀ z : Plane, z 0 = 0 → u z = 0) (hu : MemW1p 2 u Half) :
     MemW01p 2 ((Half).indicator u) Half := by
   have hLp : MemLp ((Half).indicator u) 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu.1
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr hu.1
   have hp (i : Fin 2) : MemLp ((Half).indicator (chosenWeakPartial' 2 i u Half))
       2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr
       (chosenWeakPartial'_memLp_of_mem hu i)
   have hw : MemW1p 2 ((Half).indicator u) univ := by
     refine ⟨by simpa only [Measure.restrict_univ] using hLp, fun i => ?_⟩

@@ -4,6 +4,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 import Submission.PoincareLib.Topology.Surface.Triangulation.Faces.Bands.Polygonal
 import Submission.PoincareLib.Topology.Plane.Curves.Graphs.ObliquePolygonalBoundary
 
+noncomputable section
+
 /-!
 # Smooth faces between oblique endpoint cuts
 

@@ -106,7 +106,8 @@ theorem tendsto_iterated_integral_reducedLengthPullback_gradient_energy_sub_abs
       (S.rescaling (G.subsequence (σ k))).flow (G.sourceCoordinateChart (σ k) q)
       he hei i j).continuousOn.mono hdom
     rw [Measure.prod_restrict]
-    exact (hc.comp continuous_swap.continuousOn (fun z hz => ⟨hz.2, hz.1⟩)).aestronglyMeasurable
+    exact (hc.comp (s := Icc α β ×ˢ Metric.ball a (r / 2))
+      continuous_swap.continuousOn (by intro z hz; exact ⟨hz.2, hz.1⟩)).aestronglyMeasurable
       (measurableSet_Icc.prod measurableSet_ball)
   have hB (i j : Fin n) :
       AEStronglyMeasurable (fun z : ℝ × EuclideanSpace ℝ (Fin n) => B z.swap i j)
@@ -118,7 +119,8 @@ theorem tendsto_iterated_integral_reducedLengthPullback_gradient_energy_sub_abs
     have hc := (RicciFlow.BackwardCoordinates.contDiffOn_weightedPrincipal G.limit.flow e
       contMDiffOn_chart_symm contMDiffOn_chart i j).continuousOn.mono hdom
     rw [Measure.prod_restrict]
-    exact (hc.comp continuous_swap.continuousOn (fun z hz => ⟨hz.2, hz.1⟩)).aestronglyMeasurable
+    exact (hc.comp (s := Icc α β ×ˢ Metric.ball a (r / 2))
+      continuous_swap.continuousOn (by intro z hz; exact ⟨hz.2, hz.1⟩)).aestronglyMeasurable
       (measurableSet_Icc.prod measurableSet_ball)
   let : IsFiniteMeasure (volume.restrict (Metric.ball a (r / 2))) :=
     ⟨by rw [Measure.restrict_apply_univ]; exact measure_ball_lt_top⟩

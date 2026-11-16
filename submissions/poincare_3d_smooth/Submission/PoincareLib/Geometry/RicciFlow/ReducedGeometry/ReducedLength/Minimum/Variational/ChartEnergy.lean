@@ -32,7 +32,8 @@ theorem compact_positive_forms_coercive {X E : Type*} [TopologicalSpace X]
     ∃ c : ℝ, 0 < c ∧ ∀ x ∈ K, ∀ v : E, c * ‖v‖ ^ 2 ≤ B x v v := by
   have hcont : ContinuousOn (fun z : X × E ↦ B z.1 z.2 z.2)
       (K ×ˢ Metric.sphere (0 : E) 1) :=
-    ((hB.comp continuous_fst.continuousOn (fun z hz ↦ hz.1)).clm_apply
+    ((hB.comp (s := K ×ˢ Metric.sphere (0 : E) 1) continuous_fst.continuousOn
+      (by intro z hz; exact hz.1)).clm_apply
       continuous_snd.continuousOn).clm_apply continuous_snd.continuousOn
   obtain ⟨c, hc, hmin⟩ := (hK.prod (isCompact_sphere (0 : E) 1)).exists_forall_le'
     hcont (fun z hz ↦ hpos z.1 hz.1 z.2 (by

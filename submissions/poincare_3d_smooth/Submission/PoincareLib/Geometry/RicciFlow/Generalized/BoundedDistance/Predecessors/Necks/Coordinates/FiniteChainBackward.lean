@@ -216,7 +216,10 @@ theorem exists_finite_backward_extension_closed_quarters :
         g.edist R.center N.center ≤ ENNReal.ofReal ((1.01 : ℝ) * R.scale * epsilon⁻¹) := by
     rw [hcomm R.center N.center, hRc]
     have hc := N.edist_center_closure_bounds
-      (closure_mono (fun _ hx => hx.1) hy) hyoutN
+      (by
+        apply closure_mono ?_ hy
+        intro x hx
+        exact hx.1) hyoutN
     rw [hNe] at hc
     constructor
     · apply (ENNReal.ofReal_le_ofReal ?_).trans hc.1
@@ -248,7 +251,8 @@ theorem exists_finite_backward_extension_closed_quarters :
     · exact False.elim (hx (N.central_sphere_subset hxS))
     · exact Or.inr (by simpa only [hNe] using hplus x ⟨hxB, hx⟩)
   have hyK : N'.center ∈ connectedComponent N.center :=
-    closure_minimal (fun _ hx => N.m25_carrier_subset_connectedComponent hx.1)
+    closure_minimal (s := N.region (-epsilon⁻¹) 0)
+      (fun _ hx => N.m25_carrier_subset_connectedComponent hx.1)
       isClosed_connectedComponent hy
   have hyH : H N'.center = -L := by
     have hnonpositive : N.region (-epsilon⁻¹) 0 ⊆ {x | H x ≤ 0} := by

@@ -38,7 +38,7 @@ theorem edist_le_mul_of_tangentNorm_mfderiv_le
   intro γ hγ
   let η : Path (F x) (F y) := γ.map hF.continuous
   have hη : ContMDiff (𝓡∂ 1) (𝓡 n) 1 η := hF.comp hγ
-  refine (biInf_le _ hη).trans ?_
+  refine (iInf_le_of_le η (iInf_le_of_le hη le_rfl)).trans ?_
   rw [← lintegral_const_mul' _ _ ENNReal.ofReal_ne_top]
   apply lintegral_mono
   intro t

@@ -4,6 +4,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 import Submission.PoincareLib.Topology.Surface.Triangulation.CircleCover.CrossingCoordinates
 import Submission.PoincareLib.Topology.Surface.Triangulation.CircleCover.Locality
 
+noncomputable section
+
 /-!
 # Disjoint compact rectangular patches at circle crossings
 

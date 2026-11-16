@@ -15,6 +15,8 @@ Theorem 41.2, Case 2, pp. 2676--2677; no cone or compact link is asserted here.
 
 noncomputable section
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 
 open Set Filter TopologicalSpace

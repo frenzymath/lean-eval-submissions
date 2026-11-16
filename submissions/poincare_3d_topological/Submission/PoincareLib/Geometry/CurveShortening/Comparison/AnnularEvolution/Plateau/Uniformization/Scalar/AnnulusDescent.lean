@@ -48,6 +48,8 @@ theorem scalarAnnulus_exists_physical_descent
       ∀ p : Plane, p ≠ 0 → ∃ L : ℝ≥0, ∃ V ∈ 𝓝 p, ∀ x ∈ V, ∀ y ∈ V,
         g.edist (F x) (F y) ≤ (L : ℝ≥0∞) * edist x y := by
   let : LocallyCompactSpace M := ChartedSpace.locallyCompactSpace (EuclideanSpace ℝ (Fin n)) M
+  let : T1Space M := T2Space.t1Space
+  let : T0Space M := T1Space.t0Space
   let : R1Space M := T2Space.r1Space
   let : RegularSpace M := RegularSpace.of_hasBasis
     isCompact_isClosed_basis_nhds (fun _ _ ⟨_, _, h⟩ => h)

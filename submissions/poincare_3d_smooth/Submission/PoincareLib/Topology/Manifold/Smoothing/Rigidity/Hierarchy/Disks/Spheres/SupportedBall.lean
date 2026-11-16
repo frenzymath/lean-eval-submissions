@@ -174,7 +174,7 @@ theorem ChartwisePLMap.exists_hamiltonZero_supported_ball_third_phase_homotopy
   obtain ⟨l, w, hl, _, hwD, hwout, hwPL⟩ :=
     hphi.exists_hamiltonZero_supported_ball_third_displacement hd b theta hphase
   obtain ⟨psi, hpsi, Hpsi, Fpsi, hq1, hq2, hq3, G, hG⟩ :=
-    hphi.exists_hamiltonZero_third_scalar_homotopy hd F w hwPL hwout
+    hphi.exists_hamiltonZero_third_scalar_homotopy hd F w hwPL (B := (interior D)ᶜ) hwout
   have hnew (x : X0) (hx : x ∈ D) :
       hamiltonZeroThirdCircleMap psi x = (theta : C0) := by
     rw [hq3, hwD ⟨x, hx⟩, ← hl ⟨x, hx⟩]

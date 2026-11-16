@@ -305,7 +305,9 @@ theorem edist_le_of_mem_closure_tail (N : EpsilonNeck g)
         _ = (1.0005 : ℝ) * N.scale *
             (A - (N.coordinate_inverse x).2 + A / 256 + 7.1) := by ring
     exact hed.trans (ENNReal.ofReal_le_ofReal hfactor)
-  exact closure_minimal hpoint
+  exact closure_minimal (s := N.region (255 * A / 256) A)
+    (t := {y | g.edist x y ≤ ENNReal.ofReal
+      (1.0005 * N.scale * (A - (N.coordinate_inverse x).2 + A / 256 + 7.1))}) hpoint
     (isClosed_le (continuous_const.edist continuous_id) continuous_const) hp
 
 /-- The successor carrier supplies a middle margin when a cap core lies near

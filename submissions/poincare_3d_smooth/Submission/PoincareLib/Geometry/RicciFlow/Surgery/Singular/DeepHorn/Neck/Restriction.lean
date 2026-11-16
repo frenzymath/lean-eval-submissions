@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.DeepHorn.Neck.Comparison
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.Geometry
 
+noncomputable section
+
 /-!
 # Restricting a strong neck to a weaker accuracy
 

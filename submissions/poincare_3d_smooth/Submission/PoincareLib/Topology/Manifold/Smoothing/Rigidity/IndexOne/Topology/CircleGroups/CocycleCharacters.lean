@@ -43,10 +43,11 @@ theorem quotientValue_trans (c : A.ModTwoEdgeCocycle)
 
 noncomputable def loopCharacter (c : A.ModTwoEdgeCocycle) (x : A.barycentricSpace) :
     FundamentalGroup A.barycentricSpace x →* Multiplicative (ZMod 2) where
-  toFun p := Multiplicative.ofAdd (c.quotientValue p)
+  toFun p := Multiplicative.ofAdd (c.quotientValue p.toPath)
   map_one' := congrArg Multiplicative.ofAdd (c.quotientValue_refl x)
   map_mul' p q := by
-    change c.quotientValue (q.trans p) = c.quotientValue p + c.quotientValue q
+    change c.quotientValue (q.toPath.trans p.toPath) =
+      c.quotientValue p.toPath + c.quotientValue q.toPath
     rw [c.quotientValue_trans, add_comm]
 
 /-- In one original star, the integral is the difference of the two

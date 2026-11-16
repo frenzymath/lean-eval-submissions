@@ -87,7 +87,7 @@ theorem exists_minimal_protected_core_genus
     exact (Finset.card_le_card htu).trans_eq hu
   refine ⟨C, hC, hCconn, hCPL, hCR, hBC, hCprotect, ?_⟩
   dsimp only
-  apply Nat.lt_wfRel.wf.has_min
+  apply Nat.lt_wfRel.wf.has_min {complexity | _}
   refine ⟨Wall.compressionComplexity ((List.finRange n).map genus),
     K, F, hK, hKconn, hKPL, hCK, hKR, hFne, hF, hFi, hBF, hfront, hrel,
     hprotect, hloops, K, s, B, (fun z => (g z : X)), n, pick, S, genus,

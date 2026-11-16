@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Collars.OriginalFiniteCollarModel
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.General.SourceMeridianBand
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Disks.SourceMeridianBandDisk
@@ -13,6 +14,7 @@ derivations 004 and 037.
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
 open Set Metric Geometry
 
 namespace PoincareMT.M76
@@ -100,7 +102,7 @@ theorem exists_source_meridian_finite_band_disk
       (Dehn.squareRimLoop.map rimM.continuous)) ≠ 1 := by
     intro hclass
     have hnull : (Dehn.squareRimLoop.map rimM.continuous).Homotopic
-        (Path.refl (rimM Dehn.squareRimBase)) := Path.Homotopic.Quotient.eq.mp hclass
+        (Path.refl (rimM Dehn.squareRimBase)) := (FundamentalGroup.fromPath_eq_one_iff _).mp hclass
     have hmapped := hnull.map project
     have hpath : ((Dehn.squareRimLoop.map rimM.continuous).map project.continuous).toContinuousMap =
         ((Dehn.squareRimLoop.map rim.continuous).map
@@ -112,7 +114,7 @@ theorem exists_source_meridian_finite_band_disk
     change ((Dehn.squareRimLoop.map rimM.continuous).map project.continuous).toContinuousMap.HomotopicRel
       ((Path.refl (rimM Dehn.squareRimBase)).map project.continuous).toContinuousMap {0, 1} at hmapped
     rw [hpath, hconst] at hmapped
-    exact hessential (Path.Homotopic.Quotient.eq.mpr hmapped)
+    exact hessential ((FundamentalGroup.fromPath_eq_one_iff _).mpr hmapped)
   have hjM : FinitePiecewiseAffineOn (M.coordinates ∘ j) D := by
     obtain ⟨_, _, _, _, _, _, ⟨_, ⟨J, hJ, hJD, _⟩, _⟩, _⟩ :=
       isFinitePLBallPair_unit_cube (ι := Fin 2)

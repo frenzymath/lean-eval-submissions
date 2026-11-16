@@ -40,7 +40,7 @@ theorem exists_global_l2_spatial_weak_derivatives
     exists_local_spatial_weak_derivatives hU hC hEll hu hw hz
   let g : Fin n → Spacetime n → ℝ := fun i => (ball z r).indicator (fun y => V i y)
   have hgm (i : Fin n) : MemLp (g i) 2 volume :=
-    (memLp_indicator_iff_restrict measurableSet_ball).mpr (Lp.memLp (V i))
+    (memLp_indicator_iff_restrict (measurableSet_ball).nullMeasurableSet).mpr (Lp.memLp (V i))
   have hgc (i : Fin n) : HasCompactSupport (g i) := by
     apply (isCompact_closedBall z r).of_isClosed_subset (isClosed_tsupport (g i))
     apply closure_minimal _ isClosed_closedBall

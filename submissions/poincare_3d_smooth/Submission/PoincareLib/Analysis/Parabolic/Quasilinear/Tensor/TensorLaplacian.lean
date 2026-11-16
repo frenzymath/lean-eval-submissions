@@ -20,6 +20,8 @@ first-order tensor form. Density extends this to the complete form domain.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option maxHeartbeats 1600000
 
 open MeasureTheory Set Filter

@@ -48,8 +48,8 @@ private theorem compact_inverse_spacetime_support
   apply hc.isCompact.image_of_continuousOn
   have hback : ContinuousOn (fun z : M × ℝ => (e.symm z.1, z.2))
       (e.target ×ˢ univ) :=
-    (e.symm.continuousOn.comp continuous_fst.continuousOn
-      (fun z hz => hz.1)).prodMk continuous_snd.continuousOn
+    (e.symm.continuousOn.comp (s := e.target ×ˢ univ) continuous_fst.continuousOn
+      (by intro z hz; exact hz.1)).prodMk continuous_snd.continuousOn
   exact hback.mono hs
 
 theorem tsupport_spacetimeChartPullback_subset_image
@@ -62,7 +62,8 @@ theorem tsupport_spacetimeChartPullback_subset_image
   intro z hz
   have hsource : z.1 ∈ e.source := by
     by_contra h
-    exact hz (indicator_of_notMem (fun hz' => h hz'.1) _)
+    exact hz (indicator_of_notMem (s := e.source ×ˢ univ)
+      (by intro hz'; exact h hz'.1) _)
   refine ⟨(e z.1, z.2), subset_tsupport φ ?_, ?_⟩
   · simpa only [Function.mem_support, spacetimeChartPullback_apply e φ hsource] using hz
   · simp only [e.left_inv hsource, Prod.eta]

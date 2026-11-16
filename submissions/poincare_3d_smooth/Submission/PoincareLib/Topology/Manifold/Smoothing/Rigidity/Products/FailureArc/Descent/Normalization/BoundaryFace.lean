@@ -176,7 +176,7 @@ theorem Step.exists_boundary_surface_face_motion
   obtain ⟨G, hG, hGinv, hzero, hGQ, hGout, hprotected, _, _,
     hGregion, hGPL, hGinvPL⟩ :=
     H.exists_marked_chart_motion J hJ Q.symm hJQ (hP₀P.trans (hPJ.trans hJQ))
-      t.charts t.compatible hQ hupper
+      t.charts t.compatible hQ (B := {z | 0 ≤ ell z}) hupper
       (fun a z => by change 0 ≤ ell (H.map a z) ↔ 0 ≤ ell z; rw [hheight]) hFup hsupport
   have hformula (a : I) : EqOn (G a) (Q.symm ∘ H.map a ∘ Q) Q.source := hGQ a
   have hprefix (a : I) : EqOn (G a) id (j '' K₀.space) :=

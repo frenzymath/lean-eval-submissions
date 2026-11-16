@@ -73,8 +73,8 @@ theorem exists_finite_limit_compact_scalar_bound_threshold
       apply IsCompact.of_isClosed_subset
         (g.isCompact_closedBall_of_metricComplete
           (G.limit.complete 0 G.limit.zero_mem) G.limit.base rho) isClosed_closure
-      apply closure_minimal
-        (fun x (hx : g.edist G.limit.base x < ENNReal.ofReal rho) => hx.le)
+      apply closure_minimal (s := g.ball G.limit.base rho)
+        (by intro x hx; exact (show g.edist G.limit.base x < ENNReal.ofReal rho from hx).le)
       exact isClosed_le (continuous_const.edist continuous_id) continuous_const
     have hpball : G.limit.base ∈ g.ball G.limit.base rho := by
       change g.edist G.limit.base G.limit.base < ENNReal.ofReal rho

@@ -42,6 +42,8 @@ theorem affine_nonpos_on_hull_of_centroid (s : Finset E) (hs : s.Nonempty)
           exact (mul_le_mul_iff_right₀ (inv_pos.mpr hcard)).mp hle
         exact le_antisymm hle (sum_nonneg h)
       exact fun v hv => ((sum_eq_zero_iff_of_nonneg h).mp hsum v hv).le
-  exact convexHull_min hvertices ((convex_Iic (0 : ℝ)).affine_preimage A)
+  exact convexHull_min (by
+      intro x hx
+      exact hvertices x hx) ((convex_Iic (0 : ℝ)).affine_preimage A)
 
 end Finset

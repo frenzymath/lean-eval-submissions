@@ -21,9 +21,11 @@ private theorem homotopy_map_injective
   let N := FundamentalGroupoidFunctor.homotopicMapsNatIso H
   intro u v huv
   apply hf
+  apply CategoryTheory.End.ext
+  have huv := congrArg CategoryTheory.End.asHom huv
   apply (cancel_mono (N.app ⟨x⟩)).mp
-  exact (N.naturality u).trans ((congrArg (fun q => N.app ⟨x⟩ ≫ q) huv).trans
-    (N.naturality v).symm)
+  exact (N.naturality u.asHom).trans ((congrArg (fun q => N.app ⟨x⟩ ≫ q) huv).trans
+    (N.naturality v.asHom).symm)
 
 theorem pi1_injective_of_inward_motion_and_kernel
     {X Y Z : Type*} [TopologicalSpace X] [TopologicalSpace Y] [TopologicalSpace Z]

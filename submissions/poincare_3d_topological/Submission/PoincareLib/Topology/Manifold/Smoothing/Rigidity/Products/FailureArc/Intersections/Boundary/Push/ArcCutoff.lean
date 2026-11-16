@@ -30,7 +30,7 @@ theorem exists_finitePL_disk_arc_cutoff
   let K := {x ∈ d | δ ≤ v x}
   have hK : IsCompact K := hd.isCompact.of_isClosed_subset
     (hv.continuousOn.preimage_isClosed_of_isClosed hd.isCompact.isClosed isClosed_Ici)
-    inter_subset_left
+    (by intro x hx; exact hx.1)
   have hKd : K ⊆ d \ W := by
     intro x hx
     refine ⟨hx.1, ?_⟩

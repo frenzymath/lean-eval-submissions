@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Attachment.MarkedBall
 
+noncomputable section
+
 /-!
 # Normalizing an ambient ball and its marked disk
 

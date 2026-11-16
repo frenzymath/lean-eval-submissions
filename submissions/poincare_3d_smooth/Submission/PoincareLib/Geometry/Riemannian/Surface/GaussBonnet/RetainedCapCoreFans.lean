@@ -278,8 +278,8 @@ theorem exists_core_halfspace_at_open_cap_chord
   filter_upwards [hc, hi] with z hcz hiz
   apply propext
   have he := propext_iff.mp hcz
-  change _ ↔ ¬ interior _ z at he
-  change interior _ z = _ at hiz
+  change _ ↔ z ∉ interior _ at he
+  change (z ∈ interior _) = _ at hiz
   rw [hiz] at he
   exact he.trans not_lt
 

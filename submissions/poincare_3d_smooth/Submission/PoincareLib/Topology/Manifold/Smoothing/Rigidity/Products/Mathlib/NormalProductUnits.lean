@@ -105,7 +105,7 @@ theorem exists_coherent_normal_product_units
     coordChange := fun i j x v => d i j x * v
     coordChange_self := fun i x hx v => by rw [hdself i x hx, one_mul]
     continuousOn_coordChange := fun i j =>
-      ((hdc i j).comp continuous_fst.continuousOn (fun _ h => h.1)).mul
+      ((hdc i j).comp continuous_fst.continuousOn (by intro _ h; exact h.1)).mul
         continuous_snd.continuousOn
     coordChange_comp := fun i j k x hx v => by
       rw [← mul_assoc, hdcocycle i j k x hx] }

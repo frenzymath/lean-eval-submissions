@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.VanKampen.General
 import Submission.PoincareLib.Topology.Manifold.Surgery.GroupEffects.ConnectedSum.Coordinates
 import Submission.PoincareLib.Topology.Covering.SimplyConnected
@@ -66,7 +67,7 @@ theorem isSimplyConnected_of_open_cover
   apply simply_connected_iff_loops_nullhomotopic.mpr
   refine ⟨inferInstance, ?_⟩
   intro x p
-  rw [← Path.Homotopic.Quotient.eq]
+  apply (FundamentalGroup.fromPath_eq_one_iff p).mp
   apply VanKampen.inclusion_injective_at U V x hU hV hcover hinter
   exact Subsingleton.elim _ _
 

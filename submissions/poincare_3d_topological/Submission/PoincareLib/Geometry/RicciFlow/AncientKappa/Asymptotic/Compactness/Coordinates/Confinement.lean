@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.Compact
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.Compactness.Relative.Surjectivity
 import Submission.PoincareLib.Analysis.Calculus.SmoothCompactness.Operations
 
+noncomputable section
+
 /-!
 # Compact coordinate targets for relative pointed limits
 

@@ -6,6 +6,8 @@ import Submission.PoincareLib.Geometry.Riemannian.LoopSpace.Area.LipschitzArea
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.AreaComparison.Projection.Integrability
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.PolygonApproximation.Area.DensityProduct
 
+noncomputable section
+
 /-!
 # Admissibility from a rectangle Lipschitz estimate
 

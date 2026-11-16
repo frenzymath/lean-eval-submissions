@@ -180,7 +180,8 @@ theorem exists_hamiltonZero_closed_second_component_removal
           (ContinuousMap.inclusion hPT) := rfl
     have h := hinj x
     rw [heq, FundamentalGroup.map_comp] at h
-    exact Function.Injective.of_comp h
+    exact Function.Injective.of_comp
+      (f := FundamentalGroup.map (⟨Subtype.val, continuous_subtype_val⟩ : C(T, X0)) _) h
   have hnewslabs := plDomains_hamiltonZero_second_slabs_of_supported_phase_avoidance phi psi
     hR ha hab (by simpa only [zero_add] using hb) hslabs hK.isClosed hKR hfixedK havoid
   refine ⟨psi, K, G, hK, hKR, hSK, ⟨SK, ⟨ball⟩⟩, hzero, hone, hfixed, hnormal, hcoord,

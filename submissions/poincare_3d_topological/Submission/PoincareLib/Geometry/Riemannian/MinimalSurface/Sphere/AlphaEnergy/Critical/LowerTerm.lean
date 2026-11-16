@@ -48,9 +48,9 @@ private theorem suLowerTerm_bilinear_memLp {E F : Type*}
     (hB : MemLp B ⊤ mu) (hv : MemLp v p mu) :
     MemLp (fun x => B x (v x) (v x)) q mu := by
   have hb : MemLp (fun x => B x (v x)) p mu :=
-    (ContinuousLinearMap.apply ℝ (E →L[ℝ] F) (E := E)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ (E →L[ℝ] F) (E' := E)).memLp_of_bilin
       (p := p) (q := ⊤) p hv hB
-  exact (ContinuousLinearMap.apply ℝ F (E := E)).memLp_of_bilin
+  exact (ContinuousLinearMap.apply ℝ F (E' := E)).memLp_of_bilin
     (p := p) (q := p) q hv hb
 
 /-- The exact lower source of the weak normalized equation. -/
@@ -139,12 +139,12 @@ theorem SUInitialGain.alpha_lowerTerm_memLp
   have hcubic (i j : Fin 2) :
       MemLp (fun x => fderiv ℝ B (u x) (V i x) (V j x) (V j x)) 8 mu := by
     have h1 : MemLp (fun x => fderiv ℝ B (u x) (V i x)) 32 mu := by
-      simpa only using! (ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+      simpa only using! (ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
         (p := 32) (q := ⊤) 32 (hcol 32 (by norm_num) i) hDGtop
     have h2 : MemLp (fun x => fderiv ℝ B (u x) (V i x) (V j x)) 16 mu :=
-      (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+      (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
         (p := 32) (q := 32) 16 (hcol 32 (by norm_num) j) h1
-    exact (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
+    exact (ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
       (p := 16) (q := 16) 8 (hcol 16 (by norm_num) j) h2
   have hlower (i : Fin 2) : MemLp (fun x =>
       ((∑ j : Fin 2, fderiv ℝ B (u x) (V i x) (V j x) (V j x)) -

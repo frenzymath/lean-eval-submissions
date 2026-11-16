@@ -42,8 +42,8 @@ theorem roundCylinderGram_joint_contDiff (q : UnitTwoSphere) (a b : Fin 3) :
 theorem roundCylinderGram_inv_joint_contDiffOn (q : UnitTwoSphere) (a b : Fin 3) :
     ContDiffOn ℝ ∞ (fun z : ℝ × RoundCylinderCoordinates =>
       (roundCylinderGram z.1 (chartAt E₂ q) z.2)⁻¹ a b) Q :=
-  ContDiffOn.matrix_inv (fun i j => (roundCylinderGram_joint_contDiff q i j).contDiffOn)
-    (fun z hz => roundCylinderGram_det_ne_zero hz.1 q z.2) a b
+  ContDiffOn.matrix_inv (by intro i j; exact (roundCylinderGram_joint_contDiff q i j).contDiffOn)
+    (by intro z hz; exact roundCylinderGram_det_ne_zero hz.1 q z.2) a b
 
 /-- Joint smoothness of the actual Christoffel coefficients uses spatial
 derivatives only (Proposition 12.7, pp. 298-299). -/
@@ -80,14 +80,16 @@ theorem roundCylinderChristoffel_uniform_spatial_jet_bound
     have hs := roundCylinderChristoffel_joint_contDiffOn q₀ a.1 a.2.1 a.2.2
     have hc := (hs.iteratedFDeriv_snd_of_isOpen isOpen_univ m).continuousOn
     obtain ⟨C, hC⟩ := hcompact.exists_bound_of_continuousOn
-      (hc.mono (fun z hz => ⟨hz.1.2.trans_lt hT, mem_univ _⟩))
+      (hc.mono (by intro z hz; exact ⟨hz.1.2.trans_lt hT, mem_univ _⟩))
     exact ⟨C, fun u hu x hx => hC (u, x) ⟨hu, hx⟩⟩
   choose C hC using hbounds
   let D : ℝ := ∑ a : Fin 3 × Fin 3 × Fin 3, max (C a) 0
-  refine ⟨D, Finset.sum_nonneg (fun _ _ => le_max_right _ _), ?_⟩
+  refine ⟨D, Finset.sum_nonneg (by intro _ _; exact le_max_right _ _), ?_⟩
   intro u hu q x hx a b d
   rw [roundCylinderChristoffel_eq_chart_center u q₀ q]
   exact (hC (a, b, d) u hu x hx).trans ((le_max_left _ _).trans
-    (Finset.single_le_sum (fun _ _ => le_max_right _ _) (Finset.mem_univ (a, b, d))))
+    (Finset.single_le_sum (s := Finset.univ)
+      (f := fun z : Fin 3 × Fin 3 × Fin 3 => max (C z) 0)
+      (by intro _ _; exact le_max_right _ _) (Finset.mem_univ (a, b, d))))
 
 end PoincareMT.M34

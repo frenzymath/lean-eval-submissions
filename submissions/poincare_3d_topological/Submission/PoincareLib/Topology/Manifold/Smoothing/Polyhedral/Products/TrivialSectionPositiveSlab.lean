@@ -35,7 +35,7 @@ theorem vertex_and_positive_others_of_trivial_section_slab_point
     by_contra h
     push Not at h
     have hxnonpos : A x ≤ 0 :=
-      convexHull_min h ((convex_Iic (0 : ℝ)).affine_preimage A) hxs
+      convexHull_min (by intro x hx; exact h x hx) ((convex_Iic (0 : ℝ)).affine_preimage A) hxs
     exact hxA.1.not_ge hxnonpos
   obtain ⟨v, hvs, hv⟩ := hpositive
   have hnotneg (z : E) (hzs : z ∈ s) : ¬A z < 0 := by
@@ -56,7 +56,7 @@ theorem vertex_and_positive_others_of_trivial_section_slab_point
   have hverts : ∀ z ∈ s, β < A z :=
     fun z hz => hother z hz (fun h => hqs (h ▸ hz))
   have hxabove : β < A x :=
-    convexHull_min hverts ((convex_Ioi β).affine_preimage A) hxs
+    convexHull_min (by intro x hx; exact hverts x hx) ((convex_Ioi β).affine_preimage A) hxs
   exact hxabove.not_ge hxA.2
 
 /-- Every unselected original triangle has positive slab levels

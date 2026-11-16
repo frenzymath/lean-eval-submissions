@@ -1,0 +1,3 @@
+LOCAL RESOURCE POLICY: MAP_FIXED_NOREPLACE returns EEXIST; stock Lean uses its read/malloc fallback.
+Geometry/RicciFlow/Surgery/ControlledSchedules/Providers.lean exit 0 log /gpfs/share/home/2301110044/AxelWorkspace/state/poincare-resubmit-20261116/check-08f53cb99b7e.log
+

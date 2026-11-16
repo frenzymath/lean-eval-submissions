@@ -42,7 +42,7 @@ variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
 See the affine-level-set argument in M76 derivation 16. -/
 theorem LinearMap.eqOn_const_convexHull (L : E →ₗ[ℝ] ℝ) {s : Set E} {c : ℝ}
     (hs : ∀ x ∈ s, L x = c) : ∀ x ∈ convexHull ℝ s, L x = c :=
-  convexHull_min hs ((convex_singleton c).linear_preimage L)
+  convexHull_min (by intro x hx; exact hs x hx) ((convex_singleton c).linear_preimage L)
 
 /-- A simplex of linearly independent position vectors lies on a linear
 functional's level set at one. See Cairns p. 802 and M76 derivation 16. -/

@@ -48,7 +48,8 @@ theorem PLDomain.exists_essential_filling_or_frontier_avoidance
       by_cases hnull : FundamentalGroup.fromPath
           (Path.Homotopic.Quotient.mk (Dehn.squareRimLoop.map rim.continuous)) = 1
       · have hrimnull : rim.Nullhomotopic :=
-          Dehn.nullhomotopic_of_squareRimLoop rim (Path.Homotopic.Quotient.exact hnull)
+          Dehn.nullhomotopic_of_squareRimLoop rim (Path.Homotopic.Quotient.exact (congrArg
+            FundamentalGroup.toPath hnull))
         obtain ⟨g', hg', hg'Y, hfixed, hcover', hS', hdisj', hlt⟩ := hdelete hrimnull
         have hpoly' : ∀ t ∈ S \ {s}, ∃ n : ℕ, ∃ p : Polygon V2 (n + 3),
             Function.Injective p ∧ p.HasSimplicialEdges ∧ p.boundary ℝ = t :=

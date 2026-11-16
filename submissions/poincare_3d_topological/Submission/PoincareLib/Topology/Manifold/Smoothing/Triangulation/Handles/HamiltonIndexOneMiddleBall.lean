@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Handles.HamiltonIndexOneShellBoundary
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Affine.FiniteAffineLevelComplex
 
+noncomputable section
+
 /-!
 # The same marked middle-ball parametrization
 

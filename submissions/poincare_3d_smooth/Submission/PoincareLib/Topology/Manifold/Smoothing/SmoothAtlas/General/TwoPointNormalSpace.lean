@@ -47,7 +47,10 @@ noncomputable def twoPointFrameEmbeddingHomeomorph (u v : E)
     (hv : LinearIndependent ℝ ![u, v]) :
     FrameEmbeddingSpace (toSpanSingleton ℝ u) (twoRayStar u v) ≃ₜ
       {Q : E →L[ℝ] ℝ // Q u = 1 ∧ Q v < 0} :=
-  Homeomorph.setCongr (by
+  Homeomorph.setCongr
+    (s := {Q : E →L[ℝ] ℝ | Function.RightInverse (toSpanSingleton ℝ u) Q ∧
+      InjOn Q (twoRayStar u v)})
+    (t := {Q : E →L[ℝ] ℝ | Q u = 1 ∧ Q v < 0}) (by
     ext Q
     change (Function.RightInverse (toSpanSingleton ℝ u) Q ∧ InjOn Q (twoRayStar u v)) ↔ _
     rw [rightInverse_rayFrame_iff]

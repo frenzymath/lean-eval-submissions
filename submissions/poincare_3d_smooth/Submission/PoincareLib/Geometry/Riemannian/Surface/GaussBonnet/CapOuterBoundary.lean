@@ -331,8 +331,8 @@ theorem chart_frontier_union_eventuallyEq_incident_segments
       (⋃ i, (B.face i).carrier))
     exact propext_iff.mp (by
       simpa only [mem_inter_iff, F.symm_source, hzt, true_and, mem_preimage] using h.symm)
-  change frontier (⋃ i, (B.face i).carrier) (F.symm z) =
-    (⋃ j, ((B.face (s j)).boundary 0).map '' Icc (0 : ℝ) 1) (F.symm z) at hz
+  change (F.symm z ∈ frontier (⋃ i, (B.face i).carrier)) =
+    (F.symm z ∈ ⋃ j, ((B.face (s j)).boundary 0).map '' Icc (0 : ℝ) 1) at hz
   refine hf.trans ((propext_iff.mp hz).trans ?_)
   constructor
   · intro h
@@ -362,9 +362,9 @@ theorem chart_frontier_union_eventuallyEq_first_rays (i : Bool) (v : S)
     (B.frontier_union_eventuallyEq_first_chords i)
   simp only [B.sector_first_tip_eq, B.sector_second_tip_eq] at hs
   have hr : ∀ᶠ z in 𝓝 (F (B.firstOuterTip i)), ∀ j : Bool,
-      affineSegment ℝ (F (B.firstOuterTip i)) (F (B.secondOuterTip j)) z =
-        ((fun t : ℝ => F (B.firstOuterTip i) + t •
-          (F (B.secondOuterTip j) - F (B.firstOuterTip i))) '' Ici (0 : ℝ)) z := by
+      (z ∈ affineSegment ℝ (F (B.firstOuterTip i)) (F (B.secondOuterTip j))) =
+        (z ∈ (fun t : ℝ => F (B.firstOuterTip i) + t •
+          (F (B.secondOuterTip j) - F (B.firstOuterTip i))) '' Ici (0 : ℝ)) := by
     apply Filter.eventually_all.mpr
     intro j
     apply affineSegment_eventuallyEq_positive_ray
@@ -400,9 +400,9 @@ theorem chart_frontier_union_eventuallyEq_second_rays (i : Bool) (v : S)
     (B.frontier_union_eventuallyEq_second_chords i)
   simp only [B.sector_first_tip_eq, B.sector_second_tip_eq] at hs
   have hr : ∀ᶠ z in 𝓝 (F (B.secondOuterTip i)), ∀ j : Bool,
-      affineSegment ℝ (F (B.firstOuterTip j)) (F (B.secondOuterTip i)) z =
-        ((fun t : ℝ => F (B.secondOuterTip i) + t •
-          (F (B.firstOuterTip j) - F (B.secondOuterTip i))) '' Ici (0 : ℝ)) z := by
+      (z ∈ affineSegment ℝ (F (B.firstOuterTip j)) (F (B.secondOuterTip i))) =
+        (z ∈ (fun t : ℝ => F (B.secondOuterTip i) + t •
+          (F (B.firstOuterTip j) - F (B.secondOuterTip i))) '' Ici (0 : ℝ)) := by
     apply Filter.eventually_all.mpr
     intro j
     rw [affineSegment_comm]

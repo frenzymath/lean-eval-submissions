@@ -84,14 +84,18 @@ theorem PairedSourceGeometry.slab_pi1_injective
           (⟨Subtype.val, continuous_subtype_val⟩ : C(sourceSlab phi uv.1 uv.2, X)).comp
             (ContinuousMap.inclusion hAN) := rfl
       rw [heq, FundamentalGroup.map_comp] at hi
-      exact Function.Injective.of_comp hi
+      exact Function.Injective.of_comp
+        (f := FundamentalGroup.map (⟨Subtype.val, continuous_subtype_val⟩ : C(sourceSlab phi
+          uv.1 uv.2, X)) _) hi
     · intro hBN x
       have hi := geometry.ambient_injective b (Or.inr rfl) x
       have heq : (⟨Subtype.val, continuous_subtype_val⟩ : C(B', X)) =
           (⟨Subtype.val, continuous_subtype_val⟩ : C(sourceSlab phi uv.1 uv.2, X)).comp
             (ContinuousMap.inclusion hBN) := rfl
       rw [heq, FundamentalGroup.map_comp] at hi
-      exact Function.Injective.of_comp hi
+      exact Function.Injective.of_comp
+        (f := FundamentalGroup.map (⟨Subtype.val, continuous_subtype_val⟩ : C(sourceSlab phi
+          uv.1 uv.2, X)) _) hi
   obtain ⟨hcover, hmeet⟩ := sourceSlab_complementary_partition phi ha hab hb
   obtain ⟨hSN, hcN, hpN⟩ := hprepared (a, b) (Or.inl rfl)
   obtain ⟨hSM, hcM, hpM⟩ := hprepared (b, a + p) (Or.inr rfl)

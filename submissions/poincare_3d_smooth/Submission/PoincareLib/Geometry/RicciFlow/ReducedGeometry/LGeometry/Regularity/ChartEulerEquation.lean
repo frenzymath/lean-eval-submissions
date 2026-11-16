@@ -110,7 +110,7 @@ theorem chartVelocityExtension_pullback {J I : Set ℝ} (F : RicciFlow n M J)
   have hframe := ((chartFrame_contMDiffOn x (q s) (α s) (hsrc hs)).contMDiffAt
     ((chartAt (EuclideanSpace ℝ (Fin n)) x).open_source.mem_nhds (hsrc hs))).mdifferentiableAt
       (by simp)
-  have hcov := (F.connection (time s)).connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+  have hcov := (F.connection (time s)).connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
     hE hframe univ_mem heq
   have hvel : curveVelocityWithin (n := n) α I s = chartFrame x (q s) (α s) :=
     (E.agrees s hs).symm.trans (chartVelocityExtension_apply hI x α hα hsrc s (hsrc hs))

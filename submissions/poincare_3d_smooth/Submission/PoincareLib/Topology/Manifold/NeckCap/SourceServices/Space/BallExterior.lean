@@ -102,7 +102,7 @@ theorem compactChart_exterior_connected [ProperSpace E]
     rw [← (e.injOn.mono hsource).image_sdiff_subset hsmall]
     exact (isConnected_unitAnnulus hdim hR).image e
       (e.continuousOn.mono (sdiff_subset.trans hsource))
-  exact ⟨houter.nonempty.mono (fun _ hx => hx.2),
+  exact ⟨houter.nonempty.mono (by intro _ hx; exact hx.2),
     isPreconnected_compl_of_neighborhood hK.isClosed hW (image_mono hsmall)
       houter.isPreconnected⟩
 

@@ -102,6 +102,6 @@ theorem HasNoPuncturedSphereComponents.transport_relative_cut
     exact image_mono (hBsub i)
   · rw [←F.image_frontier,hfront,image_union,image_iUnion,hFfront]
   · exact hno.image_of_supported_original_move F hQPL.cover hf hF
-      (hQeq.subset.trans inter_subset_left) interior_subset hfix L g hg hgi hreal
+      (hQeq.subset.trans sdiff_subset) interior_subset hfix L g hg hgi hreal
 
 end PoincareMT.M76

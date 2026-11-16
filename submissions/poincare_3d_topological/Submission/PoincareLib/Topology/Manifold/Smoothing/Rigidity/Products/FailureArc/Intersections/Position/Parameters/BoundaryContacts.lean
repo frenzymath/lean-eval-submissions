@@ -64,7 +64,7 @@ theorem finite_source_rim_contacts_of_pair_charts
     obtain ⟨x, hx, hxy⟩ := hy.1.2
     subst y
     exact hboundary x ⟨hx, (hproper x hx).mp hy.2⟩ hy.1.1)
-  apply Set.Finite.of_finite_image (hfinite.subset ?_) (hgi.mono (fun x hx => hx.1.1))
+  apply Set.Finite.of_finite_image (hfinite.subset ?_) (hgi.mono (by intro x hx; exact hx.1.1))
   rintro y ⟨x, hx, rfl⟩
   exact ⟨⟨hx.2, mem_image_of_mem g hx.1.1⟩, (hproper x hx.1.1).mpr hx.1.2⟩
 

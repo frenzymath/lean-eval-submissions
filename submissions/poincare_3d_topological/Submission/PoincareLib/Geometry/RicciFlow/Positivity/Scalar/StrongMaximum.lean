@@ -77,6 +77,7 @@ theorem ricciFlow_local_positive_transfer [T2Space M]
   have hcont : ContinuousAt (fun w : E ↦ f s (e.symm w)) (e y) :=
     (hsmooth s hs).continuous.continuousAt.comp (continuousAt_extChartAt_symm' hyS)
   have hseed : {w : E | epsilon < f s (e.symm w)} ∈ 𝓝 (e y) := by
+    change (fun w : E ↦ f s (e.symm w)) ⁻¹' Ioi epsilon ∈ 𝓝 (e y)
     apply hcont.preimage_mem_nhds
     apply Ioi_mem_nhds
     rw [e.left_inv hyS]

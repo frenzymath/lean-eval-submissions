@@ -34,17 +34,19 @@ private theorem curve_eqOn_Ioo
     rw [inter_comm, ← Subtype.image_preimage_val, inter_comm, ← Subtype.image_preimage_val,
       image_subset_image_iff Subtype.val_injective, preimage_ofPred_eq]
     intro t ht
-    rw [mem_preimage, ← closure_subtype] at ht
-    revert ht t
-    apply IsClosed.closure_subset (isClosed_eq _ _)
-    · rw [continuous_iff_continuousAt]
-      rintro ⟨t, ht⟩
-      apply ContinuousAt.comp _ continuousAt_subtype_val
-      exact (hα.continuousWithinAt ht).continuousAt (Ioo_mem_nhds ht.1 ht.2)
-    · rw [continuous_iff_continuousAt]
-      rintro ⟨t, ht⟩
-      apply ContinuousAt.comp _ continuousAt_subtype_val
-      exact (hβ.continuousWithinAt ht).continuousAt (Ioo_mem_nhds ht.1 ht.2)
+    change (t : ℝ) ∈ closure (Subtype.val '' Subtype.val ⁻¹' {t | α t = β t}) at ht
+    rw [← closure_subtype] at ht
+    have hc : IsClosed (Subtype.val ⁻¹' {t | α t = β t} : Set (Ioo a b)) := by
+      apply isClosed_eq
+      · rw [continuous_iff_continuousAt]
+        rintro ⟨t, ht⟩
+        apply ContinuousAt.comp _ continuousAt_subtype_val
+        exact (hα.continuousWithinAt ht).continuousAt (Ioo_mem_nhds ht.1 ht.2)
+      · rw [continuous_iff_continuousAt]
+        rintro ⟨t, ht⟩
+        apply ContinuousAt.comp _ continuousAt_subtype_val
+        exact (hβ.continuousWithinAt ht).continuousAt (Ioo_mem_nhds ht.1 ht.2)
+    exact hc.closure_subset ht
   · rw [isOpen_iff_mem_nhds]
     intro t ht
     have hmem := Ioo_mem_nhds ht.2.1 ht.2.2

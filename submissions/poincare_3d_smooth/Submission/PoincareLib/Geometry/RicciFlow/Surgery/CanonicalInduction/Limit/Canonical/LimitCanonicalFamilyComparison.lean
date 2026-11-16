@@ -48,7 +48,7 @@ theorem limitCanonical_eventually_neck_family_comparison
         (generalizedCylinderPullback (G.embedding k) N.coordinate_map) := by
   let D := fun s => roundCylinderPullback (G.limit.flow.metric s) N.coordinate_map
   obtain ⟨eta, heta, hperturb⟩ := exists_same_epsilon_neck_family_perturbation_tolerance
-    N.epsilon_pos (fun _ hs => hs.2) D hfamily
+    N.epsilon_pos (I := Ioc (-1 : ℝ) 0) (fun _ hs => hs.2) D hfamily
   let K0 : Set RoundCylinderCoordinates :=
     ({0} : Set E₂) ×ˢ Icc (-N.epsilon⁻¹) N.epsilon⁻¹
   obtain ⟨A, hA, hcov⟩ := exists_roundCylinder_covariant_difference_component_bound

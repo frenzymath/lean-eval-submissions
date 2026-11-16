@@ -4,6 +4,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.TimeTranslation
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.LocalControl
 import Submission.PoincareLib.Geometry.Riemannian.Comparison.Laplacian.Branch.Complete
 
+noncomputable section
+
 /-!
 # Buffered finite windows of the ancient rescaling sequence
 

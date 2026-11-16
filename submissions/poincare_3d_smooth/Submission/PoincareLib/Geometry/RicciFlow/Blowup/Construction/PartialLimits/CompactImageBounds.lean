@@ -100,7 +100,8 @@ theorem exists_eventually_compact_image_ball
     apply IsCompact.of_isClosed_subset
       (G.limitMetric.isCompact_closedBall_of_metricComplete hcomplete G.base r) isClosed_closure
     apply closure_minimal
-      (fun x (hx : G.limitMetric.edist G.base x < ENNReal.ofReal r) => hx.le)
+      (s := {x | G.limitMetric.edist G.base x < ENNReal.ofReal r})
+      (by intro x hx; exact (show G.limitMetric.edist G.base x < ENNReal.ofReal r from hx).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   exact ⟨2 * r, by positivity, (G.eventually_image_ball_subset_double hcompact).mono
     fun _ hk => (image_mono hKr').trans hk⟩

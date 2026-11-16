@@ -148,7 +148,7 @@ private theorem eval_memLp
     {mu : Measure Plane} {p q r : ℝ≥0∞} [ENNReal.HolderTriple p q r]
     {A : Plane → E →L[ℝ] F} {v : Plane → E}
     (hA : MemLp A q mu) (hv : MemLp v p mu) : MemLp (fun z => A z (v z)) r mu :=
-  (ContinuousLinearMap.apply ℝ F («E» := E)).memLp_of_bilin r hv hA
+  (ContinuousLinearMap.apply ℝ F (E' := E)).memLp_of_bilin r hv hA
 
 private theorem quadratic_second_memLp
     {B : Target → Target →L[ℝ] Target →L[ℝ] ℝ}

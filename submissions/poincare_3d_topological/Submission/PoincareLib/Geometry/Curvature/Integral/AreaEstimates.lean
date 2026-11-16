@@ -80,7 +80,7 @@ lemma integral_area_mul_reciprocal_sq_le
     apply ContinuousOn.intervalIntegrable
     rw [uIcc_of_le hab]
     exact hc.mul ((continuousOn_const.div continuousOn_id
-      (fun t ht => (ha.trans_le ht.1).ne')).pow 2)
+      (by intro t ht; exact (ha.trans_le ht.1).ne')).pow 2)
   have h := intervalIntegral.integral_mono_on hab hi intervalIntegrable_const
     (fun t ht => area_mul_reciprocal_sq_le (ha.trans_le ht.1) (ht.2.trans hb) hm hα (hA t ht))
   simpa only [intervalIntegral.integral_const, smul_eq_mul, mul_comm (b - a)] using h

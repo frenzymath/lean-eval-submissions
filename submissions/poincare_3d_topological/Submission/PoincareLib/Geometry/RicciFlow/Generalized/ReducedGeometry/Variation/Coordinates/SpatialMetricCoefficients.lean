@@ -90,7 +90,7 @@ theorem backwardMetricCoefficient_contDiffOn {K J : Set ℝ}
     change z.2 ∈ (chartAt (EuclideanSpace ℝ (Fin n)) x).target
     rw [U.chartAt_target_eq]
     exact hz.2
-  exact (contDiffOn_const.mul (contDiffOn_fst.sqrt (fun z hz => (hpos z.1 hz.1).ne'))).smul
+  exact (contDiffOn_const.mul (contDiffOn_fst.sqrt (by intro z hz; exact (hpos z.1 hz.1).ne'))).smul
     (hm.comp hmap hmem)
 
 /-- Positive backward time preserves strict positivity of the actual

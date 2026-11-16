@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Neighborhood.Product.Construction.TubeAndStrips
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Neighborhood.Product.AnnularParameter.PairDisk
 
+noncomputable section
+
 /-! # The four actual product pieces after filling the final ball -/
 
 set_option autoImplicit false

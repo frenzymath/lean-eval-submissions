@@ -23,7 +23,7 @@ private def zeroExtendL2 {X : Type*} [MeasurableSpace X]
     {μ : Measure X} {K : Set X} (hK : MeasurableSet K) :
     Lp ℝ 2 (μ.restrict K) →L[ℝ] Lp ℝ 2 μ :=
   LinearMap.mkContinuous
-    { toFun := fun f => ((memLp_indicator_iff_restrict hK).mpr (Lp.memLp f)).toLp
+    { toFun := fun f => ((memLp_indicator_iff_restrict hK.nullMeasurableSet).mpr (Lp.memLp f)).toLp
         (K.indicator f)
       map_add' := by
         intro f g
@@ -42,14 +42,15 @@ private def zeroExtendL2 {X : Type*} [MeasurableSpace X]
           · simp only [indicator_of_mem h, hx h, Pi.smul_apply, RingHom.id_apply]
           · simp only [indicator_of_notMem h, smul_zero, Pi.smul_apply] }
     1 (fun f => by
-      change ‖((memLp_indicator_iff_restrict hK).mpr (Lp.memLp f)).toLp _‖ ≤ _
-      rw [Lp.norm_toLp, eLpNorm_indicator_eq_eLpNorm_restrict hK, Lp.norm_def, one_mul])
+      change ‖((memLp_indicator_iff_restrict hK.nullMeasurableSet).mpr (Lp.memLp f)).toLp _‖ ≤ _
+      rw [Lp.norm_toLp, eLpNorm_indicator_eq_eLpNorm_restrict hK.nullMeasurableSet, Lp.norm_def,
+        one_mul])
 
 private theorem zeroExtendL2_ae {X : Type*} [MeasurableSpace X]
     {μ : Measure X} {K : Set X} (hK : MeasurableSet K)
     (f : Lp ℝ 2 (μ.restrict K)) :
     (zeroExtendL2 hK f : X → ℝ) =ᵐ[μ] K.indicator f := by
-  exact ((memLp_indicator_iff_restrict hK).mpr (Lp.memLp f)).coeFn_toLp
+  exact ((memLp_indicator_iff_restrict hK.nullMeasurableSet).mpr (Lp.memLp f)).coeFn_toLp
 
 private def boundedMulL2 {X : Type*} [MeasurableSpace X] {μ : Measure X}
     (a : X → ℝ) (ha : AEStronglyMeasurable a μ) (C : ℝ)

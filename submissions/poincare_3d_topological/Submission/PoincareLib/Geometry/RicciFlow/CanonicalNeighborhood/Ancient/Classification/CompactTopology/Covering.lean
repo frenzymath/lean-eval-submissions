@@ -116,9 +116,10 @@ theorem finite_fundamentalGroup_of_positive_sectional
   let : Finite (proj (x₀ := x₀) ⁻¹' {x₀}) := finite_of_compact_of_discrete
   apply Finite.of_injective
     (fun p : FundamentalGroup M x₀ =>
-      (⟨⟨x₀, p⟩, rfl⟩ : proj (x₀ := x₀) ⁻¹' {x₀}))
+      (⟨⟨x₀, p.toPath⟩, rfl⟩ : proj (x₀ := x₀) ⁻¹' {x₀}))
   intro a b h
   have hab := congrArg Subtype.val h
+  apply CategoryTheory.End.ext
   injection hab
 
 end Poincare.Topology.UniversalCover

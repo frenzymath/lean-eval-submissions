@@ -280,7 +280,8 @@ private theorem sphereWeight_chart_smooth (g : RiemannianMetric n M) (alpha : �
   apply ContDiff.rpow_const_of_ne (contDiff_const.add (contDiff_const.mul he))
   intro z
   have hn := m60SphereIntrinsicEnergy_nonneg g f ((chartAt Plane p).symm z)
-  positivity
+  change 1 + 2 * m60SphereIntrinsicEnergy g f ((chartAt Plane p).symm z) ≠ 0
+  linarith
 
 private theorem sphereWeight_chart_energy (g : RiemannianMetric n M) (alpha : ℝ)
     (f : UnitTwoSphere → M) (hf : ContMDiff (𝓡 2) (𝓡 n) ∞ f) (p : UnitTwoSphere) :

@@ -62,7 +62,7 @@ theorem m65TangentNorm_mfderiv_le_lipschitz
     (inter_mem hs (hf.continuousAt.preimage_mem_nhds (chi.open_source.mem_nhds hchi)))
     (((chi.continuousAt hchi).comp hf.continuousAt).preimage_mem_nhds (ball_mem_nhds _ hR))
   have hlocal : LipschitzOnWith (2 * C) (chi ∘ f) U := by
-    apply hforward.comp (hfl.mono (fun _ hu => hu.1.1))
+    apply hforward.comp (hfl.mono (s := U) (by intro u hu; exact hu.1.1))
     intro y hy
     exact ⟨chi (f y), hy.2, chi.left_inv hy.1.2⟩
   have hD : ‖fderiv ℝ (chi ∘ f) z‖ ≤ 2 * (C : ℝ) := by

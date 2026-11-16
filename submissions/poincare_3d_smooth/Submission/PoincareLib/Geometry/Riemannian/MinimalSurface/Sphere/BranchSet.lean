@@ -17,6 +17,8 @@ the differential-zero set specified by the frozen M60 contract.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 
 open Set Filter

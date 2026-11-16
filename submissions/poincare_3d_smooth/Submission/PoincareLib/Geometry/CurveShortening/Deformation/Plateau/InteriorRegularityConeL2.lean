@@ -74,7 +74,7 @@ theorem cone_reconstruction_continuous
       ContinuousOn (fun p : ℝ × ℝ => fderiv ℝ g (coneCoordinates r v0 v p.1 p.2))
         (Icc 0 r ×ˢ Icc a b) := by
   have hvp : ContinuousOn (fun p : ℝ × ℝ => v p.2) (Icc 0 r ×ˢ Icc a b) :=
-    hv.comp continuous_snd.continuousOn (fun _ hp => hp.2)
+    hv.comp (s := Icc 0 r ×ˢ Icc a b) continuous_snd.continuousOn (by intro p hp; exact hp.2)
   have hc : ContinuousOn (fun p : ℝ × ℝ => coneCoordinates r v0 v p.1 p.2)
       (Icc 0 r ×ˢ Icc a b) :=
     continuousOn_const.add ((continuous_fst.continuousOn.div_const r).smul
@@ -108,7 +108,9 @@ theorem coneCartesianField_memLp
   let : IsFiniteMeasure (volume.restrict S) :=
     isFiniteMeasure_restrict.mpr (isCompact_Icc.prod isCompact_Icc).measure_lt_top.ne
   have hvp : ContinuousOn (fun p : ℝ × ℝ => v p.2 - v0) S :=
-    (hv.comp continuous_snd.continuousOn (fun _ hp => hp.2)).sub continuousOn_const
+    (hv.comp (s := Icc 0 r ×ˢ Icc a b) continuous_snd.continuousOn (by
+        intro p hp
+        exact hp.2)).sub continuousOn_const
   have hA : AEStronglyMeasurable
       (fun p : ℝ × ℝ => fderiv ℝ g (coneCoordinates r v0 v p.1 p.2))
       (volume.restrict S) :=

@@ -34,8 +34,8 @@ theorem glue_smooth_solution_families
   have heq : ∀ y ∈ V, EqOn (fun t => Φ₁ (y, t)) (fun t => Φ₂ (y, t)) (J₁ ∩ J₂) := by
     intro y hy
     exact Poincare.ODE.eqOn_of_hasDerivAt hU hF (hJ₁.inter hJ₂)
-      (hc₁.inter hc₂).isPreconnected (fun t ht => hd₁ y hy t ht.1)
-      (fun t ht => hd₂ y hy t ht.2) hc (hjoin y hy)
+      (hc₁.inter hc₂).isPreconnected (by intro t ht; exact hd₁ y hy t ht.1)
+      (by intro t ht; exact hd₂ y hy t ht.2) hc (hjoin y hy)
   let Φ : E × ℝ → E := fun p => if p.2 ∈ J₁ then Φ₁ p else Φ₂ p
   have heq₁ : EqOn Φ Φ₁ (V ×ˢ J₁) := fun p hp => if_pos hp.2
   have heq₂ : EqOn Φ Φ₂ (V ×ˢ J₂) := by
@@ -123,7 +123,7 @@ theorem exists_smooth_flow_along_compact_interval
         HasDerivAt (fun s => Φ (y, s)) (F (Φ (y, t))) t := by
   have hcompact : IsCompact (γ '' Icc 0 T) :=
     isCompact_Icc.image_of_continuousOn
-      (fun t ht => (hγ t (hsub ht)).2.continuousAt.continuousWithinAt)
+      (by intro t ht; exact (hγ t (hsub ht)).2.continuousAt.continuousWithinAt)
   obtain ⟨δ, hδ, hlocal⟩ := exists_uniform_smooth_local_flows hU hcompact
     (fun _ ⟨t, ht, he⟩ => he ▸ (hγ t (hsub ht)).1) hF
   obtain ⟨N, hN⟩ := exists_nat_gt (T / δ)
@@ -169,7 +169,7 @@ theorem exists_smooth_flow_along_compact_interval
       have hiold : s i ∈ Ioo (-ε) (s i + ε) := ⟨by linarith [hsnonneg i], by linarith⟩
       let B : E → E := fun y => Φ (y, s i)
       have hsB : ContDiffOn ℝ ∞ B V := hsΦ.comp
-        (contDiff_id.prodMk contDiff_const).contDiffOn (fun y hy => ⟨hy, hiold⟩)
+        (contDiff_id.prodMk contDiff_const).contDiffOn (by intro y hy; exact ⟨hy, hiold⟩)
       let V' : Set E := V ∩ B ⁻¹' W
       have hV' : IsOpen V' := hsB.continuousOn.isOpen_inter_preimage hV hW
       have hxV' : γ 0 ∈ V' := ⟨hxV, by
@@ -181,7 +181,9 @@ theorem exists_smooth_flow_along_compact_interval
         ⟨by linarith [ht.1], by linarith [ht.2]⟩
       have hsΨ' : ContDiffOn ℝ ∞ Ψ' (V' ×ˢ J₂) := by
         apply hsΨ.comp
-        · exact ((hsB.mono inter_subset_left).comp contDiffOn_fst (fun _ hp => hp.1)).prodMk
+        · exact ((hsB.mono inter_subset_left).comp contDiffOn_fst (by
+            intro _ hp
+            exact hp.1)).prodMk
             (contDiffOn_snd.sub contDiffOn_const)
         · intro p hp
           exact ⟨hp.1.2, htime p.2 hp.2⟩
@@ -196,7 +198,8 @@ theorem exists_smooth_flow_along_compact_interval
       obtain ⟨Ξ, hsΞ, heqΦ, heqΨ, hflowΞ⟩ := glue_smooth_solution_families hU hF hV'
         isOpen_Ioo isOpen_Ioo (convex_Ioo _ _) (convex_Ioo _ _)
         (hsΦ.mono (prod_mono_left inter_subset_left)) hsΨ'
-        (fun y hy => hflow y hy.1) hflowΨ' hicommon (fun y hy => by
+        (fun y hy ↦ hflow y hy.1) hflowΨ' hicommon (by
+          intro y hy
           simpa only [Ψ', sub_self, B] using (hinitΨ (B y) hy.2).symm)
       let ε' : ℝ := min ε (δ - d) / 2
       have hε' : 0 < ε' := half_pos (lt_min hε (sub_pos.mpr hsmall))
@@ -220,7 +223,7 @@ theorem exists_smooth_flow_along_compact_interval
         have he : EqOn (fun t => Ψ' (γ 0, t)) γ (J ∩ J₂) :=
           Poincare.ODE.eqOn_of_hasDerivAt hU hF (hJ.inter isOpen_Ioo)
             (hcJ.inter (convex_Ioo _ _)).isPreconnected
-            (fun t ht => hflowΨ' (γ 0) hxV' t ht.2) (fun t ht => hγ t ht.1)
+            (by intro t ht; exact hflowΨ' (γ 0) hxV' t ht.2) (by intro t ht; exact hγ t ht.1)
             ⟨hsub hiT, hicommon.2⟩ (by
               simpa only [Ψ', sub_self, B, hend] using hinitΨ (γ (s i)) hxW)
         exact he ⟨hsub hnT, hnnew⟩

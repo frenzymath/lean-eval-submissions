@@ -78,8 +78,8 @@ theorem ambientCurve_preserves_retraction (F : RicciFlow n M (Icc a b))
   have hDrcont : ContinuousOn (fderiv ℝ r) U :=
     (hr.fderiv_of_isOpen hU (m := ∞) (by simp)).continuousOn
   have hPc : ContinuousOn P (U ×ˢ univ) :=
-    (hr.continuousOn.comp continuous_fst.continuousOn (fun _ hz => hz.1)).prodMk
-      ((hDrcont.comp continuous_fst.continuousOn (fun _ hz => hz.1)).clm_apply
+    (hr.continuousOn.comp (s := U ×ˢ univ) continuous_fst.continuousOn (fun _ hz => hz.1)).prodMk
+      ((hDrcont.comp (s := U ×ˢ univ) continuous_fst.continuousOn (fun _ hz => hz.1)).clm_apply
         continuous_snd.continuousOn)
   have hK1 : IsCompact (P '' K0) :=
     hK0.image_of_continuousOn (hPc.mono (fun z hz => ⟨(hK0sub hz).1, mem_univ _⟩))

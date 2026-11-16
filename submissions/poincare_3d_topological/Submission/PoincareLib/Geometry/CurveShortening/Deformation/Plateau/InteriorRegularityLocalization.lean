@@ -69,7 +69,7 @@ theorem cutoff_global {M : Type u} {N : ℕ} {e : M → EuclideanSpace ℝ (Fin 
     simp only [zero_mul, zero_apply, add_zero]
   have hglobal {f : LoopPlane → ℝ} (hf : MemLp f 2 (volume.restrict K))
       (hz : ∀ z, z ∉ K → f z = 0) : MemLp f 2 volume := by
-    have hi := (memLp_indicator_iff_restrict hK).mpr hf
+    have hi := (memLp_indicator_iff_restrict hK.nullMeasurableSet).mpr hf
     have heq : K.indicator f = f := by
       funext z
       by_cases hzk : z ∈ K

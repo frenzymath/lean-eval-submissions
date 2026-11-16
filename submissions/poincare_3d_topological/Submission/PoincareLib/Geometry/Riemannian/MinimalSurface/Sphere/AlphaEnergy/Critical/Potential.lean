@@ -310,7 +310,7 @@ private theorem alpha_potential_bound
     simp only [DU, (hchi x hx).1, (hchi x hx).2, zero_apply, one_mul, zero_mul, add_zero]
   obtain ⟨hFlux, hSource⟩ := S.flux_source_memLp_of_one_le ha
   have hF (a : Fin n) (i : Fin 2) : MemLp (F a i) qq volume :=
-    (memLp_indicator_iff_restrict measurableSet_ball).mpr
+    (memLp_indicator_iff_restrict measurableSet_ball.nullMeasurableSet).mpr
       ((hFlux a i).mono_measure (Measure.restrict_mono (ball_subset_ball hrR.le) le_rfl))
   have hsource (a : Fin n) : Integrable (source a) :=
     (integrable_indicator_iff measurableSet_ball).mpr
@@ -319,7 +319,7 @@ private theorem alpha_potential_bound
   have hHI : Integrable H := (integrable_indicator_iff measurableSet_ball).mpr
     (hPotential.mono_measure (Measure.restrict_mono (ball_subset_ball hrR.le) le_rfl))
   have hWLp : MemLp W (ENNReal.ofReal alpha / ENNReal.ofReal (alpha - 1)) volume :=
-    (memLp_indicator_iff_restrict measurableSet_ball).mpr
+    (memLp_indicator_iff_restrict measurableSet_ball.nullMeasurableSet).mpr
       (hWeight.mono_measure (Measure.restrict_mono (ball_subset_ball hrR.le) le_rfl))
   have hWI : Integrable W := hHI.mono' hWLp.aestronglyMeasurable (MeasureTheory.ae_of_all volume fun x => by
     by_cases hx : x ∈ O

@@ -45,7 +45,8 @@ private theorem exists_line_geodesic_to_time (g : RiemannianMetric 1 M)
   have hcompact : IsCompact (closure (g.ball p (speed + 1))) := by
     apply (g.isCompact_closedBall_of_metricComplete hc p (speed + 1)).of_isClosed_subset
       isClosed_closure
-    apply closure_minimal (fun q (h : g.edist p q < ENNReal.ofReal (speed + 1)) => h.le)
+    apply closure_minimal (s := g.ball p (speed + 1))
+      (by intro q h; exact (show g.edist p q < ENNReal.ofReal (speed + 1) from h).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   obtain ⟨ε, hε, γ, hγ, hp, hv, _⟩ :=
     g.exists_geodesic_through_one_of_precompact_ball p
@@ -112,7 +113,8 @@ theorem surjective_global_line_geodesic [PreconnectedSpace M]
   have hcompact : IsCompact (closure (g.ball p R)) := by
     apply (g.isCompact_closedBall_of_metricComplete hc p R).of_isClosed_subset
       isClosed_closure
-    apply closure_minimal (fun z (h : g.edist p z < ENNReal.ofReal R) => h.le)
+    apply closure_minimal (s := g.ball p R)
+      (by intro z h; exact (show g.edist p z < ENNReal.ofReal R from h).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   have hq : q ∈ g.ball p R := by
     change g.edist p q < ENNReal.ofReal R

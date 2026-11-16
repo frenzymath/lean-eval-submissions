@@ -106,7 +106,7 @@ theorem contDiffAt_projectToFace (s : Finset ι) (η : ℝ) (n : ℕ∞ω) (q : 
   by_cases hi : i ∈ s
   · simp only [projectToFace, if_pos hi]
     exact contDiffAt_const.add
-      ((((contDiff_apply ℝ ℝ i).contDiffAt.sub contDiffAt_const).mul contDiffAt_const).div
+      ((((contDiff_apply ℝ (fun _ ↦ ℝ) i).contDiffAt.sub contDiffAt_const).mul contDiffAt_const).div
         hm.contDiffAt hq)
   · simpa only [projectToFace, if_neg hi] using
       (contDiffAt_const : ContDiffAt ℝ n (fun _ : ι → ℝ => (0 : ℝ)) q)

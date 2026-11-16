@@ -151,7 +151,10 @@ theorem exists_source_positive_bounded_regular_accuracy
       (N.central_sphere_subset N.center_on_central_sphere)).mp N.center_on_central_sphere
   obtain ⟨hcompact, hclosure⟩ := H.normalizedSlice_fresh_core_compact k N rmin hrmin
     hfloor (N.central_sphere_subset N.center_on_central_sphere)
-    (by rw [hzero, abs_zero]; positivity)
+    (by
+      rw [hzero, abs_zero]
+      exact div_nonneg (mul_nonneg (by norm_num) (inv_nonneg.mpr N.epsilon_pos.le))
+        (by norm_num))
   rw [hcenter] at hcompact hclosure
   have hclosureT : closure ((H.normalizedSliceMetric k).ball x.val.val delta0) ⊆
       ((T k).carrierOpen : Set _) := by

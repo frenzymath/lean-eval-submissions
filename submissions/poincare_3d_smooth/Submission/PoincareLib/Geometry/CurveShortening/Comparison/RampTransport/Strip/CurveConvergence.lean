@@ -87,7 +87,8 @@ theorem exists_annulus_slice_subarc_tolerance_of_retraction
       (he.of_le (ENat.natCast_le_of_coe_top_le_withTop le_rfl 2)).comp_contMDiffOn hf
     have hcoords := strip_coordinates_contMDiff.of_le
       (ENat.natCast_le_of_coe_top_le_withTop le_rfl 2)
-    exact (htarget.comp hcoords.contMDiffOn (fun p hp => hp.2)).contDiffOn
+    exact (htarget.comp (s := univ ×ˢ Icc (0 : ℝ) 1) hcoords.contMDiffOn (fun p hp =>
+      hp.2)).contDiffOn
   have hperiod : 0 < curvePeriod := by unfold curvePeriod; positivity
   obtain ⟨delta, hdelta, hnear⟩ := exists_closedStrip_jet_tolerance hobs hperiod
     (fun s hs => (hp s hs).comp e) hs0 heta

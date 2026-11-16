@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Lifetime.CanonicalGeometry.StrongNeckComparison
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.Geometry
 
+noncomputable section
+
 /-!
 # Actual centered restrictions of neck coordinates
 

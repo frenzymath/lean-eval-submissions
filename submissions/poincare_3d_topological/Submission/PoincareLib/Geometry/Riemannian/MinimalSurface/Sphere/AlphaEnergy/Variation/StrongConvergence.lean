@@ -472,7 +472,6 @@ theorem suAlpha_nonlinear_integral_limit [IsFiniteMeasure mu]
       (suAlpha_power_uniformIntegrable hp0
         (unifIntegrable_of_tendsto_Lp hp' ENNReal.ofReal_ne_top hf hf0 hstrong)
           (fun j => (hf j).aestronglyMeasurable))
-      (by rfl)
   have hUI : UnifIntegrable (fun j x => F x (f j x)) 1 mu :=
     suAlpha_uniformIntegrable_dominated hC hbase hF (fun j => by
       filter_upwards [hbound j] with x hx

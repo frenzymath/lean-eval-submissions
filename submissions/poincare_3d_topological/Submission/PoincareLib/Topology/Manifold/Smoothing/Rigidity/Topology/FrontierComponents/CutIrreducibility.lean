@@ -84,6 +84,7 @@ theorem IsPLIrreducible.of_frontier_component_models
         (⟨Subtype.val, continuous_subtype_val⟩ : C(Ω, X)).comp incl := rfl
     have hi := hambient i x
     rw [heq, FundamentalGroup.map_comp] at hi
-    exact Function.Injective.of_comp hi
+    exact Function.Injective.of_comp
+      (f := FundamentalGroup.map (⟨Subtype.val, continuous_subtype_val⟩ : C(Ω, X)) (incl x)) hi
 
 end PoincareMT.M76

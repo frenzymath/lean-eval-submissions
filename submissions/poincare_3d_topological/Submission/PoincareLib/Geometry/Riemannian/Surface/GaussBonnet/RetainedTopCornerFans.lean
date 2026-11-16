@@ -161,9 +161,9 @@ theorem core_germ_at_internal_band_top_of_band_germ
   have hi := support_eventuallyEq_interior
     ((T.collar_germ_at_internal_band_top p i j k hjk).trans hband)
   filter_upwards [hc, hi] with z hcz hiz
-  change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior A z
-  change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior _ z at hcz
-  change interior _ z = interior _ z at hiz
+  change (z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support) = (z ∉ interior A)
+  change (z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support) = (z ∉ interior _) at hcz
+  change (z ∈ interior _) = (z ∈ interior _) at hiz
   rw [hiz] at hcz
   exact hcz
 

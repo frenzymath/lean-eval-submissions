@@ -79,7 +79,7 @@ theorem exists_two_segment_germ_of_affine_link_section_ncard
       simpa only [hep] using e.continuous.tendsto p
     filter_upwards [hc.eventually hlocal] with x hx
     rw [hRs, ← hseg u, ← hseg v, mem_union, hmem, hmem,
-      mem_inter_iff, hmem, mem_ofPred_eq, hheight] at hx
+      mem_inter_iff, hmem, mem_ofPred_eq, mem_ofPred_eq, hheight] at hx
     exact hx
 
 /-- A full graph model at an arbitrary center has degree two from

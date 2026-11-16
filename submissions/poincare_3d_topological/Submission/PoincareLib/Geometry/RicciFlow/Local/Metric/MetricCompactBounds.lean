@@ -39,7 +39,7 @@ theorem exists_pos_uniform_bilinear_bounds
   let f : X × E → ℝ := fun p => B p.1 p.2 p.2
   have hS : IsCompact S := hK.prod (isCompact_sphere _ _)
   have hf : ContinuousOn f S :=
-    ((hB.comp continuousOn_fst (fun _ hp => hp.1)).clm_apply
+    ((hB.comp continuousOn_fst (by intro _ hp; exact hp.1)).clm_apply
       continuousOn_snd).clm_apply continuousOn_snd
   have hposS (p : X × E) (hp : p ∈ S) : 0 < f p := by
     apply hpos p.1 hp.1 p.2

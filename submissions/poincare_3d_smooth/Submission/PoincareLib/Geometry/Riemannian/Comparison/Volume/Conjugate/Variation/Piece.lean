@@ -166,9 +166,9 @@ theorem contDiffOn_secondVariationBoundary {U : Set E} {J : Set ℝ}
     (hJ : ∀ t ∈ J, u ((0 : ℝ), t) ∈ U) :
     ContDiffOn ℝ 1 (secondVariationBoundary G Γ u) J := by
   have hb : ContDiffOn ℝ 1 (boundaryFun G Γ u) (u ⁻¹' U) :=
-    contDiffOn_boundaryFun hG hΓ hu (fun q hq => hq)
+    contDiffOn_boundaryFun hG hΓ hu (by intro q hq; exact hq)
   have hline : ContDiff ℝ 1 (fun t : ℝ => ((0 : ℝ), t)) := contDiff_const.prodMk contDiff_id
-  exact hb.comp hline.contDiffOn (fun t ht => hJ t ht)
+  exact hb.comp hline.contDiffOn (by intro t ht; exact hJ t ht)
 
 /-- **Math.** The index-form integrand is continuous on any set of times whose line `s = 0`
 lands in the domain `U` of the chart data — hence interval-integrable there. -/
@@ -307,9 +307,9 @@ theorem deriv_deriv_pieceEnergy_eq_boundary_add_integral {τ₀ τ₁ r : ℝ} {
   -- STEP B: differentiate under the integral sign, twice
   have hf2 : ContDiffOn ℝ 2 (energyDensity G u ((0 : ℝ), (1 : ℝ)))
       (Set.Ioo ((0 : ℝ) - r) ((0 : ℝ) + r) ×ˢ Set.Ioo (τ₀ - r) (τ₁ + r)) := by
-    refine contDiffOn_energyDensity hG hu (fun p hp => humem p ⟨?_, hp.2⟩) _
-    have := hp.1
-    simpa using this
+    refine contDiffOn_energyDensity hG hu ?_ _
+    intro p hp
+    exact humem p ⟨by simpa using hp.1, hp.2⟩
   have hbox : deriv (deriv
         (fun s : ℝ => ∫ t in τ₀..τ₁, energyDensity G u ((0 : ℝ), (1 : ℝ)) (s, t))) 0
       = ∫ t in τ₀..τ₁, deriv

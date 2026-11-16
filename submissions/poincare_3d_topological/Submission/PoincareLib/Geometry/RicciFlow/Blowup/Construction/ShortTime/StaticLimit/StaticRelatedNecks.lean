@@ -71,8 +71,8 @@ theorem exists_static_limit_related_neck_threshold :
   have hclosure : IsCompact (closure (G.limitMetric.ball x R)) := by
     apply IsCompact.of_isClosed_subset
       (G.limitMetric.isCompact_closedBall_of_metricComplete hcomplete x R) isClosed_closure
-    apply closure_minimal
-      (fun y (hy : G.limitMetric.edist x y < ENNReal.ofReal R) => hy.le)
+    apply closure_minimal (s := G.limitMetric.ball x R)
+      (by intro y hy; exact (show G.limitMetric.edist x y < ENNReal.ofReal R from hy).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   let K := closure (G.limitMetric.ball x R) ∪ {G.base}
   have hK : IsCompact K := hclosure.union isCompact_singleton

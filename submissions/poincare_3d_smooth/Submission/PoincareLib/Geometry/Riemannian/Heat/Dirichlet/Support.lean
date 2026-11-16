@@ -67,7 +67,8 @@ theorem norm_toDomainL2 (hΩ : MeasurableSet Ω) (u : H1Zero D Ω) :
     ‖toDomainL2 D Ω u‖ = ‖toL2 D Ω u‖ := by
   rw [Lp.norm_def, Lp.norm_def]
   congr 1
-  rw [eLpNorm_congr_ae (toDomainL2_ae u), ← eLpNorm_indicator_eq_eLpNorm_restrict hΩ]
+  rw [eLpNorm_congr_ae (toDomainL2_ae u), ← eLpNorm_indicator_eq_eLpNorm_restrict
+    hΩ.nullMeasurableSet]
   apply eLpNorm_congr_ae
   filter_upwards [toL2_ae_zero_outside hΩ u] with x hx
   by_cases hxΩ : x ∈ Ω

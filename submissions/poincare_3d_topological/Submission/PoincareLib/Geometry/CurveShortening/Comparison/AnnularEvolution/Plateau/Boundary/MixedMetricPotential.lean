@@ -92,7 +92,7 @@ theorem m64WeightedMixedMetric_potential
   have hHp (p : LoopPlane) : 0 ≤ H p := indicator_nonneg
     (fun _ _ => Finset.sum_nonneg fun _ _ => sq_nonneg _) p
   have hFM (j : Fin n) (i : Fin 2) : MemLp (F j i) 2 volume :=
-    (memLp_indicator_iff_restrict hS).mpr (hflux j i)
+    (memLp_indicator_iff_restrict hS.nullMeasurableSet).mpr (hflux j i)
   have hbI (j : Fin n) : Integrable (b j) :=
     (integrable_indicator_iff hS).mpr (hsource j)
   have hprincipal (p : LoopPlane) : kappa * mu * H p - 0 ≤

@@ -137,11 +137,13 @@ theorem IsMonochromatic.triangleCarrier_halfspace {l : Plane →ᵃ[ℝ] ℝ}
       (∀ z ∈ T.triangleCarrier t.1, l z ≤ 0) := by
   rcases hmono t.1 t.2 with hpos | hneg
   · left
+    change T.triangleCarrier t.1 ⊆ {z | 0 ≤ l z}
     apply convexHull_min
     · rintro _ ⟨v, hv, rfl⟩
       exact hpos v hv
     · exact (convex_Ici (0 : ℝ)).affine_preimage l
   · right
+    change T.triangleCarrier t.1 ⊆ {z | l z ≤ 0}
     apply convexHull_min
     · rintro _ ⟨v, hv, rfl⟩
       exact hneg v hv

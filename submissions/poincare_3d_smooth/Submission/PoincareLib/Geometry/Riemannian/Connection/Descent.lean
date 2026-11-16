@@ -237,7 +237,7 @@ private theorem transported_add (y : N)
   have hpY := hY.mpullback_vectorField (he y) (hinv y) (by norm_cast)
   have hpZ := hZ.mpullback_vectorField (he y) (hinv y) (by norm_cast)
   simp only [transported, mpullback_add,
-    D.connection.isCovariantDerivativeOn.add hpY hpZ,
+    D.connection.isCovariantDerivativeOnUniv.add hpY hpZ,
     ContinuousLinearMap.add_comp, ContinuousLinearMap.comp_add]
 
 include he hinv in
@@ -252,7 +252,7 @@ private theorem transported_leibniz (y : N)
   have ha' := ha.comp y ((he y).mdifferentiableAt (by simp))
   ext v
   simp only [transported, mpullback_smul,
-    D.connection.isCovariantDerivativeOn.leibniz hpY ha',
+    D.connection.isCovariantDerivativeOnUniv.leibniz hpY ha',
     ContinuousLinearMap.comp_apply, add_apply,
     smul_apply, ContinuousLinearMap.smulRight_apply,
     Function.comp_apply, map_add, map_smul]

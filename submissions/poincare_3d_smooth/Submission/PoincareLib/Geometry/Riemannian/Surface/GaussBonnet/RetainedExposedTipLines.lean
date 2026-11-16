@@ -152,8 +152,8 @@ theorem exists_core_halfspace_of_contact_line_frontier
     · change -l z = 0
       rw [hlz, neg_zero]
     · filter_upwards [hn] with w hw
-      change (T.refined.mesh R).toPlaneComplex.support w = (0 ≤ -l w)
-      change (T.refined.mesh R).toPlaneComplex.support w = (l w ≤ 0) at hw
+      change (w ∈ (T.refined.mesh R).toPlaneComplex.support) = (0 ≤ -l w)
+      change (w ∈ (T.refined.mesh R).toPlaneComplex.support) = (l w ≤ 0) at hw
       simpa only [neg_nonneg] using hw
 
 /-- The actual collinear horizontal outer tip leaves one signed halfplane

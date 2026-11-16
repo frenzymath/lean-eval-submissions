@@ -34,18 +34,24 @@ theorem fundamentalGroup_map_injective_of_path
   apply (injective_iff_map_eq_one (FundamentalGroup.map f x)).mpr
   intro gamma hgamma
   let c := Path.Homotopic.Quotient.mk p
-  let eta : FundamentalGroup X y := c.symm.trans (gamma.trans c)
+  let eta : FundamentalGroup X y := FundamentalGroup.fromPath
+    (c.symm.trans (gamma.toPath.trans c))
   have hmap : FundamentalGroup.map f y eta = 1 := by
-    change Path.Homotopic.Quotient.map gamma f = Path.Homotopic.Quotient.refl (f x) at hgamma
-    change (c.symm.trans (gamma.trans c)).map f = Path.Homotopic.Quotient.refl (f y)
+    have hgamma := congrArg FundamentalGroup.toPath hgamma
+    change Path.Homotopic.Quotient.map gamma.toPath f =
+      Path.Homotopic.Quotient.refl (f x) at hgamma
+    apply CategoryTheory.End.ext
+    change (c.symm.trans (gamma.toPath.trans c)).map f =
+      Path.Homotopic.Quotient.refl (f y)
     rw [Path.Homotopic.Quotient.map_trans, Path.Homotopic.Quotient.map_symm,
       Path.Homotopic.Quotient.map_trans, hgamma,
       Path.Homotopic.Quotient.refl_trans, Path.Homotopic.Quotient.symm_trans]
   have heta := (injective_iff_map_eq_one (FundamentalGroup.map f y)).mp hy eta hmap
-  have h := congrArg (fun q : FundamentalGroup X y => c.trans (q.trans c.symm)) heta
-  change c.trans ((c.symm.trans (gamma.trans c)).trans c.symm) =
+  have h := congrArg (fun q : FundamentalGroup X y ↦ c.trans (q.toPath.trans c.symm)) heta
+  change c.trans ((c.symm.trans (gamma.toPath.trans c)).trans c.symm) =
     c.trans ((Path.Homotopic.Quotient.refl y).trans c.symm) at h
-  change (gamma : Path.Homotopic.Quotient x x) = Path.Homotopic.Quotient.refl x
+  apply CategoryTheory.End.ext
+  change gamma.toPath = Path.Homotopic.Quotient.refl x
   simpa only [Path.Homotopic.Quotient.trans_assoc,
     Path.Homotopic.Quotient.trans_symm_assoc, Path.Homotopic.Quotient.trans_symm,
     Path.Homotopic.Quotient.trans_refl, Path.Homotopic.Quotient.refl_trans] using h

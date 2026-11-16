@@ -140,7 +140,10 @@ theorem punctured_component_connected (A : GeneralizedSliceCarrier.{u}) (p : A.c
     simpa only [hcenter] using surgeryBall_punctured_image_connected B
   have hpW : p ∈ W := ⟨0, by simp, hcenter⟩
   have hWC : W ⊆ connectedComponent p := hsub
-  exact ⟨hpunct.nonempty.mono (fun x hx => ⟨hWC hx.1, hx.2⟩),
+  exact ⟨hpunct.nonempty.mono
+    (show W \ {p} ⊆ connectedComponent p \ {p} by
+      intro x hx
+      exact ⟨hWC hx.1, hx.2⟩),
     preconnected_diff_singleton_of_local isConnected_connectedComponent.isPreconnected
       mem_connectedComponent (surgeryBall_image_open B) hpW hWC hpunct.isPreconnected⟩
 

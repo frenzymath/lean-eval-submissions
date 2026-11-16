@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Geometry.Topology.Gluing.Closed.ClosedModelCapData
 
+noncomputable section
+
 /-!
 # Coordinates of the metric-free cap end
 

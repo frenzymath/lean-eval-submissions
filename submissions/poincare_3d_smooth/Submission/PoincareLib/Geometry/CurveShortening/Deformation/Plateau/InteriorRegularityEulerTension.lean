@@ -124,9 +124,10 @@ theorem minimum_representative_harmonic {M : Type u} [TopologicalSpace M]
   have hmetric' : ∀ᶠ y in 𝓝 (c (q x)), ∀ a b : EuclideanSpace ℝ (Fin 3),
       gE.inner y a b = g.inner (c.symm y)
         (mfderiv (𝓡 3) (𝓡 3) c.symm y a) (mfderiv (𝓡 3) (𝓡 3) c.symm y b) := by
-    have hh := mem_of_superset (ball_mem_nhds _ hε) (fun y hy => (hmetric y hy).2)
+    filter_upwards [ball_mem_nhds (c (q x)) hε] with y hy
     simpa +instances only [extChartAt_coe, extChartAt_coe_symm, modelWithCornersSelf_coe,
-      modelWithCornersSelf_coe_symm, Function.id_comp, Function.comp_id, id_eq, c] using! hh
+      modelWithCornersSelf_coe_symm, Function.id_comp, Function.comp_id, id_eq, c] using!
+        (hmetric y hy).2
   have hsum : m65PlaneTension D q x = mfderiv (𝓡 3) (𝓡 3) c.symm (c (q x))
       (∑ i : Fin 2, M65Gauss.covariantHessianMap DE X.value x
         (EuclideanSpace.basisFun (Fin 2) ℝ i) (EuclideanSpace.basisFun (Fin 2) ℝ i)) := by

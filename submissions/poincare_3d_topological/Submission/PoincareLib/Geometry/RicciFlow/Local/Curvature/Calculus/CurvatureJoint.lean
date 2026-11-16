@@ -141,7 +141,7 @@ theorem curvatureOnFields_iteratedCovariantDerivative_congr
     intro x hx
     have hb := ((hB.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp))
     have he := ((hE.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp))
-    have hh := D.connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+    have hh := D.connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
       (s := univ) hb he Filter.univ_mem
       (Filter.eventuallyEq_of_mem (hU.mem_nhds hx) hBE)
     dsimp only [N]
@@ -230,14 +230,14 @@ theorem curvatureOnFields_iteratedCovariantDerivative_add
   have hadd (P Y Z : (x : M) → TangentSpace (𝓡 n) x)
       (hY : S Y) (hZ : S Z) : EqOn (N P (Y + Z)) (N P Y + N P Z) U := by
     intro x hx
-    exact congrArg (fun L => L (P x)) (D.connection.isCovariantDerivativeOn.add
+    exact congrArg (fun L => L (P x)) (D.connection.isCovariantDerivativeOnUniv.add
       (s := univ)
       ((hY.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp))
       ((hZ.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp)))
   have hloc (P Y Z : (x : M) → TangentSpace (𝓡 n) x)
       (hY : S Y) (hZ : S Z) (hYZ : EqOn Y Z U) : EqOn (N P Y) (N P Z) U := by
     intro x hx
-    have hh := D.connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+    have hh := D.connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
       (s := univ)
       ((hY.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp))
       ((hZ.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp))
@@ -380,14 +380,14 @@ theorem curvatureOnFields_iteratedCovariantDerivative_smul
     intro x hx
     change D.connection (f • Z) x (P x) =
       f x • D.connection Z x (P x) + mvfderiv (𝓡 n) f x (P x) • Z x
-    exact congrArg (fun L => L (P x)) (D.connection.isCovariantDerivativeOn.leibniz
+    exact congrArg (fun L => L (P x)) (D.connection.isCovariantDerivativeOnUniv.leibniz
         (s := univ)
         ((hZ.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp))
         ((hf.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp)))
   have hloc (P Y Z : (x : M) → TangentSpace (𝓡 n) x)
       (hY : S Y) (hZ : S Z) (hYZ : EqOn Y Z U) : EqOn (N P Y) (N P Z) U := by
     intro x hx
-    have hh := D.connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+    have hh := D.connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
       (s := univ)
       ((hY.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp))
       ((hZ.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp))

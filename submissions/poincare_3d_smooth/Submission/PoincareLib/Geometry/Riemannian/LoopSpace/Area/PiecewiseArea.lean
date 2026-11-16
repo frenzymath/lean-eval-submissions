@@ -79,7 +79,8 @@ theorem m60AreaIntegral_piecewise_closedBall (g : RiemannianMetric n M)
     simpa only [IntegrableOn, Measure.restrict_restrict measurableSet_closedBall.compl] using hh
   have heq := (m60AreaDensity_piecewise_closedBall_ae g f h r).filter_mono
     (ae_mono (Measure.restrict_le_self (s := S)))
-  refine ⟨(Integrable.piecewise measurableSet_closedBall hfi hhi).congr heq.symm, ?_⟩
+  refine ⟨(Integrable.piecewise measurableSet_closedBall.nullMeasurableSet hfi hhi).congr
+    heq.symm, ?_⟩
   rw [integral_congr_ae heq, integral_piecewise measurableSet_closedBall hfi hhi,
     Measure.restrict_restrict measurableSet_closedBall,
     Measure.restrict_restrict measurableSet_closedBall.compl]

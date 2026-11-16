@@ -47,7 +47,7 @@ theorem curvatureOnFields_tensorial_first (D : LeviCivitaData g)
       funext p
       exact map_smul (D.connection Z p) (f p) (X p)
     unfold LeviCivitaData.curvatureOnFields
-    rw [hfun, D.connection.isCovariantDerivativeOn.leibniz hDX hf,
+    rw [hfun, D.connection.isCovariantDerivativeOnUniv.leibniz hDX hf,
       VectorField.mlieBracket_smul_left hf hX]
     rw [show (f • X) x = f x • X x from rfl, map_smul]
     simp only [add_apply, smul_apply,
@@ -61,7 +61,7 @@ theorem curvatureOnFields_tensorial_first (D : LeviCivitaData g)
       funext p
       exact map_add (D.connection Z p) (X p) (X' p)
     unfold LeviCivitaData.curvatureOnFields
-    rw [hfun, D.connection.isCovariantDerivativeOn.add hDX hDX',
+    rw [hfun, D.connection.isCovariantDerivativeOnUniv.add hDX hDX',
       VectorField.mlieBracket_add_left hX hX']
     simp only [Pi.add_apply, add_apply, map_add]
     abel

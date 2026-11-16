@@ -200,7 +200,7 @@ theorem family_parameter_contMDiffOn
       (fun q : (iota → ℝ) × M => Phi i (q.1 i) q.2) (parameterBox T ×ˢ univ) := by
   have heval : ContMDiff (𝓘(ℝ, iota → ℝ).prod I) 𝓘(ℝ, ℝ) ∞
       (fun q : (iota → ℝ) × M => q.1 i) :=
-    (contDiff_apply ℝ ℝ i).contMDiff.comp contMDiff_fst
+    (contDiff_apply ℝ (fun _ ↦ ℝ) i).contMDiff.comp contMDiff_fst
   exact (hPhi i).comp (heval.prodMk contMDiff_snd).contMDiffOn
     (fun q hq => ⟨hq.1 i, mem_univ _⟩)
 

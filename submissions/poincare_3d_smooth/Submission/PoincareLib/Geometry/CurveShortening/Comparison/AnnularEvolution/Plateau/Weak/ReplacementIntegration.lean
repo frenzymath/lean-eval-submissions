@@ -26,7 +26,7 @@ theorem m64MemLp_piecewise_of_subset
     (hf : MemLp f p (mu.restrict K)) (hg : MemLp g p (mu.restrict S)) :
     MemLp (K.piecewise f g) p (mu.restrict S) := by
   classical
-  apply MemLp.piecewise hK
+  apply MemLp.piecewise hK.nullMeasurableSet
   · rwa [Measure.restrict_restrict hK, inter_eq_left.mpr hKS]
   · exact hg.mono_measure Measure.restrict_le_self
 

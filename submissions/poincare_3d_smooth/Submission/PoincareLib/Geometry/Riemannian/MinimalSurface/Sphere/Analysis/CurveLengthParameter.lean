@@ -50,7 +50,7 @@ theorem lipschitzOnWith_variationOnFromTo {E : Type*} [PseudoEMetricSpace E]
   calc
     eVariationOn f (s ∩ Icc x y) ≤ C * eVariationOn id (s ∩ Icc x y) := by
       simpa only [Function.comp_id] using
-        hf.comp_eVariationOn_le (g := id) (fun _ hz => hz.1)
+        hf.comp_eVariationOn_le (g := id) (s := s ∩ Icc x y) (fun _ hz ↦ hz.1)
     _ ≤ C * eVariationOn id (Icc x y) := by
       gcongr
       exact eVariationOn.mono id inter_subset_right

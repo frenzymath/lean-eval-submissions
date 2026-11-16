@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Geometry.Riemannian.Soul.Horoball
 
+noncomputable section
+
 /-!
 # A continuous convex exhaustion function
 

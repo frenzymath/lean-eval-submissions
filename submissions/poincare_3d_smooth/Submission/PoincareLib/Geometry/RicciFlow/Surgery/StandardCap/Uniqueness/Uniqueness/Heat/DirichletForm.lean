@@ -17,6 +17,8 @@ closability theorem. No compact structure is put on the ambient R3.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 
 noncomputable section
 

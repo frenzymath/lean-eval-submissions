@@ -45,8 +45,10 @@ theorem chartVectorField_param_smooth (p : M) (v : ℝ → E) (U : Set ℝ)
   have hp : ContMDiffOn ((𝓘(ℝ, ℝ)).prod (𝓡 n)) ((𝓡 n).prod (𝓡 n)) ∞
       (fun z : ℝ × M ↦ ((chartAt E p) z.2, v z.1))
       (U ×ˢ (chartAt E p).source) :=
-    (contMDiffOn_chart.comp contMDiff_snd.contMDiffOn (fun z hz ↦ hz.2)).prodMk
-      (hv.contMDiffOn.comp contMDiff_fst.contMDiffOn (fun z hz ↦ hz.1))
+    (contMDiffOn_chart.comp (s := U ×ˢ (chartAt E p).source)
+      contMDiff_snd.contMDiffOn (by intro z hz; exact hz.2)).prodMk
+      (hv.contMDiffOn.comp (s := U ×ˢ (chartAt E p).source)
+        contMDiff_fst.contMDiffOn (by intro z hz; exact hz.1))
   have htv : ContMDiffOn ((𝓘(ℝ, ℝ)).prod (𝓡 n)) ((𝓡 n).prod (𝓡 n)) ∞
       (fun z : ℝ × M ↦ (⟨(chartAt E p) z.2, v z.1⟩ : TangentBundle (𝓡 n) E))
       (U ×ˢ (chartAt E p).source) := by

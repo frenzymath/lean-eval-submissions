@@ -4,6 +4,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.R
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.TransitionBounds
 import Submission.PoincareLib.Geometry.Riemannian.Coordinates.CompactEnergy
 
+noncomputable section
+
 /-!
 # Uniform spatial derivatives of the chosen end charts
 

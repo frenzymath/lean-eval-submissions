@@ -50,6 +50,8 @@ theorem exists_free_annulus_energy_lt_area
           r⁻¹ * m60AreaGram g B.map p 1 1) / 2) m64AnnulusDomain ∧
         m64ClassicalWeightedGramEnergy g B r < A.area + eps := by
   let : LocallyCompactSpace M := ChartedSpace.locallyCompactSpace (EuclideanSpace ℝ (Fin n)) M
+  let : T1Space M := T2Space.t1Space
+  let : T0Space M := T1Space.t0Space
   let : R1Space M := T2Space.r1Space
   let : RegularSpace M := RegularSpace.of_hasBasis
     isCompact_isClosed_basis_nhds (fun _ _ ⟨_, _, h⟩ => h)

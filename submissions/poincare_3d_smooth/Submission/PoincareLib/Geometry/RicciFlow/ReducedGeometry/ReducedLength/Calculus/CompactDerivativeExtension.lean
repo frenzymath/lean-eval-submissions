@@ -46,7 +46,8 @@ theorem nonempty_pullbackDerivativeExtensionOn_compact {J : Set ℝ} (F : RicciF
   have hγ0 : ContMDiffOn (𝓘(ℝ, ℝ)) (𝓡 n) ∞ γ U0 := hγ.mono (fun _ h ↦ h.1.1)
   have hY0 : ContMDiffOn (𝓘(ℝ, ℝ)) ((𝓡 n).prod (𝓡 n)) ∞
       (fun s ↦ (⟨γ s, E.extension s (γ s)⟩ : TangentBundle (𝓡 n) M)) U0 :=
-    E.smooth.comp (hg.mono (fun _ h ↦ h.1.1)) (fun _ h ↦ h.1.2)
+    E.smooth.comp (s := U0) (hg.mono (t := U0) (by intro s h; exact h.1.1))
+      (by intro s h; exact h.1.2)
   let W : ℝ → Set ℝ := fun t ↦ U0 ∩ γ ⁻¹' (chartAt V (γ t)).source
   have hW (t : ℝ) : IsOpen (W t) :=
     hγ0.continuousOn.isOpen_inter_preimage hU0 (chartAt V (γ t)).open_source

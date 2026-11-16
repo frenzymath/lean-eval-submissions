@@ -41,9 +41,9 @@ theorem contDiff_cofactorNormal {G : E3 -> E3} (hG : ContDiff Real ∞ G) :
       (fun x => LinearMap.toMatrix' (euclideanCoordinateLinearMap (fderiv Real G x)) i j) := by
     change ContDiff Real ∞ (fun x =>
       (fderiv Real G x (WithLp.toLp 2 (Pi.single j 1))) i)
-    exact (contDiff_apply Real Real i).comp
+    exact (contDiff_apply Real (fun _ ↦ Real) i).comp
       ((EuclideanSpace.equiv (Fin 3) Real).contDiff.comp
-        ((hG.fderiv_right (by simp)).clm_apply contDiff_const))
+        ((hG.fderiv_right (m := ∞) (by simp)).clm_apply contDiff_const))
   apply (EuclideanSpace.equiv (Fin 3) Real).symm.contDiff.comp
   apply contDiff_pi.mpr
   intro i
@@ -70,7 +70,7 @@ theorem contDiff_cofactorNormal {G : E3 -> E3} (hG : ContDiff Real ∞ G) :
       exact contDiff_const
     · simp only [Matrix.updateRow_apply, hk]
       exact hA (σ k) k
-  · exact (contDiff_apply Real Real j).comp (EuclideanSpace.equiv (Fin 3) Real).contDiff
+  · exact (contDiff_apply Real (fun _ ↦ Real) j).comp (EuclideanSpace.equiv (Fin 3) Real).contDiff
 
 /-- A smooth sphere embedding has a globally smooth ambient extension which
 is a local diffeomorphism at every point of the sphere. -/

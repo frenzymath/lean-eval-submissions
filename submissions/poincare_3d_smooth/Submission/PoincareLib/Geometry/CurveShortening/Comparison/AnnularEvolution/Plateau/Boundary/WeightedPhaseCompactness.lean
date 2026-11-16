@@ -54,7 +54,7 @@ theorem m64WeakPhase_weighted_l2_isCompact
       rwa [hsupp]))
   have hS : MeasurableSet S := isOpen_interior.measurableSet
   have hU (j : ℕ) : MemLp ((S).indicator (u j)) 2 volume :=
-    (memLp_indicator_iff_restrict hS).mpr (hw j).memLp
+    (memLp_indicator_iff_restrict hS.nullMeasurableSet).mpr (hw j).memLp
   have hF (j : ℕ) : MemLp (fun p => rho p * u j p) 2 volume := by
     have heq : (fun p => rho p * u j p) = fun p => rho p * (S).indicator (u j) p := by
       funext p

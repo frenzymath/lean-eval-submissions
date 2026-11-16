@@ -67,7 +67,7 @@ theorem smoothShrinkingCurve_of_fixed_relabeling_and_smooth_slice
       (fun z : ℝ × ℝ => (phi z.1, z.2)) :=
     ((hphis.comp contDiff_fst).prodMk contDiff_snd).contMDiff
   refine ⟨hphis, hc, ?_⟩
-  apply (hd.2.comp hmap.contMDiffOn (fun z hz => ⟨mem_univ _, hz.2⟩)).congr
+  apply (hd.2.comp hmap.contMDiffOn (by intro z hz; exact ⟨mem_univ _, hz.2⟩)).congr
   intro z hz
   exact hrel z.2 (interior_subset hz.2) z.1
 

@@ -109,7 +109,10 @@ theorem exists_ordinary_cap_persistence_accuracy {epsilon : ℝ}
     apply N.boundary_scale_le_of_scalar_error
     intro x hx
     have hxend : x ∈ closure N.end_neck.carrier :=
-      closure_mono (fun _ hy => hy.1) (N.boundary_subset_negative_end_closure hx)
+      by
+        apply closure_mono ?_ (N.boundary_subset_negative_end_closure hx)
+        intro y hy
+        exact hy.1
     exact (hscalarOld x hxend).trans (min_le_right _ _)
   obtain ⟨hcompleteLimit, hRicLimit, hnormalLimit⟩ := blowupLimit_zero_geometry Conv.limit
   have hnormal : N.connection.scalarCurvature Conv.limit.base = 1 := by

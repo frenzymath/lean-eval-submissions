@@ -94,7 +94,7 @@ theorem endpoint_mate_unique {x y z : V}
 omit [FiniteDimensional ℝ V] in
 theorem projected_fiber_finite (z : s.Carrier) : (K.space ∩ D.projected ⁻¹' {z}).Finite := by
   apply (step.projectionInclusion_fiber z).1.of_injOn
-    (f := D.endpoint) (fun _ hx ↦ hx.2)
+    (f := D.endpoint) (by intro _ hx; exact hx.2)
   intro a ha b hb hab
   exact congrArg Subtype.val (D.endpoint_embedding.injective
     (a₁ := ⟨a, ha.1⟩) (a₂ := ⟨b, hb.1⟩) hab)

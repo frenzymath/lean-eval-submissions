@@ -113,10 +113,10 @@ private theorem quadratic_forcing_memLp
     MemLp (quadraticForcing B u V) 2 mu ∧
       ∀ a, MemLp (quadraticForcingPartial B u V W a) 2 mu := by
   have hBV (i : Fin 2) : MemLp (fun z => B (u z) (V i z)) ⊤ mu :=
-    (ContinuousLinearMap.apply ℝ (Target →L[ℝ] ℝ) («E» := Target)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ (Target →L[ℝ] ℝ) (E' := Target)).memLp_of_bilin
       (p := ⊤) (q := ⊤) ⊤ (hV i) hB
   have hterm (i : Fin 2) : MemLp (fun z => B (u z) (V i z) (V i z)) 2 mu :=
-    ((ContinuousLinearMap.apply ℝ ℝ («E» := Target)).memLp_of_bilin
+    ((ContinuousLinearMap.apply ℝ ℝ (E' := Target)).memLp_of_bilin
       (p := ⊤) (q := ⊤) ⊤ (hV i) (hBV i)).mono_exponent le_top
   refine ⟨memLp_finsetSum _ (fun i _ => hterm i), ?_⟩
   intro a
@@ -124,21 +124,21 @@ private theorem quadratic_forcing_memLp
   intro i _
   have hDBV : MemLp (fun z => fderiv ℝ B (u z) (V a z)) ⊤ mu :=
     (ContinuousLinearMap.apply ℝ (Target →L[ℝ] Target →L[ℝ] ℝ)
-      («E» := Target)).memLp_of_bilin (p := ⊤) (q := ⊤) ⊤ (hV a) hDB
+      (E' := Target)).memLp_of_bilin (p := ⊤) (q := ⊤) ⊤ (hV a) hDB
   have hDBVV : MemLp (fun z => fderiv ℝ B (u z) (V a z) (V i z)) ⊤ mu :=
-    (ContinuousLinearMap.apply ℝ (Target →L[ℝ] ℝ) («E» := Target)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ (Target →L[ℝ] ℝ) (E' := Target)).memLp_of_bilin
       (p := ⊤) (q := ⊤) ⊤ (hV i) hDBV
   have h0 : MemLp (fun z => fderiv ℝ B (u z) (V a z) (V i z) (V i z)) 2 mu :=
-    ((ContinuousLinearMap.apply ℝ ℝ («E» := Target)).memLp_of_bilin
+    ((ContinuousLinearMap.apply ℝ ℝ (E' := Target)).memLp_of_bilin
       (p := ⊤) (q := ⊤) ⊤ (hV i) hDBVV).mono_exponent le_top
   have hBW : MemLp (fun z => B (u z) (W a i z)) 2 mu :=
-    (ContinuousLinearMap.apply ℝ (Target →L[ℝ] ℝ) («E» := Target)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ (Target →L[ℝ] ℝ) (E' := Target)).memLp_of_bilin
       (p := 2) (q := ⊤) 2 (hW a i) hB
   have h1 : MemLp (fun z => B (u z) (W a i z) (V i z)) 2 mu :=
-    (ContinuousLinearMap.apply ℝ ℝ («E» := Target)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ ℝ (E' := Target)).memLp_of_bilin
       (p := ⊤) (q := 2) 2 (hV i) hBW
   have h2 : MemLp (fun z => B (u z) (V i z) (W a i z)) 2 mu :=
-    (ContinuousLinearMap.apply ℝ ℝ («E» := Target)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ ℝ (E' := Target)).memLp_of_bilin
       (p := 2) (q := ⊤) 2 (hW a i) (hBV i)
   exact (h0.add h1).add h2
 

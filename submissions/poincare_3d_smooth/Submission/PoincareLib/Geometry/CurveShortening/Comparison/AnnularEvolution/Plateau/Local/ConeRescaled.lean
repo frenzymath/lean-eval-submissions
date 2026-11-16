@@ -77,7 +77,8 @@ theorem affine_tangent (A : M64ObservedConeDisk (n := n) e gamma)
     (a : LoopPlane) {r : ℝ} (hr : 0 < r) (i : Fin 2) :
     ∀ᵐ p ∂volume.restrict (ball a r),
       A.affineColumn a r i p ∈ range (mfderiv (𝓡 n) (𝓡 m) e (A.affineMap a r p)) := by
-  have ht := (m64ConeNormalize_quasiMeasurePreserving a hr).ae (A.tangent i)
+  have ht := Measure.QuasiMeasurePreserving.ae (m64ConeNormalize_quasiMeasurePreserving a hr)
+    (A.tangent i)
   filter_upwards [ht] with p hp
   obtain ⟨v, hv⟩ := hp
   refine ⟨r⁻¹ • v, ?_⟩

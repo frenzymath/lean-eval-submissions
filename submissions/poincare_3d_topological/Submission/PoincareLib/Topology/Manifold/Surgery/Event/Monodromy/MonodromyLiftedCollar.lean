@@ -3,6 +3,8 @@ import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Monodromy.Monodrom
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Two.TwoChartComparison
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Cylinder.CylinderRegionTransport
 
+noncomputable section
+
 /-!
 # The actual monodromy collar and complement in the lifted carrier
 

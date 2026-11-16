@@ -6,6 +6,8 @@ import Submission.PoincareLib.Topology.Surface.Triangulation.Faces.Topology
 import Submission.PoincareLib.Topology.Surface.Triangulation.Edges.Subdivision
 import Submission.PoincareLib.Topology.Plane.Curves.Graphs.PolygonalApproximation
 
+noncomputable section
+
 /-!
 # Compatible smooth faces below polygonal graphs
 

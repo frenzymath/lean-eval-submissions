@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Geo
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Tube.SourceGeometry.Ends.SourceTubeVolume
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Tube.NeckGeometry.NeckPairCoreCapture
 
+noncomputable section
+
 /-!
 # Compact middle and literal end tails of the retained source tube
 

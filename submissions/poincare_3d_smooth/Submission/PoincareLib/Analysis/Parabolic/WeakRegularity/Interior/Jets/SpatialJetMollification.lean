@@ -115,7 +115,7 @@ theorem HasSpatialL2Jet.exists_uniform_mollified_spatial_energy
   obtain ⟨G, hGm, hGe⟩ := hu.exists_mollified_iterated_representatives hU
   let G₀ (p : Fin k → Fin n) := U.indicator (G p)
   have hG₀ (p : Fin k → Fin n) : MemLp (G₀ p) 2 volume :=
-    (memLp_indicator_iff_restrict hU.measurableSet).mpr (hGm p)
+    (memLp_indicator_iff_restrict (hU.measurableSet).nullMeasurableSet).mpr (hGm p)
   obtain ⟨R, hR, hRU⟩ := Metric.mem_nhds_iff.mp (hU.mem_nhds hz)
   let s := R / 2
   have hs : 0 < s := by dsimp only [s]; positivity

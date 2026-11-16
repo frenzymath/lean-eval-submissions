@@ -48,7 +48,8 @@ theorem stage_rim_not_nullhomotopic (b : Bool) :
   rw [heq] at hn'
   let : ContractibleSpace Q2 := (contractible_iff_id_nullhomotopic Q2).mpr hn'
   exact squareRimLoop_class_ne_one
-    (Path.Homotopic.Quotient.eq.mpr (SimplyConnectedSpace.paths_homotopic _ _))
+    (CategoryTheory.End.ext
+      (Path.Homotopic.Quotient.eq.mpr (SimplyConnectedSpace.paths_homotopic _ _)))
 
 /-- Any actual contractible cap carrier is excluded, regardless of its map's
 singularities or its boundary parametrization. -/

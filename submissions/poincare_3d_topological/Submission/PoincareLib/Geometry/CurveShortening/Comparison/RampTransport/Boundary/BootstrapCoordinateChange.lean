@@ -12,6 +12,8 @@ Sections 2 and 7.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option warningAsError true
 set_option backward.isDefEq.respectTransparency false
 
@@ -87,7 +89,7 @@ theorem coordinate_change_memWkp_two
     exact hval z hz
   · intro i
     have hraw : MemLp (fun z => fderiv ℝ F (u z) (V i z)) ⊤ (volume.restrict O) :=
-      (ContinuousLinearMap.apply ℝ Target («E» := Source)).memLp_of_bilin
+      (ContinuousLinearMap.apply ℝ Target (E' := Source)).memLp_of_bilin
         (p := ⊤) (q := ⊤) ⊤ (hV i) hD1
     apply MemLp.ae_eq ?_ (hraw.mono_exponent le_top)
     filter_upwards [ae_restrict_mem hO.measurableSet] with z hz
@@ -97,17 +99,17 @@ theorem coordinate_change_memWkp_two
   · intro a b
     have hD2V : MemLp (fun z => fderiv ℝ (fderiv ℝ F) (u z) (V a z))
         ⊤ (volume.restrict O) :=
-      (ContinuousLinearMap.apply ℝ (Source →L[ℝ] Target) («E» := Source)).memLp_of_bilin
+      (ContinuousLinearMap.apply ℝ (Source →L[ℝ] Target) (E' := Source)).memLp_of_bilin
         (p := ⊤) (q := ⊤) ⊤ (hV a) hD2
     have hD2VV : MemLp (fun z => fderiv ℝ (fderiv ℝ F) (u z) (V a z) (V b z))
         2 (volume.restrict O) :=
-      ((ContinuousLinearMap.apply ℝ Target («E» := Source)).memLp_of_bilin
+      ((ContinuousLinearMap.apply ℝ Target (E' := Source)).memLp_of_bilin
         (p := ⊤) (q := ⊤) ⊤ (hV b) hD2V).mono_exponent le_top
     have hHess := hessian_memLp_of_coordinate_memWkp_two hO hs hu a b
     have hD1H : MemLp (fun z => fderiv ℝ F (u z)
         (fderiv ℝ (fderiv ℝ u) z (EuclideanSpace.single a 1) (EuclideanSpace.single b 1)))
         2 (volume.restrict O) :=
-      (ContinuousLinearMap.apply ℝ Target («E» := Source)).memLp_of_bilin
+      (ContinuousLinearMap.apply ℝ Target (E' := Source)).memLp_of_bilin
         (p := 2) (q := ⊤) 2 hHess hD1
     apply MemLp.ae_eq ?_ (hD2VV.add hD1H)
     filter_upwards [ae_restrict_mem hO.measurableSet] with z hz

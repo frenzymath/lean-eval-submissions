@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Handles.
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Handles.HamiltonIndexTwoMarkedBall
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.General.FinitePLImageTriangulation
 
+noncomputable section
+
 /-!
 # The fixed outer box and side annulus for index two
 

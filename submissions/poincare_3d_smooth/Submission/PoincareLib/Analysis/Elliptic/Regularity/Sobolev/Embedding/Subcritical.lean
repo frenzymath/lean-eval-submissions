@@ -55,7 +55,7 @@ private lemma eLpNorm_eq_eLpNorm_restrict_of_tsupport_subset
   calc eLpNorm f p volume
       = eLpNorm (Ω.indicator f) p volume := by rw [← h_eq]
     _ = eLpNorm f p (volume.restrict Ω) :=
-        eLpNorm_indicator_eq_eLpNorm_restrict hΩ_meas
+        eLpNorm_indicator_eq_eLpNorm_restrict hΩ_meas.nullMeasurableSet
 
 omit [NeZero d] in
 private lemma eLpNorm_fderiv_eq_eLpNorm_fderiv_restrict_of_tsupport_subset
@@ -72,7 +72,7 @@ private lemma eLpNorm_fderiv_eq_eLpNorm_fderiv_restrict_of_tsupport_subset
       = eLpNorm (Ω.indicator (fderiv ℝ f)) p volume := by rw [← h_eq]
     _ = eLpNorm (fderiv ℝ f) p (volume.restrict Ω) :=
         eLpNorm_indicator_eq_eLpNorm_restrict
-          (μ := volume) (p := p) (f := fderiv ℝ f) (s := Ω) hΩ_meas
+          (μ := volume) (p := p) (f := fderiv ℝ f) (s := Ω) hΩ_meas.nullMeasurableSet
 
 omit [NeZero d] in
 private lemma classical_partial_ae_eq_chosenWeakPartial_of_smooth

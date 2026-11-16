@@ -41,7 +41,7 @@ theorem plLocalSign_eq_of_convex_boundary_piece
     have hz : m.contLinear n' = 0 := congrArg (fun L : E →ₗ[ℝ] ℝ => L n') he
     rw [hn'] at hz
     norm_num at hz
-  have hfr := h.isImage_frontier_of_affine_nonneg m hm
+  have hfr := h.isImage_frontier_of_affine_nonneg m hm (K := {y | 0 ≤ ell y})
     (fun y hy => (hside y hy).symm)
   have hfrell := (OpenPartialHomeomorph.refl E).isImage_frontier_of_affine_nonneg
     ell hell (K := {y | 0 ≤ ell y}) (fun _ _ => Iff.rfl)

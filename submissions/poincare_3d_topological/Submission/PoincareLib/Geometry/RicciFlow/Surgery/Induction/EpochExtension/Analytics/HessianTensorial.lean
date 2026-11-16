@@ -67,7 +67,7 @@ theorem hessian_tensorial_right (D : LeviCivitaData g) (phi : M → ℝ)
   smul ha hY := by
     simp only [LeviCivitaData.hessianOnFields, Pi.smul_apply', map_smul]
     rw [mvfderiv_fun_smul ha (scalar_directional_mdifferentiableAt hphi _ hY)]
-    rw [D.connection.isCovariantDerivativeOn.leibniz hY ha]
+    rw [D.connection.isCovariantDerivativeOnUniv.leibniz hY ha]
     simp only [add_apply, smul_apply,
       ContinuousLinearMap.smulRight_apply, map_add, map_smul, smul_eq_mul]
     ring
@@ -76,7 +76,7 @@ theorem hessian_tensorial_right (D : LeviCivitaData g) (phi : M → ℝ)
     rw [mvfderiv_fun_add
       (scalar_directional_mdifferentiableAt hphi _ hY)
       (scalar_directional_mdifferentiableAt hphi _ hZ)]
-    rw [D.connection.isCovariantDerivativeOn.add hY hZ]
+    rw [D.connection.isCovariantDerivativeOnUniv.add hY hZ]
     simp only [add_apply, map_add]
     ring
 

@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.Compactness.Windows
 
+noncomputable section
+
 /-!
 # The increasing shifted ancient time cover
 -/

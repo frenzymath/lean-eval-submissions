@@ -14,6 +14,8 @@ Morgan--Tian context: Lemma 19.15 and its annular area-to-energy construction, p
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 
 noncomputable section
@@ -102,7 +104,8 @@ theorem scalarAnnulus_clamped_lift
     simpa only [ENNReal.coe_nnreal_eq, NNReal.coe_mk, edist_dist, dist_eq_norm] using!
       A.lipschitz_on_domain ⟨x, hx⟩ ⟨y, hy⟩
   obtain ⟨L, hL⟩ := scalarAnnulusClamp_lipschitz
-  have hcomp := hA.comp hL.lipschitzOnWith (fun _ hz => scalarAnnulusClamp_mem hz)
+  have hcomp := hA.comp (s := {z : Cover | z.1 ∈ Icc (0 : ℝ) 1}) hL.lipschitzOnWith
+    (fun _ hz => scalarAnnulusClamp_mem hz)
   have hlocal : LocallyLipschitz (A.map ∘ scalarAnnulusClamp) := by
     apply scalar_periodic_strip_locallyLipschitz _ hcomp
     intro x s

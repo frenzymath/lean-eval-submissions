@@ -34,8 +34,9 @@ theorem m64AnnulusLowerExtend_memLp
     simpa only [Function.comp_def] using
       hf.comp_measurePreserving m64AnnulusLower_translation_measurePreserving
   have hF : MemLp F q volume :=
-    ((memLp_indicator_iff_restrict isOpen_interior.measurableSet).mpr hg).add
-      ((memLp_indicator_iff_restrict m64AnnulusLowerStrip_isOpen.measurableSet).mpr hbottom)
+    ((memLp_indicator_iff_restrict isOpen_interior.measurableSet.nullMeasurableSet).mpr hg).add
+      ((memLp_indicator_iff_restrict
+        m64AnnulusLowerStrip_isOpen.measurableSet.nullMeasurableSet).mpr hbottom)
   apply (hF.mono_measure (Measure.restrict_le_self (s := O))).ae_eq
   filter_upwards [ae_restrict_of_ae m64AnnulusLowerDomain_ae_union,
     ae_restrict_mem m64AnnulusLowerDomain_isOpen.measurableSet] with p hp hpO

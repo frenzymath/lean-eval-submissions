@@ -72,7 +72,10 @@ theorem sourceAnnulusMap_pi1_injective (phi : C(H, H)) (theta : C)
     have heq : (⟨Subtype.val, continuous_subtype_val⟩ : C(sourceSurface phi theta, X)) =
         (⟨Subtype.val, continuous_subtype_val⟩ : C(R, X)).comp inc := rfl
     rw [heq, FundamentalGroup.map_comp] at hinj
-    exact Function.Injective.of_comp hinj
+    intro a b hab
+    apply hinj
+    exact congrArg (FundamentalGroup.map
+      (⟨Subtype.val, continuous_subtype_val⟩ : C(R, X)) _) hab
   have hfull : Function.Injective
       (FundamentalGroup.map (coords.comp (phi.comp (E.comp inc))) x) := by
     rw [FundamentalGroup.map_comp, FundamentalGroup.map_comp, FundamentalGroup.map_comp]
@@ -80,7 +83,9 @@ theorem sourceAnnulusMap_pi1_injective (phi : C(H, H)) (theta : C)
       ((F.fundamentalGroup_map_bijective _).1.comp
         (((latticeHandleDomainEquiv (Fin 1) (Fin 2) L).fundamentalGroupMulEquiv _).injective.comp hinc))
   rw [← hfactor, FundamentalGroup.map_comp] at hfull
-  exact Function.Injective.of_comp hfull
+  intro a b hab
+  apply hfull
+  exact congrArg (FundamentalGroup.map sectionMap _) hab
 
 /-- Every original rim circle generates the based group of its whole source
 phase when that phase injects into the ambient handle. -/

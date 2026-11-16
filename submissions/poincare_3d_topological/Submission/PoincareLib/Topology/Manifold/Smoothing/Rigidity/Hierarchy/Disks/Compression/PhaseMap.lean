@@ -144,7 +144,7 @@ theorem exists_hamiltonZero_third_coordinate_compression_map
   have hAU : A ⊆ U := hAA0.trans (interior_subset.trans hA0U)
   have hwzero (x : X0) (hx : x ∉ interior A) : w x = 0 := sub_eq_zero.mpr (hgo hx)
   obtain ⟨psi, hPL, hF, hF0, hfirst, hsecond, hthird, G, hG⟩ :=
-    hphi.exists_hamiltonZero_third_scalar_homotopy hd F0 w hw hwzero
+    hphi.exists_hamiltonZero_third_scalar_homotopy hd F0 w hw (B := (interior A)ᶜ) hwzero
   have hnormal (t : unitInterval) (x : X0) :
       (Q0 (G (t, x))).2 = hamiltonZeroCircleMap phi x := by
     have h := congrArg Prod.snd (hG t x)

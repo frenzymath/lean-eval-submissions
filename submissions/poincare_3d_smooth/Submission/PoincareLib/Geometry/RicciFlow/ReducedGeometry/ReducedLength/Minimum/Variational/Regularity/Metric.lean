@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedLength.M
 import Mathlib.Analysis.Normed.Operator.Banach
 import Mathlib.Analysis.Calculus.ContDiff.Operations
 
+noncomputable section
+
 /-!
 # Smooth positive chart coefficients
 

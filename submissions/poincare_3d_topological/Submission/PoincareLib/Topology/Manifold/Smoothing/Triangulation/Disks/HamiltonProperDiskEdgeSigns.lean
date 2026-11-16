@@ -60,16 +60,16 @@ theorem HamiltonProperDiskNormalLabels.half_eq_on_edge_dual
     (ne_of_gt hvp) (hDzero _ hvZ hx)
   by_cases hweight : 0 < O.weight p
   · have hqpos := O.nonneg_on_half_of_incident_witness p q hp
-      (fun _ hx => hx.1.2) (fun _ hx => hqS hx.1)
-      (fun _ hx => Or.inl ⟨hx.1.1, hx.2⟩)
+      (by intro _ hx; exact hx.1.2) (by intro _ hx; exact hqS hx.1)
+      (by intro _ hx; exact Or.inl ⟨hx.1.1, hx.2⟩)
       ht htc (hst hps) (hst hqs) hv hvc htv ⟨hvZ, hvp.le⟩ hvHull
       (show 0 < O.height p (v.centroid ℝ id) from mul_pos hweight hvp) hvD
     have hqneg := O.nonpos_on_half_of_incident_witness p q hn
-      (fun _ hx => hx.1.2) (fun _ hx => hqS hx.1)
-      (fun _ hx => Or.inr ⟨hx.1.1, hx.2⟩)
+      (by intro _ hx; exact hx.1.2) (by intro _ hx; exact hqS hx.1)
+      (by intro _ hx; exact Or.inr ⟨hx.1.1, hx.2⟩)
       ht htc (hst hps) (hst hqs) hu huc htu ⟨huZ, hun.le⟩ huHull
       (show O.height p (u.centroid ℝ id) < 0 from mul_neg_of_pos_of_neg hweight hun) huD
-    apply O.half_eq_of_whole_signs p q (fun _ hx => hx.2) hpS hqS
+    apply O.half_eq_of_whole_signs p q (by intro _ hx; exact hx.2) hpS hqS
     · intro x hx
       have hraw : 0 ≤ f x := by
         by_contra h
@@ -85,16 +85,16 @@ theorem HamiltonProperDiskNormalLabels.half_eq_on_edge_dual
   · have hweight' : O.weight p < 0 :=
       lt_of_le_of_ne (le_of_not_gt hweight) (O.nonzero p)
     have hqpos := O.nonneg_on_half_of_incident_witness p q hn
-      (fun _ hx => hx.1.2) (fun _ hx => hqS hx.1)
-      (fun _ hx => Or.inr ⟨hx.1.1, hx.2⟩)
+      (by intro _ hx; exact hx.1.2) (by intro _ hx; exact hqS hx.1)
+      (by intro _ hx; exact Or.inr ⟨hx.1.1, hx.2⟩)
       ht htc (hst hps) (hst hqs) hu huc htu ⟨huZ, hun.le⟩ huHull
       (show 0 < O.height p (u.centroid ℝ id) from mul_pos_of_neg_of_neg hweight' hun) huD
     have hqneg := O.nonpos_on_half_of_incident_witness p q hp
-      (fun _ hx => hx.1.2) (fun _ hx => hqS hx.1)
-      (fun _ hx => Or.inl ⟨hx.1.1, hx.2⟩)
+      (by intro _ hx; exact hx.1.2) (by intro _ hx; exact hqS hx.1)
+      (by intro _ hx; exact Or.inl ⟨hx.1.1, hx.2⟩)
       ht htc (hst hps) (hst hqs) hv hvc htv ⟨hvZ, hvp.le⟩ hvHull
       (show O.height p (v.centroid ℝ id) < 0 from mul_neg_of_neg_of_pos hweight' hvp) hvD
-    apply O.half_eq_of_whole_signs p q (fun _ hx => hx.2) hpS hqS
+    apply O.half_eq_of_whole_signs p q (by intro _ hx; exact hx.2) hpS hqS
     · intro x hx
       have hraw : f x ≤ 0 := by
         by_contra h

@@ -121,12 +121,12 @@ theorem local_tangential_diffQuot_weakGradient_localL2_bound
   let f₀ := (W ∩ halfSpace d).indicator f
   let p₀ : Fin d → E → ℝ := fun i => (halfSpace d).indicator (p i)
   have hu₀ : MemLp u₀ 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu.1.1
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr hu.1.1
   have hWH : IsOpen (W ∩ halfSpace d) := hW.inter isOpen_halfSpace
   have hf₀ : MemLp f₀ 2 volume :=
-    (memLp_indicator_iff_restrict hWH.measurableSet).mpr hf
+    (memLp_indicator_iff_restrict hWH.measurableSet.nullMeasurableSet).mpr hf
   have hp₀ (i : Fin d) : MemLp (p₀ i) 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr (hp i)
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr (hp i)
   have hw₀ (i : Fin d) : HasWeakPartialDeriv i (p₀ i) u₀ univ :=
     extended_weakPartial hu hp hw i
   have hbound : ∃ C : ℝ, 0 ≤ C ∧ ∀ {h : ℝ}, h ≠ 0 → |h| ≤ R →

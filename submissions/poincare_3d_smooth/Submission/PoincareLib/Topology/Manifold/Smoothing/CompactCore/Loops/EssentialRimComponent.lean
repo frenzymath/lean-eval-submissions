@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.General.Mathlib.SquareRimLoop
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Spheres.OriginalComponentSphere
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Spheres.OriginalSphereSimplyConnected
@@ -73,11 +74,11 @@ theorem exists_whole_component_essential_rim
       (Path.Homotopic.Quotient.mk (Dehn.squareRimLoop.map gammaS.continuous)) ≠ 1 := by
     intro hzero
     have hnull : (Dehn.squareRimLoop.map gammaS.continuous).Homotopic
-        (Path.refl (gammaS Dehn.squareRimBase)) := Path.Homotopic.Quotient.exact hzero
+        (Path.refl (gammaS Dehn.squareRimBase)) := (FundamentalGroup.fromPath_eq_one_iff _).mp hzero
     have hnullF : (Dehn.squareRimLoop.map gamma.continuous).Homotopic
         (Path.refl (gamma Dehn.squareRimBase)) :=
       hnull.map (ContinuousMap.inclusion hSF)
-    exact hessential (Path.Homotopic.Quotient.eq.mpr hnullF)
+    exact hessential ((FundamentalGroup.fromPath_eq_one_iff _).mpr hnullF)
   exact ⟨i, gammaS, hvalues, fun _ => rfl, hessentialS,
     not_chartwisePLSphere_of_essential_rim e gammaS hessentialS⟩
 

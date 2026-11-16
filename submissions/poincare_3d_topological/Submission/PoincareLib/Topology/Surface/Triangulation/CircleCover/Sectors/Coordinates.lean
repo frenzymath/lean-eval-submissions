@@ -111,14 +111,14 @@ theorem sectorCoordinates_smooth (i : Bool × Bool) :
       (collarParameterEquiv.symm ∘ sectorParameterEquiv P.center i)
       (P.sectorCoordinates i).source := (collarParameterEquiv.symm.contDiff.comp
         (contDiff_sectorParameterEquiv P.center i)).contMDiff.contMDiffOn
-  exact P.smooth.comp hA (fun _ hq => hq.2.2)
+  exact P.smooth.comp hA (by intro _ hq; exact hq.2.2)
 
 theorem sectorCoordinates_smooth_symm (i : Bool × Bool) :
     ContMDiffOn (𝓡 2) 𝓘(ℝ, ℝ × ℝ) ∞ (P.sectorCoordinates i).symm
       (P.sectorCoordinates i).target := by
   have hA := ((contDiff_sectorParameterEquiv_symm P.center i).comp
     collarParameterEquiv.contDiff).contMDiff
-  exact hA.comp_contMDiffOn (P.smooth_symm.mono (fun _ hq => hq.1.1))
+  exact hA.comp_contMDiffOn (P.smooth_symm.mono (by intro _ hq; exact hq.1.1))
 
 /-- The same corner coordinates expressed in a chart containing the sector. -/
 noncomputable def chartSectorCoordinates (x : M) (i : Bool × Bool) :
@@ -144,15 +144,20 @@ variable [IsManifold (𝓡 2) ∞ M]
 theorem chartSectorCoordinates_smooth (x : M) (i : Bool × Bool) :
     ContDiffOn ℝ ∞ (P.chartSectorCoordinates x i) (P.chartSectorCoordinates x i).source := by
   exact ((contMDiffOn_chart (I := 𝓡 2) (n := ∞) (x := x)).comp
-    ((P.sectorCoordinates_smooth i).mono (fun _ hq => hq.1))
-      (fun _ hq => hq.2)).contDiffOn
+    ((P.sectorCoordinates_smooth i).mono (t := (P.chartSectorCoordinates x i).source) (by
+        intro _ hq
+        exact hq.1))
+      (by intro _ hq; exact hq.2)).contDiffOn
 
 theorem chartSectorCoordinates_smooth_symm (x : M) (i : Bool × Bool) :
     ContDiffOn ℝ ∞ (P.chartSectorCoordinates x i).symm
       (P.chartSectorCoordinates x i).target := by
   exact ((P.sectorCoordinates_smooth_symm i).comp
-    ((contMDiffOn_chart_symm (I := 𝓡 2) (n := ∞) (x := x)).mono (fun _ hq => hq.1))
-      (fun _ hq => hq.2)).contDiffOn
+    ((contMDiffOn_chart_symm (I := 𝓡 2) (n := ∞) (x := x)).mono (t := (P.chartSectorCoordinates
+      x i).target) (by
+        intro _ hq
+        exact hq.1))
+      (by intro _ hq; exact hq.2)).contDiffOn
 
 end ChartCircleArrangementVertexPatch
 end PoincareMT.Topology.Surface

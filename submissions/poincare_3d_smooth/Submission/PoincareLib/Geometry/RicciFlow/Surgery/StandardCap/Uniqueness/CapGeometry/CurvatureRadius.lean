@@ -152,7 +152,9 @@ theorem scalar_ball_sup_eq_closedBall (g : RiemannianMetric 3 M)
     fun y hy => le_csSup hbounded (mem_image_of_mem _ hy)
   have hboundClosure : ∀ y ∈ closure (g.ball x r),
       D.scalarCurvature y ≤ sSup (D.scalarCurvature '' g.ball x r) :=
-    closure_minimal hbound (isClosed_le hR continuous_const)
+    closure_minimal (s := g.ball x r)
+      (t := {y | D.scalarCurvature y ≤ sSup (D.scalarCurvature '' g.ball x r)})
+      hbound (isClosed_le hR continuous_const)
   change sSup (range fun z : g.ball x r => D.scalarCurvature z.1) = _
   rw [← image_eq_range]
   apply le_antisymm (csSup_le_csSup hclosed hnonempty (image_mono hsub))

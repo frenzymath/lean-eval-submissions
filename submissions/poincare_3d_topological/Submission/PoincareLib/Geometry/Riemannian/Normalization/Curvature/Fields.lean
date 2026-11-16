@@ -59,10 +59,10 @@ theorem curvatureOnFields_bianchi (D : LeviCivitaData g) {U : Set M} (hU : IsOpe
         D.connection (VectorField.mlieBracket (𝓡 n) A B) x := by
     have hsub : D.connection (nabla A B - nabla B A) x =
         D.connection (nabla A B) x - D.connection (nabla B A) x := by
-      have hn := D.connection.isCovariantDerivativeOn.smul_const (-1 : ℝ)
+      have hn := D.connection.isCovariantDerivativeOnUniv.smul_const (-1 : ℝ)
         (hAt _ (hN B A hB hA))
       simp only [neg_one_smul] at hn
-      rw [sub_eq_add_neg, D.connection.isCovariantDerivativeOn.add
+      rw [sub_eq_add_neg, D.connection.isCovariantDerivativeOnUniv.add
         (hAt _ (hN A B hA hB))
         (mdifferentiableAt_neg_section (hAt _ (hN B A hB hA))), hn, sub_eq_add_neg]
     rw [← hsub]
@@ -142,7 +142,7 @@ theorem curvatureOnFields_smul_left
   have hF : MDifferentiableAt (𝓡 n) (𝓘(ℝ, ℝ)) f x :=
     (hf.contMDiffAt (hU.mem_nhds hx)).mdifferentiableAt (by simp)
   have hA := hN X Z hX hZ
-  have hleib := D.connection.isCovariantDerivativeOn.leibniz (hAt _ hA) hF
+  have hleib := D.connection.isCovariantDerivativeOnUniv.leibniz (hAt _ hA) hF
   have hleib' := congrArg (fun L ↦ L (Y x)) hleib
   dsimp [nabla] at hleib'
   have hinner : (fun y ↦ D.connection Z y ((f • X) y)) =
@@ -187,7 +187,7 @@ theorem curvatureOnFields_add_left
     funext y
     change D.connection Z y (X y + X' y) = _
     exact map_add (D.connection Z y) (X y) (X' y)
-  have hconn := D.connection.isCovariantDerivativeOn.add
+  have hconn := D.connection.isCovariantDerivativeOnUniv.add
     (hAt _ (hN X Z hX hZ)) (hAt _ (hN X' Z hX' hZ))
   have hconn' := congrArg (fun L ↦ L (Y x)) hconn
   dsimp [nabla] at hconn'

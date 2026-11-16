@@ -1,0 +1,11 @@
+{
+  "observed_at": "2026-11-16T11:26:18.521741+00:00",
+  "sample_module": "Submission/PoincareLib/Geometry/RicciFlow/ReducedGeometry/ReducedLength/Minimum/Variational/QuadraticEnergy",
+  "source_sha256_both_workspaces": "84a23115eda15b5a36b1f860badb31e5bcb337f85e86d03e6ad007cc6987a4b8",
+  "compiler_setup_different_keys": [
+    "package"
+  ],
+  "smooth_package": "poincare_3d_smooth",
+  "topological_package": "poincare_3d_topological",
+  "observation": "Lake rebuilt this identical helper source under the different package identity. Topological build reuses dependency artifacts, but requires helper recompilation."
+}

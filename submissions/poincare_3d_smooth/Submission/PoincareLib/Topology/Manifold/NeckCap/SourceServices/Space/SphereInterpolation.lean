@@ -49,7 +49,7 @@ theorem sphereInterpolation_contDiffOn (f : E → E) {U : Set E}
     ContDiffOn ℝ ∞ (sphereInterpolation f) (univ ×ˢ U) := by
   exact contDiff_fst.contDiffOn.prodMk (contDiff_snd.contDiffOn.add
     ((Real.smoothTransition.contDiff.comp contDiff_fst).contDiffOn.smul
-      ((hf.comp contDiff_snd.contDiffOn (fun _ hp => hp.2)).sub
+      ((hf.comp contDiff_snd.contDiffOn (by intro _ hp; exact hp.2)).sub
         contDiff_snd.contDiffOn)))
 
 /-- The spacetime derivative at a fixed point has no time-to-space

@@ -59,6 +59,7 @@ theorem sectional_local_positive_transfer
   have hcont : ContinuousAt (f s) y :=
     (continuous_modelLeastSectional_slice F (hJ hs)).continuousAt
   have hseed : {x : E | epsilon < f s x} ∈ 𝓝 y := by
+    change (f s) ⁻¹' Ioi epsilon ∈ 𝓝 y
     apply hcont.preimage_mem_nhds
     apply Ioi_mem_nhds
     dsimp only [epsilon, f]

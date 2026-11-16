@@ -28,7 +28,7 @@ theorem exists_uniform_local_linear_solution (U : Set ℝ) (hU : IsOpen U)
   let S : Set (ℝ × E) := U ×ˢ Set.univ
   let B : ℝ × E → E := fun z ↦ A z.1 z.2
   have hB : ContDiffOn ℝ ∞ B S :=
-    (hA.comp contDiffOn_fst (fun z hz ↦ hz.1)).clm_apply contDiffOn_snd
+    (hA.comp contDiffOn_fst (by intro z hz; exact hz.1)).clm_apply contDiffOn_snd
   obtain ⟨beta, V, d, hV, hstart, hVS, hd, hbeta, hinit, hode⟩ :=
     exists_local_smooth_timeDependent_flow S (hU.prod isOpen_univ) B hB (s0, 0)
       ⟨hs0, Set.mem_univ _⟩

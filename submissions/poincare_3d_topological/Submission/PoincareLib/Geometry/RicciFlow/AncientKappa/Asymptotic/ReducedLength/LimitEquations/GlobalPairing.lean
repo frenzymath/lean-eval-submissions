@@ -65,7 +65,8 @@ theorem reducedLengthPullback_limitDensity_continuousOn
     ContinuousOn (fun z : G.limit.carrier.carrier × ℝ =>
       z.2 ^ (-(n : ℝ) / 2) * Real.exp (-l z)) (univ ×ˢ Ioi (0 : ℝ)) := by
   have hl := G.reducedLengthPullback_limit_continuousOn P hσ l hlim
-  exact (continuousOn_snd.rpow_const (fun z hz => Or.inl (ne_of_gt hz.2))).mul hl.neg.rexp
+  exact (continuousOn_snd.rpow_const (s := (univ : Set G.limit.carrier.carrier) ×ˢ Ioi (0 : ℝ))
+    (fun z hz => Or.inl (ne_of_gt hz.2))).mul hl.neg.rexp
 
 theorem limitReducedLength_weakPairing_nonneg_of_chart_support
     (G : AncientCompactTimeConvergence S) (P : AncientAsymptoticSolitonPredecessors K)

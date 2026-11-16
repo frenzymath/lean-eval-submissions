@@ -48,7 +48,7 @@ theorem scaleLeviCivitaData_laplacian (D : LeviCivitaData g) {Q : ℝ} (hQ : 0 <
     D.laplacian_eq_trace_connection_gradient hu, hgrad]
   change LinearMap.trace ℝ (TangentSpace (𝓡 n) x)
     (D.connection (Q⁻¹ • D.gradient u) x).toLinearMap = _
-  rw [D.connection.isCovariantDerivativeOn.smul_const Q⁻¹
+  rw [D.connection.isCovariantDerivativeOnUniv.smul_const Q⁻¹
     ((D.contMDiffAt_gradient hu).mdifferentiableAt (by simp))]
   change LinearMap.trace ℝ (TangentSpace (𝓡 n) x)
     (Q⁻¹ • (D.connection (D.gradient u) x).toLinearMap) = _

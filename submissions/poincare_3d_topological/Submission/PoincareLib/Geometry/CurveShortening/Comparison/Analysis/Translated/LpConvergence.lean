@@ -73,7 +73,7 @@ theorem m64MemLp_add_restrict_tendsto {O K : Set X}
       2 (volume.restrict K)) l (𝓝 0) := by
   classical
   let U := O.indicator u
-  have hU : MemLp U 2 volume := (memLp_indicator_iff_restrict hO).mpr hu
+  have hU : MemLp U 2 volume := (memLp_indicator_iff_restrict hO.nullMeasurableSet).mpr hu
   have hlim := m64MemLp_add_tendsto hU hh
   have hb (j : J) :
       eLpNorm (fun x => u (x + h j) - u (x + a)) 2 (volume.restrict K) ≤

@@ -433,7 +433,7 @@ theorem Step.exists_original_boundary_branch_operation_with_closed_support
     hHB₀.injOn_comp_inverse_on_embeddedImage hiB hqB₀i hinverse
   obtain ⟨G, hG, hGinv, hGzero, hGT, hGout, hGprotected, _, _, hGregion, hGPL, _⟩ :=
     H.exists_marked_chart_motion J hJ T.symm hJT (hCB.trans (hBJ.trans hJT))
-      t.charts t.compatible (fun k => (hbranches k).2) hupper
+      t.charts t.compatible (fun k => (hbranches k).2) (B := {z | 0 ≤ height z}) hupper
       (fun u z => by change 0 ≤ height (H.map u z) ↔ 0 ≤ height z; rw [hheight])
       hFup hsupport
   have hformula (u : I) : EqOn (G u) (T.symm ∘ H.map u ∘ T) T.source := hGT u

@@ -257,7 +257,7 @@ theorem PLDomain.exists_marked_cap_coordinates_in_open_ambient
     · exact Or.inl hz
   have hS : frontier D = (interior D)ᶜ ∩ D := by
     rw [hD.frontier_eq]
-    exact inter_comm _ _
+    rw [diff_eq, inter_comm]
   obtain ⟨c, hc, hyc⟩ := exists_marked_cap_coordinates_of_closed_sides
     isOpen_interior.isClosed_compl hD hcover hS C hCK hCD ⟨y, hyS⟩ hyC
     heps hU g hgzero hgS

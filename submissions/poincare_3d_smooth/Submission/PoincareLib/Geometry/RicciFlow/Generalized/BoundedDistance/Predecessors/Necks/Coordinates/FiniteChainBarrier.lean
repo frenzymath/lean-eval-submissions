@@ -200,7 +200,8 @@ theorem exists_positive_frontier_negative_quarter_exclusion :
       have hyN : N'.center ∈ closure (N.region 0 epsilon⁻¹) := by
         simpa only [N, hibEq] using hy
       have hyK : N'.center ∈ connectedComponent N.center :=
-        closure_minimal (fun _ hx => N.m25_carrier_subset_connectedComponent hx.1)
+        closure_minimal (s := N.region 0 epsilon⁻¹)
+          (fun _ hx => N.m25_carrier_subset_connectedComponent hx.1)
           isClosed_connectedComponent hyN
       have hyge : 0 ≤ H N'.center := by
         apply closure_minimal (t := {x | 0 ≤ H x}) ?_

@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.GeometryImports
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.BoundedDistance.Persistence.CapTopology.AmbientCompression
 
+noncomputable section
+
 /-!
 # Quantitative margins on an actual compressed cap recut
 

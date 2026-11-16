@@ -77,14 +77,14 @@ theorem integral_cauchyKernel_sub_le {R : ℝ} (hR : 0 < R) (z w : ℂ) :
       _ ≤ ∫ u in A, ‖z - u‖⁻¹ :=
         setIntegral_mono_set ((hi z z rho).mono_set ball_subset_closedBall)
           (ae_of_all _ fun _ => inv_nonneg.mpr (norm_nonneg _))
-          (ae_of_all _ fun _ h => h.2)
+          (ae_of_all _ (by intro _ h; exact h.2))
       _ = _ := integral_norm_inv_ball_center z hr.le
   have hnearW : (∫ u in S ∩ A, ‖w - u‖⁻¹) ≤ 8 * Real.pi * rho := by
     calc
       _ ≤ ∫ u in closedBall z rho, ‖w - u‖⁻¹ :=
         setIntegral_mono_set (hi w z rho)
           (ae_of_all _ fun _ => inv_nonneg.mpr (norm_nonneg _))
-          (ae_of_all _ fun _ h => ball_subset_closedBall h.2)
+          (ae_of_all _ (by intro _ h; exact ball_subset_closedBall h.2))
       _ ≤ _ := integral_norm_inv_closedBall_le_center hr z w
   have hnear : (∫ u in S ∩ A, f u) ≤ 10 * Real.pi * rho := by
     calc
@@ -100,7 +100,7 @@ theorem integral_cauchyKernel_sub_le {R : ℝ} (hR : 0 < R) (z w : ℂ) :
       _ ≤ ∫ u in S, ‖w - u‖⁻¹ :=
         setIntegral_mono_set (hi w 0 R)
           (ae_of_all _ fun _ => inv_nonneg.mpr (norm_nonneg _))
-          (ae_of_all _ fun _ h => h.1)
+          (ae_of_all _ (by intro _ h; exact h.1))
       _ ≤ _ := integral_norm_inv_closedBall_le_global hR w
   have hfar : (∫ u in S \ A, f u) ≤ (d / rho) * (8 * Real.pi * R) := by
     calc

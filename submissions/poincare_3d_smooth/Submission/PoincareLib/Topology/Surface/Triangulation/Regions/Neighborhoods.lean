@@ -3,6 +3,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 -/
 import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Edges.Collars
 
+noncomputable section
+
 /-!
 # A smooth neighborhood cover of the boundary arrangement
 

@@ -65,7 +65,7 @@ theorem exists_earlier_scalar_le
   have hclock : Continuous (fun q : ℝ × M => (a + q.1, q.2)) :=
     (continuous_const.add continuous_fst).prodMk continuous_snd
   have hf : ContinuousOn (Function.uncurry f) (Icc 0 (b - a) ×ˢ (univ : Set M)) :=
-    (hreg.continuousOn.comp hclock.continuousOn
+    (hreg.continuousOn.comp (s := Icc 0 (b - a) ×ˢ (univ : Set M)) hclock.continuousOn
       (fun q hq => ⟨hmap hq.1, mem_univ q.2⟩)).sub continuousOn_const
   have hderiv : ∀ s ∈ Icc 0 (b - a), ∀ x : M,
       HasDerivWithinAt (fun r => f r x) (v s x) (Icc 0 (b - a)) s := by

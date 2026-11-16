@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 
+noncomputable section
+
 /-!
 # Generalized blowup sequences and normalized balls
 

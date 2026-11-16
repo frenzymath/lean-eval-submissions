@@ -73,7 +73,7 @@ theorem scalarCover_radial_energy_integrable {H : Plane → ℝ}
     ((scalarCoverPotential_smooth hHs).continuousOn_fderiv_of_isOpen
       scalarCoverStrip_isOpen (by simp)).clm_apply continuousOn_const
   apply (scalarCover_differential_energy_integrable hHs hE).mono_nonneg
-    (((hc.pow 2).mono (fun _ hz => hz.1)).aestronglyMeasurable
+    (((hc.pow 2).mono (t := Ioo (1 : ℝ) 2 ×ˢ Ioo (0 : ℝ) 1) (fun _ hz => hz.1)).aestronglyMeasurable
       (measurableSet_Ioo.prod measurableSet_Ioo)) (ae_of_all _ (fun _ => sq_nonneg _))
   filter_upwards [ae_restrict_mem (measurableSet_Ioo.prod measurableSet_Ioo)] with z hz
   change (fderiv ℝ (H ∘ scalarCoverMap) z (1, 0)) ^ 2 ≤

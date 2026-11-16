@@ -1,0 +1,14 @@
+{
+  "receipt": "validation-smooth-20261116-113621.json",
+  "receipt_sha256": "69e73707bdd328c79741741fcff852778521e7e0c13b113ad8d9f551f264fb6c",
+  "official_test_exit_code": 0,
+  "official_test_finished_at": "2026-11-16T14:17:45.520563+00:00",
+  "sources_stable": true,
+  "input_tree_sha256": "25e112c97470f3cfcaaa4e928a110f84d4cc6697491eef59ed10b5c9aa20e2f2",
+  "console_log": "validation-pass20.log",
+  "console_log_sha256": "96147add54ac7c6e332aa074e9052cfaeca04adf46de45150e270fa03673323c",
+  "console_capture_last_modified_at": "2026-11-16T12:01:07.909773+00:00",
+  "console_capture_truncated": true,
+  "explanation": "The login session interruption ended local srun console forwarding during the default kernel check. Validation continued on the compute node and wrote its final receipt after the unchanged official lake test returned 0. The final acceptance text and VALIDATION RESULT line are absent from the capture; no text was inserted to recreate them.",
+  "success_basis": "The pinned official WorkspaceTest invokes the toolchain comparator and propagates its exit status. Lake/CLI/Check.lean runKernels awaits each external kernel and Lean default, throwing on any nonzero result. Official lake test exit 0 therefore records successful completion of both required kernels."
+}

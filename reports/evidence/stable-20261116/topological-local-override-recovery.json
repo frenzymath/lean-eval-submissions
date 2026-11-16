@@ -1,0 +1,16 @@
+{
+  "preparatory_validation_receipt": "validation-topological-20261116-113559.json",
+  "preparatory_log": "validation-topological-recovery.log",
+  "complete_build_passed": true,
+  "complete_build_seconds": 18784.481,
+  "initial_official_test_exit_code": 1,
+  "initial_official_test_failure": "Dependency resolution before proof checking: cloned package-overrides.json pointed to the smooth workspace, hidden by the comparator sandbox.",
+  "fix": "Regenerate unsubmitted .lake/package-overrides.json against the selected workspace package tree; use the selected workspace as the launcher working directory.",
+  "package_source_bytes_changed": false,
+  "source_tree_sha256": "ae8c8dd8318c843c608bce4ad2e450444fa3541c854dc2dec23d1c344a85b64c",
+  "retry_receipt": "validation-topological-20261116-165223.json",
+  "retry_log": "validation-topological-pass2.log",
+  "retry_complete_build_passed": true,
+  "retry_complete_build_seconds": 11.34,
+  "validation_condition": "The retry must finish with both required kernels and stable sources before final packaging."
+}

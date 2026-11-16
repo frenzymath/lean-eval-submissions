@@ -71,7 +71,7 @@ def radialDiskChart (m : OpenPartialHomeomorph E2 S2)
     have hmc : ContDiffOn Real ∞ (fun y => (m y : E3)) m.source :=
       (contMDiff_coe_sphere.comp_contMDiffOn hm).contDiffOn
     exact ((contDiffOn_const.add contDiffOn_snd).smul
-      (hmc.comp contDiffOn_fst (fun z hz => hz.1))).contMDiffOn
+      (hmc.comp contDiffOn_fst (by intro z hz; exact hz.1))).contMDiffOn
   contMDiffOn_invFun := by
     intro z hz
     have hp := contMDiffAt_sphereProjection hz.1

@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Pinching.RegionTopology
 import Submission.PoincareLib.Geometry.Riemannian.Tensor.MaximumPrinciple.OperatorFiber
 
+noncomputable section
+
 /-!
 # Hamilton--Ivey regions in Hilbert tensor fibers
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Topology.ComponentLoopReflection
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.PathMaps
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.TopologicalAdapters
@@ -17,23 +18,26 @@ theorem inclusion_injective_of_whole_component (hSF : S ⊆ F)
     (hcomponent : ∀ x ∈ S, connectedComponentIn F x = S) (x : S) :
     Function.Injective (map (ContinuousMap.inclusion hSF) x) := by
   intro p q hpq
-  induction p using Path.Homotopic.Quotient.ind with
+  have hpq := congrArg FundamentalGroup.toPath hpq
+  induction p using FundamentalGroup.path_ind with
   | mk p =>
-    induction q using Path.Homotopic.Quotient.ind with
+    induction q using FundamentalGroup.path_ind with
     | mk q =>
-      exact Path.Homotopic.Quotient.eq.mpr
+      exact CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr
         (Path.Homotopic.of_map_whole_component hSF hcomponent
-          (Path.Homotopic.Quotient.eq.mp hpq))
+          (Path.Homotopic.Quotient.eq.mp hpq)))
 
 /-- A homotopy beginning in a clopen subspace remains in that subspace. -/
 theorem inclusion_injective_of_isClopen (hSF : S ⊆ F)
     (hS : IsClopen ((Subtype.val : F → X) ⁻¹' S)) (x : S) :
     Function.Injective (map (ContinuousMap.inclusion hSF) x) := by
   intro p q hpq
-  induction p using Path.Homotopic.Quotient.ind with
+  have hpq := congrArg FundamentalGroup.toPath hpq
+  induction p using FundamentalGroup.path_ind with
   | mk p =>
-    induction q using Path.Homotopic.Quotient.ind with
+    induction q using FundamentalGroup.path_ind with
     | mk q =>
+      apply CategoryTheory.End.ext
       obtain ⟨H⟩ := Path.Homotopic.Quotient.eq.mp hpq
       have hmem (z : unitInterval × unitInterval) : (H z : X) ∈ S := by
         apply hS.map_mem H.continuous (0, 0) _ z

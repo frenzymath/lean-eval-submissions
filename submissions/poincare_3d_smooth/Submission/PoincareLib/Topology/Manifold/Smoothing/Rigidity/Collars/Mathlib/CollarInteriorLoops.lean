@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Collars.Mathlib.CollarInteriorPush
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Collars.Mathlib.OneSidedCollarRestriction
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.PathMaps
@@ -11,6 +12,8 @@ surjectivity on the original based fundamental group.
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 open Set
 
 namespace Poincare.Topology
@@ -59,9 +62,10 @@ theorem fundamentalGroup_collar_rim_complement_surjective_of_fixed
     Function.Surjective (FundamentalGroup.map
       (⟨Subtype.val, continuous_subtype_val⟩ : C(↥((c '' (K ×ˢ ({0} : Set ℝ)))ᶜ), X)) x) := by
   intro gamma
-  obtain ⟨p, rfl⟩ := Path.Homotopic.Quotient.mk_surjective gamma
+  obtain ⟨p, rfl⟩ := FundamentalGroup.exists_path_rep gamma
   obtain ⟨q, hq⟩ := exists_loop_off_collar_rim hK hr c hc hi ho x hx p
-  exact ⟨Path.Homotopic.Quotient.mk q, Path.Homotopic.Quotient.eq.mpr hq.symm⟩
+  exact ⟨Path.Homotopic.Quotient.mk q, CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr
+    hq.symm)⟩
 
 theorem fundamentalGroup_collar_rim_complement_surjective
     {E X : Type*} [TopologicalSpace E] [Zero E]

@@ -280,7 +280,9 @@ theorem exists_uniform_periodicLabel_subsequence
   refine ⟨sigma, d, hsigma, hdc, hd0, ?_, ?_, ?_, ?_⟩
   · have hp : ContinuousOn (fun z : ℝ × ℝ => (d z.1, (z.2 : AddCircle P)))
         (Icc a b ×ˢ univ) :=
-      (hdc.comp continuousOn_fst (fun _ hz => hz.1)).prodMk
+      (hdc.comp (s := Icc a b ×ˢ (univ : Set ℝ)) continuousOn_fst (by
+          intro z hz
+          exact hz.1)).prodMk
         ((AddCircle.continuous_mk' P).comp continuous_snd).continuousOn
     exact continuousOn_snd.add (continuous_eval.comp_continuousOn hp)
   · intro t ht x

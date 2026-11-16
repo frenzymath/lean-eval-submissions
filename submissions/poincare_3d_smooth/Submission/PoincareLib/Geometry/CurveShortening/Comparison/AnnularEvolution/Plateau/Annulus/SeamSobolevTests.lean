@@ -97,7 +97,8 @@ theorem m64CompactLipschitz_fderiv_memLp
       rw [fderiv_of_notMem_tsupport ℝ hp, zero_apply]
   change MemLp D 2 volume
   rw [← heq]
-  exact (memLp_indicator_iff_restrict (isClosed_tsupport psi).measurableSet).mpr hlocal
+  exact (memLp_indicator_iff_restrict (isClosed_tsupport
+    psi).measurableSet.nullMeasurableSet).mpr hlocal
 
 /-- The weak derivative identity holds for actual compact Lipschitz tests and their
 almost-everywhere derivatives. Proof expansion for Morgan-Tian (2007), Lemma 19.15, pp.

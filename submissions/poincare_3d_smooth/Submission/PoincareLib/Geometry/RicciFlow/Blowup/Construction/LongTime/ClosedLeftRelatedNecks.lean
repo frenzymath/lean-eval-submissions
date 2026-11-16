@@ -121,8 +121,8 @@ theorem related_neck_at_left_endpoint_of_interior_necks
   have hK : IsCompact K := by
     apply IsCompact.of_isClosed_subset
       (g.isCompact_closedBall_of_metricComplete hcomplete x R) isClosed_closure
-    apply closure_minimal
-      (fun y (hy : g.edist x y < ENNReal.ofReal R) => hy.le)
+    apply closure_minimal (s := g.ball x R)
+      (by intro y hy; exact (show g.edist x y < ENNReal.ofReal R from hy).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   obtain ⟨centers, radius, hcenters, hcover⟩ :=
     hK.exists_finite_buffered_extChart_ball_cover (𝓡 3) isOpen_univ (subset_univ K)

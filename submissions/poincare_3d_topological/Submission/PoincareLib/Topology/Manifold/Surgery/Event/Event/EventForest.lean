@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Event.EventGraphComponents
 import Mathlib.Combinatorics.SimpleGraph.Acyclic
 
+noncomputable section
+
 /-!
 # A spanning forest with actual cap indices
 

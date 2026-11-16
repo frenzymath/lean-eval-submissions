@@ -107,7 +107,7 @@ theorem exists_parametric_smooth_endpoint_family
     (isOpen_Iio.preimage continuous_snd)
   have hfL : ContMDiffOn (𝓘(ℝ, (P × E) × ℝ)) (𝓡 n) ∞ f L := by
     apply (hγ.comp (contDiff_fst.fst.prodMk contDiff_snd).contMDiff.contMDiffOn
-      (fun z hz ↦ hz.1)).congr
+      (by intro z hz; exact hz.1)).congr
     intro z hz
     have hzlt : z.2 < d := hz.2
     simp only [f, if_neg (not_lt.mpr hzlt.le), Function.comp_apply]

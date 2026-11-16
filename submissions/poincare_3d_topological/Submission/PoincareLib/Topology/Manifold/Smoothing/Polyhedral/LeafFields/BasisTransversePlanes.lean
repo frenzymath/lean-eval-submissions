@@ -71,7 +71,10 @@ noncomputable def basisTransversePlaneHomeomorph (A : AbstractSimplicialComplex 
     U.TransverseComplementPlaneSpace (A.basisRadialEmbedding b).cone.space ≃ₜ
       {Q : U.RetractionSpace // A.IsRadialEmbedding (fun i => Q.val (b i))} :=
   (U.transversePlaneRetractionHomeomorph (A.basisRadialEmbedding b).cone.space).trans
-    (Homeomorph.setCongr (by
+    (Homeomorph.setCongr (show
+      {Q : U.RetractionSpace | Q.val.ker.IsSecantTransverse
+        (A.basisRadialEmbedding b).cone.space} =
+      {Q : U.RetractionSpace | A.IsRadialEmbedding (fun i => Q.val (b i))} by
       ext Q
       exact (A.isRadialEmbedding_iff_isSecantTransverse_ker b Q.val).symm))
 

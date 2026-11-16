@@ -37,7 +37,7 @@ theorem continuousOn_closedPathEvaluation (hab : a ≤ b) {U : Set P}
     ContinuousOn (closedPathEvaluation hab Φ) (U ×ˢ univ) := by
   have hπ : Continuous (projIcc a b hab) := continuous_projIcc
   exact continuous_eval.comp_continuousOn
-    ((hΦ.comp continuous_fst.continuousOn (fun _ hz => hz.1)).prodMk
+    ((hΦ.comp continuous_fst.continuousOn (fun z (hz : z ∈ U ×ˢ univ) ↦ hz.1)).prodMk
       (hπ.comp continuous_snd).continuousOn)
 
 variable [FiniteDimensional ℝ P]

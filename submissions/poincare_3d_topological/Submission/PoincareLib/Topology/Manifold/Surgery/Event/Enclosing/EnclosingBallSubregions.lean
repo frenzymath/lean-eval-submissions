@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Enclosing.EnclosingBallSphere
 
+noncomputable section
+
 /-!
 # Exact inner two-hole regions of the actual enclosing chart
 

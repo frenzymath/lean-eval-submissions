@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Lifetime.CanonicalGeometry.CapPersistenceCollarSides
 
+noncomputable section
+
 /-!
 # The actual same-core recut carrier is open
 

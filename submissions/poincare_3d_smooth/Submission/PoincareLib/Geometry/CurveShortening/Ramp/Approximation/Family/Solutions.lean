@@ -49,7 +49,8 @@ theorem m63ProductSolutionFamily_nonempty
   let z0 : LoopTwoSphere := ⟨EuclideanSpace.single (0 : Fin 3) 1, by simp⟩
   let : Nonempty M := ⟨periodicFreeLoop (A.family z0) 0⟩
   let sphereHomeo : Metric.sphere (0 : LoopAmbient) 1 ≃ₜ LoopTwoSphere :=
-    Homeomorph.setCongr (by ext z; exact mem_sphere_zero_iff_norm)
+    Homeomorph.setCongr (s := Metric.sphere (0 : LoopAmbient) 1)
+      (t := {z : LoopAmbient | ‖z‖ = 1}) (by ext z; exact mem_sphere_zero_iff_norm)
   let : CompactSpace LoopTwoSphere := sphereHomeo.compactSpace
   have hcompactP : IsCompact (univ : Set P.charts.Point) := isCompact_univ
   have hab : a < b := by

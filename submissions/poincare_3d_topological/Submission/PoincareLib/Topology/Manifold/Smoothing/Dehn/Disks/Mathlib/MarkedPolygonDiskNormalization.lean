@@ -69,8 +69,8 @@ theorem exists_marked_normalized_polygon_disk
       ((K.geometricWalkPath w).map mark.continuous) := hmarked
   have hclass : p'.whiskeredLoopClass (squareRimLoop.map rim.continuous) =
       p.whiskeredLoopClass ((K.geometricWalkPath w).map mark.continuous) :=
-    Path.Homotopic.Quotient.eq.mpr
-      (((Path.Homotopic.refl p).hcomp hloop).hcomp (Path.Homotopic.refl p.symm))
+    CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr
+      (((Path.Homotopic.refl p).hcomp hloop).hcomp (Path.Homotopic.refl p.symm)))
   refine ⟨e, d, rim, p', he, hd, hemb, himage, hrim, hiff,
     fun _ => rfl, fun _ => rfl, ?_⟩
   rw [hclass]

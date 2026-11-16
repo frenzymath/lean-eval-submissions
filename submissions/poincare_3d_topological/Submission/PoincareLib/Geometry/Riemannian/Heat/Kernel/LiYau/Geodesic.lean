@@ -42,7 +42,8 @@ lemma exists_heat_harnack_path (g : RiemannianMetric n M) (hc : MetricComplete g
   have hcompact : IsCompact (closure (g.ball x (L + 1))) := by
     apply (g.isCompact_closedBall_of_metricComplete hc x (L + 1)).of_isClosed_subset
       isClosed_closure
-    apply closure_minimal (fun z (h : g.edist x z < ENNReal.ofReal (L + 1)) => h.le)
+    apply closure_minimal (s := g.ball x (L + 1))
+      (by intro z h; exact (show g.edist x z < ENNReal.ofReal (L + 1) from h).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   have hL : 0 < L + 1 := by dsimp [L]; positivity
   have hxy : y ∈ g.ball x (L + 1) := by

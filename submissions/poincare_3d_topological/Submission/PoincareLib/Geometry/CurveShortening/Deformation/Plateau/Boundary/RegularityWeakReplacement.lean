@@ -29,7 +29,7 @@ private theorem piecewise_memLp {E : Type*} [NormedAddCommGroup E]
     (hg : MemLp g 2 (volume.restrict loopDiskSet)) :
     MemLp (Z.piecewise f g) 2 (volume.restrict loopDiskSet) := by
   classical
-  apply MemLp.piecewise hZ _ (hg.restrict Zᶜ)
+  apply MemLp.piecewise hZ.nullMeasurableSet _ (hg.restrict Zᶜ)
   apply hf.mono_measure
   rw [Measure.restrict_restrict hZ]
   exact Measure.restrict_mono_set volume inter_subset_left

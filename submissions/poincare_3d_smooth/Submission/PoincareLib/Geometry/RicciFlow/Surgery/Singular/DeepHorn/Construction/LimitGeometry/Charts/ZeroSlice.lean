@@ -190,9 +190,6 @@ noncomputable def blowup_zeroPullbackForm (G : GeneralizedBlowupConvergence S J)
   let A : TangentSpace (𝓡 3) x →L[ℝ] TangentSpace (𝓡 3) (e.forward 0 h0 x) :=
     mfderiv (𝓡 3) (𝓡 3) (e.forward 0 h0) x
   exact S.scale (G.subsequence k) • ContinuousLinearMap.bilinearComp
-    (E := TangentSpace (𝓡 3) (e.forward 0 h0 x))
-    (F := TangentSpace (𝓡 3) (e.forward 0 h0 x)) (G := ℝ)
-    (E' := TangentSpace (𝓡 3) x) (F' := TangentSpace (𝓡 3) x)
     (((S.flow (G.subsequence k)).metric ((S.base (G.subsequence k)).1 +
       0 / S.scale (G.subsequence k))).inner (e.forward 0 h0 x)) A A
 

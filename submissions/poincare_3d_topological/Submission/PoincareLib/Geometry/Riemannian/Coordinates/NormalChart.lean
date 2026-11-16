@@ -49,7 +49,7 @@ theorem exists_exponential_chart
   have hB : ContDiffOn ℝ ∞ B c.target := g.contDiffOn_chartCoefficients p
   obtain ⟨f, hzero, hfzero, htarget, hf, hfinv, hfd, Γ, hΓ, hcurve⟩ :=
     CoordinateExponential.exists_local_exponential hU hB
-      (fun y hy => g.isInvertible_chartCoefficients p hy)
+      (by intro y hy; exact g.isInvertible_chartCoefficients p hy)
       (fun y _ u v => g.symm _ _ _) (mem_extChartAt_target p)
   let e : OpenPartialHomeomorph E M := f.trans (chartAt E p).symm
   have hsource : e.source = f.source := by
@@ -67,11 +67,11 @@ theorem exists_exponential_chart
     change ContMDiffOn (𝓡 n) (𝓡 n) ∞ (c.symm ∘ f) e.source
     rw [hsource]
     exact (contMDiffOn_extChartAt_symm p).comp
-      (contMDiffOn_iff_contDiffOn.mpr hf) (fun v hv => htarget (f.map_source hv))
+      (contMDiffOn_iff_contDiffOn.mpr hf) (by intro v hv; exact htarget (f.map_source hv))
   have heinverse : ContMDiffOn (𝓡 n) (𝓡 n) ∞ e.symm e.target := by
     change ContMDiffOn (𝓡 n) (𝓡 n) ∞ (f.symm ∘ c) e.target
     apply (contMDiffOn_iff_contDiffOn.mpr hfinv).comp
-      ((contMDiffOn_extChartAt (I := 𝓡 n) (x := p)).mono (fun y hy => hy.1))
+      ((contMDiffOn_extChartAt (I := 𝓡 n) (x := p)).mono (by intro y hy; exact hy.1))
     exact fun y hy => hy.2
   have hcoord : (fun v => c (e v)) =ᶠ[𝓝 0] f := by
     filter_upwards [f.open_source.mem_nhds hzero] with v hv
@@ -89,13 +89,13 @@ theorem exists_exponential_chart
       have hsU := (hcv.2.2 s hs).1
       exact hasDerivAt_coordinate_geodesic_energy
         ((hB _ hsU).contDiffAt (hU.mem_nhds hsU) |>.differentiableAt (by simp))
-        (g.isInvertible_chartCoefficients p hsU) (fun u w => g.symm _ _ _)
+        (g.isInvertible_chartCoefficients p hsU) (by intro u w; exact g.symm _ _ _)
         (hcv.2.2 s hs).2.fst (hcv.2.2 s hs).2.snd
     intro t ht
     have hconst := isOpen_Ioo.is_const_of_deriv_eq_zero
       (convex_Ioo (-2 : ℝ) 2).isPreconnected
-      (fun s hs => (hd s hs).differentiableAt.differentiableWithinAt)
-      (fun s hs => (hd s hs).deriv) ht (by norm_num : (0 : ℝ) ∈ Ioo (-2 : ℝ) 2)
+      (by intro s hs; exact (hd s hs).differentiableAt.differentiableWithinAt)
+      (by intro s hs; exact (hd s hs).deriv) ht (by norm_num : (0 : ℝ) ∈ Ioo (-2 : ℝ) 2)
     simpa only [hcv.1] using hconst
   refine ⟨hcv.1, by rw [hcv.2.1, heapply], ?_,
     fun t ht => ⟨(hcv.2.2 t ht).1, (hcv.2.2 t ht).2, henergy t ht⟩⟩
@@ -104,10 +104,10 @@ theorem exists_exponential_chart
     constructor <;> linarith [ht.1, ht.2]
   have hq : ContDiffOn ℝ 1 (fun t => (Γ (v, t)).1) (Icc (0 : ℝ) 1) :=
     (hΓ.fst.comp (contDiffOn_const.prodMk contDiffOn_id)
-      (fun t ht => ⟨hvf, hI ht⟩)).of_le (by simp)
+      (by intro t ht; exact ⟨hvf, hI ht⟩)).of_le (by simp)
   have hdist := g.edist_chart_curve_le_of_energy p (a := 0) (b := 1) (by norm_num)
-    (fun t ht => (hcv.2.2 t (hI ht)).1) hq
-    (fun t ht => (hcv.2.2 t (hI ht)).2.fst) (fun t ht => henergy t (hI ht))
+    (by intro t ht; exact (hcv.2.2 t (hI ht)).1) hq
+    (by intro t ht; exact (hcv.2.2 t (hI ht)).2.fst) (by intro t ht; exact henergy t (hI ht))
   have hcp : (extChartAt (𝓡 n) p).symm ((extChartAt (𝓡 n) p) p) = p :=
     (extChartAt (𝓡 n) p).left_inv (mem_extChartAt_source p)
   simpa only [hcv.1, hcv.2.1, heapply, hcp,

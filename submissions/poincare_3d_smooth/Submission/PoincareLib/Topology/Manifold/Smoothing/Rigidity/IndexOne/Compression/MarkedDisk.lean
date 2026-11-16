@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.SquareRimFilling
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Disks.MarkedLoopImage
 
@@ -11,6 +12,8 @@ See Waldhausen 1968, Section 1.3, pp. 59--60.
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
+open scoped FundamentalGroup
 open Set Metric Geometry
 
 namespace PoincareMT.M76.HamiltonIntervalTorus
@@ -28,12 +31,12 @@ private theorem exists_squareRim_filling_essential_image
       (∀ z : Q, f ⟨z, sphere_subset_closedBall z.property⟩ = i (gamma z)) ∧
       FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk
         ((Dehn.squareRimLoop.map gamma.continuous).map u.continuous)) ≠ 1 := by
-  obtain ⟨p, rfl⟩ := Path.Homotopic.Quotient.mk_surjective c
+  obtain ⟨p, rfl⟩ := FundamentalGroup.exists_path_rep c
   obtain ⟨gamma, hgamma⟩ := Dehn.exists_squareRimMap p
   have hbase : gamma Dehn.squareRimBase = y := by
     simpa only [Path.source] using hgamma 0
   have hpi : (p.map i.continuous).Homotopic (Path.refl (i y)) :=
-    Path.Homotopic.Quotient.exact hc
+    (FundamentalGroup.fromPath_eq_one_iff _).mp hc
   have hloop : (Dehn.squareRimLoop.map (i.comp gamma).continuous) =
       (p.map i.continuous).cast (congrArg i hbase) (congrArg i hbase) := by
     ext t
@@ -50,7 +53,8 @@ private theorem exists_squareRim_filling_essential_image
   refine ⟨gamma, f, hf, ?_⟩
   intro htrivial
   have hgp : ((Dehn.squareRimLoop.map gamma.continuous).map u.continuous).Homotopic
-      (Path.refl (u (gamma Dehn.squareRimBase))) := Path.Homotopic.Quotient.exact htrivial
+      (Path.refl (u (gamma Dehn.squareRimBase))) := (FundamentalGroup.fromPath_eq_one_iff _).mp
+        htrivial
   have heq : ((Dehn.squareRimLoop.map gamma.continuous).map u.continuous).cast
       (congrArg u hbase.symm) (congrArg u hbase.symm) = p.map u.continuous := by
     ext t
@@ -60,7 +64,7 @@ private theorem exists_squareRim_filling_essential_image
     ext t
     exact congrArg u hbase
   apply hu
-  apply Path.Homotopic.Quotient.eq.mpr
+  apply (FundamentalGroup.fromPath_eq_one_iff _).mpr
   simpa only [heq, href] using
     hgp.pathCast (congrArg u hbase.symm) (congrArg u hbase.symm)
 

@@ -135,7 +135,7 @@ theorem m64Annulus_integral_divergence_of_continuous_periodic
     have hline : Continuous (fun x : ℝ => annulusPoint x y) := by
       unfold annulusPoint
       fun_prop
-    exact (hc1.comp hline.continuousOn
+    exact (hc1.comp (s := Icc (0 : ℝ) curvePeriod) hline.continuousOn
       (fun _ hx => ⟨hx.1, hx.2, hy.1, hy.2⟩)).integrableOn_compact isCompact_Icc
   rw [heq, sub_self, add_zero, integral_sub (htrace 1 (by simp)) (htrace 0 (by simp))]
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup
 
 /-!
@@ -22,8 +23,9 @@ theorem map_injective_of_leftInverse (f : C(X, Y)) (r : C(Y, X))
     (h : Function.LeftInverse r f) (x : X) :
     Function.Injective (map f x) := by
   intro a b hab
-  obtain ⟨a, rfl⟩ := Path.Homotopic.Quotient.mk_surjective a
-  obtain ⟨b, rfl⟩ := Path.Homotopic.Quotient.mk_surjective b
+  have hab := congrArg FundamentalGroup.toPath hab
+  obtain ⟨a, rfl⟩ := FundamentalGroup.exists_path_rep a
+  obtain ⟨b, rfl⟩ := FundamentalGroup.exists_path_rep b
   have hmaps : (a.map f.continuous).Homotopic (b.map f.continuous) :=
     Path.Homotopic.Quotient.exact hab
   have hr := (hmaps.map r).pathCast (h x).symm (h x).symm
@@ -36,7 +38,7 @@ theorem map_injective_of_leftInverse (f : C(X, Y)) (r : C(Y, X))
     ext t
     exact h (b t)
   rw [ha, hb] at hr
-  exact Path.Homotopic.Quotient.eq.mpr hr
+  exact CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr hr)
 
 /-- Every fixed second-coordinate product section is injective
 on the original based loop classes. See rigidity050, section2. -/

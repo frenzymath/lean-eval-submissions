@@ -4,6 +4,8 @@ import Submission.PoincareLib.Topology.Homotopy.Sphere.SphereConnectivity
 import Mathlib.Analysis.Normed.Module.Ball.RadialEquiv
 import Mathlib.Analysis.Convex.Contractible
 
+noncomputable section
+
 /-! Adapted from Mapher `PoincareMT/Proofs/M54/ConnectedSum/Coordinates.lean` at
 `0c5d5c4e1ecbc12703b1994e226df1b15d2e8d39`; see `references/ricci-flow/mapher/group-effects.md`. -/
 

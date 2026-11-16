@@ -114,15 +114,15 @@ theorem m64WeightedChart_source_memLp_two
   let : ENNReal.HolderTriple 4 4 2 := ENNReal.HolderTriple.of_toReal
     ⟨by norm_num, by norm_num, by norm_num⟩
   have hDG : MemLp (fun p => fderiv ℝ G (u p) (EuclideanSpace.single j 1)) ⊤ mu :=
-    (((ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) («E» := E))
+    (((ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) (E' := E))
       (EuclideanSpace.single j 1)).comp_memLp' hDM)
   have hquad (i : Fin 2) : MemLp (fun p =>
       fderiv ℝ G (u p) (EuclideanSpace.single j 1) (V i p) (V i p)) 2 mu := by
     have hfirst : MemLp (fun p =>
         fderiv ℝ G (u p) (EuclideanSpace.single j 1) (V i p)) 4 mu :=
-      (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) («E» := E)).memLp_of_bilin
+      (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
         (p := 4) (q := ⊤) 4 (hV i) hDG
-    exact (ContinuousLinearMap.apply ℝ ℝ («E» := E)).memLp_of_bilin
+    exact (ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
       (p := 4) (q := 4) 2 (hV i) hfirst
   have hsum :=
     ((((hquad 0).const_mul modulus).add ((hquad 1).const_mul modulus⁻¹)).neg.const_mul

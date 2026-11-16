@@ -1,0 +1,25 @@
+{
+  "identical_helpers": true,
+  "mirror_differences": [],
+  "helper_count": 23558,
+  "trusted_files": {
+    "poincare_3d_smooth": {
+      "Challenge.lean": true,
+      "Solution.lean": true,
+      "WorkspaceTest.lean": true,
+      "config.json": true,
+      "holes.json": true,
+      "Submission/Helpers.lean": true
+    },
+    "poincare_3d_topological": {
+      "Challenge.lean": true,
+      "Solution.lean": true,
+      "WorkspaceTest.lean": true,
+      "config.json": true,
+      "holes.json": true,
+      "Submission/Helpers.lean": true
+    }
+  },
+  "changed_proof_files_scanned": 785,
+  "forbidden_token_hits": []
+}

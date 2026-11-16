@@ -54,7 +54,7 @@ theorem scalar_periodic_band_transfer {Q : Cover → ℝ}
   have hms : AEStronglyMeasurable Q
       ((volume.restrict (Ioo (1 : ℝ) 2)).prod (volume.restrict (Ioo b (b + 1)))) := by
     rw [Measure.prod_restrict, ← Measure.volume_eq_prod]
-    exact (hQc.mono (fun _ hz => hz.1)).aestronglyMeasurable
+    exact (hQc.mono (t := Ioo (1 : ℝ) 2 ×ˢ Ioo b (b + 1)) (fun _ hz => hz.1)).aestronglyMeasurable
       (measurableSet_Ioo.prod measurableSet_Ioo)
   have hb : Integrable Q
       ((volume.restrict (Ioo (1 : ℝ) 2)).prod (volume.restrict (Ioo b (b + 1)))) := by

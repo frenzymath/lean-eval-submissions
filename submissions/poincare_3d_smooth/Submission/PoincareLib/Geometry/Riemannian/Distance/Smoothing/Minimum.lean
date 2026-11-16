@@ -144,7 +144,7 @@ private theorem hessian_add_at (D : LeviCivitaData g) {f h : M → ℝ} {x : M}
     (mdifferentiableAt_add_section hgf hgh) (by simp) heq
   rw [D.hessian_eq_inner_connection_gradient hsum,
     D.hessian_eq_inner_connection_gradient hf, D.hessian_eq_inner_connection_gradient hh,
-    congrArg (fun F => F u) hc, D.connection.isCovariantDerivativeOn.add hgf hgh]
+    congrArg (fun F => F u) hc, D.connection.isCovariantDerivativeOnUniv.add hgf hgh]
   simp only [add_apply, map_add]
 
 private theorem hessian_sub_at (D : LeviCivitaData g) {f h : M → ℝ} {x : M}
@@ -177,7 +177,7 @@ private theorem hessian_comp_at (D : LeviCivitaData g) {f : M → ℝ} {F : ℝ 
     ((hdf.mdifferentiableAt (by simp)).smul_section hgf) (by simp) heq
   rw [D.hessian_eq_inner_connection_gradient hcomp,
     congrArg (fun F => F u) hc,
-    D.connection.isCovariantDerivativeOn.leibniz hgf (hdf.mdifferentiableAt (by simp)),
+    D.connection.isCovariantDerivativeOnUniv.leibniz hgf (hdf.mdifferentiableAt (by simp)),
     D.hessian_eq_inner_connection_gradient hf]
   simp only [add_apply, smul_apply, ContinuousLinearMap.smulRight_apply,
     map_add, map_smul, smul_eq_mul, Function.comp_apply, D.inner_gradient]

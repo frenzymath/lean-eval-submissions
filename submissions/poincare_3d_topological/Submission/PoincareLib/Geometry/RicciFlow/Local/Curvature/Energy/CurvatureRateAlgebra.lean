@@ -574,14 +574,14 @@ theorem exists_curvature_reaction_coordinate_energy_bound
         exact
           (contMDiffOn_family_metric_frame_inverse F.smooth a).2.2.continuousOn.comp
             (continuousOn_fst.prodMk (((c a).continuousOn_symm.mono (hQ a ha).2).comp
-              continuousOn_snd (fun p hp => hp.2)))
+              continuousOn_snd (by intro p hp; exact hp.2)))
             (fun p hp => ⟨(hKJ hp.1).1, hbase p.2 hp.2⟩)
       have hi' : ContinuousOn (fun p => (G' a p).inverse) (K ×ˢ Q a) := by
         simp_rw [hG'coord]
         exact
           (contMDiffOn_family_metric_frame_inverse F'.smooth a).2.2.continuousOn.comp
             (continuousOn_fst.prodMk (((c a).continuousOn_symm.mono (hQ a ha).2).comp
-              continuousOn_snd (fun p hp => hp.2)))
+              continuousOn_snd (by intro p hp; exact hp.2)))
             (fun p hp => ⟨(hKJ hp.1).2, hbase p.2 hp.2⟩)
       have hr : ContinuousOn (Rbar a) (K ×ˢ Q a) := by
         have hh := (contDiffOn_family_bundle_coordinates (E := BS)

@@ -310,7 +310,8 @@ theorem OriginalGeneralPositionData.exists_protected_crossed_charts_with_closed_
     hh.exists_interior_chart rfl
   have hstarint : (0 : C3) ∈ interior (Ambient.closedStar 0).space := by
     obtain ⟨d, hd, hnear⟩ := Ambient.exists_ball_inter_space_subset_closedStar hAmbient hzeroA
-    apply interior_maximal (fun x hx => hnear ⟨interior_subset hx.1, hx.2⟩)
+    apply interior_maximal (fun x (hx : x ∈ interior Ambient.space ∩ Metric.ball 0 d) ↦
+      hnear ⟨interior_subset hx.1, hx.2⟩)
       (isOpen_interior.inter isOpen_ball)
     exact ⟨hintA, mem_ball_self hd⟩
   have hχzero : (0 : C3) ∈ χ.source := hχsource.symm.subset hstarint
@@ -322,7 +323,7 @@ theorem OriginalGeneralPositionData.exists_protected_crossed_charts_with_closed_
       ⟨a₀, hPlink.subset (hPzero.symm.subset (by simp)).1⟩
     rw [hPlink, ← coneAtZero_link_eq_closedStar Branch hzeroB]
     exact (Branch.link 0).coneAtZero_space_eq_convexJoin
-      (fun _ hs => linearIndependent_of_mem_link_zero hs) Branch.injOn_normalize_link hne
+      (by intro _ hs; exact linearIndependent_of_mem_link_zero hs) Branch.injOn_normalize_link hne
   let V := interior J.space ∩ (Q.target ∩ Q.symm ⁻¹' W)
   have hV : IsOpen V := isOpen_interior.inter (Q.symm.isOpen_inter_preimage hW)
   have hvV : v ∈ V := ⟨hvJ, hJQ (interior_subset hvJ), hvW⟩
@@ -339,7 +340,7 @@ theorem OriginalGeneralPositionData.exists_protected_crossed_charts_with_closed_
       exact mem_ball_self hd
   have hLocalPL : LocallyPiecewiseAffineOn localChart localChart.source :=
     (hχ.comp (locallyPiecewiseAffineOn_affine E.toContinuousAffineMap isOpen_univ)).mono
-      localChart.open_source (fun _ hx => ⟨hx.1, hx.2.1⟩)
+      localChart.open_source (by intro _ hx; exact ⟨hx.1, hx.2.1⟩)
   have hlocal (x : V3) (hx : x ∈ localChart.source) :
       x ∈ V ∧ ((c x).2 = 0 ↔ (localChart x).1.1 = 0) ∧
         (x ∈ Knew.space ↔ (localChart x).2 = 0) := by
@@ -374,7 +375,7 @@ theorem OriginalGeneralPositionData.exists_protected_crossed_charts_with_closed_
     have hf := (locallyPiecewiseAffineOn_affine
       c.symm.toContinuousLinearMap.toContinuousAffineMap isOpen_univ).comp hLocalPL
     exact (hf.comp (hQPL k).1).mono ((s.charts k).symm.trans T).open_source
-      (fun z hz => ⟨⟨hz.1, hz.2.1⟩, hz.2.2.1, mem_univ _⟩)
+      (by intro z hz; exact ⟨⟨hz.1, hz.2.1⟩, hz.2.2.1, mem_univ _⟩)
   have hsource (y : s.Carrier) (hy : y ∈ T.source) :
       y ∈ W ∩ (Q.source ∩ interior (s.projection ⁻¹' R)) := by
     have hV := (hlocal (Q y) hy.2.1).1

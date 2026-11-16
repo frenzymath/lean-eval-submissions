@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Basic
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Noncollapse.Universal.Scaling
 import Submission.PoincareLib.Geometry.RicciFlow.Harnack.Regularity
 
+noncomputable section
+
 /-!
 # Closed ancient parabolic rescalings
 

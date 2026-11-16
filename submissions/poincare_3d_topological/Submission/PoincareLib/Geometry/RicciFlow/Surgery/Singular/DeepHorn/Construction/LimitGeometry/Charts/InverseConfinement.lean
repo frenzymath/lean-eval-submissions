@@ -60,7 +60,8 @@ private theorem eventually_ball_confinement_package
     apply (g.isCompact_closedBall_of_metricComplete
       (G.limit.complete 0 G.limit.zero_mem) G.limit.base R).of_isClosed_subset
       isClosed_closure
-    apply closure_minimal (fun x (hx : g.edist G.limit.base x < ENNReal.ofReal R) => hx.le)
+    apply closure_minimal (s := g.ball G.limit.base R)
+      (by intro x hx; exact (show g.edist G.limit.base x < ENNReal.ofReal R from hx).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   have hsmall : g.ball G.limit.base (C * r) ⊆ closure (g.ball G.limit.base R) := by
     intro x hx

@@ -217,7 +217,11 @@ theorem blowupSequence_scalar_witness_curvature_balls (P : M35StandardCapPredece
     (E.flow.metric (t (L.subsequence k))) (E.flow.connection (t (L.subsequence k)))
       hcomplete hRcont (f y) hq hcrossTarget
   refine ⟨r, hrpos, hrexact, ?_, hrcompact⟩
-  exact (closure_mono (fun w hw => hw.trans_le (ENNReal.ofReal_le_ofReal hrq))).trans hinside
+  apply Subset.trans ?_ hinside
+  apply closure_mono
+  intro w hw
+  exact (show (E.flow.metric (t (L.subsequence k))).edist (f y) w < ENNReal.ofReal r
+    from hw).trans_le (ENNReal.ofReal_le_ofReal hrq)
 
 /-- Definition 9.72 in Theorem 12.28: every fixed limit-cap core
 point has an actual exact scalar-curvature ball at all sufficiently late

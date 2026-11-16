@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Intersections.Circles.NullBoundaryDisk
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Protection.OriginalEssentialCompression
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.SquareRimFilling
@@ -68,7 +69,8 @@ theorem exists_finitePL_disk_of_null_annular_circle
     exact ⟨z, Subtype.ext hz⟩
   let H : Q2 ≃ₜ P.boundary ℝ :=
     Continuous.homeoOfEquivCompactToT2 (f := Equiv.ofBijective f ⟨hfi, hfs⟩) hfc
-  have hgammaNull := Dehn.nullhomotopic_of_squareRimLoop gamma (Path.Homotopic.Quotient.eq.mp hnull)
+  have hgammaNull := Dehn.nullhomotopic_of_squareRimLoop gamma
+    ((FundamentalGroup.fromPath_eq_one_iff _).mp hnull)
   have heq : gamma.comp ⟨H.symm, H.symm.continuous⟩ = boundary := by
     apply ContinuousMap.ext
     intro x

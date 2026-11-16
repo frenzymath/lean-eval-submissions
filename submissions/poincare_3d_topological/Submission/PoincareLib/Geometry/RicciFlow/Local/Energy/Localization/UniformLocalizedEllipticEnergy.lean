@@ -57,7 +57,7 @@ theorem exists_uniform_localized_elliptic_energy_bound
     (hφ.continuous_fderiv (by decide)).clm_apply continuous_const
   have hB (j : Fin n) : ContinuousOn (B j) (K ×ˢ V) :=
     continuousOn_finsetSum _ (fun i _ =>
-      ((hφd i).continuousOn.comp continuousOn_snd (fun p hp => hp.2)).mul (hac i j))
+      ((hφd i).continuousOn.comp continuousOn_snd (by intro p hp; exact hp.2)).mul (hac i j))
   have hS : ContinuousOn S (K ×ˢ V) :=
     continuousOn_finsetSum _ (fun j _ => (hB j).pow 2)
   obtain ⟨b, hb⟩ := (hK.prod hφc).exists_bound_of_continuousOn

@@ -91,8 +91,8 @@ theorem flow_pullback_metric_hessian_contDiffOn {a b : ℝ} (F : RicciFlow n M (
   have hmetric : ContDiffOn ℝ ∞
       (fun w : (ℝ × E) × E => (F.metric w.1.1).pullbackCoefficients c.symm w.1.2 w.2 w.2)
       C :=
-    (((chart_metric_coefficients_contDiffOn F p).comp contDiffOn_fst
-      (fun _ hw => hw.1)).clm_apply contDiffOn_snd).clm_apply contDiffOn_snd
+    (((chart_metric_coefficients_contDiffOn F p).comp (s := C) contDiffOn_fst
+      (by intro w hw; exact hw.1)).clm_apply contDiffOn_snd).clm_apply contDiffOn_snd
   have hm := hmetric.comp hP hPC
   have hh := (flow_hessian_chart_contDiffOn F hf p).comp hP hPC
   have hm' : ContDiffOn ℝ ∞

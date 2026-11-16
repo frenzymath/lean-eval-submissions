@@ -74,7 +74,10 @@ theorem closedFamily_restart_of_bijective {C : Set ℝ} {U : Set E}
     Proofs.M09.exists_smooth_local_inverse f U hU hf x₀ hx₀ hbij
   let β : E × ℝ → E := fun z => α (e.symm z.1, z.2)
   have hβ : ContDiffOn ℝ ∞ β (e.target ×ˢ C) :=
-    hα.comp ((heinv.comp contDiffOn_fst (fun _ hz => hz.1)).prodMk contDiffOn_snd)
+    hα.comp (s := e.target ×ˢ C)
+      ((heinv.comp (s := e.target ×ˢ C) contDiffOn_fst (by
+          intro z hz
+          exact hz.1)).prodMk contDiffOn_snd)
       (fun _ hz => ⟨heU (e.map_target hz.1), hz.2⟩)
   have hcenter : α (x₀, r) ∈ e.target := by
     have h := e.map_source hx

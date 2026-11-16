@@ -114,6 +114,6 @@ theorem map_comp (f : C(X, Y)) (g : C(Y, Z)) (x : X) :
 as used in Hatcher Theorem 1.20, pp. 43-46. -/
 @[simp] theorem map_id (x : X) : map (.id X) x = MonoidHom.id (FundamentalGroup X x) := by
   ext p
-  exact Path.Homotopic.Quotient.map_id p
+  exact Path.Homotopic.Quotient.map_id p.toPath
 
 end FundamentalGroup

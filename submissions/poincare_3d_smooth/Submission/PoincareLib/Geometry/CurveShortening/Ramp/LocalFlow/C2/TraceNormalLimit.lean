@@ -127,7 +127,8 @@ theorem normalCurve_c2_of_uniform_embedded_field_limits
       (hf : ContinuousOn f (Icc a b)) :
       ContinuousOn (fun z : ℝ × ℝ => f z.2 (z.1 : AddCircle curvePeriod))
         (univ ×ˢ Icc a b) :=
-    (hf.comp continuous_snd.continuousOn (fun z hz => hz.2)).eval
+    (hf.comp (s := (univ : Set ℝ) ×ˢ Icc a b)
+      continuous_snd.continuousOn (fun z hz => hz.2)).eval
       ((AddCircle.continuous_mk' curvePeriod).comp continuous_fst).continuousOn
   have hquot : IsOpenQuotientMap
       (fun z : Icc a b × ℝ => (z.1, (z.2 : AddCircle curvePeriod))) :=

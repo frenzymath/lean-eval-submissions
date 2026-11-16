@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.DeepHorn.Construction.ScaleSelection.Comparison
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.HornSelection
 
+noncomputable section
+
 /-!
 # Restricting strong necks and retaining their horn end cuts
 

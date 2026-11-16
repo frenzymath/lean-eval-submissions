@@ -71,7 +71,7 @@ theorem source_initial_zero_age_canonical
       fun u hu => hbound u ⟨hu.1.le, hu.2⟩⟩
   have hclose : RoundCylinderFamilyClose E.epsilon (Ioc (-1 : ℝ) 0)
       (surgeryCylinderPullback e E.coordinate_map) := by
-    have hshort := hrecent.mono_epsilon N.epsilon_pos hepsilon
+    have hshort := hrecent.mono_epsilon (I := Ioc (-1 : ℝ) 0) N.epsilon_pos hepsilon
       (fun _ hu => hu.2.trans_lt zero_lt_one)
     apply hshort.congr_cylinder
     intro u hu z _hz v w

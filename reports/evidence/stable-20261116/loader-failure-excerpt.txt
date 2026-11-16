@@ -1,0 +1,10 @@
+4167701 mmap(0xcfa65570000, 129320, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED_NOREPLACE, 9, 0) = -1 ENOMEM (Cannot allocate memory)
+4167701 mmap(0x66bfe6470000, 185792, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED_NOREPLACE, 9, 0) = -1 ENOMEM (Cannot allocate memory)
+4167701 mmap(0x3d1ce8e60000, 263496, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED_NOREPLACE, 9, 0) = -1 ENOMEM (Cannot allocate memory)
+4167701 mmap(0x5ea50cca0000, 171504, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED_NOREPLACE, 9, 0) = -1 ENOMEM (Cannot allocate memory)
+4167701 mmap(NULL, 495616, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = -1 ENOMEM (Cannot allocate memory)
+4167701 mmap(NULL, 134217728, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = -1 ENOMEM (Cannot allocate memory)
+4167701 mmap(NULL, 67108864, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_NORESERVE, -1, 0) = -1 ENOMEM (Cannot allocate memory)
+4167701 mmap(NULL, 1048576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = -1 ENOMEM (Cannot allocate memory)
+
+Submission/PoincareLib/Geometry/RicciFlow/Surgery/ControlledSchedules/Providers.lean:1:0: error: failed to read file '/tmp/poincare-resubmit-20261116-5184218/workspace/.lake/build/lib/lean/Submission/PoincareLib/Geometry/RicciFlow/Surgery/StandardCap/Uniqueness/Blowup/Cylinder/Curvature/CylinderLeviCivita.olean'

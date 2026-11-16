@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.Transport.Extension
 
 /-! Adapted from Mapher `PoincareMT/Proofs/M54/Mathlib/PathTransportFundamentalGroup.lean` at
@@ -13,6 +14,8 @@ monoids record this convention explicitly. Used for MT Proposition 15.3.
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 open Set
 open scoped unitInterval
@@ -88,17 +91,17 @@ convention (Hatcher Theorem 1.20, pp. 43-46). -/
 noncomputable def toMonoidHom
     (L : LocalPathTransport (fun _ : Unit => (univ : Set X)) Gᵐᵒᵖ) (x : X) :
     FundamentalGroup X x →* G where
-  toFun := Quotient.lift (fun p : Path x x => MulOpposite.unop (L.value p.toContinuousMap))
-    (fun _ _ h => congrArg MulOpposite.unop (L.value_homotopic h))
+  toFun := fun a ↦ Quotient.lift (fun p : Path x x => MulOpposite.unop (L.value p.toContinuousMap))
+    (fun _ _ h => congrArg MulOpposite.unop (L.value_homotopic h)) a.toPath
   map_one' := by
     change MulOpposite.unop (L.value (.const _ x)) = 1
     rw [L.map_const]
     rfl
   map_mul' := by
     intro p q
-    induction p using Path.Homotopic.Quotient.ind with
+    induction p using FundamentalGroup.path_ind with
     | mk p =>
-      induction q using Path.Homotopic.Quotient.ind with
+      induction q using FundamentalGroup.path_ind with
       | mk q =>
         change MulOpposite.unop (L.value (q.trans p).toContinuousMap) =
           MulOpposite.unop (L.value p.toContinuousMap) *

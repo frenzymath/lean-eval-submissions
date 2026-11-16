@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Neighborhood.Product.Pieces.OriginalFrontier
 
+noncomputable section
+
 /-! # Connected longitudinal slices of the removed neighborhood -/
 
 set_option autoImplicit false

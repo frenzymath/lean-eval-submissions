@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Terminal.Germs.TerminalGermsOpenCharts
 
+noncomputable section
+
 /-!
 # Genuine coordinate contractions for early source indices
 

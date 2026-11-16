@@ -44,8 +44,6 @@ def coordinateBilinear (k : ℕ) (q : G.limit.carrier.carrier) (t : ℝ)
   let A : EuclideanSpace ℝ (Fin n) →L[ℝ] TangentSpace (𝓡 n) (f (c.symm y)) :=
     (mfderiv (𝓡 n) (𝓡 n) f (c.symm y)).comp (mfderiv (𝓡 n) (𝓡 n) c.symm y)
   exact ContinuousLinearMap.bilinearComp
-    (E := TangentSpace (𝓡 n) (f (c.symm y))) (F := TangentSpace (𝓡 n) (f (c.symm y)))
-    (G := ℝ) (E' := EuclideanSpace ℝ (Fin n)) (F' := EuclideanSpace ℝ (Fin n))
     (((S.rescaling (G.subsequence k)).flow.metric t).inner (f (c.symm y))) A A
 
 theorem coordinateBilinear_apply_basis (k : ℕ) (q : G.limit.carrier.carrier) (t : ℝ)

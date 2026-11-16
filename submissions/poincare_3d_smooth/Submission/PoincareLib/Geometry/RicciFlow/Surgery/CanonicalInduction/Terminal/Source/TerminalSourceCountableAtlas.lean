@@ -14,6 +14,8 @@ MT Theorem 5.11 and Proposition 5.14; countable-germs.md, E.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 set_option maxSynthPendingDepth 12
 
@@ -30,7 +32,13 @@ local notation "E" => EuclideanSpace ℝ (Fin 3)
 local notation "V" => E →L[ℝ] E →L[ℝ] ℝ
 
 private theorem locallyCompact_t3 (X : Type*) [TopologicalSpace X]
-    [T2Space X] [LocallyCompactSpace X] : T3Space X := inferInstance
+    [T2Space X] [LocallyCompactSpace X] : T3Space X := by
+  let : T1Space X := T2Space.t1Space
+  let : T0Space X := T1Space.t0Space
+  let : R1Space X := T2Space.r1Space
+  let : RegularSpace X := RegularSpace.of_hasBasis
+    isCompact_isClosed_basis_nhds (fun _ _ ⟨_, _, h⟩ => h)
+  exact ⟨⟩
 
 /-- The terminal atlas and complete source exhaustion retain one literal
 zero-distance quotient and the original chart coefficient readouts. -/

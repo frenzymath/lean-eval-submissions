@@ -1,0 +1,11 @@
+{
+  "module": "Submission/PoincareLib/Geometry/RicciFlow/Surgery/Singular/DeepHorn/Construction/AncientLimits/Scalar/ScalarLaplacianControl.lean",
+  "sha256": "4dbcdea56218d0d94f548e6e88f93d22c2d931c3e34c73aa709b3320598df434",
+  "source_lines": 162,
+  "lake_reported_seconds": 896,
+  "module_build_succeeded": true,
+  "containing_full_build_passed": false,
+  "containing_build_input_sha256": "cdbb2504a7c1f65cefe08f04d87fb22c26c4015b8c50d827f761eb9df8341443",
+  "build_log": "validation-pass8.log",
+  "description": "One module timing from an incremental compatibility build, not a cold hosted or whole-evaluation timing."
+}

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.VanKampen.Retraction
 
 /-!
@@ -12,6 +13,7 @@ Reference: Hatcher, Theorem 1.20, pp. 43--46.
 
 noncomputable section
 set_option autoImplicit false
+open scoped FundamentalGroup
 set_option backward.isDefEq.respectTransparency false
 
 open Set
@@ -67,7 +69,7 @@ private theorem combinedHom_first (a : FundamentalGroup U b) :
     combinedHom U V hUV b hb hU hV hcover f g (FundamentalGroup.map (inclusion U) b a) =
       f (preliminaryRetraction U V hU hV hcover hUV b hb
         (FundamentalGroup.map (inclusion U) b a)) := by
-  induction a using Path.Homotopic.Quotient.ind with
+  induction a using FundamentalGroup.path_ind with
   | mk a =>
     change MulOpposite.unop ((combinedTransport U V hUV b hb f g).extend _ _
       (a.map (inclusion U).continuous).toContinuousMap) =
@@ -86,7 +88,7 @@ private theorem combinedHom_second (a : FundamentalGroup V (secondBase V b hb)) 
       g (preliminaryRetraction V U hV hU (union_comm U V ▸ hcover)
         (inter_comm U V ▸ hUV) (secondBase V b hb) b.2
           (FundamentalGroup.map (inclusion V) (secondBase V b hb) a)) := by
-  induction a using Path.Homotopic.Quotient.ind with
+  induction a using FundamentalGroup.path_ind with
   | mk a =>
     change MulOpposite.unop ((combinedTransport U V hUV b hb f g).extend _ _
       (a.map (inclusion V).continuous).toContinuousMap) =

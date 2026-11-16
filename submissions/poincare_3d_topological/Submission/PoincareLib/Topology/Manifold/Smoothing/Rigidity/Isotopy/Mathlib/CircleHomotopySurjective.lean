@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Isotopy.Mathlib.HomotopyFundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Arcs.Mathlib.PeriodCircleLoop
 import Mathlib.Analysis.Convex.Contractible
@@ -13,6 +14,8 @@ rigidity052, section2.
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 open Set
 
@@ -50,6 +53,6 @@ theorem surjective_of_homotopy_id {h : C(AddCircle p, AddCircle p)}
   have hkill : FundamentalGroup.map h 0 a0 = 1 := by
     rw [← hfactor, FundamentalGroup.map_comp_apply, hreal, map_one]
   have ha0 : a0 = 1 := hinj (hkill.trans (map_one (FundamentalGroup.map h 0)).symm)
-  exact periodLoop_class_ne_one p ha0
+  exact periodLoop_class_ne_one p (congrArg FundamentalGroup.toPath ha0)
 
 end AddCircle

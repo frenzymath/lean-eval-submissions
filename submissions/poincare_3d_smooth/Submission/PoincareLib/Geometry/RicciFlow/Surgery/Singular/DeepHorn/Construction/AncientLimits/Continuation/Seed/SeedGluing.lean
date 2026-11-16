@@ -55,7 +55,7 @@ private noncomputable def seedZeroCylinder
     right_inverse := fun s hs x _ => (e s hs).right_inv x
     embedding := ?_
     vertical_compatibility := ?_ }
-  · have he := (F.slice_embedding t).comp (Topology.IsEmbedding.subtypeVal (p := W))
+  · have he := (F.slice_embedding t).comp (Topology.IsEmbedding.subtypeVal (p := (· ∈ W)))
     have hh := he.comp (Homeomorph.uniqueProd ↥({0} : Set ℝ) W).isEmbedding
     convert! hh using 1
     funext p

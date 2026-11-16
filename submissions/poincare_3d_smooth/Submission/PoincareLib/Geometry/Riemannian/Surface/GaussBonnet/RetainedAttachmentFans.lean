@@ -301,8 +301,8 @@ theorem exists_first_attachment_core_sector (p : T.decomposition.IncidentEdgeInd
     have hh : (T.refined.mesh p.1.1).toPlaneComplex.support =ᶠ[𝓝 (c 0)]
         (interior {z | c.coord 1 z ≤ 0 ∨ c.coord 2 z ≤ 0})ᶜ := by
       filter_upwards [hg, hi] with z hz hiz
-      change ((T.refined.mesh p.1.1).toPlaneComplex.support z) = ¬interior _ z at hz ⊢
-      change interior _ z = _ at hiz
+      change (z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support) = (z ∉ interior _) at hz ⊢
+      change (z ∈ interior _) = _ at hiz
       rwa [hiz] at hz
     rwa [compl_interior_reflexSector] at hh
   refine ⟨c, hc0, hc1, hc2, ?_, hlocal⟩
@@ -432,8 +432,8 @@ theorem exists_last_attachment_core_sector (p : T.decomposition.IncidentEdgeInde
     have hh : (T.refined.mesh p.1.1).toPlaneComplex.support =ᶠ[𝓝 (c 0)]
         (interior {z | c.coord 1 z ≤ 0 ∨ c.coord 2 z ≤ 0})ᶜ := by
       filter_upwards [hg, hi] with z hz hiz
-      change ((T.refined.mesh p.1.1).toPlaneComplex.support z) = ¬interior _ z at hz ⊢
-      change interior _ z = _ at hiz
+      change (z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support) = (z ∉ interior _) at hz ⊢
+      change (z ∈ interior _) = _ at hiz
       rwa [hiz] at hz
     rwa [compl_interior_reflexSector] at hh
   refine ⟨c, hc0, hc1, hc2, ?_, hlocal⟩

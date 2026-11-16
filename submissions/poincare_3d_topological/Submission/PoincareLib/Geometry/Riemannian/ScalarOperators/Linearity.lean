@@ -45,7 +45,7 @@ lemma hessian_add (D : LeviCivitaData g) {f h : M → ℝ}
   rw [D.hessian_eq_inner_connection_gradient hfh,
     D.hessian_eq_inner_connection_gradient (hf x),
     D.hessian_eq_inner_connection_gradient (hh x), heq,
-    D.connection.isCovariantDerivativeOn.add
+    D.connection.isCovariantDerivativeOnUniv.add
       ((D.contMDiffAt_gradient (hf x)).mdifferentiableAt (by simp))
       ((D.contMDiffAt_gradient (hh x)).mdifferentiableAt (by simp))]
   simp only [add_apply, map_add]

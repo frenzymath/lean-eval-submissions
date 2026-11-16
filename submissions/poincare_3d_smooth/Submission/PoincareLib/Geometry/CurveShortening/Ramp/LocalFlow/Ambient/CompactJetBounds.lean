@@ -40,7 +40,7 @@ theorem isOpen_ambientCurveJetDomain (F : RicciFlow n M (Icc a b))
   have hparam : ContDiff ℝ ∞ (fun z : W × W => ((a, z.1), z.2)) := by fun_prop
   have hG : ContinuousOn G (U ×ˢ univ) :=
     ((flow_pullback_metric_hessian_contDiffOn F hU hρ
-      (f := fun _ => 0) contMDiff_const).1.comp hparam.contDiffOn
+      (f := fun _ => 0) contMDiff_const).1.comp (s := U ×ˢ (univ : Set W)) hparam.contDiffOn
         (fun _ hz => ⟨⟨ha, hz.1⟩, mem_univ _⟩)).continuousOn
   have heq : {z : W × W | z.1 ∈ U ∧ mfderiv 𝓘(ℝ, W) (𝓡 n) ρ z.1 z.2 ≠ 0} =
       (U ×ˢ univ) ∩ G ⁻¹' Ioi 0 := by

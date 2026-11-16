@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.RimEssentiality
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Graphs.Mathlib.MarkedSquareImageCycle
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Graphs.Mathlib.GeometricCyclePolygon
@@ -43,7 +44,8 @@ theorem exists_essential_polygon_in_marked_rim
   have houtside : p.whiskeredLoopClass (squareRimLoop.map gamma.continuous) ∉ J := by
     intro h
     have hclass := (p.whiskeredLoopClass_eq_one_iff _).mp (Subgroup.mem_bot.mp h)
-    exact hgamma (nullhomotopic_of_squareRimLoop gamma (Path.Homotopic.Quotient.eq.mp hclass))
+    exact hgamma (nullhomotopic_of_squareRimLoop gamma ((FundamentalGroup.fromPath_eq_one_iff
+      _).mp hclass))
   obtain ⟨K, himage, G, _, hG, _, _, v, c, q, hc, hout⟩ :=
     exists_marked_square_image_cycle ha gamma j hj p J houtside
   obtain ⟨n, P, hlen, hvertices, hbase, hinj, hP, _, hPK⟩ :=
@@ -71,6 +73,6 @@ theorem exists_essential_polygon_in_marked_rim
       exact congrArg G hbaseK
   apply hout
   exact Subgroup.mem_bot.mpr ((q.whiskeredLoopClass_eq_one_iff _).mpr
-    (Path.Homotopic.Quotient.eq.mpr hselected))
+    ((FundamentalGroup.fromPath_eq_one_iff _).mpr hselected))
 
 end PoincareMT.M76

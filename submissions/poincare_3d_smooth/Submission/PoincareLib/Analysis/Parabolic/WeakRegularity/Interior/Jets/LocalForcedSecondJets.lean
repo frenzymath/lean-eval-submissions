@@ -77,10 +77,12 @@ theorem exists_local_forced_weak_second_jets_of_memLpOn
   let u' := U.indicator u
   let f' := U.indicator f
   let g' (i : Fin n) := U.indicator (g i)
-  have hu' : MemLp u' 2 volume := (memLp_indicator_iff_restrict hU.measurableSet).mpr hu
-  have hf' : MemLp f' 2 volume := (memLp_indicator_iff_restrict hU.measurableSet).mpr hf
+  have hu' : MemLp u' 2 volume := (memLp_indicator_iff_restrict
+    hU.measurableSet.nullMeasurableSet).mpr hu
+  have hf' : MemLp f' 2 volume := (memLp_indicator_iff_restrict
+    hU.measurableSet.nullMeasurableSet).mpr hf
   have hg' (i : Fin n) : MemLp (g' i) 2 volume :=
-    (memLp_indicator_iff_restrict hU.measurableSet).mpr (hg i)
+    (memLp_indicator_iff_restrict hU.measurableSet.nullMeasurableSet).mpr (hg i)
   have hpair {A : Set (Spacetime n)} (hA : MeasurableSet A) (hAU : A ⊆ U)
       (ψ v : Spacetime n → ℝ) :
       (∫ y in A, ψ y * U.indicator v y) = ∫ y in A, ψ y * v y := by

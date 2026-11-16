@@ -92,11 +92,11 @@ theorem local_tangential_nirenberg_identity
   let v₀ := standardNirenbergTest k h η u₀
   have hWH : IsOpen (W ∩ halfSpace d) := hW.inter isOpen_halfSpace
   have hu₀ : MemLp u₀ 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu.1.1
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr hu.1.1
   have hp₀ (i : Fin d) : MemLp (p₀ i) 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr (hp i)
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr (hp i)
   have hFW (i : Fin d) : MemLp (FW i) 2 volume :=
-    (memLp_indicator_iff_restrict hWH.measurableSet).mpr (hF i)
+    (memLp_indicator_iff_restrict hWH.measurableSet.nullMeasurableSet).mpr (hF i)
   have hw₀ (i : Fin d) : HasWeakPartialDeriv i (p₀ i) u₀ univ :=
     extended_weakPartial hu hp hw i
   have hr (i : Fin d) : MemLp (r i) 2 volume :=

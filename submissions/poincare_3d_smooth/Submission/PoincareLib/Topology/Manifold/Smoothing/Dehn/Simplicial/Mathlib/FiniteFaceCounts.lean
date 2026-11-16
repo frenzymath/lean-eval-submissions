@@ -26,7 +26,8 @@ abbrev FaceOfCard (n : ℕ) := {s : Finset E // s ∈ K.faces ∧ s.card = n}
 See Dehn derivation 017. -/
 theorem finite_faceOfCard (hK : K.faces.Finite) (n : ℕ) :
     Finite (K.FaceOfCard n) :=
-  (hK.subset (fun _ hs => hs.1)).to_subtype
+  (hK.subset (t := {s : Finset E | s ∈ K.faces ∧ s.card = n})
+    (by intro _ hs; exact hs.1)).to_subtype
 
 /-- Singleton insertion gives exactly the original one-vertex faces.
 See Dehn derivation 017. -/

@@ -86,7 +86,10 @@ theorem ncard_link_affine_zero_of_local_segments
     have hh : A.linear x = A (e.symm x) := by
       simpa only [e.apply_symm_apply] using hheight (e.symm x)
     rw [hRs, ← hseg u, ← hseg v, mem_union, hmem, hmem,
-      mem_inter_iff, hmem, mem_ofPred_eq, hh]
+      mem_inter_iff, hmem]
+    change (e.symm x ∈ K.space ∧ A.linear x = 0) ↔
+      e.symm x ∈ segment ℝ p u ∨ e.symm x ∈ segment ℝ p v
+    rw [hh]
     exact hx
   have hcount := R.ncard_link_zero_of_local_segments hR hRzero A.linear
     (fun h => hu (e.injective (h.trans hep.symm)))

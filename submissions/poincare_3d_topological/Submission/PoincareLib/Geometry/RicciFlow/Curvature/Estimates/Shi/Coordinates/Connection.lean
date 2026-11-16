@@ -270,7 +270,7 @@ theorem shiChartChristoffel_component [T2Space M] (D : LeviCivitaData g)
     simp only [shiChartChristoffel, sum_apply, smul_apply,
       ContinuousLinearMap.smulRight_apply, PiLp.proj_apply,
       PiLp.smul_apply, smul_eq_mul, EuclideanSpace.basisFun_apply,
-      EuclideanSpace.single_apply, WithLp.ofLp_sum, Finset.sum_apply]
+      PiLp.single_apply, WithLp.ofLp_sum, Finset.sum_apply]
     simp [S, e, Finset.mul_sum, mul_comm, mul_left_comm, mul_assoc] <;> rfl
   rw [hcoord]
   simp_rw [← hB, mul_neg]

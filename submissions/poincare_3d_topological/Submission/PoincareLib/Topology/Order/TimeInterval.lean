@@ -16,6 +16,8 @@ of Morgan--Tian, Theorem 5.15, pp. 91--92.
 
 open Set Filter Topology
 
+noncomputable section
+
 namespace Poincare.TimeInterval
 
 private noncomputable def scale (n : ℕ) : ℝ := (n + 1 : ℝ) / (n + 2)

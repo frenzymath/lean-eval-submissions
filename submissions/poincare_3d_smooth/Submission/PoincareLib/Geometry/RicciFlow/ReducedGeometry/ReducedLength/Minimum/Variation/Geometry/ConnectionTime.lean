@@ -70,10 +70,10 @@ theorem connection_time_deriv_eq_extend
   have heq (r : ℝ) :
       (F.connection r).connection Y y - (F.connection t).connection Y y =
         (F.connection r).connection Z y - (F.connection t).connection Z y := by
-    have h₁ := (F.connection r).connection.isCovariantDerivativeOnUniv.difference_apply
+    have h₁ := (F.connection r).connection.isCovariantDerivativeOn.difference_apply
       (F.connection t).connection.isCovariantDerivativeOnUniv (by simp)
       (hY.mdifferentiableAt (by simp))
-    have h₂ := (F.connection r).connection.isCovariantDerivativeOnUniv.difference_apply
+    have h₂ := (F.connection r).connection.isCovariantDerivativeOn.difference_apply
       (F.connection t).connection.isCovariantDerivativeOnUniv (by simp)
       (hZ.mdifferentiableAt (by simp))
     simp only [FiberBundle.extend_apply_self] at h₂

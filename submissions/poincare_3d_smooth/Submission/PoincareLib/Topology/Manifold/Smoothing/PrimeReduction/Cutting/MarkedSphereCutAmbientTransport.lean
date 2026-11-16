@@ -118,6 +118,6 @@ theorem MarkedSphereCut.image_no_punctured_sphere_components
   apply hreal
   rcases hx with hx | hx
   · exact hx.1
-  · exact hFR.subset (image_mono (show c.carrier ⊆ R from inter_subset_left) hx)
+  · exact hFR.subset (image_mono (show c.carrier ⊆ R from sdiff_subset) hx)
 
 end PoincareMT.M76

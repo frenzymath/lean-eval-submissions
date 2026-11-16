@@ -53,7 +53,8 @@ noncomputable def m56TracePath (G54 : RepairedGroupEffectsTheory.{u})
     event_factor := fun s _ _ => by
       let : Subsingleton (selectedFundamentalGroup (C s)) := groups s
       exact ⟨RepairedGroupFactorData.ofRetraction 1 1 (by
-        ext x
+        apply MonoidHom.ext
+        intro x
         exact Subsingleton.elim _ _)⟩ }
   refine {
     terminal_mem := hT

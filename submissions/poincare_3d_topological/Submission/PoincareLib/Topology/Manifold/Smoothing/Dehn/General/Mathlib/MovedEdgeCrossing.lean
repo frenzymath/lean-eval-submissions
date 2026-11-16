@@ -44,7 +44,7 @@ theorem exists_zero_edge_crossing_of_signed_cofaces
   obtain ⟨V, hV, hzV, hgerm⟩ :=
     K.exists_open_two_coface_carrier_germ hK heK ha₁ hb₁ hexhaust hzedge
   have hz0 : ell z = 0 := by
-    apply convexHull_min hezero
+    apply convexHull_min (by intro x hx; exact hezero x hx)
       ((convex_singleton (0 : ℝ)).linear_preimage ell.toLinearMap)
       (intrinsicInterior_subset hzedge)
   have huedge : u ∉ edge := fun h ↦ hu.ne (hezero u h)

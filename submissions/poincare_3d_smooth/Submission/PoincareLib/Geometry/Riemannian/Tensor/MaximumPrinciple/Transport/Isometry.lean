@@ -163,12 +163,12 @@ private lemma connection_sum (D : LeviCivitaData g) {ι : Type*} (s : Finset ι)
     D.connection (fun x => ∑ i ∈ s, W i x) p = ∑ i ∈ s, D.connection (W i) p := by
   classical
   induction s using Finset.induction_on with
-  | empty => simpa only [Finset.sum_empty] using! D.connection.isCovariantDerivativeOn.zero
+  | empty => simpa only [Finset.sum_empty] using! D.connection.isCovariantDerivativeOnUniv.zero
   | @insert i s hi ih =>
     have hsum := MDifferentiableAt.sum_section (fun j hj => hW j (Finset.mem_insert_of_mem hj))
     simp only [Finset.sum_insert hi]
     change D.connection (W i + (fun x => ∑ j ∈ s, W j x)) p = _
-    rw [D.connection.isCovariantDerivativeOn.add (hW i (Finset.mem_insert_self i s)) hsum]
+    rw [D.connection.isCovariantDerivativeOnUniv.add (hW i (Finset.mem_insert_self i s)) hsum]
     rw [ih (fun j hj => hW j (Finset.mem_insert_of_mem hj))]
 
 private lemma connection_sum_smul (D : LeviCivitaData g) {ι : Type*} [Fintype ι]
@@ -179,7 +179,7 @@ private lemma connection_sum_smul (D : LeviCivitaData g) {ι : Type*} [Fintype �
     (fun i _ => (hW i).const_smul_section.mdifferentiableAt (by simp))]
   apply Finset.sum_congr rfl
   intro i _
-  exact D.connection.isCovariantDerivativeOn.smul_const (a i)
+  exact D.connection.isCovariantDerivativeOnUniv.smul_const (a i)
     ((hW i).mdifferentiableAt (by simp))
 
 /-- A local isometry family realized by smooth, genuinely radial parallel

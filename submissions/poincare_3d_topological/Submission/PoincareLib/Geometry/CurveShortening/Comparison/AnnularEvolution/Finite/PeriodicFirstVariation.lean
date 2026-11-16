@@ -81,7 +81,7 @@ theorem m64ParameterAnnulus_periodic_first_variation
     have hline : Continuous (fun x : ℝ => annulusPoint x y) := by
       unfold annulusPoint
       fun_prop
-    exact ((hc 1).comp hline.continuousOn
+    exact ((hc 1).comp (s := Icc (0 : ℝ) curvePeriod) hline.continuousOn
       (fun _ hx => ⟨hx.1, hx.2, hy.1, hy.2⟩)).integrableOn_compact isCompact_Icc
   have hinside : m64AnnulusInterior ⊆ {p : LoopPlane | p 1 ∈ Ioo (0 : ℝ) 1} := by
     intro p hp

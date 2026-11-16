@@ -139,11 +139,13 @@ noncomputable def zeroExtendMemW1pWitnessP
       isWeakGrad := ?_ }
   · simpa using
       (MeasureTheory.memLp_indicator_iff_restrict
-        (μ := volume) (s := Ω) (f := v) (p := ENNReal.ofReal p) hΩ_meas).2 hw.memLp
+        (μ := volume) (s := Ω) (f := v) (p := ENNReal.ofReal p) hΩ_meas.nullMeasurableSet).2
+          hw.memLp
   · intro i
     simpa [G, PiLp.toLp_apply] using
       (MeasureTheory.memLp_indicator_iff_restrict
-        (μ := volume) (s := Ω) (f := fun y => hw.weakGrad y i) (p := ENNReal.ofReal p) hΩ_meas).2
+        (μ := volume) (s := Ω) (f := fun y => hw.weakGrad y i) (p := ENNReal.ofReal p)
+          hΩ_meas.nullMeasurableSet).2
         (hw.weakGrad_component_memLp i)
   · intro i
     have hp_le : 1 ≤ p := le_of_lt hp
@@ -163,11 +165,13 @@ noncomputable def zeroExtendMemW1pWitnessP
     · rw [Measure.restrict_univ]
       simpa using
         (MeasureTheory.memLp_indicator_iff_restrict
-          (μ := volume) (s := Ω) (f := v) (p := ENNReal.ofReal p) hΩ_meas).2 hw.memLp
+          (μ := volume) (s := Ω) (f := v) (p := ENNReal.ofReal p) hΩ_meas.nullMeasurableSet).2
+            hw.memLp
     · rw [Measure.restrict_univ]
       simpa [G, PiLp.toLp_apply] using
         (MeasureTheory.memLp_indicator_iff_restrict
-          (μ := volume) (s := Ω) (f := fun y => hw.weakGrad y i) (p := ENNReal.ofReal p) hΩ_meas).2
+          (μ := volume) (s := Ω) (f := fun y => hw.weakGrad y i) (p := ENNReal.ofReal p)
+            hΩ_meas.nullMeasurableSet).2
           (hw.weakGrad_component_memLp i)
     · intro n
       simpa using
@@ -187,7 +191,7 @@ noncomputable def zeroExtendMemW1pWitnessP
           simp [hx, hφx]
       rw [Measure.restrict_univ, hEq,
         MeasureTheory.memLp_indicator_iff_restrict (μ := volume) (s := Ω)
-          (p := ENNReal.ofReal p) hΩ_meas]
+          (p := ENNReal.ofReal p) hΩ_meas.nullMeasurableSet]
       exact hφ_memLp.sub hw.memLp
     · have hEq :
           (fun n => eLpNorm (fun x => φ n x - Ω.indicator v x) (ENNReal.ofReal p) volume) =
@@ -202,7 +206,7 @@ noncomputable def zeroExtendMemW1pWitnessP
           · have hφx : φ n x = 0 := zero_outside_of_tsupport_subset (Ω := Ω) (hφ_sub n) hx
             simp [hx, hφx]
         rw [hFn, MeasureTheory.eLpNorm_indicator_eq_eLpNorm_restrict
-          (μ := volume) (s := Ω) (p := ENNReal.ofReal p) hΩ_meas]
+          (μ := volume) (s := Ω) (p := ENNReal.ofReal p) hΩ_meas.nullMeasurableSet]
       rw [Measure.restrict_univ, hEq]
       simpa using hφ_fun
     · intro n
@@ -229,7 +233,7 @@ noncomputable def zeroExtendMemW1pWitnessP
           simp [G, hx, hdx]
       rw [Measure.restrict_univ, hEq,
         MeasureTheory.memLp_indicator_iff_restrict (μ := volume) (s := Ω)
-          (p := ENNReal.ofReal p) hΩ_meas]
+          (p := ENNReal.ofReal p) hΩ_meas.nullMeasurableSet]
       exact hderiv_memLp.sub (hw.weakGrad_component_memLp i)
     · have hEq :
           (fun n =>
@@ -254,7 +258,7 @@ noncomputable def zeroExtendMemW1pWitnessP
                 (hsub := hφ_sub n) hx i
             simp [G, hx, hdx]
         rw [hFn, MeasureTheory.eLpNorm_indicator_eq_eLpNorm_restrict
-          (μ := volume) (s := Ω) (p := ENNReal.ofReal p) hΩ_meas]
+          (μ := volume) (s := Ω) (p := ENNReal.ofReal p) hΩ_meas.nullMeasurableSet]
       rw [Measure.restrict_univ, hEq]
       have hEqSeq :
           (fun n =>
@@ -1335,7 +1339,8 @@ theorem exists_smooth_W1p_approx_of_supportedWitness
       · simp [hx, zero_outside_of_tsupport_subset (Ω := Ω) (hu_sub.trans hKΩ) hx]
     rw [← hu_eq_ind]
     exact (MeasureTheory.memLp_indicator_iff_restrict
-      (μ := volume) (s := Ω) (f := u) (p := ENNReal.ofReal p) hΩ.measurableSet).2 hw.memLp
+      (μ := volume) (s := Ω) (f := u) (p := ENNReal.ofReal p)
+        hΩ.measurableSet.nullMeasurableSet).2 hw.memLp
   have hgrad_memLp_univ :
       ∀ i : Fin d, MemLp (fun x => hw.weakGrad x i) (ENNReal.ofReal p) volume := by
     intro i
@@ -1347,7 +1352,7 @@ theorem exists_smooth_W1p_approx_of_supportedWitness
     rw [← hgi_eq_ind]
     exact (MeasureTheory.memLp_indicator_iff_restrict
       (μ := volume) (s := Ω) (f := fun x => hw.weakGrad x i) (p := ENNReal.ofReal p)
-      hΩ.measurableSet).2 (hw.weakGrad_component_memLp i)
+      hΩ.measurableSet.nullMeasurableSet).2 (hw.weakGrad_component_memLp i)
   let hwUniv : MemW1pWitness (ENNReal.ofReal p) u Set.univ := by
     refine
       { memLp := by simpa [Measure.restrict_univ] using hu_memLp_univ

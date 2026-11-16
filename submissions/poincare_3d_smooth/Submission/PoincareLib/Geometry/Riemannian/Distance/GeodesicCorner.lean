@@ -85,8 +85,10 @@ theorem normalized_initial_eq_neg_of_minimizing_broken_geodesics_of_exponential
   have hr₂ : g.tangentNorm p ((η / B) • w₂) < r := by
     rw [hsmul₂, tangentNorm_smul_nonneg g p u₂ hη.le, hunit₂, mul_one]
     exact hηr
-  have hread₁ := g.exponential_eq_geodesic_of_unit_initial_data p e hexp hα hα0 hαv htA hr₁
-  have hread₂ := g.exponential_eq_geodesic_of_unit_initial_data p e hexp hβ hβ0 hβv htB hr₂
+  have hread₁ := g.exponential_eq_geodesic_of_unit_initial_data p (V := {v | g.tangentNorm p v < r})
+    e hexp hα hα0 hαv htA hr₁
+  have hread₂ := g.exponential_eq_geodesic_of_unit_initial_data p (V := {v | g.tangentNorm p v < r})
+    e hexp hβ hβ0 hβv htB hr₂
   rw [hsmul₁] at hread₁
   rw [hsmul₂] at hread₂
   rw [hread₁, hread₂]

@@ -114,7 +114,7 @@ theorem isImmersionAtOfComplement_of_injective_mfderiv
     (fderiv Real g (c x)) (hder ▸ hinj)
   let G : E × C -> F := fun z => g z.1 + A (0, z.2)
   have hG : ContDiffOn Real ∞ G (c.target ×ˢ univ) :=
-    (hg.comp contDiffOn_fst (fun _ hz => hz.1)).add
+    (hg.comp contDiffOn_fst (fun z (hz : z ∈ c.target ×ˢ (univ : Set C)) ↦ hz.1)).add
       (A.contDiff.comp (contDiff_const.prodMk contDiff_snd)).contDiffOn
   have hcx : c x ∈ c.target := c.map_source (mem_chart_source E x)
   have hdG : HasFDerivAt G A.toContinuousLinearMap (c x, 0) := by

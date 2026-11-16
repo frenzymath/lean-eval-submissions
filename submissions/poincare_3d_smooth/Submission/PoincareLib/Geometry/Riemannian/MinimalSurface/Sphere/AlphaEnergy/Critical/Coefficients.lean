@@ -158,11 +158,11 @@ theorem flux_source_memLp (S : SUWeakAlphaCoordinate g b alpha f V center R) (ha
   obtain ⟨hG, hDG⟩ := S.coefficient_memLp_top
   have hcol (i : Fin 2) : MemLp (V i) pp mu := S.column_memLp i
   have hGcol (i : Fin 2) : MemLp (fun z => G (u z) (V i z)) pp mu :=
-    (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
       (p := pp) (q := ⊤) (f := V i) (g := fun z => G (u z)) pp (hcol i) hG
   have hquad (i : Fin 2) :
       MemLp (fun z => G (u z) (V i z) (V i z)) aa mu := by
-    have h := (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
+    have h := (ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
       (p := pp) (q := pp) aa (hcol i) (hGcol i)
     exact h
   let Q (z : LoopPlane) := ∑ i : Fin 2, G (u z) (V i z) (V i z)
@@ -201,7 +201,7 @@ theorem flux_source_memLp (S : SUWeakAlphaCoordinate g b alpha f V center R) (ha
   · intro a i
     change MemLp (fun z => S.flux a i z) qq mu
     have he : MemLp (fun z => EuclideanSpace.single a (1 : ℝ)) ⊤ mu := memLp_const _
-    have hGi := (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
+    have hGi := (ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
       (p := ⊤) (q := pp) pp he (hGcol i)
     have hprod : MemLp (fun z => 2 * alpha *
         (W z * G (u z) (V i z) (EuclideanSpace.single a 1))) qq mu :=
@@ -211,15 +211,15 @@ theorem flux_source_memLp (S : SUWeakAlphaCoordinate g b alpha f V center R) (ha
     change Integrable (fun z => S.sourceTerm a z) mu
     have he : MemLp (fun z => EuclideanSpace.single a (1 : ℝ)) ⊤ mu := memLp_const _
     have hDGe : MemLp (fun z => fderiv ℝ G (u z) (EuclideanSpace.single a 1)) ⊤ mu :=
-      (ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+      (ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
         (p := ⊤) (q := ⊤) ⊤ he hDG
     have hDGcol (i : Fin 2) : MemLp (fun z =>
         fderiv ℝ G (u z) (EuclideanSpace.single a 1) (V i z)) pp mu :=
-      (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+      (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
         (p := pp) (q := ⊤) pp (hcol i) hDGe
     have hDQ (i : Fin 2) : MemLp (fun z =>
         fderiv ℝ G (u z) (EuclideanSpace.single a 1) (V i z) (V i z)) aa mu :=
-      (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
+      (ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
         (p := pp) (q := pp) aa (hcol i) (hDGcol i)
     have hsum := memLp_finsetSum Finset.univ (fun i _ => hDQ i)
     have hprod := memLp_one_iff_integrable.mp ((hW.fun_mul hsum).const_mul (-alpha))
@@ -239,14 +239,14 @@ theorem flux_source_memLp_one (S : SUWeakAlphaCoordinate g b 1 f V center R) :
   have hcol (i : Fin 2) : MemLp (V i) 2 mu := by
     simpa only [mul_one, ENNReal.ofReal_ofNat] using S.column_memLp i
   have hGcol (i : Fin 2) : MemLp (fun z => G (u z) (V i z)) 2 mu :=
-    (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+    (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
       (p := 2) (q := ⊤) (f := V i) (g := fun z => G (u z)) 2 (hcol i) hG
   constructor
   · intro a i
     change MemLp (fun z => S.flux a i z) 2 mu
     have he : MemLp (fun _ : LoopPlane => EuclideanSpace.single a (1 : ℝ)) ⊤ mu :=
       memLp_top_const _
-    have hi := (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
+    have hi := (ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
       (p := ⊤) (q := 2) 2 he (hGcol i)
     simpa only [flux, sub_self, Real.rpow_zero, mul_one, G, u,
       ContinuousLinearMap.apply_apply] using hi.const_mul 2
@@ -254,13 +254,13 @@ theorem flux_source_memLp_one (S : SUWeakAlphaCoordinate g b 1 f V center R) :
     change Integrable (fun z => S.sourceTerm a z) mu
     have he : MemLp (fun _ : LoopPlane => EuclideanSpace.single a (1 : ℝ)) ⊤ mu :=
       memLp_top_const _
-    have hDGe := (ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+    have hDGe := (ContinuousLinearMap.apply ℝ (E →L[ℝ] E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
       (p := ⊤) (q := ⊤) ⊤ he hDG
     have hDQ (i : Fin 2) : MemLp (fun z =>
         fderiv ℝ G (u z) (EuclideanSpace.single a 1) (V i z) (V i z)) 1 mu := by
-      have hDGi := (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+      have hDGi := (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
         (p := 2) (q := ⊤) 2 (hcol i) hDGe
-      have hi := (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
+      have hi := (ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
         (p := 2) (q := 2) 1 (hcol i) hDGi
       exact hi
     have hsum := (memLp_one_iff_integrable.mp
@@ -546,9 +546,9 @@ theorem natural_integrability (S : SUWeakAlphaCoordinate g b alpha f V center R)
   obtain ⟨hG, _⟩ := S.coefficient_memLp_top
   have hcol (i : Fin 2) : MemLp (V i) pp mu := S.column_memLp i
   have hquad (i : Fin 2) : MemLp (fun z => G (u z) (V i z) (V i z)) aa mu := by
-    have hGcol := (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E := E)).memLp_of_bilin
+    have hGcol := (ContinuousLinearMap.apply ℝ (E →L[ℝ] ℝ) (E' := E)).memLp_of_bilin
       (p := pp) (q := ⊤) (f := V i) (g := fun z => G (u z)) pp (hcol i) hG
-    have hi := (ContinuousLinearMap.apply ℝ ℝ (E := E)).memLp_of_bilin
+    have hi := (ContinuousLinearMap.apply ℝ ℝ (E' := E)).memLp_of_bilin
       (p := pp) (q := pp) aa (hcol i) hGcol
     exact hi
   let Q (z : LoopPlane) := ∑ i : Fin 2, G (u z) (V i z) (V i z)

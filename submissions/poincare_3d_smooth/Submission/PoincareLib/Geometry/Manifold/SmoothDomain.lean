@@ -15,6 +15,8 @@ boundary is nonempty. The boundary image is exactly the ambient frontier.
 
 set_option autoImplicit false
 
+noncomputable section
+
 open Set
 open scoped Manifold ContDiff
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Hierarchy.Annulus.Maps.FailureArcRegionGroups
 
 /-!
@@ -8,6 +9,8 @@ including the prescribed basepoint connector, for the product-region argument.
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 namespace PoincareMT.M76
 
@@ -46,19 +49,29 @@ theorem exists_boundary_loop_power_homotopy
   obtain ⟨n, hn, _, hnmem⟩ :=
     Subgroup.exists_pow_mem_of_relIndex_ne_zero hc.2.relIndex_ne_zero (show f a ∈ f.range from ⟨a, rfl⟩)
   obtain ⟨b, hb⟩ := hnmem.1
-  obtain ⟨beta, hbeta⟩ := Path.Homotopic.Quotient.mk_surjective b
-  refine ⟨n, hn, beta, Path.Homotopic.Quotient.exact ?_⟩
+  obtain ⟨beta, hbeta⟩ := FundamentalGroup.exists_path_rep b
+  change FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk beta) = b at hbeta
   have hclass : f (a ^ n) = g (Path.Homotopic.Quotient.mk beta) := by
     rw [hbeta, map_pow]
     exact hb.symm
-  rw [Path.Homotopic.Quotient.mk_map, ← boundaryLoopIterate_class]
-  change f (a ^ n) = _
-  rw [hclass, Path.Homotopic.Quotient.mk_trans, Path.Homotopic.Quotient.mk_trans,
-    Path.Homotopic.Quotient.mk_map, Path.Homotopic.Quotient.mk_symm]
-  change (Path.Homotopic.Quotient.mk k.symm.symm).trans
-    ((Path.Homotopic.Quotient.map (Path.Homotopic.Quotient.mk beta) i₁).trans
-      (Path.Homotopic.Quotient.mk k.symm)) = _
-  rw [Path.symm_symm, Path.Homotopic.Quotient.mk_symm]
+  have hiter := boundaryLoopIterate_class alpha n
+  change a ^ n = FundamentalGroup.fromPath
+    (Path.Homotopic.Quotient.mk (boundaryLoopIterate alpha n)) at hiter
+  rw [hiter] at hclass
+  refine ⟨n, hn, beta, Path.Homotopic.Quotient.exact ?_⟩
+  have hh := congrArg FundamentalGroup.toPath hclass
+  rw [Path.Homotopic.Quotient.mk_map, Path.Homotopic.Quotient.mk_trans,
+    Path.Homotopic.Quotient.mk_trans, Path.Homotopic.Quotient.mk_map,
+    Path.Homotopic.Quotient.mk_symm]
+  change (Path.Homotopic.Quotient.mk (boundaryLoopIterate alpha n)).map i₀ =
+    (Path.Homotopic.Quotient.mk k).trans
+      (((Path.Homotopic.Quotient.mk beta).map i₁).trans
+        (Path.Homotopic.Quotient.mk k).symm)
+  change (Path.Homotopic.Quotient.mk (boundaryLoopIterate alpha n)).map i₀ =
+    (Path.Homotopic.Quotient.mk k.symm.symm).trans
+      (((Path.Homotopic.Quotient.mk beta).map i₁).trans
+        (Path.Homotopic.Quotient.mk k.symm)) at hh
+  simpa only [Path.symm_symm, Path.Homotopic.Quotient.mk_symm] using hh
 
 
 local notation "L0" => hamiltonZeroPeriodLattice

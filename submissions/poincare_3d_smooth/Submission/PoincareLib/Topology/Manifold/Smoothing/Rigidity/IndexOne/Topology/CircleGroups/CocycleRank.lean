@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Topology.CircleGroups.CharacterKernel
 import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
 import Mathlib.Algebra.Field.ZMod
@@ -15,6 +16,8 @@ See Hatcher, Algebraic Topology, pp. 68--70 and 196--197.
 
 set_option autoImplicit false
 
+open scoped FundamentalGroup
+
 namespace PreAbstractSimplicialComplex.ModTwoCochains
 
 variable {ι : Type*} [Fintype ι] (A : PreAbstractSimplicialComplex ι)
@@ -28,7 +31,7 @@ theorem finrank_closed_le_finrank_coboundaries_add_one_of_isCyclic
       Module.finrank (ZMod 2) (LinearMap.range (vertexCoboundary A)) + 1 := by
   classical
   obtain ⟨g, hg⟩ := exists_zpow_surjective (FundamentalGroup A.barycentricSpace x)
-  let E := closedCochainEvaluation A g
+  let E := closedCochainEvaluation A g.toPath
   have hker (z : LinearMap.ker (edgeCoboundary A)) (hz : E z = 0) :
       (z : Edge A → ZMod 2) ∈ LinearMap.range (vertexCoboundary A) := by
     apply mem_range_vertexCoboundary_of_coboundary A z z.property

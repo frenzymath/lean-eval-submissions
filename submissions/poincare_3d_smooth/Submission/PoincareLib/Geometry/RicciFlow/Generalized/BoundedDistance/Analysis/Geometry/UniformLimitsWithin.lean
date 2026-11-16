@@ -51,7 +51,7 @@ theorem hasFDerivWithinAt_of_tendstoLocallyUniformlyOn_convex
     rw [dist_eq_norm] at hnear
     rw [dist_eq_norm, norm_sub_rev] at happrox
     linarith
-  have hmean := Convex.norm_image_sub_le_of_norm_hasFDerivWithin_le
+  have hmean := Convex.norm_image_sub_le_of_norm_hasFDerivWithin_le (s := ball x δ ∩ S)
     (fun z hz => ((hf i z hz.2).mono inter_subset_right).sub
       (g' x).hasFDerivAt.hasFDerivWithinAt)
     hbound ((convex_ball x δ).inter hS) ⟨mem_ball_self hδ, hx⟩ hy

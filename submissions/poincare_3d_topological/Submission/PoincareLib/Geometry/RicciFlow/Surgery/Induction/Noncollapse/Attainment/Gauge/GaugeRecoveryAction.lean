@@ -112,7 +112,7 @@ theorem gauge_cylinder_action_tendsto (hM12 : GeneralizedRicciGaugeTheory.{u} 3)
     apply (Proofs.M11.ordinaryChartMetric_smooth (G.gaugeCover.metric j).metric
       (G.gaugeCover.interval j).domain (G.gaugeCover.metric j).smooth x0).continuousOn.comp
     · exact (continuous_subtype_val.comp_continuousOn
-        (htheta.comp continuousOn_fst (fun _ hz => hz.1))).prodMk
+        (htheta.comp (s := Icc a b ×ˢ K) continuousOn_fst (by intro z hz; exact hz.1))).prodMk
         (continuous_subtype_val.comp_continuousOn continuousOn_snd)
     · intro z _
       refine ⟨(theta z.1).property, ?_⟩
@@ -162,7 +162,7 @@ theorem gauge_cylinder_action_tendsto (hM12 : GeneralizedRicciGaugeTheory.{u} 3)
   have hV : ContinuousOn V (Icc a b ×ˢ K) :=
     (continuousOn_const.mul (continuousOn_fst.pow 2)).mul
       (hscalar.comp_continuousOn
-        ((htheta.comp continuousOn_fst (fun _ hz => hz.1)).prodMk
+        ((htheta.comp (s := Icc a b ×ˢ K) continuousOn_fst (by intro z hz; exact hz.1)).prodMk
           continuousOn_snd))
   have hpot : Tendsto (fun k => ∫ s in a..b, V (s, alpha k s)) atTop
       (𝓝 (∫ s in a..b, V (s, gamma s))) := by

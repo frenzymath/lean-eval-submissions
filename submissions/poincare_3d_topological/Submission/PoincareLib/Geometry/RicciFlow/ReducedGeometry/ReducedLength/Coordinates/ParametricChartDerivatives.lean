@@ -114,7 +114,7 @@ theorem parametricChartHessian_smooth (F : RicciFlow n M J) (T τmax : ℝ)
   have hK := coordinateConnectionBilinear_contDiffOn (squareChartMetric F T p) V hV hG
     (fun z hz u hu ↦ squareChartMetric_pos F T p z hz.2 u hu)
   have hi : ContDiffOn ℝ ∞ (fun z : (P × E) × ℝ ↦ (Real.sqrt z.2, z.1.2)) S :=
-    (contDiffOn_snd.sqrt (fun z hz ↦ hz.2.2.1.ne')).prodMk contDiff_fst.snd.contDiffOn
+    ((contDiffOn_snd (s := S)).sqrt (fun z hz ↦ hz.2.2.1.ne')).prodMk contDiff_fst.snd.contDiffOn
   have hK' := hK.comp hi (fun z hz ↦
     ⟨⟨(neg_neg_of_pos (Real.sqrt_pos.mpr hτmax)).trans_le (Real.sqrt_nonneg _),
       Real.sqrt_lt_sqrt hz.2.2.1.le hz.2.2.2⟩, hz.2.1.2⟩)

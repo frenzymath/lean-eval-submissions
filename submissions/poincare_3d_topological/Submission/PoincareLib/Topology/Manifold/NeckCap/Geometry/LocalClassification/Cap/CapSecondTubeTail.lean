@@ -322,8 +322,10 @@ theorem CapCertificate.exists_opposite_tube_tail_of_finite_core_frontier :
     exact hpBoundary
   have hpOut : p ∉ U := fun hpU => disjoint_left.mp hcoreU hpCore hpU
   have hpClosure : p ∈ closure U :=
-    closure_mono (fun _ hx => hNU hx.1)
-      (C0.boundary_subset_closure_end_region htDom hpBoundary)
+    by
+      apply closure_mono ?_ (C0.boundary_subset_closure_end_region htDom hpBoundary)
+      intro x hx
+      exact hNU hx.1
   obtain ⟨side0, a0, ha0, htail0⟩ :=
     T.exists_tail_subset_of_compact_frontier hA0open hA0frontCompact
       (by rw [hKU]; exact hA0frontU) p (Or.inl hpCore)
@@ -334,7 +336,10 @@ theorem CapCertificate.exists_opposite_tube_tail_of_finite_core_frontier :
     · exact False.elim (disjoint_left.mp hcoreU hxCore (htailU side0 ha0 hx))
     · exact hxEnd
   have hyClosureU : y ∈ closure U :=
-    closure_mono (fun _ hx => hlastU hx.1) hyclosure
+    by
+      apply closure_mono ?_ hyclosure
+      intro x hx
+      exact hlastU hx.1
   have hyOutU : y ∉ U := fun hyU => hyVout (Or.inr hyU)
   obtain ⟨side1, a1, ha1, htail1⟩ :=
     T.exists_tail_subset_of_compact_frontier hAcOpen hAcFrontCompact

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Protection.MarkedCrossingBoundaryValues
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Protection.AttachingDiskTopology
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Protection.QuotientLiftDifference
@@ -173,7 +174,7 @@ theorem HamiltonMarkedProtectedBall.exists_original_exterior_essential_disk
     intro htrivial
     have hnull : (F.comp gamma).Nullhomotopic :=
       Dehn.nullhomotopic_of_squareRimLoop (F.comp gamma)
-        (Path.Homotopic.Quotient.exact htrivial)
+        ((FundamentalGroup.fromPath_eq_one_iff _).mp htrivial)
     obtain ⟨G,hG⟩ := hnull.exists_closedBall_extension (F.comp gamma)
     apply b.no_detected_lattice_crossing_disk (by omega) v hv hv0 hlen G
     · intro x hx ht
@@ -190,9 +191,9 @@ theorem HamiltonMarkedProtectedBall.exists_original_exterior_essential_disk
   refine ⟨j,rim,hj,hji,hjE,hrim,hproper,?_⟩
   intro hnull
   have hh : (Dehn.squareRimLoop.map rim.continuous).Homotopic (Path.refl (rim Dehn.squareRimBase)) :=
-    Path.Homotopic.Quotient.exact hnull
+    (FundamentalGroup.fromPath_eq_one_iff _).mp hnull
   apply himage
-  apply Path.Homotopic.Quotient.eq.mpr
+  apply (FundamentalGroup.fromPath_eq_one_iff _).mpr
   have href : (Path.refl (rim Dehn.squareRimBase)).map F.continuous =
       Path.refl (F (rim Dehn.squareRimBase)) := by ext t; rfl
   simpa only [href] using hh.map F

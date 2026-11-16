@@ -75,9 +75,10 @@ theorem m64WeakMap_inner_strong_approximation
   obtain ⟨delta, hdelta, hbuffer⟩ := hK.exists_cthickening_subset_open hO hKO
   let U := O.indicator u
   let W := fun i => O.indicator (V i)
-  have hU : MemLp U 2 volume := (memLp_indicator_iff_restrict hO.measurableSet).mpr hu
+  have hU : MemLp U 2 volume := (memLp_indicator_iff_restrict
+    hO.measurableSet.nullMeasurableSet).mpr hu
   have hW (i : Fin 2) : MemLp (W i) 2 volume :=
-    (memLp_indicator_iff_restrict hO.measurableSet).mpr (hV i)
+    (memLp_indicator_iff_restrict hO.measurableSet.nullMeasurableSet).mpr (hV i)
   let r := fun j : ℕ => delta * (1 / 2 : ℝ) ^ (j + 1)
   have hr (j : ℕ) : 0 < r j := mul_pos hdelta (pow_pos (by norm_num) _)
   have hrb (j : ℕ) : r j ≤ delta := mul_le_of_le_one_right hdelta.le

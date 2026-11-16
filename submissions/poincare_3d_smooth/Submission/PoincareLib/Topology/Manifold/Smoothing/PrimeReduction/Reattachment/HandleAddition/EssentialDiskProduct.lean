@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Protection.ReplacementExteriorCompression
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Disks.OriginalSmallDiskProduct
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.OriginalProductSlices
@@ -64,13 +65,13 @@ theorem essential_rimSlice (P : OriginalDiskProduct e R j)
     have hh : (P.rimSlice ⟨0,by norm_num⟩).Nullhomotopic :=
       ⟨y,(show (P.rimSlice ⟨0,by norm_num⟩).Homotopic (P.rimSlice t) from
         ⟨P.rimSliceHomotopy t⟩).trans hy⟩
-    exact hzero (Path.Homotopic.Quotient.eq.mpr
+    exact hzero ((FundamentalGroup.fromPath_eq_one_iff _).mpr
       (Path.Homotopic.map_nullhomotopic_of_nullhomotopic hh Dehn.squareRimLoop))
   have hess : FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk
       (Dehn.squareRimLoop.map (P.rimSlice t).continuous)) ≠ 1 := by
     intro hh
     exact hnot (Dehn.nullhomotopic_of_squareRimLoop (P.rimSlice t)
-      (Path.Homotopic.Quotient.exact hh))
+      ((FundamentalGroup.fromPath_eq_one_iff _).mp hh))
   refine ⟨hess,?_⟩
   rintro ⟨F,hF⟩
   exact hess (Dehn.squareRimLoop_class_eq_one_of_extension (P.rimSlice t) F hF)

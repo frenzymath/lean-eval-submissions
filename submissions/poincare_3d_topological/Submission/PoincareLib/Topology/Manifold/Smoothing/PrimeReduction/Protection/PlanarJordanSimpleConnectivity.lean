@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Graphs.Mathlib.FinitePLMarkedCycle
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Graphs.Mathlib.PolygonCycleLoopComparison
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Disks.PolygonDisk
@@ -79,7 +80,7 @@ theorem finitePL_loop_null_of_polygon_fillings
     intro hm
     apply hn
     have hh : (((Path.refl b).trans rho).trans (Path.refl b).symm).Homotopic
-        (Path.refl b) := Path.Homotopic.Quotient.eq.mp (Subgroup.mem_bot.mp hm)
+        (Path.refl b) := (FundamentalGroup.fromPath_eq_one_iff _).mp (Subgroup.mem_bot.mp hm)
     exact ((Path.Homotopic.trans_refl _).trans (Path.Homotopic.refl_trans rho)).symm.trans hh
   obtain ⟨K, hKspace, G, hG, _, _, v, w, q, hw, hout⟩ :=
     hf.exists_excluded_marked_image_cycle hc j (Path.refl b) ⊥ hout

@@ -79,7 +79,9 @@ theorem exists_scalar_evolution_bound_of_fourJet
   have hK : IsCompact K := by
     apply Metric.isCompact_iff_isClosed_bounded.mpr
     constructor
-    · apply (isClosed_le continuous_norm continuous_const).inter
+    · change IsClosed ({J : ScalarMetricFourJet n | ‖J‖ ≤ B} ∩
+        {J : ScalarMetricFourJet n | ∀ v : E n, a * ‖v‖ ^ 2 ≤ J.1.1 v v})
+      apply (isClosed_le continuous_norm continuous_const).inter
       change IsClosed {J : ScalarMetricFourJet n | ∀ v : E n, a * ‖v‖ ^ 2 ≤ J.1.1 v v}
       rw [Set.ofPred_forall]
       apply isClosed_iInter

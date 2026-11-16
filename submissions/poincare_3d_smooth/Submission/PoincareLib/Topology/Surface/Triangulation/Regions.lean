@@ -4,6 +4,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 import Submission.PoincareLib.Topology.Surface.Triangulation.ChartCover
 import Submission.PoincareLib.Topology.Connected.BoundaryIncidence
 
+noncomputable section
+
 /-!
 # Complementary regions subordinate to coordinate disks
 

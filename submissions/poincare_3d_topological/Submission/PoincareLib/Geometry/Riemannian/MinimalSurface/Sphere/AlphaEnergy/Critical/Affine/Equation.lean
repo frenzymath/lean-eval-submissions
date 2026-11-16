@@ -47,9 +47,9 @@ theorem suAffineCoefficient_supported_extension {p q : ℕ}
     fun z => A z.1 z.2.2 + z.2.1 * c z.1
   apply suHomogeneous_base_extension hO hK hKO (fun z => A z.1 z.2 + c z.1) N
     (show (-2 : ℝ) ≤ -1 by norm_num)
-  · exact ((hA.comp contDiff_fst.contDiffOn (fun _ hx => hx.1)).clm_apply
+  · exact ((hA.comp (s := O ×ˢ univ) contDiff_fst.contDiffOn (by intro z hz; exact hz.1)).clm_apply
       contDiff_snd.contDiffOn).add
-        (hc.comp contDiff_fst.contDiffOn (fun _ hx => hx.1))
+        (hc.comp (s := O ×ˢ univ) contDiff_fst.contDiffOn (by intro z hz; exact hz.1))
   · intro x hx t v _ _
     have hAc := (hA.contDiffAt (hO.mem_nhds hx)).comp (x, t, v) contDiffAt_fst
     have hcc := (hc.contDiffAt (hO.mem_nhds hx)).comp (x, t, v) contDiffAt_fst

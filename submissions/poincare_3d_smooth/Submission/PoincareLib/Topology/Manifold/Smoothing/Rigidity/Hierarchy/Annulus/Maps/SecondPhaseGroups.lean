@@ -80,7 +80,9 @@ theorem hamiltonZeroSecondPhaseCircleMap_pi1_injective
     · rfl
   have hg := FundamentalGroup.map_injective_of_homotopy H.toHomotopy x hf
   rw [← hfactor, FundamentalGroup.map_comp] at hg
-  exact Function.Injective.of_comp hg
+  intro a b hab
+  apply hg
+  exact congrArg (FundamentalGroup.map sectionMap _) hab
 
 theorem hamiltonZeroSecondPhaseCircleMap_pi1_injective_of_region
     (phi : C(H0, H0)) (F : (ContinuousMap.id H0).HomotopyRel phi B0)

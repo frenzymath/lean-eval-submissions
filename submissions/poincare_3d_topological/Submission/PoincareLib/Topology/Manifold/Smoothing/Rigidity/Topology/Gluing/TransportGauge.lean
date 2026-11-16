@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.Gluing.ComponentTransport
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.Transport.FundamentalGroup
 
@@ -11,6 +12,8 @@ injective after transport to the chosen component representative.
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 open Set
 open scoped unitInterval
@@ -57,6 +60,7 @@ theorem mapped_transport_gauge (f : C(X, Y)) {a x y : X} {b : Y}
       mappedTailDifference f t s₀ r₀ *
         mappedLoopHom f a t (MulOpposite.op (s₀.trans (p.trans s₁.symm))) := by
   apply MulOpposite.unop_injective
+  apply CategoryTheory.End.ext
   change (r₀.trans ((p.map f).trans r₁.symm)).trans
       (r₁.trans ((s₁.map f).symm.trans t.symm)) =
     (r₀.trans ((s₀.map f).symm.trans t.symm)).trans

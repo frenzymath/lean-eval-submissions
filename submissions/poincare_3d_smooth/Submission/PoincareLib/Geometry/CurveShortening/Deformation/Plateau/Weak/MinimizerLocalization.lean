@@ -85,6 +85,12 @@ private theorem m65Schwartz_mul_disk_memLp (θ : 𝓢(LoopPlane, ℝ))
     simp only [Pi.mul_apply, norm_mul]
     exact mul_le_mul_of_nonneg_right (θ.norm_le_seminorm ℝ z) (norm_nonneg _))
 
+-- Preserve the proof-valued let binding in the existing theorem contract.
+private theorem memLp_indicator_iff_restrict {f : LoopPlane → ℝ}
+    (hs : MeasurableSet loopDiskSet) :
+    MemLp (loopDiskSet.indicator f) 2 volume ↔ MemLp f 2 (volume.restrict loopDiskSet) :=
+  MeasureTheory.memLp_indicator_iff_restrict hs.nullMeasurableSet
+
 private theorem m65Disk_zeroExtension_inner (f : LoopPlane → ℝ)
     (hf : MemLp f 2 (volume.restrict loopDiskSet)) (φ : 𝓢(LoopPlane, ℝ)) :
     let hF := (memLp_indicator_iff_restrict
@@ -125,8 +131,10 @@ theorem m65WeakTrace_cutoff_global
   have hA (i : Fin 2) : MemLp (A i) 2 (volume.restrict loopDiskSet) :=
     (m65Schwartz_mul_disk_memLp θ (d i)).add
       (m65Schwartz_mul_disk_memLp (∂_{e i} θ) u)
-  have hUG := (memLp_indicator_iff_restrict measurableSet_closedBall).mpr hU
-  have hAG (i : Fin 2) := (memLp_indicator_iff_restrict measurableSet_closedBall).mpr (hA i)
+  have hUG := (MeasureTheory.memLp_indicator_iff_restrict
+    measurableSet_closedBall.nullMeasurableSet).mpr hU
+  have hAG (i : Fin 2) := (MeasureTheory.memLp_indicator_iff_restrict
+    measurableSet_closedBall.nullMeasurableSet).mpr (hA i)
   let U := hUG.toLp (loopDiskSet.indicator (fun z => θ z * u z))
   let D (i : Fin 2) := (hAG i).toLp (loopDiskSet.indicator (A i))
   refine ⟨U, D, hUG.coeFn_toLp, fun i => (hAG i).coeFn_toLp, ?_⟩

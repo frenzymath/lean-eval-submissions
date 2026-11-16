@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.VanKampen.Local
 
 /-! Adapted from Mapher `PoincareMT/Proofs/M54/Mathlib/VanKampenRetraction.lean` at
@@ -14,6 +15,8 @@ for Morgan--Tian Proposition 15.3 (pp. 357-358).
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 open Set
 open scoped unitInterval
@@ -66,8 +69,9 @@ theorem preliminaryRetraction_comp_inclusion :
         (FundamentalGroup.map (inclusion U) b) =
       (MulAut.conj (G := FundamentalGroup U b)
         (basepointLoop U V hUV b hb)⁻¹).toMonoidHom := by
-  ext q
-  induction q using Path.Homotopic.Quotient.ind with
+  apply MonoidHom.ext
+  intro q
+  induction q using FundamentalGroup.path_ind with
   | mk p =>
     let L := localTransport U V hUV b hb
     change MulOpposite.unop (L.extend (cover_open U V hU hV) (cover_covers U V hcover)
@@ -95,7 +99,8 @@ inverse (Hatcher Theorem 1.20, pp. 43-46). -/
 theorem retraction_comp_inclusion :
     (retraction U V hU hV hcover hUV b hb).comp
       (FundamentalGroup.map (inclusion U) b) = MonoidHom.id (FundamentalGroup U b) := by
-  ext q
+  apply MonoidHom.ext
+  intro q
   have h := DFunLike.congr_fun
     (preliminaryRetraction_comp_inclusion U V hU hV hcover hUV b hb) q
   change (MulAut.conj (G := FundamentalGroup U b) (basepointLoop U V hUV b hb)⁻¹).symm

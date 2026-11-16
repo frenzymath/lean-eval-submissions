@@ -55,7 +55,8 @@ theorem lExponentialFamily_isCompact_minimizing_preimage {J : Set ℝ}
     hτmax hwindow hL p A K hK hKt
   let Φ : TangentSpace (𝓡 n) p × ℝ → M × ℝ := fun z ↦ (A.gamma z.1 z.2, z.2)
   have hΦ : ContinuousOn Φ S :=
-    (A.gamma_smooth.continuousOn.mono (fun z hz ↦ hKt hz.1)).prodMk continuous_snd.continuousOn
+    (A.gamma_smooth.continuousOn.mono (t := S) (fun z hz ↦ hKt hz.1)).prodMk
+      continuous_snd.continuousOn
   have hSQ : IsCompact (S ∩ Φ ⁻¹' Q) :=
     hS.of_isClosed_subset (hΦ.preimage_isClosed_of_isClosed hS.isClosed hQ.isClosed)
       Set.inter_subset_left

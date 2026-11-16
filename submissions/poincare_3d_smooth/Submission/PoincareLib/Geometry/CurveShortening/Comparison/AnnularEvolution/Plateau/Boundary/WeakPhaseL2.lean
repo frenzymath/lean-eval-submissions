@@ -86,7 +86,8 @@ theorem m64WeakPhase_lower_trace_l2_bound
     (∫ p in S, (u p) ^ 2) ≤
       2 * ((∫ p in S, (V p) ^ 2) + ∫ x in Icc (0 : ℝ) curvePeriod, (b x) ^ 2) := by
   let U := (S).indicator u
-  have hU : MemLp U 2 volume := (memLp_indicator_iff_restrict measurableSet_interior).mpr hu
+  have hU : MemLp U 2 volume := (memLp_indicator_iff_restrict
+    measurableSet_interior.nullMeasurableSet).mpr hu
   let r := fun j : ℕ => (1 / 2 : ℝ) ^ (j + 1)
   have hr (j : ℕ) : 0 < r j := pow_pos (by norm_num) _
   have hrz : Tendsto r atTop (𝓝 0) := by

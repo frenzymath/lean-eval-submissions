@@ -83,8 +83,6 @@ private noncomputable def zeroChartPullbackForm (G : GeneralizedBlowupConvergenc
   let A : EuclideanSpace ℝ (Fin 3) →L[ℝ] TangentSpace (𝓡 3) (c.symm y) :=
     mfderiv (𝓡 3) (𝓡 3) c.symm y
   exact ContinuousLinearMap.bilinearComp
-    (E := TangentSpace (𝓡 3) (c.symm y)) (F := TangentSpace (𝓡 3) (c.symm y)) (G := ℝ)
-    (E' := EuclideanSpace ℝ (Fin 3)) (F' := EuclideanSpace ℝ (Fin 3))
     (blowup_zeroPullbackForm G k (c.symm y)) A A
 
 private theorem zeroChartPullbackForm_basis (G : GeneralizedBlowupConvergence S J)

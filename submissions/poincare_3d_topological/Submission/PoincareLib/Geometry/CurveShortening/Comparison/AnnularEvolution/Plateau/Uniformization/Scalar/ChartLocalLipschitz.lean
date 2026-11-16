@@ -58,7 +58,7 @@ theorem scalar_coordinate_lipschitz_change_chart
   obtain ⟨B, W, hW, htL⟩ := ht.exists_lipschitzOnWith
   have hc : ContinuousAt (e ∘ f) x := hL.continuousOn.continuousAt hV
   refine ⟨B * L, V ∩ (e ∘ f) ⁻¹' W, inter_mem hV (hc.preimage_mem_nhds hW), ?_⟩
-  have hcomp := htL.comp (hL.mono inter_subset_left) (fun _ hx => hx.2)
+  have hcomp := htL.comp (hL.mono (s := V ∩ (e ∘ f) ⁻¹' W) inter_subset_left) (fun _ hx => hx.2)
   intro y hy z hz
   have heqy : ((k ∘ e.symm) ∘ (e ∘ f)) y = (k ∘ f) y := by
     simp only [Function.comp_apply, e.left_inv (hfV hy.1)]
@@ -82,7 +82,7 @@ theorem ScalarLocallyChartLipschitz.in_chart
     (c.open_source.mem_nhds (mem_chart_source E (f x)))
   exact scalar_coordinate_lipschitz_change_chart c e
     contMDiffOn_chart_symm he (inter_mem hV hsource)
-    (fun _ hp => hp.2) (hL.mono inter_subset_left) hxe
+    (fun _ hp => hp.2) (hL.mono (s := V ∩ f ⁻¹' c.source) inter_subset_left) hxe
 
 /-- A compact source buffer inside one target chart supplies one uniform coordinate
 Lipschitz constant on a neighborhood. Source: Morgan--Tian (2007), Lemma 19.15, pp. 447-449;

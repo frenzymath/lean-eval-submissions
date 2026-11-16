@@ -31,7 +31,7 @@ theorem exists_finitePL_disk_cutoff
   have hQ : IsCompact Q := by
     exact hd.isCompact.of_isClosed_subset
       (hroof.continuousOn.preimage_isClosed_of_isClosed hd.isCompact.isClosed isClosed_Ici)
-      inter_subset_left
+      (show Q ⊆ d by intro x hx; exact hx.1)
   have hQd : Q ⊆ d \ r := by
     intro x hx
     refine ⟨hx.1,?_⟩

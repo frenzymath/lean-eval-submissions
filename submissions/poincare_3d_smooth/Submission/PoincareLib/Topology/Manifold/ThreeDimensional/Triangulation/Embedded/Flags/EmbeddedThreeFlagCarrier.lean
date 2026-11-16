@@ -31,7 +31,7 @@ def activeFaces : Set (Finset (EuclideanSpace Real (Fin N))) :=
     e q ∈ convexHull Real (s : Set (EuclideanSpace Real (Fin N)))}
 
 instance activeFacesFintype : Fintype G.activeFaces :=
-  (G.finite.subset (fun _ hs => hs.1)).fintype
+  (G.finite.subset (by intro _ hs; exact hs.1)).fintype
 
 def activeCenter (s : G.activeFaces) : EuclideanSpace Real (Fin N) :=
   finiteSectionCenter (Set.range e) (N - 2) s.val
@@ -97,7 +97,7 @@ def localFaces (p : M) : Set (Finset (EuclideanSpace Real (Fin N))) :=
       ‖x - e p‖ ≤ 6 * (N + 1 : Real) * G.h}
 
 instance localFacesFintype (p : M) : Fintype (G.localFaces p) :=
-  (G.finite.subset (fun _ hs => hs.1.1)).fintype
+  (G.finite.subset (by intro _ hs; exact hs.1.1)).fintype
 
 def localTangentCenter (p : M) (s : G.localFaces p) : EuclideanSpace Real (Fin N) :=
   finiteSectionCenter {x | normalAffineConstraint (embeddedThreeTangent e p) (e p) x = 0}

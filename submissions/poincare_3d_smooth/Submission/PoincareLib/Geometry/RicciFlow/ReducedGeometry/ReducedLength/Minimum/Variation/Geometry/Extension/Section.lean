@@ -116,8 +116,8 @@ theorem exists_parametricSectionExtension {I : Set ℝ} (hI : IsOpen I)
   have hsU : s ∈ U := ⟨hs, show α s ∈ e.baseSet from
     mem_baseSet_trivializationAt (EuclideanSpace ℝ (Fin n)) (TangentSpace (𝓡 n)) (α s)⟩
   let y := fun r ↦ (e (Bundle.TotalSpace.mk' (EuclideanSpace ℝ (Fin n)) (α r) (Y r))).2
-  have hpair := e.contMDiffOn.comp (hY.mono inter_subset_left)
-    (fun r hr ↦ e.mem_source.mpr hr.2)
+  have hpair := e.contMDiffOn.comp (hY.mono (t := U) inter_subset_left)
+    (by intro r hr; exact e.mem_source.mpr hr.2)
   have hy : ContMDiffOn (𝓘(ℝ, ℝ)) (𝓡 n) ∞ y U := fun r hr ↦ (hpair r hr).snd
   refine ⟨U, hU, hsU, ⟨parametricExtensionInChart e y hU Subset.rfl
     (fun r hr ↦ hr.2) hy ?_⟩⟩

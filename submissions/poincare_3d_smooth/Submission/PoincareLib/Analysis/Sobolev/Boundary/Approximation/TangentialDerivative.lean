@@ -65,7 +65,7 @@ private theorem localized_convergence {a : E → ℝ} (ha : Continuous a)
       _ = eLpNorm (V.indicator (fun x => a x * f n x)) 2 volume :=
         congrArg (fun f : E → ℝ => eLpNorm f 2 volume) heq
       _ = eLpNorm (fun x => a x * f n x) 2 (volume.restrict V) :=
-        eLpNorm_indicator_eq_eLpNorm_restrict hV
+        eLpNorm_indicator_eq_eLpNorm_restrict hV.nullMeasurableSet
       _ ≤ _ := by
         apply eLpNorm_le_mul_eLpNorm_of_ae_le_mul
           (show AEStronglyMeasurable (fun x => a x * f n x) (volume.restrict V) from
@@ -142,11 +142,11 @@ theorem memW01p_mul_chosenWeakPartial_tangential
   let P (i : Fin d) := H.indicator (p i)
   let Q (i : Fin d) := H.indicator (q i)
   have hU : MemLp U 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu2.memLp
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr hu2.memLp
   have hP (i : Fin d) : MemLp (P i) 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr (hp i)
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr (hp i)
   have hQ (i : Fin d) : MemLp (Q i) 2 volume :=
-    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr (hq i)
+    (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr (hq i)
   let wu : MemW1pWitness (ENNReal.ofReal (2 : ℝ)) u H :=
     { memLp := by simpa using hu2.memLp
       weakGrad := fun x => WithLp.toLp 2 (fun i => p i x)

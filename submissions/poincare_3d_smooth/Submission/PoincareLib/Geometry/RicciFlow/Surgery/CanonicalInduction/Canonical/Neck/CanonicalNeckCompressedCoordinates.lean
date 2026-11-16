@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Canonical.Neck.CanonicalNeckAxialCompression
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Lifetime.CanonicalGeometry.StrongNeckRestriction
 
+noncomputable section
+
 /-!
 # Actual coordinates on the compressed neck
 

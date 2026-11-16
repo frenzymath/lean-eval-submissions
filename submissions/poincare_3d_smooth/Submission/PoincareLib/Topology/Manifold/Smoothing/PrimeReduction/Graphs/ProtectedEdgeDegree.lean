@@ -52,7 +52,8 @@ theorem convexHull_insert_zero_base_inter_zero
     · exact hapos A hs hap hx hxA
   · intro x hx
     exact ⟨convexHull_mono (Finset.subset_insert a s) hx,
-      convexHull_min hs ((convex_singleton (0 : ℝ)).affine_preimage A) hx⟩
+      convexHull_min (s := (s : Set E)) (t := A ⁻¹' {0}) hs ((convex_singleton (0 :
+        ℝ)).affine_preimage A) hx⟩
 
 end AffineMap
 
@@ -185,7 +186,8 @@ theorem eventually_moved_section_eq_fixed_edge_of_local_disk
     · exact hsection b hbK (hposv b (K.face_subset_vertices hbK (by simp)) hbA).ne' hyb hyA
   · intro hxbase
     refine ⟨⟨x, K.convexHull_subset_space hs hxbase, hfix hxbase⟩, ?_⟩
-    exact convexHull_min hsA ((convex_singleton (0 : ℝ)).affine_preimage A) hxbase
+    exact convexHull_min (s := (s : Set E)) (t := A ⁻¹' {0}) hsA ((convex_singleton (0 :
+      ℝ)).affine_preimage A) hxbase
 
 /-- The full moved section graph has degree two at an intrinsic
 interior point of the protected zero edge. -/

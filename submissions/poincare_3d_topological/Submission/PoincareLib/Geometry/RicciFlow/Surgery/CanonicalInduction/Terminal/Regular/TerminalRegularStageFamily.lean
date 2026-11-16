@@ -4,6 +4,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Term
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Terminal.Regular.TerminalRegularNormalMaps
 import Submission.PoincareLib.Topology.Sequences.Diagonal
 
+noncomputable section
+
 /-!
 # Actual normal-chart families on one regular source diagonal
 

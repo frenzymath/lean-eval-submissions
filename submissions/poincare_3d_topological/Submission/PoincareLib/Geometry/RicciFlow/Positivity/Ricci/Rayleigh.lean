@@ -151,10 +151,10 @@ theorem continuousOn_flow_ricciRayleigh_trivialization
     exact hg.continuousOn
   let V := (J ×ˢ e.baseSet) ×ˢ {w : E | w ≠ 0}
   have hBP : ContinuousOn (fun p : (ℝ × M) × E ↦ B p.1 p.2 p.2) V :=
-    ((hB.comp continuousOn_fst (fun _ hp ↦ hp.1)).clm_apply continuousOn_snd).clm_apply
+    ((hB.comp continuousOn_fst (by intro _ hp; exact hp.1)).clm_apply continuousOn_snd).clm_apply
       continuousOn_snd
   have hGP : ContinuousOn (fun p : (ℝ × M) × E ↦ G p.1 p.2 p.2) V :=
-    ((hG.comp continuousOn_fst (fun _ hp ↦ hp.1)).clm_apply continuousOn_snd).clm_apply
+    ((hG.comp continuousOn_fst (by intro _ hp; exact hp.1)).clm_apply continuousOn_snd).clm_apply
       continuousOn_snd
   have hGne (p : (ℝ × M) × E) (hp : p ∈ V) : G p.1 p.2 p.2 ≠ 0 := by
     apply ne_of_gt ((F.metric p.1.1).pos p.1.2 (S p.1.2 p.2) ?_)

@@ -50,7 +50,7 @@ theorem continuousOn_commonCollarAttachment
   let U := Icc (1 : ℝ) 2 ×ˢ A
   have hL : ContinuousOn (commonCollarAttachment c rim G f a) L := by
     have hparam : ContinuousOn (fun z : ℝ × Z => (rim false z.2, a * (z.1 + 2))) L :=
-      ((hcrim false).comp continuous_snd.continuousOn (fun _ hz => hz.2)).prodMk
+      ((hcrim false).comp continuous_snd.continuousOn (by intro _ hz; exact hz.2)).prodMk
         (continuous_const.mul (continuous_fst.add continuous_const)).continuousOn
     have hmap : MapsTo (fun z : ℝ × Z => (rim false z.2, a * (z.1 + 2))) L
         (K ×ˢ Icc (0 : ℝ) a) := by
@@ -63,7 +63,7 @@ theorem continuousOn_commonCollarAttachment
     (hG.comp_continuousOn hf).congr (fun _ hz => commonCollarAttachment_middle c rim G f a hbase hlevel hz)
   have hU : ContinuousOn (commonCollarAttachment c rim G f a) U := by
     have hparam : ContinuousOn (fun z : ℝ × Z => (rim true z.2, a * (2 - z.1))) U :=
-      ((hcrim true).comp continuous_snd.continuousOn (fun _ hz => hz.2)).prodMk
+      ((hcrim true).comp continuous_snd.continuousOn (by intro _ hz; exact hz.2)).prodMk
         (continuous_const.mul (continuous_const.sub continuous_fst)).continuousOn
     have hmap : MapsTo (fun z : ℝ × Z => (rim true z.2, a * (2 - z.1))) U
         (K ×ˢ Icc (0 : ℝ) a) := by

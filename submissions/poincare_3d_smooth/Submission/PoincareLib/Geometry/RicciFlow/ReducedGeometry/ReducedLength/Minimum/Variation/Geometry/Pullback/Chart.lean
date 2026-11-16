@@ -97,7 +97,7 @@ theorem pullbackCovariantDerivative_chart_formula {J C U : Set ℝ}
   have hframe := ((chartFrame_contMDiffOn x (c s) (α s) (hsrc hs)).contMDiffAt
     ((chartAt (EuclideanSpace ℝ (Fin n)) x).open_source.mem_nhds (hsrc hs))).mdifferentiableAt
       (by simp)
-  have hcov := (F.connection (time s)).connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+  have hcov := (F.connection (time s)).connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
     hE hframe univ_mem heq
   have hvel : curveVelocityWithin (n := n) α C s =
       chartFrame x (deriv ((extChartAt (𝓡 n) x) ∘ α) s) (α s) := by

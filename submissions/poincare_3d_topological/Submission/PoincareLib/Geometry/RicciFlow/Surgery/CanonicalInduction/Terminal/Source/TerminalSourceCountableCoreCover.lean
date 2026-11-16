@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Terminal.Source.TerminalSourceCountableMaps
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.CanonicalInduction.Terminal.Source.TerminalSourceCountableLabels
 
+noncomputable section
+
 /-!
 # The original compact cores in the countable physical cover
 

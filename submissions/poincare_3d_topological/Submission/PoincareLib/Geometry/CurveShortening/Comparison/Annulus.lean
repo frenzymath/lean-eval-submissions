@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Extinction.Width.Class.SphereAr
 import Submission.PoincareLib.Geometry.CurveShortening.Ramp.Polygon
 import Submission.PoincareLib.Geometry.CurveShortening.Comparison.Geometry
 
+noncomputable section
+
 /-!
 # M64 actual annuli and raw-boundary filling disks
 

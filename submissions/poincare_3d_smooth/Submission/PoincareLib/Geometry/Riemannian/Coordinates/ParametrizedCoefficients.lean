@@ -33,9 +33,7 @@ noncomputable def parametrizedCoefficients (g : RiemannianMetric n M)
     unfold TangentSpace
     infer_instance
   let A : E →L[ℝ] TangentSpace (𝓡 n) (f x) := mfderiv 𝓘(ℝ, E) (𝓡 n) f x
-  exact ContinuousLinearMap.bilinearComp
-    (E := TangentSpace (𝓡 n) (f x)) (F := TangentSpace (𝓡 n) (f x)) (G := ℝ)
-    (E' := E) (F' := E) (g.inner (f x)) A A
+  exact (g.inner (f x)).bilinearComp A A
 
 theorem parametrizedCoefficients_apply (g : RiemannianMetric n M)
     (f : E → M) (x v w : E) :

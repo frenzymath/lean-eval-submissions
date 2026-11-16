@@ -3,6 +3,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 -/
 import Submission.PoincareLib.Topology.Surface.Triangulation.CircleCover.Sectors.Coordinates
 
+noncomputable section
+
 /-!
 # Intersections of neighboring vertex sectors
 

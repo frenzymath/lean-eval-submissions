@@ -75,7 +75,9 @@ theorem exists_local_smooth_comparison_action {J : Set ℝ}
   let N := Cdom ∩ c ⁻¹' (V ×ˢ Set.Ioo 0 τmax)
   let B : M × ℝ → ℝ := fun w ↦ A (c w)
   have hc : ContMDiffOn ((𝓡 n).prod (𝓘(ℝ, ℝ))) (𝓘(ℝ, E × ℝ)) ∞ c Cdom :=
-    (contMDiffOn_chart.comp contMDiffOn_fst (fun w hw ↦ hw.1)).prodMk_space contMDiffOn_snd
+    (contMDiffOn_chart.comp (s := Cdom) contMDiffOn_fst (by
+        intro w hw
+        exact hw.1)).prodMk_space contMDiffOn_snd
   have hN : IsOpen N := hc.continuousOn.isOpen_inter_preimage
     (e.open_source.prod isOpen_univ) (hV.prod isOpen_Ioo)
   have hqN : (q, b) ∈ N := ⟨⟨mem_chart_source E q, Set.mem_univ _⟩, hyV, hb, hmax⟩

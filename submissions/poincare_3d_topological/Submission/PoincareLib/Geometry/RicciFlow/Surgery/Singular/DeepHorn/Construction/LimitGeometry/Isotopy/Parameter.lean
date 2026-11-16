@@ -229,7 +229,7 @@ theorem exists_smooth_local_sphere_parameter
   have hη : ContinuousOn η A :=
     continuous_fst.continuousOn.prodMk
       (L.continuous.comp_continuousOn
-        ((a.continuousOn.comp continuous_snd.continuousOn (fun z hz => hz.2)).prodMk
+        ((a.continuousOn.comp continuous_snd.continuousOn (by intro z hz; exact hz.2)).prodMk
           continuous_const.continuousOn))
   let O := A ∩ η ⁻¹' Q.source
   have hO : IsOpen O := hη.isOpen_inter_preimage hA Q.open_source

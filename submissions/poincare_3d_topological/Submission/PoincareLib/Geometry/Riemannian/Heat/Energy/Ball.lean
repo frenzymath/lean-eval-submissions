@@ -77,12 +77,13 @@ theorem integrated_heat_energy_cutoff_bound (D : LeviCivitaData g)
       have hxs : x ∉ tsupport η := fun h ↦ hx (hηS h)
       simp [D.gradient_eq_zero_of_notMem_tsupport hxs]
   have hWc : ContinuousOn W (Icc 0 b) := by
-    apply (continuousOn_integral_of_compact_support hηc.isCompact ?_ ?_).mono
-      (fun _ ht ↦ ht.1 : Icc (0 : ℝ) b ⊆ Ici 0)
-    · exact (hFc.pow 2).mul
-        ((D.continuous_inner_gradient hη hη).comp continuous_snd).continuousOn
-    · intro t x _ hx
-      simp [D.gradient_eq_zero_of_notMem_tsupport hx]
+    have hWc0 : ContinuousOn W (Ici 0) := by
+      apply continuousOn_integral_of_compact_support hηc.isCompact
+      · exact (hFc.pow 2).mul
+          ((D.continuous_inner_gradient hη hη).comp continuous_snd).continuousOn
+      · intro t x _ hx
+        simp [D.gradient_eq_zero_of_notMem_tsupport hx]
+    exact hWc0.mono (by intro t ht; exact ht.1)
   have hWi : IntervalIntegrable W volume 0 b := hWc.intervalIntegrable_of_Icc hb.le
   have hi := intervalIntegral.integral_mono_on hb.le hWi intervalIntegrable_const hW
   rw [intervalIntegral.integral_const] at hi

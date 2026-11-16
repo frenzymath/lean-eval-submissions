@@ -46,8 +46,8 @@ theorem exists_supportedGauge_radius {U : Set G.Point} (hU : IsOpen U)
     hlift.continuousOn.comp (hR.mono inter_subset_left) (fun _ hs => hs.2)
   have hshift : ContinuousOn
       (fun z : ℝ × ℝ => (lift (R.curve z.1)).2.val + z.2 • η z.1) (J ×ˢ univ) :=
-    ((continuous_subtype_val.comp_continuousOn hL.snd).comp continuousOn_fst
-      (fun _ hz => hz.1)).add
+    ((continuous_subtype_val.comp_continuousOn hL.snd).comp (s := J ×ˢ univ) continuousOn_fst
+      (by intro z hz; exact hz.1)).add
         (continuousOn_snd.smul (hη.continuous.comp continuous_fst).continuousOn)
   let Ω := (J ×ˢ univ) ∩
     (fun z : ℝ × ℝ => (lift (R.curve z.1)).2.val + z.2 • η z.1) ⁻¹'

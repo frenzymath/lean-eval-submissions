@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Existence.Construction.Basic.Restart.SpacetimeBounds
 import Submission.PoincareLib.Analysis.Calculus.SmoothCompactness.FiniteDimensional
 
+noncomputable section
+
 /-!
 # Metric-general One subsequence of fixed-coordinate interior limits
 

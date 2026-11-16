@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.VanKampen.Retraction
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.PathMaps
 
@@ -15,6 +16,7 @@ Proposition 1.26(b), pp. 43-50; MT Proposition 15.3, pp. 357-358.
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
 
 open Set
 open scoped unitInterval
@@ -161,8 +163,10 @@ Theorem 1.20 and Proposition 1.26(b), pp. 43-50). -/
 theorem inclusion_surjective (hU : IsOpen U) (hV : IsOpen V) (hcover : U ∪ V = univ)
     (hVs : IsSimplyConnected V) (hW : IsSimplyConnected (U ∩ V))
     (b : U) (hb : b.1 ∈ V) :
-    Function.Surjective (FundamentalGroup.map (inclusion U) b) :=
-  fun q => pathClass_surjective U V hU hV hcover hVs hW b hb b b q
+    Function.Surjective (FundamentalGroup.map (inclusion U) b) := by
+  intro q
+  obtain ⟨p, hp⟩ := pathClass_surjective U V hU hV hcover hVs hW b hb b b q.toPath
+  exact ⟨FundamentalGroup.fromPath p, CategoryTheory.End.ext hp⟩
 
 /-- The first inclusion induces a group isomorphism when both the second
 set and overlap are simply connected (Hatcher Theorem 1.20, pp. 43-46). -/

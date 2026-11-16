@@ -91,7 +91,7 @@ theorem source_long_recent_family_canonical
     rw [hphysicalScalar]
     exact (congrArg (fun p : Σ t, (F.slice t).carrier =>
       (F.connection p.1).scalarCurvature p.2) hpoint).trans hscalar
-  have hfull := (hfamily.mono_time hunit).mono_epsilon heta hetaEps
+  have hfull := (hfamily.mono_time hunit).mono_epsilon (I := Ioc (-1 : ℝ) 0) heta hetaEps
     (fun _ hs => hs.2.trans_lt zero_lt_one)
   have hclose : RoundCylinderFamilyClose physical.epsilon (Ioc (-1 : ℝ) 0)
       (surgeryCylinderPullback e physical.coordinate_map) := by

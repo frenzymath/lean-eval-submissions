@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.TopologicalAdapters
 
 /-! Fundamental-group injection for a disjoint closed frontier partition. -/
@@ -15,8 +16,8 @@ theorem inclusion_injective_of_clopen_subset (hSF : S ⊆ F) (hFT : F ⊆ T)
       (⟨x, hx⟩ : S))) :
     Function.Injective (map (ContinuousMap.inclusion hFT) x) := by
   intro a b hab
-  obtain ⟨a, rfl⟩ := Path.Homotopic.Quotient.mk_surjective a
-  obtain ⟨b, rfl⟩ := Path.Homotopic.Quotient.mk_surjective b
+  obtain ⟨a, rfl⟩ := FundamentalGroup.exists_path_rep a
+  obtain ⟨b, rfl⟩ := FundamentalGroup.exists_path_rep b
   have hmem (c : Path x x) (t : unitInterval) : (c t : X) ∈ S :=
     hS.map_mem c.continuous 0 (by simpa using hx) t
   let lift (c : Path x x) : Path (⟨x, hx⟩ : S) ⟨x, hx⟩ := {
@@ -25,8 +26,9 @@ theorem inclusion_injective_of_clopen_subset (hSF : S ⊆ F) (hFT : F ⊆ T)
     source' := Subtype.ext (congrArg (fun y : F => (y : X)) c.source)
     target' := Subtype.ext (congrArg (fun y : F => (y : X)) c.target) }
   have h : Path.Homotopic.Quotient.mk (lift a) = Path.Homotopic.Quotient.mk (lift b) :=
-    hinj hab
-  exact congrArg (map (ContinuousMap.inclusion hSF) (⟨x, hx⟩ : S)) h
+    congrArg FundamentalGroup.toPath (hinj hab)
+  exact congrArg (map (ContinuousMap.inclusion hSF) (⟨x, hx⟩ : S))
+    (CategoryTheory.End.ext h)
 
 theorem inclusion_injective_of_disjoint_closed_union
     (hA : IsClosed A) (hB : IsClosed B) (hAB : Disjoint A B)

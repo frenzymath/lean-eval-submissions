@@ -53,7 +53,10 @@ theorem HamiltonMarkedProtectedBall.closed_complement_lateral_contact
   have hTc : IsClosed T := by
     rw [hTimage]
     apply IsCompact.isClosed
-    apply IsCompact.image_of_continuousOn _ (hp.continuousOn.mono (fun _ hz => hz.1))
+    apply IsCompact.image_of_continuousOn _
+      (hp.continuousOn.mono
+        (t := {z : P3 | z ∈ Cube ∧ (|z.1.1| = 1 ∨ |z.1.2| = 1)})
+        (by intro z hz; exact hz.1))
     have hcube : IsCompact Cube := (isCompact_Icc.prod isCompact_Icc).prod isCompact_Icc
     exact hcube.inter_right ((isClosed_eq
       (continuous_fst.fst.abs) continuous_const).union

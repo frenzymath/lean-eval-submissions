@@ -218,7 +218,7 @@ theorem uniform_difference_quotients (S : SUWeakAlphaCoordinate g b alpha u V ce
       (fun _ => image_eq_zero_of_notMem_tsupport) (hDUc a i).measure_lt_top.ne h2p
   obtain ⟨hFlux, hSource⟩ := S.flux_source_memLp_of_one_le ha
   have hF (a : Fin n) (i : Fin 2) : MemLp (F a i) qq volume :=
-    (memLp_indicator_iff_restrict measurableSet_ball).mpr
+    (memLp_indicator_iff_restrict measurableSet_ball.nullMeasurableSet).mpr
       ((hFlux a i).mono_measure (Measure.restrict_mono (ball_subset_ball hsigmaR.le) le_rfl))
   have hsource (a : Fin n) : Integrable (source a) :=
     (integrable_indicator_iff measurableSet_ball).mpr
@@ -226,7 +226,8 @@ theorem uniform_difference_quotients (S : SUWeakAlphaCoordinate g b alpha u V ce
   obtain ⟨hWeight, hPotential⟩ := S.canonical_integrability ha
   have hHI : Integrable H := (integrable_indicator_iff measurableSet_ball).mpr
     (hPotential.mono_measure (Measure.restrict_mono (ball_subset_ball hsigmaR.le) le_rfl))
-  have hWLp : MemLp W rr volume := (memLp_indicator_iff_restrict measurableSet_ball).mpr
+  have hWLp : MemLp W rr volume := (memLp_indicator_iff_restrict
+    measurableSet_ball.nullMeasurableSet).mpr
     (hWeight.mono_measure (Measure.restrict_mono (ball_subset_ball hsigmaR.le) le_rfl))
   have hWI : Integrable W := hHI.mono' hWLp.aestronglyMeasurable (Eventually.of_forall fun x => by
     by_cases hx : x ∈ ball center sigma

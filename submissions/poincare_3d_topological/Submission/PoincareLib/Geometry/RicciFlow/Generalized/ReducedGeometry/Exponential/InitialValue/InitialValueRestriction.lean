@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Pat
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Variation.Pullback.PullbackRestriction
 import Submission.PoincareLib.Geometry.RicciFlow.Generalized.ReducedGeometry.Exponential
 
+noncomputable section
+
 /-!
 # Restricting actual square-root initial-value paths
 

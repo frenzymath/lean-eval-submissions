@@ -26,7 +26,8 @@ theorem homotopic_of_subsingleton_fundamentalGroup
   apply Homotopic.Quotient.eq.mp
   let P : Homotopic.Quotient x y := Homotopic.Quotient.mk p
   let Q : Homotopic.Quotient x y := Homotopic.Quotient.mk q
-  have hloop : P.trans Q.symm = Homotopic.Quotient.refl x := h.elim _ _
+  have hloop : P.trans Q.symm = Homotopic.Quotient.refl x :=
+    congrArg FundamentalGroup.toPath (h.elim (FundamentalGroup.fromPath (P.trans Q.symm)) 1)
   have heq := congrArg (fun r : Homotopic.Quotient x x => r.trans Q) hloop
   simpa only [Homotopic.Quotient.trans_assoc, Homotopic.Quotient.symm_trans,
     Homotopic.Quotient.trans_refl, Homotopic.Quotient.refl_trans] using heq

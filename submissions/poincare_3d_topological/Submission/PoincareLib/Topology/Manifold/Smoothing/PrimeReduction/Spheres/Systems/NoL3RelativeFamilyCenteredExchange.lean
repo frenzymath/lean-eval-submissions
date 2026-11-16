@@ -80,7 +80,7 @@ theorem HasNoPuncturedSphereComponents.exists_fixed_relative_family_centered_exc
   let A := R \ ⋃ k : {k : κ // k ≠ i}, O k.val
   let C := connectedComponentIn A a
   have hCA : C ⊆ A := connectedComponentIn_subset A a
-  have hCR : C ⊆ R := hCA.trans inter_subset_left
+  have hCR : C ⊆ R := hCA.trans sdiff_subset
   obtain ⟨c,ε,hc,hci,hzero,hε,hεsmall,hsmall,hopen,hnoNew,D,sD,H,
       hcut,hcutPL,hDdis,hDsub,hOf,hDfront,hcl,hHO,hHS,hScl⟩ :=
     caps.exists_original_product_endpoint_relative_noL3_cut hC hCPL WU σ hσ hσval b hSU hUC

@@ -55,7 +55,7 @@ theorem hessian_rpow_of_pos (D : LeviCivitaData g) {f : M → ℝ}
       (fun y => p * f y ^ (p - 1)) • D.gradient f :=
     funext fun y => D.gradient_rpow_of_pos hf hpos p y
   rw [D.hessian_eq_inner_connection_gradient (hp x), heq,
-    D.connection.isCovariantDerivativeOn.leibniz
+    D.connection.isCovariantDerivativeOnUniv.leibniz
       ((D.contMDiffAt_gradient (hf x)).mdifferentiableAt (by simp))
       ((hdf x).mdifferentiableAt (by simp)),
     D.hessian_eq_inner_connection_gradient (hf x)]

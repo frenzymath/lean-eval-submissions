@@ -3,6 +3,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Generalized.Cylinder
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Basic
 import Submission.PoincareLib.Geometry.RicciFlow.Pinching.Definitions
 
+noncomputable section
+
 /-!
 Adapted from Mapher `PoincareMT/Definitions/Ch11/BlowupLimits.lean` at
 `f927d9e1f0810042766d3b5f64d3f4da02ee93cc`. Declaration bodies are retained;

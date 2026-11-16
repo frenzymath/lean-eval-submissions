@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Ancient.N
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Tube.Gluing.Band.GraphSlab
 import Submission.PoincareLib.Geometry.RicciFlow.CanonicalNeighborhood.Neck.Overlap.SliceProjection
 
+noncomputable section
+
 /-!
 # Boundaries of buffered soul collars
 

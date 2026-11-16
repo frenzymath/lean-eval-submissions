@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Attachment.Rounding.Chart.MarkedBall
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.Surgery.Reverse.Assembly.Replacement.Compression.Slab
 
+noncomputable section
+
 /-!
 # Compression with support away from the marked closed disk
 

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Topology.Mathlib.FiniteCarrierLocalPathConnected
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Coverings.Mathlib.PLAtlasSignCover
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Regions.ProtectedRegionHomotopies
@@ -35,11 +36,10 @@ theorem protectedRegion_fundamentalGroup_map_eq_one
     (f : C(Y, (R \ C : Set X))) (hf : ∀ y, (f y : X) ∈ F)
     (a : Y) (gamma : FundamentalGroup Y a) :
     FundamentalGroup.map f a gamma = 1 := by
-  obtain ⟨p, rfl⟩ := Path.Homotopic.Quotient.mk_surjective gamma
+  obtain ⟨p, rfl⟩ := FundamentalGroup.exists_path_rep gamma
   have hp := exists_frontier_loop_homotopy_in_protected_region
     hloops (f a) (p.map f.continuous) (fun t => hf (p t))
-  rw [FundamentalGroup.map_apply, ← Path.Homotopic.Quotient.mk_map]
-  exact Path.Homotopic.Quotient.eq.mpr hp
+  exact CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr hp)
 
 /-- The complete original finite component constructs its own
 connectivity, trivial induced group map and normalized actual sign-cover

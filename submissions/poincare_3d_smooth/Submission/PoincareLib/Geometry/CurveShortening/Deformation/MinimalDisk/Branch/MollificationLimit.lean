@@ -37,7 +37,7 @@ theorem memLp_of_bound_support {h : ℂ → E} {R B : ℝ}
   have heq : (closedBall (0 : ℂ) R).indicator h = h :=
     indicator_eq_self.mpr hs
   rw [← heq]
-  exact (memLp_indicator_iff_restrict measurableSet_closedBall).mpr hk
+  exact (memLp_indicator_iff_restrict (measurableSet_closedBall).nullMeasurableSet).mpr hk
 
 /-- Every positive integral power of the genuine error tends to zero
 under bounded common-support almost-everywhere convergence. Source:

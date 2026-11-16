@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Arcs.Mathlib.PeriodCircleLoop
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.General.Mathlib.RetractionFundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Topology.CircleGroups.IntegerWinding
@@ -7,6 +8,8 @@ import Mathlib.GroupTheory.OrderOfElement
 /-! Actual infinite-order coordinate loops detected by their circle retractions. -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 open Set Topology
 
@@ -22,7 +25,8 @@ theorem periodLoop_class_not_isOfFinOrder :
   intro h
   have hfin : IsOfFinOrder (e (Path.Homotopic.Quotient.mk (periodLoop p))) :=
     (Function.Injective.isOfFinOrder_iff (f := e.toMonoidHom) e.injective).mpr h
-  exact periodLoop_class_ne_one p (e.injective (hfin.eq_one'.trans e.map_one.symm))
+  exact periodLoop_class_ne_one p
+    (congrArg FundamentalGroup.toPath (e.injective (hfin.eq_one'.trans e.map_one.symm)))
 
 theorem periodLoop_class_orderOf :
     orderOf (G := FundamentalGroup (AddCircle p) 0)

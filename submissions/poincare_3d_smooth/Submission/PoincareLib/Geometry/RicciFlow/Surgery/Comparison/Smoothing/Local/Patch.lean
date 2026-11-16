@@ -82,7 +82,7 @@ theorem exists_supported_smooth_approximation
     exists_continuous_compactSupport_extension himage hV₀ hcoordDomain hcoord
   let U : Set M := U₀ ∩ e ⁻¹' thickening r (e '' tsupport ρ)
   have hU : IsOpen U :=
-    (e.continuousOn.mono (fun _ hy => hy.1)).isOpen_inter_preimage hU₀
+    (e.continuousOn.mono (by intro _ hy; exact hy.1)).isOpen_inter_preimage hU₀
       isOpen_thickening
   have hUe : U ⊆ e.source := fun _ hy => hy.1.1
   have hfU : MapsTo f U h.source := fun _ hy => hy.1.2

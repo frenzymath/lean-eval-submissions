@@ -160,7 +160,7 @@ theorem chartPoint_coordinateOf (base : M) {x : M}
 theorem contMDiffOn_chartPoint (base : M) :
     ContMDiffOn 𝓘(ℝ, P) I ∞ (chartPoint (n := n) base) (chartDomain (n := n) base) :=
   (contMDiffOn_extChartAt_symm base).comp (coordinateModel n).contDiff.contMDiff.contMDiffOn
-    (fun _ hy => hy)
+    (by intro _ hy; exact hy)
 
 theorem contMDiffOn_coordinateOf (base : M) :
     ContMDiffOn I 𝓘(ℝ, P) ∞ (coordinateOf (n := n) base) (chartAt E base).source :=
@@ -185,7 +185,7 @@ theorem contDiffOn_coordinateMetricEntries (g : RiemannianMetric n M) (base : M)
   apply contDiffOn_pi.mpr
   intro j
   exact (chartMetricCoefficients_contDiffOn g base i j).comp
-    (coordinateModel n).contDiff.contDiffOn (fun _ hy => hy)
+    (coordinateModel n).contDiff.contDiffOn (by intro _ hy; exact hy)
 
 theorem coordinateMetricEntries_posDef (g : RiemannianMetric n M) (base : M)
     {y : P} (hy : y ∈ chartDomain base) : (coordinateMetricEntries g base y).PosDef :=
@@ -310,7 +310,7 @@ theorem contDiffOn_coordinateMetricPath (base : M) :
   apply contDiffOn_matrixPath
   intro ab
   exact ((contMDiffOn_metricEntryPath d L r p hpr hp z hspatial base ab.1 ab.2).comp
-    (contMDiffOn_chartPoint base) (fun _ hy => chartPoint_mem_source base hy)).contDiffOn
+    (contMDiffOn_chartPoint base) (by intro _ hy; exact chartPoint_mem_source base hy)).contDiffOn
 
 def coordinatePairPath (base : M) (y : P) : C(K, Mat × Mat) :=
   pairMatrixPath (ContinuousMap.const K (coordinateMetricEntries g0 base y))
@@ -492,7 +492,9 @@ theorem exists_coordinate_source_extension (base : M) (U : P → C(K, Mat × Mat
     contDiff_packChartJet.continuous.comp_continuousOn
       (continuous_eval.comp_continuousOn
         ((((contDiffOn_coordinateJetPath (isOpen_chartDomain base) hU).continuousOn).comp
-          continuous_snd.continuousOn (fun q hq => hclosure hq.2)).prodMk
+          (continuous_snd.continuousOn : ContinuousOn Prod.snd (univ ×ˢ closure Omega)) (by
+              intro q hq
+              exact hclosure hq.2)).prodMk
             continuous_fst.continuousOn))
   have hS : IsCompact S := (isCompact_univ.prod hcompact).image_of_continuousOn hj
   let V : Set (ChartState (n := n) × ChartState (n := n)) :=
@@ -513,7 +515,7 @@ theorem exists_coordinate_source_extension (base : M) (U : P → C(K, Mat × Mat
   obtain ⟨fExt, hfExt, O, hO, hSO, hEq⟩ :=
     exists_contDiff_extension_near_compact hS hV hSV
       (fun q => chartStateSource (chartStateJet q.1) q.2)
-      (fun q hq => contDiffAt_jointChartStateSource_of_det_ne_zero q hq.1 hq.2)
+      (by intro q hq; exact contDiffAt_jointChartStateSource_of_det_ne_zero q hq.1 hq.2)
   refine ⟨fExt, hfExt, ?_⟩
   intro y hy t
   exact hEq (hSO ⟨(t, y), ⟨mem_univ t, hy⟩, rfl⟩)
@@ -531,9 +533,9 @@ theorem coordinateSourcePath_eq_intrinsic (base : M) (U : P → C(K, Mat × Mat)
       MetricFamilyProducerNative.deTurckRHS g0 (g t) (chartPoint base y)
         (chartFrame base i (chartPoint base y)) (chartFrame base j (chartPoint base y))) := by
   have hB := packChartState_eq_frameMetricJet base U hU false (fun _ => g0)
-    (fun q s => by rw [hvalue]; rfl) hy t
+    (by intro q s; exact by rw [hvalue]; rfl) hy t
   have hG := packChartState_eq_frameMetricJet base U hU true g
-    (fun q s => by rw [hvalue]; rfl) hy t
+    (by intro q s; exact by rw [hvalue]; rfl) hy t
   change (0, fExt (packChartJet (coordinateJetPath U y t))) = (0, _)
   refine Prod.ext rfl ?_
   funext i j
@@ -727,20 +729,20 @@ theorem contMDiffOn_metricPair_of_local_coordinates {J : Set ℝ}
   have hmap : ContMDiffOn (𝓘(ℝ, ℝ).prod I) 𝓘(ℝ, ℝ × P) ∞
       (fun a : ℝ × M => (a.1, coordinateOf base a.2)) (J ×ˢ A) :=
     contMDiffOn_fst.prodMk_space
-      ((contMDiffOn_coordinateOf base).comp contMDiffOn_snd (fun _ ha => ha.2.1))
+      ((contMDiffOn_coordinateOf base).comp contMDiffOn_snd (by intro _ ha; exact ha.2.1))
   have hentries : ContMDiffOn (𝓘(ℝ, ℝ).prod I) 𝓘(ℝ, Mat) ∞
       (fun a : ℝ × M => coordinateMetricEntries (g a.1) base (coordinateOf base a.2))
       (J ×ˢ A) :=
-    hregular.contMDiffOn.comp hmap (fun _ ha => ⟨ha.1, ha.2.2⟩)
+    hregular.contMDiffOn.comp hmap (by intro _ ha; exact ⟨ha.1, ha.2.2⟩)
   have hsum : ContMDiffOn (𝓘(ℝ, ℝ).prod I) 𝓘(ℝ, ℝ) ∞
       (fun a : ℝ × M => ∑ i : Fin n, ∑ j : Fin n,
         (chartFieldOnSource base V a.2 i * chartFieldOnSource base W a.2 j) *
           coordinateMetricEntries (g a.1) base (coordinateOf base a.2) i j) (J ×ˢ A) :=
-    contMDiffOn_finsetSum (fun i _ => contMDiffOn_finsetSum (fun j _ =>
-      (((contMDiffOn_chartFieldCoefficient base V i).comp contMDiffOn_snd
-        (fun _ ha => ha.2.1)).mul
-        ((contMDiffOn_chartFieldCoefficient base W j).comp contMDiffOn_snd
-          (fun _ ha => ha.2.1))).mul
+    contMDiffOn_finsetSum (by intro i _; exact contMDiffOn_finsetSum (fun j _ =>
+      (((contMDiffOn_chartFieldCoefficient base V i).comp (s := J ×ˢ A) contMDiffOn_snd
+        (by intro _ ha; exact ha.2.1)).mul
+        ((contMDiffOn_chartFieldCoefficient base W j).comp (s := J ×ˢ A) contMDiffOn_snd
+          (by intro _ ha; exact ha.2.1))).mul
             (contMDiffOn_pi_space.mp (contMDiffOn_pi_space.mp hentries i) j)))
   have heq : EqOn (fun a : ℝ × M => (g a.1).inner a.2 (V a.2) (W a.2))
       (fun a : ℝ × M => ∑ i : Fin n, ∑ j : Fin n,

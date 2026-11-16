@@ -80,7 +80,7 @@ theorem hamiltonZero_box_pi1_subsingleton
     exact Prod.ext (Prod.ext (L.right_inv (hL y)) (K.right_inv (hK y))) (J.right_inv (hJ y))
   rw [← hfactor, FundamentalGroup.map_comp] at hf
   have hg : Function.Injective (FundamentalGroup.map lift x) :=
-    Function.Injective.of_comp hf
+    Function.Injective.of_comp (f := FundamentalGroup.map sectionMap (lift x)) hf
   exact hg.subsingleton
 
 theorem hamiltonZero_terminal_third_slabs_pi1_subsingleton

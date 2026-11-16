@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Geometry.RicciFlow.ReducedGeometry.ReducedVolume.Comparison.RegularWeights
 
+noncomputable section
+
 /-!
 # Actual regular rays in backward L-star-shaped domains
 

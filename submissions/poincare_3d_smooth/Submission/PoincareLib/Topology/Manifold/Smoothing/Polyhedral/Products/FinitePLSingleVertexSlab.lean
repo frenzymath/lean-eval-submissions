@@ -95,9 +95,9 @@ theorem exists_finitePL_singleVertexSlab_with_contacts [DecidableEq E]
   obtain ⟨F, hF, hFheight, hFbottom, hFres⟩ := K.exists_singleVertexSlab_collar_iUnion
     A hAq hβ.le hone (fun i : ι => i.val) (fun i => i.property.1)
     (fun i => i.property.2.1) Subtype.val_injective S T H hH
-    (fun i p => (hbound i p.property).1.1)
-    (fun i p => (hbound i p.property).1.2)
-    (fun i p => (hbound i p.property).2)
+    (by intro i p; exact (hbound i p.property).1.1)
+    (by intro i p; exact (hbound i p.property).1.2)
+    (by intro i p; exact (hbound i p.property).2)
     htarget hheight hbottom hcollapse hedge
   obtain ⟨upper, hupperPL, hupper, hband, hpieces⟩ :=
     K.exists_finitePL_singleVertex_source_roof_with_pieces
@@ -299,8 +299,8 @@ theorem exists_finitePL_singleVertexSlab_with_contacts [DecidableEq E]
         have hother := (K.vertex_and_positive_others_of_trivial_section_slab_point
           A hqK hreg hs hsection (convexHull_mono sdiff_subset hys)
           (show A y ∈ Ioc 0 β by rw [hyβ]; exact ⟨hβ, le_rfl⟩)).2
-        have hyabove : β < A y := convexHull_min
-          (fun z hz => hother z hz.1 hz.2) ((convex_Ioi β).affine_preimage A) hys
+        have hyabove : β < A y := convexHull_min (s := (s : Set E) \ {q}) (t := A ⁻¹' Ioi β)
+          (by intro z hz; exact hother z hz.1 hz.2) ((convex_Ioi β).affine_preimage A) hys
         exact hyabove.ne' hyβ
       let i : ι := ⟨s, hs, hsc, hnontriv⟩
       have hx := (hRcontact i hqs c ⟨hc.1, hc.2.le⟩).symm.subset ⟨y, ⟨hys, hyβ⟩, rfl⟩

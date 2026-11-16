@@ -70,7 +70,7 @@ theorem exists_protected_domain_sphere_bound
     4 * Nat.card (K.FaceOfCard 3) + (J 0).vertices.ncard, ?_⟩
   intro E _ _ _ κ _ f hf hfi S sS hSR hdis O W hCut hCutPL hO hCR hCC
     hopen hcenter hSC B sB hBdis hBsub hfront hno
-  have hnoPhi := hno.change_original_realization hf hfi inter_subset_left K
+  have hnoPhi := hno.change_original_realization hf hfi sdiff_subset K
     (fun z => (g z : X)) hgPL phi hreal
   exact hnoPhi.card_le_original_model_bound K hK (fun z => (g z : X)) hgPL hgi
     Q hQ A hmap hA hR hRPL

@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Cap.Attachment.ClosingTails
 import Submission.PoincareLib.Topology.Manifold.NeckCap.Tube.Gluing.Finite.Certificate
 
+noncomputable section
+
 /-!
 # Orienting the cylinder at a cap attachment
 

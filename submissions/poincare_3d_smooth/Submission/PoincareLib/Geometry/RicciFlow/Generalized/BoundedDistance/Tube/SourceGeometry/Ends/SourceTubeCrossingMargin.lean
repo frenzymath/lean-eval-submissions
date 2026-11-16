@@ -66,7 +66,8 @@ theorem intrinsic_edist_add_le_of_fresh_sphere_height (T : SourceTubeData S)
     nlinarith only [mul_pos hN hA]
   · intro gamma h0 h1 hgamma
     obtain ⟨t, ht, hmem⟩ := exists_sphere_crossing_of_signed_height
-      (U := univ) hcont.continuousOn (fun y _ => hzero y) zero_le_one
+      (U := univ) (S := {y : T.carrierOpen | y.val ∈ N.central_sphere}) hcont.continuousOn (fun
+        y _ => hzero y) zero_le_one
       hgamma.continuousOn (mapsTo_univ _ _) (by rwa [h0]) (by rwa [h1])
     exact ⟨t, ⟨ht.1.le, ht.2.le⟩, hmem⟩
   · intro y hy

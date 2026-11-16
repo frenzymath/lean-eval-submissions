@@ -177,7 +177,7 @@ theorem m65WeakTrace_exists_smooth_graph
   have hs : MeasurableSet loopDiskSet := measurableSet_closedBall
   let extend (w : Lp ℝ 2 (volume.restrict loopDiskSet)) :
       Lp ℝ 2 (volume : Measure LoopPlane) :=
-    ((memLp_indicator_iff_restrict hs).mpr (Lp.memLp w)).toLp
+    ((memLp_indicator_iff_restrict hs.nullMeasurableSet).mpr (Lp.memLp w)).toLp
       (loopDiskSet.indicator (w : LoopPlane → ℝ))
   have hextend (w : Lp ℝ 2 (volume.restrict loopDiskSet)) :
       extend w =ᵐ[volume] loopDiskSet.indicator (w : LoopPlane → ℝ) := MemLp.coeFn_toLp _

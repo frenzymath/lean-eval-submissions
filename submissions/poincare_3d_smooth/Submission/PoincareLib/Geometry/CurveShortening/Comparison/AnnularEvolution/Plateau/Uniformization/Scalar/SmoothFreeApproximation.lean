@@ -115,7 +115,8 @@ theorem exists_smooth_free_annulus_energy_lt_area
       ((continuousAt_const.mul h0).add (continuousAt_const.mul h1)).div_const 2
     exact hc.continuousWithinAt
   have hEI : IntegrableOn E scalarCylinderFundamental := by
-    apply hFA.mono' ((hEc.mono (fun _ hp => hp.1)).aestronglyMeasurable
+    apply hFA.mono' ((hEc.mono (t := scalarCylinderFundamental) (fun _ hp =>
+      hp.1)).aestronglyMeasurable
       scalarCylinderFundamental_measurable)
     filter_upwards [ae_restrict_mem scalarCylinderFundamental_measurable] with p hp
     rw [Real.norm_of_nonneg (hEnonneg p)]

@@ -38,7 +38,7 @@ private theorem eLpNorm_indicator_exp_le {X : Type*} [MeasurableSpace X]
     {ψ : X → ℝ} (hψ : AEStronglyMeasurable ψ μ) {a : ℝ} (ha : ∀ x ∈ A, ψ x ≤ a) :
     (eLpNorm (A.indicator (fun x => Real.exp (ψ x))) 2 μ).toReal ≤
       Real.exp a * Real.sqrt (μ.real A) := by
-  have hC := memLp_indicator_const (μ := μ) 2 hA (Real.exp a) (Or.inr hAfin)
+  have hC := memLp_indicator_const (μ := μ) 2 hA.nullMeasurableSet (Real.exp a) (Or.inr hAfin)
   have hm : eLpNorm (A.indicator (fun x => Real.exp (ψ x))) 2 μ ≤
       eLpNorm (A.indicator (fun _ => Real.exp a)) 2 μ := by
     apply eLpNorm_mono ((Real.continuous_exp.comp_aestronglyMeasurable hψ).indicator hA)
@@ -84,7 +84,7 @@ theorem setIntegral_setIntegral_heatKernelContinuousTime_le
   let : IsFiniteMeasure ν := domainMeasure_isFinite Ω S.isCompact_closure
   let hn := Nat.pos_of_ne_zero (NeZero.ne n)
   have hf : MemLp (B.indicator (fun _ : M => (1 : ℝ))) 2 ν :=
-    memLp_indicator_const 2 hB 1 (Or.inr (measure_ne_top _ _))
+    memLp_indicator_const 2 hB.nullMeasurableSet 1 (Or.inr (measure_ne_top _ _))
   let f := hf.toLp (B.indicator (fun _ : M => (1 : ℝ)))
   let P := heatSemigroup D Ω hn S.isOpen S.isCompact_closure t.toNNReal f
   let U := Boundary.heatPowerContinuous D S 0 t ht f
@@ -123,7 +123,7 @@ theorem setIntegral_setIntegral_heatKernelContinuousTime_le
       (Real.continuous_exp.comp hψ.continuous.neg) P
   let w := A.indicator (fun x => Real.exp (ψ x))
   have hw : MemLp w 2 ν := by
-    have hC := memLp_indicator_const (μ := ν) 2 hA (Real.exp a)
+    have hC := memLp_indicator_const (μ := ν) 2 hA.nullMeasurableSet (Real.exp a)
       (Or.inr (measure_ne_top _ _))
     refine hC.of_le ((Real.continuous_exp.comp hψ.continuous).aestronglyMeasurable.indicator hA) ?_
     filter_upwards with x

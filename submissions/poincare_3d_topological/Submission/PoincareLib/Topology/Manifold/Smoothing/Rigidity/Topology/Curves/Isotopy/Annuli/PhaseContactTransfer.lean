@@ -88,8 +88,10 @@ theorem projected_two_moves_radial_contact_iff
   let T := Icc (-1 : ℝ) 1 ×ˢ Icc a b
   have hheight (y : P2) (hy : y.1 ∈ Icc (-1 : ℝ) 1) :
       (J (H y)).1 ∈ Icc (-1 : ℝ) 1 := by
-    exact (supported_homeomorph_mem_iff (fun z hz => (hE hz).1) J jfix (H y)).mp
-      ((supported_homeomorph_mem_iff (fun z hz => (hD hz).1) H hfix y).mp hy)
+    exact (supported_homeomorph_mem_iff (T := {z : P2 | z.1 ∈ Icc (-1 : ℝ) 1}) (fun z hz => (hE
+      hz).1) J jfix (H y)).mp
+      ((supported_homeomorph_mem_iff (T := {z : P2 | z.1 ∈ Icc (-1 : ℝ) 1}) (fun z hz => (hD
+        hz).1) H hfix y).mp hy)
   have hmem (y : P2) : y ∈ T ↔ J (H y) ∈ T :=
     (supported_homeomorph_mem_iff hD H hfix y).trans (supported_homeomorph_mem_iff hE J jfix (H y))
   have hparam (t : I) :

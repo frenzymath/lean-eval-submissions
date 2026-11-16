@@ -7,6 +7,8 @@ import Mathlib.Geometry.Manifold.MFDeriv.NormedSpace
 import Mathlib.Geometry.Manifold.VectorBundle.ContMDiffSection
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
+noncomputable section
+
 /-!
 # Backward-time L-geometry
 

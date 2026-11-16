@@ -192,7 +192,7 @@ theorem homothety_connection_eq
     filter_upwards [hU.mem_nhds hx] with p hp
     rw [VectorField.mpullback_apply, hlink p hp]
     exact (diffeomorph_mfderiv_isInvertible f p).inverse_apply_self (V p)
-  have hconn := D.connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+  have hconn := D.connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
     (mdifferentiableAt_mpullback f W x hWx) hVx Filter.univ_mem heq
   rw [homothety_connection_mpullback g h f Q hf D D' W x hWx u, hconn]
 

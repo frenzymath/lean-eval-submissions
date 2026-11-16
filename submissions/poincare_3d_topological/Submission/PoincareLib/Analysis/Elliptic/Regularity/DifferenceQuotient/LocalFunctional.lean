@@ -253,7 +253,7 @@ lemma tendsto_integral_w_diffQuot_phi_loc
       have h₁ : ((volume : Measure E).restrict Ω) K_thick ≤
           (volume : Measure E) K_thick := Measure.restrict_le_self _
       exact ne_top_of_le_ne_top hK_thick_compact.measure_lt_top.ne h₁
-    refine memLp_indicator_const _ hK_thick_meas (1 : ℝ) (Or.inr h_finite)
+    refine memLp_indicator_const _ (hK_thick_meas).nullMeasurableSet (1 : ℝ) (Or.inr h_finite)
   have h_abs_eq_norm : (fun x => |w x|) = fun x => ‖w x‖ := by
     funext x; rw [Real.norm_eq_abs]
   have h_abs_w_memLp : MemLp (fun x => |w x|) 2
@@ -463,7 +463,7 @@ lemma abs_smoothTestFunctional_loc_le
       rw [show w_ext = fun x => Ω.indicator w x from rfl]
       rw [show eLpNorm w 2 ((volume : Measure E).restrict Ω) =
           eLpNorm (Ω.indicator w) 2 (volume : Measure E) from
-        (eLpNorm_indicator_eq_eLpNorm_restrict hΩ_open.measurableSet).symm]
+        (eLpNorm_indicator_eq_eLpNorm_restrict (hΩ_open.measurableSet).nullMeasurableSet).symm]
     rw [h_eLpNorm_eq]
     exact hw_l2.eLpNorm_lt_top
   have h_dq_eq_on_tsupport : ∀ n : ℕ, ∀ x ∈ tsupport φ.1,

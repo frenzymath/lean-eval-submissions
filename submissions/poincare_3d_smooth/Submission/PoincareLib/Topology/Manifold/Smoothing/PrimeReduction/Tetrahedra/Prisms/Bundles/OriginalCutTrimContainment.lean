@@ -29,7 +29,8 @@ theorem physical_cut_component_subset_of_raw_trim
   have hcomponent : MapsTo F (connectedComponentIn Q x)
       (connectedComponentIn (K \ g ⁻¹' S) p) := by
     intro y hy
-    have hmem := connectedComponentIn_mono (F x) (image_subset_iff.mpr hmap)
+    have hmem := connectedComponentIn_mono (F x) (image_subset_iff.mpr (show Q ⊆ F ⁻¹' (K \ g
+      ⁻¹' S) from hmap))
       (hF.continuousOn.mapsTo_connectedComponentIn hx hy)
     exact (connectedComponentIn_eq hxp).symm.subset hmem
   intro y hy

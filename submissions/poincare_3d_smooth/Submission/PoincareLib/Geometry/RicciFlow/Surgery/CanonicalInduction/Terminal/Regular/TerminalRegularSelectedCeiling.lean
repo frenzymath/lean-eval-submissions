@@ -27,7 +27,13 @@ namespace PoincareMT.M47
 local notation "E" => EuclideanSpace ℝ (Fin 3)
 
 private theorem selected_locallyCompact_t3 (X : Type*) [TopologicalSpace X]
-    [T2Space X] [LocallyCompactSpace X] : T3Space X := inferInstance
+    [T2Space X] [LocallyCompactSpace X] : T3Space X := by
+  let : T1Space X := T2Space.t1Space
+  let : T0Space X := T1Space.t0Space
+  let : R1Space X := T2Space.r1Space
+  let : RegularSpace X := RegularSpace.of_hasBasis
+    isCompact_isClosed_basis_nhds (fun _ _ ⟨_, _, h⟩ => h)
+  exact ⟨⟩
 
 section Family
 

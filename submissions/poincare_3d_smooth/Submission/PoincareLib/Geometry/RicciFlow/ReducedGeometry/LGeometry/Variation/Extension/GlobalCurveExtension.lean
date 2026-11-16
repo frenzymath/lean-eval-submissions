@@ -215,7 +215,7 @@ theorem connection_sum_parametric {g : RiemannianMetric n M} (D : LeviCivitaData
   | empty =>
       simp only [Finset.sum_empty]
       change D.connection 0 x = 0
-      exact D.connection.isCovariantDerivativeOn.zero
+      exact D.connection.isCovariantDerivativeOnUniv.zero
   | @insert i S hi ih =>
       have hAi := hA i (Finset.mem_insert_self i S)
       have hAS := fun j hj ↦ hA j (Finset.mem_insert_of_mem hj)
@@ -223,7 +223,7 @@ theorem connection_sum_parametric {g : RiemannianMetric n M} (D : LeviCivitaData
           (fun y ↦ A i s y) + (fun y ↦ ∑ j ∈ S, A j s y) := by
         funext y
         exact Finset.sum_insert hi
-      rw [hsection, D.connection.isCovariantDerivativeOn.add hAi
+      rw [hsection, D.connection.isCovariantDerivativeOnUniv.add hAi
         (MDifferentiableAt.sum_section hAS), ih hAS, Finset.sum_insert hi]
 
 /-- Time weights glue the local extensions on an actual open graph neighborhood. -/
@@ -341,7 +341,7 @@ theorem parametricWeightedSum_connection (I : TopologicalSpace.Opens ℝ)
   simp only [sum_apply]
   apply Finset.sum_congr rfl
   intro i hi
-  have hc := D.connection.isCovariantDerivativeOn.smul_const
+  have hc := D.connection.isCovariantDerivativeOnUniv.smul_const
     (timePartitionWeight I ρ i (s : ℝ)) (hspace i hi)
   exact congrArg (fun L : TangentSpace (𝓡 n) x →L[ℝ] TangentSpace (𝓡 n) x ↦ L X) hc
 

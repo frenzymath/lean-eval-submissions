@@ -105,7 +105,7 @@ theorem HasNoPuncturedSphereComponents.exists_relative_family_marked_noL3_exchan
       L g hg hgi hreal i hd j hj.continuousOn hdR hproper hrSi
   let A := R \ ⋃ k : {k : κ // k ≠ i}, O k.val
   let C := connectedComponentIn A a
-  have hCR : C ⊆ R := (connectedComponentIn_subset A a).trans inter_subset_left
+  have hCR : C ⊆ R := (connectedComponentIn_subset A a).trans sdiff_subset
   have hproperSi : ∀ z ∈ d, j z ∈ S i ↔ z ∈ r := by
     intro z hz
     constructor

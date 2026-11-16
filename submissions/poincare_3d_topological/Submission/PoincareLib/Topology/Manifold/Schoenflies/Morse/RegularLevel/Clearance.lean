@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Morse.RegularLevel.Tube
 import Mathlib.Topology.MetricSpace.Thickening
 
+noncomputable section
+
 /-!
 # Clearance around a planar surgery disk
 

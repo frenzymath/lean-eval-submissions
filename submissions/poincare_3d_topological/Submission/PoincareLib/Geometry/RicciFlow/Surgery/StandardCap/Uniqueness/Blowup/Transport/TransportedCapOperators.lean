@@ -85,6 +85,9 @@ theorem blowupSequence_cap_scalar_operator_bounds (P : M35StandardCapPredecessor
       scalarGradientNorm (L.limit.flow.metric 0) N.connection y ≤
         N.cap_constant * N.connection.scalarCurvature y ^ (3 / 2 : ℝ) := by
     obtain ⟨B, hB, hbound⟩ := N.gradient_bound
+    change closure N.carrier ⊆ {y |
+      scalarGradientNorm (L.limit.flow.metric 0) N.connection y ≤
+        N.cap_constant * N.connection.scalarCurvature y ^ (3 / 2 : ℝ)}
     apply closure_minimal
     · intro y hy
       exact (hbound y hy).trans (mul_le_mul_of_nonneg_right hB.le
@@ -94,6 +97,9 @@ theorem blowupSequence_cap_scalar_operator_bounds (P : M35StandardCapPredecessor
       |N.connection.laplacian N.connection.scalarCurvature y +
         2 * N.connection.ricciNormSq y| ≤ N.cap_constant * N.connection.scalarCurvature y ^ 2 := by
     obtain ⟨B, hB, hbound⟩ := N.laplacian_bound
+    change closure N.carrier ⊆ {y |
+      |N.connection.laplacian N.connection.scalarCurvature y +
+        2 * N.connection.ricciNormSq y| ≤ N.cap_constant * N.connection.scalarCurvature y ^ 2}
     apply closure_minimal
     · intro y hy
       exact (hbound y hy).trans (mul_le_mul_of_nonneg_right hB.le (sq_nonneg _))

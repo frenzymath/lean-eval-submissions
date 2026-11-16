@@ -27,6 +27,7 @@ theorem markedProjectionHom_loop (f : C(X, Y)) {x : X} {b : Y}
     (q : Path b (f x)) (l : Path x x) :
     markedProjectionHom f q (FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk l)) =
       q.whiskeredLoopClass (l.map f.continuous) := by
+  apply CategoryTheory.End.ext
   change (Path.Homotopic.Quotient.mk q.symm.symm).trans
       ((Path.Homotopic.Quotient.mk (l.map f.continuous)).trans
         (Path.Homotopic.Quotient.mk q.symm)) = _
@@ -51,6 +52,7 @@ theorem markedProjectionHom_refl_whiskered (f : C(X, Y)) {x : X} {b : Y}
       q.whiskeredLoopClass (l.map f.continuous) := by
   have heq : (Path.refl x).whiskeredLoopClass l =
       FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk l) := by
+    apply CategoryTheory.End.ext
     change ((Path.Homotopic.Quotient.refl x).trans (Path.Homotopic.Quotient.mk l)).trans
       (Path.Homotopic.Quotient.refl x) = _
     rw [Path.Homotopic.Quotient.refl_trans, Path.Homotopic.Quotient.trans_refl]

@@ -97,6 +97,7 @@ theorem holderWith_restrict_of_norm_le_of_lipschitzOnWith
               ((epsilon : Real) ^ ((1 : NNReal) - alpha : Real) *
                 dist x y ^ (alpha : Real)) := by
             gcongr
+            exact sub_nonneg.mpr halphaReal
           _ = (L : Real) * (epsilon : Real) ^
               ((1 : NNReal) - alpha : Real) *
                 dist x y ^ (alpha : Real) := by ring

@@ -130,7 +130,9 @@ theorem initialValueAction_smooth
     initialValueCurve_smooth_neighborhood_positive hM04 hM12 hbase hpos hsurv
   exact ((initialValueAction_smooth_prefix hM04 hM12 hU (hpos.trans_le hsS) htube hsm)
     (Z, s) ⟨hZU, hpos.le, hsS⟩).mono_of_mem_nhdsWithin
-      (nhdsWithin_mono (Z, s) (fun _ hz => initialValueDomain_admissible hbase hz.1) hnear)
+      (nhdsWithin_mono (Z, s)
+        (s := initialValueDomain G T x ∩ {z | 0 < z.2})
+        (fun _ hz => initialValueDomain_admissible hbase hz.1) hnear)
 
 /-- Every supplied exponential family's actual action is jointly
 smooth on its positive survival domain, the smoothness clause of

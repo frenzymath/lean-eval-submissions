@@ -45,7 +45,8 @@ theorem eventually_source_curvature_bound_of_limit
   have hAr : A ⊆ g.ball p r := by
     intro x hx
     have hd : edist p x ≤ ENNReal.ofReal a :=
-      closure_minimal (fun _ hy ↦ le_of_lt hy)
+      closure_minimal (s := g.ball p a)
+        (by intro y hy; exact (show edist p y < ENNReal.ofReal a from hy).le)
         (isClosed_le (continuous_const.edist continuous_id) continuous_const) hx
     exact hd.trans_lt ((ENNReal.ofReal_lt_ofReal_iff hr).mpr har)
   have htρ : t - ρ ^ 2 < 0 := by nlinarith [sq_nonneg ρ]

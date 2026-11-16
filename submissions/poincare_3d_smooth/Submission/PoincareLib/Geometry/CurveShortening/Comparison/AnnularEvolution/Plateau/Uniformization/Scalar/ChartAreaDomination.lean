@@ -53,8 +53,8 @@ theorem scalarC1_composed_area_bound
   let T := Q ×ˢ (Metric.closedBall (0 : E) L ×ˢ Metric.closedBall (0 : E) L)
   have hT : IsCompact T := hQ.prod ((isCompact_closedBall _ _).prod (isCompact_closedBall _ _))
   have hB : ContinuousOn B (U ×ˢ univ) := M60.continuousOn_pullback_inner hU hf
-  obtain ⟨C, hC⟩ := hT.bddAbove_image ((hB.mono
-    (fun _ hp => ⟨hQU hp.1, mem_univ _⟩)).norm)
+  obtain ⟨C, hC⟩ := hT.bddAbove_image ((hB.mono (t := T)
+    (by intro p hp; exact ⟨hQU hp.1, mem_univ _⟩)).norm)
   refine ⟨max C 0, le_max_right _ _, ?_⟩
   intro u hu x hx hdx
   have hnorm (i : Fin 2) :

@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.VanKampen.Surjectivity
 
 /-! Adapted from Mapher `PoincareMT/Proofs/M54/Mathlib/VanKampenGeneral.lean` at
@@ -13,6 +14,7 @@ of Morgan--Tian Proposition 15.3 (pp. 357-358).
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
 
 open Set
 open scoped unitInterval
@@ -57,8 +59,9 @@ theorem adapted_transport_eq_one (hW : IsSimplyConnected (U ∩ V))
     have h' : (overlapTails U V hW w hw (p 0) hw0).trans
         ((Path.Homotopic.Quotient.mk p.toPath).trans
           (overlapTails U V hW w hw (p 1) hw1).symm) =
-        Path.Homotopic.Quotient.refl w := congrArg MulOpposite.unop h
+        Path.Homotopic.Quotient.refl w := congrArg (fun a => (MulOpposite.unop a).toPath) h
     apply MulOpposite.unop_injective
+    apply CategoryTheory.End.ext
     change ((Path.Homotopic.Quotient.mk hbw.somePath).trans _).trans
       ((Path.Homotopic.Quotient.mk p.toPath).trans
         ((Path.Homotopic.Quotient.mk hbw.somePath).trans _).symm) =
@@ -127,8 +130,9 @@ theorem transportOfTails_restriction (hU : IsOpen U) (hV : IsOpen V)
       (FundamentalGroup.map (inclusion U) b) =
       (MulAut.conj (G := FundamentalGroup U b) (tails b (Joined.refl b))⁻¹).toMonoidHom := by
   classical
-  ext q
-  induction q using Path.Homotopic.Quotient.ind with
+  apply MonoidHom.ext
+  intro q
+  induction q using FundamentalGroup.path_ind with
   | mk p =>
     let L := transportOfTails U V b tails htails
     change MulOpposite.unop (L.extend (cover_open U V hU hV) (cover_covers U V hcover)
@@ -164,7 +168,8 @@ theorem exists_retraction (hU : IsOpen U) (hV : IsOpen V) (hcover : U ∪ V = un
   refine ⟨e.symm.toMonoidHom.comp
     ((L.global (cover_open U V hU hV) (cover_covers U V hcover)).toMonoidHom b.1), ?_⟩
   rw [MonoidHom.comp_assoc, transportOfTails_restriction U V b tails ht hU hV hcover]
-  ext q
+  apply MonoidHom.ext
+  intro q
   exact e.symm_apply_apply q
 
 omit tails htails in
@@ -187,8 +192,11 @@ noncomputable def inclusionMulEquivAt (hU : IsOpen U) (hV : IsOpen V)
   let w := hW.nonempty.choose
   have hwU : w ∈ U := hW.nonempty.choose_spec.1
   have hwV : w ∈ V := hW.nonempty.choose_spec.2
-  exact MulEquiv.ofBijective (FundamentalGroup.map (inclusion U) b)
+  refine MulEquiv.ofBijective (FundamentalGroup.map (inclusion U) b)
     ⟨inclusion_injective_at U V b hU hV hcover hW,
-      fun q => pathClass_surjective U V hU hV hcover hVs hW ⟨w, hwU⟩ hwV b b q⟩
+      ?_⟩
+  intro q
+  obtain ⟨p, hp⟩ := pathClass_surjective U V hU hV hcover hVs hW ⟨w, hwU⟩ hwV b b q.toPath
+  exact ⟨FundamentalGroup.fromPath p, CategoryTheory.End.ext hp⟩
 
 end VanKampen

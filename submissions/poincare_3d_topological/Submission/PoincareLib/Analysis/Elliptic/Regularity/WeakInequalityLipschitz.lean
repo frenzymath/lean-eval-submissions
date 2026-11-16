@@ -39,7 +39,7 @@ theorem memLp_lineDeriv_of_hasCompactSupport {v : E → ℝ} {C : ℝ≥0}
       have hz := hgerm.lineDeriv_eq (𝕜 := ℝ) (v := w)
       simpa only [q, lineDeriv, Pi.zero_apply, deriv_const] using hz.symm
   have hi : MemLp (K.indicator q) p volume :=
-    (memLp_indicator_iff_restrict hvc.measurableSet).mpr hq
+    (memLp_indicator_iff_restrict hvc.measurableSet.nullMeasurableSet).mpr hq
   rwa [heq] at hi
 
 end Poincare.Analysis.Sobolev.Weak

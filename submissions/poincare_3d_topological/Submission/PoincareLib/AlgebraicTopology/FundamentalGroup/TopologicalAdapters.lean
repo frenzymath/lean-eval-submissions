@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.PathMaps
 import Mathlib.Topology.Homotopy.Contractible
 import Mathlib.Topology.Connected.Clopen
@@ -15,6 +16,8 @@ are the elementary adapters used in Morgan--Tian Proposition 15.3
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 open Set
 open scoped unitInterval
@@ -43,20 +46,23 @@ noncomputable def fundamentalGroupMulEquiv (e : X ≃ₜ Y) (b : X) :
   MulEquiv.ofBijective (FundamentalGroup.map (e : C(X, Y)) b) (by
     constructor
     · intro p q hpq
-      induction p using Path.Homotopic.Quotient.ind with
+      have hpq := congrArg FundamentalGroup.toPath hpq
+      induction p using FundamentalGroup.path_ind with
       | mk p =>
-        induction q using Path.Homotopic.Quotient.ind with
+        induction q using FundamentalGroup.path_ind with
         | mk q =>
           have h := (Path.Homotopic.Quotient.eq.mp hpq).map (e.symm : C(Y, X))
           have h' := h.pathCast (e.symm_apply_apply b).symm (e.symm_apply_apply b).symm
+          apply CategoryTheory.End.ext
           apply Path.Homotopic.Quotient.eq.mpr
           convert h' using 1 <;> apply Path.ext <;> funext t <;> exact (e.symm_apply_apply _).symm
     · intro q
-      induction q using Path.Homotopic.Quotient.ind with
+      induction q using FundamentalGroup.path_ind with
       | mk q =>
         let p := (q.map e.symm.continuous).cast
           (e.symm_apply_apply b).symm (e.symm_apply_apply b).symm
         refine ⟨Path.Homotopic.Quotient.mk p, ?_⟩
+        apply CategoryTheory.End.ext
         change Path.Homotopic.Quotient.mk (p.map e.continuous) = Path.Homotopic.Quotient.mk q
         congr 1
         ext t
@@ -89,13 +95,15 @@ noncomputable def fundamentalGroupMulEquiv {U : Set X} (hU : IsClopen U) (b : U)
   MulEquiv.ofBijective (FundamentalGroup.map ⟨Subtype.val, continuous_subtype_val⟩ b) (by
     constructor
     · intro p q hpq
-      induction p using Path.Homotopic.Quotient.ind with
+      have hpq := congrArg FundamentalGroup.toPath hpq
+      induction p using FundamentalGroup.path_ind with
       | mk p =>
-        induction q using Path.Homotopic.Quotient.ind with
+        induction q using FundamentalGroup.path_ind with
         | mk q =>
           obtain ⟨H⟩ := Path.Homotopic.Quotient.eq.mp hpq
           have hH : ∀ z, H z ∈ U :=
             hU.map_mem H.continuous (0, 0) (by simp)
+          apply CategoryTheory.End.ext
           apply Path.Homotopic.Quotient.eq.mpr
           exact ⟨{
             toFun := fun z => ⟨H z, hH z⟩
@@ -104,7 +112,7 @@ noncomputable def fundamentalGroupMulEquiv {U : Set X} (hU : IsClopen U) (b : U)
             map_one_left := fun t => Subtype.ext (H.map_one_left t)
             prop' := fun t s hs => Subtype.ext (H.prop' t s hs) }⟩
     · intro q
-      induction q using Path.Homotopic.Quotient.ind with
+      induction q using FundamentalGroup.path_ind with
       | mk q =>
         have hq : ∀ t, q t ∈ U := hU.map_mem q.continuous 0 (by simp)
         let p : Path b b := ⟨⟨fun t => ⟨q t, hq t⟩, q.continuous.subtype_mk hq⟩,

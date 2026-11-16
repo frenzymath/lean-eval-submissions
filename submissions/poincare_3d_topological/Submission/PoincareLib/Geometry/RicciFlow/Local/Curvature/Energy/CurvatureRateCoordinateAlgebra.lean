@@ -150,32 +150,32 @@ theorem exists_uniform_curvature_coordinate_integral_rate_bound
       (fun x => fderiv ℝ (f i) x (e j)) V :=
     ((hf i).fderiv_of_isOpen hV (by norm_num)).clm_apply contDiffOn_const
   have hq (i : I) (j : Fin n) : ContDiffOn ℝ 1 (fun x => q i x j) V :=
-    ContDiffOn.sum (fun k _ => (ha t ht j k).mul (hpartial i k))
+    ContDiffOn.sum (by intro k _; exact (ha t ht j k).mul (hpartial i k))
   have hEl (i : I) : Integrable (El i) := hpatch _
     (((hφ.continuous.continuousOn.pow 2).mul (hf i).continuousOn).mul
       (continuousOn_finsetSum _ (fun j _ =>
         ((hq i j).continuousOn_fderiv_of_isOpen hV le_rfl).clm_apply continuousOn_const)))
-    (fun x hx => by simp [El, image_eq_zero_of_notMem_tsupport hx])
+    (by intro x hx; exact by simp [El, image_eq_zero_of_notMem_tsupport hx])
   have hDi (i : I) : Integrable (Di i) := hpatch _
     (((hφ.continuous.continuousOn.pow 2).mul (hf i).continuousOn).mul
       (continuousOn_finsetSum _ (fun j _ =>
         ((hU i j).continuousOn_fderiv_of_isOpen hV le_rfl).clm_apply continuousOn_const)))
-    (fun x hx => by simp [Di, image_eq_zero_of_notMem_tsupport hx])
+    (by intro x hx; exact by simp [Di, image_eq_zero_of_notMem_tsupport hx])
   have hRe (i : I) : Integrable (Re i) := hpatch _
     ((hφ.continuous.continuousOn.pow 2).mul
       ((continuousOn_const.mul (hf i).continuousOn).mul (hW i)))
-    (fun x hx => by simp [Re, image_eq_zero_of_notMem_tsupport hx])
+    (by intro x hx; exact by simp [Re, image_eq_zero_of_notMem_tsupport hx])
   have hGr (i : I) : Integrable (Gr i) := hpatch _
     ((hφ.continuous.continuousOn.pow 2).mul
-      (continuousOn_finsetSum _ (fun j _ => (hpartial i j).continuousOn.pow 2)))
-    (fun x hx => by simp [Gr, image_eq_zero_of_notMem_tsupport hx])
+      (continuousOn_finsetSum _ (by intro j _; exact (hpartial i j).continuousOn.pow 2)))
+    (by intro x hx; exact by simp [Gr, image_eq_zero_of_notMem_tsupport hx])
   have hFl (i : I) : Integrable (Fl i) := hpatch _
     ((hφ.continuous.continuousOn.pow 2).mul
-      (continuousOn_finsetSum _ (fun j _ => (hU i j).continuousOn.pow 2)))
-    (fun x hx => by simp [Fl, image_eq_zero_of_notMem_tsupport hx])
+      (continuousOn_finsetSum _ (by intro j _; exact (hU i j).continuousOn.pow 2)))
+    (by intro x hx; exact by simp [Fl, image_eq_zero_of_notMem_tsupport hx])
   have hZ : Integrable Z := hpatch _
     ((hφ.continuous.continuousOn.pow 2).mul hrho)
-    (fun x hx => by simp [Z, image_eq_zero_of_notMem_tsupport hx])
+    (by intro x hx; exact by simp [Z, image_eq_zero_of_notMem_tsupport hx])
   have hrhoi : IntegrableOn rho (tsupport φ) :=
     ContinuousOn.integrableOn_compact hφc (hrho.mono hφV)
   have hfi (i : I) : IntegrableOn (fun x => f i x ^ 2) (tsupport φ) :=
@@ -185,8 +185,8 @@ theorem exists_uniform_curvature_coordinate_integral_rate_bound
   let Rho := ∫ x in tsupport φ, rho x
   have hH : H ≤ Rho := by
     dsimp only [H, Rho]
-    rw [← integral_finsetSum _ (fun i _ => hfi i)]
-    exact setIntegral_mono_on (integrable_finsetSum _ (fun i _ => hfi i))
+    rw [← integral_finsetSum _ (by intro i _; exact hfi i)]
+    exact setIntegral_mono_on (integrable_finsetSum _ (by intro i _; exact hfi i))
       hrhoi (isClosed_tsupport φ).measurableSet hfs
   have hZbound : (∫ x, Z x) ≤ B * Rho := by
     have hi := hrhoi.integrable_indicator (isClosed_tsupport φ).measurableSet
@@ -204,9 +204,11 @@ theorem exists_uniform_curvature_coordinate_integral_rate_bound
       · have h := mul_le_mul_of_nonneg_left (hUs x hx) (sq_nonneg (φ x))
         simpa only [Fl, Z, Finset.mul_sum, mul_assoc, mul_left_comm, mul_comm] using h
       · simp [Fl, Z, image_eq_zero_of_notMem_tsupport hx]
-    have h := integral_mono (integrable_finsetSum _ (fun i _ => hFl i))
+    have h := integral_mono (integrable_finsetSum _ (by intro i _; exact hFl i))
       (hZ.const_mul CU) hpoint
-    simpa only [integral_finsetSum _ (fun i _ => hFl i), integral_const_mul] using h
+    simpa only [integral_finsetSum Finset.univ (f := Fl) (by
+        intro i _
+        exact hFl i), integral_const_mul] using h
   have hReaction : (∑ i, ∫ x, Re i x) ≤ lambda / 4 * G + CR * ∫ x, Z x := by
     have hpoint (x) : (∑ i, Re i x) ≤ lambda / 4 * (∑ i, Gr i x) + CR * Z x := by
       by_cases hx : x ∈ tsupport φ
@@ -214,15 +216,20 @@ theorem exists_uniform_curvature_coordinate_integral_rate_bound
         simpa only [Re, Gr, Z, e, mul_add, Finset.mul_sum,
           mul_assoc, mul_left_comm, mul_comm] using h
       · simp [Re, Gr, Z, image_eq_zero_of_notMem_tsupport hx]
-    have h := integral_mono (integrable_finsetSum _ (fun i _ => hRe i))
-      (((integrable_finsetSum _ (fun i _ => hGr i)).const_mul _).add
+    have h := integral_mono (integrable_finsetSum _ (by intro i _; exact hRe i))
+      (((integrable_finsetSum _ (by intro i _; exact hGr i)).const_mul _).add
         (hZ.const_mul CR)) hpoint
-    simpa only [Pi.add_apply, integral_finsetSum _ (fun i _ => hRe i), integral_add
-      ((integrable_finsetSum _ (fun i _ => hGr i)).const_mul (lambda / 4))
+    simpa only [Pi.add_apply, integral_finsetSum Finset.univ (f := Re) (by
+        intro i _
+        exact hRe i), integral_add (f := fun x => lambda / 4 * ∑ i, Gr i x)
+      (g := fun x => CR * Z x)
+      ((integrable_finsetSum Finset.univ (f := Gr) (by
+          intro i _
+          exact hGr i)).const_mul (lambda / 4))
       (hZ.const_mul CR), integral_const_mul,
-      integral_finsetSum _ (fun i _ => hGr i), G] using h
+      integral_finsetSum Finset.univ (f := Gr) (by intro i _; exact hGr i), G] using h
   have hElliptic : (∑ i, ∫ x, El i x) ≤ -(lambda / 2) * G + CE * H := by
-    have h := Finset.sum_le_sum (s := Finset.univ) (fun i _ => hell t ht (f i) (hf i))
+    have h := Finset.sum_le_sum (s := Finset.univ) (by intro i _; exact hell t ht (f i) (hf i))
     simpa only [El, q, Gr, e, G, H, Finset.sum_add_distrib, Finset.mul_sum] using h
   have hDivergence : (∑ i, ∫ x, Di i x) ≤ lambda / 4 * G + CD * H +
       cU * (∑ i, ∫ x, Fl i x) := by
@@ -423,8 +430,8 @@ theorem exists_ricciFlow_coordinate_ellipticity
   have hGc : ContinuousOn G (K ×ˢ Q) :=
     (contMDiffOn_family_metric_frame_inverse F.smooth x0).2.1.continuousOn.comp
       (continuousOn_fst.prodMk ((c.continuousOn_symm.mono hQchart).comp
-        continuousOn_snd (fun p hp => hp.2)))
-      (fun p hp => ⟨hKJ hp.1, hbase p.2 hp.2⟩)
+        continuousOn_snd (by intro p hp; exact hp.2)))
+      (by intro p hp; exact ⟨hKJ hp.1, hbase p.2 hp.2⟩)
   have hmetric (p : ℝ × V) (hp : p ∈ K ×ˢ Q) (v w : V) :
       G p v w = (F.metric p.1).inner (c.symm p.2)
         (e.symmL ℝ (c.symm p.2) v) (e.symmL ℝ (c.symm p.2) w) := by
@@ -649,7 +656,7 @@ theorem hasDerivAt_ricciFlow_curvature_difference_divergence
     have hs := hi.comp
       (show ContMDiffOn (𝓡 n) (𝓘(ℝ, ℝ).prod (𝓡 n)) ∞
         (fun y : M => ((0 : ℝ), y)) e.baseSet from
-        contMDiffOn_const.prodMk contMDiffOn_id) (fun y hy => ⟨mem_univ (0 : ℝ), hy⟩)
+        contMDiffOn_const.prodMk contMDiffOn_id) (by intro y hy; exact ⟨mem_univ (0 : ℝ), hy⟩)
     exact hscalar _ ((contMDiffOn_const (c := EuclideanSpace.proj i)).clm_apply
       (hs.clm_apply (contMDiffOn_const (c := EuclideanSpace.proj d))))
   have hv {g : RiemannianMetric n M} (D : LeviCivitaData g) (i l j k m : Fin n) :
@@ -735,7 +742,7 @@ theorem hasDerivAt_ricciFlow_curvature_difference_divergence
         (∑ i, fderiv ℝ (fun y => P y i l j k m) z (EuclideanSpace.single i 1)) +
           (∑ i, fderiv ℝ (fun y => U y i l j k m) z (EuclideanSpace.single i 1)) := by
     rw [← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
-    exact Finset.sum_congr rfl (fun i _ => hdiv i)
+    exact Finset.sum_congr rfl (by intro i _; exact hdiv i)
   change HasDerivAt (fun s => sigma s z l j k m)
     ((∑ i, fderiv ℝ (fun y => P y i l j k m) z (EuclideanSpace.single i 1)) +
       (∑ i, fderiv ℝ (fun y => U y i l j k m) z (EuclideanSpace.single i 1)) +

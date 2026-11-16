@@ -71,7 +71,7 @@ theorem exists_positive_tail_model (T : OpenCylinderModel U) {a : ℝ}
       exact ⟨hx.1, hx.2, (T.inverse_mem x hx.1).2.2⟩
     · intro hx
       exact ⟨hx.1, hx.2.1⟩
-  apply T.exists_model_of_interval_reparametrization
+  apply T.exists_model_of_interval_reparametrization (J := Ioo a 1)
     (fun _ hs => ⟨ha.trans hs.1, hs.2⟩) hV
     (fun s => a + (1 - a) * s) (fun s => (s - a) / (1 - a))
   · exact (contDiff_const.add (contDiff_const.mul contDiff_id)).contDiffOn

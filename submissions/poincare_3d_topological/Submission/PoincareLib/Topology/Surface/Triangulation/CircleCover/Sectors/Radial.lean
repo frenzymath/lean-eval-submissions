@@ -4,6 +4,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 import Submission.PoincareLib.Topology.Surface.Triangulation.CircleCover.Sectors.Intersections
 import Mathlib.Topology.Connected.Clopen
 
+noncomputable section
+
 /-!
 # Radial half-axes in a vertex patch
 

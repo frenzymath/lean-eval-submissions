@@ -62,7 +62,7 @@ theorem scalarCover_differential_energy_integrable {H : Plane → ℝ}
     norm_num)).1
   norm_num only [zero_add] at hunit
   apply (hunit.const_mul (1 / (2 * Real.pi))).mono_nonneg
-    ((hEc.mono (fun _ hz => hz.1)).aestronglyMeasurable
+    ((hEc.mono (t := Ioo (1 : ℝ) 2 ×ˢ Ioo (0 : ℝ) 1) (fun _ hz => hz.1)).aestronglyMeasurable
       (measurableSet_Ioo.prod measurableSet_Ioo)) (ae_of_all _ (fun _ => sq_nonneg _))
   filter_upwards [ae_restrict_mem (measurableSet_Ioo.prod measurableSet_Ioo)] with z hz
   calc

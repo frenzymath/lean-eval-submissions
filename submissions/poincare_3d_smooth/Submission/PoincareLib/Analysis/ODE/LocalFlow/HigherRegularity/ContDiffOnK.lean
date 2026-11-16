@@ -55,13 +55,15 @@ theorem contDiffOn_timePiece_CLM
     ContinuousLinearMap.smulRightL ℝ ℝ E (ContinuousLinearMap.id ℝ ℝ) with hS_def
   have hSeq : (fun v : E => (ContinuousLinearMap.id ℝ ℝ).smulRight v) = fun v => S v := by
     funext v
-    simp [S, ContinuousLinearMap.smulRightL]
+    ext t
+    simp [S]
   have heq : (fun q : E × ℝ => (ContinuousLinearMap.id ℝ ℝ).smulRight (f q.2 (Φ q)))
       = S ∘ h := by
     funext q
     change (ContinuousLinearMap.id ℝ ℝ).smulRight (f q.2 (Φ q))
       = S (f q.2 (Φ q))
-    simp [S, ContinuousLinearMap.smulRightL]
+    ext t
+    simp [S]
   rw [heq]
   exact ContDiffOn.continuousLinearMap_comp S hh
 

@@ -47,11 +47,11 @@ theorem LocalRegularizedEquation.congr_of_eqOn {J : Set ℝ} {F : RicciFlow n M 
   let a : ℝ → V := fun r ↦ (chartAt V p) (γ r)
   let c : ℝ → V := fun r ↦ (chartAt V p) (δ r)
   have ha : ContDiffOn ℝ ∞ a W :=
-    (contMDiffOn_chart.comp (hγ.mono (fun _ hr ↦ hr.1.1))
-      (fun _ hr ↦ hr.1.2)).contDiffOn
+    (contMDiffOn_chart.comp (s := W) (hγ.mono (t := W) (by intro r hr; exact hr.1.1))
+      (by intro r hr; exact hr.1.2)).contDiffOn
   have hc : ContDiffOn ℝ ∞ c W :=
-    (contMDiffOn_chart.comp (hδ.mono (fun _ hr ↦ hr.2.1))
-      (fun _ hr ↦ hr.2.2)).contDiffOn
+    (contMDiffOn_chart.comp (s := W) (hδ.mono (t := W) (by intro r hr; exact hr.2.1))
+      (by intro r hr; exact hr.2.2)).contDiffOn
   have had (r : ℝ) (hr : r ∈ L) : DifferentiableAt ℝ a r :=
     (ha.contDiffAt (hW.mem_nhds hr.2)).differentiableAt (by simp)
   have hcd (r : ℝ) (hr : r ∈ L) : DifferentiableAt ℝ c r :=

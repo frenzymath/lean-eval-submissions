@@ -47,8 +47,8 @@ theorem exists_supportedGauge_radius_closed {U : Set G.Point}
   have hL : ContinuousOn (fun s => lift (R.curve s)) K :=
     hlift.continuousOn.comp hR hsrc
   have hF : ContinuousOn F (K ×ˢ univ) :=
-    ((continuous_subtype_val.comp_continuousOn hL.snd).comp continuousOn_fst
-      (fun _ hz => hz.1)).add
+    ((continuous_subtype_val.comp_continuousOn hL.snd).comp (s := K ×ˢ univ) continuousOn_fst
+      (by intro z hz; exact hz.1)).add
         (continuousOn_snd.smul (hη.continuous.comp continuous_fst).continuousOn)
   obtain ⟨Ω, hΩ, heq⟩ := continuousOn_iff'.mp hF
     (G.gaugeCover.spatial b) (G.gaugeCover.spatial b).isOpen

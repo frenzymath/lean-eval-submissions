@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Hierarchy.Bands.Pullback
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Disks.Boundary.FiniteCylinderDiskCorrection
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Disks.Boundary.OriginalDiskParametrization
@@ -94,7 +95,7 @@ theorem exists_exact_proper_disk_of_original_cylindrical_band
     intro hnull
     let back : C(T, B) := ⟨b.symm, b.symm.continuous⟩
     have hback (z : Q) : back (rimM z) = rimB z := b.symm_apply_apply _
-    have hhom := (Path.Homotopic.Quotient.eq.mp hnull).map back
+    have hhom := ((FundamentalGroup.fromPath_eq_one_iff _).mp hnull).map back
     have hpath : ((Dehn.squareRimLoop.map rimM.continuous).map back.continuous).toContinuousMap =
         ((Dehn.squareRimLoop.map rim.continuous).map
           (ContinuousMap.inclusion (cylinderBandInterior_subset c)).continuous).toContinuousMap :=
@@ -105,7 +106,7 @@ theorem exists_exact_proper_disk_of_original_cylindrical_band
     change ((Dehn.squareRimLoop.map rimM.continuous).map back.continuous).toContinuousMap.HomotopicRel
       ((Path.refl (rimM Dehn.squareRimBase)).map back.continuous).toContinuousMap {0, 1} at hhom
     rw [hpath, hconst] at hhom
-    exact hessential (Path.Homotopic.Quotient.eq.mpr hhom)
+    exact hessential ((FundamentalGroup.fromPath_eq_one_iff _).mpr hhom)
   have hjM : FinitePiecewiseAffineOn (M.coordinates ∘ j) D := by
     obtain ⟨_, _, _, _, _, _, ⟨_, ⟨J, hJ, hJD, _⟩, _⟩, _⟩ :=
       isFinitePLBallPair_unit_cube (ι := Fin 2)

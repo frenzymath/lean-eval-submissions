@@ -228,8 +228,10 @@ theorem exists_centered_arclength_heat_lift_one
     have hmap : ContMDiffOn ((𝓡 1).prod 𝓘(ℝ, ℝ)) ((𝓡 1).prod 𝓘(ℝ, ℝ)) ∞
         (fun z : EuclideanSpace ℝ (Fin 1) × ℝ ↦ (e z.1, z.2))
         (Metric.ball 0 2 ×ˢ Ioi 0) :=
-      (he.comp contMDiffOn_fst (fun z hz ↦ hz.1)).prodMk contMDiffOn_snd
-    exact F.smooth.comp hmap (fun z hz ↦ ⟨mem_univ _, hz.2⟩)
+      (he.comp (s := Metric.ball 0 2 ×ˢ Ioi 0)
+        contMDiffOn_fst (by intro z hz; exact hz.1)).prodMk contMDiffOn_snd
+    exact F.smooth.comp (s := Metric.ball 0 2 ×ˢ Ioi 0) hmap
+      (by intro z hz; exact ⟨mem_univ _, hz.2⟩)
   simp +instances only [← modelWithCornersSelf_prod, chartedSpaceSelf_prod] at hsmooth
   refine ⟨e, hep, he, hmetric, contMDiffOn_iff_contDiffOn.mp hsmooth, ?_⟩
   intro x hx t ht
@@ -364,8 +366,9 @@ theorem exists_uniform_hessian_bound_on_harmonic_lift
         (fun z : EuclideanSpace ℝ (Fin n) × ℝ ↦ F.toFun (e z.1) z.2 - u (e 0))
         (Metric.ball 0 (r * 2) ×ˢ Ioo 0 2) := by
       apply ContMDiffOn.sub _ contMDiffOn_const
-      exact F.smooth.comp
-        ((he.comp contMDiffOn_fst (fun z hz ↦ hz.1)).prodMk contMDiffOn_snd)
+      exact F.smooth.comp (s := Metric.ball 0 (r * 2) ×ˢ Ioo 0 2)
+        ((he.comp (s := Metric.ball 0 (r * 2) ×ˢ Ioo 0 2)
+          contMDiffOn_fst (by intro z hz; exact hz.1)).prodMk contMDiffOn_snd)
         (fun z hz ↦ ⟨mem_univ _, hz.2.1⟩)
     simp +instances only [← modelWithCornersSelf_prod, chartedSpaceSelf_prod] at hs
     exact contMDiffOn_iff_contDiffOn.mp hs

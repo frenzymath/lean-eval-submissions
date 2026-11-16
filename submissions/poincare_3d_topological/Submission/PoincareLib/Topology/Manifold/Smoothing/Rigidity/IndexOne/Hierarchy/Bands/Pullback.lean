@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Hierarchy.Disks.FrontierComparison
 
 /-!
@@ -196,8 +197,8 @@ theorem exists_proper_disk_in_pulledBackBand
     (r.comp ⟨E, E.continuous⟩).comp (ContinuousMap.inclusion (frontierBandPullback_subset E))
   intro hnull
   apply hess
-  have hh := (Path.Homotopic.Quotient.eq.mp hnull).map u
-  apply Path.Homotopic.Quotient.eq.mpr
+  have hh := ((FundamentalGroup.fromPath_eq_one_iff _).mp hnull).map u
+  apply (FundamentalGroup.fromPath_eq_one_iff _).mpr
   convert hh using 1 <;> rfl
 
 end PoincareMT.M76.HamiltonIntervalTorus

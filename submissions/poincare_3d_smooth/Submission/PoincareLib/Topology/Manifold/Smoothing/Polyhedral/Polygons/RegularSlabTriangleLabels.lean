@@ -30,11 +30,11 @@ theorem exists_regular_triangle_apex (A : E →ᵃ[ℝ] ℝ) {s : Finset E} (hs 
   have hnotlow : ¬ ∀ z ∈ s, A z < α := by
     intro h
     exact (not_lt_of_ge hAx.1)
-      (convexHull_min h ((convex_Iio α).affine_preimage A) hx)
+      (convexHull_min (by intro x hx; exact h x hx) ((convex_Iio α).affine_preimage A) hx)
   have hnothigh : ¬ ∀ z ∈ s, β < A z := by
     intro h
     exact (not_lt_of_ge hAx.2)
-      (convexHull_min h ((convex_Ioi β).affine_preimage A) hx)
+      (convexHull_min (by intro x hx; exact h x hx) ((convex_Ioi β).affine_preimage A) hx)
   obtain ⟨v, u, w, hvu, hvw, huw, rfl⟩ := Finset.card_eq_three.mp hs
   have hrotate : ({v, u, w} : Finset E) = {w, v, u} := by
     ext z

@@ -122,7 +122,7 @@ theorem exists_hessian_integral_le_of_weakEquation
   have hp₀m (i : Fin d) : MemLp (p₀ i) 2 volume :=
     (hp₀ i).continuous.memLp_of_hasCompactSupport (hp₀c i)
   have hf₀ : MemLp f₀ 2 volume :=
-    (memLp_indicator_iff_restrict hV.measurableSet).mpr hf
+    (memLp_indicator_iff_restrict hV.measurableSet.nullMeasurableSet).mpr hf
   have hF (j : Fin d) : MemLp (fun x => ∑ i : Fin d, B.a x i j * p₀ i x) 2 volume :=
     memLp_finsetSum _ (fun i _ => memLp_continuous_mul_of_hasCompactSupport
       (B.continuous_a i j) (hp₀m i) (hp₀c i))

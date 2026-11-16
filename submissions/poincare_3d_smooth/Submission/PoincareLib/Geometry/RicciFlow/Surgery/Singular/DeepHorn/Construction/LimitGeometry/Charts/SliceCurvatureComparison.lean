@@ -131,8 +131,6 @@ private noncomputable def coordinateRicci
     unfold TangentSpace
     infer_instance
   exact ContinuousLinearMap.bilinearComp
-    (E := TangentSpace (𝓡 3) (phi y)) (F := TangentSpace (𝓡 3) (phi y)) (G := ℝ)
-    (E' := EuclideanSpace ℝ (Fin 3)) (F' := EuclideanSpace ℝ (Fin 3))
     (M13.ricciLinear D (phi y)).toContinuousBilinearMap
     (mfderiv (𝓡 3) (𝓡 3) phi y) (mfderiv (𝓡 3) (𝓡 3) phi y)
 

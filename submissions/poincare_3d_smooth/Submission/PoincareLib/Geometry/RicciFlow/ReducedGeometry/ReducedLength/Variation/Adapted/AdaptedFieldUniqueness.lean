@@ -57,7 +57,9 @@ theorem adaptedField_eventuallyEq {J : Set ℝ} (F : RicciFlow n M J)
     (fun t ht ↦ ⟨⟨htime ht.1, e.map_source ht.2⟩, Set.mem_univ _⟩)
   let B : ℝ × E → E := fun z ↦ A z.1 z.2
   have hB : ContDiffOn ℝ 1 B (D ×ˢ Set.univ) :=
-    ((hA.comp contDiffOn_fst (fun _ hz ↦ hz.1)).clm_apply contDiffOn_snd).of_le (by simp)
+    ((hA.comp (s := D ×ˢ Set.univ) contDiffOn_fst (by
+        intro z hz
+        exact hz.1)).clm_apply contDiffOn_snd).of_le (by simp)
   have hv : ∀ t ∈ D, (t, v t) ∈ D ×ˢ Set.univ ∧ HasDerivAt v (B (t, v t)) t := by
     intro t ht
     exact ⟨⟨ht, Set.mem_univ _⟩, hP.equation t ht.1 p ht.2⟩

@@ -98,7 +98,8 @@ theorem m64C2ShrinkingCurve_exists_finite_reference
     simpa only [interior_Icc] using hd.2
   have hf : ContMDiffOn 𝓘(ℝ, ℝ × ℝ) (𝓡 n) ∞ (Function.uncurry f)
       (Ioo (-epsilon) epsilon ×ˢ univ) :=
-    (hdlocal.comp (contDiff_snd.prodMk (contDiff_const.add contDiff_fst)).contMDiff.contMDiffOn
+    (hdlocal.comp (s := Ioo (-epsilon) epsilon ×ˢ univ) (contDiff_snd.prodMk (contDiff_const.add
+      contDiff_fst)).contMDiff.contMDiffOn
       (fun q hq => ⟨mem_univ _, htime q.1 hq.1⟩)).congr
         (fun q hq => hfnear q.1 hq.1 q.2)
   have hperiod (z : ℝ) : Function.Periodic (f z) curvePeriod := by

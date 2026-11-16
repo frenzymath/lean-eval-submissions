@@ -125,7 +125,8 @@ theorem exists_curvature_radius_near_central_sphere
   obtain ⟨r, hr, hrb, hscale, hcompactr⟩ :=
     M35.exists_scalar_curvature_radius_le g D hcomplete hR y hb hcross
   exact ⟨r, hr, hrb, hscale,
-    (closure_mono (fun z hz => hz.trans_le (ENNReal.ofReal_le_ofReal hrb))).trans hinside,
+    (closure_mono (s := g.ball y r) (t := g.ball y b)
+      (fun z hz => hz.trans_le (ENNReal.ofReal_le_ofReal hrb))).trans hinside,
     hcompactr⟩
 
 end PoincareMT.StandardCylinderPatch

@@ -524,7 +524,10 @@ theorem BalancedNeckChain.exists_finite_backward_extension_or_deep_return :
       ENNReal.ofReal ((0.99 : ℝ) * R.scale * epsilon⁻¹) ≤ g.edist R.center A.center ∧
         g.edist R.center A.center ≤ ENNReal.ofReal ((1.01 : ℝ) * R.scale * epsilon⁻¹) := by
     rw [hcomm R.center A.center, hRc]
-    have hd := A.edist_center_closure_bounds (closure_mono (fun _ hx => hx.1) hy) hyA
+    have hd := A.edist_center_closure_bounds (by
+        apply closure_mono ?_ hy
+        intro x hx
+        exact hx.1) hyA
     rw [heA] at hd
     constructor
     · apply (ENNReal.ofReal_le_ofReal ?_).trans hd.1

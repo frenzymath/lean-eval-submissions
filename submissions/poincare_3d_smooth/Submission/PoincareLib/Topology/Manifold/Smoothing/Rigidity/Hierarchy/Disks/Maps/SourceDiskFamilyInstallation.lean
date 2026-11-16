@@ -111,7 +111,7 @@ theorem exists_hamiltonZero_finite_marked_disk_installation
       rw [hWbase i z]
       exact (hmBound i z).2), hWbase i z]
   obtain ⟨psi, hpsi, Hpsi, Fpsi, hsame, hformula, _, _⟩ :=
-    hphi.exists_hamiltonZero_third_phase_adjustment hd F V hVPL hVphase hVzero
+    hphi.exists_hamiltonZero_third_phase_adjustment hd F V hVPL hVphase (B := (interior R)ᶜ) hVzero
   let G : (hamiltonZeroAmbientMap phi).HomotopyRel
       (hamiltonZeroAmbientMap psi) (interior R)ᶜ := {
     toFun := fun z => hamiltonZeroTargetVectorTranslation

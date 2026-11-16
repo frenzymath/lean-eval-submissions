@@ -28,7 +28,7 @@ theorem squareRimLoop_class_ne_one :
     FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk squareRimLoop) ≠ 1 := by
   intro hclass
   have hnull : squareRimLoop.Homotopic (Path.refl squareRimBase) :=
-    Path.Homotopic.Quotient.eq.mp hclass
+    Path.Homotopic.Quotient.eq.mp (congrArg FundamentalGroup.toPath hclass)
   let p : Path (unitCircleExp 0) (unitCircleExp 0) := {
     toFun := fun t ↦ unitCircleExp (t : ℝ)
     continuous_toFun := contMDiff_unitCircleExp.continuous.comp continuous_subtype_val
@@ -73,7 +73,8 @@ theorem squareRimLoop_map_class_ne_one_of_retraction
       (Path.Homotopic.Quotient.mk (squareRimLoop.map gamma.continuous)) ≠ 1 := by
   intro hclass
   have hnull : (squareRimLoop.map gamma.continuous).Homotopic
-      (Path.refl (gamma squareRimBase)) := Path.Homotopic.Quotient.eq.mp hclass
+      (Path.refl (gamma squareRimBase)) := Path.Homotopic.Quotient.eq.mp (congrArg
+        FundamentalGroup.toPath hclass)
   have h := hnull.map retract
   have hpath : ((squareRimLoop.map gamma.continuous).map retract.continuous).toContinuousMap =
       squareRimLoop.toContinuousMap := ContinuousMap.ext (fun t ↦ hleft (squareRimLoop t))
@@ -83,6 +84,6 @@ theorem squareRimLoop_map_class_ne_one_of_retraction
   change ((squareRimLoop.map gamma.continuous).map retract.continuous).toContinuousMap.HomotopicRel
     ((Path.refl (gamma squareRimBase)).map retract.continuous).toContinuousMap {0, 1} at h
   rw [hpath, hconst] at h
-  exact squareRimLoop_class_ne_one (Path.Homotopic.Quotient.eq.mpr h)
+  exact squareRimLoop_class_ne_one (CategoryTheory.End.ext (Path.Homotopic.Quotient.eq.mpr h))
 
 end PoincareMT.M76.Dehn

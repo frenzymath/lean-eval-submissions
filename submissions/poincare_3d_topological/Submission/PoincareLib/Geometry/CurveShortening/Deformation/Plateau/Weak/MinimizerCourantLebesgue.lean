@@ -171,7 +171,8 @@ private theorem m65Logarithmic_radius_choice {ε R η : ℝ}
     ∃ r ∈ Icc ε R, P r ∧ gap r < η ^ 2 := by
   by_contra! hno
   have hInv : IntegrableOn (fun r : ℝ => r⁻¹) (Icc ε R) :=
-    (continuousOn_id.inv₀ (fun r hr => (hε.trans_le hr.1).ne')).integrableOn_compact isCompact_Icc
+    (continuousOn_id.inv₀ (s := Icc ε R) (fun r hr => (hε.trans_le
+      hr.1).ne')).integrableOn_compact isCompact_Icc
   have hlog : (∫ r in Icc ε R, r⁻¹) = Real.log (R / ε) := by
     rw [integral_Icc_eq_integral_Ioc, ← intervalIntegral.integral_of_le hεR.le]
     exact integral_inv_of_pos hε (hε.trans hεR)

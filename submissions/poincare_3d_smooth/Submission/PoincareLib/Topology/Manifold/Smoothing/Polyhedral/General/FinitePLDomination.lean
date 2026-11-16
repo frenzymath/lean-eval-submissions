@@ -62,7 +62,9 @@ theorem FinitePiecewiseAffineOn.exists_le_pos_mul
     change a v - (1 + M) * b v ≤ 0
     rw [← ha hvh, ← hb hvh]
     exact sub_nonpos.mpr (hvert v hvV hvS)
-  have hxA : A x ≤ 0 := convexHull_min hA ((convex_Iic (0 : ℝ)).affine_preimage A) hxs
+  have hxA : A x ≤ 0 := convexHull_min (by
+      intro x hx
+      exact hA x hx) ((convex_Iic (0 : ℝ)).affine_preimage A) hxs
   change a x - (1 + M) * b x ≤ 0 at hxA
   rw [← ha hxs, ← hb hxs] at hxA
   exact sub_nonpos.mp hxA

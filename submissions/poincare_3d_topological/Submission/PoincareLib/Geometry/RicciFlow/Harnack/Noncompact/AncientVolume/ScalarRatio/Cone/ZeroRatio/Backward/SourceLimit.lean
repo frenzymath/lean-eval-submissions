@@ -222,18 +222,34 @@ theorem exists_unitSlice_euclidean_umbilic_of_zero_ratio
     exists_neighborhood_metrics_of_positive_cone_source_jets
       hc hne hcover U hU O h fP hfP hdist (fun k => (G k).metric (-1)) V' A
       (hA.mono fun _ hk => hk.2) (hjetsAt (-1) (by norm_num))
+  let gS : RiemannianMetric (n + 1) (AsymptoticConeUnitSlice p hc) :=
+    RiemannianMetric.Induced.pullbackMetric gV b hb.1 hb.2.1
+  have hbSmooth : ContMDiff (𝓡 (n + 1)) (𝓡 (n + 2)) ∞ b := hb.1
+  have hAsmooth : ∀ᶠ k in atTop, ContMDiff (𝓡 (n + 2)) (𝓡 (n + 2)) ∞ (AV k) :=
+    hAV.mono fun _ hk => hk.contMDiff
+  have hbinner : ∀ x v w, gS.inner x v w = gV.inner (b x)
+      (mfderiv (𝓡 (n + 1)) (𝓡 (n + 2)) b x v)
+      (mfderiv (𝓡 (n + 1)) (𝓡 (n + 2)) b x w) := fun _ _ _ => rfl
+  have hmetric1 : ∀ᶠ k in atTop, ∀ q v w, (gseq k).inner q v w =
+      ((G k).metric (-1)).inner (AV k q)
+        (mfderiv (𝓡 (n + 2)) (𝓡 (n + 2)) (AV k) q v)
+        (mfderiv (𝓡 (n + 2)) (𝓡 (n + 2)) (AV k) q w) :=
+    hgseq.mono fun _ hk => hk.2
+  have : CompactSpace (AsymptoticConeUnitSlice p hc) := inferInstance
+  have : T3Space (AsymptoticConeUnitSlice p hc) := inferInstance
+  have : ConnectedSpace (AsymptoticConeUnitSlice p hc) := inferInstance
   obtain ⟨d, hd, hdiam⟩ :=
     RiemannianMetric.exists_uniform_image_distance_bound_of_chart_convergence
-      (RiemannianMetric.Induced.pullbackMetric gV b hb.1 hb.2.1)
-      gV gseq (fun k => (G k).metric (-1)) hb.1 (fun _ _ _ => rfl)
-      (hAV.mono fun _ hk => hk.contMDiff) (hgseq.mono fun _ hk => hk.2)
+      (m := n + 1) (n := n + 2) (S := AsymptoticConeUnitSlice p hc)
+      (Q := V') (M := fun _ : ℕ => M) (b := b) (A := AV)
+      gS gV gseq (fun k => (G k).metric (-1)) hbSmooth hbinner hAsmooth hmetric1
       (fun q _ => by
         obtain ⟨c, hqc, hcd, _, hc0, _⟩ := hcharts q
         exact ⟨c, hqc, hcd, hc0⟩)
   obtain ⟨W, hW, hbW, C, hCpos, hWdist⟩ :=
     RiemannianMetric.exists_open_uniform_image_distance_bound gV gseq
       (fun k => (G k).metric (-1)) AV (fun k => AV k (b z₀)) hb.2.2.1
-      (hAV.mono fun _ hk => hk.contMDiff) (hgseq.mono fun _ hk => hk.2)
+      hAsmooth hmetric1
       (fun q _ => by
         obtain ⟨c, hqc, hcd, _, hc0, _⟩ := hcharts q
         exact ⟨c, hqc, hcd, hc0⟩) (by

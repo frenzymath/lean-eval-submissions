@@ -65,6 +65,7 @@ theorem m64Intrinsic_constrained_minimizer_local_chord_bounds
   have hqc : ContinuousAt q u := (H.continuousAt_symm htarget).comp hgc
   have hq0 : q u = 0 := by dsimp only [q]; rw [hpoint, H.left_inv h0]
   have hnear : {s : ℝ | q s ∈ ball 0 R ∧ gamma s ∈ H.target} ∈ 𝓝 u := by
+    change q ⁻¹' ball (0 : AnnulusCoordinates) R ∩ gamma ⁻¹' H.target ∈ 𝓝 u
     apply inter_mem
     · change q ⁻¹' (ball (0 : AnnulusCoordinates) R) ∈ 𝓝 u
       apply hqc.preimage_mem_nhds

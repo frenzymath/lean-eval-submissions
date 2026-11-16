@@ -70,7 +70,7 @@ private lemma curvatureOnFields_add_left (D : LeviCivitaData g)
     funext y
     simp
   unfold curvatureOnFields
-  rw [heq, D.connection.isCovariantDerivativeOn.add hDX hDX']
+  rw [heq, D.connection.isCovariantDerivativeOnUniv.add hDX hDX']
   simp only [Pi.add_apply, map_add, mlieBracket_add_left hX hX', add_apply]
   module
 
@@ -86,7 +86,7 @@ private lemma curvatureOnFields_smul_left (D : LeviCivitaData g)
     funext y
     simp
   unfold curvatureOnFields
-  rw [heq, D.connection.isCovariantDerivativeOn.smul_const c hDX]
+  rw [heq, D.connection.isCovariantDerivativeOnUniv.smul_const c hDX]
   simp only [Pi.smul_apply, map_smul, mlieBracket_const_smul_left hX,
     smul_apply]
   module

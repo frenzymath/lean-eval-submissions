@@ -77,8 +77,10 @@ theorem initialValueCurve_smooth_tube_of_restart
   have hd : 0 < d := hr.trans hrd
   let ψ : E × ℝ → EuclideanSpace ℝ (Fin n) × EuclideanSpace ℝ (Fin n) :=
     fun z => Ψ (Φ z.1, z.2)
-  have hψ : ContDiffOn ℝ ∞ ψ (V ×ˢ Icc l d) := hΨ.comp
-    (((hΦ.mono hVU).comp contDiffOn_fst (fun _ hz => hz.1)).prodMk contDiffOn_snd)
+  have hψ : ContDiffOn ℝ ∞ ψ (V ×ˢ Icc l d) := hΨ.comp (s := V ×ˢ Icc l d)
+    (((hΦ.mono hVU).comp (s := V ×ˢ Icc l d) contDiffOn_fst (by
+        intro z hz
+        exact hz.1)).prodMk contDiffOn_snd)
     (fun _ hz => ⟨hz.1.2, hz.2⟩)
   obtain ⟨β, hβ, hβclock, hβcoord⟩ := exists_smooth_gaugeLift_of_maps
     ((𝓘(ℝ, E)).prod (𝓘(ℝ, ℝ))) b t₀ x₀

@@ -67,7 +67,7 @@ theorem suMixedGrowth_L1_limit {X E F : Type*} [MeasurableSpace X]
       (by simpa using hwUI) (fun j => (hw j).aestronglyMeasurable)
   have hbase : UnifIntegrable (fun j x => 1 + ‖v j x‖ ^ 4 + ‖w j x‖ ^ 2) 1 μ :=
     ((unifIntegrable_const (by rfl) ENNReal.one_ne_top (memLp_const (1 : ℝ))).add
-      hUIv (by rfl)).add hUIw (by rfl)
+      hUIv).add hUIw
   have hUI : UnifIntegrable (fun j x => A x (v j x, w j x)) 1 μ :=
     suAlpha_uniformIntegrable_dominated hC hbase hA (fun j => by
       filter_upwards [hbound j] with x hx

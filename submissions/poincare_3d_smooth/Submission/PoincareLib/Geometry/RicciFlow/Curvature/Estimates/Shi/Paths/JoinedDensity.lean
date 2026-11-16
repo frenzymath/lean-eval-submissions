@@ -3,6 +3,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Curvature.Estimates.Shi.Paths.U
 import Mathlib.Analysis.Calculus.ContDiff.Operations
 import Mathlib.Analysis.Calculus.FDeriv.CompCLM
 
+noncomputable section
+
 /-! Adapted from Mapher06/Poincare-MorganTian, `PoincareMT/Proofs/M04/ShiJoinedDensity.lean`,
 revision `f927d9e1f0810042766d3b5f64d3f4da02ee93cc`. See the curvature import record under
 `references/ricci-flow/mapher/curvature/`. -/

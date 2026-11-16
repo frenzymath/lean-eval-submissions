@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.Curves.OriginalTorusAnnulus
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.Curves.OriginalAnnulusMark
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.Curves.SwappedSquareMap
@@ -13,6 +14,7 @@ a homeomorphic change of circle parameter.
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
 open Set Metric Geometry Topology PLAnnularStrip
 
 namespace PoincareMT.M76.PeriodicSquare

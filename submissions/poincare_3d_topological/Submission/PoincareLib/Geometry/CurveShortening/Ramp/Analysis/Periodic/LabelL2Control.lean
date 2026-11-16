@@ -90,7 +90,7 @@ theorem exists_periodicLabel_displacement_L2_control
       (hpsi j).continuousOn.mono (prod_mono Ioo_subset_Icc_self Subset.rfl)
     have hpair : ContinuousOn (fun z : ℝ × ℝ =>
         (w j z.1, (psi j z.1 z.2 : AddCircle P))) (Ioo a b ×ˢ univ) :=
-      ((hw j).comp continuousOn_fst (fun _ hz => hz.1)).prodMk
+      ((hw j).comp (s := Ioo a b ×ˢ univ) continuousOn_fst (by intro z hz; exact hz.1)).prodMk
         ((AddCircle.continuous_mk' P).comp_continuousOn hp)
     apply descend (Ioo a b) (fun z => w j z.1 (psi j z.1 z.2 : AddCircle P))
       (continuous_eval.comp_continuousOn hpair)

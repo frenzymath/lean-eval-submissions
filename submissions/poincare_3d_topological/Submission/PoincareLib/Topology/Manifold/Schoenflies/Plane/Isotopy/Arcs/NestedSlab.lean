@@ -2093,7 +2093,7 @@ private theorem exists_vertical_germ_domain_of_flattened_strips
   let B : Set (Real × Real) := Ioo (-eta) eta ×ˢ N
   have hB : IsOpen B := isOpen_Ioo.prod hN
   have hy : ContDiffOn Real ∞ y B :=
-    (hgamma.comp contDiff_snd.contDiffOn (fun _ hz => hz.2)).add
+    (hgamma.comp (s := B) contDiff_snd.contDiffOn (by intro z hz; exact hz.2)).add
       (contDiff_fst.smul contDiff_const).contDiffOn
   let W : Set (Real × Real) := B ∩ y ⁻¹' U
   have hW : IsOpen W := hy.continuousOn.isOpen_inter_preimage hB hU

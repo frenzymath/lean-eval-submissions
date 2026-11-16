@@ -2,6 +2,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.Surgery.StandardCap.Geometry
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Flow.Basic
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Singular.HornSelection
 
+noncomputable section
+
 /-!
 Adapted from Mapher `PoincareMT/Definitions/Ch16/ControlledSurgery.lean` at
 `f927d9e1f0810042766d3b5f64d3f4da02ee93cc`. Declaration bodies are retained;

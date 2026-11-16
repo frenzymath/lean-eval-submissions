@@ -31,7 +31,8 @@ theorem standardRadialExponential_image_tangent_ball (g₀ : StandardInitialMetr
     exact standard_closed_ball_compact g₀ hr.le
   obtain ⟨e, _, _, _, hexp, _, hballs⟩ :=
     g₀.metric.exists_smooth_exponential_with_ball_images 0 hr hcompact
-  have heq := standard_exponential_eq_radial g₀ hexp
+  have heq := standard_exponential_eq_radial g₀
+    (V := {w | g₀.metric.tangentNorm 0 w < r}) hexp
   rw [← hballs r hr le_rfl]
   exact Set.image_congr (fun _ hv => (heq hv).symm)
 
@@ -50,7 +51,8 @@ theorem standardRadialExponential_radial_edist (g₀ : StandardInitialMetric)
     exact standard_closed_ball_compact g₀ hR.le
   obtain ⟨e, _, _, _, hexp, hbound, _⟩ :=
     g₀.metric.exists_smooth_exponential_with_ball_images 0 hR hcompact
-  have heq := standard_exponential_eq_radial g₀ hexp
+  have heq := standard_exponential_eq_radial g₀
+    (V := {w | g₀.metric.tangentNorm 0 w < R}) hexp
   have hv : g₀.metric.tangentNorm 0 v < R := by dsimp only [R]; linarith
   have hinj : InjOn e {w | g₀.metric.tangentNorm 0 w < R} := by
     intro a ha b hb hab

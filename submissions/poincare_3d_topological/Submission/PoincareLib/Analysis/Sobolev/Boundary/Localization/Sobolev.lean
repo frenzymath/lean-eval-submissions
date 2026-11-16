@@ -40,7 +40,7 @@ private theorem memLp_mul_smooth_extend {W O : Set E} (hW : IsOpen W)
       simp only [Pi.mul_apply, norm_mul]
       exact mul_le_mul_of_nonneg_right (hC ⟨x, rfl⟩) (norm_nonneg _)
   have hext : MemLp (W.indicator (fun x => χ x * u x)) 2 (volume.restrict O) :=
-    (memLp_indicator_iff_restrict hW.measurableSet).mpr
+    (memLp_indicator_iff_restrict hW.measurableSet.nullMeasurableSet).mpr
     (show MemLp (fun x => χ x * u x) 2 ((volume.restrict O).restrict W) by
       simpa only [Measure.restrict_restrict hW.measurableSet] using hm)
   have heq : W.indicator (fun x => χ x * u x) = fun x => χ x * u x := by

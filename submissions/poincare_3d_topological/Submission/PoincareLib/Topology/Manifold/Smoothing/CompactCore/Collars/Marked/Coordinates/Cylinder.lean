@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Collars.Marked.Coordinates.Rim
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Neighborhood.Disks.RimBands.Patches.Pasting
 
+noncomputable section
+
 /-! # Changing rim coordinates without changing the fixed central rim -/
 
 set_option autoImplicit false

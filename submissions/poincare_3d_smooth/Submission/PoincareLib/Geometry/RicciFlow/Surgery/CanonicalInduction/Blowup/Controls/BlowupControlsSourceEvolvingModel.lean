@@ -86,7 +86,7 @@ theorem standard_evolving_neck_unit_family
     intro u hu
     exact ⟨by linarith only [hu.1, N.epsilon_pos], hu.2⟩
   rw [hmap]
-  apply RoundCylinderFamilyClose.mono_epsilon N.epsilon_pos hge
+  apply RoundCylinderFamilyClose.mono_epsilon (I := Icc (-1 : ℝ) 0) N.epsilon_pos hge
     (fun _ hu => hu.2.trans_lt zero_lt_one)
   obtain ⟨hsmooth, B, hB, hbound⟩ := N.close
   exact ⟨fun u hu => hsmooth u (hI hu), B, hB,
@@ -159,7 +159,7 @@ theorem exists_standard_evolving_model_jet_buffer
   have hB0 : RoundCylinderFamilyClose E.epsilon (Icc (-1 : ℝ) 0)
       (fun u p a b => B0 u p a b) := standard_evolving_neck_unit_family N E hge hmap
   obtain ⟨lambda, hlambda, hcompression⟩ := exists_same_epsilon_neck_axial_compression
-    E.epsilon_pos (fun _ hu => hu.2) B0 hB0
+    E.epsilon_pos (I := Icc (-1 : ℝ) 0) (fun _ hu => hu.2) B0 hB0
   have hzero : |(0 : ℝ)| < (1 - lambda) * E.epsilon⁻¹ := by
     rw [abs_zero]
     exact mul_pos (sub_pos.mpr hlambda.2) (inv_pos.mpr E.epsilon_pos)

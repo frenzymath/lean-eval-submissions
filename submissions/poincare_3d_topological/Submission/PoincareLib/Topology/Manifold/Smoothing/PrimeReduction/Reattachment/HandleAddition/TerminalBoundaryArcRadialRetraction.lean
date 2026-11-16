@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Reattachment.HandleAddition.TerminalBoundaryArcRadialImage
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Reattachment.HandleAddition.TerminalBoundaryArcGraphLift
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Protection.EnclosingAnnularCircle
@@ -190,7 +191,7 @@ theorem not_enclosing_polygon_in_punctured_end_disk
     apply Subtype.ext
     exact hpi (back (g y)).property (gamma y).property (hback (g y))
   have hnullgamma : gamma.Nullhomotopic := heq ▸ hnull.comp_right back
-  exact hessential (Path.Homotopic.Quotient.eq.mpr
+  exact hessential ((FundamentalGroup.fromPath_eq_one_iff _).mpr
     (Path.Homotopic.map_nullhomotopic_of_nullhomotopic hnullgamma Dehn.squareRimLoop))
 
 end PoincareMT.M76

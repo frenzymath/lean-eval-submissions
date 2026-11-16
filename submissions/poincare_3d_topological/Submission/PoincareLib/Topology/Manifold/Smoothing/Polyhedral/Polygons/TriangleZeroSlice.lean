@@ -29,13 +29,17 @@ theorem exists_opposite_vertices_of_regular_zero (A : E →ᵃ[ℝ] ℝ) {s : Se
     by_contra hn
     have hpos : ∀ u ∈ s, 0 < A u := fun u hu =>
       lt_of_le_of_ne (le_of_not_gt (fun h => hn ⟨u, hu, h⟩)) (hreg u hu).symm
-    have hh : 0 < A x := convexHull_min hpos ((convex_Ioi (0 : ℝ)).affine_preimage A) hx
+    have hh : 0 < A x := convexHull_min (by
+        intro x hx
+        exact hpos x hx) ((convex_Ioi (0 : ℝ)).affine_preimage A) hx
     exact (hAx ▸ hh).false
   have hpos : ∃ v ∈ s, 0 < A v := by
     by_contra hp
     have hneg : ∀ u ∈ s, A u < 0 := fun u hu =>
       lt_of_le_of_ne (le_of_not_gt (fun h => hp ⟨u, hu, h⟩)) (hreg u hu)
-    have hh : A x < 0 := convexHull_min hneg ((convex_Iio (0 : ℝ)).affine_preimage A) hx
+    have hh : A x < 0 := convexHull_min (by
+        intro x hx
+        exact hneg x hx) ((convex_Iio (0 : ℝ)).affine_preimage A) hx
     exact (hAx ▸ hh).false
   obtain ⟨u, hu, hAu⟩ := hneg
   obtain ⟨v, hv, hAv⟩ := hpos

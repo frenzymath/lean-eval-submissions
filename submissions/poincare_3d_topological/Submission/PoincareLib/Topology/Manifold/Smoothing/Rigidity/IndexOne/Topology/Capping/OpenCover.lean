@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.VanKampen.Surjectivity
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Isotopy.Mathlib.HomotopyFundamentalGroup
 
@@ -10,6 +11,7 @@ See Hatcher, Theorem 1.20 and Proposition 1.26(b), pp. 43--50.
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
 open Set
 open scoped unitInterval
 
@@ -99,8 +101,11 @@ theorem inclusion_surjective_of_pathConnected_overlap
     (hU : IsOpen U) (hV : IsOpen V) (hcover : U ∪ V = univ)
     (hVs : IsSimplyConnected V) (hW : IsPathConnected (U ∩ V))
     (b : U) (hb : b.1 ∈ V) :
-    Function.Surjective (FundamentalGroup.map (inclusion U) b) :=
-  fun q => pathClass_surjective_of_pathConnected_overlap U V hU hV hcover hVs hW b hb b b q
+    Function.Surjective (FundamentalGroup.map (inclusion U) b) := by
+  intro q
+  obtain ⟨p, hp⟩ := pathClass_surjective_of_pathConnected_overlap U V hU hV hcover hVs hW
+    b hb b b q.toPath
+  exact ⟨FundamentalGroup.fromPath p, CategoryTheory.End.ext hp⟩
 
 /-- A simply connected cap kills the entire fundamental group when the
 actual overlap generates the surface-side group at one common basepoint. -/
@@ -141,6 +146,6 @@ theorem simplyConnectedSpace_of_open_cover_capping
     (FundamentalGroup.fundamentalGroupMulEquivOfPathConnected (b : X) x).symm.injective.subsingleton
   have hp : (Path.Homotopic.Quotient.mk p : FundamentalGroup X x) =
       Path.Homotopic.Quotient.mk (Path.refl x) := hx.elim _ _
-  exact Path.Homotopic.Quotient.eq.mp hp
+  exact Path.Homotopic.Quotient.eq.mp (congrArg FundamentalGroup.toPath hp)
 
 end PoincareMT.M76.HamiltonIntervalTorus

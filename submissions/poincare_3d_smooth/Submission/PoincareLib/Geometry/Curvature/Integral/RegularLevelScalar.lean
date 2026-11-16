@@ -154,7 +154,7 @@ lemma inner_connection_unitNormal_local
         (Real.sqrt_pos.2 hreg).ne').mdifferentiableAt (by simp)
   have hg := (D.contMDiffAt_gradient hf).mdifferentiableAt (by simp)
   change g.inner x (D.connection (a • D.gradient f) x v) w = _
-  rw [D.connection.isCovariantDerivativeOn.leibniz hg ha]
+  rw [D.connection.isCovariantDerivativeOnUniv.leibniz hg ha]
   simp only [ContinuousLinearMap.smulRight_apply, map_add, map_smul, add_apply,
     smul_apply, smul_eq_mul, hw, mul_zero, add_zero]
   rw [D.hessian_eq_inner_connection_gradient hf]
@@ -1043,7 +1043,7 @@ lemma inner_connection_unitNormal_of_contMDiffAt
         (Real.sqrt_pos.2 hreg).ne').mdifferentiableAt (by simp)
   have hg := (D.contMDiffAt_gradient hf).mdifferentiableAt (by simp)
   change g.inner x (D.connection (a • D.gradient f) x v) w = _
-  rw [D.connection.isCovariantDerivativeOn.leibniz hg ha]
+  rw [D.connection.isCovariantDerivativeOnUniv.leibniz hg ha]
   simp only [ContinuousLinearMap.smulRight_apply, map_add, map_smul, add_apply,
     smul_apply, smul_eq_mul, hw, mul_zero, add_zero]
   rw [D.hessian_eq_inner_connection_gradient hf]

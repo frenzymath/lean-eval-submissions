@@ -45,6 +45,7 @@ theorem squareRimLoop_class_eq_one_of_polygon_disk
     ⟨fun x ↦ ⟨x, hPU x.property⟩, continuous_subtype_val.subtype_mk _⟩
   have hnull := (SimplyConnectedSpace.paths_homotopic
     (squareRimLoop.map lifted.continuous) (Path.refl (lifted squareRimBase))).map inclusion
+  apply CategoryTheory.End.ext
   exact Path.Homotopic.Quotient.eq.mpr hnull
 
 /-- A nontrivial rim loop carried by a simple polygon in a planar

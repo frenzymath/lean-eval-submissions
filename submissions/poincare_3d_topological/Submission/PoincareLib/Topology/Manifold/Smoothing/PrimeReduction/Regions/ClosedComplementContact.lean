@@ -77,7 +77,7 @@ theorem PLDomain.closure_sdiff_eq_closure_interior_sdiff
     intro x hx
     have hxR : x ∈ closure (interior R) := he.closure_interior.symm ▸ hx.1
     have h := hD.isOpen_compl.inter_closure ⟨hx.2,hxR⟩
-    exact closure_mono (fun y hy => show y ∈ interior R \ D from ⟨hy.2,hy.1⟩) h
+    exact closure_mono (by intro y hy; exact show y ∈ interior R \ D from ⟨hy.2,hy.1⟩) h
   exact Subset.antisymm (closure_minimal hout isClosed_closure)
     (closure_mono (sdiff_subset_sdiff_left interior_subset))
 

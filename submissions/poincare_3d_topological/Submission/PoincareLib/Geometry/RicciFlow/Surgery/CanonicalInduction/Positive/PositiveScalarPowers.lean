@@ -75,7 +75,7 @@ theorem hessian_positive_rpow (D : LeviCivitaData g) {f : M → ℝ}
     rw [show p - 1 - 1 = p - 2 by ring]
     ring
   rw [D.hessian_eq_inner_connection_gradient (hpower x), heq,
-    D.connection.isCovariantDerivativeOn.leibniz
+    D.connection.isCovariantDerivativeOnUniv.leibniz
       ((D.contMDiffAt_gradient (hf x)).mdifferentiableAt (by simp))
       ((hcoef x).mdifferentiableAt (by simp)),
     D.hessian_eq_inner_connection_gradient (hf x)]

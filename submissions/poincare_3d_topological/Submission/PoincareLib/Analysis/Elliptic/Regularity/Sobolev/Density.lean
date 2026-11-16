@@ -372,7 +372,7 @@ theorem MemWkp.extend_zero {k : ℕ} {p : ℝ≥0∞} (hp : 1 ≤ p) {Ω V : Set
   | zero =>
       rw [MemWkp_zero] at hu ⊢
       have h_indicator_mem : MemLp (Ω.indicator u) p (volume.restrict V) := by
-        rw [memLp_indicator_iff_restrict hΩ.measurableSet]
+        rw [memLp_indicator_iff_restrict hΩ.measurableSet.nullMeasurableSet]
         rw [Measure.restrict_restrict_of_subset hΩV]
         exact hu
       have hu_eq_indicator_ae : u =ᵐ[volume.restrict V] Ω.indicator u := by
@@ -388,7 +388,7 @@ theorem MemWkp.extend_zero {k : ℕ} {p : ℝ≥0∞} (hp : 1 ≤ p) {Ω V : Set
       rcases hu with ⟨hu_W_Ω, hwp_Ω⟩
       have hu_memLp_V : MemLp u p (volume.restrict V) := by
         have h_indicator_mem : MemLp (Ω.indicator u) p (volume.restrict V) := by
-          rw [memLp_indicator_iff_restrict hΩ.measurableSet]
+          rw [memLp_indicator_iff_restrict hΩ.measurableSet.nullMeasurableSet]
           rw [Measure.restrict_restrict_of_subset hΩV]
           exact hu_W_Ω.1
         have hu_eq_indicator_ae : u =ᵐ[volume.restrict V] Ω.indicator u := by
@@ -412,7 +412,7 @@ theorem MemWkp.extend_zero {k : ℕ} {p : ℝ≥0∞} (hp : 1 ≤ p) {Ω V : Set
           Poincare.Analysis.Sobolev.Weak.HasWeakPartialDeriv.restrict hV (Set.subset_univ V) h_univ
         have h_memLp : MemLp (Ω.indicator (chosenWeakPartial' p i u Ω)) p
             (volume.restrict V) := by
-          rw [memLp_indicator_iff_restrict hΩ_meas]
+          rw [memLp_indicator_iff_restrict hΩ_meas.nullMeasurableSet]
           rw [Measure.restrict_restrict_of_subset hΩV]
           exact chosenWeakPartial'_memLp_of_mem hu_W_Ω i
         exact ⟨Ω.indicator (chosenWeakPartial' p i u Ω), h_memLp, h_V⟩
@@ -897,7 +897,7 @@ private theorem fderiv_convolution_eq_convolution_weakPartial_indicator
       exact h_ind.congr h_ae.symm
     have h_uLp : MemLp u p volume := by
       rw [show u = Ω.indicator u from ?_]
-      · rw [memLp_indicator_iff_restrict hΩ_open.measurableSet]
+      · rw [memLp_indicator_iff_restrict hΩ_open.measurableSet.nullMeasurableSet]
         exact hu_W.1
       · funext x
         by_cases hx : x ∈ Ω
@@ -1362,7 +1362,7 @@ theorem iteratedZeroExtension_memLp_volume
     · rw [Set.indicator_of_mem hxK]
     · rw [Set.indicator_of_notMem hxK, h_zero_off x hxK]
   rw [h_eq]
-  rw [memLp_indicator_iff_restrict hK_closed.measurableSet]
+  rw [memLp_indicator_iff_restrict hK_closed.measurableSet.nullMeasurableSet]
   have h_memLp_Ω : MemLp (iteratedZeroExtension (d := d) p Ω K j β u) p
       (volume.restrict Ω) :=
     (iteratedZeroExtension_memWkp (d := d) hp hΩ_open hK_closed
@@ -1591,7 +1591,7 @@ theorem MemWkp.exists_smooth_compactSupport_approx
           · rw [Set.indicator_of_mem hx]
           · rw [Set.indicator_of_notMem hx,
               Poincare.Analysis.Sobolev.Weak.zero_outside_of_tsupport_subset (Ω := Ω) hu_supp hx]
-        rw [heq, memLp_indicator_iff_restrict hΩ_open.measurableSet]
+        rw [heq, memLp_indicator_iff_restrict hΩ_open.measurableSet.nullMeasurableSet]
         exact hu.memLp
       exact h_uLp.locallyIntegrable hp_one
     exact contDiff_convolution_mollifierEps (d := d) h_loc hδ_pos

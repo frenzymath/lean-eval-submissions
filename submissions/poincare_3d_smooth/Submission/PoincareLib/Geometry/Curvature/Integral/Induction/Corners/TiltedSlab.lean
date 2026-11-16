@@ -141,6 +141,9 @@ theorem PoincareMT.LeviCivitaData.proper_regular_tilted_slab_on_openFiber
   have hF : ContMDiff (𝓡 ((m + 1) + k)) 𝓘(ℝ, ℝ) ∞ F :=
     (contMDiff_const.mul hu).add (contMDiff_const.mul (ContMDiff.sum (fun i _ => hh i)))
   have hS : IsOpen S := by
+    have hSeq : S = u ⁻¹' Ioo (z - s / 4) (z + s / 4) ∩
+        {x | ∀ i, |f i x - f i p| < q} := by ext x; rfl
+    rw [hSeq]
     apply (isOpen_Ioo.preimage hu.continuous).inter
     have ht : IsOpen (⋂ i, {x | |f i x - f i p| < q}) :=
       isOpen_iInter_of_finite (fun i =>
@@ -148,7 +151,6 @@ theorem PoincareMT.LeviCivitaData.proper_regular_tilted_slab_on_openFiber
     convert ht using 1
     ext x
     simp only [Set.mem_iInter, Set.mem_ofPred_eq]
-    rfl
   have hreg : ∀ x ∈ S, Surjective
       (mfderiv (𝓡 ((m + 1) + k)) 𝓘(ℝ, Fin k → ℝ) f₀ x) := by
     intro x hx

@@ -39,7 +39,7 @@ private theorem equicontinuous_within_jets
       ‖iteratedFDerivWithin ℝ m (f j) Ω (x : X) -
         iteratedFDerivWithin ℝ m (f j) Ω (y : X)‖ ≤ B * ‖(x : X) - y‖ := by
     apply (hconvex.inter (convex_closedBall (x : X) 1)).norm_image_sub_le_of_norm_hasFDerivWithin_le
-      (fun z hz => ((hf j).differentiableOn_iteratedFDerivWithin
+      (by intro z hz; exact ((hf j).differentiableOn_iteratedFDerivWithin
         (ENat.natCast_lt_of_coe_top_le_withTop (N := (∞ : ℕ∞ω)) le_rfl m)
         hunique z hz.1).hasFDerivWithinAt.mono inter_subset_left)
       (fun z hz => ?_) ⟨y.property, hy.le⟩ ⟨x.property, mem_closedBall_self zero_le_one⟩

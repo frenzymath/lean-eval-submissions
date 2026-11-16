@@ -3,6 +3,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.General.Fin
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Regions.FinitePLBallImages
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Disks.Mathlib.FinitePLDiskAttachment
 
+noncomputable section
+
 /-!
 # Separating disk pieces away from their prescribed attachment
 

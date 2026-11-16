@@ -91,7 +91,7 @@ theorem exists_local_linearOperator
         (fun q : (P × (E →L[ℝ] E)) × ℝ => (init q.1, q.2)) :=
       (hinit.comp contDiff_fst).prodMk contDiff_snd
     exact (hΨsmooth.comp harg.contDiffOn
-      (fun q hq => ⟨hinit_mem q.1 hq.1, hq.2⟩)).snd.snd
+      (by intro q hq; exact ⟨hinit_mem q.1 hq.1, hq.2⟩)).snd.snd
 
 end Poincare.ODE.Parameter
 

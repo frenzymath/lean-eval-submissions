@@ -683,7 +683,7 @@ private theorem lintegral_enorm_sq_diffQuot_le_lintegral_enorm_sq_weakPartial
         (fun x : EuclN => x + h • EuclideanSpace.single k 1)
         (volume : Measure EuclN) (volume : Measure EuclN) :=
       hMP.quasiMeasurePreserving
-    exact h_qmp.ae h_ae_u
+    exact MeasureTheory.Measure.QuasiMeasurePreserving.ae h_qmp h_ae_u
   have h_ae_diffQuot : ∀ᵐ x ∂(volume : Measure EuclN),
       Tendsto (fun n => diffQuot k h (u_n n) x) Filter.atTop
         (𝓝 (diffQuot k h u x)) := by

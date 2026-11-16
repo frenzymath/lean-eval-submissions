@@ -58,9 +58,11 @@ theorem exists_smoothJoin_uniform_density {J : Set ℝ} (F : RicciFlow n M J)
   let f : ℝ → E := fun s ↦ e (α s)
   let g : ℝ → E := fun s ↦ e (β s)
   have hf : ContDiffOn ℝ ∞ f W :=
-    (contMDiffOn_chart.comp (hα.mono (fun _ hs ↦ hs.1.1)) (fun _ hs ↦ hs.1.2)).contDiffOn
+    (contMDiffOn_chart.comp (s := W) (hα.mono (t := W) (by intro s hs; exact hs.1.1))
+      (by intro s hs; exact hs.1.2)).contDiffOn
   have hg : ContDiffOn ℝ ∞ g W :=
-    (contMDiffOn_chart.comp (hβ.mono (fun _ hs ↦ hs.2.1)) (fun _ hs ↦ hs.2.2)).contDiffOn
+    (contMDiffOn_chart.comp (s := W) (hβ.mono (t := W) (by intro s hs; exact hs.2.1))
+      (by intro s hs; exact hs.2.2)).contDiffOn
   let V := (W ∩ f ⁻¹' Metric.ball y R) ∩ ((W ∩ g ⁻¹' Metric.ball y R) ∩ Set.Ioo 0 b)
   have hV : IsOpen V := (hf.continuousOn.isOpen_inter_preimage hW Metric.isOpen_ball).inter
     ((hg.continuousOn.isOpen_inter_preimage hW Metric.isOpen_ball).inter isOpen_Ioo)

@@ -228,7 +228,7 @@ theorem linear_interval_solution_contDiffOn (L : ℝ → E →L[ℝ] E) {a b : �
     (hz : ∀ s ∈ Icc a b, HasDerivWithinAt z (L s (z s)) (Icc a b) s) :
     ContDiffOn ℝ ∞ z (Icc a b) := by
   have hfield : ContDiffOn ℝ ∞ (fun p : ℝ × E ↦ L p.1 p.2) (Icc a b ×ˢ univ) :=
-    (hL.comp contDiffOn_fst (fun p hp ↦ hp.1)).clm_apply contDiffOn_snd
+    (hL.comp contDiffOn_fst (fun p (hp : p ∈ Icc a b ×ˢ univ) ↦ hp.1)).clm_apply contDiffOn_snd
   exact ODE.contDiffOn_enat_Icc_of_hasDerivWithinAt (n := ⊤)
     (f := fun s z ↦ L s z) (u := univ) hfield hz
     (fun _ _ ↦ mem_univ _)

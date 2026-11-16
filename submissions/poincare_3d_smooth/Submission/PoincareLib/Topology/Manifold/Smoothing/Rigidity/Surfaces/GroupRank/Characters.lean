@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Topology.CircleGroups.CharacterKernel
 import Mathlib.LinearAlgebra.FreeModule.PID
 import Mathlib.LinearAlgebra.Dimension.Constructions
@@ -13,6 +14,8 @@ vertex-coboundary kernel.
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 namespace PoincareMT.M76
 
@@ -94,7 +97,7 @@ theorem exists_three_coordinate_evaluation_of_injective
       Function.Injective T := by
   classical
   obtain ⟨g, hg⟩ := PoincareMT.M76.exists_three_character_detectors f hf
-  let eval := LinearMap.pi (fun i => closedCochainEvaluation A (g i))
+  let eval := LinearMap.pi (fun i => closedCochainEvaluation A (g i).toPath)
   have hker (z : LinearMap.ker (edgeCoboundary A)) (hz : eval z = 0) :
       (z : Edge A → ZMod 2) ∈ LinearMap.range (vertexCoboundary A) := by
     apply mem_range_vertexCoboundary_of_coboundary A z z.property

@@ -171,7 +171,8 @@ theorem limitReducedLength_hamiltonJacobi_of_smooth
   have hey : e y = x := (chartAt (EuclideanSpace ℝ (Fin n)) x).left_inv (mem_chart_source _ x)
   have hc : ContMDiffOn ((𝓡 n).prod 𝓘(ℝ, ℝ)) 𝓘(ℝ, ℝ) ∞
       (fun z : Spacetime n => l (e z.1, z.2)) (e.source ×ˢ Ioi (0 : ℝ)) :=
-    hl.comp ((contMDiffOn_chart_symm.comp contMDiffOn_fst (fun z hz => hz.1)).prodMk
+    hl.comp ((contMDiffOn_chart_symm.comp (s := e.source ×ˢ Ioi (0 : ℝ)) contMDiffOn_fst (fun z
+      hz => hz.1)).prodMk
       contMDiffOn_snd) (fun z hz => ⟨mem_univ _, hz.2⟩)
   have hc' : ContDiffOn ℝ ∞ (fun z : Spacetime n => l (e z.1, z.2))
       (e.source ×ˢ Ioi (0 : ℝ)) := by

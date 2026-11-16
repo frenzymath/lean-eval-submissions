@@ -1,0 +1,26 @@
+{
+  "repository": "leanprover/lean-eval-submissions",
+  "revision": "637f791024947c4ac2f51445ac5458d02f15dddd",
+  "observed_at": "2026-11-16T14:46:17.976157+00:00",
+  "authenticated_github_account": "AxelDlv00",
+  "authenticated_account_allowlisted": false,
+  "source_repository_owner_is_not_the_eligibility_key": true,
+  "standard": {
+    "cpus": 16,
+    "memory_gb": 32,
+    "job_budget_hours": 6
+  },
+  "automatic_resource_retry": {
+    "cpus": 32,
+    "memory_gb": 64,
+    "job_budget_hours": 24,
+    "attempts": 1,
+    "requires_allowlist": true
+  },
+  "hosted_vm_max_map_count": "not established by these policy/workflow files",
+  "files": {
+    "hosted-runner-policy.md": "44b1c270290521930f9d6b34f4e02442dda6f3fe6285687922b31642d269f74f",
+    "hosted-runner-allowlist.json": "f44fd233d7f523a627a641f0a387f3aff0f1fa6549d0041b2527312122edd757",
+    "hosted-runner-workflow.yml": "8b9caf0bd7cd22690e4d3cddc22fbb909daf62e267ac6758469d6946af974129"
+  }
+}

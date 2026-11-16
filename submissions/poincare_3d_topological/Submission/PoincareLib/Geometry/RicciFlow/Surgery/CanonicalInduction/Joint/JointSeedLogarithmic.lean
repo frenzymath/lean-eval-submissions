@@ -48,7 +48,9 @@ theorem jointSeed_scalar_age_of_action
     rw [uIcc_of_le haSigma, uIcc_of_le (heta.le.trans (haSigma.trans hsigmaD))]
     exact hsmall)
   have hInv : IntervalIntegrable (fun v : ℝ => v⁻¹) volume a sigma :=
-    (continuousOn_id.inv₀ (fun v hv => (haPos.trans_le hv.1).ne')).intervalIntegrable_of_Icc
+    (continuousOn_id.inv₀ (by
+        intro v hv
+        exact (haPos.trans_le hv.1).ne')).intervalIntegrable_of_Icc
       haSigma
   by_contra hnone
   push Not at hnone

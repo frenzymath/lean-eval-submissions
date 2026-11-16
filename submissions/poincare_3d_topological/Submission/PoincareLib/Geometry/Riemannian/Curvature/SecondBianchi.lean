@@ -70,14 +70,14 @@ lemma connection_sub (D : LeviCivitaData g)
     (hY : MDifferentiableAt (𝓡 n) ((𝓡 n).prod 𝓘(ℝ, EuclideanSpace ℝ (Fin n))) (T% Y) x) :
     D.connection (X - Y) x = D.connection X x - D.connection Y x := by
   have hneg := mdifferentiableAt_neg_section hY
-  have hsum := D.connection.isCovariantDerivativeOn.add hY hneg
+  have hsum := D.connection.isCovariantDerivativeOnUniv.add hY hneg
   have hz : D.connection (Y + -Y) x = 0 := by
     rw [add_neg_cancel]
-    exact D.connection.isCovariantDerivativeOn.zero
+    exact D.connection.isCovariantDerivativeOnUniv.zero
   rw [hz] at hsum
   have hn : D.connection (-Y) x = -D.connection Y x :=
     eq_neg_of_add_eq_zero_right hsum.symm
-  rw [sub_eq_add_neg, D.connection.isCovariantDerivativeOn.add hX hneg, hn,
+  rw [sub_eq_add_neg, D.connection.isCovariantDerivativeOnUniv.add hX hneg, hn,
     sub_eq_add_neg]
 
 lemma covariantDerivativeOnFields_sub_swap (D : LeviCivitaData g)
@@ -139,7 +139,7 @@ lemma connection_torsion_collapse (D : LeviCivitaData g)
       (h3 x |>.mdifferentiableAt (by simp)),
     D.connection_sub (h1 x |>.mdifferentiableAt (by simp))
       (h2 x |>.mdifferentiableAt (by simp)),
-    D.connection.isCovariantDerivativeOn.zero] at heq'
+    D.connection.isCovariantDerivativeOnUniv.zero] at heq'
   exact congrArg (fun L => L (a x)) heq'
 
 lemma connection_torsion_vector_collapse (D : LeviCivitaData g)

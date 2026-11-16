@@ -75,7 +75,7 @@ theorem nested_cap_relative_frontier
         (hH (H.symm ⟨y, hy⟩)).symm.trans
           (congrArg Subtype.val (H.apply_symm_apply ⟨y, hy⟩))⟩
   have hnotInterior {x : X} (hx : x ∈ closure (P \ R)) : x ∉ interior R := by
-    have hh : x ∈ closure Rᶜ := closure_mono (fun _ h => h.2) hx
+    have hh : x ∈ closure Rᶜ := closure_mono (by intro _ h; exact h.2) hx
     simpa only [closure_compl, mem_compl_iff] using hh
   have hfront {x : X} : x ∈ frontier R ↔ x ∈ R ∧ x ∈ closure (P \ R) := by
     constructor

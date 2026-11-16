@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Ball.BallCoordinatePatch
 
+noncomputable section
+
 /-!
 # Derivatives of actual surgery-ball chart transitions
 

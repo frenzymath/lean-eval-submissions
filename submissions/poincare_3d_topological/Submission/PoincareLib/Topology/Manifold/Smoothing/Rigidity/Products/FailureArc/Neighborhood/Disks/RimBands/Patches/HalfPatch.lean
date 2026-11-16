@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Neighborhood.Disks.RimBands.Patches.AttachedPatch
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.Neighborhood.Disks.RimBands.Collar.PlanarLift
 
+noncomputable section
+
 /-! # Extending an actual planar half-arm patch -/
 
 set_option autoImplicit false

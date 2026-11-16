@@ -4,6 +4,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Affine.Z
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Coordinates.CoordinateCylinderHalfspace
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Affine.AffineHypersurfaceCharts
 
+noncomputable section
+
 /-!
 # The full standard-shell frontier disk cover
 

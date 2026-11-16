@@ -1,0 +1,22 @@
+{
+  "process_id": 4179211,
+  "executable": "/tmp/poincare-resubmit-20261116-5184218/toolchain/bin/leanchecker",
+  "cpu_allocation": 16,
+  "samples": [
+    {
+      "utc": "2026-11-16T10:48:43.763523+00:00",
+      "monotonic": 12124989.084062625,
+      "cpu_ticks": 169229
+    },
+    {
+      "utc": "2026-11-16T10:48:48.763759+00:00",
+      "monotonic": 12124994.084295155,
+      "cpu_ticks": 169728
+    }
+  ],
+  "clock_ticks_per_second": 100,
+  "elapsed_wall_seconds": 5.000232530757785,
+  "elapsed_cpu_seconds": 4.99,
+  "average_cpu_cores_used": 0.9979535890191423,
+  "scope": "Five-second sample of the active smooth Lean kernel check; no whole-run or hosted performance claim."
+}

@@ -50,8 +50,8 @@ theorem generalized_limit_noncollapsed_of_longSlabService
   let : MetricSpace G.limit.carrier.carrier := G.limit.carrier.metricSpaceOf g
   let K := closure (g.ball p b)
   have hKclosed : K ⊆ {x | g.edist p x ≤ ENNReal.ofReal b} := by
-    apply closure_minimal
-      (fun x (hx : g.edist p x < ENNReal.ofReal b) => hx.le)
+    apply closure_minimal (s := g.ball p b)
+      (by intro x hx; exact (show g.edist p x < ENNReal.ofReal b from hx).le)
     exact isClosed_le (continuous_const.edist continuous_id) continuous_const
   have hK : IsCompact K := IsCompact.of_isClosed_subset
     (g.isCompact_closedBall_of_metricComplete (G.limit.complete t ht) p b)

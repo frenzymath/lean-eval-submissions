@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Topology.Math
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Products.AlexanderBaseProductBall
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Arcs.FinitePLIntervals
 
+noncomputable section
+
 /-!
 # The four actual flat rectangles of the compression cylinder
 

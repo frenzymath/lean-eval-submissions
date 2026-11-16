@@ -200,7 +200,7 @@ theorem contDiffOn_of_spatial_jet_system
     have he : Continuous (projIcc 0 T hT.le) := continuous_projIcc
     have hpair : ContinuousOn (fun q : ℝ × (Fin d → ℝ) =>
         (U a q.2, projIcc 0 T hT.le q.1)) (Icc (0 : ℝ) T ×ˢ Omega) :=
-      ((hu.comp continuous_snd.continuousOn (fun q hq => hq.2)).prodMk
+      ((hu.comp continuous_snd.continuousOn (by intro q hq; exact hq.2)).prodMk
         (he.comp continuous_fst).continuousOn)
     exact continuous_eval.comp_continuousOn hpair
   have hs : UniqueDiffOn ℝ (Icc (0 : ℝ) T ×ˢ Omega) :=

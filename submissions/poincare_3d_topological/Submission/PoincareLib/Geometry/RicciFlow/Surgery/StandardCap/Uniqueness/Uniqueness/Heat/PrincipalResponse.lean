@@ -14,6 +14,8 @@ variable coefficients, rather than assuming a raw heat solution.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 
 noncomputable section

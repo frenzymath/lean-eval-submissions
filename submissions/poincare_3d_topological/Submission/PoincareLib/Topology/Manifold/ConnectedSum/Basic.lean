@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Surgery.Flow.Basic
 import Mathlib.Logic.Relation
 
+noncomputable section
+
 /-! Adapted from Mapher `PoincareMT/Definitions/Ch15/SurgeryTopology.lean` at
 `f927d9e1f0810042766d3b5f64d3f4da02ee93cc`; see
 `references/ricci-flow/mapher/endpoint-adapters.md`. -/

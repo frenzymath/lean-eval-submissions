@@ -113,7 +113,8 @@ theorem radial_core_curvature_balls {a length : ℝ} (ha : 0 < a) (hlength : 0 <
   obtain ⟨r, hr, hrb, hscale, hcompactr⟩ := exists_scalar_curvature_radius_le g D hcomplete
     hR y hb (hcross.trans (mul_le_mul_of_nonneg_left hsup (sq_nonneg b)))
   refine ⟨r, hr, hrb.trans hbf, hscale, ?_, hcompactr⟩
-  exact (closure_mono (fun w hw => hw.trans_le (ENNReal.ofReal_le_ofReal hrb))).trans
+  exact (closure_mono (s := g.ball y r) (t := g.ball y b)
+    (fun w hw => hw.trans_le (ENNReal.ofReal_le_ofReal hrb))).trans
     (closure_ball_subset_tip_ball P g hrotation hcomplete y hb.le hmargin)
 
 end PoincareMT.M35.Uniqueness

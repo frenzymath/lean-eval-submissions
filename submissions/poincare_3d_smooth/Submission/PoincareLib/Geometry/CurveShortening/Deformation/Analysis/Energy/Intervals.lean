@@ -29,7 +29,7 @@ theorem energy_badIntervals_sum_le {ι : Type*} {indices : Finset ι}
     (hdisjoint : (indices : Set ι).PairwiseDisjoint (fun i => Ioo (left i) (right i))) :
     (∑ i ∈ indices, (right i - left i)) ≤ C / B := by
   have hfinite : volume {t | t ∈ Icc a b ∧ B < energy t} ≠ ⊤ := by
-    apply ne_top_of_le_ne_top _ (measure_mono fun _ ht => ht.1)
+    apply ne_top_of_le_ne_top _ (measure_mono (by intro _ ht; exact ht.1))
     rw [Real.volume_Icc]
     exact ENNReal.ofReal_ne_top
   have hsubset : (⋃ i ∈ indices, Ioo (left i) (right i)) ⊆

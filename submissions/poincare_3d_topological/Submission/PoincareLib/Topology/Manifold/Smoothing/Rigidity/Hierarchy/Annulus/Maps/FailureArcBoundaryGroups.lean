@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Coverings.Mathlib.FiniteFiberGroups
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.PathMaps
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Hierarchy.Annulus.Maps.SecondPhaseGroups
@@ -13,6 +14,12 @@ their common target surface group, with explicit basepoint transport.
 
 set_option autoImplicit false
 open Set
+open scoped FundamentalGroup
+
+-- Concatenation of a represented loop with a path class.
+private noncomputable abbrev CategoryTheory.End.trans {X : Type*} [TopologicalSpace X] {x y : X}
+    (p : FundamentalGroup X x) (q : Path.Homotopic.Quotient x y) :
+    Path.Homotopic.Quotient x y := p.toPath.trans q
 
 namespace IsCoveringMap
 
@@ -26,13 +33,18 @@ theorem fundamentalGroup_range_finiteIndex_of_finite_fiber
   let rho := hp.monodromyPerm (p e)
   have hker : rho.ker ≤ (FundamentalGroup.map ⟨p, hp.continuous⟩ e).range := by
     intro gamma hgamma
-    have hfix : hp.monodromy gamma ⟨e, rfl⟩ = ⟨e, rfl⟩ := by
+    have hfix : hp.monodromy gamma.toPath ⟨e, rfl⟩ = ⟨e, rfl⟩ := by
       exact congrArg (fun f : Equiv.Perm (p ⁻¹' {p e}) => f ⟨e, rfl⟩) hgamma
     let delta : FundamentalGroup E e :=
-      (hp.liftPathQuotient gamma ⟨e, rfl⟩).cast rfl (congrArg Subtype.val hfix).symm
+      FundamentalGroup.fromPath
+        ((hp.liftPathQuotient gamma.toPath ⟨e, rfl⟩).cast rfl
+          (congrArg Subtype.val hfix).symm)
     refine ⟨delta, ?_⟩
-    change Path.Homotopic.Quotient.map delta ⟨p, hp.continuous⟩ = gamma
-    simp only [delta, Path.Homotopic.Quotient.map_cast, hp.map_liftPathQuotient,
+    apply CategoryTheory.End.ext
+    change Path.Homotopic.Quotient.map delta.toPath ⟨p, hp.continuous⟩ = gamma.toPath
+    simp only [delta, FundamentalGroup.toPath, FundamentalGroup.toArrow,
+      FundamentalGroup.fromPath, FundamentalGroup.fromArrow, Path.Homotopic.Quotient.map_cast,
+        hp.map_liftPathQuotient,
       Path.Homotopic.Quotient.cast_cast, Path.Homotopic.Quotient.cast_rfl_rfl]
   exact Subgroup.finiteIndex_of_le hker
 
@@ -64,8 +76,9 @@ private theorem transport_back_apply
     FundamentalGroup.fundamentalGroupMulEquivOfPath k.symm gamma =
       (Path.Homotopic.Quotient.mk k).trans
         (gamma.trans (Path.Homotopic.Quotient.mk k).symm) := by
+  apply CategoryTheory.End.ext
   change (Path.Homotopic.Quotient.mk k.symm.symm).trans
-    (gamma.trans (Path.Homotopic.Quotient.mk k.symm)) = _
+    (gamma.toPath.trans (Path.Homotopic.Quotient.mk k.symm)) = _
   rw [Path.symm_symm]
   rfl
 
@@ -99,11 +112,12 @@ theorem fundamentalGroup_map_transport_of_contracted_path
       (Path.Homotopic.Quotient.refl (f x)).cast rfl h := by
     exact Quotient.sound ⟨F⟩
   ext gamma
+  rw [FundamentalGroup.mapOfEq_apply]
   change Path.Homotopic.Quotient.map
-    (FundamentalGroup.fundamentalGroupMulEquivOfPath k.symm gamma) f = _
-  rw [transport_back_apply, Path.Homotopic.Quotient.map_trans,
-    Path.Homotopic.Quotient.map_trans, Path.Homotopic.Quotient.map_symm, hclass,
-    FundamentalGroup.mapOfEq_apply]
+    (FundamentalGroup.fundamentalGroupMulEquivOfPath k.symm gamma).toPath f = _
+  have hback := congrArg FundamentalGroup.toPath (transport_back_apply k gamma)
+  rw [hback, Path.Homotopic.Quotient.map_trans,
+    Path.Homotopic.Quotient.map_trans, Path.Homotopic.Quotient.map_symm, hclass]
   exact conjugate_cast_refl h _
 
 private theorem mapOfEq_rfl

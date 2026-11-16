@@ -50,7 +50,7 @@ theorem m64HorizontalSource_quasiMeasurePreserving {tau : ℝ ≃ₜ ℝ}
     rw [himage]
     exact addHaar_image_eq_zero_of_differentiableOn_of_addHaar_eq_zero volume
       ((m64HorizontalSource_contDiff hi).differentiable (by simp)).differentiableOn hz
-  apply hq.restrict
+  apply Measure.QuasiMeasurePreserving.restrict hq
   intro p hp
   have hpre := m64HorizontalSource_preimage_interior hmono h0 hP
   exact (congrArg (fun U => p ∈ U) hpre).mpr hp

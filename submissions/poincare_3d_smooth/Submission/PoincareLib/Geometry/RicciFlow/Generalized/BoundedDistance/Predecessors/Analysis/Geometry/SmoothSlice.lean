@@ -48,7 +48,7 @@ theorem m25_isSmoothEmbedding_slice (e : OpenPartialHomeomorph (M × F) N)
     have hshift : ContMDiff 𝓘(𝕜, F) 𝓘(𝕜, F) n (fun y : F => y + -c) :=
       (contDiff_id.add contDiff_const).contMDiff
     exact ((contMDiffOn_chart (I := 𝓘(𝕜, E)) (x := x)).comp
-      contMDiffOn_fst (fun y hy => hy.1)).prodMk_space
+      (s := p.source) contMDiffOn_fst (by intro y hy; exact hy.1)).prodMk_space
         (hshift.comp_contMDiffOn contMDiffOn_snd)
   have hp' : ContMDiffOn 𝓘(𝕜, E × F) (𝓘(𝕜, E).prod 𝓘(𝕜, F)) n
       p.symm p.target := by
@@ -56,7 +56,9 @@ theorem m25_isSmoothEmbedding_slice (e : OpenPartialHomeomorph (M × F) N)
         (fun y : E × F => y.2 + -(-c)) :=
       (contDiff_snd.add contDiff_const).contMDiff
     exact ((contMDiffOn_chart_symm (I := 𝓘(𝕜, E)) (x := x)).comp
-      contDiff_fst.contMDiff.contMDiffOn (fun y hy => hy.1)).prodMk hshift.contMDiffOn
+      (s := p.target) contDiff_fst.contMDiff.contMDiffOn (by
+          intro y hy
+          exact hy.1)).prodMk hshift.contMDiffOn
   have hb : b ∈ IsManifold.maximalAtlas 𝓘(𝕜, G) n N := by
     apply b.mem_maximalAtlas_of_contMDiffOn
     · change ContMDiffOn 𝓘(𝕜, G) 𝓘(𝕜, G) n (L ∘ p ∘ e.symm) b.source

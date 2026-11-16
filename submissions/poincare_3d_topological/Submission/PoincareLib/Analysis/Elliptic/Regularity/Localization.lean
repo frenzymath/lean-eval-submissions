@@ -32,7 +32,8 @@ theorem memLp_mul_of_compact_memLp
     · simp [hx]
     · simp [hx, image_eq_zero_of_notMem_tsupport hx]
   rw [← heq]
-  exact (memLp_indicator_iff_restrict (isClosed_tsupport χ).measurableSet).mpr hlocal
+  exact (memLp_indicator_iff_restrict ((isClosed_tsupport
+    χ).measurableSet).nullMeasurableSet).mpr hlocal
 
 /-- The derivative term in the cutoff product rule is globally square integrable. -/
 theorem memLp_cutoff_weakPartial

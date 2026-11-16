@@ -119,11 +119,11 @@ theorem exists_exponential_chart_gauss (g : RiemannianMetric n M) (p : M) :
     change ContMDiffOn (𝓡 n) (𝓡 n) ∞ (c.symm ∘ f) e.source
     rw [hsource]
     exact (contMDiffOn_extChartAt_symm p).comp
-      (contMDiffOn_iff_contDiffOn.mpr hf) (fun v hv => htarget (f.map_source hv))
+      (contMDiffOn_iff_contDiffOn.mpr hf) (by intro v hv; exact htarget (f.map_source hv))
   have heinverse : ContMDiffOn (𝓡 n) (𝓡 n) ∞ e.symm e.target := by
     change ContMDiffOn (𝓡 n) (𝓡 n) ∞ (f.symm ∘ c) e.target
     apply (contMDiffOn_iff_contDiffOn.mpr hfinv).comp
-      ((contMDiffOn_extChartAt (I := 𝓡 n) (x := p)).mono (fun y hy => hy.1))
+      ((contMDiffOn_extChartAt (I := 𝓡 n) (x := p)).mono (by intro y hy; exact hy.1))
     exact fun y hy => hy.2
   refine ⟨e, hsource.symm ▸ hzero, ?_, hesmooth, heinverse, ?_,
     g.exists_tangentBall_subset_nhds p (e.open_source.mem_nhds (hsource.symm ▸ hzero)),
@@ -146,7 +146,7 @@ theorem exists_exponential_chart_gauss (g : RiemannianMetric n M) (p : M) :
     rw [hfD, D.gauss_identity hU hB hinv hsymm (hsourceD hvf) w]
     exact g.chartCoefficients_self p v w
   · exact D.smooth_trajectory.mono
-      (Set.prod_mono (fun v hv => hsourceD (hsource ▸ hv)) Subset.rfl)
+      (Set.prod_mono (by intro v hv; exact hsourceD (hsource ▸ hv)) Subset.rfl)
   · intro v hv
     have hvD := hsourceD (hsource ▸ hv)
     refine ⟨D.trajectory_initial hvD, ?_, fun t ht =>

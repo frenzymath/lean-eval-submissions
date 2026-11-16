@@ -56,7 +56,7 @@ theorem exists_local_parametric_derivative_bounds (F : RicciFlow n M J) (T τmax
   let d : (P × E) × ℝ → ℝ := fun z ↦ fderiv ℝ C z ((0, 0), 1)
   have hG : ContDiffOn ℝ ∞ G S :=
     (squareChartMetric_smooth F T τmax hτmax hwindow p).comp
-      ((contDiffOn_snd.sqrt (fun z hz ↦ hz.2.2.1.ne')).prodMk
+      ((contDiffOn_snd.sqrt (s := S) (fun z hz ↦ hz.2.2.1.ne')).prodMk
         contDiff_fst.snd.contDiffOn) (fun z hz ↦
           ⟨⟨(neg_neg_of_pos (Real.sqrt_pos.mpr hτmax)).trans_le (Real.sqrt_nonneg _),
             Real.sqrt_lt_sqrt hz.2.2.1.le hz.2.2.2⟩, hz.2.1.2⟩)

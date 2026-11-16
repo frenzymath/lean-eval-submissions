@@ -20,7 +20,7 @@ theorem connectedComponentIn_component_replacement_inside
       connectedComponentIn N x := by
   let C := connectedComponentIn A a
   let Q' := (Q \ C) ∪ N
-  have hsub : Q' ⊆ A := union_subset (inter_subset_left.trans hQA)
+  have hsub : Q' ⊆ A := union_subset (sdiff_subset.trans hQA)
     (hNC.trans (connectedComponentIn_subset A a))
   have hCC : connectedComponentIn Q' x ⊆ C := by
     have h := connectedComponentIn_mono x hsub
@@ -42,7 +42,7 @@ theorem connectedComponentIn_component_replacement_outside
       connectedComponentIn Q x := by
   let C := connectedComponentIn A a
   let Q' := (Q \ C) ∪ N
-  have hsub : Q' ⊆ A := union_subset (inter_subset_left.trans hQA)
+  have hsub : Q' ⊆ A := union_subset (sdiff_subset.trans hQA)
     (hNC.trans (connectedComponentIn_subset A a))
   have haway : Disjoint (connectedComponentIn A x) C := by
     apply disjoint_left.mpr
@@ -99,6 +99,6 @@ theorem HasNoPuncturedSphereComponents.replace_component_cut
       · exact Or.inr ⟨hxC,hxU⟩
       · exact Or.inl ⟨⟨hxA,fun hxO => hxC (hOC hxO)⟩,hxC⟩
   rw [←heq]
-  exact hQ.replace_ambient_component inter_subset_left inter_subset_left hN
+  exact hQ.replace_ambient_component sdiff_subset sdiff_subset hN
 
 end PoincareMT.M76

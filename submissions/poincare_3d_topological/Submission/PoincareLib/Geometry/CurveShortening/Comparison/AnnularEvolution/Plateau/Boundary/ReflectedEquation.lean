@@ -36,7 +36,7 @@ Project derivation: `proof-work/tasks/M64/derivations/2026-09-26-mixed-reflectio
 theorem m64BoundaryReflect_memLp {u : LoopPlane → ℝ} {p : ℝ≥0∞}
     (hu : MemLp u p (volume.restrict (halfSpace 2))) (epsilon : ℝ) :
     MemLp (m64BoundaryReflect epsilon u) p volume := by
-  have hi := (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu
+  have hi := (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr hu
   exact hi.add ((hi.comp_measurePreserving measurePreserving_reflect).const_mul epsilon)
 
 private theorem integral_indicator_pair (u q : LoopPlane → ℝ) :
@@ -56,7 +56,7 @@ theorem m64BoundaryReflect_integral_of_one_le {u q : LoopPlane → ℝ} {p : ℝ
     (hq : Continuous q) (hc : HasCompactSupport q) (epsilon : ℝ) :
     (∫ x, m64BoundaryReflect epsilon u x * q x) =
       ∫ x in halfSpace 2, u x * (q x + epsilon * q (reflect x)) := by
-  have hi := (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu
+  have hi := (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr hu
   have hqr : Continuous (q ∘ reflect) := hq.comp reflect.continuous
   have hcr : HasCompactSupport (q ∘ reflect) := hc.comp_homeomorph reflect.toHomeomorph
   have hL := hi.locallyIntegrable hp

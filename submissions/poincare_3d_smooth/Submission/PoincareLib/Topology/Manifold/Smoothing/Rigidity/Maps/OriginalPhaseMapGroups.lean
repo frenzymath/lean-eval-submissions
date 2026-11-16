@@ -56,6 +56,8 @@ theorem hamiltonZeroPhaseMap_pi1_injective (phi : C(H0, H0))
       ((F.fundamentalGroup_map_bijective (ambient (inc x))).1.comp
         ((hamiltonZeroAmbientEquiv.fundamentalGroupMulEquiv (inc x)).injective.comp hinj))
   rw [← hfactor, FundamentalGroup.map_comp] at hi
-  exact Function.Injective.of_comp hi
+  intro a b hab
+  apply hi
+  exact congrArg (FundamentalGroup.map sectionMap _) hab
 
 end PoincareMT.M76

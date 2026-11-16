@@ -64,8 +64,9 @@ theorem m64AnnulusAffineSeamExtend_memLp {u : LoopPlane → ℝ}
     (continuous_const (y := D)))).comp_measurePreserving
       m64AnnulusSeam_translation_measurePreserving
   have hF : MemLp F 2 volume :=
-    ((memLp_indicator_iff_restrict isOpen_interior.measurableSet).mpr hu).add
-      ((memLp_indicator_iff_restrict m64AnnulusSeamLeft_isOpen.measurableSet).mpr hleft)
+    ((memLp_indicator_iff_restrict isOpen_interior.measurableSet.nullMeasurableSet).mpr hu).add
+      ((memLp_indicator_iff_restrict
+        m64AnnulusSeamLeft_isOpen.measurableSet.nullMeasurableSet).mpr hleft)
   apply (hF.mono_measure (Measure.restrict_le_self (s := O))).ae_eq
   filter_upwards [ae_restrict_of_ae m64AnnulusSeamDomain_ae_union,
     ae_restrict_mem m64AnnulusSeamDomain_isOpen.measurableSet] with p hp hO

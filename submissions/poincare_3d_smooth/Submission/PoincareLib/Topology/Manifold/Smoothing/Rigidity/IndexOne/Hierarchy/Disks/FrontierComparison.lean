@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Hierarchy.Disks.FillingReflection
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Disks.MarkedLoopImage
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Loops.EssentialSquareRim
@@ -12,6 +13,7 @@ meridian retraction. No source disk is supplied.
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
 open Set Metric Geometry
 
 namespace PoincareMT.M76.HamiltonIntervalTorus
@@ -94,10 +96,10 @@ theorem exists_proper_marked_disk_of_frontier_comparison
     intro hn
     have hunit : FundamentalGroup.fromPath
         (Path.Homotopic.Quotient.mk Dehn.squareRimLoop) = 1 := by
-      have hn' := Path.Homotopic.Quotient.eq.mp hn
+      have hn' := (FundamentalGroup.fromPath_eq_one_iff _).mp hn
       have hh := hn'.pathCast (hleft' Dehn.squareRimBase).symm
         (hleft' Dehn.squareRimBase).symm
-      apply Path.Homotopic.Quotient.eq.mpr
+      apply (FundamentalGroup.fromPath_eq_one_iff _).mpr
       convert hh using 1 <;> apply Path.ext <;> funext t
       · exact (hleft' (Dehn.squareRimLoop t)).symm
       · exact (hleft' Dehn.squareRimBase).symm

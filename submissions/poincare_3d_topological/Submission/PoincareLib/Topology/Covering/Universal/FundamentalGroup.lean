@@ -6,6 +6,7 @@ Authors: Kim Morrison
 module
 
 public import Mathlib.AlgebraicTopology.FundamentalGroupoid.SimplyConnected
+public import Submission.PoincareLib.Compatibility.FundamentalGroup
 
 /-!
 Adapted from `TauCeti/AlgebraicTopology/FundamentalGroup/Basic.lean`, Tau Ceti revision
@@ -81,16 +82,12 @@ theorem FundamentalGroup.map_range_eq_bot_iff {Y : Type*} [TopologicalSpace Y] (
         _root_.FundamentalGroup.fromPath ⟦Path.refl (f base)⟧ := by
       rw [← FundamentalGroup.map_fromPath f base γ, h]
       -- the identity of the fundamental groupoid is the class of the constant path
-      exact FundamentalGroupoid.id_eq_path_refl (FundamentalGroupoid.mk (f base))
-    exact (FundamentalGroupoid.fromPath_eq_iff_homotopic _ _).mp h_map
+      rfl
+    exact Quotient.exact (congrArg _root_.FundamentalGroup.toPath h_map)
   · intro h
     ext p
-    obtain ⟨γ, rfl⟩ := Quotient.exists_rep (_root_.FundamentalGroup.toPath p)
-    have hnull : _root_.FundamentalGroup.fromPath ⟦γ.map f.continuous⟧ =
-        _root_.FundamentalGroup.fromPath ⟦Path.refl (f base)⟧ :=
-      (FundamentalGroupoid.fromPath_eq_iff_homotopic _ _).mpr (h γ)
-    rw [FundamentalGroup.map_fromPath f base γ, hnull]
-    exact (FundamentalGroupoid.id_eq_path_refl (FundamentalGroupoid.mk (f base))).symm
+    obtain ⟨γ, rfl⟩ := _root_.FundamentalGroup.exists_path_rep p
+    exact Quotient.sound (h γ)
 
 /-- If the source fundamental group is subsingleton, the range of any induced map from it is
 trivial. -/

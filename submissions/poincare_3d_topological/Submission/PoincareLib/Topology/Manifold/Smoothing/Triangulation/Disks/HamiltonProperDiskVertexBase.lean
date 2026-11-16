@@ -52,7 +52,7 @@ theorem HamiltonProperDiskTriangulation.vertex_base_rim_eq
   let : Fintype T.ambient.faces := T.finite.fintype
   let N := T.vertexBlock p
   have hlink : (N.link p).space ⊆ N.space :=
-    SimplicialComplex.space_subset_of_le (fun _ hs => hs.1)
+    SimplicialComplex.space_subset_of_le (by intro _ hs; exact hs.1)
   have hrim : T.dualRegionRim {(p : E)} =
       ((N.link p).space ∩ R) ∪ (N.space ∩ frontier R) := by
     dsimp only [HamiltonProperDiskTriangulation.dualRegionRim]
@@ -115,7 +115,7 @@ private theorem vertex_base_convex_chart
   let G := u.trans e
   have hG : G.IsFinitePL := hu.trans he
   have hlinksub : (N.link p).space ⊆ N.space :=
-    SimplicialComplex.space_subset_of_le (fun _ hs => hs.1)
+    SimplicialComplex.space_subset_of_le (by intro _ hs; exact hs.1)
   have hlink (x : N.space) : (x : E) ∈ (N.link p).space ↔
       (G x : V) ∈ frontier C := by
     have hfx : f x ∈ (J.link 0).space ↔ (x : E) ∈ (N.link p).space := by
@@ -272,7 +272,7 @@ private theorem vertex_base_certificates
         fun hx => ⟨(G x).property, ((hinter hpfront x).1).mp ((hBD x).mp hx)⟩⟩
     have houter : g '' (frontier C ∩ {x : V | x.2 = 0}) =
         B ∩ (N.link p).space := by
-      apply himage _ _ (fun _ hx => hC.isClosed.frontier_subset hx.1)
+      apply himage _ _ (by intro _ hx; exact hC.isClosed.frontier_subset hx.1)
         (inter_subset_left.trans hBN)
       intro x
       constructor

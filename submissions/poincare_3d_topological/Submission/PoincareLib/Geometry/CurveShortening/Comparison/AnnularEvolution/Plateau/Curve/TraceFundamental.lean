@@ -54,7 +54,7 @@ theorem m64Curve_trace_fundamental_of_strong_approximation
   intro x hx
   let phi := (Ioc (0 : ℝ) x).indicator (fun _ : ℝ => (1 : ℝ))
   have hp : MemLp phi 2 mu :=
-    (memLp_const (1 : ℝ)).indicator measurableSet_Ioc
+    (memLp_const (1 : ℝ)).indicator measurableSet_Ioc.nullMeasurableSet
   have hsub : Ioc (0 : ℝ) x ⊆ Icc (0 : ℝ) T :=
     fun t ht => ⟨ht.1.le, ht.2.trans hx.2⟩
   have heq (u : ℝ → E) (hu : MemLp u 2 mu) :

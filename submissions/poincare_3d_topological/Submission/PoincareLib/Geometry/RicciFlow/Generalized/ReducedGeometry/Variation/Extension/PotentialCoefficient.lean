@@ -53,7 +53,7 @@ theorem backwardPotentialCoefficient_contDiffOn
       (fun z : ℝ × EuclideanSpace ℝ (Fin n) => θ z.1)
       (J ×ˢ (G.gaugeCover.spatial b : Set (EuclideanSpace ℝ (Fin n)))) := by
     have hf : ContDiff ℝ ∞ (Prod.fst : ℝ × EuclideanSpace ℝ (Fin n) → ℝ) := contDiff_fst
-    exact hθ.comp hf.contMDiff.contMDiffOn (fun _ hz => hz.1)
+    exact hθ.comp hf.contMDiff.contMDiffOn (by intro _ hz; exact hz.1)
   have hc : ContMDiffOn (𝓡 n) (𝓡 n) ∞
       (chartAt (EuclideanSpace ℝ (Fin n)) x).symm
       (G.gaugeCover.spatial b : Set _) := by
@@ -65,12 +65,12 @@ theorem backwardPotentialCoefficient_contDiffOn
       (J ×ˢ (G.gaugeCover.spatial b : Set (EuclideanSpace ℝ (Fin n)))) := by
     have hf : ContDiff ℝ ∞
         (Prod.snd : ℝ × EuclideanSpace ℝ (Fin n) → EuclideanSpace ℝ (Fin n)) := contDiff_snd
-    exact hc.comp hf.contMDiff.contMDiffOn (fun _ hz => hz.2)
+    exact hc.comp hf.contMDiff.contMDiffOn (by intro _ hz; exact hz.2)
   have H := (hM12.leafwise_calculus X time I G.spacetime G.slices
     G.timeIntervals G.gaugeCover).2 G.leafwise
   have hscalar := (H.scalar_smooth.comp (G.gaugeCover.cylinder b).smooth).comp_contMDiffOn
     (ht.prodMk hs)
-  exact (contDiffOn_fst.sqrt (fun z hz => (hpos z.1 hz.1).ne')).mul hscalar.contDiffOn
+  exact (contDiffOn_fst.sqrt (by intro z hz; exact (hpos z.1 hz.1).ne')).mul hscalar.contDiffOn
 
 /-- The actual differentiable gauge-curve density is the half-quadratic
 metric term plus the scalar potential, Definition 6.2, p. 106. -/

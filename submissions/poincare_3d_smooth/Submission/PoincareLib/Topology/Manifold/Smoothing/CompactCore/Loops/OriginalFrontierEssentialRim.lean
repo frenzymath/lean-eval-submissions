@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.General.OriginalComponentEssentialPolygon
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Loops.PolygonSquareRim
 import Submission.PoincareLib.Topology.Manifold.Smoothing.CompactCore.Topology.ComponentLoopReflection
@@ -84,7 +85,7 @@ theorem exists_original_frontier_essential_rim
       (Path.Homotopic.Quotient.mk (Dehn.squareRimLoop.map gamma.continuous)) ≠ 1 := by
     intro htrivial
     have hnull : (Dehn.squareRimLoop.map gamma.continuous).Homotopic (Path.refl _) :=
-      Path.Homotopic.Quotient.exact htrivial
+      (FundamentalGroup.fromPath_eq_one_iff _).mp htrivial
     have hnullF : ((Dehn.squareRimLoop.map rimS.continuous).map
         (continuous_inclusion hSF)).Homotopic
         ((Path.refl (rimS Dehn.squareRimBase)).map (continuous_inclusion hSF)) := hnull

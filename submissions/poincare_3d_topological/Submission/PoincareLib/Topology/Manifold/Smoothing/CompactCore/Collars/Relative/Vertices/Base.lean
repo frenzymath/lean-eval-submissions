@@ -138,7 +138,8 @@ theorem vertex_base_certificates (p : (T.marked 2).vertices) :
         fun hx => ⟨(G x).property, ((hinter hpfront x).1).mp ((hBD x).mp hx)⟩⟩
     have houter : g '' (frontier C ∩ {x : C3 | x.2 = 0}) =
         B ∩ (N.link p).space := by
-      apply himage _ _ (fun _ hx => hC.isClosed.frontier_subset hx.1)
+      apply himage _ _ (fun x (hx : x ∈ frontier C ∩ {x : C3 | x.2 = 0}) ↦
+        hC.isClosed.frontier_subset hx.1)
         (inter_subset_left.trans hBN)
       intro x
       constructor

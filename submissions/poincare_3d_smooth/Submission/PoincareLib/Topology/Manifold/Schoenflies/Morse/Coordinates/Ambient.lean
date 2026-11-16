@@ -61,7 +61,7 @@ private theorem exists_partialDiffeomorph_of_contDiffOn
     toPartialEquiv := H.toPartialEquiv
     open_source := H.open_source
     open_target := H.open_target
-    contMDiffOn_toFun := (hg.mono (fun _ hz => (hHsource hz).1)).contMDiffOn
+    contMDiffOn_toFun := (hg.mono (by intro _ hz; exact (hHsource hz).1)).contMDiffOn
     contMDiffOn_invFun := hHi }
   exact ⟨d, hHa, fun _ hz => (hHsource hz).1, rfl⟩
 
@@ -147,7 +147,7 @@ theorem exists_ambient_height_coordinates
   have hG : ContDiffOn Real ∞ G (e.source ×ˢ univ) := by
     have hg : ContDiffOn Real ∞ (f ∘ e) e.source :=
       (hf.contMDiff.comp_contMDiffOn he).contDiffOn
-    exact (hg.comp contDiffOn_fst (fun _ hz => hz.1)).add
+    exact (hg.comp contDiffOn_fst (by intro _ hz; exact hz.1)).add
       (contDiffOn_snd.smul contDiffOn_const)
   obtain ⟨d, hd0, hds, hdG⟩ := exists_partialDiffeomorph_of_contDiffOn
     (e.open_source.prod isOpen_univ) hG (show (0 : P) ∈ e.source ×ˢ univ from ⟨he0, trivial⟩)

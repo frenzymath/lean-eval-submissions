@@ -28,7 +28,7 @@ theorem continuousOn_full_diskStrip_slice
     (f := fun p : P2 => (CubeCoordinates.fromRectangle (p.1, t), p.2))
   · exact (((CubeCoordinates.fromRectangle_finitePL.continuousOn).comp
       (continuous_fst.prodMk continuous_const).continuousOn
-      (fun p hp => ⟨hp.1, ht⟩)).prodMk continuous_snd.continuousOn)
+      (by intro p hp; exact ⟨hp.1, ht⟩)).prodMk continuous_snd.continuousOn)
   · intro p hp
     refine ⟨(CubeCoordinates.toRectangle_mem_iff _).mp ?_, hp.2⟩
     rw [CubeCoordinates.toRectangle_fromRectangle]

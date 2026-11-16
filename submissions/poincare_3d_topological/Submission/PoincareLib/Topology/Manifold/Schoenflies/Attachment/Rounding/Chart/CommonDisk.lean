@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Schoenflies.Attachment.MarkedBal
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Attachment.BallBoundaryChart
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.BoundedSide
 
+noncomputable section
+
 /-!
 # Local agreement along a common boundary disk
 

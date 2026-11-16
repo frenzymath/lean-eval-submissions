@@ -73,7 +73,9 @@ theorem exists_original_marked_product_of_retained_component
       ((⟨Subtype.val, continuous_subtype_val⟩ : C(R, X0)).comp
         (ContinuousMap.inclusion (hS₀.trans hI.1.closed.frontier_subset))) x₀) at h
     rw [FundamentalGroup.map_comp] at h
-    exact Function.Injective.of_comp h
+    exact Function.Injective.of_comp
+      (f := FundamentalGroup.map (⟨Subtype.val, continuous_subtype_val⟩ : C(R, X0))
+        ((ContinuousMap.inclusion (hS₀.trans hI.1.closed.frontier_subset)) x₀)) h
   have hinjR₁ : Function.Injective (FundamentalGroup.map
       (ContinuousMap.inclusion (hS₁.trans hI.1.closed.frontier_subset)) x₁) := by
     have h := hinj₁
@@ -81,7 +83,9 @@ theorem exists_original_marked_product_of_retained_component
       ((⟨Subtype.val, continuous_subtype_val⟩ : C(R, X0)).comp
         (ContinuousMap.inclusion (hS₁.trans hI.1.closed.frontier_subset))) x₁) at h
     rw [FundamentalGroup.map_comp] at h
-    exact Function.Injective.of_comp h
+    exact Function.Injective.of_comp
+      (f := FundamentalGroup.map (⟨Subtype.val, continuous_subtype_val⟩ : C(R, X0))
+        ((ContinuousMap.inclusion (hS₁.trans hI.1.closed.frontier_subset)) x₁)) h
   obtain ⟨O⟩ := hamiltonZeroAmbient_localOrientation
   obtain ⟨H, hzero, hone, hfront, s, G, HG, hG, hGPL, hGinj,
       hHG, hHGi, hHGvalue, hlocal⟩ :=

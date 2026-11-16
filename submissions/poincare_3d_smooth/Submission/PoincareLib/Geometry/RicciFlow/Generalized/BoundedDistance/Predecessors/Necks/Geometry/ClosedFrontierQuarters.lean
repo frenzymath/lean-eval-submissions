@@ -201,7 +201,8 @@ theorem exists_positive_frontier_closed_negative_quarter_control :
     · exact False.elim (hx (N.central_sphere_subset hxS))
     · exact Or.inr (hplus x ⟨hxB, hx⟩)
   have hyK : R.center ∈ connectedComponent N.center :=
-    closure_minimal (fun _ hx => N.m25_carrier_subset_connectedComponent hx.1)
+    closure_minimal (s := N.region 0 N.epsilon⁻¹)
+      (fun _ hx => N.m25_carrier_subset_connectedComponent hx.1)
       isClosed_connectedComponent hy
   have hyH : H R.center = L := by
     have hypos : 0 ≤ H R.center := by
@@ -294,7 +295,8 @@ theorem exists_positive_frontier_closed_negative_quarter_control :
   intro x hx
   by_contra hxout
   have hxK : x ∈ connectedComponent N.center :=
-    closure_minimal (fun _ hz => hRK hz.1) isClosed_connectedComponent hx
+    closure_minimal (s := R.region (-N.epsilon⁻¹) (-N.epsilon⁻¹ / 2))
+      (fun _ hz => hRK hz.1) isClosed_connectedComponent hx
   have hxH : H x = -L := by
     rcases hout hxK hxout with h | h
     · exact h

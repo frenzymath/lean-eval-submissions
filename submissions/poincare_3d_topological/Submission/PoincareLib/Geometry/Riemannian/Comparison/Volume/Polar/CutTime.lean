@@ -37,6 +37,7 @@ theorem measurableSet_terminalRadialPoints {S : Set E} {R : ℝ}
   refine hS.inter ((measurableSet_singleton (0 : E)).compl.inter ?_)
   apply MeasurableSet.iInter
   intro q
+  change MeasurableSet ({v : E | 1 < (q : ℝ) ∧ (q : ℝ) * ‖v‖ < R ∧ (q : ℝ) • v ∈ S}ᶜ)
   apply MeasurableSet.compl
   have hq : MeasurableSet {v : E | (1 : ℝ) < (q : ℝ)} :=
     measurableSet_lt measurable_const measurable_const

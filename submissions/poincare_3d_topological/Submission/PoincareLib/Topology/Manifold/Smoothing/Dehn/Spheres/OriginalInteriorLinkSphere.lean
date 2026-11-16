@@ -50,11 +50,11 @@ theorem exists_faceLink_sphere_homeomorph_of_original_interior_chart
     · have hnonneg : 0 ≤ ell (a p) := hhalf (mem_image_of_mem a hpS)
       have hne : ell (a p) ≠ 0 := fun h => hpfront ((hfront p hpS).mpr h)
       have hpos : 0 < ell (a p) := lt_of_le_of_ne hnonneg (Ne.symm hne)
-      exact interior_maximal
-        (fun z hz => hpatch ⟨hz.1, (show 0 < ell z from hz.2).le⟩)
+      exact interior_maximal (t := V ∩ {z | 0 < ell z})
+        (by intro z hz; exact hpatch ⟨hz.1, (show 0 < ell z from hz.2).le⟩)
         (hV.inter (isOpen_lt continuous_const ell.continuous)) ⟨hpV, hpos⟩
   let J := hface.embeddedImage hinj
-  have hS : S.faces.Finite := hK.subset (fun _ ht => ht.1)
+  have hS : S.faces.Finite := hK.subset (by intro _ ht; exact ht.1)
   have hJ : J.faces.Finite := hface.embeddedImage_finite hinj hS
   have hpJ : a p ∈ J.vertices := by
     apply J.mem_vertices.mpr

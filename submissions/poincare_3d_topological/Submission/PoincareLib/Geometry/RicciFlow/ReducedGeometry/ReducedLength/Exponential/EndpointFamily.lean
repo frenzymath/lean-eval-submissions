@@ -82,7 +82,7 @@ theorem exists_smooth_endpoint_family (γ : ℝ → M) (D : Set ℝ)
   have hW : IsOpen W := hk.continuousOn.isOpen_inter_preimage hW0 e.open_target
   have hL : IsOpen L := isOpen_univ.prod (hD.inter isOpen_Iio)
   have hfL : ContMDiffOn (𝓘(ℝ, E × ℝ)) (𝓡 n) ∞ f L := by
-    apply (hγ.comp contDiff_snd.contMDiff.contMDiffOn (fun z hz ↦ hz.2.1)).congr
+    apply (hγ.comp contDiff_snd.contMDiff.contMDiffOn (by intro z hz; exact hz.2.1)).congr
     intro z hz
     have hzlt : z.2 < a := hz.2.2
     simp only [f, if_neg (not_lt.mpr hzlt.le), Function.comp_apply]

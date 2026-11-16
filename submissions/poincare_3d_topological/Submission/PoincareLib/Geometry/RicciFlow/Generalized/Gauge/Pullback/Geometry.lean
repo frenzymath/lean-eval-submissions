@@ -34,7 +34,7 @@ theorem pullbackMetric_smooth (e : MovingSpacetimeGauge F T C) :
     RiemannianMetric.IsSmoothFamilyOn e.pullbackMetric K.domain := by
   have hp : ContMDiffOn (𝓘(ℝ).prod (𝓡 n)) (spacetimeModel n) ∞
       (fun p : ℝ × C => (T.realParam p.1, p.2)) (K.domain ×ˢ univ) :=
-    (T.realParam_smoothOn.comp contMDiffOn_fst (fun _ hp => hp.1)).prodMk
+    (T.realParam_smoothOn.comp contMDiffOn_fst (by intro _ hp; exact hp.1)).prodMk
       contMDiffOn_snd
   exact e.spatialMetricForm_joint_smooth.comp_contMDiffOn hp
 

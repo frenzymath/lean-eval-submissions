@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Handles.HamiltonIndexTwoStandardFrame
 
+noncomputable section
+
 /-!
 # The complete standard middle ball in index two
 

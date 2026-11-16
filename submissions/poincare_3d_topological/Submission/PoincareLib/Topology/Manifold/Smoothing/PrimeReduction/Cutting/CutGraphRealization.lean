@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Barycentric
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Affine.ConvexSubtypePaths
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Polyhedra.FinitePolyhedralUnions
 
+noncomputable section
+
 /-!
 # A finite geometric realization of the labeled cut graph
 

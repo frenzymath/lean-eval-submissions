@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Coverings.LinearTorus.IntegerMatrix
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Coverings.LinearTorus.Lifts.Affine
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Arcs.Mathlib.PeriodCircleLoop
@@ -69,8 +70,9 @@ theorem integer_kernel_eq_zero_of_fundamentalGroup_map_injective (hp : 0 < p)
     simp only [smul_smul, ← add_smul, h0, h1, zero_smul,
       smul_zero, add_zero]
   have hγ : γ.Homotopic (Path.refl 0) := by
-    apply Path.Homotopic.Quotient.exact
+    apply (FundamentalGroup.fromPath_eq_one_iff γ).mp
     apply hinj
+    apply CategoryTheory.End.ext
     change Path.Homotopic.Quotient.mk (γ.map (integerMatrixMap p A).continuous) =
       Path.Homotopic.Quotient.mk ((Path.refl 0).map (integerMatrixMap p A).continuous)
     rw [hkill]
@@ -110,8 +112,10 @@ theorem det_ne_zero_of_affine_fundamentalGroup_map_injective (hp : 0 < p)
   apply hinj
   let tr : C(AddCircle p × AddCircle p, AddCircle p × AddCircle p) :=
     ⟨fun x => c + x, continuous_const.add continuous_id⟩
-  change Path.Homotopic.Quotient.map u (tr.comp (integerMatrixMap p A)) =
-    Path.Homotopic.Quotient.map v (tr.comp (integerMatrixMap p A))
+  apply CategoryTheory.End.ext
+  have huv := congrArg FundamentalGroup.toPath huv
+  change Path.Homotopic.Quotient.map u.toPath (tr.comp (integerMatrixMap p A)) =
+    Path.Homotopic.Quotient.map v.toPath (tr.comp (integerMatrixMap p A))
   rw [Path.Homotopic.Quotient.map_comp, Path.Homotopic.Quotient.map_comp]
   exact congrArg (fun q => Path.Homotopic.Quotient.map q tr) huv
 

@@ -58,7 +58,7 @@ private theorem paired_centroid_positive
     A (hside hsu huc) huzero
   obtain ⟨x, hxs⟩ := Set.Nonempty.intrinsicInterior (convex_convexHull ℝ (s : Set E))
     (Finset.coe_nonempty.mpr (K.nonempty_of_mem_faces hs)).convexHull
-  have hxzero : A x = 0 := convexHull_min hzero
+  have hxzero : A x = 0 := convexHull_min (by intro x hx; exact hzero x hx)
     ((convex_singleton (0 : ℝ)).affine_preimage A) (intrinsicInterior_subset hxs)
   have hxint := K.mem_interior_union_of_paired_facet hsc ht hu htc huc hst hsu htu hxs
   have hsub : convexHull ℝ (t : Set E) ∪ convexHull ℝ (u : Set E) ⊆ {y | A y ≤ 0} :=

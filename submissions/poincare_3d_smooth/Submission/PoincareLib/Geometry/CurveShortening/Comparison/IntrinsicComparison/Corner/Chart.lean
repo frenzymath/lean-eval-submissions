@@ -53,8 +53,8 @@ theorem m64Intrinsic_exists_two_arc_corner_chart
   have hproj (i : Fin 2) : ContDiff ℝ ∞ (fun z : AnnulusCoordinates => z i) := by
     fun_prop
   have he : ContDiffOn ℝ ∞ e U :=
-    ((hα.comp (hproj 0).contDiffOn (fun _ hz => hz.1)).add
-      (hβ.comp (hproj 1).contDiffOn (fun _ hz => hz.2))).sub contDiffOn_const
+    ((hα.comp (s := U) (hproj 0).contDiffOn (by intro z hz; exact hz.1)).add
+      (hβ.comp (s := U) (hproj 1).contDiffOn (by intro z hz; exact hz.2))).sub contDiffOn_const
   let D : AnnulusCoordinates →L[ℝ] AnnulusCoordinates :=
     (PiLp.proj 2 (fun _ : Fin 2 => ℝ) 0).smulRight (deriv α 0) +
       (PiLp.proj 2 (fun _ : Fin 2 => ℝ) 1).smulRight (deriv β 0)

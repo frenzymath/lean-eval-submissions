@@ -30,13 +30,13 @@ private theorem split_single (i : Fin (n + 1)) :
   · simp only [splitDirection, Fin.cases_zero, canonicalDirection_last]
     apply Prod.ext
     · ext j
-      simp [EuclideanSpace.single_apply]
-    · simp [EuclideanSpace.single_apply]
+      simp [EuclideanSpace.single, PiLp.single_apply]
+    · simp [EuclideanSpace.single, PiLp.single_apply]
   · simp only [splitDirection, Fin.cases_succ, canonicalDirection_castSucc, spatialDirection]
     apply Prod.ext
     · ext j
-      simp [EuclideanSpace.single_apply]
-    · simp [EuclideanSpace.single_apply]
+      simp [EuclideanSpace.single, PiLp.single_apply]
+    · simp [EuclideanSpace.single, PiLp.single_apply]
 
 private theorem weakPartial_comp_split
     {U : Set (Spacetime n)} (hU : IsOpen U) {u g : Spacetime n → ℝ}

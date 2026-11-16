@@ -55,9 +55,11 @@ theorem cost_zero_eq_action (hM12 : GeneralizedRicciGaugeTheory.{u} n)
       integral_squareCurveDensity_eq_action_of_curve hM12 m α (hC.symm ▸ hα) hclock hcurve
   have hd := (squareCurveDensity_contDiffOn hM12 (uniqueDiffOn_Icc hb) hα).continuousOn
   have hpre : IntervalIntegrable (squareCurveDensity G α (Icc 0 b)) MeasureTheory.volume 0 c :=
-    (hd.mono (fun _ hs => ⟨hs.1, hs.2.trans hc.2.le⟩)).intervalIntegrable_of_Icc hc.1.le
+    (hd.mono (t := Icc (0 : ℝ) c) (fun _ hs => ⟨hs.1, hs.2.trans
+      hc.2.le⟩)).intervalIntegrable_of_Icc hc.1.le
   have htail : IntervalIntegrable (squareCurveDensity G α (Icc 0 b)) MeasureTheory.volume c b :=
-    (hd.mono (fun _ hs => ⟨hc.1.le.trans hs.1, hs.2⟩)).intervalIntegrable_of_Icc hc.2.le
+    (hd.mono (t := Icc c b) (fun _ hs => ⟨hc.1.le.trans hs.1, hs.2⟩)).intervalIntegrable_of_Icc
+      hc.2.le
   simpa only [cost, prefixAction, tailAction, squareFamilyAction, add_zero, α] using
     (intervalIntegral.integral_add_adjacent_intervals hpre htail).trans htotal
 

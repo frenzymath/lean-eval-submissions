@@ -45,7 +45,7 @@ theorem reducedLength_locallyLipschitzOn_smooth_coordinates
     (heAt.continuousAt.preimage_mem_nhds (c.open_source.mem_nhds (mem_chart_source _ _)))
   refine ⟨C * L, T, mem_nhdsWithin_of_mem_nhds hT, ?_⟩
   intro y hy z hz
-  have h := (hCL.comp (hWL.mono (fun _ hw ↦ hw.1.1)) (fun _ hw ↦ hw.1.2)) hy hz
+  have h := (hCL.comp (hWL.mono (by intro _ hw; exact hw.1.1)) (by intro _ hw; exact hw.1.2)) hy hz
   change edist (reducedLength K.flow 0 p (c.symm (c (e y))) τ)
     (reducedLength K.flow 0 p (c.symm (c (e z))) τ) ≤ _ at h
   simpa only [Function.comp_apply, c.left_inv hy.2, c.left_inv hz.2] using h

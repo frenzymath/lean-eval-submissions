@@ -75,6 +75,9 @@ omit [IsManifold (𝓡 n) ∞ M] in
 finite-jet domain; Claim 19.28, printed p. 460. -/
 theorem m65ProjectedChartOperatorDomain_isOpen :
     IsOpen (m65ProjectedChartOperatorDomain (n := n) (a := a) (b := b) p) := by
+  change IsOpen ({z : M65ProjectedChartJetSpace n | z.1.1 ∈ Ioo a b} ∩
+    ({z | z.1.2.1 ∈ (chartAt (EuclideanSpace ℝ (Fin n)) p).target} ∩
+      {z | 0 < z.1.2.2.1}))
   apply IsOpen.inter
   · exact isOpen_Ioo.preimage (continuous_fst.comp continuous_fst)
   · apply IsOpen.inter

@@ -4,6 +4,8 @@ import Mathlib.Topology.MetricSpace.Equicontinuity
 /-! Transfer of the genuine local coordinate modulus to observed first jets. -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 
 open Set Filter Topology

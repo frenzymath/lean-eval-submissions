@@ -3,6 +3,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Protected.Regions
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Protected.Regions.SphereLocalFlatness
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Schoenflies.Regions.LocallyFlatBoundedRegion
 
+noncomputable section
+
 /-!
 # The protected disk sphere in the original source coordinates
 

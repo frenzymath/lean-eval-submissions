@@ -3,6 +3,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Disks.Compres
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Disks.OriginalSlabProperDisks
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.ComplementarySlabDomains
 
+noncomputable section
+
 /-!
 # Nonspherical original phases inject into both closed sides
 

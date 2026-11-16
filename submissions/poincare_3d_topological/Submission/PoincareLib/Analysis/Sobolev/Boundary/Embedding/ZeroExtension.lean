@@ -46,8 +46,8 @@ theorem memW1p_zeroExtension {p : ℝ≥0∞} (hp : 1 ≤ p) {u : E → ℝ}
     (zeroExtendMemW1pWitnessP isOpen_halfSpace (by norm_num : (1 : ℝ) < 2) hu0' w).isWeakGrad i
   refine ⟨?_, fun i => ⟨(halfSpace d).indicator (g i), ?_, hweak i⟩⟩
   · simpa only [Measure.restrict_univ] using
-      (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu.1
+      (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr hu.1
   · simpa only [Measure.restrict_univ] using
-      (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr (hgp i)
+      (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet.nullMeasurableSet).mpr (hgp i)
 
 end Poincare.Analysis.Sobolev.BoundaryEmbedding

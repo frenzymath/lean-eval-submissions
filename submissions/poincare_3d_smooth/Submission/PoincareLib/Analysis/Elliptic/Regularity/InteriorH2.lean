@@ -84,7 +84,7 @@ theorem exists_memWkp_two_of_weakEquation
     exists_localized_weakEquation hO A u f p hA hpos hu hp hf hpartial heq hx
   let f₀ := V.indicator f
   have hf₀ : MemLp f₀ 2 volume :=
-    (memLp_indicator_iff_restrict hV.measurableSet).mpr hfV
+    (memLp_indicator_iff_restrict hV.measurableSet.nullMeasurableSet).mpr hfV
   have hF' (j : Fin d) : MemLp (fun y => ∑ i, B.a y i j * p₀ i y) 2 volume := by
     simpa only [B.symm] using hF j
   have heq' : ∀ φ : E → ℝ, ContDiff ℝ ∞ φ → HasCompactSupport φ → tsupport φ ⊆ V →

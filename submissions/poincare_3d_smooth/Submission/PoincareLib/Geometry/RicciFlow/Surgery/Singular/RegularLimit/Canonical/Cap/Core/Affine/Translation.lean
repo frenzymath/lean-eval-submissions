@@ -102,7 +102,7 @@ theorem smoothOn_pullback {ε δ : ℝ} (s : ℝ) {B : RoundCylinderTwoTensor}
   intro q a b
   change ContDiffOn ℝ ∞ (fun p => roundCylinderTensorCoefficient B
     (chartAt (EuclideanSpace ℝ (Fin 2)) q) (coordinates s p) a b) _
-  apply (hB q a b).comp ?_ (fun p hp => ⟨hp.1, hsub hp.2⟩)
+  apply (hB q a b).comp ?_ (by intro p hp; exact ⟨hp.1, hsub hp.2⟩)
   exact (contDiff_fst.prodMk (contDiff_snd.add contDiff_const)).contDiffOn
 
 /-- Translating a shorter interval consumes no metric-jet error. -/

@@ -82,6 +82,7 @@ theorem contDiffAt_radialOrbit_joint_zero (d : UnitSliceRadialChartData hcompari
     fun z s => d.radialOrbit z.2 (z.1 * s)
   have hnear : ∀ᶠ z : ℝ × UnitSliceAmbient n in 𝓝 (0, x),
       |z.1| < ε / 3 ∧ z.2 ∈ U := by
+    change ({z : ℝ × UnitSliceAmbient n | |z.1| < ε / 3} ∩ {z | z.2 ∈ U}) ∈ 𝓝 (0, x)
     apply inter_mem
     · have hh : {t : ℝ | |t| < ε / 3} ∈ 𝓝 (0 : ℝ) := by
         simpa only [Metric.ball, Real.dist_eq, sub_zero] using

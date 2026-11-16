@@ -119,6 +119,6 @@ theorem HamiltonMarkedProtectedBall.isConnected_closed_complement_frontier
   have hc' := hc.union' (hp'.mono (by intro x hx; exact ⟨Or.inl hx.1,hx.2⟩))
     (hside 1).isPreconnected
   rw [hfront,← hcontact,hold,hsides,← union_assoc]
-  exact ⟨hm.mono (fun _ hx => Or.inl (Or.inl hx.1)),hc'⟩
+  exact ⟨hm.mono (by intro x hx; exact Or.inl (Or.inl hx.1)),hc'⟩
 
 end PoincareMT.M76

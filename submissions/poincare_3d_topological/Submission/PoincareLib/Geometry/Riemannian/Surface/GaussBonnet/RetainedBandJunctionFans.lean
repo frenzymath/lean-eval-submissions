@@ -36,9 +36,9 @@ theorem core_germ_at_band_junction_of_band_germ
   have hc := T.core_complement_germ_at_band_junction p i j hij
   have hi := support_eventuallyEq_interior hband
   filter_upwards [hc, hi] with z hcz hiz
-  change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior A z
-  change (T.refined.mesh p.1.1).toPlaneComplex.support z = ¬interior _ z at hcz
-  change interior _ z = interior _ z at hiz
+  change (z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support) = ¬(z ∈ interior A)
+  change (z ∈ (T.refined.mesh p.1.1).toPlaneComplex.support) = ¬(z ∈ interior _) at hcz
+  change (z ∈ interior _) = (z ∈ interior _) at hiz
   rwa [hiz] at hcz
 
 omit [T2Space S] in

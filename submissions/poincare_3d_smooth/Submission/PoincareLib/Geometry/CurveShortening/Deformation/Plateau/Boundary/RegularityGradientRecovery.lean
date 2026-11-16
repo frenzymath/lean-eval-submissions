@@ -116,7 +116,7 @@ private theorem recovery_square_limit {R : ℝ} (hR : 0 < R)
           ⟨fun _ _ => rfl, fun _ _ => rfl⟩) 0))).isPreconnected
     have hq : ContinuousOn q A := by
       apply continuousOn_const.mul
-      apply Complex.continuousOn_sqrt.comp ((hd.mono (fun z hz => hUS hz.2)).div_const _)
+      apply Complex.continuousOn_sqrt.comp ((hd.mono (by intro z hz; exact hUS hz.2)).div_const _)
       intro z hz
       exact Or.inl (hcap ⟨hz.1, hUS hz.2⟩)
     have hq2 (z : LoopPlane) : q z ^ 2 = d z := by

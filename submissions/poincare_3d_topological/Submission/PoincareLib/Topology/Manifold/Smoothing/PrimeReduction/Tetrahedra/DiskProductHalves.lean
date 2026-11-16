@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.PrimeReduction.Complement.OriginalCubeDiskCutBalls
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Disks.PLBallActualDiskAttachment
 
+noncomputable section
+
 /-!
 # The two closed halves of an actual disk product
 

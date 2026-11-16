@@ -105,7 +105,8 @@ theorem edist_le_of_mem_closure_positive_quarter_pair_of_epsilon_le
       g.edist z y ≤ ENNReal.ofReal ((0.55 : ℝ) * N.scale * N.epsilon⁻¹) :=
     closure_minimal (fun w hw => N.edist_le_of_mem_positive_quarter_of_epsilon_le hε hz hw)
       (isClosed_le (continuous_const.edist continuous_id) continuous_const) hy
-  exact closure_minimal hinterior
+  exact closure_minimal (s := N.region (N.epsilon⁻¹ / 2) N.epsilon⁻¹)
+    (t := {z | g.edist z y ≤ ENNReal.ofReal ((0.55 : ℝ) * N.scale * N.epsilon⁻¹)}) hinterior
     (isClosed_le (continuous_id.edist continuous_const) continuous_const) hx
 
 theorem balanced_edist_lower_of_not_mem_carrier_of_epsilon_le (N : EpsilonNeck g)

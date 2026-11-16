@@ -31,7 +31,7 @@ theorem IsPreconnected.disjoint_of_frontier_neighborhood
     have hxA : x ∈ A := hAc.closure_subset (closure_mono inter_subset_left hx)
     have hxcl : x ∈ closure V := closure_mono inter_subset_right hx
     have hxUc : x ∈ Uᶜ :=
-      closure_minimal (Set.disjoint_left.mp havoid) hU.isClosed_compl hx
+      closure_minimal (by intro y hy; exact Set.disjoint_left.mp havoid hy) hU.isClosed_compl hx
     refine ⟨hxA, ?_⟩
     by_contra hxV
     exact hxUc (hfront ⟨hxcl, by simpa only [hV.interior_eq] using hxV⟩)

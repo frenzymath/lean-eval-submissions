@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Triangulation.Disks.HamiltonIndexOneShellDiskCover
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Polygons.PolygonRegionRecognition
 
+noncomputable section
+
 /-!
 # The complete frontier of the actual index-one complement
 

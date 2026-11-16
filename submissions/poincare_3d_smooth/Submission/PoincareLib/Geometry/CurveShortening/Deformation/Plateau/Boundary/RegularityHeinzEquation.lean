@@ -100,7 +100,7 @@ private theorem straight_metric_compact_bounds
   let S := K ×ˢ sphere (0 : LoopAmbient) 1
   have hS : IsCompact S := hK.prod (isCompact_sphere _ _)
   have hfun : ContinuousOn (fun z : LoopAmbient × LoopAmbient => G z.1 z.2 z.2) S :=
-    (((hG.comp continuousOn_fst (fun _ hz => hz.1)).clm_apply continuousOn_snd).clm_apply
+    (((hG.comp (s := S) continuousOn_fst (fun _ hz => hz.1)).clm_apply continuousOn_snd).clm_apply
       continuousOn_snd)
   have hpositive (z : LoopAmbient × LoopAmbient) (hz : z ∈ S) : 0 < G z.1 z.2 z.2 := by
     apply hpos z.1 hz.1 z.2

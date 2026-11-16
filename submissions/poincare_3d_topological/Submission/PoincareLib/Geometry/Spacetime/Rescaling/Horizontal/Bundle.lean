@@ -1,3 +1,4 @@
+import Mathlib.Topology.Algebra.Module.Equiv.Submodule
 import Submission.PoincareLib.Geometry.Spacetime.Basic
 
 /-! Adapted from Mapher06/Poincare-MorganTian, `PoincareMT/Proofs/M13/HorizontalBundle.lean`,

@@ -158,7 +158,7 @@ theorem marked_surface_incidence_of_planar_halfspace_stars
         apply htwo
         rw [hJs]
         exact interior_maximal
-          (fun z hz => hpatch ⟨hz.1, (show 0 < ell z from hz.2).le⟩)
+          (by intro z hz; exact hpatch ⟨hz.1, (show 0 < ell z from hz.2).le⟩)
           (hV.inter (isOpen_lt continuous_const ell.continuous)) ⟨hpV, hpos⟩
   · intro p hp
     obtain ⟨a, V, hf, hinj, hV, hpV, hcase⟩ := hstars p hp
@@ -206,7 +206,7 @@ theorem marked_surface_incidence_of_planar_halfspace_stars
           apply hconn
           rw [hJs]
           exact interior_maximal
-            (fun z hz => hpatch ⟨hz.1, (show 0 < ell z from hz.2).le⟩)
+            (by intro z hz; exact hpatch ⟨hz.1, (show 0 < ell z from hz.2).le⟩)
             (hV.inter (isOpen_lt continuous_const ell.continuous)) ⟨hpV, hpos⟩
     have hc := hf.isConnected_faceLink_of_embeddedImage hinj hS hsS hjconn
     rwa [hSl] at hc

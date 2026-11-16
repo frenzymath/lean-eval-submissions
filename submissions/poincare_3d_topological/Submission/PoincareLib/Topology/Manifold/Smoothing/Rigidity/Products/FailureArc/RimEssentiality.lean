@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.Products.FailureArc.MarkedAnnulusConstruction
 import Submission.PoincareLib.Topology.Covering.Universal.PathHomotopy
 import Mathlib.GroupTheory.OrderOfElement
@@ -12,6 +13,7 @@ See Waldhausen, Lemma 5.1, p. 72.
 -/
 
 set_option autoImplicit false
+open scoped FundamentalGroup
 
 open Set Metric
 
@@ -47,7 +49,7 @@ theorem not_nullhomotopic_of_injective_boundary_power
   have heq : (FundamentalGroup.map i x)
       ((FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk alpha)) ^ n) = 1 := by
     rw [boundaryLoopIterate_class]
-    exact Path.Homotopic.Quotient.eq.mpr h
+    exact (FundamentalGroup.fromPath_eq_one_iff _).mpr h
   exact (orderOf_eq_zero_iff'.mp ha n hn) (hi (heq.trans (map_one _).symm))
 
 /-- Actual homotopy of the complete rim transports the disk obstruction

@@ -44,10 +44,10 @@ theorem hessian_mul_at (D : LeviCivitaData g) {f h : M → ℝ} {x : M}
   rw [D.hessian_eq_inner_connection_gradient hfh,
     D.hessian_eq_inner_connection_gradient hf,
     D.hessian_eq_inner_connection_gradient hh, congrArg (fun L => L u) hc,
-    D.connection.isCovariantDerivativeOn.add (hfx.smul_section hgh)
+    D.connection.isCovariantDerivativeOnUniv.add (hfx.smul_section hgh)
       (hhx.smul_section hgf),
-    D.connection.isCovariantDerivativeOn.leibniz hgh hfx,
-    D.connection.isCovariantDerivativeOn.leibniz hgf hhx]
+    D.connection.isCovariantDerivativeOnUniv.leibniz hgh hfx,
+    D.connection.isCovariantDerivativeOnUniv.leibniz hgf hhx]
   simp only [add_apply, smul_apply, ContinuousLinearMap.smulRight_apply,
     map_add, map_smul, smul_eq_mul, D.inner_gradient]
   ring

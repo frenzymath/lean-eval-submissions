@@ -62,7 +62,7 @@ theorem exists_original_common_collar_region_compression
     · rintro ⟨z, hz, heq⟩
       exact ⟨z, hz, Subtype.ext ((hvalue z (hSB hz)).trans heq)⟩
   have hopen : IsOpen (cR '' (K.space ×ˢ Ico (0 : ℝ) eps)) := by
-    rw [himage _ (fun z hz => hPB ⟨hz.1, hz.2.1, hz.2.2.le⟩)]
+    rw [himage _ (by intro z hz; exact hPB ⟨hz.1, hz.2.1, hz.2.2.le⟩)]
     exact hopenSmall
   obtain ⟨G, hGi, hGrange, hGval, hGout⟩ :=
     exists_common_collar_compression (K.isCompact_space_of_finite hK) heps cR hc hi hopen

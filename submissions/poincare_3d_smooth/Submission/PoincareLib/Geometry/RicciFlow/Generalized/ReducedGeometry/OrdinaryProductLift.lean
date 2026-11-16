@@ -51,7 +51,7 @@ theorem liftCurve_regular :
   apply (P.product.productCylinder.smooth.of_le (by simp)).comp_contMDiffOn
   exact (((P.product.timeIntervals.interval I).realParam_smoothOn.of_le (by simp)).comp
     (contMDiff_const.sub contMDiff_id).contMDiffOn
-    (fun s hs => q.time_mem s ⟨hs.1.le, hs.2.le⟩)).prodMk q.regular
+    (by intro s hs; exact q.time_mem s ⟨hs.1.le, hs.2.le⟩)).prodMk q.regular
 
 def liftVelocity (s : ℝ) : P.product.spacetime.Horizontal (P.liftCurve F q s) :=
   P.product.spacetime.horizontalProjection (P.liftCurve F q s)

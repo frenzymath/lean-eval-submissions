@@ -24,7 +24,7 @@ theorem exists_lipschitzOnWith_mul_exp_neg
   let T : Set (E × ℝ) := C ×ˢ Icc (-B) B
   let H : E × ℝ → ℝ := fun z => a z.1 * Real.exp (-z.2)
   have hH : ContDiffOn ℝ ∞ H T :=
-    (ha.comp contDiffOn_fst (fun _ hz => hz.1)).mul
+    (ha.comp contDiffOn_fst (by intro _ hz; exact hz.1)).mul
       (Real.contDiff_exp.comp contDiff_snd.neg).contDiffOn
   obtain ⟨D, hD⟩ := hH.exists_lipschitzOnWith (by simp)
     (hconv.prod (convex_Icc _ _)) (hC.prod isCompact_Icc)

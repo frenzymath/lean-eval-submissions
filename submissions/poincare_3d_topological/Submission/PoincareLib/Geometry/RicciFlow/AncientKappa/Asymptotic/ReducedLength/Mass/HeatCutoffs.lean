@@ -47,8 +47,10 @@ theorem exists_limitDensity_vanishing_heat_cutoffs
   intro η hη hηc hηs
   have hu : ContinuousOn (fun z : G.limit.carrier.carrier × ℝ =>
       z.2 ^ (-(n : ℝ) / 2) * Real.exp (-l z)) (univ ×ˢ Icc α β) :=
-    (continuousOn_snd.rpow_const (fun z hz => Or.inl (hα.trans_le hz.2.1).ne')).mul
-      ((hl.mono (prod_mono Subset.rfl (fun τ hτ => hα.trans_le hτ.1))).neg.rexp)
+    ((continuousOn_snd (s := univ ×ˢ Icc α β)).rpow_const (fun z hz => Or.inl (hα.trans_le
+      hz.2.1).ne')).mul
+      ((hl.mono (t := univ ×ˢ Icc α β)
+        (by intro z hz; exact ⟨hz.1, hα.trans_le hz.2.1⟩)).neg.rexp)
   have hBlim : Tendsto (fun j : ℕ => C / ((j : ℝ) + 1)) atTop (𝓝 0) := by
     apply tendsto_const_nhds.div_atTop
     exact tendsto_atTop_add_const_right atTop 1 tendsto_natCast_atTop_atTop

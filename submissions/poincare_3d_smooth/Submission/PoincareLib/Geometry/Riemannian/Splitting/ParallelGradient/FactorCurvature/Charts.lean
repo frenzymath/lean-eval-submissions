@@ -13,6 +13,8 @@ metrics and their retained Levi-Civita connections.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 set_option maxSynthPendingDepth 8
 

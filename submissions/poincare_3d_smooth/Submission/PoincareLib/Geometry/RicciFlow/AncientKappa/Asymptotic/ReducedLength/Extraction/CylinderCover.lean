@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Geometry.RicciFlow.Compactness.Pointed
 import Mathlib.Topology.Compactness.Lindelof
 
+noncomputable section
+
 /-!
 # Countable compact coordinate-cylinder covers
 

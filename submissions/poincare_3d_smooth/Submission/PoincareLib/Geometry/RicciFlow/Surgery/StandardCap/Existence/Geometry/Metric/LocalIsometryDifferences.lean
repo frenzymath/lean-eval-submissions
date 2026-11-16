@@ -52,9 +52,9 @@ theorem connection_difference_eq_of_local_isometries
   have hvalue : mpullback (𝓡 n) (𝓡 n) f Y x = u := by
     simp only [Y, mpullback_apply, FiberBundle.extend_apply_self,
       hinv.self_of_nhds.inverse_apply_self]
-  have hsource := D₀.connection.isCovariantDerivativeOnUniv.difference_apply
+  have hsource := D₀.connection.isCovariantDerivativeOn.difference_apply
     D₁.connection.isCovariantDerivativeOnUniv (mem_univ x) hpY
-  have htarget := E₀.connection.isCovariantDerivativeOnUniv.difference_apply
+  have htarget := E₀.connection.isCovariantDerivativeOn.difference_apply
     E₁.connection.isCovariantDerivativeOnUniv (mem_univ (f x)) hY
   have hs := congrArg (fun L => L v) hsource
   have ht := congrArg (fun L => L (mfderiv (𝓡 n) (𝓡 n) f x v)) htarget

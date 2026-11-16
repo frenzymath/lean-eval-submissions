@@ -34,8 +34,8 @@ def m64ContinuousGraphShear
   open_source := hX.prod isOpen_univ
   open_target := hX.prod isOpen_univ
   continuousOn_toFun := continuousOn_fst.prodMk
-    ((hh.comp continuousOn_fst (fun _ hq => hq.1)).add continuousOn_snd)
+    ((hh.comp continuousOn_fst (fun q (hq : q ∈ X ×ˢ univ) ↦ hq.1)).add continuousOn_snd)
   continuousOn_invFun := continuousOn_fst.prodMk
-    (continuousOn_snd.sub (hh.comp continuousOn_fst (fun _ hq => hq.1)))
+    (continuousOn_snd.sub (hh.comp continuousOn_fst (fun q (hq : q ∈ X ×ˢ univ) ↦ hq.1)))
 
 end PoincareMT

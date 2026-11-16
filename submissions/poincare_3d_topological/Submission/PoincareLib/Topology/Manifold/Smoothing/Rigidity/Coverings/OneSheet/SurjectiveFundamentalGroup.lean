@@ -21,13 +21,16 @@ theorem eq_basepoint_of_fundamentalGroup_map_surjective [PathConnectedSpace E]
     (e : E) (hsurj : Function.Surjective (FundamentalGroup.map ⟨p, hp.continuous⟩ e))
     {y : E} (hy : p y = p e) : y = e := by
   let Γ : Path.Homotopic.Quotient e y := .mk (PathConnectedSpace.somePath e y)
-  let γ : FundamentalGroup X (p e) := (Γ.map ⟨p, hp.continuous⟩).cast rfl hy.symm
-  have hΓ : hp.monodromy γ ⟨e, rfl⟩ = ⟨y, hy⟩ := by
+  let γ : FundamentalGroup X (p e) :=
+    FundamentalGroup.fromPath ((Γ.map ⟨p, hp.continuous⟩).cast rfl hy.symm)
+  have hΓ : hp.monodromy γ.toPath ⟨e, rfl⟩ = ⟨y, hy⟩ := by
     apply hp.monodromy_eq_of_map_eq Γ
-    dsimp [γ]
+    dsimp [γ, FundamentalGroup.toPath, FundamentalGroup.toArrow,
+      FundamentalGroup.fromPath, FundamentalGroup.fromArrow]
     rw [Path.Homotopic.Quotient.cast_cast, Path.Homotopic.Quotient.cast_rfl_rfl]
   obtain ⟨δ, hδ⟩ := hsurj γ
-  have hδ' : Path.Homotopic.Quotient.map δ ⟨p, hp.continuous⟩ = γ := hδ
+  have hδ' : Path.Homotopic.Quotient.map δ.toPath ⟨p, hp.continuous⟩ = γ.toPath :=
+    congrArg FundamentalGroup.toPath hδ
   rw [← hδ', hp.monodromy_map] at hΓ
   exact (congrArg Subtype.val hΓ).symm
 

@@ -34,7 +34,7 @@ theorem fundamentalGroupMulEquivOfPath_trans
   change a.conj = ap.conj.trans aq.conj
   rw [ha]
   ext gamma
-  exact CategoryTheory.Iso.trans_conj ap aq gamma
+  exact congrArg CategoryTheory.End.asHom (CategoryTheory.Iso.trans_conj ap aq gamma)
 
 theorem fundamentalGroupMulEquivOfPath_symm
     {Z : Type*} [TopologicalSpace Z] {x y : Z} (p : Path x y) :
@@ -59,9 +59,9 @@ theorem map_path_change_naturality (f : C(X, Y)) {x₀ x₁ : X} (p : Path x₀ 
   ext gamma
   change Path.Homotopic.Quotient.map
     ((Path.Homotopic.Quotient.mk p).symm.trans
-      (gamma.trans (Path.Homotopic.Quotient.mk p))) f =
+      (gamma.toPath.trans (Path.Homotopic.Quotient.mk p))) f =
     (Path.Homotopic.Quotient.mk (p.map f.continuous)).symm.trans
-      ((Path.Homotopic.Quotient.map gamma f).trans
+      ((Path.Homotopic.Quotient.map gamma.toPath f).trans
         (Path.Homotopic.Quotient.mk (p.map f.continuous)))
   rw [Path.Homotopic.Quotient.map_trans, Path.Homotopic.Quotient.map_trans,
     Path.Homotopic.Quotient.map_symm, Path.Homotopic.Quotient.mk_map]

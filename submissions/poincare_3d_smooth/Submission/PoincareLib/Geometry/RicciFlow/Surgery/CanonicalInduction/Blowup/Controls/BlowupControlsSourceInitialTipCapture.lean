@@ -62,6 +62,9 @@ theorem source_neck_slice_cap_length_capture
       _ ≤ a - R := by dsimp only [a]; nlinarith only [hsize]
   have hcapture := source_neck_slice_path_capture N e hsmall s hs hs0 hclose
     ha hRa hbudget gamma hgamma hx hstart hlength
-  exact fun r hr => image_mono (fun _ hy => hy.1) (hcapture hr)
+  exact fun r hr => by
+    apply image_mono ?_ (hcapture hr)
+    intro y hy
+    exact hy.1
 
 end PoincareMT.M47

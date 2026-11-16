@@ -50,10 +50,10 @@ noncomputable def twoOpenSignCore (A B : Set X) (hA : IsOpen A) (hB : IsOpen B)
         intro i j
         cases i <;> cases j
         · exact continuous_snd.continuousOn
-        · exact (hc.comp continuous_fst.continuousOn (fun _ h => h.1)).mul
+        · exact (hc.comp continuous_fst.continuousOn (by intro _ h; exact h.1)).mul
             continuous_snd.continuousOn
-        · exact ((hc.mono (by intro x hx; exact ⟨hx.2, hx.1⟩)).comp
-            continuous_fst.continuousOn (fun _ h => h.1)).mul continuous_snd.continuousOn
+        · exact ((hc.mono (t := B ∩ A) (by intro x hx; exact ⟨hx.2, hx.1⟩)).comp
+            continuous_fst.continuousOn (by intro _ h; exact h.1)).mul continuous_snd.continuousOn
         · exact continuous_snd.continuousOn
       coordChange_comp := by
         intro i j k x _ v

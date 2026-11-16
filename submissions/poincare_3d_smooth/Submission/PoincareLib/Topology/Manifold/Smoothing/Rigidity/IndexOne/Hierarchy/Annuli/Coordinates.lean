@@ -1,5 +1,7 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Annuli.Parameters.Orientation.StageRimHomotopy
 
+noncomputable section
+
 /-! The literal whole square-annulus cylinder, including both marked rims. -/
 
 set_option autoImplicit false

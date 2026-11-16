@@ -83,7 +83,7 @@ theorem hamiltonZeroThirdPhase_pi1_subsingleton
     · exact J.right_inv (hJ y)
   rw [← hfactor, FundamentalGroup.map_comp] at hf
   have hg : Function.Injective (FundamentalGroup.map lift x) :=
-    Function.Injective.of_comp hf
+    Function.Injective.of_comp (by simpa only [MonoidHom.coe_comp] using hf)
   exact hg.subsingleton
 
 theorem isSimplyConnected_hamiltonZeroThirdPhase
@@ -104,6 +104,7 @@ theorem isSimplyConnected_hamiltonZeroThirdPhase
   have hs := hamiltonZeroThirdPhase_pi1_subsingleton phi F
     halpha hbeta ha hb hfirst hsecond theta hthird x (hinj x)
   exact Path.Homotopic.Quotient.eq.mp
-    (hs.elim (Path.Homotopic.Quotient.mk q) (Path.Homotopic.Quotient.mk (Path.refl x)))
+    (congrArg FundamentalGroup.toPath
+      (hs.elim (FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk q)) 1))
 
 end PoincareMT.M76

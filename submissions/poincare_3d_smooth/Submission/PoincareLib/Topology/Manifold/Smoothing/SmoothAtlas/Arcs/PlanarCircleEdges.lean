@@ -1,6 +1,8 @@
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Arcs.PlanarRadialArc
 import Submission.PoincareLib.Topology.Manifold.Smoothing.SmoothAtlas.Barycentric.CircleSubdivision
 
+noncomputable section
+
 /-!
 # Straight planar edges of a cyclic circle configuration
 

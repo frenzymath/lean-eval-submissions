@@ -69,7 +69,7 @@ theorem hasDerivAt_integral_test_mul
   have hdt : Continuous (fun x => φ x * deriv (fun s => F (s, x)) t) := by
     rw [← continuousOn_univ]
     exact hdc.comp (continuousOn_const.prodMk continuousOn_id)
-      (fun x _ => ⟨ht, mem_univ x⟩)
+      (by intro x _; exact ⟨ht, mem_univ x⟩)
   refine (hasDerivAt_integral_of_dominated_loc_of_deriv_le
     (μ := g.volumeMeasure)
     (F := fun s x => φ x * F (s, x))
@@ -127,7 +127,7 @@ theorem hasDerivAt_integral_test_mul_of_heatEquation [PreconnectedSpace M]
     HasDerivAt (fun s => ∫ x, φ x * F (s, x) ∂g.volumeMeasure)
       (∫ x, F (t, x) * D.laplacian φ x ∂g.volumeMeasure) t :=
   D.hasDerivAt_integral_test_mul_of_heatEquation_on_tsupport hF hφ hφc ht
-    (fun x _ => hheat t ht x)
+    (by intro x _; exact hheat t ht x)
 
 /-- A local heat equation on a compact cylinder gives the integrated test
 identity, regardless of the equation outside that cylinder. -/
@@ -144,7 +144,9 @@ theorem integral_test_mul_heat_sub_on_tsupport [PreconnectedSpace M]
   have hi : ContinuousOn (fun t => ∫ x, F (t, x) * D.laplacian φ x ∂g.volumeMeasure)
       (Icc a b) := by
     apply continuousOn_integral_of_compact_support hφc.isCompact
-    · exact (hF.continuousOn.mono (prod_mono (fun t ht => ha.trans_le ht.1) Subset.rfl)).mul
+    · exact (hF.continuousOn.mono (prod_mono (by
+        intro t ht
+        exact ha.trans_le ht.1) Subset.rfl)).mul
         ((D.continuous_laplacian hφ).comp continuous_snd).continuousOn
     · intro t x _ hx
       simp [D.laplacian_eq_zero_of_notMem_tsupport hx]

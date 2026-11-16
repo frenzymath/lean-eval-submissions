@@ -11,6 +11,8 @@ derivations/terminal-curvature-parallel-flow.md, Stage C6a.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 
 open Set Filter VectorField

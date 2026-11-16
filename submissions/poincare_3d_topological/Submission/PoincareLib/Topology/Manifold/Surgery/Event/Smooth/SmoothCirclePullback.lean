@@ -34,7 +34,8 @@ noncomputable def circlePullbackCarrier (Q : GeneralizedSliceCarrier.{u})
   let : BorelSpace (CirclePullback π) := ⟨rfl⟩
   let : SecondCountableTopology (Q.carrier × ℝ) := inferInstance
   let : SecondCountableTopology (CirclePullback π) :=
-    Topology.IsInducing.subtypeVal.secondCountableTopology
+    (Topology.IsInducing.subtypeVal
+      (t := {p : Q.carrier × ℝ | π p.1 = unitCircleExp p.2})).secondCountableTopology
   exact {
     carrier := CirclePullback π
     topologicalSpace := inferInstance

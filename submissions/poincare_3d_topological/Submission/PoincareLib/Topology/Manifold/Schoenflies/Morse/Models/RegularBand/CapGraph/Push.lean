@@ -32,7 +32,7 @@ theorem exists_supported_transport_between_graphs
   let T : Set (E × Real) :=
     (fun p : E × Real => (p.1, α p.1 + p.2 * b p.1)) '' (tsupport b ×ˢ Icc 0 1)
   have hT : IsCompact T := (hbc.prod isCompact_Icc).image_of_continuousOn
-    (continuousOn_fst.prodMk ((hα.comp continuousOn_fst (fun _ hp => hp.1)).add
+    (continuousOn_fst.prodMk ((hα.comp continuousOn_fst (by intro _ hp; exact hp.1)).add
       (continuousOn_snd.mul (hb.continuous.comp continuous_fst).continuousOn)))
   have hTO : T ⊆ O := by
     rintro _ ⟨⟨x, t⟩, ⟨hx, ht⟩, rfl⟩
@@ -78,10 +78,11 @@ theorem exists_supported_transport_between_graphs
   have he := ODE_solution_unique (v := fun _ => V) (fun _ => hL)
     (f := fun t => Φ 0 t (x, α x)) (g := fun t : Real => (x, α x + t * b x))
     ((hs 0).continuous.comp (continuous_id.prodMk continuous_const)).continuousOn
-    (fun t _ => (ho 0 (x, α x) t).hasDerivWithinAt)
+    (by intro t _; exact (ho 0 (x, α x) t).hasDerivWithinAt)
     (continuous_const.prodMk (continuous_const.add
       (continuous_id.mul continuous_const))).continuousOn
-    (fun t ht => by
+    (by
+      intro t ht
       rw [hVline x t ⟨ht.1, ht.2.le⟩]
       exact (hd t).hasDerivWithinAt)
     (by simp only [hi, zero_mul, add_zero])

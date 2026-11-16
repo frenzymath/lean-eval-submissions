@@ -195,11 +195,11 @@ theorem suAffineQuadraticSystem {m : ℕ}
   let mu := volume.restrict (ball center R)
   have hq : MemLp (fun x => (V 0 x, V 1 x)) 2 mu := memLp_prod_iff.mpr ⟨hV 0, hV 1⟩
   have hFI : MemLp (fun x => C.flux (x, u x) (V 0 x, V 1 x)) 2 mu :=
-    ((ContinuousLinearMap.apply ℝ (Grad m →L[ℝ] ℝ) (E := Grad m)).memLp_of_bilin
+    ((ContinuousLinearMap.apply ℝ (Grad m →L[ℝ] ℝ) (E' := Grad m)).memLp_of_bilin
       (p := 2) (q := ⊤) 2 hq (suContinuous_memLp_ball hTc.fst.fst)).add
         (suContinuous_memLp_ball hTc.fst.snd)
   have hBI : MemLp (fun x => C.source (x, u x) (V 0 x, V 1 x)) 2 mu :=
-    ((ContinuousLinearMap.apply ℝ (E m →L[ℝ] ℝ) (E := Grad m)).memLp_of_bilin
+    ((ContinuousLinearMap.apply ℝ (E m →L[ℝ] ℝ) (E' := Grad m)).memLp_of_bilin
       (p := 2) (q := ⊤) 2 hq (suContinuous_memLp_ball hTc.snd.fst)).add
         (suContinuous_memLp_ball hTc.snd.snd)
   have hfg (z : Base m) (q r : Grad m) :
@@ -301,13 +301,13 @@ theorem suAffineQuadraticSystem {m : ℕ}
         (((hp.continuous_fderiv (by simp)).clm_apply continuous_const).prodMk
           ((hp.continuous_fderiv (by simp)).clm_apply continuous_const)).continuousOn
     exact memLp_one_iff_integrable.mp
-      ((ContinuousLinearMap.apply ℝ ℝ (E := Grad m)).memLp_of_bilin
+      ((ContinuousLinearMap.apply ℝ ℝ (E' := Grad m)).memLp_of_bilin
         (f := fun x => (fderiv ℝ phi x (EuclideanSpace.single 0 1),
           fderiv ℝ phi x (EuclideanSpace.single 1 1)))
         (g := fun x => C.flux (x, u x) (V 0 x, V 1 x)) 1 hdphi hFI)
   · intro phi hp _ _
     exact memLp_one_iff_integrable.mp
-      ((ContinuousLinearMap.apply ℝ ℝ (E := E m)).memLp_of_bilin
+      ((ContinuousLinearMap.apply ℝ ℝ (E' := E m)).memLp_of_bilin
         (f := phi) (g := fun x => C.source (x, u x) (V 0 x, V 1 x)) (p := 2) 1
         (suContinuous_memLp_ball hp.continuous.continuousOn) hBI)
   · intro phi hp hpc hps

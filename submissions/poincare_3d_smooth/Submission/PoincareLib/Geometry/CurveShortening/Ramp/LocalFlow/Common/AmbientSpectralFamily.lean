@@ -87,7 +87,8 @@ theorem exists_common_ambient_spectral_family (F : RicciFlow n M (Icc a b))
       V z.1 (projIcc 0 T hT.le z.2.1)) (B ×ˢ univ) := by
     have harg : ContinuousOn (fun z : S × (ℝ × ℝ) =>
         (V z.1, projIcc 0 T hT.le z.2.1)) (B ×ˢ univ) := by
-      refine (hpath.continuousOn.comp continuousOn_fst (fun _ hz => hz.1)).prodMk ?_
+      refine (hpath.continuousOn.comp (s := B ×ˢ (univ : Set (ℝ × ℝ))) continuousOn_fst (fun _
+        hz => hz.1)).prodMk ?_
       exact (continuous_projIcc.comp (continuous_fst.comp continuous_snd)).continuousOn
     exact continuous_eval.comp_continuousOn harg
   have hjetc (j : ℕ) (hj : j ≤ 1) : ContinuousOn

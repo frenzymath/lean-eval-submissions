@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Graphs.Mathlib.GraphWalkPaths
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.General.Mathlib.WhiskeredLoopSplit
 
@@ -12,6 +13,8 @@ and Dehn derivation 024, section 3.
 -/
 
 set_option autoImplicit false
+
+open scoped FundamentalGroup
 
 namespace SimpleGraph.Walk
 
@@ -42,9 +45,9 @@ theorem exists_excluded_realized_cycle (a : V → X)
       by_cases hshort : w.length < 3
       · exfalso
         apply hw
-        change ((Path.Homotopic.Quotient.mk p).trans
+        change FundamentalGroup.fromPath (((Path.Homotopic.Quotient.mk p).trans
           (Path.Homotopic.Quotient.mk (realizePath a edge w))).trans
-          (Path.Homotopic.Quotient.mk p).symm ∈ J
+          (Path.Homotopic.Quotient.mk p).symm) ∈ J
         rw [realizePath_short_closed a edge hreverse w hshort,
           Path.Homotopic.Quotient.trans_refl, Path.Homotopic.Quotient.trans_symm]
         exact J.one_mem

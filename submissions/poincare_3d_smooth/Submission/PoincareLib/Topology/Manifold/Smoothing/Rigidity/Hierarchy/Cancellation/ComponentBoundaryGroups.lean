@@ -92,7 +92,7 @@ theorem hamiltonZeroRetainedTangentialMap_pi1_injective
     rfl
   have hg := FundamentalGroup.map_injective_of_homotopy H.toHomotopy x hf
   rw [← heq, FundamentalGroup.map_comp] at hg
-  exact Function.Injective.of_comp hg
+  exact Function.Injective.of_comp (f := FundamentalGroup.map j _) hg
 
 theorem FrontierResidualModel.installed_component_group_finiteIndex
     {E ι : Type*} [TopologicalSpace E]

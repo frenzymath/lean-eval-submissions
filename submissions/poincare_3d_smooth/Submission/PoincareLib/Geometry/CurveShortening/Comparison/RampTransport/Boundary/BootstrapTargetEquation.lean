@@ -10,6 +10,8 @@ Only interior regularity is used before the finite boundary bootstrap. -/
 
 noncomputable section
 set_option autoImplicit false
+set_option maxHeartbeats 800000
+set_option synthInstance.maxHeartbeats 80000
 set_option backward.isDefEq.respectTransparency false
 
 open Set Filter Complex

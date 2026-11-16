@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Mathlib.AlgebraicTopology.FundamentalGroupoid.FundamentalGroup
 import Mathlib.Topology.Connected.TotallyDisconnected
 
@@ -23,14 +24,16 @@ whole product or a global section through every component at once. -/
 theorem map_snd_injective_of_totallyDisconnected (x : X × Y) :
     Function.Injective (map (⟨Prod.snd, continuous_snd⟩ : C(X × Y, Y)) x) := by
   intro a b hab
-  obtain ⟨a, rfl⟩ := Path.Homotopic.Quotient.mk_surjective a
-  obtain ⟨b, rfl⟩ := Path.Homotopic.Quotient.mk_surjective b
+  have hab := congrArg FundamentalGroup.toPath hab
+  obtain ⟨a, rfl⟩ := FundamentalGroup.exists_path_rep a
+  obtain ⟨b, rfl⟩ := FundamentalGroup.exists_path_rep b
   have hfst (p : Path x x) (t : unitInterval) : (p t).1 = x.1 := by
     have h := TotallyDisconnectedSpace.eq_of_continuous (fun s => (p s).1)
       (continuous_fst.comp p.continuous) t 0
     exact h.trans (congrArg Prod.fst p.source)
   obtain ⟨H⟩ : (a.map continuous_snd).Homotopic (b.map continuous_snd) :=
     Path.Homotopic.Quotient.exact hab
+  apply CategoryTheory.End.ext
   apply Path.Homotopic.Quotient.eq.mpr
   refine ⟨{
     toFun := fun z => (x.1, H z)

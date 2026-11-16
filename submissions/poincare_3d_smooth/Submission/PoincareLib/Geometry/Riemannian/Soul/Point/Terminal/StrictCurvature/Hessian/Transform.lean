@@ -72,7 +72,7 @@ theorem hessian_one_sub_exp_neg (D : LeviCivitaData g) {f : M → ℝ} {x : M}
   change D.hessian (F ∘ f) x u v = _
   rw [D.hessian_eq_inner_connection_gradient hcomp,
     congrArg (fun L => L u) hc,
-    D.connection.isCovariantDerivativeOn.leibniz hgf (hdf.mdifferentiableAt (by simp)),
+    D.connection.isCovariantDerivativeOnUniv.leibniz hgf (hdf.mdifferentiableAt (by simp)),
     D.hessian_eq_inner_connection_gradient hf]
   simp only [add_apply, smul_apply, ContinuousLinearMap.smulRight_apply,
     map_add, map_smul, smul_eq_mul, Function.comp_apply, D.inner_gradient]

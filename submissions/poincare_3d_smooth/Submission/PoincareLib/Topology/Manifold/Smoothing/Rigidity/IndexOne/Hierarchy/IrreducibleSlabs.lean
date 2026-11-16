@@ -104,7 +104,8 @@ private theorem irreducible_sourceSlab_of_whole_annuli
           (⟨Subtype.val, continuous_subtype_val⟩ : C(R, X)).comp
             (ContinuousMap.inclusion hMR) := rfl
       rw [heq, FundamentalGroup.map_comp] at hinj
-      exact Function.Injective.of_comp hinj
+      exact Function.Injective.of_comp
+        (f := FundamentalGroup.map (⟨Subtype.val, continuous_subtype_val⟩ : C(R, X)) _) hinj
 
 /-- Both actual complementary source slabs are irreducible in the original
 atlas once each complete endpoint phase is parametrized by an annulus. -/

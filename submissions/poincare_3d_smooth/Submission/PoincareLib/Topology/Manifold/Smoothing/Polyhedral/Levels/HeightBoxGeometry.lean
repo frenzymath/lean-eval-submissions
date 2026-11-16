@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Coordinates
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Regions.FinitePLBallImages
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Coordinates.FinitePLCoordinates
 
+noncomputable section
+
 /-!
 # Coordinate disks and their complete height tracks
 

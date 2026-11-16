@@ -118,7 +118,7 @@ theorem exists_local_smooth_inverse_surface
       (contMDiffOn_iff_contDiffOn.mpr he1smooth) (fun y hy => ht (e1.map_source hy))
   · change ContMDiffOn (𝓡 2) (𝓡 2) ∞ (e1.symm ∘ c) e.target
     apply (contMDiffOn_iff_contDiffOn.mpr he1inv).comp
-      ((contMDiffOn_extChartAt (I := 𝓡 2) (x := f x)).mono (fun _ hy => hy.1))
+      ((contMDiffOn_extChartAt (I := 𝓡 2) (x := f x)).mono (by intro _ hy; exact hy.1))
     exact fun _ hy => hy.2
 
 end PoincareMT.M60

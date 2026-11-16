@@ -113,7 +113,12 @@ theorem radialCoordinates_eq_self_of_height_zero (v : E3) {x : E3}
 
 theorem radialCoordinates_image_baseDisk (v : E3) :
     radialCoordinates v '' baseDisk v = baseDisk v := by
-  rw [image_congr (fun _ hx => radialCoordinates_eq_self_of_height_zero v hx.2), image_id']
+  calc
+    radialCoordinates v '' baseDisk v = id '' baseDisk v := by
+      apply image_congr
+      intro x hx
+      exact radialCoordinates_eq_self_of_height_zero v hx.2
+    _ = baseDisk v := image_id _
 
 theorem capBody_inter_base (v : E3) :
     capBody v ∩ {y | inner Real v y = 0} = baseDisk v := by

@@ -54,7 +54,8 @@ theorem exists_oriented_model_of_component
   have hrelative (x : M) (hx : x ∈ P) :
       connectedComponentIn ((U : Set M) \ S) x = P := by
     apply Subset.antisymm
-    · exact (connectedComponentIn_mono x (fun _ hy => hy.2)).trans_eq (hcomponent x hx)
+    · exact (connectedComponentIn_mono x
+      (show (U : Set M) \ S ⊆ Sᶜ by intro y hy; exact hy.2)).trans_eq (hcomponent x hx)
     · exact hP.isPreconnected.subset_connectedComponentIn hx hPU
   rcases cylinderSignedHeight_component_half A.homeomorph.symm hzero hP hPU hrelative
     with hn | hp

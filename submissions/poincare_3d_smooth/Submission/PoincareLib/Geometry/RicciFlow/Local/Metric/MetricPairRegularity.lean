@@ -260,7 +260,7 @@ theorem contDiffOn_spatial_jets_comp
         (contDiffOn_spatial_jets_fderiv k f hjets)
     have hPsi : ContDiffOn ℝ ∞ Psi (W ×ˢ (univ : Set (E →L[ℝ] F))) :=
       ((hPhi.fderiv_of_isOpen hW (by simp)).comp contDiffOn_fst
-        (fun p hp => hp.1)).clm_comp contDiffOn_snd
+        (by intro p hp; exact hp.1)).clm_comp contDiffOn_snd
     have hQ := ih (F := F × (E →L[ℝ] F)) (G := E →L[ℝ] G)
       (W := W ×ˢ (univ : Set (E →L[ℝ] F))) (hW := hW.prod isOpen_univ)
       (f := H) (Phi := Psi) hH hPsi (fun t ht x hx => ⟨hmap t ht hx, mem_univ _⟩) hHj

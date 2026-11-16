@@ -3,6 +3,8 @@ Copyright (c) 2026 The PoincareLib contributors.
 -/
 import Submission.PoincareLib.Topology.Surface.Triangulation.Regions.Neighborhoods
 
+noncomputable section
+
 /-!
 # Compact rectangles along the boundary arrangement
 

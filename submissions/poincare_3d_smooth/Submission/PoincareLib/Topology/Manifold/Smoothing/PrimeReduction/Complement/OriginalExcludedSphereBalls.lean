@@ -73,6 +73,6 @@ theorem exists_original_excluded_sphere_balls {ι : Type*}
     intro hh
     obtain ⟨i, hi⟩ := mem_iUnion.mp hh
     exact closure_subset_complement_of_open_disjoint (hBo i)
-      ((hBmiss i).mono_left sdiff_subset) hx hi
+      ((hBmiss i).mono_left (by intro x hx; exact hx.1)) hx hi
 
 end Set

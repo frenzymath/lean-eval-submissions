@@ -22,8 +22,9 @@ variable {E : Type*} [AddCommGroup E] [Module ℝ E]
 convex hull, including the empty-set case. See M76 derivation 86. -/
 theorem fractionalRadial_denom_pos_convexHull (L : E →ₗ[ℝ] ℝ)
     {s : Set E} (hs : ∀ x ∈ s, 0 < 1 + L x) :
-    ∀ x ∈ convexHull ℝ s, 0 < 1 + L x :=
-  convexHull_min hs ((convex_Ioi (0 : ℝ)).affine_preimage
+    ∀ x ∈ convexHull ℝ s, 0 < 1 + L x := by
+  change convexHull ℝ s ⊆ {x | 0 < 1 + L x}
+  exact convexHull_min (by intro x hx; exact hs x hx) ((convex_Ioi (0 : ℝ)).affine_preimage
     (AffineMap.const ℝ E 1 + L.toAffineMap))
 
 private theorem fractionalRadial_image_convexHull_subset (L : E →ₗ[ℝ] ℝ)

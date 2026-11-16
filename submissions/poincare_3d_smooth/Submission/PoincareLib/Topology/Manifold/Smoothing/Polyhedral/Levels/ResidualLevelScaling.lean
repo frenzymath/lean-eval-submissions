@@ -26,7 +26,7 @@ theorem convexHull_insert_level_homothety (A : E →ᵃ[ℝ] ℝ)
     convexHull ℝ (insert q s) ∩ {x | A x = c} =
       homothety q (c / β) '' convexHull ℝ s := by
   have hbase (y : E) (hy : y ∈ convexHull ℝ s) : A y = β :=
-    convexHull_min hAs ((convex_singleton β).affine_preimage A) hy
+    convexHull_min (by intro x hx; exact hAs x hx) ((convex_singleton β).affine_preimage A) hy
   ext x
   constructor
   · rintro ⟨hx, hAx⟩

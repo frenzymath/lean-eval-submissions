@@ -46,9 +46,6 @@ noncomputable def capComparisonCoefficients
     (mfderiv (𝓡 3) (𝓡 3) (e.forward s hs) (chart x)).comp
       (mfderiv (𝓡 3) (𝓡 3) chart x)
   exact ((F.parameters.h t)⁻¹ ^ 2) • ContinuousLinearMap.bilinearComp
-    (E := TangentSpace (𝓡 3) (e.forward s hs (chart x)))
-    (F := TangentSpace (𝓡 3) (e.forward s hs (chart x))) (G := ℝ)
-    (E' := StandardCapSpace) (F' := StandardCapSpace)
     ((F.metric (t + s / ((F.parameters.h t)⁻¹ ^ 2))).inner
       (e.forward s hs (chart x))) d d
 

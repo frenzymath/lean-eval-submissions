@@ -126,7 +126,9 @@ theorem finite_disk_branches (D : LeviCivitaData g)
   intro x hx
   apply Filter.le_pure_iff.mpr
   filter_upwards [(hisolated x hx.1).filter_mono
-    (nhdsWithin_mono x (fun _ hy => hy.1)), self_mem_nhdsWithin] with y hy hyB
+    (nhdsWithin_mono x (s := {z : LoopPlane | z ∈ loopDiskSet ∧
+      mfderivWithin (𝓡 2) (𝓡 3) f loopDiskSet z = 0}) (fun _ hy => hy.1)), self_mem_nhdsWithin]
+        with y hy hyB
   exact hy hyB.2
 
 end PoincareMT.M65StrictTrace

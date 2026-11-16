@@ -1,3 +1,4 @@
+import Submission.PoincareLib.Compatibility.FundamentalGroup
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.Transport.Based
 import Submission.PoincareLib.AlgebraicTopology.FundamentalGroup.PathMaps
 
@@ -12,7 +13,7 @@ component of a loop detects the complete homotopy class of that loop.
 set_option autoImplicit false
 
 open Set
-open scoped unitInterval
+open scoped unitInterval FundamentalGroup
 
 namespace PoincareMT.M76.IncompressibleGluing
 
@@ -24,21 +25,26 @@ open Path.Homotopic.Quotient
 path concatenation. -/
 noncomputable def pathConjugation {b x : X} (t : Path.Homotopic.Quotient b x) :
     (FundamentalGroup X x)ᵐᵒᵖ ≃* (FundamentalGroup X b)ᵐᵒᵖ where
-  toFun q := MulOpposite.op (t.trans ((MulOpposite.unop q).trans t.symm))
-  invFun q := MulOpposite.op (t.symm.trans ((MulOpposite.unop q).trans t))
+  toFun q := MulOpposite.op (FundamentalGroup.fromPath
+    (t.trans ((MulOpposite.unop q).toPath.trans t.symm)))
+  invFun q := MulOpposite.op (FundamentalGroup.fromPath
+    (t.symm.trans ((MulOpposite.unop q).toPath.trans t)))
   left_inv q := by
     apply MulOpposite.unop_injective
-    change t.symm.trans ((t.trans ((MulOpposite.unop q).trans t.symm)).trans t) = _
+    apply CategoryTheory.End.ext
+    change t.symm.trans ((t.trans ((MulOpposite.unop q).toPath.trans t.symm)).trans t) = _
     simp only [trans_assoc, symm_trans_assoc, symm_trans, trans_refl]
   right_inv q := by
     apply MulOpposite.unop_injective
-    change t.trans ((t.symm.trans ((MulOpposite.unop q).trans t)).trans t.symm) = _
+    apply CategoryTheory.End.ext
+    change t.trans ((t.symm.trans ((MulOpposite.unop q).toPath.trans t)).trans t.symm) = _
     simp only [trans_assoc, trans_symm_assoc, trans_symm, trans_refl]
   map_mul' p q := by
     apply MulOpposite.unop_injective
-    change t.trans (((MulOpposite.unop p).trans (MulOpposite.unop q)).trans t.symm) =
-      (t.trans ((MulOpposite.unop p).trans t.symm)).trans
-        (t.trans ((MulOpposite.unop q).trans t.symm))
+    apply CategoryTheory.End.ext
+    change t.trans (((MulOpposite.unop p).toPath.trans (MulOpposite.unop q).toPath).trans t.symm) =
+      (t.trans ((MulOpposite.unop p).toPath.trans t.symm)).trans
+        (t.trans ((MulOpposite.unop q).toPath.trans t.symm))
     simp only [trans_assoc, symm_trans_assoc]
 
 /-- A representative loop group for a path component, with concatenation
@@ -86,14 +92,14 @@ theorem componentTransport_square (S : C(unitInterval × unitInterval, X)) :
 /-- The homomorphism on loop classes induced by component transport. -/
 noncomputable def componentLoopTransport (x : X) :
     (FundamentalGroup X x)ᵐᵒᵖ →* (∀ c : ZerothHomotopy X, ComponentGroup X c) where
-  toFun q c := basedTransport c.out (componentTails c) (MulOpposite.unop q)
+  toFun q c := basedTransport c.out (componentTails c) (MulOpposite.unop q).toPath
   map_one' := by
     funext c
     exact basedTransport_refl c.out (componentTails c) x
   map_mul' p q := by
     funext c
     exact basedTransport_trans c.out (componentTails c)
-      (MulOpposite.unop p) (MulOpposite.unop q)
+      (MulOpposite.unop p).toPath (MulOpposite.unop q).toPath
 
 @[simp] theorem componentLoopTransport_mk (x : X) (p : Path x x) :
     componentLoopTransport x (MulOpposite.op (mk p)) =
@@ -108,8 +114,8 @@ theorem componentLoopTransport_injective (x : X) :
   have hx : Joined c.out x := (joined_component_out_iff c x).mpr rfl
   intro p q hpq
   have heq := congrFun hpq c
-  change basedTransport c.out (componentTails c) (MulOpposite.unop p) =
-    basedTransport c.out (componentTails c) (MulOpposite.unop q) at heq
+  change basedTransport c.out (componentTails c) (MulOpposite.unop p).toPath =
+    basedTransport c.out (componentTails c) (MulOpposite.unop q).toPath at heq
   rw [basedTransport_of_joined _ _ _ hx hx,
     basedTransport_of_joined _ _ _ hx hx] at heq
   exact (pathConjugation (componentTails c x hx)).injective heq

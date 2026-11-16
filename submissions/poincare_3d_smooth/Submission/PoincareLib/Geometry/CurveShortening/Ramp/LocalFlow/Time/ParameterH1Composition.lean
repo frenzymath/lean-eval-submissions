@@ -72,7 +72,7 @@ theorem exists_timeParameter_vectorH1_composition (k : ℕ)
             vectorPeriodicJet (L := L) 1 j.1 (by omega) u x j.2) i : ℂ) := by
   classical
   have hcomponent (i : ι) := exists_timeParameter_scalarH1_composition (L := L) k
-    (fun z => f z i) ((contDiff_apply ℝ ℝ i).comp hf)
+    (fun z => f z i) ((contDiff_apply ℝ (fun _ ↦ ℝ) i).comp hf)
   choose G hG hdecode using hcomponent
   let S := lpFinitePiEquiv (α := ℤ × Fin 2) (ι := ι) (E := ℝ) ℝ
   let R := complexLpRealEquiv (ι := ℤ)

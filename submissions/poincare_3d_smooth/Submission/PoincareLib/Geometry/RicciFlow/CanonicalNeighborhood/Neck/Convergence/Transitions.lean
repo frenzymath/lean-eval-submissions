@@ -29,7 +29,7 @@ theorem contDiffOn_roundCylinderCoordinateTransition (p q : UnitTwoSphere)
     ContDiffOn ℝ ∞ (roundCylinderCoordinateTransition p q)
       (Metric.ball (0 : EuclideanSpace ℝ (Fin 2)) (1 / 2) ×ˢ univ) := by
   exact ((contDiffOn_sphere_chart_transition p q hpq).comp contDiffOn_fst
-    (fun _ hx => hx.1)).prodMk contDiffOn_snd
+    (by intro _ hx; exact hx.1)).prodMk contDiffOn_snd
 
 theorem norm_roundCylinderCoordinateTransition_fst_le_two (p q : UnitTwoSphere)
     (hpq : ‖(q : EuclideanSpace ℝ (Fin 3)) - p‖ < 1 / 2)

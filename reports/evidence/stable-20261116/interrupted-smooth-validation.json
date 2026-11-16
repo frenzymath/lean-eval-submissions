@@ -1,0 +1,42 @@
+{
+  "problem_id": "poincare_3d_smooth",
+  "benchmark_commit": "8955681b9914d7ebc7d286414843021b7d6c9de1",
+  "toolchain": "leanprover/lean4:v4.35.0",
+  "mathlib_commit": "074063781836922cb02701cd12943c9f51731afa",
+  "started_at": "2026-11-16T09:54:30.561789+00:00",
+  "slurm_job_id": "5184218",
+  "cpu_allocation": 16,
+  "memory_allocation_mb": 60000,
+  "local_loader_policy": "MAP_FIXED_NOREPLACE denied with EEXIST by an inherited seccomp restriction; unmodified Lean uses its built-in read/malloc fallback. Node vm.max_map_count=65530.",
+  "input_file_count": 23568,
+  "input_tree_sha256": "25e112c97470f3cfcaaa4e928a110f84d4cc6697491eef59ed10b5c9aa20e2f2",
+  "stages": [
+    {
+      "command": [
+        "lake",
+        "--no-cache",
+        "build",
+        "Submission",
+        "Solution",
+        "Challenge"
+      ],
+      "started_at": "2026-11-16T09:54:30.588371+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-11-16T09:56:13.079106+00:00",
+      "elapsed_seconds": 102.491
+    },
+    {
+      "command": [
+        "lake",
+        "test"
+      ],
+      "started_at": "2026-11-16T09:56:13.082011+00:00",
+      "exit_code": 1,
+      "finished_at": "2026-11-16T11:24:09.475896+00:00",
+      "elapsed_seconds": 5276.394
+    }
+  ],
+  "exit_code": 1,
+  "sources_stable": true,
+  "finished_at": "2026-11-16T11:24:21.789721+00:00"
+}

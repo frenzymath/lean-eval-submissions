@@ -18,9 +18,11 @@ private theorem injective_fundamentalGroup_map_of_homotopy
   let N := FundamentalGroupoidFunctor.homotopicMapsNatIso H
   intro u v huv
   apply hf
+  apply CategoryTheory.End.ext
+  have huv := congrArg FundamentalGroup.toArrow huv
   apply (cancel_mono (N.app ⟨x⟩)).mp
-  exact (N.naturality u).trans ((congrArg (fun q => N.app ⟨x⟩ ≫ q) huv).trans
-    (N.naturality v).symm)
+  exact (N.naturality u.toArrow).trans
+    ((congrArg (fun q ↦ N.app ⟨x⟩ ≫ q) huv).trans (N.naturality v.toArrow).symm)
 
 theorem isCoveringMap_affineIntegerMatrixMap (p : ℝ)
     (A : Matrix (Fin 2) (Fin 2) ℤ) (hp : 0 < p) (hA : A.det ≠ 0)

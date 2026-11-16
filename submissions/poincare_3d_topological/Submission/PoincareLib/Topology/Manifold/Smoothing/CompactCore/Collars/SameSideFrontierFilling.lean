@@ -40,7 +40,8 @@ theorem PLDomain.exists_same_side_bicollar_filling
       (∀ x : D, (fill x : X) ∈ interior K) ∧
       (∀ x : D, (fill x : X) ∉ F) := by
   have hcontract : (Dehn.squareRimLoop.map beta.continuous).Homotopic
-      (Path.refl (beta Dehn.squareRimBase)) := Path.Homotopic.Quotient.exact hnull
+      (Path.refl (beta Dehn.squareRimBase)) := Path.Homotopic.Quotient.exact (congrArg
+        FundamentalGroup.toPath hnull)
   obtain ⟨baseFill, hbaseFill⟩ :=
     (Dehn.nullhomotopic_of_squareRimLoop beta hcontract).exists_closedBall_extension beta
   let : ContractibleSpace (Ioo (0 : ℝ) 1) :=
@@ -86,7 +87,8 @@ theorem PLDomain.exists_negative_side_bicollar_filling
       (∀ x : D, (fill x : X) ∈ Kᶜ) ∧
       (∀ x : D, (fill x : X) ∉ F) := by
   have hcontract : (Dehn.squareRimLoop.map beta.continuous).Homotopic
-      (Path.refl (beta Dehn.squareRimBase)) := Path.Homotopic.Quotient.exact hnull
+      (Path.refl (beta Dehn.squareRimBase)) := Path.Homotopic.Quotient.exact (congrArg
+        FundamentalGroup.toPath hnull)
   obtain ⟨baseFill, hbaseFill⟩ :=
     (Dehn.nullhomotopic_of_squareRimLoop beta hcontract).exists_closedBall_extension beta
   let : ContractibleSpace (Ioo (-1 : ℝ) 0) :=

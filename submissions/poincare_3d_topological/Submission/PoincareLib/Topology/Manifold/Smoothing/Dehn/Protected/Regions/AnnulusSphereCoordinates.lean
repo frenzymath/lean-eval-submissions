@@ -3,6 +3,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Protected.Regions
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Schoenflies.Regions.LocallyFlatBoundedRegion
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Dehn.Protected.Regions.Projection
 
+noncomputable section
+
 /-!
 # The protected annulus sphere in the original coordinates
 

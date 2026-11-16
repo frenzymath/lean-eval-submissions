@@ -145,7 +145,7 @@ theorem exists_oriented_projective_exterior_collar
     frontier_subset_closure (hfront.symm.subset (mem_range_self q))
   have heA : Kᶜ ∩ e.target ⊆ A := by
     have hc := C.isConnected_projective_boundary_collar_exterior S e hes hmem hlift
-    apply hc.isPreconnected.subset_left_of_subset_union hA hB hdis
+    apply hc.isPreconnected.subset_left_of_subset_union (s := Kᶜ ∩ e.target) hA hB hdis
       (fun y hy => hcover.symm.subset hy.1)
     let q := Poincare.Topology.standardSpherePole 0
     obtain ⟨y, hyt, hyA⟩ := mem_closure_iff.mp (hzero_cl q)

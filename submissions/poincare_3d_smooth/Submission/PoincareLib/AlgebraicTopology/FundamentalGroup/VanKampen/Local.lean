@@ -84,6 +84,7 @@ theorem overlap_transport_eq_one (p : C(unitInterval, U))
     rfl
   rw [htail0, htail1]
   apply MulOpposite.unop_injective
+  apply CategoryTheory.End.ext
   change (Path.Homotopic.Quotient.mk (a.map (overlapInclusion U V).continuous)).trans
       ((Path.Homotopic.Quotient.mk p.toPath).trans
         (Path.Homotopic.Quotient.mk (c.map (overlapInclusion U V).continuous)).symm) =

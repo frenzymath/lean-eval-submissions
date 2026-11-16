@@ -37,9 +37,10 @@ theorem backwardPotentialCoefficient_continuousOn
   have hpair : ContinuousOn
       (fun z : ℝ × EuclideanSpace ℝ (Fin n) =>
         (θ z.1, (chartAt (EuclideanSpace ℝ (Fin n)) x).symm z.2))
-      (J ×ˢ (G.gaugeCover.spatial b : Set _)) :=
-    (hθ.comp continuousOn_fst (fun _ hz => hz.1)).prodMk
-      (hc.comp continuousOn_snd (fun _ hz => hz.2))
+      (J ×ˢ (G.gaugeCover.spatial b : Set (EuclideanSpace ℝ (Fin n)))) := by
+    apply ContinuousOn.prodMk
+    · exact hθ.comp continuousOn_fst (by intro z hz; exact hz.1)
+    · exact hc.comp continuousOn_snd (by intro z hz; exact hz.2)
   have H := (hM12.leafwise_calculus X time I G.spacetime G.slices
     G.timeIntervals G.gaugeCover).2 G.leafwise
   have hscalar : Continuous (horizontalScalarCurvature G.leafwise) := H.scalar_smooth.continuous

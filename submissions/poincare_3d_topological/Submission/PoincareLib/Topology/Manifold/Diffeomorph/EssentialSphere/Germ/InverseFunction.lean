@@ -72,7 +72,7 @@ theorem isLocalDiffeomorphAt_of_contMDiffOn_bijective_mfderiv_modelSpace
     change f z = d.symm (F (c z))
     rw [hFc z hz.1.1, d.left_inv (interior_subset hz.2).1.2]
   have hH : ContMDiffOn 𝓘(ℝ, E) 𝓘(ℝ, E) ∞ H H.source :=
-    (hf.mono (fun _ hz => (interior_subset hz.2).1.1)).congr heq.symm
+    (hf.mono (by intro _ hz; exact (interior_subset hz.2).1.1)).congr heq.symm
   have hHi : ContMDiffOn 𝓘(ℝ, E) 𝓘(ℝ, E) ∞ H.symm H.target := by
     intro y hy
     let z := H.symm y

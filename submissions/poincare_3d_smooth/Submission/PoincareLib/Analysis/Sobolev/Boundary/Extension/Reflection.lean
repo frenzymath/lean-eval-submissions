@@ -105,26 +105,30 @@ theorem hasCompactSupport_evenReflect {u : E → ℝ} (hu : HasCompactSupport u)
 theorem memLp_evenReflect {p : ℝ≥0∞} {u : E → ℝ}
     (hu : MemLp u p (volume.restrict (halfSpace d))) :
     MemLp (evenReflect u) p volume := by
-  have hi := (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu
+  have hi := (memLp_indicator_iff_restrict
+    (isOpen_halfSpace.measurableSet).nullMeasurableSet).mpr hu
   exact hi.add (hi.comp_measurePreserving measurePreserving_reflect)
 
 theorem eLpNorm_evenReflect_le {p : ℝ≥0∞} (hp : 1 ≤ p) {u : E → ℝ}
     (hu : MemLp u p (volume.restrict (halfSpace d))) :
     eLpNorm (evenReflect u) p volume ≤
       2 * eLpNorm u p (volume.restrict (halfSpace d)) := by
-  have hi := (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu
+  have hi := (memLp_indicator_iff_restrict
+    (isOpen_halfSpace.measurableSet).nullMeasurableSet).mpr hu
   calc
     _ ≤ eLpNorm ((halfSpace d).indicator u) p volume +
         eLpNorm ((halfSpace d).indicator u ∘ reflect) p volume :=
       eLpNorm_add_le hp
     _ = _ := by
       rw [eLpNorm_comp_measurePreserving hi.aestronglyMeasurable measurePreserving_reflect,
-        eLpNorm_indicator_eq_eLpNorm_restrict isOpen_halfSpace.measurableSet, two_mul]
+        eLpNorm_indicator_eq_eLpNorm_restrict
+          (isOpen_halfSpace.measurableSet).nullMeasurableSet, two_mul]
 
 private theorem memLp_reflectedPartial {p : ℝ≥0∞} {g : E → ℝ}
     (hg : MemLp g p (volume.restrict (halfSpace d))) (i : Fin d) :
     MemLp (reflectedPartial i g) p volume := by
-  have hi := (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hg
+  have hi := (memLp_indicator_iff_restrict
+    (isOpen_halfSpace.measurableSet).nullMeasurableSet).mpr hg
   exact hi.add ((hi.comp_measurePreserving measurePreserving_reflect).const_mul (coordinateSign i))
 
 private theorem integral_indicator_mul (u q : E → ℝ) :
@@ -140,7 +144,8 @@ private theorem integral_reflection_pair {p : ℝ≥0∞} (hp : 1 ≤ p)
     (hq : Continuous q) (hc : HasCompactSupport q) (c : ℝ) :
     (∫ x, ((halfSpace d).indicator u x + c * (halfSpace d).indicator u (reflect x)) * q x) =
       ∫ x in halfSpace d, u x * (q x + c * q (reflect x)) := by
-  have hi := (memLp_indicator_iff_restrict isOpen_halfSpace.measurableSet).mpr hu
+  have hi := (memLp_indicator_iff_restrict
+    (isOpen_halfSpace.measurableSet).nullMeasurableSet).mpr hu
   have hqR : Continuous (q ∘ reflect) := hq.comp reflect.continuous
   have hcR : HasCompactSupport (q ∘ reflect) := hc.comp_homeomorph reflect.toHomeomorph
   have hI : Integrable (fun x => (halfSpace d).indicator u x * q x) :=

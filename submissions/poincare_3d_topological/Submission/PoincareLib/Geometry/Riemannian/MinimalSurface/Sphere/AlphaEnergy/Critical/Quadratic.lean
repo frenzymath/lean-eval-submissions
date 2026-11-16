@@ -64,7 +64,7 @@ theorem potential_bound (S : SUQuadraticWeakSystem u V center R)
   have hDU (a : Fin m) (i : Fin 2) (x : LoopPlane) (hx : x ∈ O) : DU a i x = V i x a := by
     simp only [DU, (hchiEq x hx).1, (hchiEq x hx).2, zero_apply, one_mul, zero_mul, add_zero]
   have hF (a : Fin m) (i : Fin 2) : MemLp (F a i) 2 volume :=
-    (memLp_indicator_iff_restrict measurableSet_ball).mpr
+    (memLp_indicator_iff_restrict measurableSet_ball.nullMeasurableSet).mpr
       ((S.component_memLp.1 a i).mono_measure
         (Measure.restrict_mono (Metric.ball_subset_ball hrR.le) le_rfl))
   have hb (a : Fin m) : Integrable (b a) :=
@@ -79,7 +79,7 @@ theorem potential_bound (S : SUQuadraticWeakSystem u V center R)
       ((memLp_one_iff_integrable.mp ((memLp_const (1 : ℝ)).add hsq)).mono_measure
         (Measure.restrict_mono (Metric.ball_subset_ball hrR.le) le_rfl))
   have hWI : MemLp W ⊤ volume :=
-    memLp_indicator_const ⊤ measurableSet_ball 1 (Or.inr measure_ball_lt_top.ne)
+    memLp_indicator_const ⊤ measurableSet_ball.nullMeasurableSet 1 (Or.inr measure_ball_lt_top.ne)
   have hcross (x : LoopPlane) : (∑ a, ∑ i, F a i x * U a x *
       fderiv ℝ phi x (EuclideanSpace.single i 1)) ^ 2 ≤
       (2 * S.constant) ^ 2 * delta ^ 2 * H x * W x *
@@ -380,7 +380,7 @@ theorem uniform_difference_quotients (S : SUQuadraticWeakSystem u V center R) :
       DU a i x = V i x a := by
     simp only [DU, (hchi x hx).1, (hchi x hx).2, zero_apply, one_mul, zero_mul, add_zero]
   have hF (a : Fin m) (i : Fin 2) : MemLp (F a i) 2 volume :=
-    (memLp_indicator_iff_restrict measurableSet_ball).mpr
+    (memLp_indicator_iff_restrict measurableSet_ball.nullMeasurableSet).mpr
       ((S.component_memLp.1 a i).mono_measure
         (Measure.restrict_mono (Metric.ball_subset_ball hrhoR.le) le_rfl))
   have hb (a : Fin m) : Integrable (b a) :=
@@ -398,7 +398,7 @@ theorem uniform_difference_quotients (S : SUQuadraticWeakSystem u V center R) :
       ((memLp_one_iff_integrable.mp ((memLp_const (1 : ℝ)).add hs)).mono_measure
         (Measure.restrict_mono (Metric.ball_subset_ball hrhoR.le) le_rfl))
   have hW : Integrable W := memLp_one_iff_integrable.mp
-    (memLp_indicator_const 1 measurableSet_ball 1 (Or.inr measure_ball_lt_top.ne))
+    (memLp_indicator_const 1 measurableSet_ball.nullMeasurableSet 1 (Or.inr measure_ball_lt_top.ne))
   have hH0 (x : LoopPlane) : 0 ≤ H x := indicator_nonneg (fun _ _ => by positivity) x
   have hp0 (phi : LoopPlane → ℝ) (hp : ContDiff ℝ ∞ phi) (hc : HasCompactSupport phi)
       (hs : tsupport phi ⊆ Metric.ball center rho) :

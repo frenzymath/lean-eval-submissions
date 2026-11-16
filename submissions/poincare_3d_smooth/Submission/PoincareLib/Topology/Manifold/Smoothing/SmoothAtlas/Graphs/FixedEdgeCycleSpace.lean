@@ -58,7 +58,10 @@ See Cairns pp. 801--802 and M76 derivation 24. -/
 noncomputable def fixedUnitCycleHomeomorph (n : ℕ) (theta : ℝ) :
     (cyclicEdgeComplex n).FixedUnitRadialEmbedding ({0, 1} : Set (Fin (n + 3)))
       (cycleFrame n theta) ≃ₜ normalizedUnitCycleSpace n theta := by
-  apply Homeomorph.setCongr
+  refine Homeomorph.setCongr
+    (s := {v : (cyclicEdgeComplex n).UnitRadialEmbedding ℂ |
+      EqOn v.val.val (cycleFrame n theta) ({0, 1} : Set (Fin (n + 3)))})
+    (t := normalizedUnitCycleSpace n theta) ?_
   ext v
   change EqOn v.val.val (cycleFrame n theta) ({0, 1} : Set (Fin (n + 3))) ↔
     unitCycleVertex v 0 = 1 ∧ unitCycleVertex v 1 = Circle.exp theta

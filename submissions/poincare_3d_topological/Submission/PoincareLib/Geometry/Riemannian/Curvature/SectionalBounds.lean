@@ -146,25 +146,25 @@ private lemma curvatureOnFields_add_right
       (fun y => D.connection Z y (Y y)) + (fun y => D.connection W y (Y y)) := by
     filter_upwards [eventually_mdifferentiableAt_of_contMDiffAt hZ,
       eventually_mdifferentiableAt_of_contMDiffAt hW] with y hyZ hyW
-    exact congrArg (fun L => L (Y y)) (D.connection.isCovariantDerivativeOn.add hyZ hyW)
-  have houterY := D.connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+    exact congrArg (fun L => L (Y y)) (D.connection.isCovariantDerivativeOnUniv.add hyZ hyW)
+  have houterY := D.connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
     (hYZW.mdifferentiableAt (by simp))
     ((hYZ.add_section hYW).mdifferentiableAt (by simp)) Filter.univ_mem heqY
   have heqX : (fun y => D.connection (Z + W) y (X y)) =ᶠ[𝓝 x]
       (fun y => D.connection Z y (X y)) + (fun y => D.connection W y (X y)) := by
     filter_upwards [eventually_mdifferentiableAt_of_contMDiffAt hZ,
       eventually_mdifferentiableAt_of_contMDiffAt hW] with y hyZ hyW
-    exact congrArg (fun L => L (X y)) (D.connection.isCovariantDerivativeOn.add hyZ hyW)
-  have houterX := D.connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+    exact congrArg (fun L => L (X y)) (D.connection.isCovariantDerivativeOnUniv.add hyZ hyW)
+  have houterX := D.connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
     (D.contMDiffAt_covariantDerivativeOnFields hX hZW |>.mdifferentiableAt (by simp))
     ((D.contMDiffAt_covariantDerivativeOnFields hX hZ |>.add_section
       (D.contMDiffAt_covariantDerivativeOnFields hX hW)).mdifferentiableAt (by simp))
     Filter.univ_mem heqX
-  have hbr := D.connection.isCovariantDerivativeOn.add
+  have hbr := D.connection.isCovariantDerivativeOnUniv.add
     (hZ.mdifferentiableAt (by simp)) (hW.mdifferentiableAt (by simp))
-  have hsumY := D.connection.isCovariantDerivativeOn.add
+  have hsumY := D.connection.isCovariantDerivativeOnUniv.add
     (hYZ.mdifferentiableAt (by simp)) (hYW.mdifferentiableAt (by simp))
-  have hsumX := D.connection.isCovariantDerivativeOn.add
+  have hsumX := D.connection.isCovariantDerivativeOnUniv.add
     (D.contMDiffAt_covariantDerivativeOnFields hX hZ |>.mdifferentiableAt (by simp))
     (D.contMDiffAt_covariantDerivativeOnFields hX hW |>.mdifferentiableAt (by simp))
   unfold curvatureOnFields

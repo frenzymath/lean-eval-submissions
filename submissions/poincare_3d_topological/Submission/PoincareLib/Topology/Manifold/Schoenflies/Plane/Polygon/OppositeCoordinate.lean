@@ -1,3 +1,4 @@
+import Mathlib.Topology.Algebra.Module.Equiv.Prod
 import Submission.PoincareLib.Topology.Manifold.Schoenflies.Plane.Polygon.GenericFrame
 import Mathlib.Analysis.Convex.Segment
 import Mathlib.LinearAlgebra.Dual.Lemmas

@@ -155,7 +155,7 @@ private theorem odd_error_tendsto {R beta H : ℝ} (hR : 0 < R) (hb : 0 < beta)
     have hvol : volume.real S ≤ 2 * R * a := by
       rw [← odd_strip_volume hR.le ha]
       exact measureReal_mono hSQ hQ.measure_lt_top.ne
-    rw [setIntegral_eq_of_subset_of_forall_sdiff_eq_zero hU inter_subset_left (by
+    rw [setIntegral_eq_of_subset_of_forall_sdiff_eq_zero (s := S) hU inter_subset_left (by
       intro z hz
       have hz' : a < z 1 := lt_of_not_ge (fun hh => hz.2 ⟨hz.1, hh⟩)
       have hn : ((n : ℝ) + 1) * z 1 - 1 ∉ Icc (0 : ℝ) 1 := by
@@ -436,11 +436,11 @@ theorem halfDisk_odd_localMap {N : ℕ} {R beta H : ℝ} (hR : 0 < R)
     ⟨ball_subset_closedBall hz.1, (show 0 < z 1 from hz.2).le⟩
   have hq : MemLp q 2 (volume.restrict (closedBall (0 : LoopPlane) R)) := by
     have he := halfDisk_even_memLp hu
-    apply (MemLp.piecewise hA (he.restrict A) (he.neg.restrict Aᶜ)).ae_eq
+    apply (MemLp.piecewise hA.nullMeasurableSet (he.restrict A) (he.neg.restrict Aᶜ)).ae_eq
     exact ae_of_all _ fun z => by by_cases h : 0 ≤ z 1 <;> simp [q, A, h]
   have hD (i : Fin 2) : MemLp (d i) 2 (volume.restrict (closedBall (0 : LoopPlane) R)) := by
     have he := halfDisk_even_memLp (hd i)
-    apply (MemLp.piecewise hA (he.restrict A)
+    apply (MemLp.piecewise hA.nullMeasurableSet (he.restrict A)
       ((he.const_smul (if i = 0 then (-1 : ℝ) else 1)).restrict Aᶜ)).ae_eq
     exact ae_of_all _ fun z => by
       fin_cases i <;> by_cases h : 0 ≤ z 1 <;> simp [d, A, h]

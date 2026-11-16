@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.NeckCap.Models
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Single.SingleCutSphereMatching
 import Submission.PoincareLib.Topology.Manifold.Surgery.Event.Enclosing.EnclosingMonodromyBall
 
+noncomputable section
+
 /-!
 # Actual punctured handle coordinates for one residual cut
 

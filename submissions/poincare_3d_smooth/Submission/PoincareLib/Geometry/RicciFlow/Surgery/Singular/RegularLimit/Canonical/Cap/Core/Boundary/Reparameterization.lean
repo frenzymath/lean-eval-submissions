@@ -117,10 +117,10 @@ def affineCoordinate : OpenPartialHomeomorph RoundCylinderSpace M where
     N.carrier_open isOpen_Ioo
   continuousOn_toFun :=
     (N.coordinate_map_smooth.comp (contMDiff_space a s).contMDiffOn
-      (fun _ hz => ⟨mem_univ _, hsub hz.2⟩)).continuousOn
+      (by intro _ hz; exact ⟨mem_univ _, hsub hz.2⟩)).continuousOn
   continuousOn_invFun :=
     ((contMDiff_inverseSpace a s).comp_contMDiffOn
-      (N.coordinate_inverse_smooth.mono (fun _ hx => hx.1))).continuousOn
+      (N.coordinate_inverse_smooth.mono (by intro _ hx; exact hx.1))).continuousOn
 
 include hsub in
 /-- Convert an affine tensor comparison into the actual chart comparison. -/
@@ -169,13 +169,13 @@ def affineWithMetric : EpsilonNeck h := by
     coordinate_map := N.coordinate_map ∘ space a s
     coordinate_map_eq := fun _ => rfl
     coordinate_map_smooth := N.coordinate_map_smooth.comp (contMDiff_space a s).contMDiffOn
-      (fun _ hz => ⟨mem_univ _, hsub hz.2⟩)
+      (by intro _ hz; exact ⟨mem_univ _, hsub hz.2⟩)
     coordinate_inverse := inverseSpace a s ∘ N.coordinate_inverse
     coordinate_inverse_mem := fun _ hx => neckDomainCoordinates_inverse_mem e hsource hx
     coordinate_inverse_left := neckDomainCoordinates_inverse_left e hsource
     coordinate_inverse_right := neckDomainCoordinates_inverse_right e hsource
     coordinate_inverse_smooth := (contMDiff_inverseSpace a s).comp_contMDiffOn
-      (N.coordinate_inverse_smooth.mono (fun _ hx => hx.1))
+      (N.coordinate_inverse_smooth.mono (by intro _ hx; exact hx.1))
     central_sphere := (N.coordinate_map ∘ space a s) '' (univ ×ˢ ({0} : Set ℝ))
     central_sphere_eq := rfl
     center_on_central_sphere := ?_

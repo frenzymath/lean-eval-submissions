@@ -35,6 +35,13 @@ namespace Path.Homotopic.Quotient
 variable {X : Type*} [TopologicalSpace X] (b : X)
     (tails : ∀ x : X, Joined b x → Path.Homotopic.Quotient b x)
 
+local instance {x : X} : Coe (Path.Homotopic.Quotient x x) (FundamentalGroup X x) :=
+  ⟨FundamentalGroup.fromPath⟩
+
+local instance {x : X} : Coe (Path.Homotopic.Quotient x x)ᵐᵒᵖ
+    (FundamentalGroup X x)ᵐᵒᵖ :=
+  ⟨fun a ↦ MulOpposite.op (FundamentalGroup.fromPath a.unop)⟩
+
 /-- Join a path to the basepoint using chosen tails. Paths in other
 components receive value one (Hatcher Theorem 1.20, pp. 43-46). -/
 noncomputable def basedTransport {x y : X} (p : Path.Homotopic.Quotient x y) :
@@ -50,6 +57,9 @@ theorem basedTransport_of_joined {x y : X} (p : Path.Homotopic.Quotient x y)
     (hx : Joined b x) (hy : Joined b y) :
     basedTransport b tails p =
       MulOpposite.op ((tails x hx).trans (p.trans (tails y hy).symm)) := by
+  change basedTransport b tails p =
+    MulOpposite.op (FundamentalGroup.fromPath
+      ((tails x hx).trans (p.trans (tails y hy).symm)))
   simp only [basedTransport, dif_pos hx]
 
 /-- Transport is trivial on the other path components, in the retraction
@@ -95,6 +105,7 @@ theorem basedTransport_trans {x y z : X}
       basedTransport_of_joined b tails _ hx hy,
       basedTransport_of_joined b tails _ hy hz]
     apply MulOpposite.unop_injective
+    apply CategoryTheory.End.ext
     change (tails x hx).trans ((p.trans q).trans (tails z hz).symm) =
       ((tails x hx).trans (p.trans (tails y hy).symm)).trans
         ((tails y hy).trans (q.trans (tails z hz).symm))

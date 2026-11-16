@@ -99,7 +99,7 @@ theorem le_truncatedInjectivityRadius (g : RiemannianMetric n M)
     (hc : MetricComplete g) {C r : ℝ} (p : M) (hr : 0 ≤ r) (hrC : r ≤ C)
     (hinj : InjOn (g.globalExponential hc p) {v | g.tangentNorm p v < r}) :
     r ≤ g.truncatedInjectivityRadius hc C p :=
-  le_csSup ⟨C, fun _ h => h.2.1⟩ ⟨hr, hrC, hinj⟩
+  le_csSup ⟨C, (by intro s h; exact h.2.1)⟩ ⟨hr, hrC, hinj⟩
 
 theorem truncatedInjectivityRadius_nonneg (g : RiemannianMetric n M)
     (hc : MetricComplete g) {C : ℝ} (hC : 0 ≤ C) (p : M) :
@@ -139,7 +139,7 @@ theorem injOn_globalExponential_of_lt_truncatedInjectivityRadius
     refine ⟨0, le_rfl, hC, ?_⟩
     intro v hv
     exact False.elim ((not_lt_of_ge (Real.sqrt_nonneg _)) hv)
-  obtain ⟨s, hs, hrs⟩ := (lt_csSup_iff ⟨C, fun _ h => h.2.1⟩ hne).mp hr
+  obtain ⟨s, hs, hrs⟩ := (lt_csSup_iff ⟨C, (by intro s h; exact h.2.1)⟩ hne).mp hr
   exact hs.2.2.mono fun _ hv => hv.trans hrs
 
 /-- The open tangent ball at the supremal radius is itself an injectivity

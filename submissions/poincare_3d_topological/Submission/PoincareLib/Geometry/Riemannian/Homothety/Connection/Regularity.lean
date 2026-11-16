@@ -62,7 +62,7 @@ theorem connection_contMDiffOn (g : RiemannianMetric n M) (D : LeviCivitaData g)
         (E := fun q : M ↦ TangentSpace (𝓡 n) q →L[ℝ] TangentSpace (𝓡 n) q)
         p (D.connection V p)) := by
     filter_upwards [hWV.eventuallyEq_nhds, hU.mem_nhds hx] with p hp hUp
-    have H := D.connection.isCovariantDerivativeOn.congr_of_eventuallyEq
+    have H := D.connection.isCovariantDerivativeOnUniv.congr_of_eventuallyEq
       ((hW p).mdifferentiableAt (by simp))
       ((hV.contMDiffAt (hU.mem_nhds hUp)).mdifferentiableAt (by simp)) Filter.univ_mem hp
     exact congrArg (Bundle.TotalSpace.mk'

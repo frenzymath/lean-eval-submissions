@@ -132,9 +132,11 @@ private lemma regularized_section_hasDerivWithinAt_zero
   let B := fun s => A s + K.starProjection
   let y := fun s => (B s).inverse c
   have hBd : HasDerivWithinAt B (D t) J t := hA.add_const _
+  have hinv : DifferentiableAt ℝ (fun C : E →L[ℝ] E ↦ C.inverse) (B t) :=
+    ((hB t ht).contDiffAt_map_inverse (n := 1)).differentiableAt (by simp)
   have hyd : DifferentiableWithinAt ℝ y J t :=
-    (((hB t ht).contDiffAt_map_inverse (n := 1)).differentiableAt (by simp)).comp_differentiableWithinAt
-      t hBd.differentiableWithinAt |>.clm_apply (differentiableWithinAt_const (c : E))
+    (hinv.comp_differentiableWithinAt t hBd.differentiableWithinAt).clm_apply
+      (differentiableWithinAt_const (c : E))
   let dy := derivWithin y J t
   have hyD : HasDerivWithinAt y dy J t := hyd.hasDerivWithinAt
   have hprod := hBd.clm_apply hyD

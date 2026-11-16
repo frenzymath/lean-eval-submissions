@@ -3,6 +3,8 @@ import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Compactness.Coordi
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Compactness.Embeddings
 import Submission.PoincareLib.Geometry.RicciFlow.AncientKappa.Asymptotic.TimeWindows
 
+noncomputable section
+
 /-!
 # Compactness certificates on the retained ancient limit
 

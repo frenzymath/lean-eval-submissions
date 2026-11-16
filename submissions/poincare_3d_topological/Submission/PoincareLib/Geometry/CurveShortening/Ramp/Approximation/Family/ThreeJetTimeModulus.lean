@@ -97,11 +97,11 @@ theorem exists_uniform_embedded_threeJet_time_modulus [T2Space M]
   have hv : Continuous (fun z : X => z.2.2.1) := continuous_snd.snd.fst
   have hg : Continuous (fun z : X => z.2.2.2) := continuous_snd.snd.snd
   have hBinput : ContinuousOn (fun z : X => B z.1) D :=
-    hBC.comp continuous_fst.continuousOn (fun z hz =>
+    hBC.comp (s := D) continuous_fst.continuousOn (fun z hz =>
       ⟨⟨⟨hat.le.trans hz.1.1.1.1, hz.1.1.1.2⟩, heU hz.1.1.2⟩, mem_univ _⟩)
   have hPhi : ContinuousOn Phi D :=
     (hBinput.add ((hv.pow 2).continuousOn.smul hh.continuousOn)).add
-      ((hg.continuousOn.div hv.continuousOn
+      ((hg.continuousOn.div (s := D) hv.continuousOn
         (fun z hz => (hm.trans_le hz.2.2.1.1).ne')).smul hp.continuousOn)
   have hUC := Metric.uniformContinuousOn_iff.mp (hD.uniformContinuousOn_of_continuous hPhi)
   have hleft := (smooth_retraction_differentials he hU heU hrho hrhoe).2.2

@@ -89,7 +89,8 @@ theorem exists_horizontalSource
       m64WeakPartialDeriv_ae_congr hphase.symm (hcolumn i).symm
         (m64HorizontalSource_weakPartial ht hi hpos hmono h0 hP (A.phase_weak i))
     phase_observation := by
-      filter_upwards [hq.ae_eq A.phase_observation, hphase] with p hp hu
+      filter_upwards [Measure.QuasiMeasurePreserving.ae_eq_comp hq A.phase_observation, hphase]
+        with p hp hu
       rw [hQmap]
       exact hp.trans (congrArg (fun z => angularPoint (k * z)) hu.symm)
     offset := A.offset

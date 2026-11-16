@@ -106,7 +106,7 @@ theorem HasNoPuncturedSphereComponents.exists_relative_family_prescribed_product
       L g hg hgi hreal i hD hDc hDR hDother hmeet
   let A := R \ ⋃ k : {k : κ // k ≠ i}, O k.val
   let C := connectedComponentIn A a
-  have hCR : C ⊆ R := (connectedComponentIn_subset A a).trans inter_subset_left
+  have hCR : C ⊆ R := (connectedComponentIn_subset A a).trans sdiff_subset
   obtain ⟨K,Bopp,P,k,q,b,caps,U,WU,σ,hK,hKPL,hKO,hPmap,hP,hmark,hopen,hk,hkd,
       hkcover,hcaps,hnoK,hσ,hσval,hU,hUPL,hUsub,hcap,hcapmark,hnoU⟩ :=
     (sS i).exists_original_prescribed_product_noL3_exchange hCc hCconn hCPL

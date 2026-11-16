@@ -204,7 +204,7 @@ theorem backwardExtensionOfSquare_connection {J : Set ℝ} {F : RicciFlow n M J}
   have hpos := (sq_mem_backward_interior p.nonnegative hs).1
   have hspace := (parametricExtension_contMDiffAt_space E (E.graph_mem s hs)).mdifferentiableAt
     (by norm_num)
-  have hcov := (F.connection (T - s ^ 2)).connection.isCovariantDerivativeOn.smul_const
+  have hcov := (F.connection (T - s ^ 2)).connection.isCovariantDerivativeOnUniv.smul_const
     (2 * s)⁻¹ hspace
   dsimp only [squareReparameterizedCurve] at hcov
   change (4 * s ^ 2) • (F.connection (T - s ^ 2)).connection

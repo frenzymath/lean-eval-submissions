@@ -104,7 +104,7 @@ theorem exists_regular_completion_with_proper_components
     exists_compact_regular_completion_of_morse_exterior hh hunique e he0 hep he hei
       ![-1, 1] (by intro i; fin_cases i <;> norm_num) hform'
       (half_pos hr) hballsource
-      (fun q hq => connectedComponentIn_subset _ _ hq.1) hdis
+      (by intro q hq; exact connectedComponentIn_subset _ _ hq.1) hdis
   obtain ⟨_, hboundary, _, _, hattach, _⟩ :=
     compact_regular_exterior hh hunique e he0 hep hform hr hrs
   refine ⟨H, hH, hreg, hgerm, hKL, ?_⟩

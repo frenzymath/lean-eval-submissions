@@ -54,7 +54,7 @@ theorem exists_survivor_action_neighborhood (E : M14ExponentialFamily G T x)
     change s0 / 2 < s0 ∧ s0 < s0 + 1
     constructor <;> linarith⟩
   let U := B ∩ (fun q => E.action (inv q).1 (inv q).2) ⁻¹' Iio D
-  have hU : IsOpen U := (ha.mono (fun _ hq => hq.1.2)).isOpen_inter_preimage hB isOpen_Iio
+  have hU : IsOpen U := (ha.mono (by intro _ hq; exact hq.1.2)).isOpen_inter_preimage hB isOpen_Iio
   have hqU : q0 ∈ U := by
     refine ⟨hqB, ?_⟩
     change E.action (inv q0).1 (inv q0).2 < |E.action (inv q0).1 (inv q0).2| + 1

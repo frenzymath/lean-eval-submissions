@@ -41,7 +41,9 @@ theorem boundary_eq_recut_end_frontier {b : ℝ} (hb : -N.epsilon⁻¹ < b) :
     have hy : x ∈ N.closed_core := hx.resolve_right hnot
     rw [N.closed_core_eq_complement_end] at hy
     rw [N.boundary_eq_end_frontier]
-    refine ⟨hy.1, closure_mono (fun _ h => h.1) hxf.1, ?_⟩
+    refine ⟨hy.1, closure_mono (s := N.end_neck.region (-N.epsilon⁻¹) b) (by
+        intro _ h
+        exact h.1) hxf.1, ?_⟩
     simpa only [N.end_neck.carrier_open.interior_eq] using hy.2
 
 /-- Every actual outer frontier point is at the displayed outer height
@@ -97,7 +99,7 @@ theorem recutCarrier_frontier_eq_axial_sphere {b : ℝ}
   have hcl := hcont.continuousWithinAt.mem_closure_image hzcl
   rw [← N.end_neck.region_eq_image
     (by rw [N.end_neck_epsilon]) (by simpa only [N.end_neck_epsilon] using hb'.le)] at hcl
-  refine ⟨closure_mono (fun _ h => Or.inr h) hcl, ?_⟩
+  refine ⟨closure_mono (by intro _ h; exact Or.inr h) hcl, ?_⟩
   rw [(N.recutCarrier_isOpen hb hb').interior_eq]
   intro hx
   rcases hx with hxY | hxE

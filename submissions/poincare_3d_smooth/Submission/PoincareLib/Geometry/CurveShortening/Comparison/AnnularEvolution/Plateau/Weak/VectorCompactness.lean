@@ -42,7 +42,7 @@ theorem m64Annulus_weak_vector_l2_isCompact
       IsCompact (closure (range (fun j => (hU j).toLp ((S).indicator (u j))))) := by
   have hS : MeasurableSet S := isOpen_interior.measurableSet
   have hU (j : ℕ) : MemLp ((S).indicator (u j)) 2 volume :=
-    (memLp_indicator_iff_restrict hS).mpr (hu j)
+    (memLp_indicator_iff_restrict hS.nullMeasurableSet).mpr (hu j)
   let W (b : Fin m) (j : ℕ) : MemW1pWitness 2 (fun p => u j p b) S :=
     { memLp := (EuclideanSpace.proj (𝕜 := ℝ) b).comp_memLp' (hu j)
       weakGrad := fun p => WithLp.toLp 2 (fun i => V j i p b)

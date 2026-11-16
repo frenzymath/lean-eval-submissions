@@ -96,7 +96,7 @@ theorem boundary_motion_interior_contact_cases
   obtain ⟨face, hf, hxf⟩ := K.exists_face_intrinsicInterior_of_finite hK hxK
   by_cases hz : ∀ v ∈ face, ell (H.map 1 v) = 0
   · have hfzero := hzero face hf hz
-    have hxzero : ell x = 0 := convexHull_min hfzero
+    have hxzero : ell x = 0 := convexHull_min (by intro x hx; exact hfzero x hx)
       ((convex_singleton (0 : ℝ)).linear_preimage ell.toLinearMap) (intrinsicInterior_subset hxf)
     have hcard := zero_face_card_le_two K hK hcq hcqi ell hf hfzero hxf
       (happroach x hxK hxJ hxR hxzero)

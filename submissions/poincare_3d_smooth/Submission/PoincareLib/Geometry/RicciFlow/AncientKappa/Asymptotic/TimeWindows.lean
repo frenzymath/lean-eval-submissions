@@ -12,6 +12,8 @@ ancient interval while retaining the based time -1.
 
 set_option autoImplicit false
 
+noncomputable section
+
 namespace PoincareMT
 
 def ancientM18TimeWindow (j : ℕ) : Set ℝ :=

@@ -21,5 +21,6 @@ theorem simplyConnected_of_pathConnected_of_fundamentalGroup_subsingleton
   refine simply_connected_iff_loops_nullhomotopic.mpr ⟨inferInstance, ?_⟩
   intro x p
   let := h x
-  exact Path.Homotopic.Quotient.eq.mp
-    (Subsingleton.elim (α := FundamentalGroup X x) ⟦p⟧ ⟦Path.refl x⟧)
+  exact Path.Homotopic.Quotient.eq.mp (congrArg FundamentalGroup.toPath
+    (Subsingleton.elim (α := FundamentalGroup X x)
+      (FundamentalGroup.fromPath ⟦p⟧) (FundamentalGroup.fromPath ⟦Path.refl x⟧)))

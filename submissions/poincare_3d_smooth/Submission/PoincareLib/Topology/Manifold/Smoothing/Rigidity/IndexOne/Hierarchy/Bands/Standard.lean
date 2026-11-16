@@ -2,6 +2,8 @@ import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Hier
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Rigidity.IndexOne.Hierarchy.Bands.Pullback
 import Submission.PoincareLib.Topology.Manifold.Smoothing.Polyhedral.Coordinates.AddCircleShortArcCharts
 
+noncomputable section
+
 /-!
 # Signed meridian bands of the standard target slabs
 
