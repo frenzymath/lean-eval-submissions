@@ -1,0 +1,6 @@
+{
+  "problem_id": "poincare_3d_topological",
+  "combined_parent_commit": "cfa10bd8c0580b74c307c2a7c8d64066d3bc190a",
+  "separate_evaluation": true,
+  "validation_evidence": "reports/evidence/stable-20261116/topological-validation.json"
+}
